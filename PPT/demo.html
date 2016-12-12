@@ -7,17 +7,19 @@
     <title>reveal.js</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
     <link rel="stylesheet" href="../css/reveal/theme/black.css">
 
-    <!-- Theme used for syntax highlighting of code -->
+    <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
 
-    <!-- Printing and PDF exports -->
+    <!-- 打印和PDF输出样式 -->
     <script>
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
@@ -56,7 +58,18 @@
             <p>基本的html标签都支持，包括标题、换行、列表、代码</p>
             <pre><code> console.log("Hello World");</code></pre>
         </section>
-
+        <section data-markdown>
+            <script type="text/template">
+                ### markdown格式也支持
+                - Item 0 按按上下键
+                - Item 1 <!-- .element: class="fragment" data-fragment-index="2" -->
+                - Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
+            </script>
+        </section>
+        <section data-background-color="#333">
+            <p>单独背景色改变</p>
+            <p><small>by 沁修</small></p>
+        </section>
 
     </div>
 </div>
@@ -84,6 +97,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
