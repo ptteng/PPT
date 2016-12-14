@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CSS selector</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <style>
+        *{
+            text-align:left;
+        }
+    </style>
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/black.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>选择器的作用</h2>
+            <p>CSS主要的作用就是给网页中的dom元素设置样式，选择器则是用来匹配dom元素的。</p>
+        </section>
+        <section>
+            <h2>选择器分为哪几类呢？</h2>
+            <p class="fragment">相信大家都会使用选择器了，那么到底有哪些选择器呢？现在让我们具体来学习和巩固一下吧！</p>
+        </section>
+
+        <section>
+            <h2>通配符</h2>
+            <p class="fragment">*</p>
+            <p class="fragment">可以选择所有元素</p>
+        </section>
+
+        <section>
+            <h2>ID选择器</h2>
+            <p class="fragment">#firstname</p>
+            <p class="fragment">选择 id="firstname" 的所有元素。</p>
+        </section>
+
+        <section>
+            <h2>类选择器</h2>
+            <p class="fragment">	.intro</p>
+            <p class="fragment">选择 class="intro" 的所有元素。</p>
+        </section>
+
+
+        <section>
+            <h2>元素选择器</h2>
+            <p class="fragment">p</p>
+            <p class="fragment">	选择所有的标签</p>
+        </section>
+
+        <section>
+            <h2>后代选择器</h2>
+            <p>h1 em {color:red;}  对 h1 元素中的 em 元素应用样式</p>
+        </section>
+
+        <section>
+            <h2>子元素选择器</h2>
+            <p>只能选择作为某元素子元素的元素。 写法：h1 > strong {color:red;} 解释为“选择作为 h1 元素子元素的所有 strong 元素”。</p>
+        </section>
+
+        <section>
+            <h2>选择器分组</h2>
+            <p class="fragment">h1, h2, h3, h4, h5, h6 {color:blue;}</p>
+            <p class="fragment">以上所有元素的背景都会变成蓝色</p>
+        </section>
+
+
+
+        <section>
+            <h5>选择相邻兄弟 h1 + p {margin-top:50px;}</h5>
+            <p>如果需要选择紧接在另一个元素后的元素，而且二者有相同的父元素，可以使用相邻兄弟选择器</p>
+        </section>
+
+        <section>
+            <h2>伪类</h2>
+            <p>a:link/visited/hover/active  {color: #FF0000}</p>
+            <p>:first-child 伪类</p>
+            <p>div p:first-child {font-weight: bold;} 指div下面的第一个子元素p</p>
+        </section>
+
+        <section style="font-size:22px;">
+            <h2>伪元素</h2>
+            <p>CSS 伪元素用于向某些选择器设置特殊效果。</p>
+            <p>:first-line 伪元素<p/>
+            <p>p:first-line{color:#ff0000;font-variant:small-caps;} "first-line" 伪元素用于向文本的首行设置特殊样式。</p>
+            <p>:first-letter 伪元素</p>
+            <p>"first-letter" 伪元素用于向文本的首字母设置特殊样式：</p>
+            <p>CSS2 - :before 伪元素</p>
+            <p>":before" 伪元素可以在元素的内容前面插入新内容。</p>
+            <p>CSS2 - :after 伪元素</p>
+            <p>"":after" 伪元素可以在元素的内容之后插入新内容。</p>
+        </section>
+
+        <section>
+            <h2>属性选择器</h2>
+            <p class="fragment">a[href] {color:red;}}  可以只对有 href 属性的锚（a 元素）应用样式 </p>
+            <p class="fragment">a[href][title] {color:red;} 将同时有 href 和 title 属性的 HTML 超链接的文本设置为红色 </p>
+        </section>
+
+        <section>
+            <h2>具体属性值选择器</h2>
+            <p class="fragment">可以进一步缩小选择范围，只选择有特定属性值的元素。 </p>
+            <p class="fragment">a[href="http://www.w3school.com"] {color: red;}
+                <span style="display:inline-block">将指向 Web 服务器上某个指定文档的超链接变成红色</span>
+            </p>
+            <p class="fragment">a[href="#"][title="W3School"] {color: red;}
+                <span style="display:inline-block">多个属性-值选择器链接在一起来选择一个文档。</span>
+            </p>
+            <p class="fragment">planet[moons="1"] {color: red;}
+                <span style="display:inline-block">属性与属性值必须完全匹配</span>
+            </p>
+            <p class="fragment">[class~="important"] {color: red;}
+                <span style="display:inline-block">根据属性值中的词列表的某个词进行选择，</span>
+            </p>
+
+        </section>
+        <section>
+            <h2>再见...</h2>
+            <img src="../img/css-05-cssselector/byebye.jpg" alt="bye-bye">
+        </section>
+    </div>
+</div>
+
+</body>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        // 是否在右下角展示控制条
+        controls: true,
+        // 是否显示演示的进度条
+        progress: true,
+        // 是否显示当前幻灯片的页数
+        slideNumber: 'c/t'
+    });
+</script>
+</html>
