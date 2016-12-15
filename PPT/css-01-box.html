@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>盒子模型知多少</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <link rel="stylesheet" href="../css/reveal/theme/sky.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是盒子？</h2>
+            <img src="../img/css-01-box/box-joke.jpg">
+        </section>
+        <section>
+            <h2>盒子的分类</h2>
+            <ol>
+                <li >标准盒子模型</li>
+                <li>怪异盒子模型（IE盒子模型）</li>
+            </ol>
+            <p class="fragment">注意：根据盒子的尺寸计算方式分类，盒子的基本属性相同</p>
+        </section>
+        <section>
+            <h2>盒子的基本要素</h2>
+            <p class="fragment">content-内容</p>
+            <p class="fragment">padding-内边距(填充）</p>
+            <p class="fragment">border-边框</p>
+            <p class="fragment">margin-外边距</p>
+            <img src="../img/css-01-box/box-model.png">
+        </section>
+        <section>
+            <h2>标准盒子模型宽度计算方式</h2>
+            <ol class="fragment">
+                <li>设置固定宽度</li>
+                <li>充满父容器</li>
+                <li>包裹内容</li>
+            </ol>
+        </section>
+        <section>
+            <h3>1.设置固定宽度</h3>
+            <code>
+                width:200px;height: 200px;padding: 10px;
+                margin: 50px;border: 5px ；
+            </code>
+            <br>
+            <img src="../img/css-01-box/box-width.png">
+            <p class="fragment">这种情况下，设置的200px为content的宽度;整个盒子的宽度是：（内容宽度 + border宽度 + padding宽度 + margin宽度）之和</p>
+        </section>
+        <section>
+            <h2>2.充满父级容器</h2>
+            <p class="fragment">
+                height: 200px;
+                <img src="../img/css-01-box/box-filled.png">
+            </p>
+            <p class="fragment">这里可以看到不规定盒子宽度的话，盒子会自动充满一整行，这是块级元素的特性。</p>
+        </section>
+        <section>
+            <p class="fragment">height: 200px;border: 50px solid red;background-color: black;padding: 50px;margin: 50px;</p>
+                <img class="fragment" src="../img/css-01-box/box-fillde-ch.png">
+            <p class="fragment">这种情况下，增加盒子的margin;border;padding;都会压缩内部contant的宽度</p>
+        </section>
+        <section>
+            <p class="fragment">3.包裹内容的情况下</p>
+            <p class="fragment">这种情况比较简单，内容的宽度按照内容计算，盒子的宽度将在内容宽度的基础上再增加（padding宽度 + border宽度 + margin宽度）之和。</p>
+        </section>
+        <section>
+            <h2>怪异盒子模型（IE盒子模型）</h2>
+            <p class="fragment">当你为盒子设置box-sizing:border-box时，就是怪异盒子模型</p>
+            <p>box-sizing:border-box;height: 200px;width:200px;border: 10px solid red;padding: 10px;margin: 10px;</p>
+            <img src="../img/css-01-box/box-ie.png">
+            <p class="fragment">这个时候你会发现，盒子200px的宽度是内容 + border + 边框的宽度（不包括margin）</p>
+        </section>
+        <section>
+
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        progress: false
+    });
+</script>
+</body>
+</html>
