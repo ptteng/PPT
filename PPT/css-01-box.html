@@ -11,7 +11,8 @@
     <div class="slides">
         <section>
             <h2>什么是盒子？</h2>
-            <img src="../img/css-01-box/box-joke.jpg">
+            <p class="fragment">具备内容、填充、边框、边界这些属性，能包含其他元素的容器都是盒子</p>
+
         </section>
         <section>
             <h2>盒子的分类</h2>
@@ -28,6 +29,39 @@
             <p class="fragment">border-边框</p>
             <p class="fragment">margin-外边距</p>
             <img src="../img/css-01-box/box-model.png">
+        </section>
+
+        <section>
+            <h2> 理解盒模型属性</h2>
+            <p class="fragment">1.边框(border):可以设置边框的宽窄、样式和颜色。</p>
+            <p class="fragment">2.内边距(padding):可以设置盒子内容区与边框的间距，想像一下内边距是从边框向内推元素的内容。</p>
+            <p class="fragment">3.外边距(margin):可以设置盒子与相邻元素的间距，想像一下外边距是边框向外推其他元素。</p>
+        </section>
+        <section>
+            <h2>盒子边框</h2>
+            <p class="fragment">边框有3个相关的属性:宽度(border-width)、样式(border-style)、颜色(border-color)</p>
+        </section>
+        <section>
+            <h2>盒子内边距</h2>
+            <p class="fragment">在显式设定了width的前提下，padding值的设定会加大盒子的宽度。</p>
+            <img src="../img/css-01-box/fang_1.png">
+
+        </section>
+        <section>
+            <h2>盒子外边距</h2>
+            <p class="fragment">如图4所示，默认情况下，元素之间也会有外边距</p>
+            <img src="../img/css-01-box/fang_2.png">
+            <p class="fragment">样式表的第一条规则:* {margion:0 ;padding=0;}，所有元素默认的外边距和内边距都设定为零。</p>
+
+        </section>
+        <section>
+            <h2>垂直叠加外边距</h2>
+            <img src="../img/css-01-box/fang_3.png">
+            <img src="../img/css-01-box/fang_4.png">
+
+            <p class="fragment">如果把Div2的margin-top设定为15</p>
+            <img src="../img/css-01-box/fang_5.png">
+
         </section>
         <section>
             <h2>标准盒子模型宽度计算方式</h2>
@@ -49,6 +83,7 @@
         </section>
         <section>
             <h2>2.充满父级容器</h2>
+
             <p class="fragment">
                 height: 200px;
                 <img src="../img/css-01-box/box-filled.png">
@@ -70,6 +105,32 @@
             <p>box-sizing:border-box;height: 200px;width:200px;border: 10px solid red;padding: 10px;margin: 10px;</p>
             <img src="../img/css-01-box/box-ie.png">
             <p class="fragment">这个时候你会发现，盒子200px的宽度是内容 + border + 边框的宽度（不包括margin）</p>
+        </section>
+
+
+
+        <section>
+            <h2>盒子有多大</h2>
+            <p class="fragment">1.块级元素</p>
+            <p class="fragment">2.行内元素</p>
+        </section>
+        <section>
+            <h2>1.块级元素(block element)</h2>
+            <p class="fragment">1.没有显式地设置元素的width属性,默认值是auto. 元素始终会扩展到填满其父元素的宽度为止</p>
+            <p class="fragment">2.为设定了宽度的盒子添加边框、内边距和外边距，会导致盒子扩展得更宽。扩展量等于水平边框和内边距之和</p>
+        </section>
+        <section>
+            <h2>1.行内元素(block element)</h2>
+            <p class="fragment">1.inline元素会扩展到足以包裹其内容的宽度，添加内边距和水平边框会导致liline元素变宽，添加量等于水平边框和内边距的和。</p>
+            <h2>行内元素+display：block=块状元素</h2>
+        </section>
+        <section>
+            <h2>css3 box-sizing属性</h2>
+            <p class="fragment"> 可取三个值之一：content-box（default），border-box，padding-box</p>
+            <p class="fragment">1.content-box，border和padding不计算入width之内</p>
+            <p class="fragment">2.padding-box，padding计算入width内</p>
+            <p class="fragment">3.border-box，border和padding计算入width之内，其实就是师兄说的怪异模式了~</p>
+
         </section>
         <section>
         </section>
