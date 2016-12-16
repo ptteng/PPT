@@ -26,10 +26,29 @@
             <section>
                 <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
                 <h2>flex</h2>
-                <h3>弹性盒子属性和基本用法</h3>
+                <h3>浅谈弹性盒子flex属性和基本用法</h3>
             </section>
             <section>
-                <h3>父级属性</h3>
+                <strong>布局的传统解决方案，基于盒状模型，依赖 display属性 + position属性 + float属性。它对于那些特殊布局非常不方便，比如，垂直居中就不容易实现. 2009年，W3C提出了一种新的方案----Flex布局，可以简便、完整、响应式地实现各种页面布局。现在的版本是2012年更新的版本,目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。
+                </strong>
+            </section>
+            <section>
+                <h3>一、Flex布局是什么？</h3>
+                <p>Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为Flex布局,行内元素也可以使用Flex布局。注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+                </p>
+            </section>
+            <section>
+                <section>
+                    <h3>二、基本概念</h3>
+                    <p>采用Flex布局的元素，称为Flex容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称"项目"。
+                    </p>
+                </section>
+                <section> <img src="../img/css-08-flex/flex.png" alt="column">
+                    <p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
+                </section>
+            </section>
+            <section>
+                <h3>三. 父级属性</h3>
                 <ol>
                     <li>flex:direction <strong>设置主轴方向,确定子元素主轴排列方式</strong></li>
                     <li>flex:wrap <strong>主轴宽度不够时是否换行显示</strong></li>
@@ -41,15 +60,18 @@
                 <br>
             </section>
             <section>
-                <h3>子级属性</h3>
+                <h3>四 .子级属性</h3>
                 <ol>
                     <li>order <strong>子元素排列顺序</strong></li>
                     <li>flex-shrink <strong>子元素收缩比率</strong></li>
                     <li>flex-grow <strong>子元素扩展比率</strong></li>
-                    <li>flex-basis <strong>指定弹性子元素收缩前的默认大小</strong></li>
+                    <li>flex-basis <strong>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</strong></li>
                     <li>flex <strong>上3简写,复合属性</strong></li>
                     <li>align-self <strong>允许独立的弹性子元素覆盖弹性容器的默认的侧轴对齐方式(align-items)</strong></li>
                 </ol>
+            </section>
+            <section>
+            <h3>五. 属性详解</h3>
             </section>
             <section>
                 <section>
@@ -115,7 +137,7 @@
                     <img src="../img/css-08-flex/stretch2.png" alt="column">
                 </section>
                 <section>
-                    <p>baseline<strong>基线对齐</strong></p>
+                    <p>baseline<strong>项目的第一行文字的基线对齐</strong></p>
                     <img src="../img/css-08-flex/baseline.png" alt="column">
                 </section>
                 <section>
@@ -188,13 +210,18 @@
             </section>
             <section>
                 <p><small>by 黄雄</small></p>
+                <img src="http://img2.imgtn.bdimg.com/it/u=1656413615,1932192849&fm=23&gp=0.jpg">
+                <br>
+                <br>
+                <strong>主要参考于: <a href="</a>">阮一峰的个人博客</a></strong><br>
+                <strong style="margin-right: 50px"><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool">flex详解</a></strong>
+                <strong><a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html">flex实例</a></strong>
             </section>
         </div>
     </div>
     <script src="../lib/reveal/js/head.min.js"></script>
     <script src="../lib/reveal/reveal.js"></script>
     <script>
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
