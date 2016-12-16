@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
+                <h2>flex</h2>
+                <h3>弹性盒子属性和基本用法</h3>
+            </section>
+            <section>
+                <h3>父级属性</h3>
+                <ol>
+                    <li>flex:direction <strong>设置主轴方向,确定子元素主轴排列方式</strong></li>
+                    <li>flex:wrap <strong>主轴宽度不够时是否换行显示</strong></li>
+                    <li>flex-flow <strong>上2复合属性</strong></li>
+                    <li>justify-content <strong>主轴上子元素对齐方式</strong></li>
+                    <li>align-items<strong>侧轴子元素对齐方式</strong></li>
+                    <li>align-content <strong>侧轴上有剩余空间时,侧轴对齐方式</strong></li>
+                </ol>
+                <br>
+            </section>
+            <section>
+                <h3>子级属性</h3>
+                <ol>
+                    <li>order <strong>子元素排列顺序</strong></li>
+                    <li>flex-shrink <strong>子元素收缩比率</strong></li>
+                    <li>flex-grow <strong>子元素扩展比率</strong></li>
+                    <li>flex-basis <strong>指定弹性子元素收缩前的默认大小</strong></li>
+                    <li>flex <strong>上3简写,复合属性</strong></li>
+                    <li>align-self <strong>允许独立的弹性子元素覆盖弹性容器的默认的侧轴对齐方式(align-items)</strong></li>
+                </ol>
+            </section>
+            <section>
+                <section>
+                    <h3>flex-direction</h3>
+                    <p>row<strong>默认值,水平方向左至右</strong></p>
+                    <img src="../img/css-08-flex/row.png" alt="column">
+                </section>
+                <section>
+                    <p>row-reverse<strong>水平方向右至左</strong></p>
+                    <img src="../img/css-08-flex/row-reverse.png" alt="column">
+                </section>
+                <section>
+                    <p>column<strong>垂直方向,上至下排列</strong></p>
+                    <img src="../img/css-08-flex/column.png" alt="column">
+                </section>
+                <section>
+                    <p>ccolumn-reverse<strong>垂直方向,下至上排列</strong></p>
+                    <img src="../img/css-08-flex/column-reverse.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>flex-wrap</h3>
+                    <p>nowrap<strong>默认值,不换行</strong></p>
+                    <img src="../img/css-08-flex/nowrap.png" alt="column">
+                </section>
+                <section>
+                    <p>wrap<strong>换行显示</strong></p>
+                    <img src="../img/css-08-flex/wrap.png" alt="column">
+                </section>
+                <section>
+                    <p>wrap-reverse<strong>逆序换行显示</strong></p>
+                    <img src="../img/css-08-flex/wrap-reverse.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>justify-content</h3>
+                    <p>center<strong>居中对齐</strong></p>
+                    <img src="../img/css-08-flex/center.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-end<strong>侧轴结束对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-end.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start<strong>侧轴开始对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-start.png" alt="column">
+                </section>
+                <section>
+                    <p>space-around<strong>均匀分布</strong></p>
+                    <img src="../img/css-08-flex/space-around.png" alt="column">
+                </section>
+                <section>
+                    <p>space-between<strong>两端对齐</strong></p>
+                    <img src="../img/css-08-flex/space-between.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>align-items</h3>
+                    <p>stretch<strong>默认值,充满侧轴</strong></p>
+                    <img src="../img/css-08-flex/stretch2.png" alt="column">
+                </section>
+                <section>
+                    <p>baseline<strong>基线对齐</strong></p>
+                    <img src="../img/css-08-flex/baseline.png" alt="column">
+                </section>
+                <section>
+                    <p>center<strong>侧轴居中对齐</strong></p>
+                    <img src="../img/css-08-flex/center2.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-end<strong>侧轴结束对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-end2.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start2<strong>侧轴开始对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-start2.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>align-content</h3>
+                    <p>stretch<strong>默认值,充满侧轴</strong></p>
+                    <img src="../img/css-08-flex/stretch3.png" alt="column">
+                </section>
+                <section>
+                    <p>center<strong>侧轴居中对齐</strong></p>
+                    <img src="../img/css-08-flex/center3.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start<strong>侧轴开始对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-start3.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-end<strong>侧轴结束对齐</strong></p>
+                    <img src="../img/css-08-flex/flex-end3.png" alt="column">
+                </section>
+                <section>
+                    <p>space-between<strong>侧轴两端对齐</strong></p>
+                    <img src="../img/css-08-flex/space-between3.png" alt="column">
+                </section>
+                <section>
+                    <p>space-around<strong>侧轴均匀分布</strong></p>
+                    <img src="../img/css-08-flex/space-around3.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <p>order<strong>子元素排列顺序</strong></p>
+                <p>设置的值越小越靠前</p>
+                <img src="../img/css-08-flex/order.png" alt="column">
+            </section>
+            <section>
+                <section>
+                    <p>flex-grow<strong>子元素扩展比例</strong></p>
+                    <p>剩余宽度 * 占比值/总比值</p>
+                </section>
+                <section>
+                    <img src="../img/css-08-flex/flex-grow1.png" alt="column">
+                </section>
+                <section>
+                    <p>盒子1设置flex-grow:1的时候单独分配剩下的所有空间</p>
+                    <img src="../img/css-08-flex/flex-grow2.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <p>flex-shrink<strong>子元素收缩比例,默认值为1平均分配</strong></p>
+                    <p>溢出宽度 * 占比值/总比值</p>
+                </section>
+                <section>
+                    <p>父级宽度为300px,子级为100px,收缩后宽度为300*1/4=75px</p>
+                    <img src="../img/css-08-flex/flex-shrink.png" alt="column">
+                </section>
+            </section>
+            <section>
+                <p><small>by 黄雄</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>
