@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>div+css的布局较table布局有什么优点？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
+            <h2>div+css的布局较table布局有什么优点？</h2>
+        </section>
+        <section>
+            <h3>什么是table布局？</h3>
+            <p>通过表格（table）布局定位的方式</p>
+        </section>
+        <section>
+            <section>
+            <h3>table布局有什么特点？</h3>
+                <ul>
+                    <h4>1.兼容性好</h4>
+                    <li> 是最古老的HTML标签之一，从IE4、Chrome1.0就开始支持了。</li>
+                    <h4>2.自动扩展性</h4>
+                    <li>table有个很好的特点，就是自动扩展。比如你本来已经设置了他宽100，但如果里面有个大于100的元素，他会自动扩展这一格，挤压其他的格子，以便能放下这个东西。</li>
+                </ul>
+            </section>
+                <section>
+                    <ul>
+                    <h4>3.嵌套深度</h4>
+                    <li>
+                        用table在页面放置一个元素，比如h3吧，结构如下：table>tr>td>h3（可能还有个tbody），而用DIV来做，一般只需要div>h3.太深的嵌套，会导致搜索引擎读取困难，而且，最直接的损失就是大大增加了冗余代码量。
+                    </li>
+                    <h4>4.代码复杂</h4>
+                    <li>
+                        td的colspan与rowspan属性用来设置跨列与跨行，这是为了让表格更灵活。但用来布局时，频繁使用他们会造成整个文档顺序混乱。
+                    </li>
+                    <li>
+                        html源代码的顺序很重要。搜索引擎一般是从源码开头顺序读取到结尾，但太多的跨行和跨列，会使本来排在前面的html被跨到后面。
+                    </li>
+                </ul>
+                </section>
+        </section>
+        <section>
+            <section>
+                <h3>什么是div+css布局？</h3>
+                <p>是指通过css控制div的布局。其实这儿div可以理解为统称，实际应用的不仅是div，还有p，span，img，table等任意节点的定位都可以通过css来控制。
+                </p>
+            </section>
+            <section>
+                <p>
+                    div+css布局有什么特点？
+                </p>
+                <ol>
+                    <li>
+                        符合W3C标准。微软等公司均为W3C支持者。这一点是最重要的，因为这保证您的网站不会因为将来网络应用的升级而被淘汰。
+                    </li>
+                    <li>
+                        支持浏览器的向后兼容。
+                    </li>
+                    <li>
+                        搜索引擎更加友好。
+                    </li>
+                    <li>
+                        样式的调整更加方便。
+                    </li>
+                    <li>
+                        CSS的极大优势表现在简洁的代码，对于一个大型网站来说，可以节省大量带宽。
+                    </li>
+                    <li>
+                        表现和结构分离，在团队开发中更容易分工合作而减少相互关联性。
+                    </li>
+                </ol>
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>div+css的布局较table布局有什么优点？</h3>
+            <ul>
+               <h4>1、使页面载入得更快</h4>
+                <li>
+                    由于将大部分页面代码写在了CSS当中，使得页面体积容量变得更小。相对于表格嵌套的方式，DIV+CSS将页面独立成更多的区域，在打开页面的时候，逐层加载。而不像表格嵌套那样将整个页面圈在一个大表格里，使得加载速度很慢。
+                </li>
+                <h4>2、降低流量费用</h4>
+                <li>
+                    页面体积变小，浏览速度变快，这就使得对于某些控制主机流量的网站来说是最大的优势了。
+                </li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <h4>3、修改设计时更有效率</h4>
+                <li>
+                    由于使用了DIV+CSS制作方法，在修改页面的时候更加容易省时。根据区域内容标记，到CSS里找到相应的类，使得修改页面的时候更加方便，也不会破坏页面其他部分的布局样式。
+                </li>
+                <h4>4、保持视觉的一致性</h4>
+                <li>
+                    DIV+CSS最重要的优势之一：保持视觉的一致性；以往表格嵌套的制作方法，会使得页面与页面，或者区域与区域之间的显示效果会有偏差。而使用DIV+CSS的制作方法，将所有页面，或所有区域统一用CSS文件控制，就避免了不同区域或不同页面体现出的效果偏差。
+                </li>
+            </ul>
+            </section>
+            <section>
+             <ul>
+                 <h4>5、更好地被搜索引擎收录</h4>
+                 <li>
+                     由于将大部分的HTML代码和内容样式写入了CSS文件中，这就使得网页中正文部分更为突出明显，便于被搜索引擎采集收录。
+                 </li>
+                <h4>6.对浏览者和浏览器更具亲和力</h4>
+                <li>
+                    我们都知道网站做出来是给浏览者使用的，对浏览者和浏览器更具亲和力，DIV+CSS在这方面更具优势。由于CSS富含丰富的样式，使页面更加灵活性，它可以根据不同的浏览器，而达到显示效果的统一和不变形。
+                </li>
+             </ul>
+            </section>
+
+        </section>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+</html>
