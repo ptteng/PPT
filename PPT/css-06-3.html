@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <a href="//www.jnshu.com" target="_blank"><img src="../img/demo/logo.png" class="logo"/></a>
+            <h2>技术分享小课堂</h2>
+            <h3>rgba和opacity的透明效果有什么不同？display和visiblity有什么区别？</h3>
+        </section>
+        <section>
+            <h3>rgba和opacity的透明效果有什么不同？</h3>
+        </section>
+        <section>
+            <p>在css3以前，我们的css中的颜色都是基于RGB的，都是纯色，但是CSS通过alpha颜色和opacity属性，为我们引入了不透明度和透明度这一全新的概念。</p>
+        </section>
+        <section>
+            <h2>什么是rgba？</h2>
+            <section>
+                <p>R：红色值。正整数 | 百分数 </p>
+                <p>G：绿色值。正整数 | 百分数 </p>
+                <p>B：蓝色值。正整数 | 百分数 </p>
+                <p>A：Alpha透明度。取值0~1之间。</p>
+            </section>
+        </section>
+        <section>
+            <h2>rgba取值</h2>
+            <section>
+                <p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
+                <p>rgba颜色模型有四个值，最后一个是alpha通道的值，取值在0.0到1.0之间</p>
+
+            </section>
+        </section>
+        <section>
+            <h2>什么是Opacity？</h2>
+                <p>opacity 设置元素的不透明级别</p>
+            <p>取值:不透明度，从 0.0 （完全透明）到 1.0（完全不透明）。</p>
+        </section>
+
+            <section>
+                <p>对比:rgba()和opacity都能实现透明效果,但最大的不同是opacity作用于元素，以及元素内的所有内容的透明度，而rgba()只作用于元素的颜色或其背景色
+                </p>
+                <p>说的专业一点：opacity属性的值，可以被其子元素继承。而RGBA设置的元素的后代元素不会继承不透明属性。</p>
+            </section>
+            <section>
+                <p>我们把opacity和background设置相同的不透明取值看一下效果</p>
+                <p>opacity=0.5   background设为 rgba(255,0,0,0.5)  </p>
+                <img src="../img/css-06-3-rgba/fang_1.png">
+            </section>
+
+        <section>
+            <h2>RGBA 和Opacity分情况使用</h2>
+            <p>针对以上两种方法的不同特性，我们可以分情况使用两者。例如，当我们需要制作透明的边框时 ，就使用ragb颜色，当我们需要背景图片透明时，需要使用alpha属性</p>
+        </section>
+        <section>
+
+            <h3>display和visiblity有什么区别？</h3>
+        </section>
+        <section>
+            <h2>什么是display？</h2>
+                <p>设置元素按什么样的方式来显示，是按块显示，显示成一条线的形式，显示为“消失”等等 </p>
+                <p>主要取值:block;inline;none</p>
+            <p>display默认属性值为块级的元素：</p>
+        </section>
+        <section>
+            <h2>什么是visiblity？</h2>
+            <p>设置元素按什么样的方式来显示，是按块显示，显示成一条线的形式，显示为“消失”等等 </p>
+            <p>HTML元素（对象）的宽度、高度等各种属性值都将“丢失”。</p>
+        </section>
+
+        <section>
+            <h2>display:none与visible:hidden的区别</h2>
+
+        </section>
+
+        <section>
+            <h2>display:none</h2>
+            <p>不为被隐藏的对象保留其物理空间，即该对象在页面上彻底消失，通俗来说就是看不见也摸不到。</p>
+        </section>
+
+        <section>
+            <h2>visible:hidden</h2>
+            <p>使对象在网页上不可见，但该对象在网页上所占的空间没有改变，也即是说它仍具有高度、宽度等属性值。通俗来说就是看不见但摸得到。</p>
+        </section>
+        <section>
+            <h2>什么时候使用Visibility或者Display属性？</h2>
+            <p> 如果你想隐藏某元素，但在页面上保留该元素的空间的话，你应该使用visibility：hidden。</p>
+            <p> 如果你想在隐藏某元素的同时让其它内容填充空白的话应该使用display：none。</p>
+
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 方兵 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
