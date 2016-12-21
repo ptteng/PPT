@@ -1,0 +1,99 @@
+!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
+            <h2>技术分享小课堂</h2>
+            <h3>自适应和响应式的区别</h3>
+        </section>
+        <section>
+            <strong>用技术来使网页适应从小到大（现在到超大）的不同分辨率的屏幕。<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+            </strong>
+        </section>
+        <section>
+            <h3>一、自适应是什么？</h3>
+            <p>
+                不同大小的屏幕上呈现同样网页内容
+            </p>
+        </section>
+        <section>
+            <section>
+                <h3>二、响应式</h3>
+                <p>响应式的概念应该覆盖了自适应，而且涵盖的内容更多。</p>
+                <p>自适应暴露出一个问题，如果屏幕太小，即使网页能够根据屏幕大小进行适配，但是会感觉在小屏幕上查看，内容过于拥挤，响应式正是为了解决这个问题而衍生出来的概念。它可以自动识别屏幕宽度、并做出相应调整的网页设计，布局和展示的内容可能会有所变动。福尔摩斯图</p>
+                <p>浮动，相对字体，百分比，媒体查询</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>三. 区别</h3>
+                <p>自适应最早通过写不同分辨率的网页来实现,知道你的用户将会使用哪些设备而进行的有针对性的设计。</p>
+                <p>响应式是针对所谓普遍设备(universal)进行的页面设计，并不是针对指定的浏览设备。</p>
+            </section>
+            <section>
+                <p>RWD,一般来说在网页设计初期就开始，所以旧网站要实现RWD 很可能要完全重建。而 AWD 则采用保留现有桌面网站而对于更小的分辨率做针对性的优化（适应），这点对于很多老的网站来说很重要，因为重构成本太大。</p>
+                <p>其实RWD和AWD都是响应式设计，从外观上很难分辨，但他们自己运行机理不同，RWD是主动式的响应设计，AWD是被动式的响应式设计，RWD不管用户使用的是什么设备都是在服务器把数据推送到浏览器后，脚本或CSS自行侦测屏幕大小后执行对应的样式表内容，并且一直通过本地脚本在监听屏幕大小的变化，随时做出样式响应的变化，所以是主动的。
+                    但AWD是用户通过浏览器发送请求后，服务器根据请求中夹带的用户设备设备信息做出判断，调用已经在服务器里准备好的，适应对应设备样式文件+HTML内容+JS，返回给浏览器以这种方式响应不同设备。</p>
+            </section>
+            <section>
+               <img src="../img/css-11-Responsive&Adaptive/Responsive.png">
+            </section>
+        </section>
+        <section>
+            <h3>各自优势</h3>
+            <p>Responsive design相对来说灵活性更高，但是相应的每次的载入内容会比较多。而只针对某一类或某几类分辨率设计响应网页大小Adaptive design的优势就在于减少载入的等待时间，提高网页的响应速度</p>
+        </section>
+        <section>
+            <h3>总结</h3>
+            <p>响应式与自适应是一个涵盖的关系，6和6plus的关系自适应也可以理解为响应式 ，但是响应式并不一定是自适应，具体如何选择操作要按实际情况来决定，有多大资本投入多大资本。</p>
+            <p>by 翟金超</p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>
