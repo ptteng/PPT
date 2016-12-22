@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
+                <h2>js基础类型</h2>
+                <h3>js基础类型和常用方法</h3>
+            </section>
+            <section>
+                <ol>
+                    <h5>js的基础数据类型分三种</h5>
+                    <li>数字,数字也包括了浮点型(小数)等<small>number</small></li>
+                    <li>字符串<small>string</small></li>
+                    <li>数组<small>array</small></li>
+                    <li>布尔值<small>boolean</small></li>
+                    <li>null</li>
+                    <li>undefined</li>
+                </ol>
+            </section>
+            <section>
+                <p>js是一门弱类型语言,声明变量时可以不用标明其类型,变量在做一些操作是会隐式的转换类型,虽然很方便但是也有一些问题,每一个基础类型储存的地址都是固定不与其他变量共享的,并且是按值来传递,而对象类型储存的是一个引用地址,值得传递是引用传递,这样就会存在像下面这样的情况</p>
+                <p> var s ={ a :1, } var b = s ; b.a=2; console.log(s.a); //2
+                </p>
+                <p>用typeof可以识别出基本类型的具体类型</p>
+                <p>如: typeof 2 // "number"</p>
+            </section>
+            <section>
+                <section>
+                    <h3>一、数字类型的方法</h3>
+                    <li>Math.abs() 绝对值</li>
+                    <li>Math.round() 四舍五入</li>
+                    <li>Math.ceil() 向上取整</li>
+                    <li>Math.floor() 向下取整</li>
+                    <li>Math.max() 取最大数</li>
+                    <li>Math.min() 取最小数</li>
+                    <li>Math.random() 取大于等于0小于1的数</li>
+                    <li>parseInt() 转字符串为数字,忽略第一次不能识别和后面所有的字符</li>
+                    <li>parseFloat() 转字符串为浮点,忽略第一次不能识别和后面所有的字符</li>
+                    <li>toFixed() 保留小数点位数,输出的类型为字符串</li>
+                    <li>Number() 转数字只要有无法识别的字符就返回NaN</li>
+                </section>
+                <section>
+                    <ol>
+                        <li>
+                            浮点数进行计算时会产生输出的结果有误差,
+                            <ul>
+                                <li>console.log( 1 - 0.8 ); //输出 0.19999999999999996 </li>
+                                <li>console.log( 6 * 0.7 ); //输出 4.199999999999999</li>
+                                <li>console.log( 1.2 / 0.2 ); //输出 5.999999999999999 </li>
+                                <li>console.log( 0.1 + 0.7 ); //输出 0.7999999999999999 </li>
+                            </ul>
+                            <p>感觉精度还是不错的啊,可能是没有遇到过坑,解决方法大都是吧浮点转换成整数后在计算, 具体原因我也说不太清楚大家可以参考下这个链接,和百度下原因
+                                <a href="https://www.zhihu.com/question/20679634">我是链接</a></p>
+                        </li>
+                        <li>用(!isNaN())的方法来判断是否为数字</li>
+                    </ol>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>二、字符串</h3>
+                    <ol>
+                        <li>charAt() 输入字符返回索引</li>
+                        <li>indexOf() 输入字符返回索引,无则返回-1</li>
+                        <li>search() 输入指定的值或正则表达式,如果匹配不到就返回-1,存在则返货索引位置
+                            <br>'abc'.search(/[b]/) //1
+                            <br>'abc'.search('b') //1</li>
+                        <li>match() 输入指定的值或正则表达式,如果匹配不到就返回null,匹配到则以<b>数组</b>返回
+                            <br>'abc'.match('b') //["b"]
+                            <br>'abc'.match(/[b]/) //["b"]</li>
+                    </ol>
+                </section>
+                <section>
+                    <ol>
+                        <li>replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+                            <br> stringObject.replace(传入正则或具体的字符,替换的字符或者函数)
+                            <br>如果传入函数,替换的字符就为函数返货出来的字符
+                        </li>
+                        <li>substring(下标a,下标b) 用下标查找a开始-b结束但是不包括b本身,如果b不传就去从a开始到末尾的所有字符</li>
+                        <li>slice(下标a,下标b) a规定从何处开始选取。如果是负数，那么它规定从数组尾部开始算起的位置。也就是说，-1 指最后一个元素，-2 指倒数第二个元素，以此类推,b是结束位置,如果这个参数是负数，那么它规定的是从数组尾部开始算起的元素。
+                        </li>
+                        <li>
+                            substr(下标a,n个数) 从a开始取n个数.
+                        </li>
+                    </ol>
+                    </section>
+                    <section>
+                        <ol>
+                            <li>split() 传入字符或者正则,已传入的参数分割字符串,返回一个数组</li>
+                            <li>toLowerCase() toUpperCase() 输出大写或小写字符</li>
+                            <li>转义字符</li>
+                            <li>String() 转字符串</li>
+                            <li>Boolean() 转布尔值</li>
+                        </ol>
+                    </section>
+                </section>
+            </section>
+            <section>
+                <p><small>by 黄雄</small></p>
+                <img src="http://img2.imgtn.bdimg.com/it/u=1656413615,1932192849&fm=23&gp=0.jpg">
+                <br>
+                <br>
+                <strong>主要参考于: <a href="</a>">阮一峰的js教程</a></strong>
+                <br>
+                <strong>未完待续</strong>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>
