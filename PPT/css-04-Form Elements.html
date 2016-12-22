@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>技术分享小课堂</h2>
+            <h3>常见的表单元素及其属性</h3>
+            <p>分享人：胡嘉杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>表单元素是允许用户在表单中(比如:文本域,下拉列表,单选框,复选框等等)输入信息的元素</p>
+        </section>
+        <section>
+            <p>表单是页面中不可缺少的元素，没有表单，就没有现在如此生动，趣味的页面。
+                不过虽然表单很重要，但在 HTML 5 之前，表单的元素不多，属性和方法也不多，很多属性和方法都是用 JavaScript 模拟的，
+                用 JavaScript 模拟这些功能要花费不少的时间和精力。如果用户能使用到这些模拟的功能，那么花费是值得的；
+                如果用户客户端禁用 JavaScript，那么这些功能将全部挂掉，时间和精力都白白浪费了。
+            </p>
+        </section>
+        <section>
+            <h3>
+                2.知识剖析<br>
+                常用表单元素
+            </h3>
+        </section>
+        <section>
+            <p>
+            form:定义供用户输入的表单。<br>
+            fieldset:定义域。即输入区加有文字的边框。<br>
+            legend：定义域的标题，即边框上的文字。<br>
+            label：定义一个控制的标签。如输入框前的文字，用以关联用户的选择。
+            </p>
+        </section>
+        <section>
+            <p>
+            input:定义输入域，常用。可设置type属性，从而具有不同功能。见详解。<br>
+            isindex:已废弃，用input标签代替。<br>
+            textarea:定义文本域(一个多行的输入控件)，默认可通过鼠标拖动调整大小。<br>
+            button:定义一个按钮。
+            </p>
+        </section>
+        <section>
+            <p>optgroup:定义选项组。选项组内需要放选项option。下拉列表select通常对应一个选项组，故此标签不常用。</p>
+            <p>select:定义一个选择列表，即下拉列表。</p>
+            <p>option:定义下拉列表中的选项。</p>
+            <p>html5新增</p>
+            <p>datalist:定义填写一个input时，提示几个option用于提示。可通过input的list特性与此元素作关联。</p>
+            <p>output:表示计算的结果。可通过for特性与其它能够影响运算的元素（如input）作关联。</p>
+        </section>
+        <section>
+            <h3>3.常用表单元素详解</h3>
+        </section>
+        <section>
+            <p>
+                1、input：<br>
+                常用type属性：button、checkbox、file、hidden、image、password、checkbox、radio、reset、submit、text。<br>
+                html5新增type属性：<br>
+                1）、search：input会呈现为搜索框（与text类型的唯一区别在于当鼠标覆盖时尾部出现叉号可快速清除输入的内容）。<br>
+                2:）、tel：编辑电话号码的控件，提交时换行符会自动从输入框中去掉（普通的text并不会，故text类型验证输入值时一般需要trim()函数处理）。<br>
+                3）、url：编辑url的控件，提交时换行符与首位的空格都将自动去除。<br>
+                4）、email：可输入一个邮件地址。
+            </p>
+        </section>
+        <section>
+            <p>此外，还有color、date、time、datetime、datetime-local、month、week、number、range类型。</p>
+            <p>html5中input新增的个人觉得比较有用的特性：</p>
+            <p>1）、list：关联datalist所用的该datalist的id（即datalistform外建立，通过list关联即可）。</p>
+            <p>2）、pattern：一个正则表达式，用于检查控件的值，可作用于text、search、tel、url、email类型的input。</p>
+            <p>3）、form：一个字符串(为关联的form表单的id)，用于表明该input属于哪个form表单（作用类似list）。</p>
+            <p>4）、formmethod：表明使用GET还是POST，能覆盖form表单的method。仅在type为image或submit，且上面的form特性被设置的情况下才能使用。相似的有formtarget特性。</p>
+            <p>5）、readonly：一个boolean值，表明该input值是否能被用户修改，可用于信息展示等页面。作用于type为hidden、range、color、checkbox、radio、file、button的input将被忽略。</p>
+            <p>6）、maxlength：type为text、emal、search、password、tel或url（都为文本）时允许输入的最大字符个数。</p>
+            <p>7）、autocomplete：浏览器是否根据之前提交的输入情况对此input自动填值（即以option形式匹配之前的输入值），取值on或off，默认on。如在登陆页面不想显示上一个登陆的用户名等时，可设置为off。</p>
+        </section>
+        <section>
+            <h3>4.编码实战</h3>
+        </section>
+        <section>
+            <p>1.color color 类型用来选取颜色，它提供了一个颜色选取器，值为 16 进制符号，如：#ff0000。目前只在 Opera 和 Blackberry 浏览器中支持。</p>
+            <pre>
+                <code>
+                    《form>
+                      《input type="color" name="color">
+                      《input type="submit" value="Go">
+                    《/form>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>2.date date 类型是一个日期选择器，有了这个就不需要用 JavaScript 编写日历控件了，非常方便。</p>
+            <pre>
+                <code>
+                    《form>
+                      《input type="data" name="data">
+                      《input type="submit" value="Go">
+                    《/form>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>3.10. datalist datalist 元素是用来辅助表单中文本框输入的，它本身是隐藏的，与表单文本框的“list”属性绑定，即将“list”属性值设置为 datalist 元素的 id 值。绑定成功后，当输入内容时，datalist 元素以列表的形式显示在文本框的底部，提示输入字符的内容。</p>
+            <pre>
+                <code>
+                    form>
+                        input type="text" list="work" name="work">
+                        input type="submit" value="Go">
+                        datalist id="work">
+                            option value="前端开发工程师">前端开发工程师/option>
+                            option value="用户体验分析师">用户体验分析师/option>
+                            option value="界面艺术设计师">界面艺术设计师/option>
+                            option value="交互设计师">交互设计师/option>
+                        /datalist>
+                    /form>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/qq_19865749/article/details/52490882" target="_blank">html元素-表单元素及实用属性</a></p>
+            <p>参考二：<a href="http://www.w3school.com.cn/html/html_forms.asp" target="_blank">W3School HTML 表单</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 胡嘉杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
