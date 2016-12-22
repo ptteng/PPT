@@ -12,7 +12,9 @@
 - PPT制作后需要在index.html首页将内容添加到表格内
 - PPT制作后需要在index.html首页将内容添加到表格内 （容易忘记的内容重复三遍）
 - PPT制作方法参考PPT/demo.html，复制粘贴代码，内容修改<section>
-- PPT内容结构参见demo第二页【内容基本结构】
+- PPT内容结构严格参照PPT/demo.html
+- PPT内容结构严格参照PPT/demo.html
+- PPT内容结构严格参照PPT/demo.html （重要的内容重复三遍）
 - 更改以前已有的PPT分享后，需要将自己的名字添加到PPT尾页前人名字之后
 
 ## 备注
