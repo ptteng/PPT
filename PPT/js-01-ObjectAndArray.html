@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-02】对象和数组</h2>
+            <h3>小课堂【成都第23期】</h3>
+            <p>分享人：李绍博</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>javascript是一门面向对象的弱类型语言，其所有数据类型都可以称之为对象。面向对象就是使用对象。面向对象开发就是使用对象开发。</p>
+            <p>对象和数组都是JS学习中经常用到的数据类型，学习理解他们的异同点显得尤为重要</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>对象和数组都可以表示数据的集合</h4>
+           <section>
+               <p>数组：数组是数据的有序集合。每个数据值叫做一个元素，而每个元素在数组中有一个位置，以数字表示，称为索引或下标（由0开始）。并且包含一个名为length的属性，该属性表示数组元素的个数！</p>
+                <p>数组中值, 可以为任何类型. 数组, 对象, null, undefined. </p>
+               <p>创建数组：</p>
+               <code>
+                   var arr = []; 
+                   var arr = new Array()
+               </code>
+               <section>
+                   <p>读写数组内数据使用：数组名+[索引值]的方式;</p>
+                   <code>
+                       var a = [1,2,3];
+                       a[1] //2;
+                       a.length //3
+                       a[0]="test";
+                       a //["test","2","3"]
+                   </code>
+                   <p>设置数组长度</p>
+                   <code>
+                       var a=[]；
+                       a.length=5;
+                       a[1]="元素"；
+                       a//[undefined × 1, "元素1", undefined × 3]
+                   </code>
+                   <p>一般不去设置数组length属性</p>
+                   <section>
+                       <P>数组元素添加</P>
+                       <p>push()方法可以将一个或多个新元素附加到数组的尾部, 然后返回数组新长度</p>
+                       <p>pop()删除数组中的最后一个元素, 减少数组的长度, 返回它删除的值</p>
+                       <p>直接对原数组操作</p>
+                       <code>
+                           var a = [1,2,3,4];
+                           a.push("2");//5
+                           a//[1,2,3,4,"5"]
+                           a.pop();//"5"
+                           a//[1,2,3,4]
+                       </code>
+                       <p>delete 运算符把一个数组元素设置为 undefined 值, 但是元素本身还是存在的</p>
+                       <P>其他删除方式：Array.shift();【删除第一个】 Array.splice();【从一个数组中删除一个连续范围】；slice()截取元素，不改变数组</P>
+                       <code>
+                           var a = [1, 2, 3]; delete a[1]; 
+                           console.log(a); // [1, undefined, 3];
+                       </code>
+                   </section>
+                   <section>
+                       <p>遍历数组：</p>
+                       <code>
+                           var array = [1, 2, 3, 4, 5]; 
+                           for (var i = 0, l = array.length; i < l; i++) {     
+                           console.log(array[i]); }//依次输出：1 2 3 4 5
+                       </code>
+                        <p>数组还有其他方法：join()返回用字符连接的字符串,sort()排序等</p>
+                   </section>
+               </section>
+           </section>
+            <section>
+                <p>对象： 是一个无序属性集合, 每个属性都有自己的名字和值，无length属性，访问对象属性值：对象.属性名（对象.方法（））or对象[“属性名”]。</p>
+                <p>注： []里面使用属性名(可使用变量). </p>
+                <section>
+                    <p>创建对象：</p>
+                    <code>
+                        var obj = {}; 
+                        var obj = {name: 'maxthon'}; var obj = {name: {}, text: []}
+                    </code>
+                </section>
+                <p>要获得对象的属性数，需用遍历方法</p>
+                <code>
+                    var a={name:"xiaoming",a:"b",3:"c"},i=0;
+                    for(var x in a){
+                    i++
+                    }
+                    console.log(i)//3
+                    a.name//"xiaoming"
+                </code>
+            </section>
+            <section>
+                <p>/检查属性存在性;in </p>
+                <code>
+                    var a={name:"xiaoming",a:"b",3:"c"};"name" in a //true
+                </code>
+                <p>删除属性：用操作符delete</p>
+                <code>
+                    a={name:"xiaoming",a:"b",t:"c"};delete a.a //true
+                    a//{name:"xiaoming",t:"c"}
+                </code>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在操作一个对象或数组的时候，想取出某个值为X的数，相同的字面量却无法执行判断或循环内的函数</p>
+           <code>
+               var a={name:"xiaoming",a:"b",b:"c",test:"5"},
+               b=[1,3,4,5];
+               if(a.test===b.3){//false
+            ...
+               }
+           </code>
+            <p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>实际使用中，可能会忽略对象的类型判断</p>
+            <p>可以console.log(typeof(a.test))  console.log(typeof(b.3))</p>
+            <p>string  number 两种不同的对象，返回false</p>
+            <p>1.parseInt(a.test)转换为number类型或toString(b.3)</p>
+            <p>2."==="表示类型和值都完全相等，换成"=="</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>筛选出：大一、女生，</p>
+            <p>
+                ('小A','大一'，'女',21),  ('小B','男',23,'大三'),
+
+                ('小C','男',24,'大四'),  ('小D','女'，'大一',21),
+
+                ('小E','女',22,'大四'),  ('小F','男',21,'大一'),
+
+                ('小G','女',22,'大二'),  ('女','小H',20,'大三'),
+
+                ('小I',20,'大一','女'),  ('小J','男',20,'大三')
+            </p>
+        </section>
+        <section>
+            直观方法：
+            1、将所有对象设置为数组；
+            2、找出所有女生
+            3.在女生中找出所有大一女生；
+        </section>
+        <section>
+            <pre>
+
+               var arr = [['小A','女',21,'大一'], ['小B','男',23,'大三'],
+
+                        ['小C','男',24,'大四'],  ['小D','女',21,'大一'],
+
+                        ['小E','女',22,'大四'],  ['小F','男',21,'大一'],
+
+                         ['小G','女',22,'大二'],  ['小H','女',20,'大三'],
+
+                         ['小I','女',20,'大一'],  ['小J','男',20,'大三']];
+                var arrA=[]， arrB=[];
+            </pre>
+        </section>
+        <section>
+           <img src="../js-01-TheUseOfJavaScript/7.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一</p>
+            <p class="fragment">问题二</p>
+            <p class="fragment">问题三三三撒</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>javascript权威指南</p>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | somebody</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+
+
+
