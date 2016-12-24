@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>css可以绘制哪些常见的特殊形状？（用纯CSS创建一个三角形的原理是什么？）</h2>
+            <p>分享人：陈红远</p>
+        </section>
+        <section>
+            <h3>1.绘制椭圆</h3>
+        </section>
+        <section>
+        	 <pre>
+                <code>
+                #oval { width: 200px; height: 100px; 
+         background: red; 
+         -moz-border-radius: 100px / 50px;
+         -webkit-border-radius: 100px / 50px; 
+         border-radius: 100px / 50px;
+          }
+                </code>
+            </pre>
+            <p>border-radius是一种缩写方法。如果“/”前后的值都存在，
+                 那么“/”前面的值设置其水平半径，“/”后面值设置其垂直半径</p>
+            <img src="../img/css-14-HowToDrawGraphics/oval.png">
+        </section>
+        <section>
+            <h3>2.三角形 </h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    #triangle {
+            height: 0;   
+            width: 0;   
+            border-color: #ff0000 #ffff00 #0000ff #008000;    
+            border-style: solid;   
+            border-width: 40px 40px 40px 40px; 
+        }
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/triangle.png">
+            <p>四个三角形合成一个正方形，大小为80x80，如果我们只想保留其中某个三角形的话，将其它的设置为透明即可。另外，在制作三角形时，宽度和高度要设置为0。</p>
+        </section>
+        <section>
+            <p>比如向上的三角形。其他三个三角形设置为透明的就行</p>
+            <pre>
+                <code>
+                    #triangle-up {
+            height: 0;   
+            width: 0;   
+            border-color: transparent transparent #0000ff transparent;    
+            border-style: solid;   
+            border-width: 40px 40px 40px 40px; 
+        }
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/triangle-up1.png">
+            
+        </section>
+        <section>
+            <p>而我们实际写三角行的时候可以直接这样写，比如向上的三角形就不用设置border-top</p>
+            <pre>
+                <code>
+                    #triangle-up {
+            height: 0;   
+            width: 0;   
+            border-left: 40px solid transparent;    
+            border-right: 40px solid transparent;   
+            border-bottom: 40px solid  #0000ff;
+        }
+                </code>
+            </pre>  
+        </section>
+        <section>
+            <h3>3.气泡框</h3>
+            <p>先给一个border为5px的框，然后给一个向下的三角形，三角形的高为20px，所以设置bottom:-20px，让他向下移动20px，效果如图</p>
+            <pre>
+                <code>
+                 .tag{  width:300px; height:100px; border:5px solid #09F; position:relative; background-color:#FFF;}
+                    .tag em{display:block; position:absolute; bottom:-20px; left:100px;border-left: 20px solid transparent;    
+                    border-right: 20px solid transparent;   
+                    border-top: 20px solid  #09F;
+                    font-size:0; line-height:0;}
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/span-one.png">
+            
+        </section>
+        <section>
+            <h3>气泡框</h3>
+            <p>再加一个白色的三角形，他在上一个三角形上方大概7px的位置，效果如图</p>
+            <pre>
+                <code>
+                .tag span{
+                 display:block; 
+                    position:absolute; bottom:-13px; left:100px;
+                    border-left: 20px solid transparent;    
+                    border-right: 20px solid transparent;   
+                    border-top: 20px solid  #FFF;
+                    font-size:0; line-height:0;
+                    }
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/span-two.png">
+            <p>两个三角形的距离为什么是7px呢</p>
+            
+        </section>
+        <section>
+            <p>两个小三角bottom的差值理论上应该是border-width的平方根</p>
+            <img src="../img/css-14-HowToDrawGraphics/span-three.png">
+        </section>
+        <section>
+            <h3>4.梯形</h3>
+        </section>
+        <section>
+        <pre>
+                <code>
+            #trapezium {
+    height: 0;
+    width: 120px;
+    border-bottom: 120px solid #ec3504;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+} 
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/trapezium.png">
+            <p>梯形是三角形的一个变体，设置CSS梯形时，左右两条边设置为相等，并且给它设置一个宽度。</p>
+        </section>
+        <section>
+            <h3>5.菱形</h3>
+        </section>
+        <section>
+         <pre>
+                <code>
+            #diamond {
+    width: 120px;
+    height: 120px;
+    background: #1eff00;
+    transform: rotate(-45deg);
+    margin: 60px 0 10px 310px;
+} 
+                </code>
+            </pre>
+            <img src="../img/css-14-HowToDrawGraphics/diamond.png">
+            <p>制作菱形的方法有很多种。这里使用的是transform属性和rotate相结合，使两个正反三角形上下显示。transform: rotate(-45deg);表示逆时针旋转45度</p>
+        </section>
+        <section>
+            <h3>6.平行四边形</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                #parallelogram {
+    width: 160px;
+    height: 100px;
+    background: #8734f7;
+    transform: skew(30deg);
+     margin: 60px 0 10px 310px;
+} 
+                </code>
+            </pre>
+            <p>平行四边形的制作方式是使用transform属性使长方形倾斜一个角度。skew一个参数时表示水平方向倾斜，两个参数时，第二个表示垂直方向倾斜</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/liangxiaofeng/p/5936760.html" target="_blank">Baidu</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/zy-plan/p/5196635.html" target="_blank">Baidu</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈红远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
