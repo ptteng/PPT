@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <a href=""><img src="../img/demo/logo.png" class="logo" /></a>
+            <p>更改radio checkbox 以及 select的默认样式</p>
+        </section>
+        <section>
+            <ol>
+                <h5>为什么要更改他们的默认样式</h5>
+                <li>在不同浏览器下，默认样式会有差异</li>
+                <li>不太美观</li>
+            </ol>
+        </section>
+        <section>
+            <section>
+                <p>如何更改radio checkbox的样式</p>
+            </section>
+
+            <section>
+                <p>主要思路：隐藏input元素，在label前面重新添加选择框</p>
+                <p>下面是更改单选框的样式</p>
+            </section>
+            <section >
+
+             <TEXTAREA  rows=30 cols=100>
+            /*第一步隐藏input*/
+            input{display:none;}
+            /*第二步给选项文字加样式*/
+            label{
+                cursor:pointer;
+                padding-left:20px;
+                margin-right:20px;
+                position:relative;
+                height:20px;
+                line-height:20px;
+            }
+            /*在label前面设置选框样式*/
+            .radio label:before {
+                display: inline-block;
+                position: absolute;
+                left: 0;bottom:0;
+                margin-right:10px;
+                content: "";/*此处很关键*/
+                width: 10px;
+                height:10px;
+                border: 1px solid grey;
+                border-radius:50%;
+            }
+            /*设置被选中之后的样式*/
+             input[type=radio]:checked+label:before{
+                content: "\2022";
+                color:red;
+                font-size: 30px;
+                text-align: center;
+                line-height: 10px;
+            }
+     }
+           </TEXTAREA>
+
+            </section>
+
+            <section>
+                <p>radio更改后的样式展示</p>
+                <img src="../img/css-08-resetstyle/radioshow.png" alt="radio">
+            </section>
+
+
+
+            <section>
+                <p>下面是更改复选框的样式</p>
+            </section>
+            <section>
+                 <TEXTAREA  rows=30 cols=100>
+                    /*第一步隐藏input*/
+                    input{display:none;}
+                    /*第二步给选项文字加样式*/
+                    label{
+                        cursor:pointer;
+                        padding-left:20px;
+                        margin-right:20px;
+                        position:relative;
+                        height:20px;
+                        line-height:20px;
+                    }
+                    /*在label前面设置选框样式*/
+
+                    .checkbox label:before {
+                        display: inline-block;
+                        position: absolute;
+                        left: 0;
+                        bottom:0px;
+                        margin-right:10px;
+                        content: "";/*此处很关键*/
+                        width: 10px;
+                        height:10px;
+                        border: 1px solid grey;
+                    }
+                    /*设置被选中之后的样式*/
+                    input[type=checkbox]:checked+label:before{
+                        content: "\2713";
+                        color:red;
+                        font-size: 20px;
+                        text-align: center;
+                        line-height: 10px;
+                    }
+                 </TEXTAREA>
+            </section>
+            <section>
+                <p>checkbox更改后的样式展示</p>
+                <img src="../img/css-08-resetstyle/checkboxshow.png" alt="radio">
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <p>如何更改select的默认样式</p>
+            </section>
+            <section>
+                <p>大概思路</p>
+                <p>在select外面嵌套一层div，并设置该div的宽高</p>
+                <p>设置下拉三角的样式并把此三角形定位于右侧</p>
+                <p>隐藏select的默认样式并把背景设置为透明,目的在于点击三角形时也能实现下拉功能。提高select的层级</p>
+            </section>
+            <section>
+                <p>下面是更改select样式</p>
+                <TEXTAREA  rows=30 cols=100>
+                .wrap{
+                    width:160px;
+                    height:30px;
+                    border:1px solid grey;
+                    position:relative;
+                }
+                .triangle{
+                    height:20px;
+                    width:30px;
+                    border-radius:4px;
+                    background:blue;
+                    position:absolute;
+                    top:5px;
+                    right:5px;
+                }
+                .triangle i{
+                    display: inline-block;
+                    width:0;
+                    height:0;
+                    border-left:5px solid transparent;
+                    border-right:5px solid transparent;
+                    border-top:10px solid #fff;
+                    position:relative;
+                    top:50%;
+                    left:50%;
+                    transform:translate(-50%,-70%);
+                }
+                select{
+                    width:160px;
+                    height:30px;
+                    appearance: none;
+                    -moz-appearance: none;
+                    -webkit-appearance:none;
+                    background:transparent;
+                    border: none;
+                    z-index: 100;
+                    position:absolute;
+                    left:0;
+                    top:0;
+                }
+             }
+           </TEXTAREA>
+            </section>
+            <section>
+                <p>select更改后的样式展示</p>
+                <img src="../img/css-08-resetstyle/selectshow.png" alt="">
+            </section>
+
+        </section>
+
+
+        <section>
+            <p>by 陈尚欢</p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>
