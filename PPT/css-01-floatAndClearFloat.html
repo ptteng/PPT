@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-01】对象和数组</h2>
+            <p>分享人：刘洪运</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.什么是浮动</p>
+            <p>2.浮动的影响</p>
+            <p>3.清除浮动的方法</p>
+        </section>
+        <section>
+            <h3>1.什么是浮动</h3>
+        </section>
+        <section>
+            <h4>文档流</h4>
+            <p>HTML页面的标准文档流(默认布局)是：从上到下，从左到右，遇块(块级元素)换行。</p>
+            <h4>浮动层</h4>
+            <p>浮动层：给元素的float属性赋值后，就是脱离文档流，进行左右浮动，紧贴着父元素(默认为body文本区域)的左右边框。</p>
+                <p>浮动元素在文档流空出的位置，由后续(非浮动)元素填充：<br>
+                块级元素:填充，若跟浮动元素的范围发生重叠，浮动元素覆盖块级元素。<br>
+                内联元素：有空隙就插入。</p>
+        </section>
+        <section>
+            <h3>浮动的影响</h3>
+        </section>
+        <section>
+            <h4>（1）：背景不能显示</h4>
+            <h4>（2）：边框不能撑开</h4>
+            <h4>（3）：margin 设置值不能正确显示</h4>
+        </section>
+        <section>
+            <h3>清除浮动方法</h3>
+        </section>
+        <section>
+            <h4>父元素定高</h4>
+            <p>理解简单但是适用范围比较小</p>
+        </section>
+        <section>
+            <h4>添加空div</h4>
+            <p>在浮动元素完了之后添加空标签，空标签里clear：both；</p>
+            <p>缺点：浮动元素太多时候需要添加的空标签很多</p>
+        </section>
+        <section>
+            <section>
+            <h4>利用after伪类清除浮动</h4>
+            父元素加上下面这一个类：（定义为公共类重复调用）
+            <code>
+            .clearfloat:after{
+            content:".";
+            display:block;
+            height:0;
+            clear:both;
+            visibility:hidden;
+            }
+            </code>
+            <p>这是很多大型网站使用的一种方式</p>
+            </section>
+            <section>
+                <h4>example</h4>
+                <p>div1中添加类：clearfloat得到如下效果</p>
+                <code>
+                    <style type="text/css">
+                        .div1{
+                            background:#000080;
+                            border:1px solid red;
+                        }
+                        .div2{
+                            background:#800080;
+                            border:1px solid red;
+                            height:100px;
+                            margin-top:10px}
+                        .left{
+                            float:left;
+                            width:20%;
+                            height:200px;
+                            background:#DDD
+                        }
+                        .right{
+                            float:right;
+                            width:30%;
+                            height:80px;
+                            background:#DDD
+                        }
+                        /*清除浮动代码*/
+                        .clearfloat:after{
+                            display:block;
+                            clear:both;
+                            content:"";
+                            visibility:hidden;
+                            height:0
+                        }
+                        .clearfloat{zoom:1}
+                    </style>
+                    <div class="div1 clearfloat">
+                        <span>我是一个div1</span>
+                        <div class="left">floatLeft</div>
+                        <div class="right">floatRight</div>
+                    </div>
+                    <div class="div2">
+                        div2
+                    </div>
+                </code>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | lance</small></p>
+            <p>参考文献：<a href="http://www.jb51.net/css/173023.html">点我</a></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+
+
+
