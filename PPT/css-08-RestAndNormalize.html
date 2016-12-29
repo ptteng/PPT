@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>rest与Normalize.css的区别</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task8】如何做默认样式重置？resetting 和 normalizing  之间有什么区别？</h2>
+            <h3>小课堂【成都第25期】</h3>
+            <p>分享人：彭勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>了解如何做默认样式，以及常用的默认样式方法resetting和normalizing之间的区别</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>如何做默认样式重置?</li>
+                    <li>什么是resetting?</li>
+                    <li>什么是normalizeing?</li>
+                    <li>二者之间的区别</li>
+                </ol>
+            </section>
+            <section>
+                <h3>如何做默认样式重置?</h3>
+                <p>可以将要初始化的样式写成一个css样式表，然后写html页面的时候引入。</p>
+            </section>
+            <section>
+                <h3>什么是resetting?</h3>
+                <p>
+                    restting是重置样式的一种，讲求跨浏览器的一致；不管浏览器默认的样式有没有用，统统设置成一样的效果。（比较暴力）
+                </p>
+            </section>
+            <section>
+                <h3>什么是normalizing？</h3>
+                <p>
+                 normalizing,提倡的是各个元素存在的默认样式都有一定道理，简单粗暴的一视同仁是不好的，把一些确实用不到的样式去掉，为其他默认的HTML元素样式上提供跨浏览器的高度一致性。
+                </p>
+            </section>
+            <section>
+                <h3>
+                    创造normalize.css的目的：
+                </h3>
+                <ul>
+                    <li>保留有用的浏览器默认设置，而不是将其删除。</li>
+                    <li>统一适用范围广的HTML元素。</li>
+                    <li>修复浏览器自身的bug并保证各浏览器的一致性.</li>
+                    <li>提高可用性与微妙的改进。</li>
+                    <li>解释代码使用注释和详细的文档。</li>
+                </ul>
+            </section>
+            <section>
+                <h>二者的区别</h>
+                <dl>
+                    <dt>1. Normalize.css保留有用的默认值</dt>
+                    <br>
+                    <dd>
+                        Reset通过为几乎所有的元素施加默认样式，强行使得元素有相同的视觉效果。相比之下，Normalize.css保持了许多默认的浏览器样式。这就意味着你不用再为所有公共的排版元素重新设置样式。当一个元素在不同的浏览器中有不同的默认值时，Normalize.css会力求让这些样式保持一致并尽可能与现代标准相符合。
+                    </dd>
+                </dl>
+            </section>
+            <section>
+                <dl>
+                    <dt>2. Normalize.css修复了浏览器的bug</dt>
+                    <br>
+                    <dd>
+                        它修复了常见的桌面端和移动端浏览器的bug。这往往超出了Reset所能做到的范畴。关于这一点，Normalize.css修复的问题包含了HTML5元素的显示设置、预格式化文字的font-size问题、在IE9中SVG的溢出、许多出现在各浏览器和操作系统中的与表单相关的bug。
+                    </dd>
+                </dl>
+            </section>
+            <section>
+                <dl>
+                    <dt>3. Normalize.css 是模块化的</dt>
+                    <br>
+                    <dd>
+                        这个项目已经被拆分为多个相关却又独立的部分，这使得你能够很容易也很清楚地知道哪些元素被设置了特定的值。因此这能让你自己选择性地移除掉某些永远不会用到部分（看个人的习惯）。
+                    </dd>
+                </dl>
+            </section>
+            <section>
+                <dl>
+                    <dt>4. Normalize.css 拥有详细的文档</dt>
+                    <br>
+                    <dd>
+                        Normalize.css的代码基于详细而全面的跨浏览器研究与测试。这个文件中拥有详细的代码说明并在Github Wiki中有进一步的说明。这意味着你可以找到每一行代码具体完成了什么工作、为什么要写这句代码、浏览器之间的差异，并且你可以更容易地进行自己的测试。
+                        这个项目的目标是帮助人们了解浏览器默认是如何渲染元素的，同时也让人们很容易地明白如何改进浏览器渲染。
+                    </dd>
+                </dl>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一：不知道在resetting和normalizing中如何选取</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                自己的做法：将normalize.css作为自己项目的基础CSS，自定义样式值来满足自己的需求。
+                (例如去掉a标签自带的下划线和p标签的自带的margin）
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <H3>这是normalize.css的部分代码，体现了上面提到的normalizing和resting的不同。</H3>
+            <pre>
+                <code>
+                    /**
+* Remove the margin in all browsers (opinionated).
+*/
+body {
+  margin: 0;
+}
+/**
+* Add the correct display in IE 9-.
+*/
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+/**
+* Correct the font size and margin on `h1` elements within `section` and
+* `article` contexts in Chrome, Firefox, and Safari.
+*/
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一：在一个项目中如何确定重置样式？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://nicolasgallagher.com/about-normalize-css/" target="_blank">normalize文档</a></p>
+            <p>参考二：<a href="https://link.zhihu.com/?target=http%3A//jerryzou.com/posts/aboutNormalizeCss/" target="_blank">normalize文档翻译</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：大家重置样式的方法？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇 </small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
