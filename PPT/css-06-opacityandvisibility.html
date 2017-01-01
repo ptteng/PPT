@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task6】</h2>
+            <h3>小课堂【郑州第1期】</h3>
+            <p>分享人：王义山</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.参考文献</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>1.大家在写页面时，会用到各种元素，比如div,  img等等。有时候一张页面会放好几张图片，图片如果显示效果都一样，看起来很单调，</p>
+                <p> 整个页面给人的感觉会很硬。那么，怎么能让页面的元素有一种多样化，甚至有一种朦胧美呢？于是，有了opacity和rgba()这两个属性。
+                其中，opacity属性是css3新提的属性。</p>
+        </section>
+         <section>
+            <p>2.另外，在看一下display和visibility背景介绍，故名思意，display和visibility是与元素显示有关系的，这两个属性都可以控制元素的
+                显示与隐藏。</p>
+             <p>究其作用，我们可以知道，为了提高用户的体验，实现更好的页面甚至元素与用户的互动，当用户开始某个操作时，可以通过display和visibility
+                 
+               这两个属性让元素显示或者隐藏, 或者以哪种方式显示。</p>
+         </section>
+         <section>
+            <p> 3.综上所述；其实某个元素产生的背景和原因，就是为了满足日益增长的用户体验要求。</p>      
+        </section>
+        
+        <section>
+            <h3>二.知识剖析</h3>
+            <p> 三. 具体来看Opacity和rgba()的用法以及二者的区别<p>
+        </section>
+        <section>
+            <p>1.Opacity和rgba()的用法以及二者的区别：</p>
+            <p>首先，opacity 中文翻译为：不透明度。语法：opacity：value | inherit ;</p>
+            <p>取值说明: value 不透明度，从0.0(完全透明)到1.0（完全不透明）。</p>
+            <p>注意：IE8以及更早版本支持替代的filter属性。例如：filter: Alpha（opacity=50）;</p>
+        </section>
+        <section>
+            <p>其次，看一下rgba(),</p>
+            <p>语法：rgba(r,g,b,a)   </p>
+            <p>取值说明：</p>
+            <p>R：红色值。正整数 | 百分数</p>
+            <p>G：绿色值。正整数 | 百分数</p>
+            <p>B：蓝色值。正整数 | 百分数</p>
+            <p>A：Alpha透明度。取值0~1之间。</p>
+        </section>
+        <section>
+            <p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
+            <p>RGBA是在R（Red）G（Green）B（Blue）模式上增加了alpha通道，alpha通道是不透明度，即，如果一个元素的alpha通道数值为0%（或0），
+                那该元素就是完全</p>
+            <p>透明的（也就是看不见的，但是可以透过该元素看到该元素下的元素），数值为100%（或255）时则意味着该元素完全不透明。</p>
+         </section>
+          <section>
+            <p>然后，RGBA和opacity都是用来设置元素的不透明度的，那么两者有什么区别呢？</p> 
+            <p>opacity会继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。</p>
+           </section>
+          <section>
+            <p>简单来说就是opacity作用于元素和元素所有内容的透明,看一下例子，</p>
+          </section>
+          <section>
+            <pre>
+                <code>
+                    .rgba {
+	                    background: rgba(255,0,0,0.5); 
+                    } 
+                    
+                    .opacity {
+                        background : red ; opacity: 0.5;
+                    }
+                
+                </code>
+            </pre>
+          </section>
+          <section> 
+             <img src="../img/css-06-3-rgba/fang_1.png" alt="img" >
+          </section> 
+         
+ 
+        <section>
+            <p>所以，rgba相对于opacity还是技高一筹的，当然只要是涉及颜色的，都可以用rgba来设置。比如background-color,text-shadow, box-shadow。</p>
+        </section>
+        <section>
+            <p>w3c上面的： </p>
+            <p>1. HSL 颜色值是这样规定的：hsl(hue, saturation, lightness)。 </p>
+            <p>2. HSL 指的是 hue（色调）、saturation（饱和度）、lightness（亮度） - 表示颜色柱面坐标表示法。 </p>
+            <p>3. Hue 是色盘上的度数（从 0 到 360） - 0 (或 360) 是红色，120 是绿色，240 是蓝色。 </p>
+            <p>4. Saturation 是百分比值；0% 意味着灰色，而 100% 是全彩。 </p>
+        </section>
+        <section>
+            <p> 5. Lightness 同样是百分比值；0% 是黑色，100% 是白色。 </p>
+            <p>HSLA 颜色, HSLA 颜色值是 HSL 颜色值的扩展，带有一个 alpha 通道 - 它规定了对象的不透明度。 </p>
+            <p>HSLA 颜色值是这样规定的：hsla(hue, saturation, lightness, alpha)，其中的 alpha </p>
+            <p>参数定义不透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。</p>
+        </section>
+        <section>
+            <h3>四.关于CSS 中display 和visibility的用法和区别？</h3>
+        </section>
+        <section>
+            <p>Display : 指定一个元素如何显示，visibility指定一个元素应该显示还是隐藏。Display属性可以改变一个元素的显示状态。</p>
+            <p>主要结合元素自身默认的display属性，来控制元素的显示状态,比如可以让inline元素，显示为inline-block或者block元素。反之亦然。</p>
+        </section>
+        <section>
+            <p>Visibility属性如上所述，表示元素是否可见。其可能的值有默认值：visible。hidden,元素是不可见的。Inherit从父元素继承其属性值。</p>
+        </section>
+        <section>
+            <p>其实，重点是，要讲的他们的区别：是display值为none时，visibility值为hidden时的区别。</p>
+            <p>当元素设置display属性值为none时，元素会消失不可见，同时，元素原所在的位置会让其后面的元素占据，说白了，就是元素就不存在了。</p>
+        </section>
+        <section>
+            <p>而，visibility：hidden；表现上也是元素不见了，但是依然占有位置空间，仅仅是在视觉上“消失了”，hidden 也就是隐藏。</p>
+            <p>而对使用display：none；浏览器不会解析，搜索引擎可能会认为被隐藏的元素属于垃圾信息，会忽视。而且，屏幕阅读器会会忽略被隐藏的文字。</p>
+        </section>
+        <section>
+            <p>最后，对使用visibility：hidden；虽然隐藏了，但位置仍然在给人的感觉就是“占着茅坑不拉屎”要配合position：relative；和position：absolute;
+            来用，没有display：none；那么简单，灵活。
+            </p>
+       </section>
+        <section>
+            <p>有一点是，visibility：hidden；转换为visibility：visible;时，跟display：none转换为display：block;性能要好，
+                因为display在切换可见性时，会产生reflow,他要重新构建frame,当然要比visibility：visible；慢。</p>
+        </section>
+        <section>
+            <h3>五.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+        </section>
+        <section>
+            <p>参考二:<a href="http://www.jb51.net/css/67359.html" target="_blank">51脚本</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 火山</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
