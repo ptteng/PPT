@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何实现轮播图？</h2>
+            <p>分享人：陈红远</p>
+        </section>
+        <section>
+            <h3>什么是轮播图？</h3>
+             <p>所谓轮播图是以实际出现的状态而产生的词组，就是在网站做一个区域，区域内一般为几张不同的图片，以轮换播放的方式，进行展示的过程</p>
+        </section>
+        <section>
+            <h3>如何实现轮播图？</h3>
+            <p>我了解的方式有bootstrap的轮播，用纯css，用css3，还有用js写出的轮播，除了bootstrap，其他的方式还没有使用过，所以今天主要讲下bootstrap实现的轮播图</p>
+        </section>
+        <section>
+            <p>一个轮播图片主要包括三个部分:</p>
+            <p>1,轮播的图片</p>
+            <p>2,轮播图片的计数器</p>
+            <p>3,轮播图片的控制器</p>
+        </section>
+        <section>
+            <h3>1,设计轮播图片的容器</h3>
+            <p>在 Bootstrap 框架中采用 carousel 样式，并且给这个容器定义一个 ID 值，方便后面采用 data 属性来声明触发。</p>
+            <img src="../img/css-21-ShufflingFigure/one.png">
+        </section>
+        <section>
+            <h3>2,设计轮播图片计数器</h3>
+            <p>在容器 div.carousel 的内部添加轮播图片计算器，采用 carousel-indicators 样式，其主要功能是显示当前图片的播放顺序(有几张图片就放置几个li)，一般采用有顺列表来制作</p>
+            <img src="../img/css-21-ShufflingFigure/two.png">
+            <p>data-slide-to 属性：用来传递某个帧的下标，比如 data-slide-to="2"，可以直接跳转到这个指定的帧（下标从0开始计）</p>
+        </section>
+        <section>
+            <h3>3,设计轮播图片播放区</h3>
+            <p>轮播图整个效果中，播放区是最关键的一个区域，这个区域主要用来放置需要轮播的图片。这个区域使用carousel-inner样式来控制，而且其同样放置在 carousel 容器内，并且通过 item 容器来放置每张轮播的图片</p>
+            <img src="../img/css-21-ShufflingFigure/three.png">
+        </section>
+        <section>
+            <h3>4,设计轮播图片控制器</h3>
+            <p>很多时候轮播图片还具有一个向前播放和向后播放的控制器。在 Carousel 中通过 carousel-control样式配合 left 和 right 来实现。其中left表示向前播放，right表示向后播放。其同样放在carousel容器内</p>
+            <img src="../img/css-21-ShufflingFigure/four.png">
+            <p> data-slide属性：取值包括prev，next，prev表示向后滚动，next表示向前滚动</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈红远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
