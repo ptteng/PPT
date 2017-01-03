@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HTML5 离线储存的使用</h2>
+            <h3>小课堂【北京第15期】</h3>
+            <p>分享人：杨兴强</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                html5之前的网页，都是无连接，必须联网才能访问，这其实也是web的特色，
+                这其实对于PC是时代问题并不大，但到了移动互联网时代，设备终端位置不再固定，
+                依赖无线信号，网络的可靠性变得降低，比如坐在火车上，过了一个隧道（15分钟），
+                便无法访问网站，这对于web的伤害是很大的。
+            </p>
+        </section>
+        <section>
+            <h3>2.离线存储技术</h3>
+        </section>
+        <section>
+
+               <h3>离线存储技术</h3>
+            <div style="width: 315px;margin: auto">
+                <p style="text-align: left"> 1 IndexedDB</p>
+                <p style="text-align: left"> 2  FileSystem</p>
+                <p style="text-align: left"> 3 localstorage</p>
+                <p style="text-align: left"> 4 Application Cache</p>
+                <p style="text-align: left"> 5 Cookie</p>
+            </div>
+
+
+        </section>
+        <section>
+            <h3>cookie</h3>
+            <p>
+                cookie只能保存一小段文本（4096字节）,
+                所以不能存储大数据，这是cookie与上述缓存技术的差异之一，而因为HTTP是无状态的，
+                服务器为了区分请求是否来源于同一个服务器，需要一个标识字符串，而这个任务就是cookie完成的，
+                这一段文本每次都会在服务器与浏览器之间传递，以验证用户的权限。
+            </p>
+        </section>
+        <section>
+            <h3> localstorage</h3>
+            <a href="http://www.w3school.com.cn/html5/html_5_webstorage.asp" target="_blank">localstorage介绍</a>
+        </section>
+        <section>
+            <h3>3.Application Cache</h3>
+        </section>
+        <section>
+            <h3>3.1 Application Cache</h3>
+            <p style="text-align: left">
+                HTML5引入了应用程序缓存技术，
+                意味着web应用可进行缓存，
+                并在没有网络的情况下使用，
+                通过创建cache manifest文件，
+                可以轻松的创建离线应用。
+            </p>
+            <p style="text-align: left">
+                Application Cache带来的三个优势是：<br/>
+                ① 离线浏览<br/>
+                ② 提升页面载入速度<br/>
+                ③ 降低服务器压力
+            </p>
+
+        </section>
+        <section>
+            <h3>3.2 兼容性</h3>
+            <p style="width: 140%;margin-left: -20%;">
+                <img style="width: 100%;" src="../img/js-offlinestorage/165.png" alt="">
+            </p>
+        </section>
+
+        <section>
+            <h3>3.2  用法</h3>
+            <p  style="text-align: left">
+                1.创建一个和html同名的manifest文件，比如页面为index.html，那么可以建一个index.manifest的文件,并引入
+                <br/>                <br/>
+                2.manifest文件，基本格式为三段： <br/>
+                CACHE <br/>
+                NETWORK<br/>
+                FALLBACK
+            </p>
+        </section>
+        <section>
+            <h3>3.3  缓存</h3>
+            <p  style="text-align: left;margin-left: 32%;">
+                1.更新manifest文件 <br>
+
+                2. 通过javascript操作<br>
+
+                3.清除浏览器缓存
+            </p>
+        </section>
+        <section>
+            <h3>3.4  自动化工具</h3>
+            <p  style="text-align: left;margin-left: 20%;">
+                manifest文件中的cache部分不能使用通配符，必须手动指定，
+                这实在太让人不可理解，文件一多，就成了体力活了，
+                可以通过 grunt-manifest自动生成manifest
+            </p>
+            <a href="http://www.gruntjs.net/" target="_blank">
+                GRUNT
+                JavaScript 世界的构建工具（点我）</a><br>
+            <a href="http://www.codeceo.com/article/html5-cache.html" target="_blank">一篇很好的文章（点我）</a>
+        </section>
+        <section>
+            <h3>4.存在问题：</h3>
+            页面初次加载全部内容，刷新后只保留缓存项，未缓存项会被去掉
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 杨兴强</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
