@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <style>
+    p {text-align: left!important;}
+  </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+  <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h2>【CSS-task8】如何做默认样式重置？resetting 和 normalizing之间有什么区别？</h2>
+      <h3>小课堂【郑州第23期】</h3>
+      <h4>分享人：胡嘉杰</h4>
+    </section>
+    <section>
+      <p>目录</p>
+      <p>1.什么是CSS默认样式重置</p>
+      <p>2.CSS默认样式重置方法</p>
+      <p>3.resetting 和 normalizing 之间有什么区别 ?</p>
+      <p>4.拓展</p>
+    </section>
+    <section>
+      <h3>1.什么是CSS默认样式重置</h3>
+    </section>
+    <section>
+      <p>
+        CSS Reset简单来讲就是根据我们自己编写页面的需求重新设置css属性。css reset主要是因为html标签在浏览器中都有各自的默认样式，
+        比如： p 标签有上下边距，strong标签有字体加粗样式，em标签有字体倾斜样式。不同浏览器的默认样式之间也会有差别，
+        例如ul默认带有缩进的样式，在IE 下，它的缩进是通过margin实现的，而Firefox下，它的缩进是由padding实现的。
+        在切换页面的时候，浏览器的默认样式往往会给我们带来麻 烦，影响开发效率。所以解决的方法就是一开始就将浏览器的默认样式全部去掉，
+        更准确说就是通过重新定义标签样式。“覆盖”浏览器的CSS默认属性。最简单的说法就是把浏览器提供的默认样式覆盖掉！这就是CSS reset。
+      </p>
+    </section>
+    <section>
+      <h3>2.CSS默认样式重置方法</h3>
+    </section>
+    <section>
+      <p>
+        说到样式重置，不得不提一个符号——星号（*｜专业称呼叫“通配符”）。
+        为什么要提到通配符，因为这个符号的作用是巨大的，它代表了HTML里面任意一个标签。
+        也正因为这样，很多人喜欢用通配符做样式重置（如：* {margin: 0; padding: 0;}）。
+      </p>
+      <p>
+        对于网站优化而言，使用通配符的做法是非常不可取的，因为这种做法相当消耗浏览器的性能。
+        原因在于星号代表任意一个标签，当浏览器解析到星号时，
+        就会将页面中所有用到的标签都进行一次样式重置，不管这个标签是否有这样的默认样式。虽然这种性能消耗可以被忽略不计，
+        但是做为一个有责任心的web前端开发人员来说，如无必要，通配符还是尽量不要出现在样式重置中。
+      </p>
+    </section>
+    <section>
+      <p>
+        那么应该如何做到最优的样式重置呢？只需要记住一个原则，用到什么标签，
+        如果该标签有默认样式且对当前布局或页面展现有影响，那就有必要进行样式重置。
+      </p>
+    </section>
+    <section>
+      <h3>3.resetting 和 normalizing  之间有什么区别</h3>
+    </section>
+    <section>
+      <p>
+        CSS Reset 是革命党，CSS Reset 里最激进那一派提倡不管你小子有用没用，通通给我脱了那身衣服，
+        凭什么你 body 出生就穿一圈 margin，凭什么你姓 h 的比别人吃得胖，凭什么你 ul 戴一胳膊珠子。
+        于是 *{margin:0;} 等等运动，把人家全拍扁了。看似是众生平等了，实则是浪费了资源又占不到便宜，
+        有求于人家的时候还得贱贱地给加回去，实在需要人家的默认样式了怎么办？人家锅都扔炉子里烧了，
+        自己看着办吧。 Normalize.css 是改良派。他们提倡，各个元素都有其存在的道理，简单粗暴地一视同仁是不好的。
+        body 那一圈确实挤压了页面的生存空间，那就改掉。士农工商，谁有谁的作用，
+        给他们制定个规范，确保他们在任何浏览器里都干好自己的活儿。
+      </p>      
+    </section>
+    <section>
+      <p>
+        简单来说，reset.css能够重置浏览器的默认属性。normalize.css保护有用的浏览器默认样式而不是完全去掉它们。
+        转载知乎上gNahZ tuNlAw同学的答案，侵删。
+      </p>
+    </section>
+    <section>
+      <h3>4.拓展</h3>
+    </section>
+    <section>
+      <p>一些以后可能用到的CSS知识点：</p>
+      <a href="http://www.html-js.com/article/Record-the-way-I-grew-up%203286">http://www.html-js.com/article/Record-the-way-I-grew-up%203286</a>
+    </section>
+    <section>
+      <h4>鸣谢</h4>
+      <h4>感谢大家观看</h4>
+      <h4><small>BY : 李玺 | 胡嘉杰</small></h4>
+    </section>
+
+  </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+  // 	loop: false, // 是否循环演示
+  // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+  // 	fragments: true, // 全局开启和关闭碎片。
+  // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+  // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+  // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+  // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+  // }
+  // 初始化幻灯片
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      { src: '../plugin/markdown/marked.js' },
+      { src: '../plugin/markdown/markdown.js' },
+      { src: '../plugin/notes/notes.js', async: true },
+      { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+  });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
