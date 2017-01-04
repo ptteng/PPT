@@ -50,56 +50,179 @@
         </section>
         <section>
             <p>this的迷之指向</p>
+            <section>
+                <pre>
+                    <code>
+                        var obj = {
+                        foo: function(){
+                        console.log(this)
+                        }
+                        }
+                        var bar = obj.foo
+                        obj.foo() // 打印出的 this 是 obj
+                        bar() // 打印出的 this 是 window
+                        请解释最后两行函数的值为什么不一样。
+                    </code>
+                </pre>
+            </section>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>this到底是咋回事</p>
+            <section>
+                <pre>
+                    <code>
+
+                        //ES5函数调用的3种形式
+
+
+                        func(p1, p2)
+                        obj.child.method(p1, p2)
+                        func.call(context, p1, p2)
+
+                    </code>
+                </pre>
+                </section>
+            <section>
+                <pre>
+                    <code>
+                        //语法糖
+
+
+                        func(p1, p2) 等价于
+                        func.call(undefined, p1, p2)
+
+                        obj.child.method(p1, p2) 等价于
+                        obj.child.method.call(obj.child, p1, p2)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        //第三种
+
+                        func.call(context, p1, p2)
+
+
+                        //this，就是上面代码中的 context。
+                    </code>
+                </pre>
+            </section>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>在函数中</p>
-            <p>在点击事件中</p>
+            <section>
+              <pre>
+                <code>
+                    function func(){
+                        console.log(this)
+                    }
+
+                    func()
+
+                    //等价于
+
+                    function func(){
+                        console.log(this)
+                    }
+
+                    func.call(undefined) // 可以简写为 func.call()
+                    //上面是打印出来是什么？
+                </code>
+              </pre>
+             </section>
+            <section>
+                按理说打印出来的 this 应该就是 undefined 了吧，但浏览器里有一条规则：
+
+                如果你传的 context 就 null 或者 undefined，那么 window 对象就是默认的 context（严格模式下默认 context 是 undefined）
+                因此上面的打印结果是 window。
+            </section>
+
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>可以这么这么解决</p>
+            <pre>
+                <code>
+                    //如果你希望这里的 this 不是 window，很简单：
+
+                    func.call(obj) // 那么里面的 this 就是 obj 对象了
+                 </code>
+          </pre>
+        </section>
+        <section>
+           <pre>
+                <code>
+                    obj.child.method(p1, p2) 的 this 如何确定
+
+                    var obj = {
+                    foo: function(){
+                    console.log(this)
+                    }
+                    }
+
+                    obj.foo()
+                    按照「转换代码」，我们将 obj.foo() 转换为
+
+                    obj.foo.call(obj)
+                    好了，this 就是 obj。搞定。
+                </code>
+          </pre>
         </section>
         <section>
             <h3>5.编码实战</h3>
+            <section>
+                   <pre>
+                        <code>
+                           回到题目
+
+
+                            var obj = {
+                            foo: function(){
+                            console.log(this)
+                            }
+                            }
+
+                            var bar = obj.foo
+                            obj.foo() // 转换为 obj.foo.call(obj)，this 就是 obj
+                            bar()
+                            // 转换为 bar.call()
+                            // 由于没有传 context
+                            // 所以 this 就是 undefined
+                            // 最后浏览器给你一个默认的 this —— window 对象
+                        </code>
+                  </pre>
+             </section>
         </section>
-        <section>
-            <pre>
-                <code>
-                    console.log("Hello World");
-                    alert("Hello PTT");
-                </code>
-            </pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">问题一</p>
-            <p class="fragment">问题二</p>
-            <p class="fragment">问题三三三撒</p>
+            <p>问题1：全局执行</p>
+            <p class="fragment">问题2：纯粹的函数调用</p>
+            <p class="fragment">问题3：严格模式: 'use strict';</p>
+            <p class="fragment">问题4：作为对象的方法调用</p>
+            <p class="fragment">问题5：构造函数使用</p>
+            <p class="fragment">问题6：箭头函数</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+            <p>参考一：<a href="https://gold.xitu.io/post/5857dad461ff4b00686cf97a" target="_blank">this 的值到底是什么？一次说清楚</a></p>
+            <p>参考一：<a href="https://zhuanlan.zhihu.com/p/24107744" target="_blank">JavaScript 中的 this</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>讨论点一</p>
+            <p>this里面还有那些坑</p>
         </section>
         <section>
             <h4>鸣谢</h4>
