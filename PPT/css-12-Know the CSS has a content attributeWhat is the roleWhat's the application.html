@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task12】知道css有个content属性吗？有什么作用？有什么应用？</h2>
+            <h3>小课堂【武汉】</h3>
+            <p>分享人：罗宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题及解决办法</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>早在CSS2.1的时候就引入了content属性，应该算是最常用的一个css属性之一，
+                比如我们创建一个聊天气泡、超链接的立体翻转特效、添加图标。都要使用到content属性，
+                当然这个属性要结合：before和：after伪类来使用。下面详细介绍它的用法。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>content属性的作用是，配合 :before 及 :after 伪元素使用，来插入生成内容。<br>
+                <img src="../img/css-12-Know the CSS has a content attributeWhat is the roleWhat's the application/1.png">
+                <br>首先来看一下content的属性值有哪些及用法</p>
+        </section>
+        <section>
+            <section>
+                <p>1.插入纯文字<br>content:"直接插入的文章"，或者content:none不插入内容</p>
+            </section>
+            <section>
+                <pre>
+                <code>
+                    <h1>这是h1</h1>
+                    <h2>这是h2</h2>
+                    </code>
+                    </pre>
+
+                <p>CSS</p>
+                <pre>
+                <code>
+                   h1::after{
+                   content:"h1后插入内容"
+                   }
+                   h2::after{
+                   content:none
+                   }
+                </code>
+                </pre>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <p>2.嵌入文字符号<br>可以使用content属性的open-quote属性值和close-quote
+                    属性值在字符串两边添加诸如括号、单引号、双引号之类的嵌套文字符号。
+                    open-quote用于添加开始的文字符号，close-quote用于添加结束的文字符号</p>
+            </section>
+            <section>
+ <pre>
+                <code>
+                h1{
+                quotes:"(" ")";  /*利用元素的quotes属性指定文字符号*/
+                }
+                h1::before{
+                content:open-quote;
+                }
+                h1::after{
+                content:close-quote;
+                }
+                h2{
+                quotes:"\"" "\"";  /*添加双引号要转义*/
+                }
+                h2::before{
+                content:open-quote;
+                }
+                h2::after{
+                content:close-quote;
+                }
+                </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <p>3.插入图片</p>
+                <p>4.插入元素的属性值</p>
+                <p>5.插入项目编号</p>
+                <p>6.项目编号修饰,等等等。。。。。</p>
+                </section>
+            <section>
+                <img src="../img/css-12-Know the CSS has a content attributeWhat is the roleWhat's the application/2.png">
+                </section>
+            </section>
+
+        <section>
+            <h3>3.常见问题及解决方案</h3>
+        </section>
+        <section>
+            <section>
+
+            <p>当使用attr()获取标签属性名的时候，添加了引号使得获取失败</p>
+                <pre>
+                <code>
+
+                    a.content:after {
+                    content: attr("href");
+                    }
+
+                    <a class="content" href="http://www.baidu.com/">此标签的href值是：</a>
+                    </code>
+                    </pre>
+                </section>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+            <pre>
+                <code>
+                <h1>大标题</h1>
+                <h2>中标题</h2>
+                <h3>小标题</h3>
+                <h3>小标题</h3>
+                <h2>中标题</h2>
+                <h3>小标题</h3>
+                <h3>小标题</h3>
+                <h1>大标题</h1>
+                <h2>中标题</h2>
+                <h3>小标题</h3>
+                <h3>小标题</h3>
+                <h2>中标题</h2>
+                <h3>小标题</h3>
+                <h3>小标题</h3>
+                </code>
+            </pre>
+                </section>
+            <section>
+            <pre>
+                <code>
+            h1::before{
+            content:counter(h1)'.';
+            }
+            h1{
+            counter-increment:h1;
+            counter-reset:h2;
+            }
+            h2::before{
+            content:counter(h1) '-' counter(h2);
+            }
+            h2{
+            counter-increment:h2;
+            counter-reset:h3;
+            margin-left:40px;
+            }
+            h3::before{
+            content:counter(h1) '-' counter(h2) '-' counter(h3);
+            }
+            h3{
+            counter-increment:h3;
+            margin-left:80px;
+            }
+            </code>
+            </pre>
+                </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">css2的一些content属性值</p>
+            <p  class="fragment">此处可点→→→<a href="http://www.w3chtml.com/css3/properties/content/content.html" target="_blank">点我</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://segmentfault.com/a/1190000002750033" target="_blank">segmentfault上的css3 content详解</a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2010/04/css-content%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8/" target="_blank">张鑫旭 CSS content内容生成技术以及应用</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/liuxianan/p/css-counters.html" target="_blank">css计数器详解</a></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 黄志波 | 罗宇</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
