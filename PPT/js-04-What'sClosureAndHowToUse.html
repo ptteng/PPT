@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>闭包是什么、用处如何</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>闭包是什么？用处如何?</h2>
+            <p>分享人：郑明月</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>简单的说，闭包指的是有权访问另一个函数作用域中的变量的函数</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>闭包的用处</p>
+                <p>1.可以读取函数内部的变量（作用域链）</p>
+                <p>2.让这些变量的值始终保存在内存中</p>
+            </section>
+            <section>
+                <img src="../img/js-04-What'sclosureandhowtouse/compar-2.png" alt="闭包的用处">
+                <p style="text-align: left">
+                    在此例中result实际上就是fun2，这证明了fun中的局部变量n一直保存在内存中，
+                    它的值不会被函数清除。
+                </p>
+                <p style="text-align: left">
+                    原因分析：fun2被赋值给了一个全局变量，而fun是fun2的父元素，fun2依赖于fun，所以
+                    fun是存在与全局变量中，它们的值都不会被垃圾回收机制清除。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    此函数中还有一个问题：add的值是一个匿名函数，而这个匿名函数本身就组成了一个闭包，
+                    和fun2在同一作用域中，所以这个函数可以在函数外调用来控制函数内的值，并且保存它生成的值
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.闭包会使得函数的变量都保存在内存中，对内存的消耗很大（内存泄露）</p>
+            <p>
+                2.闭包会在父函数外部改变父函数内部变量的值，如果把父元素当成对象使用
+                把闭包当成共用的方法，把内部变量当做它的私有属性，这时一定要小心，不能
+                改变父函数内部变量的值。如果改变了就相当于改变了它的私有属性！
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>对于第一点，我们在函数退出之前，将使用的局部变量全部删除，或设置为null，用
+            js自带的垃圾处理机制来删除</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <img src="../img/js-04-What'sclosureandhowtouse/compar-3.png" alt="实战">
+            </section>
+            <section>
+                <p style="text-align: left">
+                    这是我任务4中的代码，在for循环中，如果不经过如此处理，他最终返回的将会是最后
+                    一个死的人的号码，那么永远都只有一个死人被变为黑色，但是经过这样处理，function
+                    部分就又进行了一次闭包，其结构就相当于function(funciont(num))(i);i就作为参数
+                    每次都传递进去，这样就能取到每一个人的人数。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>在闭包中的this指向问题</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://gold.xitu.io/post/58500a02128fe10069319d83" target="_blank">js闯关之作用域和闭包</a></p>
+            <p>参考二：js高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 郑明月 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
