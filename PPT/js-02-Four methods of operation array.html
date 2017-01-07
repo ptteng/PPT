@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>对一个数组 filter、some、map、foreach的操作分别是什么作用？</h2>
+            <h3>小课堂【成都第期】</h3>
+            <p>分享人：鹿男春</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>filter、some、map、foreach是封装的几个方法，是为了更方便的操作数组</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h2>Array.prototype.filter()</h2>
+                <p>
+                    返回数组中的满足回调函数中指定的条件的元素。<br/>
+                    语法：var new_arrary = arr.filter(callback[, thisArg])<br>
+                    callback:用来测试每个元素的函数。返回true则保留元素，false则不保留<br>
+                    thisArg:执行 callback 时使用的 this 值。<br>
+                    <br>
+                    filter 为数组中的每个元素调用一次 callback 函数，并利用所有使得 callback 返回 true 或 等价于 true 的值 的元素创建一个新数组。callback 只会在已经赋值的索引上被调用，对于那些已经被删除或者从未被赋值的索引不会被调用。那些没有通过 callback 测试的元素会被跳过，不会被包含在新数组中。<br>
+                </p>
+            </section>
+            <section>
+                <p>
+                    filter 不会改变原数组。<br>
+                    <br>
+                    filter 遍历的元素范围在第一次调用 callback 之前就已经确定了。在调用 filter 之后被添加到数组中的元素不会被 filter 遍历到。如果已经存在的元素被改变了，则他们传入 callback 的值是 filter 遍历到它们那一刻的值。被删除或从来未被赋值的元素不会被遍历到。
+                </p>
+            </section>
+            <section>
+                <h3>实例</h3>
+                <pre>
+                    <code>
+var ages = [33,44,55,6];//某数组
+function checkAdult(age){//回掉函数，即为筛选数组的方法
+    return age >= 18;
+}
+var adult = ages.filter(checkAdult);//返回ages中满足条件的元素并组成新数组[33,44,55]
+                    </code>
+                </pre>
+                <p>当你想要对一个数组进行筛选排除掉不符合条件的元素后获得一个新数组时可选择filter</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Array.prototype.some()</h2>
+                <p>
+                    测试数组中的某些元素是否通过了指定函数的测试。<br/>
+                    语法：arr.some(callback[, thisArg])<br>
+                    callback:用来测试每个元素的函数。<br>
+                    thisArg:执行 callback 时使用的 this 值。<br>
+                    some 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。如果找到了这样一个值，some 将会立即返回 true。否则，some 返回 false。callback 只会在那些”有值“的索引上被调用，不会在那些被删除或从来未被赋值的索引上调用。
+                </p>
+            </section>
+            <section>
+                <p>
+                    some 不会改变原数组。<br>
+                    <br>
+                    some 遍历的元素的范围在第一次调用 callback. 时就已经确定了。在调用 some 后被添加到数组中的值不会被 callback 访问到。如果数组中存在且还未被访问到的元素被 callback 改变了，则其传递给 callback 的值是 some 访问到它那一刻的值。
+                </p>
+            </section>
+            <section>
+                <h3>实例</h3>
+                <pre>
+                    <code>
+function bigEnough(element,index,array){
+    return(element>=18);
+}
+var hams = [11,12,13,14,15].some(bigEnough);
+//hams = false布尔值
+var hams = [11,12,13,14,15,18.8].some(bigEnough);
+//hams = true
+                    </code>
+                </pre>
+                <p>当你想要对一个数组进行筛选检查里面有没有符合判定条件元素时可使用，将获得一个布尔值</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Array.prototype.map()</h2>
+                <p>
+                    返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。<br/>
+                    语法：arr.map(callback[, thisArg])<br>
+                    callback：每个元素将要执行的函数。<br>
+                    thisArg:执行 callback 时使this指向的对象。<br>
+                    map 方法会给原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。 callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。
+                </p>
+            </section>
+            <section>
+                <p>
+                    map 不修改调用它的原数组本身（可以在 callback 执行时改变原数组）。<br>
+                    <br>
+                    使用 map 方法处理数组时，数组元素的范围是在 callback 方法第一次调用之前就已经确定了。在 map 方法执行的过程中：原数组中新增加的元素将不会被 callback 访问到；若已经存在的元素被改变或删除了，则它们的传递到 callback 的值是 map 方法遍历到它们的那一时刻的值；而被删除的元素将不会被访问到。
+                </p>
+            </section>
+            <section>
+                <h3>实例</h3>
+                <pre>
+                    <code>
+var numbers = [1, 4, 9];
+var roots = numbers.map(Math.sqrt);
+/* roots的值为[1, 2, 3], numbers的值仍为[1, 4, 9] */
+                    </code>
+                    <code>
+var gv = [{key : "英俊" , value : "鹿男春"},{key : "欢乐" , value : "余囧年"}];
+//gv里两个对象，两个属性key和value
+function reformatted(obj) {
+    var robj = {};
+    robj[obj.key] = obj.value;
+//robj的属性为obj的key属性的值，这个属性的值为obj的value属性的值
+    return robj;
+}
+var av = gv.map(reformatted);//gv转av
+console.log(av);//av[{英俊：鹿男春},{欢乐：庆囧年}]
+                    </code>
+                </pre>
+                <p>当你想要对一个数组中的所有元素进行某些操作时可使用，将获得一个数组</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>forEach()</h2>
+                <p>
+                    forEach 方法按升序为数组中含有效值的每一项执行一次callback 函数，那些已删除（使用delete方法等情况）或者从未赋值的项将被跳过（但不包括那些值为 undefined 的项）。<br>
+                    forEach 遍历的范围在第一次调用 callback 前就会确定。调用forEach 后添加到数组中的项不会被 callback 访问到。如果已经存在的值被改变，则传递给 callback 的值是 forEach 遍历到他们那一刻的值。已删除的项不会被遍历到。
+                </p>
+            </section>
+            <section>
+                <h3>实例</h3>
+                <pre>
+                    <code>
+var num = [1,2,3,4,5,6,7,8,9];
+var special = [];
+num.forEach(function (e) {
+    if ( e%2 == 0 ){
+        special.push(e)
+    }else if( e%3 == 0 ){
+        special.push(e)
+    }
+});
+alert(special);
+                    </code>
+                </pre>
+                <p>个人理解Foreach语法关键字还是for(字面意思对于每一个和对于，自动的从索引0遍历到索引max，省略了诸如(i=0;i<10;i++))，这个语法只是对for语法的一个简化而已。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>见前文实例</p>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                <p>forEach中，若在遍历过程中原数组改变会发生什么事</p>
+            </section>
+            <section>
+                <p>如果在迭代期间修改数组，则可能跳过其他元素。</p>
+                <pre>
+                    <code>
+var nums = [1,2,3,4,5];
+nums.forEach(function(num) {
+    console.log(num);
+    if (num === 3) {
+        nums.shift();//此时删掉了  1  ，所有剩余元素位置向前一格
+        // 于是原本第三次循环应走的nums[2]又3变成了4，3就被越过了
+        //此时nums=[2,3,4,5,]，然后原数组就被改变了
+        //console为1，2，3，5
+    }
+});
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="https://developer.mozilla.org/en-US/" target="_blank">https://developer.mozilla.org/en-US/</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 鹿男春 | 翟金超</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>
