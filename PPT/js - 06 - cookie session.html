@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-task6】域名、cookie和session</h2>
+            <h3>小课堂</h3>
+            <p>分享人：李博宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.域名</p>
+            <p>3.cookie</p>
+            <p>4.Session</p>
+            <p>5.cookie 和session比较</p>
+            <p>6.参考文献</p>
+            <p>7.结尾</p>
+        </section>
+
+        <section>
+            <p>域名，cookie是什么？有什么用处？cookie session的区别?cookie的失效期？ </p>
+        </section>
+        <section>
+            <h3>2.域名（Domain names）</h3>
+        </section>
+        <section>
+            <section>
+                <h4>什么是域名（Domain names）</h4>
+            </section>
+            <section>
+                <p>域名（Domain names）是互联网基础架构的关键部分,是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名是一个IP地址上的“面具” ,它们为互联网上任何可用的网页服务器提供了人类可读的地址。</p>
+            </section>
+            <section>
+                <p>域名的结构</p>
+                <p>一个完整的域名由2个或2个以上的部分组成，它被点分隔，并需要从右到左阅读。</p>
+                <p>WWW.baidu.com</p>
+                <p>“com”是顶级域名,标号“baidu”是这个域名的主体,www.是网络名</p>
+            </section>
+            <section>
+                <p>顶级域名：</p>
+                <p>COM--用于商业机构,任何人都可以注册.COM 形式的域名。</p>
+                <p>NET--最初用于网络组织</p>
+                <p>ORG--最初为各种组织包括非盈利组织而定的</p>
+                <p>.cn是中国专用的顶级域名</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.cookie</h3>
+            </section>
+            <section>
+                <p>HTTP协议是无状态的协议。一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。</p>
+            </section>
+            <section>
+                <p>Cookie实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。服务器还可以根据需要修改</p>
+            </section>
+            <section>
+                <p>Cookie的不可跨域名性</p>
+                <p> Cookie在客户端是由浏览器来管理的。</p>
+                <p>例子：浏览器能够保证Google只会操作Google的Cookie而不会操作Baidu的Cookie，从而保证用户的隐私安全。images.google.com与网站www.google.com同属于Google，但是域名不一样，二者同样不能互相操作彼此的Cookie。</p>
+            </section>
+            <section>
+                <p>int maxAge：该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为–1</p>
+            </section>
+            <section>
+                <p>Cookie的修改、删除</p>
+                <p>Cookie并不提供修改、删除操作。如果要修改某个Cookie，只需要新建一个同名的Cookie，添加到response中覆盖原来的Cookie。
+                <p>如果要删除某个Cookie，只需要新建一个同名的Cookie，并将maxAge设置为0</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.Session</h3>
+            </section>
+            <section>
+                <p>Session是服务器端技术，利用这个技术，服务器在运行时可以为每一个用户的浏览器创建一个其独享的session对象，由于session为用户浏览器独享，所以用户在访问服务器的web资源时，可以把各自的数据放在各自的session中，当用户再去访问服务器中的其它web资源时，其它web资源再从用户各自的session中取出数据为用户服务。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>cookie 和session</p>
+            </section>
+            <section>
+                <p>1、cookie数据存放在客户的浏览器上，session数据放在服务器上。</p>
+                <p>2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session。</p>
+                <p>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE</p>
+                <p>4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</p>
+                <p>所以一般建议：</p>
+                <p>将登陆信息等重要信息存放为SESSION</p>
+                <p>其他信息如果需要保留，可以放在COOKIE中</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank">Cookie/Session机制详解</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 李博宇</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
