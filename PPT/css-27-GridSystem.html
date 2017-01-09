@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>bootstrap的栅格系统</h2>
+            <h3>小课堂【郑州第27期】</h3>
+            <p>分享人：陈红远</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.Bootstrap中的栅格</p>
+            <p>3.容器container</p>
+            <p>4.行row</p>
+            <p>5.列col</p>
+            <p>6.嵌套</p>
+            <p>7.总结</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<img src="../img/css-27-GridSystem/one.png">
+            <p>像这样，通过固定的格子结构，来进行布局设计。这是一种设计风格，而且一直以来很广泛地应用于网页设计领域。这样的风格清晰、工整，可以让网页具有更友好的浏览体验。而随着响应式设计（responsive design）的流行，栅格系统开始被赋予新的意义，那就是，一种响应式设计的实现方式。</p>
+        </section>
+        <section>
+            <h3>2.Bootstrap中的栅格</h3>
+        </section>
+        <section>
+            <p>Bootstrap内置了一套响应式、移动设备优先的流式栅格系统，随着屏幕设备或视口（viewport）尺寸的增加，系统会自动分为最多12列。它就是通过一系列的行（row）与列（column）的组合创建页面布局，然后你的内容就可以放入到你创建好的布局当中。正确的基本结构是这样的</p>
+            <pre>
+                <code>
+                <div class="container">
+    			<div class="row">
+      			<div class="col-xs-12"></div>
+    			</div>
+				</div>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>3.容器container</h3>
+        </section>
+        <section>
+            <p>Container是一个容器，使用它的主要是有两个目的</p>
+            <p>1,在响应式宽度上提供宽度约束。响应式尺寸的改变其实改变的是 container ，行 (rows) 和列 (columns) 都是基于百分比的所以它们不需要做任何改变</p>
+            <p>2,提供 padding 以至于不内容不直为紧贴于浏览器边缘，两边都是 15px ，下图中粉色的就是了，稍后解释更多；</p>
+            <img src="../img/css-27-GridSystem/two.png">
+        </section>
+        <section>
+            <h3>4.行row</h3>
+        </section>
+        <section>
+            <p>row 为col提供了空间，理想上一行上分了12个col ，当所有col都向左浮时row 也就扮演了容器角色，另外当浮动有问题时row也不会重叠。</p>
+            <p>row的两侧都拥有独特的负15px的margin 值,如下图中蓝色部分.被当作为row的div被约束在 container内边界与粉色区域重叠，但没超过。这负的15px margin值把row推出了 container的15pxpadding，并与之重叠，本质上讲就是负出去。为什么这么做呢？原因得看列 (col) 的工作原理，下面我们会看到</p>
+            <img src="../img/css-27-GridSystem/three.png">
+        </section>
+        <section>
+            <h3>5.列col</h3>
+        </section>
+        <section>
+            <P>列(col)也有15px的padding，如下图中黄颜色部分。上文中提到row的负margin抵消了container的padding，所以为每个column设置padding就是为了防止内容直接触碰边界，使内容不会紧贴在浏览器边界上，而列与列之间有了padding才不会互相紧贴在一起。但是容器，行，与列的3个15px只是为了不让col紧贴浏览器边缘么，那直接取消container和row的15px只留下col的15px就行，为什么这么麻烦呢，继续分析</P>
+            <img src="../img/css-27-GridSystem/four.png">
+        </section>
+        <section>
+            <h3>6.嵌套</h3>
+        </section>
+        <section>
+            <p>你设置了container,row,column后，如果要在column中嵌套column首先要把被嵌套的column放到row中，把row放到作为容器的column中，而不需要在放置一个container中，col就充当了container如下图蓝色所示，是放入col中的row的负margin 15px区域</p>
+            <img src="../img/css-27-GridSystem/five.png">		
+        </section>
+        <section>
+            <p>而下图继续将col放入row中，这样就构成了循环</p>
+            <img src="../img/css-27-GridSystem/six.png">
+            <p>我觉得嵌套的使用应该是最符合container，row，column的这3个15px来回使用的解释了</p>
+        </section>
+        
+        <section>
+            <h3>7.总结</h3>
+            <p>这样container，row，column的3个15px，一个作用就是为了不让内容紧贴浏览器边缘，另一个就是嵌套这样的精妙使用</p>
+        </section>
+        <section>
+            <section>
+            <p>参考一：<a href="http://www.tuicool.com/articles/Afuu2q/" target="_blank">http://www.tuicool.com/articles/Afuu2q/</a></p>
+            <p>参考一：<a href="http://www.cnblogs.com/dojo-lzz/p/4621627.html" target="_blank">http://www.cnblogs.com/dojo-lzz/p/4621627.html</a></p>
+        </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈红远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
