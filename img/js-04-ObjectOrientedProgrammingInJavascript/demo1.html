@@ -1,0 +1,86 @@
+<!--<script>-->
+<!--var Vehicle = function (){-->
+<!--this.price = 1000;-->
+<!--};-->
+
+<!--var v = new Vehicle();-->
+<!--v.price // 1000-->
+<!--console.log(v.price)-->
+
+<!--var ve = new Vehicle(500);-->
+<!--var v1 = new Vehicle();-->
+<!--var v2 = new Vehicle;-->
+<!--console.log(ve);-->
+<!--console.log(v1);-->
+<!--console.log(v2);-->
+<!--</script>-->
+
+<!--<script>-->
+    <!--var Vehicle = function (){-->
+        <!--this.price = 1000;-->
+    <!--};-->
+
+    <!--var v = Vehicle();-->
+    <!--v.price-->
+    <!--// Uncaught TypeError: Cannot read property 'price' of undefined-->
+
+<!--</script>-->
+
+
+<script>
+function Shape() {
+this.x = 0;
+this.y = 0;
+}
+
+//我们需要让Rectangle构造函数继承Shape。
+
+// 第一步，子类继承父类的实例
+function Rectangle() {
+    Shape.call(this); // 调用父类构造函数
+}
+//// 另一种写法
+//function Rectangle() {
+//    this.base = Shape;
+//    this.base();
+//}
+
+// 第二步，子类继承父类的原型
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle;
+console.log(Rectangle);
+//采用这样的写法以后，instanceof运算符会对子类和父类的构造函数，都返回true。
+
+var rect = new Rectangle();
+
+rect instanceof Rectangle  // true
+rect instanceof Shape  // true
+console.log(rect);
+</script>
+
+<!--<script>-->
+    <!--function Fubar(foo, bar){-->
+        <!--'use strict';-->
+        <!--this._foo = foo;-->
+        <!--this._bar = bar;-->
+    <!--}-->
+
+    <!--Fubar();-->
+    <!--// TypeError: Cannot set property '_foo' of undefined-->
+<!--</script>-->
+
+<!--<script>-->
+    <!--function Fubar(foo, bar){-->
+        <!--if (!(this instanceof Fubar)) {-->
+            <!--return new Fubar(foo, bar);-->
+        <!--}-->
+
+        <!--this._foo = foo;-->
+        <!--this._bar = bar;-->
+    <!--}-->
+
+    <!--Fubar(1, 2)._foo // 1-->
+    <!--(new Fubar(1, 2))._foo // 1-->
+<!--</script>-->
+
+

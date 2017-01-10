@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS中的面向对象编程</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <style>
+        p{
+            text-align: left;
+            /*text-indent:1em;*/
+            /*word-break: break-all;*/
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】JS中的面向对象编程</h2>
+            <h3>小课堂【武汉第54期】</h3>
+            <p style="text-align: center">分享人：胡思豪</p>
+        </section>
+        <section >
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>什么是面向对象编程？</h4>
+            <p >“面向对象编程”（Object Oriented Programming，缩写为OOP）是目前主流的编程范式。它的核心思想是将真实世界中各种复杂的关系，抽象为一个个对象，然后由对象之间的分工与合作，完成对真实世界的模拟。</p>
+
+            <p>主要概念为：
+                把一组数据结构和处理它们的方法组成对象（object），把相同行为的对象归纳为类（class），通过类的封装（encapsulation）隐藏内部细节，通过继承（inheritance）实现类的特化（specialization）／泛化（generalization），通过多态（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。
+            </p>
+        </section>
+        <section>
+            <section>
+                <p>
+                    （注意：JavaScript不是一种模块化编程语言，ES5不支持”类”（class），也没有”模块”（module）。ES6正式支持”类”和”模块”，但还没有成为主流。）
+
+                形象的解释↓↓↓
+                </p>
+            </section>
+            <section >
+                <img style="width: 700px" src="../img/js-04-ObjectOrientedProgrammingInJavascript/666.jpg">
+            </section >
+
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>2.1对象的概念</h4>
+            <p> （1）“对象”是单个实物的抽象。
+                一本书、一辆汽车、一个人都可以是“对象”，一个数据库、一张网页、一个与远程服务器的连接也可以是“对象”。
+                当实物被抽象成“对象”，实物之间的关系就变成了“对象”之间的关系，从而就可以模拟现实情况，针对“对象”进行编程。
+
+                （2）“对象”是一个容器，封装了“属性”（property）和“方法”（method）。
+                所谓“属性”，就是对象的状态；
+                所谓“方法”，就是对象的行为（完成某种任务）。
+                比如，我们可以把动物抽象为animal对象，“属性”记录具体是那一种动物，“方法”表示动物的某种行为（奔跑、捕猎、休息等等）。
+            </p>
+        </section>
+        <section>
+            <h4>2.2 构造函数</h4>
+            <p>
+                “面向对象编程”的第一步，就是要生成“对象”。
+                JavaScript语言的对象体系，不是基于“类”，而是基于构造函数（constructor）和原型链（prototype）。
+                所谓“构造函数”，就是专门用来生成“对象”的函数。它提供模板，描述对象的基本结构。一个构造函数，可以生成多个对象，这些对象都有相同的结构。
+                构造函数的写法就是一个普通的函数，但是有自己的特征和用法。
+            </p>
+        </section>
+        <section>
+            <P>
+                代码演示：
+            </P>
+            <pre style="height: 100px">
+                <code>
+                    var Vehicle = function () {
+                    this.price = 1000;
+                    };
+                </code>
+            </pre>
+            <p>
+                上面代码中，Vehicle就是构造函数，它提供模板，用来生成对象实例。为了与普通函数区别，构造函数名字的第一个字母通常大写。
+                构造函数的两个特点：
+                1.函数体内部使用了this关键字，代表了所要生成的对象实例。
+                2.生成对象的时候，必需用new命令，调用Vehicle函数。
+            </p>
+        </section>
+        <section>
+            <h3>2.3 new 命令</h3>
+            <p>
+                new命令的作用，就是执行构造函数，返回一个实例对象。
+            </p>
+            <pre  style="height: 175px">
+                <code>
+  var Vehicle = function (){                           ①
+  this.price = 1000;
+};
+
+var v = new Vehicle();
+v.price // 1000
+console.log(v.price)
+                </code>
+            </pre>
+            <p>
+                上面代码通过new命令，让构造函数Vehicle生成一个实例对象，保存在变量v中。这个新生成的实例对象，从构造函数Vehicle继承了price属性。在new命令执行时，构造函数内部的this，就代表了新生成的实例对象，this.price表示实例对象有一个price属性，它的值是1000。
+            </p>
+        </section>
+        <section>
+<p>使用new命令时，根据需要，构造函数也可以接受参数。</p>
+            <pre  style="height: 175px">
+                <code>
+ var Vehicle = function (p) {
+  this.price = p;
+};
+var v = new Vehicle(500);
+                </code>
+            </pre>
+         <p>new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。下面两行代码是等价的。</p>
+            <pre  style="height: 175px">
+                <code>
+var v = new Vehicle();
+var v = new Vehicle;
+                </code>
+            </pre>
+        </section>
+        <section>
+        <section>
+            <P>如果忘了使用new命令，直接调用构造函数会导致构造函数变成普通函数，就不会生成实例对象，并且此时的this这时代表全局对象，将造成一些意想不到的结果。
+            </P>
+            <pre >
+                <code>
+                    ②
+var Vehicle = function (){
+  this.price = 1000;
+};
+
+var v = Vehicle();
+v.price
+// Uncaught TypeError: Cannot read property 'price' of undefined
+
+                </code>
+            </pre>
+        </section>
+            <section>
+                <p>上面代码中，调用Vehicle构造函数时，忘了加上new命令。结果，price属性变成了全局变量，而变量v变成了undefined。
+                    <strong>因此必须小心，记得使用new命令。</strong>
+            </section>
+
+            </p>
+        </section>
+        <section>
+            <h4>
+                2.4原型和原型链
+            </h4>
+            <p>
+                原型prototype
+                JavaScript的每个对象都继承另一个对象，后者称为“原型” （prototype）对象。只有null除外，它没有自己的原型对象。
+                原型对象上的所有属性和方法，都能被派生对象共享。这就是JavaScript继承机制的基本设计。
+                通过构造函数生成实例对象时，会自动为实例对象分配原型对象。每一个构造函数都有一个prototype属性，这个属性就是实例对象的原型对象。
+            </p>
+        </section>
+        <section>
+            <p>
+                原型链
+                对象的属性和方法，有可能是定义在自身，也有可能是定义在它的原型对象。由于原型本身也是对象，又有自己的原型，所以形成了一条原型链（prototype chain）。比如，a对象是b对象的原型，b对象是c对象的原型，以此类推。
+                “原型链”的作用是，读取对象的某个属性时，JavaScript引擎先寻找对象本身的属性，如果找不到，就到它的原型去找，如果还是找不到，就到原型的原型去找。如果直到最顶层的Object.prototype还是找不到，则返回undefined。
+                需要注意的是，一级级向上，在原型链寻找某个属性，对性能是有影响的。所寻找的属性在越上层的原型对象，对性能的影响越大。如果寻找某个不存在的属性，将会遍历整个原型链。
+            </p>
+        </section>
+        <section>
+            <h4>2.5 构造函数的继承</h4>
+            <p>
+                让一个构造函数继承另一个构造函数，是非常常见的需求。
+                可以分成两步实现。
+                1.在子类的构造函数中，调用父类的构造函数。
+            </p>
+            <pre style=" height: 150px">
+                <code>
+
+  function Sub(value) {
+  Super.call(this);
+  this.prop = value;
+}
+                </code>
+            </pre>
+            <P>
+                上面代码中，Sub是子类的构造函数，this是子类的实例。在实例上调用父类的构造函数Super，就会让子类实例具有父类实例的属性。
+            </P>
+        </section>
+        <section>
+            <p>2.让子类的原型指向父类的原型，这样子类就可以继承父类原型。</p>
+            <pre >
+                <code>
+
+Sub.prototype = Object.create(Super.prototype);
+Sub.prototype.constructor = Sub;
+Sub.prototype.method = '...';
+                </code>
+            </pre>
+            <p>上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。</p>
+        </section>
+        <section>
+            <P>
+                另外一种写法是Sub.prototype等于一个父类实例。
+            </P>
+            <pre >
+                <code>
+Sub.prototype = new Super();
+                </code>
+            </pre>
+<P>
+    上面这种写法也有继承的效果，但是子类会具有父类实例的方法。有时，这可能不是我们需要的，所以不推荐使用这种写法。
+</P>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.必须要声明new来创建实例对象吗？</p>
+            <p>2.原型链向上追溯的终点是什么？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1.必须要声明new来创建实例对象吗？
+                为了保证构造函数必须与new命令一起使用，一个解决办法是，在构造函数内部使用严格模式，即第一行加上use strict。</p>
+            <pre style="height: 200px">
+                <code>
+function Fubar(foo, bar){   ④
+        'use strict';
+        this._foo = foo;
+        this._bar = bar;
+    }
+
+    Fubar();
+    // TypeError: Cannot set property '_foo' of undefined
+                </code>
+            </pre>
+            <p>
+                上面代码的Fubar为构造函数，use strict命令保证了该函数在严格模式下运行。由于在严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript不允许对undefined添加属性）。
+            </p>
+        </section>
+        <section>
+          <p>另一个解决办法，是在构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象。</p>
+            <pre >
+                <code>
+function Fubar(foo, bar){          ⑤
+  if (!(this instanceof Fubar)) {
+    return new Fubar(foo, bar);
+  }
+
+  this._foo = foo;
+  this._bar = bar;
+}
+
+Fubar(1, 2)._foo // 1
+(new Fubar(1, 2))._foo // 1
+                </code>
+            </pre>
+            <p>上面代码中的构造函数，不管加不加new命令，都会得到同样的结果。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <P>创建构造函数和构造函数的继承
+                <a href="../img/js-04-ObjectOrientedProgrammingInJavascript/demo1.html"> demo链接，F12调试见第三段script代码</a>
+            </P>
+
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">
+                面向对象与面向过程的区别？
+                传统的过程式编程（procedural programming）由一系列函数或一系列指令组成；而面向对象编程的程序由一系列对象组成。
+                每一个对象都是功能中心，具有明确分工，可以完成接受信息、处理数据、发出信息等任务。因此，面向对象编程具有灵活性、代码的可重用性、模块性等特点，容易维护和开发，非常适合多人合作的大型应用型软件项目。
+            </p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://javascript.ruanyifeng.com/oop/basic.html">阮一峰</a></p>
+            <p>参考二：<a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&cof=FORID%3A11&ie=UTF-8&q=Javascript+%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B&sa.x=9&sa.y=8">阮一峰</a></p>
+            <p>参考三：<a href="https://www.zhihu.com/question/19854505">知乎</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>new命令的原理？</p>
+            <P>构造函数中的return语句的作用？</P>
+            <P>面向对象编程的继承原理？</P>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center"><small>BY : 黄雄 | 胡思豪</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
