@@ -33,14 +33,14 @@
                 <p>分享人：陈冲</p>
             </section>
             <section>
-                <p>目录</p>
                 <p>1.背景介绍</p>
-                <p>2.认识this</p>
-                <p>3.this的调用</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
                 <p>4.解决方案</p>
-                <p>5.扩展思考</p>
-                <p>6.参考文献</p>
-                <p>7.更多讨论</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
             </section>
             <section>
                 <h3>1.背景介绍</h3>
@@ -49,7 +49,7 @@
                 <p>在Java语言中，this关键字的含义是明确且具体的，表示当前对象。而在javascript中，this是动态绑定的，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。这就导致了this具备了多重含义，可以使得javascript更灵活的使用。但是，带来了灵活性的同时也会给我们初学者带来不少困惑。</p>
             </section>
             <section>
-                <h3>2.认识this</h3>
+                <h3>2.知识剖析</h3>
             </section>
            <section>
                 <p>全局环境中的this</p>
@@ -75,9 +75,6 @@
                 </code>
                 </pre>
                 <p>原因：this 并不会指向全局，而是 undefined，这样的做法是为了消除 js 中一些不严谨的行为</p>
-            </section>
-            <section>
-                <h3>3.this的调用</h3>
             </section>
             <section>
                 <p>在javascritp中，不一定只有对象方法的上下文中才有this， 全局函数调用和其他的几种不同的上下文中也有this指代。 它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。JavaScript 中函数的调用有以下几种方式：作为对象方法调用，作为函数调用，作为构造函数调用，和使用 apply 或 call 调用。</p>
@@ -144,7 +141,7 @@
                 </pre>
             </section>
             <section>
-                <h3>4.常见问题</h3>
+                <h3>3、常见问题</h3>
             </section>
             <section>
                 <p>问题一</p>
@@ -184,7 +181,7 @@
                 <p>现象：加了严格模式，foo 调用也没有指定 this，应该是出来undefined，但是这里仍然出现了全局对象</p>
             </section>
             <section>
-                <h3>5.解决方案</h3>
+                <h3>4、解决方案</h3>
             </section>
             <section>
                 <p>问题一可以这么这么解决：利用 闭包 的特性来处理</p>
@@ -233,6 +230,72 @@
                 <p>可以看到直接用 this 仍然是 Window；因为 foo2 中的 this 是指向 obj，我们可以先用一个变量 _this 来储存，然后在回调函数中使用 _this，就可以指向当前的这个对象了</p>
             </section>
             <section>
+                <h3>5、编码实战</h3>
+            </section>
+            <section>
+                <p>
+                    对于内部函数，即声明在另外一个函数体内的函数，这种绑定到全局对象的方式会产生另外一个问题。我们仍然以前面提到
+                    的 point 对象为例，这次我们希望在 moveTo 方法内定义两个函数，分别将 x，y 坐标进行平移。结果可能出乎大家意
+                    料，不仅 point 对象没有移动，反而多出两个全局变量 x，y
+                </p>
+                    <pre>
+                        <code>
+                        var point = {
+                        x : 0,
+                        y : 0,
+                        moveTo : function(x, y) {
+                        // 内部函数
+                        var moveX = function(x) {
+                        this.x = x;//this 绑定到了哪里？
+                        };
+                        // 内部函数
+                        var moveY = function(y) {
+                        this.y = y;//this 绑定到了哪里？
+                        };
+
+                        moveX(x);
+                        moveY(y);
+                        }
+                        };
+                        point.moveTo(1, 1);
+                        point.x; //==>0
+                        point.y; //==>0
+                        x; //==>1
+                        y; //==>1
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <p>
+                    这属于 JavaScript 的设计缺陷，正确的设计方式是内部函数的 this 应该绑定到其外层函数对应的对象上，为了规避这一设
+                    计缺陷，聪明的 JavaScript 程序员想出了变量替代的方法，约定俗成，该变量一般被命名为 that。
+                </p>
+                    <pre>
+                       <code>
+                        var point = {
+                        x : 0,
+                        y : 0,
+                        moveTo : function(x, y) {
+                             var that = this;
+                            // 内部函数
+                            var moveX = function(x) {
+                            that.x = x;
+                            };
+                            // 内部函数
+                            var moveY = function(y) {
+                            that.y = y;
+                            }
+                            moveX(x);
+                            moveY(y);
+                            }
+                        };
+                        point.moveTo(1, 1);
+                        point.x; //==>1
+                        point.y; //==>1
+                       </code>
+                    </pre>
+            </section>
+            <section>
                 <h3>6.扩展思考</h3>
             </section>
             <section>
@@ -247,6 +310,12 @@
                 <p>参考二：<a href="https://qiutc.me/post/this-this-this-in-javascript.html">JavaScript 中的 this !</a></p>
                 <p>参考三：<a href="http://caibaojian.com/toutiao/6859">JavaScript中的this用法与指向</a></p>
                 <p>参考四：<a href="https://www.zhihu.com/question/19636194">如何理解 JavaScript 中的 this 关键字？</a></p>
+            </section>
+            <section>
+                <h3>8、更多讨论</h3>
+                <p>this含义为何如此丰富？</p>
+                <p>理解this的指向有何意义？</p>
+                <p><a href="http://www.imooc.com/article/1848">答案链接</a></p>
             </section>
             <section>
                 <h4>鸣谢</h4>
