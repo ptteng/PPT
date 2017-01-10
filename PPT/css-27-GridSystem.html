@@ -36,14 +36,14 @@
             <p>分享人：陈红远</p>
         </section>
         <section>
-            <p>目录</p>
             <p>1.背景介绍</p>
-            <p>2.Bootstrap中的栅格</p>
-            <p>3.容器container</p>
-            <p>4.行row</p>
-            <p>5.列col</p>
-            <p>6.嵌套</p>
-            <p>7.总结</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
         </section>
         <section>
             <h3>1.背景介绍</h3>
@@ -53,7 +53,7 @@
             <p>像这样，通过固定的格子结构，来进行布局设计。这是一种设计风格，而且一直以来很广泛地应用于网页设计领域。这样的风格清晰、工整，可以让网页具有更友好的浏览体验。而随着响应式设计（responsive design）的流行，栅格系统开始被赋予新的意义，那就是，一种响应式设计的实现方式。</p>
         </section>
         <section>
-            <h3>2.Bootstrap中的栅格</h3>
+            <h3>2.知识剖析</h3>
         </section>
         <section>
             <p>Bootstrap内置了一套响应式、移动设备优先的流式栅格系统，随着屏幕设备或视口（viewport）尺寸的增加，系统会自动分为最多12列。它就是通过一系列的行（row）与列（column）的组合创建页面布局，然后你的内容就可以放入到你创建好的布局当中。正确的基本结构是这样的</p>
@@ -67,52 +67,79 @@
                 </code>
             </pre>
         </section>
-        <section>
-            <h3>3.容器container</h3>
+         <section>
+            <h3>3.常见问题</h3>
         </section>
         <section>
+            <p>栅格布局的用法相信大家都很熟悉了，今天我们主要来探讨容器的padding 15px,行的margin -15px，列的padding 15px为什么要这么来回的使用15px</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>容器container</h3>
             <p>Container是一个容器，使用它的主要是有两个目的</p>
             <p>1,在响应式宽度上提供宽度约束。响应式尺寸的改变其实改变的是 container ，行 (rows) 和列 (columns) 都是基于百分比的所以它们不需要做任何改变</p>
             <p>2,提供 padding 以至于不内容不直为紧贴于浏览器边缘，两边都是 15px ，下图中粉色的就是了，稍后解释更多；</p>
             <img src="../img/css-27-GridSystem/two.png">
         </section>
         <section>
-            <h3>4.行row</h3>
-        </section>
-        <section>
+            <h3>行row</h3>
             <p>row 为col提供了空间，理想上一行上分了12个col ，当所有col都向左浮时row 也就扮演了容器角色，另外当浮动有问题时row也不会重叠。</p>
             <p>row的两侧都拥有独特的负15px的margin 值,如下图中蓝色部分.被当作为row的div被约束在 container内边界与粉色区域重叠，但没超过。这负的15px margin值把row推出了 container的15pxpadding，并与之重叠，本质上讲就是负出去。为什么这么做呢？原因得看列 (col) 的工作原理，下面我们会看到</p>
             <img src="../img/css-27-GridSystem/three.png">
         </section>
         <section>
-            <h3>5.列col</h3>
-        </section>
-        <section>
+            <h3>列col</h3>
             <P>列(col)也有15px的padding，如下图中黄颜色部分。上文中提到row的负margin抵消了container的padding，所以为每个column设置padding就是为了防止内容直接触碰边界，使内容不会紧贴在浏览器边界上，而列与列之间有了padding才不会互相紧贴在一起。但是容器，行，与列的3个15px只是为了不让col紧贴浏览器边缘么，那直接取消container和row的15px只留下col的15px就行，为什么这么麻烦呢，继续分析</P>
             <img src="../img/css-27-GridSystem/four.png">
         </section>
         <section>
-            <h3>6.嵌套</h3>
-        </section>
-        <section>
+            <h3>嵌套</h3>
             <p>你设置了container,row,column后，如果要在column中嵌套column首先要把被嵌套的column放到row中，把row放到作为容器的column中，而不需要在放置一个container中，col就充当了container如下图蓝色所示，是放入col中的row的负margin 15px区域</p>
-            <img src="../img/css-27-GridSystem/five.png">		
+            <img src="../img/css-27-GridSystem/five.png">       
         </section>
-        <section>
+            <section>
             <p>而下图继续将col放入row中，这样就构成了循环</p>
             <img src="../img/css-27-GridSystem/six.png">
             <p>我觉得嵌套的使用应该是最符合container，row，column的这3个15px来回使用的解释了</p>
+            </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <pre>
+                <code>
+            <div class="container">
+            <div class="row">
+            <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"></div>
+            </div>
+            </div>
+            <div class="col-md-4"></div>
+            </div>
+            </div>
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>对于这三个15px的反复使用，大家是否还有别的理解？</p>
         </section>
         
         <section>
-            <h3>7.总结</h3>
-            <p>这样container，row，column的3个15px，一个作用就是为了不让内容紧贴浏览器边缘，另一个就是嵌套这样的精妙使用</p>
-        </section>
-        <section>
-            <section>
+            <h3>7.参考文献</h3>
             <p>参考一：<a href="http://www.tuicool.com/articles/Afuu2q/" target="_blank">http://www.tuicool.com/articles/Afuu2q/</a></p>
             <p>参考一：<a href="http://www.cnblogs.com/dojo-lzz/p/4621627.html" target="_blank">http://www.cnblogs.com/dojo-lzz/p/4621627.html</a></p>
         </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>栅格系统的真的很精妙，可以有更多的用法和理解么？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
