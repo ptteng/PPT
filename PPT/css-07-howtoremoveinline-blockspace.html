@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task7】</h2>
+            <h3>小课堂【郑州】</h3>
+        
+        </section>
+        <section>
+            <h3>如何消除inline-block元素之间的间距</h3>
+            <p>分享人：王义山</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+           <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>1.提到去除inline-block元素间空白间距，我们不得不先从inline-block元素的背景说起，inline-block水平元素，相信大家都不陌生，因为这是我们写网页时，必须考虑的因素。<p/>
+            <p>2.我们知道，元素有inline，block元素，当然还有我们的inline-block元素，inline-block水平的元素，他比较牛逼，既可以像inline元素一样显示，也可以像block元素一样设置宽高。那么问题来了？，常见的带有inline-block元素性质的元素有哪些呢？ en,,,,,,,比如：img,input,button,,,,还有啥，，，（自己查查啊）</p>
+        </section>
+         <section>
+           <p>上面不是重点，重点是我们可以通过display属性自定义元素为inline-block水平，这也是利用inline-block元素进行布局的可能条件。但是，世界上没有十全十美的事儿，inline-block在牛逼，也有不足的时候，，，，好,,,,,,we are go on，，，，</p>
+         </section>
+         <section>
+           <h3>二.知识刨析/常见问题/编码实战</h3>
+            <p>dang dang dang ,,yi</p>
+            <img src="../img/demo/inline-block.png"/>
+            <p>,真正意义上inline-block水平元素产生空白间距，是多个inline-block元素水平方向，有空格时，或换行显示时，有空白间距</p>
+        </section>
+        <section>
+              <p>我们使用CSS更改非inline-block水平元素为inline-block水平，也会有该问题：比如</p>
+               <pre> 
+                <code>
+                  .space a {
+                 display: inline-block;
+                 padding: .5em 1em;
+                 background-color: #cad5eb;
+                 }
+                 </code>
+                 <pre/>
+                 <pre>
+                 <code>
+                 <div class="space">
+                  <a href="##">正值</a>
+                  <a href="##">纯洁</a>
+                  <a href="##">善良</a>
+                  </div>
+                </code>
+               <pre/>
+        </section>
+        <section>
+           <p>这种表现是符合规范的应该有的表现（不是bug,不是bug，不是bug!）。不过，这类间距有时会对我们布局，或是兼容性处理                        产生影响，需要去掉它，该怎么办呢？以下展示ji种方法（欢迎补充）！</p>
+       </section>
+       <section>
+           <h3>四.解决方案</h3>
+        </section>
+        <section>
+            <h3>方法一：消除元素之间的空格</h3>
+             <p>元素间留白间距出现的原因就是标签段之间的空格，因此，去掉HTML中的空格，自然间距就木有了。考虑到代码可读性，显然连成一行的写法是不可取的，我们可以,,,</p>
+             <pre>
+                <code>
+                    <div class="box">
+                        <a href="#">正直
+                        </a><a href="#">纯洁
+                        </a><a href="#">善良</a>
+                     </div>
+                </code>
+            </pre>
+           <p>或者</p>
+           <pre>
+                <code>
+                    <div class="space">
+                   <a href="##">惆怅</a
+                   ><a href="##">淡定</a
+                   ><a href="##">热血</a>
+                     </div>
+                </code>
+            </pre>
+        </section> 
+        <section>
+            <p>解决方法二：在前一个的结尾标签和下一个的开始标签之前添加注释</p>
+            <pre>
+                <code>
+                    <div class="box">
+                        <a href="#">正直</a><!--
+                         --><a href="#">纯洁</a><!--
+                          --><a href="#">善良</a>
+                     </div>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>方法三：使用margin负值,具体数值需要根据上下文文字大小、文字属性、使用什么浏览器来确定.</h3>
+            <pre>
+                <code>
+                    <div class="box">
+                        <a href="#" style="margin-right: -8px;">正直</a>
+                        <a href="#" style="margin-right: -8px;">纯洁</a>
+                        <a href="#" style="margin-right: -8px;">善良</a>
+                    </div>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>方法四：直接让标签不闭合</h3>
+            <pre>
+                <code>
+                    <div class="box">
+                        <a href="#">正直
+                        <a href="#">纯洁
+                        <a href="#">善良</a>
+                    </div>
+                </code>
+            </pre>
+            <p>好吧，虽然感觉上有点怪怪的，但是，这是OK的，使用这种方法需注意最后一个标签必须闭合，不然后面元素显示会有问题</p>
+        </section>
+        <section>
+            <h3>方法五：为父元素设置font-size：0</h3>
+            <pre>
+                <code>
+                    <div class="box" style="font-size: 0">
+                        <a href="#" style="font-size: 16px">正直</a>
+                        <a href="#" style="font-size: 16px">纯洁</a>
+                        <a href="#" style="font-size: 16px">善良</a>
+                    </div>
+                </code>
+            </pre>
+            <p>特别注意设置了父元素之后，子元素也必须设置font-size，不然子元素继承父元素font-size之后，就啥都没了</p>
+        </section>
+        <section>
+            <h5>方法六：为父元素设定letter-spacing（字符间距） -8px，为子元素设定letter-spacing  0,类似于上面添加margin负值</h5>
+            <pre>
+                <code>
+                    <div class="box" style="letter-spacing: -8px">
+                        <a href="#" style="letter-spacing: 0">正直</a>
+                        <a href="#" style="letter-spacing: 0">纯洁</a>
+                        <a href="#" style="letter-spacing: 0">善良</a>
+                    </div>
+                </code>
+            </pre>
+            <p>这个letter-spacing的值与字符大小、浏览器的种类都有关系！</p>
+        </section>
+        <section>
+            <h3>方法七：使用word-spacing 单词间距</h3>
+            <pre>
+                <code>
+                    <div class="box" style="word-spacing: -8px">
+                        <a href="#" style="word-spacing: 0">正直</a>
+                        <a href="#" style="word-spacing: 0">纯洁</a>
+                        <a href="#" style="word-spacing: 0">善良</a>
+                    </div>
+                </code>
+            </pre>
+            <p>此方法跟上面方法完全类似，但是要注意，这个元素不能单独用于中文</p>
+        </section>
+        <section>
+            <h3>六.扩展思考</h3>
+            <p>以上去除空格的方法，其实现的原理是什么呢？为甚么这样可以实现呢？下去可以好好思考一下，我们下次讨论，，</p>
+       </section>
+       <section>
+            <h3>七.参考文献</h3>
+       </section>
+       <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+        </section>
+        <section>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/" target="_blank">张大神博客</a></p>
+        </section>
+         <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：除了inline-block水平元素，会有空白间距，别的元素有吗？比如：block元素，，，大家可以深思考虑下，，，</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>by 郑明月|王义山</small></p>
+          </section>
+     </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

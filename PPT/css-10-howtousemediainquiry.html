@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task6】</h2>
+            <h3>小课堂【成都】</h3>
+
+        </section>
+        <section>
+            <h3>media inquiry的使用</h3>
+            <p>分享人：方兵</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>在 CSS2 中，你可以为不同的媒介设备（如屏幕、打印机）指定专用的样式表，而现在借助 CSS3 的 Media Queries 特性，可以更为有效的实现这个功能。你可以为媒介类型添加某些条件，检测设备并采用不同的样式表。
+            <p/>
+        </section>
+        <section>
+            <h3>二.知识刨析</h3>
+            
+            <p>概念</p>
+            <p> @media 可以针对不同的屏幕尺寸设置不同的样式，特别是如果你需要设置设计响应式的页面，@media 是非常有用的。
+                当你重置浏览器大小的过程中，页面也会根据浏览器的宽度和高度重新渲染页面。</p>
+        </section>
+        <section>
+            <p>媒体类型</p>
+            <p>screen用于电脑屏幕，平板电脑，智能手机等设备</p>
+        </section>
+        <section>
+            <p>媒体功能</p>
+            <p>width = device-width：宽度等于当前设备的宽度</p>
+            <p>initial-scale：初始的缩放比例（默认设置为1.0） </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimum-scale：允许用户缩放到的最小比例（默认设置为1.0）</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum-scale：允许用户缩放到的最大比例（默认设置为1.0）</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user-scalable：用户是否可以手动缩放（默认设置为no，因为我们不希望用户放大缩小页面）</p>
+        </section>
+        <section>
+            <h3>知识扩展</h3>
+            <p> /* 常用设备 */<br/>
+                设备 屏幕尺寸参数<br/>
+                显示器 1280 x 800<br/>
+                ipad 1024 x 768<br/>
+                Android 800 x 480<br/>
+                iPhone 640 x 960</p>
+        </section>
+        <section>
+            <h3>三.常见问题 & 四.解决方案</h3>
+        </section>
+        <section>
+            <h3>兼容性问题1：</h3>
+            <p>现在有很多人的IE浏览器都升级到IE9以上了，但是浏览器的文档模式依然是之前的版本。</p>
+            <p>这会导致一些css样式渲染无效</p>
+            <img src="../img/css-06-howtousemediainquiry/1.png">
+        </section>
+        <section>
+            <p>为了防止这种情况，我们需要下面这段代码来让IE的文档模式永远都是最新的：</p>
+            <pre>
+            <code>
+              (meta http-equiv='X-UA-Compatible' content='IE=edge')
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>兼容性问题2：</h3>
+            <p>IE8既不支持HTML5也不支持CSS3 Media</p>
+        </section>
+        <section>
+            <p>我们需要加载两个JS文件，来保证我们的代码实现兼容效果：</p>
+            <pre>
+            <code>
+                  (!--[if lt IE 9])
+                (script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")(/script)
+                (script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")(/script)
+                (![endif]--)
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+        <section>
+            <p>CSS3 Media写法</p>
+            <p>我们先来看下下面这段代码，估计很多人在响应式的网站CSS很经常看到类似下面的这段代码：</p>
+            <pre><code>
+                @media screen and (max-width: 960px){
+                 body{
+                   background: #000;
+                     }
+                }
+                </code>
+            </pre>
+            <p>这个应该算是一个media的一个标准写法，上面这段CSS代码意思是：当页面小于960px的时候执行它下面的CSS.这个应该没有太大疑问。</p>
+        </section>
+        <section>
+            <p>等于960px尺寸的代码：</p>
+            <pre><code>
+                @media screen and ((max-device-width:960px){
+                 body{
+                   background: #000;
+                     }
+                }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>然后就是当浏览器尺寸大于960px时候的代码了：</p>
+            <pre><code>
+                @media screen and (min-width:960px){
+                 body{
+                   background: #000;
+                     }
+                }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>我们还可以混合使用上面的用法：</p>
+            <p>我们先来看下下面这段代码，估计很多人在响应式的网站CSS很经常看到类似下面的这段代码：</p>
+            <pre><code>
+               @media screen and (min-width:960px) and (max-width:1200px){
+                body{
+                  background:yellow;
+                    }
+                }
+                </code>
+            </pre>
+            <p>上面的这段代码的意思是当页面宽度大于960px小于1200px的时候执行下面的CSS。</p>
+        </section>
+        <section>
+            <h3>六.扩展思考</h3>
+        </section>
+        <section>
+            <p>@media 和@media screen有什么区别？</p>
+        </section>
+        <section>
+            <p>解密</p>
+            <img src="../img/css-06-howtousemediainquiry/same.gif">
+            <p>上图看出，没有任何区别。没错，确实没有任何区别，因为@media与@media screen的css在手机设备里都是有效的。</p>
+        </section>
+        <section>
+            <img src="../img/css-06-howtousemediainquiry/media.png">
+            <p>@media screen的css在打印设备里是无效的。</p>
+        </section>
+        <section>
+            <img src="../img/css-06-howtousemediainquiry/screen.png">
+            <p>而@media在打印设备里是有效的，这就是它们的区别了。</p>
+        </section>
+        <section>
+            <h3>七.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.360doc.com/content/14/0704/06/10734150_391862769.shtml"
+                      target="_blank">360doc</a></p>
+            <p>参考二：<a
+                    href="http://www.w3cways.com/1697.html"
+                    target="_blank">w3cways</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>width 和device-width 差别在哪里？</p>
+        </section>
+        <section>
+            <p>width : 因为浏览器可以自由调整宽度，所以这边指的是该浏览视窗的宽度。<br/>
+                device-width : 就算你把浏览器视窗弄到符合最大(小)宽度，还是不会生效。<br/>
+                因为，device-width 指的是使用者的「设备」最大宽度，而不是浏览器视窗。 <br/>
+                所以，device-width 常用在判断手机这样的物理设备上。</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>by 方兵</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+

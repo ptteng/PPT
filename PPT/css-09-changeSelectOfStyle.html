@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何改变默认radio和select的样式</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task09】</h2>
+            <h3>小课堂【如何改变默认radio和select的样式】</h3>
+            <p>分享人:黄志波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <pre><code>
+                <!--<select>-->
+                <!--<option value ="volvo">Volvo</option>-->
+                <!--<option value ="saab">Saab</option>-->
+                <!--<option value="opel">Opel</option>-->
+                <!--<option value="audi">Audi</option>-->
+                <!--</select>-->
+            </code></pre>
+            <p>相信大家都遇到过这样的问题，大多数浏览器select选择框不能被直接修改样式，实在是不够美观.</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>首先按钮的默认样式是无法修改的,所以我们的思路是通过隐藏按钮,来通过制造假象修改样式</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <img src="../img/css-09-changeSelectOfStyle/11.png" alt="">
+            <p>谷歌中的Select</p>
+        </section>
+        <section>
+            <img src="../img/css-09-changeSelectOfStyle/22.png" alt="">
+            <p>IE中的样式</p>
+        </section>
+        <section>
+            <img src="../img/css-09-changeSelectOfStyle/33.png" alt="">
+            <p>谷歌中的radio</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1.利用纯CSS实现</p>
+            <p>2.利用JS+图片实现</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>纯CSS修改样式</h3>
+            <p>此方法需借助CSS3，关键CSS代码如下</p>
+        </section>
+        <section>
+            <img src="../img/css-09-changeSelectOfStyle/44.png" alt="">
+        </section>
+        <section>
+            优点：充分借助了CSS3的优势，无需使用js和图片，仅用纯CSS3就可搞定<br>
+            缺点：兼容性较差，仅支持IE9+
+        </section>
+        <section>
+            <h3>js+图片</h3>
+        </section>
+        <section>
+            <p>JS代码</p>
+            <img src="../img/css-09-changeSelectOfStyle/55.png" alt="">
+        </section>
+        <section>
+            <p>优点：兼容性高，支持IE6+</p>
+            <p>缺点：使用js+图片较为麻烦</p>
+        </section>
+        <section>
+            <p>select修改样式</p>
+        </section>
+        <section>
+            <img src="../img/css-09-changeSelectOfStyle/66.png" alt="">
+            <p>该方法关键在于清除默认样式，使用css3的appearance属性，但是兼容性较差，仅支持IE9+。若要兼容低版本浏览器，可以使用Div进行模拟。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>CSS有非常多的属性,是否可以利用border 来实现radio的默认样式的改变呢?</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/depsi/archive/2016/01/21/5147743.html" target="_blank">修改radio、checkbox、select默认样式的方法</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>如何可以考虑到兼容性问题,又实现代码的简单实现</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄志波</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
