@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS—task1】</h2>
+            <h3>小课堂【成都第34期】</h3>
+            <p>setInterval和setTimeout的用法</p>
+            <p>分享人：陈尚欢</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+
+            <section>
+                <p>在我们的实际应用中经常会出现循环执行某一操作的需求，这时我们通常会考虑使用for循环，但是这种循环的特征是我们无法看到循环过程，最终只能看到循环结束后的值。那么如果我们要看到一个完整的过程应该怎么做呢？这就是我们今天要讲的定时器的概念。</p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>1.setInterval()</p>
+            </section>
+            <section>
+                <p>setInterval()按照指定的周期（以毫秒计）来调用函数或计算表达式。方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。</p>
+                <p>setInterval(code,millisec),该定时器主要有2个参数，code处是要执行或调用的函数，第二个参数是调用函数间隔的时间，以毫秒为单位。</p>
+            </section>
+            <section>
+                <p>2.setTimeout()</p>
+            </section>
+            <section>
+                <p>在指定的毫秒数后调用函数或计算表达式</p>
+                <p>setTimeout(code,millisec),该定时器同setInterval（）一样，都有2个参数，code处是要执行或调用的函数，第二个参数是在执行代码前需等待的毫秒数。此定时器也称为倒计定时器，只执行1次</p>
+            </section>
+            <section>
+                <p>3.clearInterval()</p>
+                <p>setInterval()会不停地调用函数，clearInterval()用于清除定时器，结束调用。</p>
+                <p>clearInterval(setInterval()),这种写法一般比较少见，一般使用定时器返回的id值来清除定时器。</p>
+                <p>var timer=setInterval(code,millisec)</p>
+                <p>clearInterval(timer)</p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>问题:使用事件调用定时器时，多次重复点击时，定时器间隔的时间会变短。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>在函数内部，我们可以先清除定时器，再设置定时器。这样的话，每次点击事件发生时，都把前一个定时器清除，再重现开启一个新的定时器。就可以啦！</p>
+            </section>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    var num=0;
+                    var timer=null;
+                    function doMove(){
+                    clearInterval(timer);
+                    timer=setInterval(function(){
+                    oDiv.style.left = oDiv.offsetLeft+10+'px';
+                    },500)
+                    }
+                    oBtn.onclick=function(){
+                    doMove();
+                    }
+                    oBtn2.onclick=function(){
+                    clearInterval(timer);
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <section>
+                <p class="fragment">问题:定时器如何传参</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <section>
+                <p>参考一：<a href="http://www.runoob.com/w3cnote/js-timer.html" target="_blank">菜鸟</a></p>
+            </section>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈尚欢</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
