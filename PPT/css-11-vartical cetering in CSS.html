@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .tl {
+            text-align: left!important;
+        }
+
+        .zxx_ul_image{
+            overflow:hidden;
+            zoom:1;
+        }
+
+        .zxx_ul_image li{
+            float:left;
+            width:150px;
+            height:150px;
+            text-align:center;
+            line-height:150px;
+            *font-size:125px;
+            list-style-type: none;
+        }
+
+        .zxx_ul_image li:after{
+            content:' ';
+            vertical-align:middle;
+        }
+
+        .zxx_ul_image li img{
+            vertical-align:middle;
+        }
+
+        .zxx_align_box_1 {
+            height: 600px;
+            line-height: 600px!important;
+            padding: 0 14px!important;
+            border: 4px solid #beceeb!important;
+        }
+
+        .zxx_align_box_2{
+            display:table-cell!important;
+            width:550px!important;
+            height:10em!important;
+            padding:0 0.1em!important;
+            border:4px solid #beceeb!important;
+            color: #006699 !important;
+            vertical-align:middle!important;
+        }
+        .zxx_align_box_2 span.zxx_align_word{
+            display:inline-block!important;
+            font-size: 1em!important;
+            vertical-align:middle!important;
+        }
+        li {
+            list-style-type: none!important;
+        }
+
+        .zxx_align_box_3 li{
+            width:128px;
+            height:128px;
+            padding:0.1em!important;
+            margin:0 0.1em 0 0!important;
+            font-size: 128px!important;
+            line-height: 1;
+            float:left!important;
+            border:1px solid #beceeb!important;
+        }
+        .zxx_align_box_3 li img{
+            display:block!important;
+            width:100%!important;
+            height:100%!important;
+            margin: 0!important;
+            background-color: transparent;!important;
+            border: 0!important;
+            box-shadow: none!important;
+            background-repeat:no-repeat!important;
+            background-position:center!important;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task11】</h2>
+            <h3>小课堂【郑州第30期】</h3>
+            <p>分享人：胡嘉杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>44年前我们把人送上月球，但在CSS中我们仍然不能很好的实现垂直居中。——@James Anderson</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p class="fragment">文档流</p>
+            <p class="fragment">固定高度</p>
+            <p class="fragment">自适应高度</p>
+            <p class="fragment">绝对定位</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一：为什么CSS要实现垂直居中那么难？</p>
+            <p class="fragment">问题二：为什么我们需要实现垂直居中？</p>
+            <p class="fragment">问题三：用什么方法实现垂直居中？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                最开始的web页面就是文档流的形式，是不关心“页面高度”这个概念的，
+                这一点不像别的排版工具有“页”的概念，web页面它更像一卷写满字的厕纸，
+                想多看一点就拉出来一点：）你会关心一卷厕纸的长度么？
+                所以从这个角度来讲，垂直居中是一个很无理的需求。
+            </p>
+        </section>
+        <section>
+            <p>
+                需求是会变化的，如今的web浏览器已经不像当年那么羸弱了，
+                web app的兴起使垂直居中变成了一个强需求，
+                但旧的传统web页面仍然是遵从“文档流”的逻辑的，你不可能不兼容，
+                所以实现这个需求困难完全是历史原因导致的。
+            </p>
+        </section>
+        <section>
+            <p>
+                单行文字：可能很多人都知道如何让单行文字垂直居中显示，就是使用line-height，
+                将line-height值与外部标签盒子的高度值设置成一致就可以了。例如如下css代码：height:3em; line-height:3em; ……
+            </p>
+        </section>
+        <section>
+            <div class="zxx_align_box_1">单行文字居中显示测试</div>
+        </section>
+        <section>
+            <p>
+                多行文字：如何实现父容器高度固定，文字可能一行，两行或更多行的垂直居中对齐呢？
+                实现的关键是把文字当图片处理。用一个span标签将所有的文字封装起来，
+                设置文字与图片相同的display属性（inline-block属性），然后用处理图片垂直居中的方式处理文字的垂直居中即可。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                核心css代码如下，
+                外部div标签：<br/>
+                div{display:table-cell; width:550px; height:1.14em;<br>
+                padding:0 0.1em; border:4px solid #beceeb; color:#069;<br/>
+                font-size:10em; vertical-align:middle;}<br>
+                内部span标签：<br>
+                span{display:inline-block; font-size:0.1em; vertical-align : middle;}
+            </p>
+        </section>
+        <section>
+            <div class="zxx_align_box_2"><span class="zxx_align_word">这里的文字用来做多行文字垂直居中对齐的测试。这是第二行文字，您还可以再添加一行文字做测试！</span></div>
+        </section>
+        <section>
+            <p>
+                透明gif图片+背景定位的方法:<br>
+                这里利用了background-position:center实现图片居中显示。
+                使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，
+                然后给这个gif图片一个background- position:center center的属性。
+                而background-image建议写在页面上，因为实际项目中，
+                这肯定是个动态的URL地址，css文件似乎不支持动态URL 地址。
+            </p>
+            <p>
+                核心HTML代码为：
+                img src="pixel.gif" style="background-image:url(...);"
+            </p>
+        </section>
+        <section>
+            <ul class="zxx_align_box_3 fix">
+                <li>
+                    <img src="//119.10.57.69:880/ptt141/images/pixel.gif" style="background-image: url(//image.zhangxinxu.com/image/study/s/s128/mm1.jpg);">
+                </li>
+            </ul>
+        </section>
+        <section>
+            <p>
+                display:table-cell和文字大小控制居中:<br>
+                这个方法可以说就是淘宝团队想出的图片垂直居中的方法。
+                但是这里展示的这个方法的css代码又不是淘宝工程师们的原版代码，
+                张鑫旭对其做了一定的修改，把里面没有用可以剔除的hack都去掉了。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                css代码部分：<br>
+                img外部div标签：<br><br>
+                div {display:table-cell; width:144px; height:144px; font-size:118px;
+                border:1px solid #beceeb; text-align:center;
+                vertical-align:middle;}/*这里的大小是根据高宽上限128像素图片设置的*/<br>
+                img标签：<br>
+                img{vertical-align:middle;}<br>
+                这个通过文字大小控制IE下图片垂直居中是个很不错的方法，要比使用position:relative这类高消耗的css方法要好多了。
+                但是这个方法不足之处在于：不支持img外标签的浮动，所以当多图片显示时需要再在外面嵌套一层标签——资源消耗多了！
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                display:inline-block和文字大小控制居中:<br>
+                此方法的灵感来自于Google picasa相册的图片显示，
+                代码相当简洁，是个成本很低，效果惊人的方法。
+                适用于多图显示的情况。基本上用裸标签就实现了想要达到的效果。
+                一般而言，图片阵列排列显示的时候，外面都有一个a标签的，
+                起到链接的作用。而本处的方法就只要这一个a标签就足以实现图片垂直且居中的显示效果。
+                其关键是将a标签默认的inline属性设置为inline-block属性，
+                这样a标签既支持宽度，又支持vertical-align:middle，
+                配合img的vertical-align:middle就可以实现图片的水平垂直居中显示了。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                css代码：<br>
+                a标签：<br>
+                a{display:inline-block; width:1.2em; font-size:128px; text-align:center; vertical-align:middle;}<br><br>
+                img标签：<br>
+                img{vertical-align:middle;}<br><br>
+                另外补充说明的：img外的标签需是a标签或span这类inline属性的标签，div标签也可以，但是css代码多些:
+                display:inline-block;*display:inline; zoom:1;
+                IE下要先变成inline属性，再转变成类似于inline-block的属性，原因讲起来又是一篇长长的文章，放着。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                透明图片拉伸对齐实现垂直居中显示:<br>
+                原理简述：一句话，将要显示的图片与一张透明的高度100%，宽度1像素的透明图片vertical-align:middle对齐。
+                其核心原理其实与利用font-size大小实现IE下图片垂直居中是一致的。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                以下是核心的一些代码：<br>
+                HTML部分：<br>
+                li<br>
+                img data-src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" img src="../image/pixel.gif" <br>
+                /li<br>
+                css部分：<br>
+                li .alpha_img{height:100%; width:0; vertical-align:middle;}<br>
+                li .show_img{vertical-align:middle;}
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                推荐使用行内元素，例如span，i标签等，只要应用类似下面的CSS：<br>
+                span{display:inline-block; height:100%; width:0; vertical-align:middle;}<br>
+                相比图片而言，多了个display:inline-block;
+                但是会少一次链接请求。效果图和上面的一样的，完美的水平垂直居中。原理也与图片一样，相信很容易理解的。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                新方法：<br>
+                此方法原理是，在IE下使用font-size使图片垂直居中显示，
+                Firefox，chrome等现代浏览器使用line-height配合img本身的vertical-align属性使垂直居中显示，
+                由于两者不冲突，所以没有hack就实现的效果。css代码简洁明了，
+                关键是HTML代码非常清晰，一层外标签，里面就是img标签，
+                我想很难再找出比这个方法更出色的让图片水平垂直居中的方法了。
+            </p>
+        </section>
+        <section>
+            <p class="tl">
+                以下为css代码部分：<br>
+                .zxx_ul_image li{float:left; width:150px; height:150px; text-align:center; line-height:150px; *font-size:125px;}<br>
+                .zxx_ul_image li:after{content:' '; vertical-align:middle;}<br>
+                .zxx_ul_image li img{vertical-align:middle;}
+            </p>
+        </section>
+        <section>
+            <ul class="zxx_ul_image">
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" /></li>
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg" /></li>
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" /></li>
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm4.jpg" /></li>
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm5.jpg" /></li>
+                <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm6.jpg" /></li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+.zxx_ul_image{ overflow:hidden; zoom:1; }
+.zxx_ul_image li{
+    float:left; width:150px; height:150px; text-align:center;line-height:150px;
+    *font-size:125px;
+}
+.zxx_ul_image li:after{
+    content:' '; vertical-align:middle;
+}
+.zxx_ul_image li img{ vertical-align:middle; }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一：这些方法实现垂直居中的基本原理是什么？</p>
+            <p class="fragment">问题二：这些方法分别的适用范围是什么，分别对应什么样的使用情况？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="//www.zhangxinxu.com/wordpress/2009/08/%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%9B%BE%E7%89%87%E3%80%81%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/" target="_blank">大小不固定的图片、多行文字的水平垂直居中</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：还有没有其他的垂直居中的方法，比如display:flex;align-item:center;</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 胡嘉杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
