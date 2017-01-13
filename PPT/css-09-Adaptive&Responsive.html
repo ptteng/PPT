@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task9】自适应和响应式</h2>
+            <h3>小课堂【郑州第31期】</h3>
+            <p>分享人：寇晨迪</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>最开始的电脑显示器分辨率种类不多，网页设计者都会设计固定宽度的页面。随着显示器越来越多，这种方式的页面出现了问题。于是出现了自适应布局。</p>
+            <p>再后来，Google 发布了 Android，还有 HTML5 标准的发布。手机虽然屏幕变小了，但是却提供了更丰富的功能，为了让网页适应小屏幕显示，出现了响应式布局。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>共同点</h4>
+            <p>两者都是因为越来越多的不同大小屏幕加入到互联网中来而出现的为移动设备提供更好的体验的技术。用技术来使网页适应从小到大（现在到超大）的不同分辨率的屏幕。</p>
+        </section>
+        <section>
+            <h4>自适应的特点</h4>
+            <p>自适应是为了解决如何才能在不同大小的设备上呈现同样的网页，同样的内容，要在大小迥异的屏幕上，都呈现出满意的效果，并不是一件容易的事。</p>
+        </section>
+        <section>
+            <h4>响应式的特点</h4>
+            <p>响应式的概念应该覆盖了自适应，而且涵盖的内容更多。响应式意在实现不同屏幕分辨率的终端上浏览网页的不同展示方式。通过响应式设计能使网站在不同大小上有更好的浏览阅读体验。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一：网页宽度如何适应</p>
+            <p>问题二：图片和文字如何设置其大小</p>
+            <p>问题三：媒体查询如何使用</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>自适应网页设计到底是怎么做到的？在网页代码的头部，加入一行viewport元标签。viewport是网页默认的宽度和高度，我们设置网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。我们还可以设置允许用户缩放到的最大（maximum-scale）和最小（minimum-scale）比例。</p>
+            <p>同时，由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素，而通过百分比来设置宽度。</p>
+        </section>
+        <section>
+            <p>为了自适应页面的显示效果，字体尽量不使用绝对大小（px），而去使用相对大小（em）或者高清方案（rem）。</p>
+            <p>对于图片的自适应，我们一般只需要一行css代码img { max-width: 100%;}就可以让图片较好地适应div或table。</p>
+        </section>
+        <section>
+            <p>媒体查询可以在同一个css文件中，根据不同的屏幕分辨率，选择应用不同的CSS规则。尽量将媒体查询的位置靠近他们相关的规则。不要放到一个独立的样式文件中,或者丢在文档的最底部。 这样做容易忘记。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>允许网页宽度自动调整</p>
+            <pre>
+                <code>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </code>
+            </pre>
+            <p>不使用固定宽度</p>
+            <pre>
+                <code>
+    width: xx%; width:auto;
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>使用em设置字体</p>
+            <pre>
+                <code>
+    body {
+　　　　font: normal 100% Helvetica, Arial, sans-serif;
+　　}
+    p {
+　　　　font-size: 1.5em;
+　　}
+                </code>
+            </pre>
+            <p>使用rem设置字体</p>
+            <pre>
+                <code>
+    html {
+　　　　font-size: 62.5%;
+　　}
+    p {
+　　　　font-size: 1rem;
+　　}
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>媒体查询的使用</p>
+            <pre>
+                <code>
+                    .element{...}
+
+                    @media screen and (min-width: 768px) {
+                        .element {...}
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一：自适应有哪些优势</p>
+            <p class="fragment">问题二：如何更好地处理自适应和响应式的应用</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://my.oschina.net/u/1992917/blog/383238" target="_blank">响应式和自适应的区别</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：自适应和响应式网页的性能优化</p>
+            <p>讨论点一：怎么实现更大分辨率的良好显示效果</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 寇晨迪</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
