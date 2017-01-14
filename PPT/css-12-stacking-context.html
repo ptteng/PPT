@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task】</h2>
+            <h3>小课堂【郑州第29期】</h3>
+            <p>主  题：z-index与层叠上下文</p>
+            <p>分享人：王义山</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在这个世界上，凡事都有一定的规则和顺序，俗话说：“无规矩不成方圆”。生活中，我们去吃饭，买东西，甚至上厕所，都有先来后到的潜规则。那么，在css的大千世界里，也同样如此。平时，各元素各就其位，看不出什么差异。但是，当有显示地盘冲突的时候，其中的先后顺序，显示规则，就可以大展身手了。</p>
+        </section>
+        <section>
+            <p>默认状态下，网页是没有偏移角的垂直视觉显现的。当元素的显示发生层级重叠的时候，我们就可以利用z-index和层叠上下文，来控制它们的显示了。</p>
+            <p>好，接下来，就让我们一起揭开z-index和层叠上下文的神秘面纱！</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>第一，首先，看看z-index</h4>
+            <p>z-index含义：z-index属性指定了元素及其子元素的z-轴顺序，而z-顺序决定哪个元素在上面，通常较大的z-index值，会覆盖较低的。</p>
+            <img src="../img/demo/z-index.gif" alt="z-index"/>
+        </section>
+        <section>
+            <h5>z-index支持的属性值：</h5>
+            <p>1.z-index：auto;默认值（ie6/ie7 为 0）</p>
+            <p>2.z-index: 整数值</p>
+            <p>3.z-index: inherit</p>
+        </section>
+        <section>
+            <h5>基本特性：</h5>
+
+            <p>1.支持负值</p>
+
+            <p>2.支持css3动画</p>
+
+            <p>3.在css2.1时代需要和定位元素配合使用</p>
+        </section>
+        <section>
+            <h5>z-index与css定位属性</h5>
+            <p>如果不考虑css3,只有定位元素的z-index才起作用。</p>
+            <ol>
+                <li>1. 对于同级元素，默认(或position:static)情况下文档流后面的元素会覆盖前面的。（后来居上）</li>
+                <li>2.对于同级元素，position不为static且z-index存在的情况下z-index大的元素会覆盖z-index小的元素，即z-index越大优先级越高。</li>
+                <li>3.IE6/7下position不为static，且z-index不存在时z-index为0，除此之外的浏览器z-index为auto。</li>
+            </ol>
+        </section>
+        <section>
+            <h4>第二，什么是层叠上下文？ </h4>
+            <p>层叠上下文:英文叫“stacking content”,是HTML中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。这里出现了z轴，z轴是我们的眼睛与页面的垂直抽象的距离。</p>
+            <P>层叠上下文是一个概念，跟BFC类似，概念的这个东西是比较抽象的，要好好理解理解。</P>
+        </section>
+        <section>
+            <h4> 什么是层叠水平？</h4>
+
+            <p>层叠水平，英文称作”stacking level”，决定了同一个层叠上下文中元素在z轴上的显示顺序。level这个词很容易让我们联想到我们人类世界中的三六九等、论资排辈。人的世界中，每个人都是独立的个体，包括同卵双胞胎，有差异就有区分。例如，双胞胎虽然长得像Ctrl+C/Ctrl+V得到的，但实际上，出生时间还是有先后顺序的，先出生的那个就大，哥哥或姐姐。网页中的元素也是如此，页面中的每个元素都是独立的个体，他们一定是会有一个类似的排名排序的情况存在。而这个排名排序、论资排辈就是我们这里所说的“层叠水平”。</p>
+        </section>
+        <section>
+            <h4>什么是层叠顺序？</h4>
+
+            <p>再来说说层叠顺序，“层叠顺序”英文称作”stacking order”. 表示元素发生层叠时候有着特定的垂直显示顺序，注意，这里跟上面两个不一样，上面的层叠上下文和层叠水平是概念，而这里的层叠顺序是规则。</p>
+        </section>
+        <section>
+            <P>说了层叠顺序是规则，那么到底是什么规则呢？(先不考虑css3)是这样的：</P>
+            <p>按从高到低的顺序：</p>
+
+            <p>1.z-index值为正值</p>
+
+            <p>2.z-index值为auto(也可以看为0)</p>
+
+            <p>3.inline/inline-block水平的盒子</p>
+
+            <p>4.float浮动盒子</p>
+
+            <p>5.block块状水平盒子</p>
+
+            <p>6.z-index值为负值的元素</p>
+
+            <p>7.blacground和border指的是层叠上下文元素的边框和背景色。</p>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题:z-index的滥用问题</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4>z-index的1，2，3规则：</h4>
+            <p>泛滥的z-index,既不浪费代码，又不利于后期维护和他人接受。但是，面对的复杂的交互，有时候我们还是需要z-index的，那么如何合理使用z-index呢？</p>
+        </section>
+        <section>
+            <p>1.归门别类。将z-index分为两派，分为“地面派”和“天空派”。“天空派”就是指遮罩弹框，类似这种，或是其他一些交互组件等；其余的就算是“地面派”了。</p>
+
+            <p>2.应用1, 2 ,3规则。地面派元素的z-index没有，或为1，或是2，或是3。因为一个页面交互再怎么复杂，也不可能正好是前面一个元素比后面元素层级高，而且有3~4个元素。也就是说，对于“地面”元素，我们只要使用[null, 1, 2, 3]之间的层级就能应付所有的情况。于是乎，我们想要出现层级混乱的情况都比较难了。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>说了那么多层叠上下文，那么层叠上下文到底是什么鬼？看一下层叠上下文的创建：</p>
+        </section>
+        <section>
+            <pre>
+                <p>如下代码：</p>
+                <code>
+                    <div style="position: relative;z-index: auto;">
+                        <!-- 妹纸1-->
+                        <img src="../img/demo/jingtian.jpg" alt="meimei1" heigh="150"style="position: absolute;z-index:2;"/>
+                    </div>
+                    <div style="position: relative;z-index: auto;">
+                        <!-- 妹纸2-->
+                        <img src="../img/demo/touxiang.jpg" alt="meiemi2" style="position: relative;z-index:1;"/>
+                    </div>
+                </code>
+            </pre>
+            <img src="../img/demo/cengdie1.png" alt=""/>
+            </section>
+        <section>
+            <pre>
+                <p>如下代码：</p>
+                <code>
+                    <div style="position: relative;z-index: 0;">
+                        <!-- 妹纸1-->
+                        <img src="../img/demo/jingtian.jpg" style="position: absolute;z-index:2;"/>
+                    </div>
+                    <div style="position: relative;z-index: 0;">
+                        <!-- 妹纸2-->
+                        <img src="../img/demo/touxiang.jpg" alt="meiemi2" style="position: relative;z-index:1;"/>
+                    </div>
+                </code>
+            </pre>
+            <img src="../img/demo/cengdie2.png" alt=""/>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题：为什么内联元素的层叠顺序要比浮动元素和块状元素都高？</p>
+            <img src="../" alt=""/>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.zhangxinxu.com" target="_blank">鑫空间</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：多次提到，一旦普通元素具有了层叠上下文，其层叠顺序就会变高。那它的层叠顺序究竟在哪个位置呢？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 王义山</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
