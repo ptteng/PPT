@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>network中的请求信息，headers中的每一项分别是什么意义?</h2>
+            <h3>小课堂【武汉第期】</h3>
+            <p>分享人：周启明</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">作为一个Web开发人员，日常中与我们开发相关的，就是Chrome的开发者工具。
+                今天就是要简要说说Chrome的开发者工具中Network部分。
+                Network标签页对于分析网站请求的网络情况、查看某一请求的请求头和响
+                应头还有响应内容很有用，特别是在查看Ajax类请求的时候，非常有帮助。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>1.Network中的信息</p>
+            </section>
+            <section>
+                <p style="text-align: left">如果能多了解一些chrome开发者工具调试技巧/功能对于平时开发很与帮助，
+                    在实际项目中多使用这些功能，提升自己的工作效率。下面我们来看chrome开发者工
+                    具Network面板功能</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    network中可以发现一些请求（图片、js、css、xhr等）对页面的影响。
+                    ctr+shift+i或者F12打开开发者工具；
+                    打开Network面板，点亮左上角那个像是摄像机的图标（鼠标移上去会提示Capture screenshots）。
+                </p>
+                <p style="text-align: left">
+                    ctrl+r,可以截图页面的加载情况。
+                </p>
+            </section>
+            <section>
+                <img src="../img/js-05-Network/network-1.png">
+            </section>
+            <section>
+                <h4>
+                    名词解释
+                </h4>
+                <p style="text-align: left;font-size: 30px">
+                    Name (&path): 资源的名称及其路径<br>
+                    <!--Method: 请求该资源的方法<br>-->
+                    Status(&Text):针对该请求服务器返回的状态码及描述该状态码的简短信息<br>
+                    Type: 该资源的类型<br>
+                    Initator: 初始化该请求的对象或进程，可以是：parser: html解析器<br>
+                    Redirect: 一个Http重定向初始化了该请求<br>
+                    Script: 以script标签引用的js<br>
+                    Other: 其他情况如用户点击了一个链接或在地址栏输入了一个地址<br>
+                    Size: 资源的大小<br>
+                    Time: (&Latency): Time就是从请求开始到接到最后一个字节所经历的时间；而Latency为请<br>
+                    求开始到接收第一个字节所经历的时间。此处的请求开始指的是该请求的状态从stalled（阻塞）状态开始。注：<br>
+                    后面会讲到请求所经历的几个阶段。<br>
+                    Timeline: 该列呈现出了每个请求从阻塞状态到完成请求所经历的阶段，和整个页面从加载到完成过程中其中<br>
+                    资源的加载流。<br>
+                </p>
+            </section>
+            <section>
+                <h4>headers中的信息</h4>
+                <p>
+                    Generl:常规信息。
+                </p>
+                <p style="text-align: left">
+                    服务器端的响应Header(response header)<br>
+                    Date 服务器端时间<br>
+                    Server 服务器端的服务器软件 Apache/2.2.6<br>
+                    Etag 文件标识符<br>
+                    Content-Encoding传送启用了GZIP压缩 gzip<br>
+                    Content-Length 内容长度<br>
+                    Content-Type 内容类型<br>
+                </p>
+                <p>
+                <a href="http://blog.csdn.net/qq_27093465/article/details/52162241" target="_blank"> Reponse-headers:</a>
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    请求Header(HTTP request header )<br>
+                    Host 请求的域名<br>
+                    User-Agent 浏览器端浏览器型号和版本<br>
+                    Accept 可接受的内容类型<br>
+                    Accept-Language 语言<br>
+                    Accept-Encoding 可接受的压缩类型 gzip,deflate<br>
+                    Accept-Charset 可接受的内容编码 UTF-8,*<br>
+                </p>
+                <p>
+                    <a href="http://blog.csdn.net/ycyangcai/article/details/4863212" target="_blank"> Request-headers:</a>
+                </p>
+                <p></p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align: left">Network标签页对于分析网站请求的网络情况、查看某一请求的请求头和响
+                应头还有响应内容很有用，特别是在查看Ajax类请求的时候，非常有帮助。</p>
+            <p style="text-align: left">
+                查看网页加载速度，对于优化性能性能有一定的帮助。
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                通过f12打开，查看network信息。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            此知识点暂无编码，主要在于学会查看network中的信息。
+            <!--<pre>-->
+                <!--<code>-->
+                <!--console.log("Hello World");-->
+                <!--alert("Hello PTT");-->
+                <!--</code>-->
+            <!--</pre>-->
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">指定条件有哪些？例如domain：资源所在的域，即url中的域名部分。如 domain:api.github.com</p>
+            <!--<p class="fragment">问题二</p>-->
+            <!--<p class="fragment">问题三三三撒</p>-->
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/rainysia/article/details/8131174" target="_blank">http中headers</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/ys-ys/p/5625409.html" target="_blank">参考野兽博客</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/qq_27093465/article/details/52162241" target="_blank">参考csdn博客</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+            <p>
+                时间轴中的不同颜色的线代表什么意思？
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 周启明 | </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
