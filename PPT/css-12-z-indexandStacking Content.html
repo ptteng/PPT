@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-12】z-index和叠加上下文是如何形成</h2>
+
+            <h3>小课堂【武汉第81期】</h3>
+
+            <p style="text-align: center;">分享人：李玺</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>层叠上下文，就是在呈现的时候决定哪个元素在上、哪个元素在下，初学的时候觉得这东西应该就是跟z-index的大小有关，然而并没有这么简单，我们来感受下。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>z-index</h4>
+
+                <p>先了解一下z-index的基本信息：</p>
+                <p>在W3C是这样描述的：每个元素都具有三维空间位置，除了水平和垂直位置外，还能在 "Z轴" 上层层相叠、排列。元素在 "Z轴" 方向上的呈现顺序，由层叠上下文和层叠级别决定。在文档中，每个元素仅属于一个层叠上下文。元素的层叠级别为整型，它描述了在相同层叠上下文中元素在 "Z轴" 上的呈现顺序。同一层叠上下文中，层叠级别大的显示在上，层叠级别小的显示在下，相同层叠级别时，遵循后来居上的原则，即其在HTML文档中的顺序。不同层叠上下文中，元素呈现顺序以父级层叠上下文的层叠级别来决定呈现的先后顺序，与自身的层叠级别无关。</p>
+
+            </section>
+            <section>
+                <p>z-index语法：</p>
+            <pre>
+            <code>
+                z-index: auto | integer(整数)
+            </code>
+            </pre>
+                <p>z-index 接受的属性值为：关键字auto和整数，整数可以是负值。</p>
+                <p>需要注意的是 z-index 虽然很给力，却只能应用于定位元素（即设置了 position 属性为非 static 值），其它情况下，z-index 将被忽略。</p>
+            </section>
+            <section>
+                <p>举个例子：</p>
+                <p>HTML部分：</p>
+                <pre>
+            <code>
+                <div>
+                    <span class="red">z-index: 1</span>
+                    <span class="green">z-index: 2</span>
+                    <span class="blue">z-index: 3</span>
+                </div>
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>CSS部分：</p>
+                <pre>
+            <code>
+                <style type="text/css">
+                    span{
+                        position: absolute;
+                        display: block;
+                        width: 100px;
+                        height: 100px;
+                    }
+                    .red{
+                        background-color: red;
+                        z-index: 1;
+                    }
+                    .green{
+                        margin: 30px;
+                        background-color: green;
+                        z-index: 2;
+                    }
+                    .blue{
+                        margin: 60px;
+                        background-color: blue;
+                        z-index: 3;
+                    }
+                </style>
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>浏览器显示：</p>
+                <img src="../img/css-12-z-indexandStacking%20Content/img01.png">
+            </section>
+            <section>
+
+                <h4>什么是层叠上下文（Stacking Content）</h4>
+
+                <p>在一个层叠上下文，所有的元素根据规则从下到上排列，分成了七个等级：</p>
+                <p>1、背景和边框 — 形成层叠上下文的元素的背景和边框。 层叠上下文中的最低等级。</p>
+                <p>2、负z-index值 — 层叠上下文内有着负z-index值的子元素。</p>
+                <p>3、块级盒 — 文档流中非行内非定位子元素。</p>
+                <p>4、浮动盒 — 非定位浮动元素。</p>
+                <p>5、行内盒 — 文档流中行内级别非定位子元素。</p>
+                <p>6、z-index: 0 — 定位元素。这些元素形成了新的层叠上下文。</p>
+                <p>7、正z-index值 — 定位元素。层叠上下文中的最高等级。</p>
+            </section>
+            <section>
+                <p>层叠上下文七种层叠等级示意图：</p>
+                <img src="../img/css-12-z-indexandStacking%20Content/img02.png">
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        <section>
+            <p>观看一下代码，判断哪一种颜色的方块显示在最上方？</p>
+            <p>HTML部分</p>
+            <pre>
+            <code>
+                <div class="red">
+                    <div class="yellow"></div>
+                </div>
+                <div class="green">
+                    <div class="blue"></div>
+                </div>
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p>CSS部分</p>
+            <pre>
+            <code>
+                <style type="text/css">
+                    .red{
+                        position: relative;
+                        width: 200px;
+                        height: 200px;;
+                        background-color: red;
+                        z-index: 1;
+                    }
+                    .yellow{
+                        position: absolute;
+                        width:150px;
+                        height: 500px;
+                        margin-left: 20px;
+                        background-color: yellow;
+                        z-index: 5;
+                    }
+                    .green{
+                        position: relative;
+                        width: 200px;
+                        height: 200px;
+                        margin-left: 50px;
+                        background-color: green;
+                        z-index: 2;
+                    }
+                    .blue{
+                        position: absolute;
+                        width:100px;
+                        height: 100px;
+                        background-color: blue;
+                        z-index: 2;
+                    }
+                </style>
+            </code>
+            </pre>
+        </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+               <p>层叠上下文是具有包含关系的，同时又各自应用层叠规则而互不影响，也就是说一个层叠上下文中有一个z-index值很大的定位元素，它依然会处于层叠等级高于创建该层叠上下文元素的元素的下方。</p>
+            </section>
+            <section>
+                <p>页面效果如下：</p>
+                <img src="../img/css-12-z-indexandStacking%20Content/img03.png">
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+             <h5>并没有</h5>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h5>opacity与层叠上下文</h5>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>W3C：<a href="http://www.w3school.com.cn/cssref/pr_pos_z-index.asp">http://www.w3school.com.cn/cssref/pr_pos_z-index.asp</a></p>
+
+            <p>关于z-index那些你不知道的事：<a href="https://webdesign.tutsplus.com/zh-hans/articles/what-you-may-not-know-about-the-z-index-property--webdesign-16892">https://webdesign.tutsplus.com/zh-hans/articles/what-you-may-not-know-about-the-z-index-property--webdesign-16892</a></p>
+
+            <p>Stacking Content层叠上下文：<a href="https://leozdgao.me/stacking-content-basic/">https://leozdgao.me/stacking-content-basic/</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>想了很久不知道要讨论什么，要不在这里祝大家鸡年快乐！</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY : 李玺 | somebody</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
