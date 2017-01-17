@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <style>
+        .ct {
+            text-align: center
+        }
+    </style>
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides" style="font-family: 楷体 ">
+        <section>
+            <h2>【JS-task】</h2>
+            <h3>小课堂【成都第39期】</h3>
+            <h3 style="font-weight: 700  ">继承的一些实现方式</h3>
+            <p>分享人：方兵</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section >
+            <p>JS作为面向对象的弱类型语言，继承也是其非常强大的特性之一。那么如何在JS中实现继承呢？让我们拭目以待。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section >
+            <p>继承概念 </p>
+            <p>指的是一个类（称为子类、子接口）继承另外的一个类（称为父类、父接口）的功能，并可以增加它自己的新功能的能力，
+                继承是类与类或者接口与接口之间最常见的关系.</p>
+        </section>
+        <section >
+            <p>继承方式 </p>
+            <p> 在基于类的面向对象方式中，对象（object）依靠类（class）来产生。 </p>
+            <p> 而在基于原型的面向对象方式中，对象（object）则是依靠构造器（constructor 利用 原型（prototype）
+                构造出来的。 </p>
+            <p>JavaScript语言正是如此，它是通过一种叫做原型（prototype）的方式来实现面向对象编程。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>js如何实现继承？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>既然要实现继承，那么首先我们得有一个父类，代码如下：</p>
+            <pre>
+                  <code>
+                // 定义一个动物类
+function Animal (name) {
+  // 属性
+  this.name = name || 'Animal';
+  // 实例方法
+  this.sleep = function(){
+    console.log(this.name + '正在睡觉！');
+  }
+}
+// 原型方法
+Animal.prototype.eat = function(food) {
+  console.log(this.name + '正在吃：' + food);
+};
+                        </code>
+            </pre>
+        </section>
+        <section >
+            <p> 方法一：原型链继承</p>
+            <p>核心： 将父类的实例作为子类的原型</p>
+        </section>
+        <section>
+            <pre>
+                  <code>
+function Cat(){
+}
+Cat.prototype = new Animal();
+Cat.prototype.name = 'cat';
+
+//　Test Code
+var cat = new Cat();
+console.log(cat.name);
+console.log(cat.eat('fish'));
+console.log(cat.sleep());
+console.log(cat instanceof Animal); //true
+console.log(cat instanceof Cat); //true
+                        </code>
+            </pre>
+        </section>
+
+        <section>
+            <p> 特点：</p>
+
+            <p> 非常纯粹的继承关系，实例是子类的实例，也是父类的实例
+            </p>
+            <p>   父类新增原型方法/原型属性，子类都能访问到</p>
+            <p>   缺点：</p>
+            <p>          要想为子类新增属性和方法，必须要在new Animal()这样的语句之后执行，不能放到构造器中</p>
+
+            <p> 无法实现多继承</p>
+            <p> 来自原型对象的引用属性是所有实例共享的,在编码实战中详细讲解.</p>
+                <p>创建子类实例时，无法向父类构造函数传参</p>
+        </section>
+        <section >
+            <p> 方法二：构造继承</p>
+            <p>核心：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）</p>
+        </section>
+        <section>
+            <pre>
+                  <code>
+function Cat(name){
+  Animal.call(this);
+  this.name = name || 'Tom';
+}
+
+// Test Code
+var cat = new Cat();
+console.log(cat.name);
+console.log(cat.sleep());
+console.log(cat instanceof Animal); // false
+console.log(cat instanceof Cat); // true
+                        </code>
+            </pre>
+        </section>
+        <section>
+            <p> 特点：</p>
+
+            <p>  解决了1中，子类实例共享父类引用属性的问题
+                创建子类实例时，可以向父类传递参数
+                可以实现多继承（call多个父类对象）</p>
+            <p>   缺点：</p>
+            <p>          实例并不是父类的实例，只是子类的实例。</p>
+            <p>    只能继承父类的实例属性和方法，不能继承原型属性/方法。</p>
+            <p>   无法实现函数复用，每个子类都有父类实例函数的副本，影响性能。</p>
+        </section>
+        <section >
+            <p> 方法三：实例继承</p>
+            <p>核心：为父类实例添加新特性，作为子类实例返回</p>
+        </section>
+        <section>
+            <pre>
+                  <code>
+function Cat(name){
+  var instance = new Animal();
+  instance.name = name || 'Tom';
+  return instance;
+}
+
+// Test Code
+var cat = new Cat();
+console.log(cat.name);
+console.log(cat.sleep());
+console.log(cat instanceof Animal); // true
+console.log(cat instanceof Cat); // false
+                        </code>
+            </pre>
+        </section>
+        <section>
+            <p> 特点：</p>
+
+            <p> 不限制调用方式，不管是new 子类()还是子类(),返回的对象具有相同的效果</p>
+            <p>   缺点：</p>
+            <p>实例是父类的实例，不是子类的实例
+                不支持多继承</p>
+        </section>
+        <section >
+            <p> 方法四：拷贝继承</p>
+        </section>
+        <section>
+            <pre>
+                  <code>
+function Cat(name){
+  var animal = new Animal();
+  for(var p in animal){
+    Cat.prototype[p] = animal[p];
+  }
+  Cat.prototype.name = name || 'Tom';
+}
+
+// Test Code
+var cat = new Cat();
+console.log(cat.name);
+console.log(cat.sleep());
+console.log(cat instanceof Animal); // false
+console.log(cat instanceof Cat); // true
+                        </code>
+            </pre>
+        </section>
+        <section>
+            <p> 特点：</p>
+
+            <p>  支持多继承</p>
+            <p>   缺点：</p>
+            <p> 效率较低，内存占用高（因为要拷贝父类的属性）
+                无法获取父类不可枚举的方法（不可枚举方法，不能使用for in 访问到）</p>
+        </section>
+        <section >
+            <p> 方法五：组合继承</p>
+            <p>核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用</p>
+        </section>
+        <section>
+            <pre>
+                  <code>
+function Cat(name){
+  Animal.call(this);
+  this.name = name || 'Tom';
+}
+Cat.prototype = new Animal();
+
+// Test Code
+var cat = new Cat();
+console.log(cat.name);
+console.log(cat.sleep());
+console.log(cat instanceof Animal); // true
+console.log(cat instanceof Cat); // true
+                        </code>
+            </pre>
+        </section>
+        <section>
+            <p> 特点：</p>
+
+            <p> 弥补了方式2的缺陷，可以继承实例属性/方法，也可以继承原型属性/方法
+                既是子类的实例，也是父类的实例
+                不存在引用属性共享问题
+                可传参
+                函数可复用</p>
+            <p>   缺点：</p>
+            <p> 调用了两次父类构造函数，生成了两份实例（子类实例将子类原型上的那份屏蔽了）</p>
+        </section>
+        <section >
+
+            <h3>5.编码实战</h3>
+
+        </section>
+        <section>
+                  <pre>
+                  <code>
+  function Animal (name) {
+            // 属性
+            this.name = name || 'Animal';
+            // 实例方法
+            this.sleep = function(){
+            console.log(this.name + '正在睡觉！');
+            }
+            //实例引用属性
+            this.features = [];
+            }
+            function Cat(name){
+            }
+            Cat.prototype = new Animal();
+
+            var tom = new Cat('Tom');
+            var kissy = new Cat('Kissy');
+
+            console.log(tom.name); // "Animal"
+            console.log(kissy.name); // "Animal"
+            console.log(tom.features); // []
+            console.log(kissy.features); // []
+
+            tom.name = 'Tom-New Name';
+            tom.features.push('eat');
+
+            //针对父类实例值类型成员的更改，不影响
+            console.log(tom.name); // "Tom-New Name"
+            console.log(kissy.name); // "Animal"
+            //针对父类实例引用类型成员的更改，会通过影响其他子类实例
+            console.log(tom.features); // ['eat']
+            console.log(kissy.features); // ['eat']
+                        </code>
+            </pre>
+        </section>
+
+        <section>
+            <p>关键点：属性查找过程</p>
+            <p>执行tom.features.push，首先找tom对象的实例属性（找不到），
+                那么去原型对象中找，也就是Animal的实例。发现有，那么就直接在这个对象的
+                features属性中插入值。
+                在console.log(kissy.features); 的时候。同上，kissy实例上没有，那么去原型上找。
+                刚好原型上有，就直接返回，但是注意，这个原型对象中features属性值已经变化了。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>继承、依赖、接口的区别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.cnblogs.com/humin/p/4556820.html" target="_blank">JS继承的实现方式</a></p>
+            <p>参考：<a href="http://www.cnblogs.com/guoqi77/p/Q_Inherit.html" target="_blank">总结继承的几种方式</a></p>
+            <p>参考：<a href="http://www.cnblogs.com/jisijie/p/5062109.html" target="_blank">UML类图详解接口、继承、依赖</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 方兵</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        mouseWheel: true,
+        transition: 'fade',
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
