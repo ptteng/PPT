@@ -125,21 +125,21 @@
                 </section>
             <section>
                 <p style="text-align: left">
-                    4,使用post提交的时候需要设置content-type为"application/x-www-form-urlencoded"
-                    jquery中，contentType默认是：application/x-www-form-urlencoded;charset=UTF-8
+                    4,使用post提交的时候需要设置content-type为"application/x-www-form-urlencoded"；
+                    jquery中，contentType默认是：application/x-www-form-urlencoded;charset=UTF-8
                     参数data ，jquery进行了转换 PlanObject or  String or   Array
                     jquery把js对象转换成了字符串传给后台。
                     而angular中$http的contentType默认值是：application/json;charset=UTF-8
                     原生上面呢，需要在open以后才能使用xhr.setRequestHeader方法，否则出错。
                     xhr.open("post","xxxx.aspx",true);
                     xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
-
-                </p>
+		    用原生写时必须在open（）方法之后send方法之前调用。
+                </p>
                 
             </section>
             <section>
                 <p style="text-align: left">
-                    5，还有几个常见的小问题。ajax对象属性的大小写问题，有些浏览器比如火狐，对大小写是敏感的，if(xhr.readystate==4)这种写法，在ie下是成立的，但是在ff下就行不通了，因为ie不区分大小写，ff是区分大小的。标准写法为if(xhr.readyState==4)，同理还有属性 responseText，responseXML。<br/>
+                    5，还有几个常见的小问题。ajax对象属性的大小写问题，有些浏览器比如火狐，对大小写是敏感的，if(xhr.readystate==4)这种写法，在ie下是成立的，但是在ff下就行不通了，因为ie不区分大小写，ff是区分大小的。标准写法为if(xhr.readyState==4)，同理还有属性 responseText，responseXML。<b>习惯采用驼峰形式的写法可以避免这个问题</b><br/>
                     6，ajax状态0的问题，有时候在测试ajax代码的时候加了  xhr.status==200的判断后，一直不执行xhr.status==200的代码，这个就需要注意了。xhr.status==200是要通过 服务器来浏览，并且服务器页面没有发生错误或者转向时才返回200状态的，此状态和你通过浏览器访问页面时服务器定义的状态一致。这个我们提前就跟后端对接好了，问题也不大。
 
                 </p>
@@ -250,7 +250,7 @@ function ajaxrequest(url,methodtype,con,parameter,functionName,obj){
             <section>
                原生的讲解
                 <p style="text-align: left">
-                   1, 在使用xhr对象发送请求和处理请求响应之前，必须先用js语言创建一个xhr对象。由于xhr对象当前还不是w3c标准，所以可以才有多种方式进行创建。具体创建方式如下：              <pre><code>
+                   1, 在使用xhr对象发送请求和处理请求响应之前，必须先用js语言创建一个xhr对象。由于xhr对象当前还不是w3c标准，所以可以才有多种方式进行创建以解决兼容性问题。具体创建方式如下：              <pre><code>
                     Var request;
                     Function createXMLHttpRequest(){
                     If(window.XMLHttpRequest){
@@ -306,8 +306,8 @@ function ajaxrequest(url,methodtype,con,parameter,functionName,obj){
             
         </code></pre>
             
-                then()方法与其他两种方法的主要区别是，它会接收到完整的响应对象，而success()和error()则会对响应对
-                象进行析构。
+                then()方法与其他两种方法的主要区别是，它会接收到完整的响应对象，信息更为全面，而success()和error()则会对响应对
+                象进行析构使用起来更为方便。
             </p>
       
         </section>
