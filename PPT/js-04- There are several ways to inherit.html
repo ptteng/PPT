@@ -70,9 +70,13 @@
         <section >
             <p>继承方式 </p>
             <p> 在基于类的面向对象方式中，对象（object）依靠类（class）来产生。 </p>
-            <p> 而在基于原型的面向对象方式中，对象（object）则是依靠构造器（constructor 利用 原型（prototype）
-                构造出来的。 </p>
+            <p> 而在基于原型的面向对象方式中，对象（object）则是依靠构造器（constructor）利用原型（prototype）构造出来的。 </p>
             <p>JavaScript语言正是如此，它是通过一种叫做原型（prototype）的方式来实现面向对象编程。</p>
+        </section>
+        <section >
+            <p>继承分类及使用场景</p>
+            <p>单继承(实例类继承)  <span>场景：扩充/改善基类 </span></p>
+            <p>多继承（纯抽象类继承）  <span>场景：实现多态 </span></p>
         </section>
         <section>
             <h3>3.常见问题</h3>
@@ -91,7 +95,7 @@
                 // 定义一个动物类
 function Animal (name) {
   // 属性
-  this.name = name || 'Animal';
+  this.name =  'Animal';
   // 实例方法
   this.sleep = function(){
     console.log(this.name + '正在睡觉！');
@@ -149,11 +153,11 @@ console.log(cat instanceof Cat); //true
                   <code>
 function Cat(name){
   Animal.call(this);
-  this.name = name || 'Tom';
+  this.name = name;
 }
 
 // Test Code
-var cat = new Cat();
+var cat = new Cat("Tom");
 console.log(cat.name);
 console.log(cat.sleep());
 console.log(cat instanceof Animal); // false
@@ -165,7 +169,7 @@ console.log(cat instanceof Cat); // true
             <p> 特点：</p>
 
             <p>  解决了1中，子类实例共享父类引用属性的问题
-                创建子类实例时，可以向父类传递参数
+                创建子类实例时，实例可以向父类传递参数
                 可以实现多继承（call多个父类对象）</p>
             <p>   缺点：</p>
             <p>          实例并不是父类的实例，只是子类的实例。</p>
@@ -181,11 +185,12 @@ console.log(cat instanceof Cat); // true
                   <code>
 function Cat(name){
   var instance = new Animal();
-  instance.name = name || 'Tom';
+  instance.name = 'Tom';
   return instance;
 }
 
 // Test Code
+console.log(Cat().name);
 var cat = new Cat();
 console.log(cat.name);
 console.log(cat.sleep());
@@ -202,39 +207,7 @@ console.log(cat instanceof Cat); // false
             <p>实例是父类的实例，不是子类的实例
                 不支持多继承</p>
         </section>
-        <section >
-            <p> 方法四：拷贝继承</p>
-        </section>
-        <section>
-            <pre>
-                  <code>
-function Cat(name){
-  var animal = new Animal();
-  for(var p in animal){
-    Cat.prototype[p] = animal[p];
-  }
-  Cat.prototype.name = name || 'Tom';
-}
-
-// Test Code
-var cat = new Cat();
-console.log(cat.name);
-console.log(cat.sleep());
-console.log(cat instanceof Animal); // false
-console.log(cat instanceof Cat); // true
-                        </code>
-            </pre>
-        </section>
-        <section>
-            <p> 特点：</p>
-
-            <p>  支持多继承</p>
-            <p>   缺点：</p>
-            <p> 效率较低，内存占用高（因为要拷贝父类的属性）
-                无法获取父类不可枚举的方法（不可枚举方法，不能使用for in 访问到）</p>
-        </section>
-        <section >
-            <p> 方法五：组合继承</p>
+            <p> 方法四：组合继承</p>
             <p>核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用</p>
         </section>
         <section>
@@ -242,7 +215,7 @@ console.log(cat instanceof Cat); // true
                   <code>
 function Cat(name){
   Animal.call(this);
-  this.name = name || 'Tom';
+  this.name = 'Tom';
 }
 Cat.prototype = new Animal();
 
@@ -275,7 +248,7 @@ console.log(cat instanceof Cat); // true
                   <code>
   function Animal (name) {
             // 属性
-            this.name = name || 'Animal';
+            this.name =  'Animal';
             // 实例方法
             this.sleep = function(){
             console.log(this.name + '正在睡觉！');
