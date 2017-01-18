@@ -1,0 +1,345 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>pm</h2>
+            <h3>小课堂【修真院】</h3>
+            <p>分享人：pm</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>什么是rest风格？
+                REST是REpresentational State Transfer 的缩写，那它究竟意味着什么呢？
+                也许这个问题已经困惑你很久了，下面就由我给你细细分解。
+                <br/>
+                从宏观上讲，REST 是一种设计网络应用时的构架风格。这种风格约束了网络应用中各个模块之间的交互，
+                从而使网络应用具有非常好的简易性，扩展性，可靠性等。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>
+                    REST是设计风格而不是标准。REST通常基于使用HTTP，URI，和XML以及HTML这些现有的广泛流行的协议和标准。
+
+                    资源是由URI来指定。<br/>
+
+                    对资源的操作包括获取创建、修改和删除资源，这些操作正好对应HTTP协议提供的GET、POST、PUT和DELETE方法<br/>
+
+                    通过操作资源的表现形式来操作资源。<br/>
+
+                    资源的表现形式则是XML或者HTML，取决于读者是机器还是人，是消费web服务的客户软件还是web浏览器。当然也可以是任何其他的格式。<br/>
+
+                    一般符合restful开发的要求:<br/>
+
+                    客户端和服务器结构<br/>
+
+                    连接协议具有无状态性
+                    <br/>
+                    能够利用Cache机制增进性能<br/>
+
+                    层次化的系统<br/>
+
+                </p>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p class="fragment">
+                其实就是应用http的一套规则。一般常见的http应用只使用get和post。那么get和post有什么区别呢？
+            </p>
+            <p class="fragment">
+                application json 与form表单的区别
+            </p>
+            <br><br>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section style="text-align: left">
+                第一个问题，这里列出来他们两者的区别<br/>
+                1. get是从服务器上获取数据，post是向服务器传送数据。<br/>
+                2. get是把参数数据队列加到提交表单的ACTION属性所指的URL中，值和表单内各个字段一一对应，在URL中可以看到。post是通过HTTP post机制，将表单内各个字段与其内容放置在HTML HEADER内一起传送到ACTION属性所指的URL地址。用户看不到这个过程。<br/>
+                3. 对于get方式，服务器端用Request.QueryString获取变量的值，对于post方式，服务器端用Request.Form获取提交的数据。<br/>
+                4. get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。<br/>
+                5. get安全性非常低，post安全性较高。但是执行效率却比Post方法好。<br/>
+            </section>
+            <section style="text-align: left">
+                建议：
+                1、get方式的安全性较Post方式要差些，包含机密信息的话，建议用Post数据提交方式；<br/>
+                2、在做数据查询时，建议用Get方式；而在做数据添加、修改或删除时，建议用Post方式；<br/>
+
+            </section>
+
+            <section>
+                第二个问题，application json 与form表单的区别
+                application/json 这个 Content-Type 作为响应头大家肯定不陌生。实际上，
+                现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。
+                由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 JSON.stringify，
+                服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。angular中默认的就是这个格式
+
+            </section>
+            <section>
+                <p style="text-align: left">
+                    application/x-www-form-urlencoded
+                    这应该是最常见的 POST 提交数据的方式了。浏览器的原生 form 表单，如果不设置 enctype 属性，
+                    那么最终就会以 application/x-www-form-urlencoded 方式提交数据。请求类似于下面这样（
+                    无关的请求头在本文中都省略掉了）：
+                    POST http://www.example.com HTTP/1.1
+                    Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                    title=test&sub%5B%5D=1&sub%5B%5D=2&sub%5B%5D=3
+                    首先，Content-Type 被指定为 application/x-www-form-urlencoded；
+                    其次，提交的数据按照 key1=val1&key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。
+                    大部分服务端语言都对这种方式有很好的支持。例如 PHP 中，$_POST['title']
+                    可以获取到 title 的值，$_POST['sub'] 可以得到 sub 数组。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    这两种方式也是经常被互相转换的使用的，一般情况从json转换成form的情况会相对多一些。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            由于本节知识点主要要求理解，所以没有编码实例，大家一定要区分post和get的使用情况，然后依情况来进行调整。
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>rest风格的优势是什么？rest风格中什么时候用put？</p>
+
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+                <a href="http://blog.csdn.net/tycoon1988/article/details/40080691" target="_blank">四种常见的post提交数据方式</a></p>
+            <p>参考二：
+                <a href="http://www.cnblogs.com/Guazi-JS/archive/2010/05/05/1727966.html" target="_blank">get和post的区别</a></p>
+            <p>参考三：
+                <a href="https://segmentfault.com/a/1190000007252829#articleHeader5" target="_blank">application/json 与 application/x-www-form-urlencoded的简单比较</a></p>
+            <p>参考三：
+                <a href="https://www.zhihu.com/question/24048837" target="_blank">什么是rest？</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :  王峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+    //    原始类型对象直接赋值不会相互影响
+    //    var a = 1;
+    //
+    //    var b = a;
+    //    b = 10;
+    //    console.log(a); // 1
+    ////
+    //    var a = 'hello';
+    //    var b = a;
+    //    b = 'world';
+    //    console.log(a); // hello
+    //
+    //    var a = true;
+    //    var b = a;
+    //    b = false;
+    //    console.log(a);
+
+    //数组浅复制
+    //    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+    //    ];
+    //    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+    //    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+    //    console.log(a)//那么现在打印a 是什么结果呢
+    //
+    //    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+    //    var arrtoo = arr.slice(1);
+    //    arrtoo[2] = "set Map";
+    //    console.log(arr);//One,Two,Three
+    //    console.log(arrtoo);//One,set Map,Three
+
+    //
+    //    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+    //    var arrtooo = arr1.concat(111111);
+    //    arrtooo[1] = "set Map To";
+    //    console.log(arr1);//One,Two,Three
+    //    console.log(arrtooo);//One,set Map To,Three
+
+    //
+    //    var b=[1,2,3,4,5];   //concat的链接
+    //    var c=[6,7,8,9];
+    //    var d =[4,4,22]
+    //    console.log(b.concat(c,d))
+
+    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    var b=new Object();
+    b.name=a.name;
+    b.age=a.age;
+    b.name='xx';
+    console.log(a);//Object { name="yy", age=26}
+    console.log(b);//Object { name="xx", age=26}
+
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+
+
+
+
+    //    var person = {    //第二种深拷贝
+    //        name: 'aa',
+    //        friends: ['da', 'dsa', 'gf']
+    //    };
+    //
+    //    var aPerson = Object.create(person, {
+    ////        name: {
+    ////            value: "gee"
+    ////        }
+    //    });
+    //
+    //    console.log(person.name);
+    //    console.log(aPerson.friends)
+
+    var Chinese = {
+        nation:'中国'
+
+    }
+    var Doctor = {
+        career:'医生'
+    }
+    function extendCopy(p) {
+        var c = {};
+        for (var i in p) {
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+    var Doctor = extendCopy(Chinese);
+    Doctor.career = '医生';
+    console.log(Doctor); // 中国
+    Chinese.birthPlaces = ['北京','上海','香港'];
+    var Doctor = extendCopy(Chinese);
+    Doctor.birthPlaces.push('厦门');
+
+</script>
+</body>
+</html>
