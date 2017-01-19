@@ -31,9 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>bootstrap的栅格系统</h2>
-            <h3>小课堂【郑州第27期】</h3>
-            <p>分享人：陈红远</p>
+            <h2>bootstrap中的栅格系统</h2>
+            <h3>小课堂【武汉第61期】</h3>
+            <p>分享人：胡思豪</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,8 +49,8 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-        	<img src="../img/css-27-GridSystem/one.png">
-            <p>像这样，通过固定的格子结构，来进行布局设计。这是一种设计风格，而且一直以来很广泛地应用于网页设计领域。这样的风格清晰、工整，可以让网页具有更友好的浏览体验。而随着响应式设计（responsive design）的流行，栅格系统开始被赋予新的意义，那就是，一种响应式设计的实现方式。</p>
+        	<img src="../img/css-10-GridSystemInBootstrap/one.png">
+            <p>栅格系统通过固定的格子结构，来进行布局设计，这是一种设计风格，而且一直以来很广泛地应用于网页设计领域。这样的风格清晰、工整，可以让网页具有更友好的浏览体验。而随着响应式设计（responsive design）的流行，栅格系统开始被赋予新的意义，那就是，一种响应式设计的实现方式。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
@@ -81,27 +81,27 @@
             <p>Container是一个容器，使用它的主要是有两个目的</p>
             <p>1,在响应式宽度上提供宽度约束。响应式尺寸的改变其实改变的是 container ，行 (rows) 和列 (columns) 都是基于百分比的所以它们不需要做任何改变</p>
             <p>2,提供 padding 以至于不内容不直为紧贴于浏览器边缘，两边都是 15px ，下图中粉色的就是了，稍后解释更多；</p>
-            <img src="../img/css-27-GridSystem/two.png">
+            <img src="../img/css-10-GridSystemInBootstrap/two.png">
         </section>
         <section>
             <h3>行row</h3>
             <p>row 为col提供了空间，理想上一行上分了12个col ，当所有col都向左浮时row 也就扮演了容器角色，另外当浮动有问题时row也不会重叠。</p>
             <p>row的两侧都拥有独特的负15px的margin 值,如下图中蓝色部分.被当作为row的div被约束在 container内边界与粉色区域重叠，但没超过。这负的15px margin值把row推出了 container的15pxpadding，并与之重叠，本质上讲就是负出去。为什么这么做呢？原因得看列 (col) 的工作原理，下面我们会看到</p>
-            <img src="../img/css-27-GridSystem/three.png">
+            <img style="margin-top: -10px;" src="../img/css-10-GridSystemInBootstrap/three.png">
         </section>
         <section>
             <h3>列col</h3>
             <P>列(col)也有15px的padding，如下图中黄颜色部分。上文中提到row的负margin抵消了container的padding，所以为每个column设置padding就是为了防止内容直接触碰边界，使内容不会紧贴在浏览器边界上，而列与列之间有了padding才不会互相紧贴在一起。但是容器，行，与列的3个15px只是为了不让col紧贴浏览器边缘么，那直接取消container和row的15px只留下col的15px就行，为什么这么麻烦呢，继续分析</P>
-            <img src="../img/css-27-GridSystem/four.png">
+            <img src="../img/css-10-GridSystemInBootstrap/four.png">
         </section>
         <section>
             <h3>嵌套</h3>
             <p>你设置了container,row,column后，如果要在column中嵌套column首先要把被嵌套的column放到row中，把row放到作为容器的column中，而不需要在放置一个container中，col就充当了container如下图蓝色所示，是放入col中的row的负margin 15px区域</p>
-            <img src="../img/css-27-GridSystem/five.png">       
+            <img src="../img/css-10-GridSystemInBootstrap/five.png">
         </section>
             <section>
             <p>而下图继续将col放入row中，这样就构成了循环</p>
-            <img src="../img/css-27-GridSystem/six.png">
+            <img src="../img/css-10-GridSystemInBootstrap/six.png">
             <p>我觉得嵌套的使用应该是最符合container，row，column的这3个15px来回使用的解释了</p>
             </section>
         <section>
@@ -110,32 +110,79 @@
         <section>
         <pre>
                 <code>
-            <div class="container">
-            <div class="row">
-            <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6"></div>
-            </div>
-            </div>
-            <div class="col-md-4"></div>
-            </div>
-            </div>
+ <div class="container">
+ <div class="row ">
+<div class="col-sm-12 ">
+<p class="p-howtostudy"><b>如何学习</b></p>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>1</b></span>
+  <span class="p6"><b>匹配你现在的个人情况寻找适合自己的岗位</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>2</b></span>
+  <span class="p6"><b>了解职业前景薪金待遇、竞争压力等</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>3</b></span>
+  <span class="p6"><b>掌握行业内顶级技能</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-2">
+  <span class="round p4"><b>4</b></span>
+  <span class="p6"><b>查看职业目标任务</b></span>
+  <i class="icon-transparent"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>5</b></span>
+  <span class="p6"><b>参考学习资源，掌握技能点，逐个完成任务</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>6</b></span>
+  <span class="p6"><b>加入班级，和小伙伴们互帮互助，一块学习</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-1">
+  <span class="round p4"><b>7</b></span>
+  <span class="p6"><b>选择导师，一路引导，加速自己成长</b></span>
+  <i class="icon10"></i>
+</div>
+
+<div class="col-md-3  col-sm-4 col-xs-6 col-supersmall li-2">
+  <span class="round p4"><b>8</b></span>
+  <span class="p6 p-fixed-width"><b>完成职业技能，升级业界大牛</b></span>
+
+</div>
+</div>
+ </div>
             </code>
             </pre>
+
+            <p>演示链接:<a href="http://119.10.57.69:880/jnshu067/task10/task10-1.html" target="_blank">http://119.10.57.69:880/jnshu067/task10/task10-1.html</a> </p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
 
         <section>
-            <p>对于这三个15px的反复使用，大家是否还有别的理解？</p>
+            <p>1.对于超小屏幕，栅格系统的断点不够用怎么办？</p>
+            <P>2.栅格系统是按照12等分来设计的，如果想要5等分怎么做？</P>
         </section>
         
         <section>
             <h3>7.参考文献</h3>
             <p>参考一：<a href="http://www.tuicool.com/articles/Afuu2q/" target="_blank">http://www.tuicool.com/articles/Afuu2q/</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/dojo-lzz/p/4621627.html" target="_blank">http://www.cnblogs.com/dojo-lzz/p/4621627.html</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/dojo-lzz/p/4621627.html" target="_blank">http://www.cnblogs.com/dojo-lzz/p/4621627.html</a></p>
+            <p>参考三：<a href="http://v3.bootcss.com/css/#grid" target="_blank">http://v3.bootcss.com/css/#grid</a> </p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -144,7 +191,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 陈红远</small></p>
+            <p><small>BY : 陈红远|胡思豪</small></p>
         </section>
 
     </div>
