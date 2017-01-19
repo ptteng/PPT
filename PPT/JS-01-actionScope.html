@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤JS-34-PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- css-28-sassinsublime主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task1】<span style="text-transform:lowercase">变量作用域</span></h2>
+            <h3>小课堂【郑州第34期】</h3>
+            <p>分享人：安文杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>一个变量的作用域是程序源代码中定义这个变量的区域。全局变量拥有全局作用域，在JS代码中的任何地方都是有定义的。</p>
+        </section>            
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>在函数体内声明的变量只在函数的体内有定义，他们是局部变量，作用域也是局部的，函数参数也是局部变量，它们只在函数体内有定义。<br>
+            在函数体内，局部变量的优先级高于同名的全局变量。如果在函数内声明的一个局部变量或者函数参数中带有的变量和全局变量重名，那么全局变量就被局部变量所遮盖</p>
+        </section>
+        <section>
+           <h3>3.常见问题</h3>
+        </section>
+        <section>
+           <ul>
+               <li>全局变量污染</li>
+               <li>变量声明混乱</li>
+               <li>局部变量无法灵活使用</li>
+           </ul>
+        </section> 
+        <section>
+            <pre>
+            <code>
+socpe="golbal";   //声明一个全局变量，甚至不用var来声明
+function check(argument) {
+    socpe="local";      //糟糕！我们刚修改了全局变量
+    myscope="local";       //这里显示地申请了一个新的全局变量，而我的本意是声明局部变量。 
+    var hello="kitty" ;       //只在函数内部起作用
+    return [socpe,myscope];  //返回两个值
+}
+check()           //=>上面函数内的声明产生了副作用
+scope               //=》"local"：全局变量修改了
+myscope            //=>"local":全局命名空间搞乱了
+console.log(hello)  //undefined
+</code>
+            </pre>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <h2>统一命名规范</h2>
+            <pre>
+            <code>
+socpe="golbal";   //声明一个全局变量，甚至不用var来声明
+function check(argument) {
+    var socpe_in="local";      //糟糕！我们刚修改了全局变量
+    var myscope="local";       //这里显示地申请了一个新的全局变量，而我的本意是声明局部变量。 
+    var hello="kitty";
+    return [socpe,myscope];  //返回两个值
+
+}
+check()           //=>逻辑清晰
+//如何访问 hello呢？
+</code>
+            </pre>
+        </section>
+        <section>
+        <h2>通过闭包</h2>
+        </section>
+        <section>
+        <pre><code>
+function check(){
+    var hello="kitty";
+    return  function f(){
+        return hello;
+        }
+    }
+check()();//=>ketty;
+        </code></pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <pre><code>
+function add() {
+    var counter = 0;
+    function plus() {counter += 1;}
+    plus();    
+    return counter; // 1
+}            
+        </code></pre>
+        </section>
+        <section>
+<pre>
+<code>
+var test = function () {
+    var i = 0;
+    return function () {
+        return i++;
+    }
+};
+var a = test();
+a();    //0
+a();    //1
+a();    //2
+</code></pre>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">还有哪些防止变量污染的办法？</p>
+            <p class="fragment">闭包还有哪些作用？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一<a href="http://www.w3cplus.com" target="_blank">W3cplus</a></p>
+            <p>参考二：《javascript权威指南》</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论:</p>
+            <p class="fragment">if和while等条件语句的变量是全局的还是私有的？</p>
+            <p class="fragment">闭包的缺点</p>
+        </section>
+        <section>
+            <h4 style="text-transform:lowercase">鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 安文杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
