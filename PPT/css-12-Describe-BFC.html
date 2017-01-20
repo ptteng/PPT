@@ -53,8 +53,8 @@
             <section>
             <h4>BFC就是一种布局方式.</h4>
             <p style="text-align: left">需要先介绍BOX、Formatting Context的概念</p>
-            <p style="text-align: left">Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类型的   Box， 会参与不同的
-                Formatting Context（一个决定如何渲染文档的容器），因此Box内的元素会以不同的方式渲染。</p>
+            <p style="text-align: left">Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display                                       属性，决定了这个 Box 的类型。 不同类型的   Box， 会参与不同的
+                            Formatting Context（一个决定如何渲染文档的容器），因此Box内的元素会以不同的方式渲染。</p>
         </section>
         <section>
             <p>让我们看看有哪些盒子：</p>
@@ -110,8 +110,8 @@
                     </p>
             </section>
             <section>
-                <h4></h4>
-                <p style="text-align: left;">
+                <p>
+                    <a href="http://www.cnblogs.com/xiaohuochai/p/5248536.html" target="_blank">实例</a>
                 </p>
             </section>
         </section>
@@ -134,6 +134,7 @@
             <h3>5.编码实战</h3>
         </section>
         <section>
+            <section>
             <pre>
                 <code>
          .container{
@@ -174,13 +175,55 @@
                 </code>
             </pre>
         </section>
+            <section>
+                <p>自适应两栏布局</p>
+                <pre>
+                <code>
+    <style>
+     body {
+         width: 300px;
+         position: relative;
+     }
+
+     .aside {
+         width: 100px;
+         height: 150px;
+         float: left;
+         background: #f66;
+     }
+
+     .main {
+         height: 200px;
+         background: #fcc;
+     }
+    </style>
+            <body>
+                    <div class="aside"></div>
+                     <div class="main"></div>
+            </body>
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>上面中的例子我们可以看出，每个元素的margin box的左边与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</p>
+                <p>因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。</p>
+            </section>
+        </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section style="text-align: left">
+            <section>
             <p class="fragment">Block Formatting Context在产生什么作用</p>
             <p class="fragment">1.Block Formatting Context可以阻止边距折叠（margin collapsing）。</p>
             <p class="fragment">2.Block Formatting Context可以包含内部元素的浮动。</p>
+            </section>
+            <section>
+                <p>其实以上的几个例子都体现了BFC布局规则第五条：BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</p>
+                <p>因为BFC内部的元素和外部的元素绝对不会互相影响，因此，
+                    当BFC外部存在浮动时，它不应该影响BFC内部Box的布局，BFC会通过变窄，而不与浮动有重叠。同样的，当BFC内部有浮动时，为了不影响外部元素的布局，BFC计算高度时会包括浮动的高度。
+                    避免margin重叠也是这样的一个道理。</p>
+            </section>
         </section>
         <section>
             <h3>7.参考文献</h3>
@@ -188,7 +231,7 @@
         <section>
             <p>参考一：<a href="http://www.haorooms.com/post/css_BFC_bgdiv" target="_blank">Haorooms</a></p>
             <p>参考二：<a href="http://www.tuicool.com/articles/uUfYNr" target="_blank">tuicool</a></p>
-            <p>参考三：<a href="http://caibaojian.com/bfc.html" target="_blank">前端开发博客</a></p>
+            <p>参考三：<a href="http://caibaojian.com/bfc.html" target="_blank">前段开发博客</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -196,6 +239,8 @@
         <section style="text-align: left">
             <p>讨论点一</p>
             <p>两个独立的BFC之间不会折叠</p>
+            <p>讨论点二</p>
+            <p></p>
         </section>
         <section>
             <h4>鸣谢</h4>
