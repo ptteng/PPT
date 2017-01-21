@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>域名，COOKIE是什么？有什么用处？COOKIE 和SESSION的区别?COOKIE的有效期</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>域名，COOKIE是什么？有什么用处？COOKIE 和SESSION的区别?COOKIE的有效期</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：彭勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>为什么需要cookie和session。</h4>
+            <p class="left" style="text-indent: 2em">当用户在发送一个请求关得到返回信息之后，客户端与服务器端之间的网络连接就已经
+                断开了，在下一个请求发送时，服务器无法确定这次请求和上次的请求是否来自同一个客
+                户端。也就是说，服务器不能记住"记住"用户，这是hptp协议的限制。在web应用程序中，
+                实际上是经常需要记住每次请求的。那么，如何让服务器知道不同的请求是否来自同一个
+                客户端，就是状态管理问题出现了session和cookie。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>什么是域名，以及其作用</li>
+                    <li>什么是COOKIE，以及其作用</li>
+                    <li>COOKIE 和SESSION的区别</li>
+                    <li>COOKIE的有效期</li>
+                </ol>
+            </section>
+            <section>
+                <h4>1.什么是域名，以及其作用</h4>
+                <p class="left">域名：全称网域名称（英语：Domain Name），是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称。例如http://www.jnshu.com；</p>
+                <p class="left">作用：用于在数据传输时标识计算机的电子方位（有时也指地理位置）；能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP地址数串。</p>
+            </section>
+            <section>
+                <h4>2.什么是COOKIE，以及其作用</h4>
+                <p class="left">Cookie：Cookie（复数形态Cookies），中文名称为“小型文本文件”或“小甜饼”[1]，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。</p>
+                <p class="left">用途：因为HTTP协议是无状态的，即服务器不知道用户上一次做了什么，这严重阻碍了交互式Web应用程序的实现。在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两饮料。最后结帐时，由于HTTP的无状态性，不通过额外的手段，服务器并不知道用户到底买了什么。 所以Cookie就是用来绕开HTTP的无状态性的“额外手段”之一。服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。</p>
+
+
+            </section>
+            <section>
+                <h4>3.cookie 和session 的区别</h4>
+                <ol>
+                    <li>
+                        cookie数据存放在客户的浏览器上，session数据放在服务器上。
+                    </li>
+                    <li>
+                        cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗考虑到安全应当使用session。
+                    </li>
+                    <li>
+                        session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。
+                    </li>
+                    <li>
+                        单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h4>Cookie的有效期</h4>
+                <p class="left">Cookie总是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie和硬盘Cookie。</p>
+                <p class="left">内存Cookie由浏览器维护，保存在内存中，浏览器关闭后就消失了，其存在时间是短暂的。硬盘Cookie保存在硬盘里，有一个过期时间，除非用户手工清理或到了过期时间，硬盘Cookie不会被删除，其存在时间是长期的。所以，按存在时间，可分为非持久Cookie和持久Cookie。</p>
+                <p class="left">Cookie的maxAge决定着Cookie的有效期，单位为秒，Cookie中通过getMaxAge()方法和setMaxAge(int maxAge)方法来读写maxAge属性。   </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>不知道ip和域名是如何工作的</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">网域名称系统（英文：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p>
+            <p class="left">www.wikipedia.org是一个域名，和IP地址208.80.152.2相对应。DNS就像是一个自动的电话号码簿，我们可以直接拨打wikipedia的名字来代替电话号码（IP地址）。我们直接调用网站的名字以后，DNS就会将便于人类使用的名字（如www.wikipedia.org）转化成便于机器识别的IP地址（如208.80.152.2）。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p class="left">同一个一级域名下的两个二级域名如www.helloweenvsfei.com和images.helloweenvsfei.com也不能交互使用Cookie，因为二者的域名并不严格相等。如果想要想所有helloweenvsfei.com名下二级域名都可以使用该Cookie，需要设置Cookie的domain参数，例如：</p>
+            <pre>
+                <code>
+                    Cookie cookie=new Cookie("time","20080808");//新建Cookie
+                    cookie.setDomain(".helloweenvsfei.com");//设置域名
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">cookie的两种清除方式</p>
+            <ol>
+                <li>通过浏览器工具清除cookie(有第三方工具，浏览器自身也有这种功能)</li>
+                <li>通过设置cookie的有效期来清除cookie</li>
+            </ol>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://www.jiagoushuo.com/article/1000082.html" target="_blank">JavaWeb的Cookie和Session使用场景</a></p>
+            <p class="left">参考二：<a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D" target="_blank">维基-域名</a></p>
+            <p class="left">参考三：<a href="https://zh.wikipedia.org/wiki/Cookie" target="_blank">维基-cookie</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+            <p>大家可以说说自己对cookie和session的使用心得</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
