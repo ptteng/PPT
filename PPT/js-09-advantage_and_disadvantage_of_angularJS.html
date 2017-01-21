@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-09-Advantages and disadvantages of angular】</h2>
+            <p>分享人：陈尚欢</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>Angular.js是google开发者设计和开发的一套前端开发框架，帮助你简化前端开发的负担。</p>
+            <p>AngularJS 通过新的属性和表达式扩展了 HTML。</p>
+            <p>AngularJS 可以构建一个单一页面应用程序</p>
+            <p>那么AngularJS有哪些优点与缺点呢？</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>AngularJS的优点与缺点</p>
+            <section>AngularJS的优点</section>
+            <section>
+                <p>1 良好的应用程序结构：</p>
+                <p>通常情况下，我们编写 JavaScript 没有明确的结构。虽然在编写小应用程序的时候没有问题，但这显然是不适合于大规模的应用程序。</br>
+                    使用 AngularJS，您可以通过MVC（模型 - 视图 - 控制器）或MVVM （模型 - 视图 - 视图模型）模式来组织源代码。 </br>
+                    AngularJS 是一个 MVW 框架，其中W代表可以用于任何项目。你可以组织你的代码模块，它可显著提高应用程序的可测试性和可维护性。数据、业务逻辑、视图的分离。
+                </p>
+            </section>
+            <section>
+                <p>2 双向数据绑定</p>
+                <p>数据绑定肯定是 AngularJS 最佳功能之一。</br>
+                    你可以声明绑定的模型到 HTML 元素。当模型发生变化时，视图会自动更新，反之亦然。</br>
+                    这可以减少大量的传统样板代码，保持模型和视图同步。
+                </p>
+            </section>
+            <section>
+                <p>3 指令</p>
+                <p>AngularJS 指令让你使用 HTML 新语法快速的构建应用程序。您可以创建可重用的自定义组件与指令的API。</p>
+            </section>
+            <section>
+                <p>4 HTML 模板</p>
+                <p>AngularJS 使用 HTML 模板，这使事情变得简单，并允许设计人员和开发人员同时工作。</br>
+                    设计人员可以按照通常的方式创建用户界面，而开发人员可以使用声明性绑定语法很容易配合不同的UI组件的数据模型。
+                </p>
+            </section>
+            <section>
+                <p>4.依赖注入</p>
+                <p>
+                    AngularJS 支持依赖注入的开箱即用。如果你需要的东西，你只要调用 Angular 来注入。就这么简单。
+                </p>
+            </section>
+            <section>AngularJS的缺点</section>
+            <section>
+                <p>1.性能 </p>
+                <p>双向数据绑定是一把双刃剑。随着组件增加，项目越来越复杂，双向数据绑定带来性能问题。</br>
+                    双向数据绑定是如何影响性能的？在JavaScript（ES5）中，并没有实现当变量或对象改变时发出通知的功能，Angular的实现方法被叫做“Dirty-checking（脏检查机制）”，通过跟踪数据的改变再动态更新用户界面（UI）。
+                    在Angular的作用域中任何操作的执行都会引发Dirty-checking，随着绑定数量的增加性能就会越低。
+                </p>
+            </section>
+            <section>
+                <p>2. Angular 2.0推翻重做使得目前不宜采用此框架 </p>
+                <p>Angular 1.x版本其实是个比较旧的东西了，现在看来有些理念过时了，比如依赖注入、自己独特的模块化，这些东西其实在ES6下已经很好地被解决了。
+                    Angular的2.0几乎是一个推翻重做的框架，估计不会有1.X的upgrade方案。所以如果现在新开始的项目采用Angular的话，会是一个很尴尬的时机。同样，如此大的改动似乎也反面印证了1.X并不是那么好。</p>
+            </section>
+            <section>
+                <p>3.学习成本高 </p>
+                <p>使用Angular需要学习大量的概念，包括但不限于：
+                    ○ 模块</br>
+                    ○ 控制器</br>
+                    ○ 指令</br>
+                    ○ 作用域</br>
+                    ○ 模板</br>
+                    ○ 链式函数</br>
+                    ○ 过滤器</br>
+                    ○ 依赖注入</br>
+                </p>
+            </section>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/u012125579/article/details/52744093" target="_blank">参考链接</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :陈尚欢</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
