@@ -43,9 +43,9 @@
     <div class="slides">
         <section>
             <h2>【CSS-task12】</h2>
-            <h3>小课堂【成都第33期】</h3>
+            <h3>小课堂【武汉第90期】</h3>
             <h4>你能描述一下渐进增强和优雅降级之间的不同吗?</h4>
-            <p>分享人：彭勇</p>
+            <p>分享人：冯馨雨</p>
         </section>
         <section>
             <p>目录</p>
@@ -60,10 +60,9 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
+            <p>渐进增强和优雅降级这两个概念是在 CSS3 出现之后火起来的。由于低级浏览器不支持 CSS3，但是 CSS3 特效太优秀无法放弃，所以在高级浏览器中使用CSS3，而在低级浏览器只保证最基本的功能。二者的目的都是关注不同浏览器下的不同体验，但是它们侧重点不同，所以导致了工作流程上的不同。</p>
         </section>
-        <section>
-            <p>为了让大家了解两种方式的理念，以及不同之处</p>
-        </section>
+        
         <section>
             <h3>2.知识剖析</h3>
         </section>
@@ -90,9 +89,7 @@
                 <p class="p">
                     优雅降级(graceful degradation)：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。
                 </p>
-                <p class="p">
-                    比如一开始使用 css3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack使其可以在低版本浏览器上正常浏览
-                </p>
+                <p><b>优雅降级</b>观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，并把测试对象限定为主流浏览器（如 IE、Mozilla 等）的前一个版本。</p>
             </section>
             <section>
                 <h4>
@@ -107,42 +104,35 @@
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>1.将语义化和优雅降级搞混淆</p>
+             <h4> 渐进增强和优雅降级该如何选择？</h4>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p class="p">
-                语义化指的是：用合理HTML标记以及其特有的属性去格式化文档内容。通俗地讲,语义化就是对数据和信息进行处理,使得机器可以理解.
-            </p>
+            <p>现在有很成熟的技术，能够让你分析用户使用浏览器的版本比例。如果低版本用户居多，当然优先采用渐进增强的开发流程；如果高版本用户居多，为了提高大多数用户的使用体验，那当然优先采用优雅降级的开发流程。</p>
+        </section>
+        <section>
+            <p>然而事实情况是怎么样的呢？绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。例如：新浪微博网站前端的更新，拥有这种亿级用户的网站，绝对不可能追求某个特效而不考虑低版本用户可不可用，一定是确保低版本到高版本的可访问性，再去渐进增强，采用新功能给高版本用户提供更好的用户体验。<br><br>但也不是没有反例。如果你开发的是一款面向青少年的网站，你知道这个群体的人总是喜欢尝试新事物，总是喜欢酷炫的特效，总是喜欢把它们的软件更新到最新版本。面对这种情况，优雅降级的开发流程实为上选。</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <p>优雅降级</p>
-            <pre>
-                <code>
-                   .transition{
-                         -webkit-transition: all .5s;
-                            -moz-transition: all .5s;
-                              -o-transition: all .5s;
-                                 transition: all .5s;
-                                }
-                </code>
-            </pre>
-            <p>渐进增强</p>
-            <pre>
-                <code>
-               .transition{
-　　                    transition: all .5s;
-　　                 -o-transition: all .5s;
-                   -moz-transition: all .5s;
-                -webkit-transition: all .5s;
-                        }
-                </code>
-            </pre>
+           <pre><code>
+                .transition { /*渐进增强写法*/
+                    -webkit-transition: all .5s;
+                    -moz-transition: all .5s;
+                    -o-transition: all .5s;
+                    transition: all .5s;
+                }
+                .transition { /*优雅降级写法*/
+                    transition: all .5s;
+                    -o-transition: all .5s;
+                    -moz-transition: all .5s;
+                    -webkit-transition: all .5s;
+                }
+            </code></pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
@@ -157,11 +147,11 @@
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <dl>
-            <dd>参考一：<a href="https://segmentfault.com/q/1010000000264469" target="_blank">segment</a></dd>
-            <dd>参考二：<a href="http://blog.csdn.net/xiongzhengxiang/article/details/7999525" target="_blank">博客</a></dd>
-            <dd>参考三：<a href="http://www.cnblogs.com/mofish/p/3822879.html" target="_blank">博客</a></dd>
-            </dl>
+            <p>参考一：<a href="http://www.jianshu.com/p/d313f1108862" target="_blank">渐进增强 VS 优雅降级</a></p>
+            <p>参考二：<a href="https://segmentfault.com/q/1010000000264469" target="_blank">segment</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/xiongzhengxiang/article/details/7999525" target="_blank">博客</a></p>
+            <p>参考四：<a href="http://www.cnblogs.com/mofish/p/3822879.html" target="_blank">博客</a></p>
+            
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -172,7 +162,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 彭勇</small></p>
+            <p><small>BY : 彭勇|冯馨雨</small></p>
         </section>
 
     </div>
