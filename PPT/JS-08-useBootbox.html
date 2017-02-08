@@ -33,58 +33,235 @@
         <section>
             <h2>【JS-08】</h2>
             <h3>小课堂【如何使用Bootbox?】</h3>
-            <p>分享人：黄志波</p>
+            <p>分享人：黄志波，张增锋</p>
         </section>
         <section>
             <p>目录</p>
             <p>1.背景介绍</p>
-            <p>2.如何绑定</p>
-            <p>3.如何实现</p>
-            <p>4.参考文献</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
         </section>
         <section>
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <section>
-                <img src="../img/JS-08-useBootbox/11.png"/>
-            </section>
-            <section>
-                <img src="../img/JS-08-useBootbox/22.png"/>
-            </section>
+            <p>Bootbox.js是一个小型的JavaScript库，基于 Twitter 的 Bootstrap 开发。它允许你创建使用编程对话框。</p>
         </section>
         <section>
-            <h3>2.如何使用</h3>
+            <h3>2.知识剖析</h3>
         </section>
         <section>
-            <section>
-                <img src="../img/JS-08-useBootbox/33.png"/>
-            </section>
-            <section>
-                <img src="../img/JS-08-useBootbox/55.png"/>
-            </section>
-            <section>
-                <img src="../img/JS-08-useBootbox/66.png"/>
-            </section>
+            <p> 该库提供了三个旨在模仿其原生JavaScript等效项的函数。他们的确切的函数名是灵活的，
+                因此每个可以采取各种参数来定制标签和指定默认值，但它们最基本是这样：
+            </p>
         </section>
         <section>
             <section>
-                <h3>3.知识拓展</h3>
+                <p>警告</p>
+                <pre>
+                    <code>
+                        bootbox.alert(message, callback)
+                    </code>
+                </pre>
             </section>
             <section>
-                <img src="../img/JS-08-useBootbox/44.png"/>
+                <p>提示</p>
+                <pre>
+                    <code>
+                        bootbox.prompt(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>确认</p>
+                <pre>
+                    <code>
+                       bootbox.confirm(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>这三个函数中的每一个都可以调用第四个公共函数，你也可以使用它来创建自己的自定义对话框：</p>
+                <pre>
+                    <code>
+                        bootbox.dialog(options)
+                    </code>
+                </pre>
             </section>
         </section>
         <section>
-            <h3>4.参考文献 </h3>
-            <a href="http://blog.csdn.net/zh921112/article/details/41513161"> bootbox自定义dialog、confirm、alert样式，以及基本设置方法setDefaults中可用参数</a>
+            <h3>3.常见问题</h3>
         </section>
-
+        <section>
+            <p>bootbox的所有版本都是在Bootstrap和jQuery的基础之上的，因此bootstrap，jQuery和bootbox的版本要对应</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section><img src="../img/JS-08-useBootbox/1.png"> </section>
+        <section>
+            <p>对话框代码不阻止代码执行</p>
+            <p>由于这个限制，在用户关闭对话框之前不应该运行的代码应该放置（或调用）在对话框的回调函数中。</p>
+        </section>
+        <section>
+            <p>
+                注意脚本引用的顺序
+            </p>
+            <ul>
+                <li>jQuery</li>
+                <li>Bootstrap</li>
+                <li>Bootbox</li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+             <p>警告：基本用法</p>
+             <pre>
+                 <code>
+                     bootbox.alert("This is the default alert!");
+                 </code>
+             </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/2.png"> </section>
+            <section>
+                <p>警告：带回调</p>
+                <pre>
+                 <code>
+                    bootbox.alert("This is an alert with a callback!", function(){
+                     console.log('This was logged in the callback!');
+                     });
+                 </code>
+                 </pre>
+            </section>
+            <section>
+                <p>设置框大小</p>
+                <pre>
+                 <code>
+                     bootbox.alert({
+                              message: "This is the small alert!",
+                              size: 'small'
+                      });
+                 </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>确认基本用法</p>
+                <pre>
+                    <code>
+bootbox.confirm("This is the default confirm!", function(result){
+  console.log('This was logged in the callback: ' + result);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>交替按钮</p>
+                <pre>
+                    <code>bootbox.confirm({
+message: "This is a confirm with custom button text and color! Do you like it?",
+buttons: {
+confirm: {
+label: 'Yes',
+className: 'btn-success'
+ },
+cancel: {
+label: 'No',
+className: 'btn-danger'
+}
+},
+callback: function (result) {
+console.log('This was logged in the callback: ' + result);
+}
+});
+                    </code>
+                </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/3.png"> </section>
+        </section>
+        <section>
+            <section>
+                <p>提示：基本用法</p>
+                <pre>
+                    <code>
+bootbox.prompt("This is the default prompt!", function(result){ console.log(result); });
+                    </code>
+                </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/4.png"> </section>
+            <section>
+                <p>日期提示 </p>
+                <pre>
+                    <code>
+                       bootbox.prompt({
+    title: "This is a prompt with a date input!",
+    inputType: 'date',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/5.png"> </section>
+            <section>
+                <p>提示输入密码</p>
+                <pre>
+                    <code>
+                        bootbox.prompt({
+    title: "This is a prompt with a password input!",
+    inputType: 'password',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/6.png"> </section>
+            <section>
+                <p>电子邮件提示</p>
+                <pre>
+                    <code>
+ bootbox.prompt({
+    title: "This is a prompt with an email input!",
+    inputType: 'email',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+            <section><img src="../img/JS-08-useBootbox/7.png"> </section>
+        </section>
+    <section>
+        <h3>6.扩展思考</h3>
+    </section>
+        <section>
+            <p class="fragment">如何设置框的位置</p>
+            <p class="fragment">bootbox弹出框如何设置为中文</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://bootboxjs.com/" target="_blank">Bootbox.js</a></p>
+        </section>
         <section>
             <h2>鸣谢</h2>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 黄志波</small>
+                <small>BY : 黄志波,张增锋</small>
             </p>
         </section>
 
