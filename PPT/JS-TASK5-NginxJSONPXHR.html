@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task】</h2>
+            <h3>小课堂 nginx使用与跨域</h3>
+            <p>分享人：韩沁修</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对javascript施加的安全限制。</p>
+            <p>所谓同源是指，域名，协议，端口相同。浏览器执行javascript脚本时，会检查这个脚本属于那个页面，如果不是同源页面，就不会被执行</p>
+            <p>Nginx 是一个高性能的 HTTP 和反向代理服务器，是一款轻量级的 Web 服务器，可以实现负载均衡等功能，国内使用 Nginx 服务器的大型网站主要有新浪、网易、腾讯等。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1、静态HTTP服务器：Nginx是一个HTTP服务器，可以将服务器上的静态文件（如HTML、图片）通过HTTP协议展现给客户端</p>
+            <p>2、反向代理服务器：客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。</p>
+            <p>3、负载均衡:当网站访问量非常大，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。Nginx可以通过反向代理来实现负载均衡。</p>
+        </section>
+        <section>
+            <p>4、虚拟主机:例如将www.aaa.com和www.bbb.com两个网站部署在同一台服务器上，两个域名解析到同一个IP地址，但是用户通过两个域名却可以打开两个完全不同的网站，互相不影响，就像访问两个服务器一样，所以叫两个虚拟主机。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1、如何配置Nginx通过域名访问本地网页</p>
+            <p>2、如何配置实现跨域</p>
+            <p>3、跨域几种解决方案</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>1、如何配置Nginx通过域名访问本地网页</p>
+        </section>
+        <section>
+            <p>Nginx很强大，通过nginx访问本地网页，只需修改nginx目录下conf/nginx.conf文件中以下代码</p>
+              <pre>
+            <code>
+
+                    server
+                        {
+                        listen 80;#监听端口
+                        server_name localhost;#域名
+                        index index.html index.htm index.php;
+                        root E/web;#站点目录（将html等文件放置在这个文件夹）
+                     } </code>
+                 </pre>
+
+        </section>
+        <section>
+            <p>经过以上修改，重启nginx后通过设置的域名localhost就可以访问本地网页了，如访问文件夹E/web下的tset.html文件，则在地址栏输入：localhost/test.html，或者通过本地ip访问：如：
+            192.168.1.103/test.html</p>
+
+        </section>
+        <section>
+            <p>nginx也可以自己设置域名访问，修改配置中以下代码</p>
+
+                 <pre>  <code>
+                    server
+                        {
+                        listen 80;#监听端口
+                        server_name local.testpage.com;//修改这里的域名
+                        index index.html index.htm index.php;
+                        root E/web;#站点目录（将html等文件放置在这个文件夹）
+                     }
+                 </code>  </pre>
+
+        </section>
+        <section>
+            <p>修改系统hosts文件，windows在C:\Windows\System32\drivers\etc下，文本编辑器打开，修改：</p>
+          <pre>    <code>
+
+                   # Localhost (DO NOT REMOVE)
+                    127.0.0.1	localhost
+                    127.0.0.1	local.testpage.com//这里添加设置的域名
+          </code>   </pre>
+
+            <p>重启nginx,访问local.testpage.com就可以访问到E:/web下的index.html</p>
+        </section>
+        <section>
+            <p>2、nginx跨域可以通过反向代理来实现：</p>
+        </section>
+        <section>
+            <p>如我想访问地址http://115.29.203.53:10013的数据，那么可以这么配置：在server里添加location</p>
+
+               <pre> <code>
+                   server
+                        {
+                         location /student-ajax/ {
+                                    proxy_pass http://115.29.203.53:10013;}
+                     }
+               </code> </pre>
+
+            <p>重启nginx，要跨域时，url参数填写/student-ajax/代替目标 http://115.29.203.53:10013;</p>
+        </section>
+
+        <section>
+            <h3>3、常见跨域方式</h3>
+            <p>1、使用iFrame访问另一个域。 然后再从另一个页面读取iFrame的内容。jquery等有一些封装。据说Firefox等可能不支持读取另一个iFrame的内容。</p>
+            <p>2、服务器代理</p>
+            <p>3、跨域 XMLHttpRequest 请求</p>
+            <p>4、通过jsonp跨域：Jsonp原理：首先在客户端注册一个callback, 然后把callback的名字传给服务器。此时，服务器先生成 json 数据。然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 jsonp.最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。客户端浏览器，解析script标签，并执行返回的 javascript 文档，此时数据作为参数，传入到了客户端预先定义好的 callback 函数里.（动态执行回调函数）</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>1、xhr：XMLHttpRequest</p>
+            <pre>
+                <code>
+                    var xhr = new XMLHttpRequest();//建立xhr对象
+                    xhr.open("get", "example.php", false);//请求的类型、请求的URL和是否异步发送
+                    xhr.send(data);//参数
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {//等待回调
+                        alert(xhr.statusText);
+                    } else {
+                        alert("Request was unsuccessful: " + xhr.status);
+                }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>2、JSONP</p>
+            <p>JSONP的最基本的原理是：动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来，这种跨域方式其实与ajax XmlHttpRequest协议无关了。我们在用其他关于src的标签的时候，都可以跨域。所以我们只要动态构造的src标签同样可以做到跨域。 </p>
+            <pre>
+                <code>
+                     $.getJSON("http://crossdomain.com/services.php?callback=?"，//方式1
+                        function(result) {
+                            for(var i in result) {
+                                alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+                            }
+                        });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>方式2</p>
+            <pre>
+                <code>
+                     $.ajax({
+                        url:"http://crossdomain.com/services.php",
+                        dataType:'jsonp',
+                        data:'',
+                        jsonp:'callback',
+                        success:function(result) {
+                            for(var i in result) {
+                                alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+                            }
+                        },
+                        timeout:3000
+                    });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>哪种方式相对更好？</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://justcoding.iteye.com/blog/1366102" target="_blank">AJAX 跨域请求 - JSONP获取JSON数据</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 李绍博</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
