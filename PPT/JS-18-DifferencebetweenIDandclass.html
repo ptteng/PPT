@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤JS-18-PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- css-28-sassinsublime主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task1】<span style="text-transform:lowercase">ID和class有什么区别</span></h2>
+            <h3>小课堂【郑州第18期】</h3>
+            <p>分享人：安文杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>ID是英文IDentity的缩写，身份标识号码的意思。也称为序列号或帐号，是某个体系中相对唯一的编码，相当于是一种“身份证”在某一具体的事物中，ID号一般是不变的，至于用什么来标识该事物，则由设计者自己制定的规则来确定。一般而言，这个规则根据具体的使用环境在设计上有一定的主观性，如：“员工工号”、“身份证号码”“计算机网址”等。对于计算机主要有两种运算方式，逻辑运算和算术运算，逻辑运算便关系到数字的ID功能。</p>
+        </section>            
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>class是一个选择器，可以理解为一个标识，用来标识特定的标签，就像你的作业本上写你的名字用来标识这是你的作业本（当然这个例子不是很贴切），你可以根据比如：<div class="div1"></div>这就是一个标识效果，以后你想要改变这个div的样式的话就可以找class为div1的元素了。另外  一般的flash文件你是看不见的，他只是调用了而已。如果想单独看或者下载这个flash文件的话可以把这个flash名称按照路径拷贝到浏览器里  就可以看见了</p>
+        </section>
+        <section>
+           <h3>3.常见问题</h3>
+        </section>
+        <section>
+           <ul>
+               <li>优先级的问题</li>
+               <li>渲染速度的问题</li>
+           </ul>
+        </section> 
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+在样式表定义一个样式的时候，可以定义id也可以定义class。
+1、在CSS文件里书写时，ID加前缀"#"；CLASS用"."
+2、id一个页面只可以使用一次；class可以多次引用。
+3、ID是一个标签，用于区分不同的结构和内容，就象名字，如果一个屋子有2个人同名，就会出现混淆；class是一个样式，可以套在任何结构和内容上，就象一件衣服；
+4、从概念上说就是不一样的：id是先找到结构/内容，再给它定义样式；class是先定义好一种样式，再套给多个结构/内容。
+目前的浏览器还都允许用多个相同ID，一般情况下也能正常显示，不过当你需要用JavaScript通过id来控制div时就会出现错误。
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <pre><code>
+var change_3=Math.floor(Math.random()*9)+1;  
+console.log(document.getElementById(change_3))
+=><li id="3" style="background-color: rgb(100,90,45);"></li>DOM  是一个对象
+
+document.getElementsByClassName('ClassName');
+=>[button.btn1]  返回DOM元素，以数组形式，所以要加上下标
+//0:button.btn1
+    length:1
+    _proto_:HTMLCollection
+        </code></pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">还有哪些区别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一<a href="http://www.w3cplus.com" target="_blank">百度知道</a></p>
+            <p>参考二：《javascript权威指南》</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论:</p>
+            <p class="fragment">为什么要这样设计，哪种使用效果好，class哪些兼容性不好？</p>
+        </section>
+        <section>
+            <h4 style="text-transform:lowercase">鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 安文杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
