@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>angular之中，$state  $watch $scope $rootScope 分别是什么？</h2>
-            <h3>小课堂【成都第35期】</h3>
-            <p>分享人：郑明月</p>
+            <h3>小课堂【武汉第16期】</h3>
+            <p>分享人：郑明月|周启明</p>
         </section>
         <section>
             <p>目录</p>
@@ -60,7 +60,7 @@
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
+        <section style="text-align: left">
             <section>
                 <h4>$scope</h4>
                 <p>
@@ -72,7 +72,11 @@
             <section>
                 <h4>$rootScope</h4>
                 <p>
-                   $rootScope就相当于一个全局变量，所以我们保存在其中的东西是全局性的，在任一controller之中都能够使用
+                    $rootScope就相当于一个全局变量，所以我们保存在其中的东西是全局性的，在任一controller之中都能够使用
+                </p>
+                <p>
+                    scope是html和单个controller之间的桥梁，数据绑定就靠他了。rootscope是各个controller中scope的桥梁。
+                    用rootscope定义的值，可以在各个controller中使用。
                 </p>
             </section>
             <section>
@@ -82,6 +86,13 @@
                     当我们在创建出scope下的一个新属性的时候，ng就会主动为我们新属性加上$watch这个方法，这个方法会监听我们
                     的数据变化，当数据变化之后，就立即把view和scope上数据同步。
                 </p>
+            </section>
+            <section style="text-align: left">
+                <p>$watch(watchExpression, listener, objectEquality);</p>
+                <p>watchExpression,需要监控的表达式</p>
+                <p>listener,处理函数，函数参数如下
+                    function(newValue,oldValue, scope)</p>
+                <p>objectEquality,是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么你应该使用它</p>
             </section>
             <section>
                 <h4>$state</h4>
@@ -108,7 +119,7 @@
         </section>
         <section>
             <section>
-               大家来看一下这一段代码
+                大家来看一下这一段代码
             </section>
             <section>
                 <img src="../img/js-07-$scope$watch/derective1.png" alt="机智1">
@@ -122,8 +133,43 @@
         </section>
         <section>
             <section>
-               <p>如果我们需要它有相同的作用域，如何实现呢？</p>
+                <p>如果我们需要它有相同的作用域，如何实现呢？</p>
                 <img src="../img/js-07-$scope$watch/derective2.png" alt="机智2">
+            </section>
+            <section>
+                <pre>
+                <code>
+               angular.module("MyApp", [])
+    .controller("MyController", function ($scope) {
+        //J1 这里我们在作用域里初始化两个变量
+    $scope.name = "dreamapple";
+    $scope.age = 20;
+        //J2 创建一个方法，修改我们创建的对象的年龄
+    $scope.changeAge = function () {
+        $scope.age = 22;
+    }
+})
+        //J3 创建我们的指令，指令名字为"myDirective"
+
+    .directive("myDirective", function () {
+    var obj = {
+        //J4   指令的声明模式为 "AE" 属性和元素
+        restrict: "AE",
+        //J5   指令继承父作用域的属性和方法
+        scope: false,
+        replace: true,
+        template: "<div class='my-directive'>" +
+            "<h3>下面部分是我们创建的指令生成的</h3>" +
+            "我的名字是：<span ng-bind='name'></span><br/>" +
+            "我的年龄是：<span ng-bind='age'></span>" +
+            "<input type='text' ng-model='name'>"+
+            " </div>"
+    }
+    return obj;
+});
+
+                </code>
+            </pre>
             </section>
             <section>
                 <img src="../img/js-07-$scope$watch/derective2.1.png" alt="机智2">
@@ -151,7 +197,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 郑明月</small></p>
+            <p><small>BY : 郑明月||周启明</small></p>
         </section>
 
     </div>
@@ -161,7 +207,6 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -180,7 +225,6 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
 //        history: true,
@@ -195,7 +239,6 @@
     });
     //    原始类型对象直接赋值不会相互影响
     var a = 1;
-
     var b = a;
     b = 10;
     console.log(a); // 1
@@ -204,12 +247,10 @@
     var b = a;
     b = 'world';
     console.log(a); // hello
-
     var a = true;
     var b = a;
     b = false;
     console.log(a);
-
     //数组浅复制
     //    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
     //    ];
@@ -222,19 +263,15 @@
     //    arrtoo[1] = "set Map";
     //    console.log(arr);//One,Two,Three
     //    console.log(arrtoo);//One,set Map,Three
-
-
     //    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
     //    var arrtooo = arr1.concat();
     //    arrtooo[1] = "set Map To";
     //    console.log(arr1);//One,Two,Three
     //    console.log(arrtooo);//One,set Map To,Three
-
     //
     //    var b=[1,2,3,4,5];   //concat的链接
     //    var c=[6,7,8,9];
     //    console.log(b.concat(c))
-
     //    var a={name:'yy',age:26};  //对象的浅拷贝哦
     //    var b=new Object();
     //    b.name=a.name;
@@ -242,7 +279,6 @@
     //    b.name='xx';
     //    console.log(a);//Object { name="yy", age=26}
     //    console.log(b);//Object { name="xx", age=26}
-
     var d = {            //对象的浅拷贝哦 第一种
         name: 'd',
         oc: {
@@ -261,7 +297,6 @@
         }
         return result
     };
-
     var c = deepCopy(d);
     c.name = 'c';
     c.oc = {
@@ -269,10 +304,6 @@
     };
     console.log(c);
     console.log(d);
-
-
-
-
     //    var person = {    //第二种深拷贝
     //        name: 'aa',
     //        friends: ['da', 'dsa', 'gf']
@@ -286,9 +317,6 @@
     //
     //    console.log(person.name);
     //    console.log(aPerson.friends)
-
-
-
 </script>
 </body>
 </html>

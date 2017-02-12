@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+       <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
@@ -31,8 +31,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-angular-directives】</h2>
-            <p>分享人：翟金超</p>
+            <h2>【JS-angular-指令】</h2>
+            <p>分享人：杨泽平</p>
         </section>
         <section>
             <p>目录</p>
@@ -46,84 +46,84 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍</h3>
-        </section>
-        <section>
-            <p>angular指令</p>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <div style="text-align: left; margin-left: 5%">
+                    AngularJS 通过被称为 指令 的新属性来扩展 HTML。
+                    AngularJS 通过内置的指令来为应用添加功能。<br>
+                    AngularJS 允许你自定义指令。<br>
+                </div>
+            </section>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
             <section>
-                <p>What： 指令是扩展扩展具有自定义功能的HTML元素的途径。比如为 DOM 元素调用方法、定义行为绑定数据等。本质上是在HTML中通过元素、属性、类或注释来添加功能<br><br>
-                    Why： 最大程度减少DOM操作，实现数据绑定，与业务逻辑进行交互。<br><br>
-                    How： 指令主要分为两种：内置指令和自定义指令。假设我们已经创建了一个完整的HTML文档，其中包含了AngularJS，并且DOM中已经用ng-app指令标识出了应用的根元素，当AngularJS编译HTML时就会调用指令。</p>
-            </section>
-            <section>
-                <p>下面都是angular指令的合法格式</p>
-            <pre>
-                <code>
-<my-directive></my-directive>
-<div my-directive></div>
-<div class="my-directive"></div>
-<!--directive:my-directive-->
-                </code>
-            </pre>
-            </section>
-            <section>
-            <pre>
-                <p>自定义指令</p>
-                <code>
-<my-better-video my-href="/goofy-video.mp4">喵咕咕</my-better-video>
-                </code>
-                <p>内置指令</p>
-                <code>
-  <div ng-app='myApp'>
-  <div ng-controller='myCtrl'></div>
-  </div>
-                </code>
-            </pre>
-            </section>
-        </section>
-        <section>
-            <p>内置指令</p>
-            <section>
-                <p>angular自带的指令，有60+</p>
-                <p>AngularJS提供了一系列内置指令。其中一些指令重载了原生的HTML元素，比如 form 和 a 标签，当在HTML中使用标签时，并不一定能明确看出是否在使用指令。<br>
-                    例如，  form 标签被从底层扩展了一系列高级功能，包括表单验证等，原生HTML表单并不会提供这些功能。其他内置指令通常以ng为前缀，很容易识别。<br>
-                    所有以ng前缀开头作为命名空间的指令都是AngularJS提供的内置指令，因此不要把你自己开发的指令以这个前缀命名。</p>
-            </section>
-            <section>
-                <p>样式相关指令</p>
-                <p>ng-class,ng-style,ng-show/hide</p>
-                <p>表单控件功能相关</p>
-                <p>ng-checked控制radio和checkbox的选中状态
-                    ng-selected控制下拉框的选中状态
-                    ng-disabled控制失效状态
-                    ng-multiple控制多选
-                    ng-readonly控制只读状态</p>
-                <p>如ngRepeat循环输出</p>
-                <p>特殊的ng-src和ng-href</p>
-            </section>
-            <section>
-                <p>事件绑定相关</p>
-                <p>ng-change``ng-dblclick``ng-mousedown``ng-mouseenter`<br>`ng-mouseleave``ng-mousemove``ng-mouseover`<br>`ng-mouseup``ng-submit</p>
-                <p>控制相关的指令</p>
-                <p>我们使用ng-src指令，这样在路径被正确得到之前就不会显示找不到图片。同理，a标签的href属性也需要换成ng-href，这样页面上就不会先出现一个地址错误的链接。<br>
-                    ng中有一个与{ {} }等同的指令:ng-bind，同样用于单向绑定，在页面刚加载的时候就不会显示出对用户无用的数据。</p>
-            </section>
-            <section>
-                <p>还有诸位最常用的</p>
-                <p>ng-controller，ng-app，ng-model</p>
-                <p>ng-app是最重要的指令，它定义了应用入口，若给以div ng-app指令，则会在旗下建立一个作用域，里面可以放入各种组件如控制器过滤器等</p>
-                <p>而ng-controller则在应用内部创建子作用域，通常在controller里完成功能代码的编写<br>要注意，虽然controller里可以再次嵌套controller，但是这种做法会导致很多麻烦的结果，不建议使用这种写法</p>
-                <p>ng-model则用于数据绑定，简单方便，它或许是AngularJS中最强大的功能</p>
+                <div style="text-align: left;margin-left: 5%; font-size:30px">
+                    angular指令分为：内置指令 && 自定义指令。<br>
+                    <span style="color: red;">内置指令</span>：AngularJS 指令是扩展的 HTML 属性，带有前缀 ng-。<br>
+                    例如：<br>
+                    <pre>
+                        <code>
+                            <div ng-app="myAPP" ng-controller="myCtrl">
+                                <div ng-if="$scope.value">√</div>
+                            </div>
+                        </code>
+                    </pre>
+                    <span style="color:red">自定义指令</span>：除了 AngularJS 内置的指令外，我们还可以创建自定义指令。
+                    你可以使用 .directive 函数来添加自定义的指令。
+                    要调用自定义指令，HTML 元素上需要添加自定义指令名。
+                    <br> 例如： <br>
+                    <pre>
+                        <code>
+                        <my-directive></my-directive>
+                        <div my-directive></div>
+                        <div class="my-directive"></div>
+                            <!--directive:my-directive-->
+                        </code>
+                    </pre>
+                </div>
             </section>
 
         </section>
         <section>
-            <p>自定义指令</p>
+            <p style="color: #e77;">内置指令</p>
+            <section>
+                <div style="text-align: left; margin-left: 5%">
+                    <p>angular自带的指令，共有60个左右。</p>
+                    <p>AngularJS提供了一系列内置指令。其中一些指令重载了原生的HTML元素，比如 form 和 a 标签，当在HTML中使用标签时，并不一定能明确看出是否在使用指令。<br>
+                        例如，  form 标签被从底层扩展了一系列高级功能，包括表单验证等，原生HTML表单并不会提供这些功能。其他内置指令通常以ng为前缀，很容易识别。<br>
+                        所有以ng前缀开头作为命名空间的指令都是AngularJS提供的内置指令，因此不要把你自己开发的指令以这个前缀命名。</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align: left;margin-left: 5%">
+                    由于内置指令较多，本次只演示常用的几个内置指令。
+                    完整的angular API中文手册：<a href="http://www.angularjsapi.cn/#/form" target="_blank">angularJS 中文版API v1.3.9</a>
+                </div>
+            </section>
+            <section>
+                <div style="text-align: left;margin-left: 5%">
+                    常用的内置指令： <br>
+                     ng-app: 使用该指令自动启动一个AngularJS应用。ng-app指令指定的应用程序的根元素，通常放置在网页的根元素如body或html 标签。 <br>
+                     ng-controller:定义应用的控制器对象。<br>
+                     ng-class：	指定 HTML 元素使用的 CSS 类 <br>
+                     ng-click： 定义元素被点击时的行为 <br>
+                     ng-model: 	绑定 HTML 控制器的值到应用数据 <br>
+                     ng-bind:	绑定 HTML 元素到应用程序数据 <br>
+                     ng-repeat:  定义集合中每项数据的模板 <br>
+                </div>
+                <a style="color: #ccc;" target="_blank" href="../demo/js-08-angular directives/demo1.html">Demo</a>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <p style="color: #e77;">自定义指令</p>
+            </section>
             <section>
                 <p>
                     通过AngularJS模块API中的.directive()方法，我们可以通过传入一个字符串和一个函数来注册一个新指令。其中字符串是这个指令的名字，指令名应该是驼峰命名风格的，函数应该返回一个对象,包含了用来定义和配置指令所需的方法和属性。
@@ -132,30 +132,36 @@
             <section>
                 <pre>
                 <code>
-                    <my-directive></my-directive>
+                    <demo-one></demo-one>
                 </code>
                 <code>
-<script>
-    angular.module('myApp',[])
-        .directive('myDirective', function() {
-            return {
-                restrict: 'E',
-                replace:true,
-                template: '<a href="http://google.com">Click me to go to Google</a>'
-            };
-        });
-</script>
+                angular.module("myApp", [])
+                    .controller('demoCtrl',function ($scope) {
+                        $scope.aa='as111111'
+                    })
+                    .directive('demoOne',function () {
+                        return{
+                            restrict:"AECM",
+                            template:'<input type="text" ng-model="aa">',
+                            replace: true,
+                            scope:{},
+                            controller:['$scope',function ($scope) {
+                                $scope.aa='ss1212'
+                            }]
+                        }
+                })
                 </code>
             </pre>
             </section>
             <section>
+                <a style="color: #ccc;" target="_blank" href="../demo/js-08-angular directives/demooooooo.html">Demo2</a>
                 <p>restrict属性有4个值元素（E） 、属性（A） 、类（C）或注释（M）用以制定格式来调用，可以有不止一种格式，比如 restrict: 'EAC'</p>
                 <p>replace的值决定它的模板是嵌套入标签中还是取而代之，若replace值为true，则显示的为</p>
                 <pre>
                     <code>
                         <a href="http://google.com">Click me to go to Google</a>
                     </code>
-<span>否则默认情况下， AngularJS将模板生成的HTML代码嵌套在自定义标签内部。</span>
+                    <span>否则默认情况下， AngularJS将模板生成的HTML代码嵌套在自定义标签内部。</span>
                     <code>
                         <my-directive>
                             <a href="http://google.com">Click me to go to Google</a>
@@ -164,53 +170,119 @@
                 </pre>
             </section>
             <section>
-                <p>当然还有更多属性，暂不一一介绍，如有需要请自行百度</p>
-                <p>如templateUrl属性<br>
-                    transclude、priority、terminal属性<br>
-                    compile && link属性<br>
-                    controller && controllAs属性<br>
-                    require属性<br>
-                    scope属性</p>
+                <div style="margin-left: 5% ; text-align: left">
+                    <p>scope参数是自定义指令中比较重要的一个参数，一共有3个属性值：true && false && {}</p>
+                    <p>第一种情况:scope:true</p>
+                    <p>继承父作用域，并且新建独立作用域 </p>
+                    <p>第二种情况:scope:false</p>
+                    <p>共享父作用域 </p>
+                    <p>第三种情况:scope:{}</p>
+                    <p>不继承父作用域，创建新的独立作用域</p>
+                </div>
+                <a href="../demo/js-08-angular directives/demooooooo.html">Demo</a>
             </section>
         </section>
         <section>
-            <h3>3.常见问题</h3>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <section>
+                    <p>指令的优先级</p>
+                    <p>ng-if和ng-show之间的区别</p>
+                </section>
+
+            </section>
         </section>
         <section>
-            <p>优先级</p>
-            <p>优先级参数可以被设置为一个数值。大多数指令会忽略这个参数，使用默认值0，但也有些
-                    场景设置高优先级是非常重要甚至是必须的。例如， ngRepeat将这个参数设置为1000，这样就可
-                    以保证在同一元素上，它总是在其他指令之前被调用。<br>
-                    如果一个元素上具有两个优先级相同的指令，声明在前面的那个会被优先调用。如果其中一
-                    个的优先级更高，则不管声明的顺序如何都会被优先调用：具有更高优先级的指令总是优先运行。</p>
-            <p>而对于ng-app,只能说并不屑于和其他任何指令作比较啊，只是简单的我是你们的爸爸而已</p>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>指令的优先级</p>
+                <p>优先级参数可以被设置为一个数值。大多数指令会忽略这个参数，使用默认值0，但也有些 场景设置高优先级是非常重要甚至是必须的。例如， ngRepeat将这个参数设置为1000，这样就可 以保证在同一元素上，它总是在其他指令之前被调用。
+                    如果一个元素上具有两个优先级相同的指令，声明在前面的那个会被优先调用。如果其中一 个的优先级更高，则不管声明的顺序如何都会被优先调用：具有更高优先级的指令总是优先运行。
+
+                </p>
+            </section>
+            <section>
+                <p>ng-if和ng-show之间的区别</p>
+
+            </section>
         </section>
         <section>
-            <h3>4.解决方案</h3>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <a style="color: #ccc;" target="_blank" href="../demo/js-08-angular directives/demo2.html">Demo</a>
+            </section>
         </section>
         <section>
-            <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <h3>6.扩展思考</h3>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>自定义指令中，作用域之间的数据交互是怎么样的？</p>
+            </section>
+            <section>
+                <p>修饰符'@' '=' '&'的用法</p>
+                   <div style="text-align: left; margin-left: 5%">
+
+                       <p>
+                           ”＝“：指令中的属性取值为controller中相应$scope上属性的取值，可用于双向数据的绑定 <br>
+                           <br>
+                           ”@“：指令中的取值为html中的字面量/直接量；建立一个local scope property到DOM属性的绑定。
+                           <br>
+                           <br>
+                           ”&“：指令中的取值为Contoller中相应$scope上的属性。可是这属性必须为一个函数回调
+                       </p>
+                   </div>
+                    <a style="color: #ccc;" target="_blank" href="https://blog.coding.net/blog/angularjs-directive-isolate-scope?type=early">AngularJS Directive 隔离 Scope 数据交互</a>
+
+            </section>
         </section>
         <section>
             <h3>7.参考文献</h3>
             <p>angular权威教程pdf</p>
             <a href="https://www.gitbook.com/book/xiaoxiami/angularjs/details">https://www.gitbook.com/book/xiaoxiami/angularjs/details</a>
+            <br>
             <a href="http://community.angular.cn/">angular中文社区</a>
+            <br>
+            <a href="http://blog.csdn.net/kongjiea/article/details/49840035">AngularJS指令参数详解</a>
         </section>
         <section>
             <h3>8.更多讨论</h3>
+            <p>自定义指令中的link和compile之间的区别。</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY :翟金超</small></p>
+            <p><small>BY :翟金超 | 杨泽平</small></p>
         </section>
     </div>
 </div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
 
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
 <script src="../lib/reveal/js/head.min.js"></script>
 <script src="../lib/reveal/reveal.js"></script>
 

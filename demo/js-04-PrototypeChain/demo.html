@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链demo</title>
+</head>
+<body>
+<script>
+//demo1原型属性
+    //创建构造函数Animal
+    function Animal(name) {
+        this.name = name;
+    }
+
+    // 创建两个实例对象
+    var cat1 = new Animal('大毛');
+    var cat2 = new Animal('二毛');
+
+    //构造函数Animal的prototype对象，就是实例对象cat1和cat2的原型对象。
+    // 在原型对象上添加一个color属性。结果，实例对象都能读取该属性。
+    Animal.prototype.color = 'white';
+
+    console.log(cat1.color);// 'white'
+    console.log(cat1.color); // 'white'
+
+    //原型对象的属性不是实例对象自身的属性。
+    // 但只要修改原型对象，变动就立刻会体现在所有实例对象上。
+    Animal.prototype.color = 'yellow';
+    console.log(cat1.color); // "yellow"
+    console.log(cat1.color); // "yellow"
+    //这是因为实例对象其实没有color属性，都是读取原型对象的color属性。
+    // 也就是说，当实例对象本身没有某个属性或方法的时候，
+    // 它会到构造函数的prototype属性指向的对象，去寻找该属性或方法。
+    // 这就是原型对象的特殊之处。
+
+    //如果实例对象自身就有某个属性或方法，它就不会再去原型对象寻找这个属性或方法。
+    cat1.color = 'black';
+    Animal.prototype.color = 'yellow';
+
+    console.log(cat1.color);// black
+    console.log(cat2.color);// "yellow";
+
+    //上面代码中，实例对象cat1的color属性改为black
+    // 就使得它不再去原型对象读取color属性，但cat2的值依然为yellow。
+
+//demo2  原型链
+//2.1
+    function P() {
+    }
+    ;
+    P.prototype.constructor === P;
+    //定义了一个函数P,P的原型的构造全等于P
+
+ //2.2
+    //创建实例函数小p
+    var p = new P();
+
+    p.constructor;
+    // function P() {}
+
+    //小p的contructor属性全等于大P的contructor属性
+    p.constructor === P.prototype.constructor;// true
+
+    //但是小P自身没有contructor属性，
+    // 该属性其实是读取原型链上面的P.prototype.constructor属性。
+    p.hasOwnProperty('constructor');// false
+
+//2.3
+    //constructor属性的作用，是分辨原型对象到底属于哪个构造函数
+    //新建一个构造函数大F，创建实例对象小f
+    function F() {
+    }
+    ;
+    function G() {
+    }
+    ;
+    var f = new F();
+
+    //实例对象小f的构造函数是大F，而不是G
+    f.constructor === F;// true
+    f.constructor === G;// false
+
+//demo3  获取原型对象方法的比较
+ //3.1
+    function H() {
+    }
+    ;
+    var h = new H();
+    //    三种方法都能获取到当前对象的原型对象
+    h.__proto__ === H.prototype;// true
+    h.constructor.prototype === H.prototype;// true
+    Object.getPrototypeOf(h) === H.prototype;// true
+
+    //注意：最新的ES6标准规定，__proto__属性只有浏览器才需要部署，
+    // 其他环境可以不部署，所以不推荐使用这种方法。
+    //而obj.constructor.prototype在手动改变原型对象时，可能会失效。
+    //见下方demo
+    ////3.2
+    var M = function () {
+    };
+    var m = new M();
+
+    var N = function () {
+    };
+    N.prototype = m;
+    //N构造函数的原型对象被改成了m
+
+    //N.prototype.constructor = N;
+    //在改变原型对象时，一般要同时设置constructor属性才能成功。
+
+    var n = new N();
+    n.constructor.prototype === m;// false
+    //导致了n.constructor.prototype失真
+    //综上，推荐使用第三种Object.getPrototypeOf方法，获取原型对象。
+
+//demo4
+    var d = new Date();
+    d instanceof Date // true
+    d instanceof Object // true
+    d instanceof Array // false
+    var x = [1, 2, 3];
+    x instanceof Array // true
+    x instanceof Object // true
+
+
+</script>
+</body>
+</html>

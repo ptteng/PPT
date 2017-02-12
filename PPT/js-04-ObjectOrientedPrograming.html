@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS中的面向对象编程</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <style>
+        p{
+            text-align: left;
+            /*text-indent:1em;*/
+            /*word-break: break-all;*/
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】JS中的面向对象编程</h2>
+            <h3>小课堂【成都第xx期】</h3>
+            <p style="text-align: center">分享人：鹿男春</p>
+        </section>
+        <section >
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <h4>什么是面向对象编程？</h4>
+                <p>面向对象编程是一种通用思想，主要概念为：
+                    把一组数据结构和处理它们的方法组成对象（object），把相同行为的对象归纳为类（class），通过类的封装（encapsulation）隐藏内部细节，通过继承（inheritance）实现类的特化（specialization）／泛化（generalization），通过多态（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。
+                </p>
+                <p>用人话表示就是把需要的变量和方法交给一个对象，然后直接通过使用这个对象来进行操作</p>
+            </section>
+            <section>
+                <p>oop具有如下特点</p>
+                <p> 抽象——根据需要抽离核心特征<br>
+                    封装——把内容结构之类的封印到一个对象里使用<br>
+                    继承——从父类继承出一些方法，属性，子类又可以有自己特性，为了最大限度重用代码
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>对象的概念</h4>
+                <p> “对象”是单个实物的抽象。
+                    一本书、一辆汽车、一个人都可以是“对象”，一个数据库、一张网页、Date、Array、甚至一个与远程服务器的连接也可以是“对象”。
+                    就像一个黑盒子，你使用其功能而无需明了原理
+
+                    “对象”是一个容器，封装了“属性”（property）和“方法”（method）。
+                    所谓“属性”，就是对象的状态；如Array对象具有length属性
+                    所谓“方法”，就是对象的行为（完成某种任务）。如Date对象的getfullyear方法
+                </p>
+            </section>
+            <section>
+                object对象
+                诸如Array RegExp
+                Object不起冲突，没有功能
+                new Object()
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>this</h4>
+                <h4>
+                    当前方法属于谁，this就指向谁
+                </h4>
+            </section>
+            <section>
+                <pre >
+                    <code>
+                        var arr = [1,2,3];
+                        arr.a=12;
+                        arr.miao=function () {
+                            console.log(arr.a)
+                            console.log(this.a)
+                            //都会打印出12
+                        }
+                </code>
+                </pre>
+            </section>
+            <section>
+                <pre >
+                    <code>
+                        onLoad:function (){
+                            var that = this
+                            wx.getStorage({
+                                key: 'key',
+                                success: function(res){
+                                    that.setData({
+                                        user:res.data
+                                    })
+                                },
+                                fail: function() {
+                                    console.log("施主重新选择过")
+                                }
+                            })
+                        },
+
+                        onLoad:function (){
+                            wx.getStorage({
+                                key: 'key',
+                                success: function(res){
+                                    this.setData({
+                                        user:res.data
+                                    })
+                                }
+                            })
+                        },
+
+                </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h4>简单例子</h4>
+            <pre >
+                <code>
+                var obj = new Object();//创建
+
+                obj.name ="a";//属性（变量）
+
+                obj.showName=function () {//方法（函数）
+                    alert(this.name)
+                }
+
+                obj.showName()//调用
+            </code>
+            </pre>
+        </section>
+        <section>
+            <section>
+                <h3>工厂模式，构造函数</h3>
+                <p>
+                    用构造函数把内容包起来，何为构造，功能为构造一个对象
+                </p>
+            </section>
+            <section>
+                 <pre>
+                <code>
+                        function creatName( name ) {
+                            //原料，对象
+                            var obj = new Object();//创建
+                            //加工，加方法属性
+                            obj.name =name;//属性
+
+                            obj.showName=function () {//方法
+                                alert(this.name)
+                            }
+                            //出厂
+                            return obj
+                        }
+                        var obj1 = creatName("miao");
+                        var obj2 = creatName("gu");
+                        console.log(obj1.showName==obj2.showName)//不相等，变成每个obj的单独方法，如果很多相同对象则占用大量资源
+                        //工厂模式缺点-new的问题，重复函数占用资源
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>
+                    原型和原型链
+                </h4>
+                <p>
+                    原型prototype
+                    JavaScript的每个对象都继承另一个对象，后者称为“原型” （prototype）对象。只有null除外，它没有自己的原型对象。
+                    原型对象上的所有属性和方法，都能被派生对象共享。这就是JavaScript继承机制的基本设计。
+                    通过构造函数生成实例对象时，会自动为实例对象分配原型对象。每一个构造函数都有一个prototype属性，这个属性就是实例对象的原型对象。
+                </p>
+            </section>
+            <section>
+                <p>类比css理解</p>
+                <pre>
+                    <code>
+                            var arr = new Array(1,2,3);
+                            var bbc = new Array(1,2,3,4)
+                            a.sum=function () {                //行简样式
+                                var res = 0
+                                for(var i=0;i小于this.length ; i++){
+                                    res += this[i]
+                                }
+                                return res
+                            }
+                            console.log(a.sum());//有
+                            console.log(b.sum());//无
+                            Array.prototype.boom =function () {//class ， 给一组元素添加样式
+                                var res = 0
+                                for(var i=0;i小于this.length ; i++){
+                                    res += this[i]
+                                }
+                                return res
+                            }
+                            console.log(a.sum())//有
+                            console.log(b.sum())//有
+                            /*Array和arr的欢喜
+                            Array&#45;&#45;模子
+                            arr&#45;&#45;产品
+                            var a = new arr(1,2)
+                            Array.push()*/
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>构造函数中new的问题</p>
+            <p>如何解决构造函数中重复使用函数造成资源浪费</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <pre>
+    <code>
+        function creatName( name ) {
+            //原料，对象
+            var obj = new Object();//创建
+            //加工，加方法属性
+            obj.name =name;//属性
+
+            obj.showName=function () {//方法
+                alert(this.name)
+            }
+            //出厂
+            return obj
+        }
+        var obj1 = creatName("miao");
+        var obj2 = creatName("gu");
+        console.log(obj1.showName==obj2.showName)//不相等，变成每个obj的单独方法，如果很多相同对象则占用大量资源
+        //工厂模式缺点，没有new，
+
+        function show() {
+            alert(this)     //window
+        }
+        show()              //window
+        new show()          //object，新new出来的对象
+
+        //如果在函数调用的时候加new
+
+        function creatName( name ) {
+
+            this.name =name;
+
+            this.showName=function () {
+                alert(this.name)
+            }
+            //此时this不在指向window，指向new出来的对象
+            /*
+             系统自动完成以下步骤
+             var this = new Object() 指向空对象
+             return obj              自动返回
+
+             */
+        }
+        var obj1 = new creatName("miao");
+        var obj2 = new creatName("gu");
+
+    </code>
+</pre>
+        </section>
+        <section>
+            <pre>
+                <code>
+                        //原型用到面向对象
+                        //函数重复，资源浪费
+
+                        function creatName( name ) {
+
+                            this.name =name;
+
+                        }
+
+                        creatName.prototype.showName=function () {  //原型用法
+                            alert(this.name)
+                        }
+                        console.log(obj1.showName==obj2.showName)   //true
+
+                        //    用构造函数加属性，原型加方法
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >
+                面向对象与面向过程的区别？
+                传统的过程式编程（procedural programming）由一系列函数或一系列指令组成；而面向对象编程的程序由一系列对象组成。
+                每一个对象都是功能中心，具有明确分工，可以完成接受信息、处理数据、发出信息等任务。因此，面向对象编程具有灵活性、代码的可重用性、模块性等特点，容易维护和开发，非常适合多人合作的大型应用型软件项目。
+            </p>
+            <p>两者都可以做的同样的事，我懂你的欢喜</p>
+        </section>
+        <section>
+        <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://javascript.ruanyifeng.com/oop/basic.html">阮一峰</a></p>
+            <p>参考二：<a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&cof=FORID%3A11&ie=UTF-8&q=Javascript+%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B&sa.x=9&sa.y=8">阮一峰</a></p>
+            <p>参考三：智能社视频
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center"><small>BY : 鹿南春</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

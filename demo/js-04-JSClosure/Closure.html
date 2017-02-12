@@ -1,0 +1,51 @@
+
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>闭包演示</title>
+    <script type="text/javascript">
+        /*使用闭包读取函数内部的变量*/
+        /*function f1(){
+         n = 999;
+         function f2(){
+         alert(n);
+         }
+         return f2;
+         }
+         var result = f1();
+         result(); //999*/
+        /*使用闭包让函数内部的变量储存在内存中*/
+        /*function f1(){
+         n = 999;
+         nAdd = function(){
+         n+=1;
+         };
+         function f2(){
+         alert(n);
+         }
+         return f2;
+         }
+         var result = f1();
+         result();//999
+         nAdd();
+         result();//1000*/
+        function init() {
+            var pAry = document.getElementsByTagName("button");
+            for( var i=0; i< pAry.length; i++ ) {
+                (function(arg){
+                    pAry[i].onclick = function() {
+                        alert(arg);
+                    };
+                })(i);//调用时参数
+            }
+        }
+    </script>
+</head>
+<body onload="init();">
+<button type="button">0</button>
+<button type="button">1</button>
+<button type="button">2</button>
+<button type="button">3</button>
+<button type="button">4</button>
+</body>
+</html>
