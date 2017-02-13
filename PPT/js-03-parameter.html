@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task】js有哪几种传参方式</h2>
+            <h3>小课堂【郑州第45期】</h3>
+            <p>分享人：陈红远</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>js函数的参数与大多数其他语言中函数的参数不同，它不介意传递进来多少个参数，也不在乎传递进来参数是什么数据类型。也就是说，即便你定义的函数只接收两个参数，在调用这个函数式也未必一定要传递两个参数。另外，所有函数的参数都是按值传递的。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>几种常见的传参方式</h3>
+            <p>1，localStorage和sessionStorage</p>
+            <p>将数据存储在localStorage中，如果不使用removeItem()或者delete删除，或者用户未清楚浏览器缓存，数据会一直保留在磁盘上，一般它的大小有5M的限制。另外，要访问同一个localStorage对象，页面必须来自同一个域名(子域名无效)，使用同一个协议，在同一个端口上</p>
+        </section>
+        <section>
+            <p>而数据存储在sessionStorage中，该数据只保持到浏览器关闭，因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储</p>
+            <p>他们都属于storage类型，因此拥有storage类型的方法</p>
+            <p>保存数据：setItem(key,value);
+<br>读取数据：getItem(key);
+<br>删除单个数据：removeItem(key);
+<br>删除所有数据：clear();
+<br>得到某个索引的key：key(index);</p>
+        </section>
+        <section>
+            <p>2，cookie传递参数</p>
+            <p>HTTP Cookie，通常直接叫做cookie，Cookie是浏览器访问服务器后，服务器传给浏览器的一段数据。 浏览器需要保存这段数据，不得轻易删除。此后每次浏览器访问该服务器，都必须带上这段数据</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>还有什么其他传递参数的方式？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>使用url传递参数</p>
+            <P>URL地址传递参数方式在我们Web页面程序处理中非常常见，其形式是在页面地址后面附带参数的方式浏览页面，如：“task.html?room=301&name=哈哈”，其中“room=301”即我们传递的参数名称和值。URL地址方法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况下不会产生性能损失。用?将url和参数分隔开，用&分隔多个参数。那么，我们该如何在JS文件中获取URL中的参数呢？应该通过location.search方法取得URL中的参数部分，然后再进一步处理得到</P>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <img src="../img/js-03-parameter/1.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>还有其他的传参方式么</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.cnblogs.com/SunShineKG/p/6092700.html" target="_blank">http://www.cnblogs.com/SunShineKG/p/6092700.html</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>什么情况下适用以上的传参方式</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 陈红远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
