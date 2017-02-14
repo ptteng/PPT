@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+    <title>葡萄藤JS-18-PPT</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
-    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <!-- css-28-sassinsublime主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
     <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
@@ -31,8 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
-            <p>分享人：张增锋</p>
+            <h2>【JS-task1】<span style="text-transform:lowercase">ID和class有什么区别</span></h2>
+            <h3>小课堂【郑州第18期】</h3>
+            <p>分享人：安文杰</p>
         </section>
         <section>
             <p>目录</p>
@@ -49,86 +50,74 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。Animation字面上的意思，就是“动画”的意思，
-                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
-                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
-        </section>
+            <p>ID是英文IDentity的缩写，身份标识号码的意思。也称为序列号或帐号，是某个体系中相对唯一的编码，相当于是一种“身份证”在某一具体的事物中，ID号一般是不变的，至于用什么来标识该事物，则由设计者自己制定的规则来确定。一般而言，这个规则根据具体的使用环境在设计上有一定的主观性，如：“员工工号”、“身份证号码”“计算机网址”等。对于计算机主要有两种运算方式，逻辑运算和算术运算，逻辑运算便关系到数字的ID功能。</p>
+        </section>            
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
-                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
-                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
-                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
-                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
-            </P>
+            <p>class是一个选择器，可以理解为一个标识，用来标识特定的标签，就像你的作业本上写你的名字用来标识这是你的作业本（当然这个例子不是很贴切），你可以根据比如：<div class="div1"></div>这就是一个标识效果，以后你想要改变这个div的样式的话就可以找class为div1的元素了。另外  一般的flash文件你是看不见的，他只是调用了而已。如果想单独看或者下载这个flash文件的话可以把这个flash名称按照路径拷贝到浏览器里  就可以看见了</p>
         </section>
         <section>
-            <h3>3.常见问题</h3>
+           <h3>3.常见问题</h3>
         </section>
         <section>
-            <p> @keyframes 规则</p><br>
-            <p>兼容性该如何解决</p>
-        </section>
+           <ul>
+               <li>优先级的问题</li>
+               <li>渲染速度的问题</li>
+           </ul>
+        </section> 
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
-            <p style="text-align:left">
-                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
-                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
-                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
-                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
-                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
-                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
-                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
-                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
-                其中"0%"不能像别的属性取值一样把百分比符号省略。
-            </p>
-        </section>
-        <section>
-            <p>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
-            <p>Chrome 和 Safari 需要前缀 -webkit-。</p>
-            <p>注释：Internet Explorer 9，以及更早的版本，不支持 @keyframe 规则或 animation 属性。</p>
+在样式表定义一个样式的时候，可以定义id也可以定义class。
+1、在CSS文件里书写时，ID加前缀"#"；CLASS用"."
+2、id一个页面只可以使用一次；class可以多次引用。
+3、ID是一个标签，用于区分不同的结构和内容，就象名字，如果一个屋子有2个人同名，就会出现混淆；class是一个样式，可以套在任何结构和内容上，就象一件衣服；
+4、从概念上说就是不一样的：id是先找到结构/内容，再给它定义样式；class是先定义好一种样式，再套给多个结构/内容。
+目前的浏览器还都允许用多个相同ID，一般情况下也能正常显示，不过当你需要用JavaScript通过id来控制div时就会出现错误。
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <p style="margin-left: -15%;font-size: 3rem">
-                    <a href="../demo/css-12-CSS%20PPT/demo1.html">demo1</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo2.html">demo2</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo3.html">demo3</a>
-                </p>
-            </pre>
+        <pre><code>
+var change_3=Math.floor(Math.random()*9)+1;  
+console.log(document.getElementById(change_3))
+=><li id="3" style="background-color: rgb(100,90,45);"></li>DOM  是一个对象
+
+document.getElementsByClassName('ClassName');
+=>[button.btn1]  返回DOM元素，以数组形式，所以要加上下标
+//0:button.btn1
+    length:1
+    _proto_:HTMLCollection
+        </code></pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+            <p class="fragment">还有哪些区别？</p>
         </section>
-        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+            <p>参考一<a href="http://www.w3cplus.com" target="_blank">百度知道</a></p>
+            <p>参考二：《javascript权威指南》</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>CSS3的动画效果与3D转换，还有什么其他的作用？</p>
+            <p>讨论:</p>
+            <p class="fragment">为什么要这样设计，哪种使用效果好，class哪些兼容性不好？</p>
         </section>
         <section>
-            <h4>鸣谢</h4>
+            <h4 style="text-transform:lowercase">鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY:徐浩程 张增锋</small></p>
+            <p><small>BY : 沁修 | 安文杰</small></p>
         </section>
 
     </div>

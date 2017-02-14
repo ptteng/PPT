@@ -9,22 +9,23 @@
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    a
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 
     <style>
-        p{
+        p {
             text-align: left;
             /*text-indent:1em;*/
             /*word-break: break-all;*/
@@ -44,7 +45,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <h3>小课堂【武汉第54期】</h3>
             <p style="text-align: center">分享人：胡思豪</p>
         </section>
-        <section >
+        <section>
             <p style="text-align: center">目录</p>
             <p style="text-align: center">1.背景介绍</p>
             <p style="text-align: center">2.知识剖析</p>
@@ -60,10 +61,12 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
         </section>
         <section>
             <h4>什么是面向对象编程？</h4>
-            <p >“面向对象编程”（Object Oriented Programming，缩写为OOP）是目前主流的编程范式。它的核心思想是将真实世界中各种复杂的关系，抽象为一个个对象，然后由对象之间的分工与合作，完成对真实世界的模拟。</p>
+            <p>“面向对象编程”（Object Oriented
+                Programming，缩写为OOP）是目前主流的编程范式。它的核心思想是将真实世界中各种复杂的关系，抽象为一个个对象，然后由对象之间的分工与合作，完成对真实世界的模拟。</p>
 
             <p>主要概念为：
-                把一组数据结构和处理它们的方法组成对象（object），把相同行为的对象归纳为类（class），通过类的封装（encapsulation）隐藏内部细节，通过继承（inheritance）实现类的特化（specialization）／泛化（generalization），通过多态（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。
+                把一组数据结构和处理它们的方法组成对象（object），把相同行为的对象归纳为类（class），通过类的封装（encapsulation）隐藏内部细节，通过继承（inheritance）实现类的特化（specialization）／泛化（generalization），通过多态（polymorphism）实现基于对象类型的动态分派（dynamic
+                dispatch）。
             </p>
         </section>
         <section>
@@ -71,12 +74,12 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
                 <p>
                     （注意：JavaScript不是一种模块化编程语言，ES5不支持”类”（class），也没有”模块”（module）。ES6正式支持”类”和”模块”，但还没有成为主流。）
 
-                形象的解释↓↓↓
+                    形象的解释↓↓↓
                 </p>
             </section>
-            <section >
+            <section>
                 <img style="width: 700px" src="../img/js-04-ObjectOrientedProgrammingInJavascript/666.jpg">
-            </section >
+            </section>
 
         </section>
 
@@ -127,7 +130,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <p>
                 new命令的作用，就是执行构造函数，返回一个实例对象。
             </p>
-            <pre  style="height: 175px">
+            <pre style="height: 175px">
                 <code>
   var Vehicle = function (){                           ①
   this.price = 1000;
@@ -143,8 +146,8 @@ console.log(v.price)
             </p>
         </section>
         <section>
-<p>使用new命令时，根据需要，构造函数也可以接受参数。</p>
-            <pre  style="height: 175px">
+            <p>使用new命令时，根据需要，构造函数也可以接受参数。</p>
+            <pre style="height: 175px">
                 <code>
  var Vehicle = function (p) {
   this.price = p;
@@ -152,8 +155,8 @@ console.log(v.price)
 var v = new Vehicle(500);
                 </code>
             </pre>
-         <p>new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。下面两行代码是等价的。</p>
-            <pre  style="height: 175px">
+            <p>new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。下面两行代码是等价的。</p>
+            <pre style="height: 175px">
                 <code>
 var v = new Vehicle();
 var v = new Vehicle;
@@ -161,10 +164,10 @@ var v = new Vehicle;
             </pre>
         </section>
         <section>
-        <section>
-            <P>如果忘了使用new命令，直接调用构造函数会导致构造函数变成普通函数，就不会生成实例对象，并且此时的this这时代表全局对象，将造成一些意想不到的结果。
-            </P>
-            <pre >
+            <section>
+                <P>如果忘了使用new命令，直接调用构造函数会导致构造函数变成普通函数，就不会生成实例对象，并且此时的this这时代表全局对象，将造成一些意想不到的结果。
+                </P>
+                <pre>
                 <code>
                     ②
 var Vehicle = function (){
@@ -177,7 +180,7 @@ v.price
 
                 </code>
             </pre>
-        </section>
+            </section>
             <section>
                 <p>上面代码中，调用Vehicle构造函数时，忘了加上new命令。结果，price属性变成了全局变量，而变量v变成了undefined。
                     <strong>因此必须小心，记得使用new命令。</strong>
@@ -199,7 +202,8 @@ v.price
         <section>
             <p>
                 原型链
-                对象的属性和方法，有可能是定义在自身，也有可能是定义在它的原型对象。由于原型本身也是对象，又有自己的原型，所以形成了一条原型链（prototype chain）。比如，a对象是b对象的原型，b对象是c对象的原型，以此类推。
+                对象的属性和方法，有可能是定义在自身，也有可能是定义在它的原型对象。由于原型本身也是对象，又有自己的原型，所以形成了一条原型链（prototype
+                chain）。比如，a对象是b对象的原型，b对象是c对象的原型，以此类推。
                 “原型链”的作用是，读取对象的某个属性时，JavaScript引擎先寻找对象本身的属性，如果找不到，就到它的原型去找，如果还是找不到，就到原型的原型去找。如果直到最顶层的Object.prototype还是找不到，则返回undefined。
                 需要注意的是，一级级向上，在原型链寻找某个属性，对性能是有影响的。所寻找的属性在越上层的原型对象，对性能的影响越大。如果寻找某个不存在的属性，将会遍历整个原型链。
             </p>
@@ -226,7 +230,7 @@ v.price
         </section>
         <section>
             <p>2.让子类的原型指向父类的原型，这样子类就可以继承父类原型。</p>
-            <pre >
+            <pre>
                 <code>
 
 Sub.prototype = Object.create(Super.prototype);
@@ -234,20 +238,21 @@ Sub.prototype.constructor = Sub;
 Sub.prototype.method = '...';
                 </code>
             </pre>
-            <p>上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。</p>
+            <p>
+                上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。</p>
         </section>
         <section>
             <P>
                 另外一种写法是Sub.prototype等于一个父类实例。
             </P>
-            <pre >
+            <pre>
                 <code>
 Sub.prototype = new Super();
                 </code>
             </pre>
-<P>
-    上面这种写法也有继承的效果，但是子类会具有父类实例的方法。有时，这可能不是我们需要的，所以不推荐使用这种写法。
-</P>
+            <P>
+                上面这种写法也有继承的效果，但是子类会具有父类实例的方法。有时，这可能不是我们需要的，所以不推荐使用这种写法。
+            </P>
         </section>
         <section>
             <h3>3.常见问题</h3>
@@ -275,12 +280,13 @@ function Fubar(foo, bar){   ④
                 </code>
             </pre>
             <p>
-                上面代码的Fubar为构造函数，use strict命令保证了该函数在严格模式下运行。由于在严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript不允许对undefined添加属性）。
+                上面代码的Fubar为构造函数，use
+                strict命令保证了该函数在严格模式下运行。由于在严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript不允许对undefined添加属性）。
             </p>
         </section>
         <section>
-          <p>另一个解决办法，是在构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象。</p>
-            <pre >
+            <p>另一个解决办法，是在构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象。</p>
+            <pre>
                 <code>
 function Fubar(foo, bar){          ⑤
   if (!(this instanceof Fubar)) {
@@ -302,7 +308,7 @@ Fubar(1, 2)._foo // 1
         </section>
         <section>
             <P>创建构造函数和构造函数的继承
-                <a href="../img/js-04-ObjectOrientedProgrammingInJavascript/demo1.html"> demo链接，F12调试见第三段script代码</a>
+                <a href="../demo/js-04-ObjectOrientedProgrammingInJavascript/demo1.html"> demo链接，F12调试见第三段script代码</a>
             </P>
 
         </section>
@@ -322,7 +328,9 @@ Fubar(1, 2)._foo // 1
         </section>
         <section>
             <p>参考一：<a href="http://javascript.ruanyifeng.com/oop/basic.html">阮一峰</a></p>
-            <p>参考二：<a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&cof=FORID%3A11&ie=UTF-8&q=Javascript+%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B&sa.x=9&sa.y=8">阮一峰</a></p>
+            <p>参考二：<a
+                    href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&cof=FORID%3A11&ie=UTF-8&q=Javascript+%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B&sa.x=9&sa.y=8">阮一峰</a>
+            </p>
             <p>参考三：<a href="https://www.zhihu.com/question/19854505">知乎</a></p>
         </section>
         <section>
@@ -337,7 +345,9 @@ Fubar(1, 2)._foo // 1
         <section>
             <h4>鸣谢</h4>
             <p style="text-align: center">感谢大家观看</p>
-            <p style="text-align: center"><small>BY : 黄雄 | 胡思豪</small></p>
+            <p style="text-align: center">
+                <small>BY : 黄雄 | 胡思豪</small>
+            </p>
         </section>
 
     </div>
@@ -369,10 +379,14 @@ Fubar(1, 2)._foo // 1
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>

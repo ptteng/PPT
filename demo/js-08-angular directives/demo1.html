@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .style-one{
+            color:red;
+        }
+        .style-two{
+            color: #ccc;
+        }
+    </style>
+    <title>Document</title>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.0/angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<!--ng-class-->
+    <div class="{{className}}"> 第一种情况</div>
+    <div ng-class="{true:'style-one',false:'style-two'}[hello]"> 第二种情况</div>
+    <div ng-class="{'style-one' : istrue ,'style-two' : !istrue }">第三种情况</div>
+<!--ng-click-->
+    <button ng-click="change()">点击我</button>
+    <br>
+    <button ng-click="num=num+1">点击我</button> {{num}}
+    <br>
+<!--ng-click+ ng-class 联动-->
+    <button ng-click="changeClass()">点击联动</button>
+    <div ng-class="{'style-one' : istrue ,'style-two' : !istrue }">联动</div>
+<!--ng-bind ng-model-->
+    <div ng-bind="number"></div>
+    <input type="text" ng-model="number">
+<!--ng-repeat-->
+<!-- track by $index -->
+    <ul  >
+        <!--<li ng-repeat="li in name track by $index" >我叫{{li.name}}+,今年芳龄{{li.age}}岁+{{$index}}</li>-->
+        <li ng-repeat="li in name  track by $index" >{{li}}+{{$index}}</li>
+    </ul>
+<script>
+    angular.module ('myApp',[])
+        .controller('myCtrl',function ($scope) {
+            $scope.className='style-two';//第一种情况 不推荐
+            $scope.hello=true;//第二种情况
+            $scope.istrue=false;//第三种情况
+            $scope.num=1;
+            $scope.number='123';
+            $scope.change=function () {
+                alert('ss')
+            };
+            $scope.changeClass=function () {
+                if($scope.istrue==true){
+                    $scope.istrue=false;
+                } else {
+                    $scope.istrue=true;
+                }
+            };
+            $scope.words=[]
+            $scope.name=[
+                'aa',
+                'bb',
+                'cc',
+                'aa1',
+                'bb'
+            ]
+        })
+</script>
+</body>
+</html>

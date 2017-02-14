@@ -32,13 +32,16 @@
     <div class="slides">
         <section>
             <h2>【js-04-prototype chain】</h2>
-            <h3>小课堂【北京第17期】</h3>
-            <p>分享人：杨山</p>
+            <h3>成都小课堂</h3>
+            <p>分享人：刘洪运</p>
         </section>
         <section>
             <p>目录</p>
             <p>1.背景介绍</p>
             <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
             <p>6.扩展思考</p>
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
@@ -48,7 +51,6 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
-
                 <p>
                     JavaScript对象是一个属性的集合，另外有一个隐式的对象：原型对象。原型的值可以是一个对象或者null。一般的引擎实现中，JS对象会包含若干个隐藏属性，对象的原型由这些隐藏属性之一引用，我们在本文中讨论时，将假定这个属性的名称为"__proto__"(事实上，SpiderMonkey内部正是使用了这个名称，但是规范中并未做要求，因此这个名称依赖于实现)。
                     由于原型对象本身也是对象，根据上边的定义，它也有自己的原型，而它自己的原型对象又可以有自己的原型，这样就组成了一条链，这个链就是原型链。</p>
@@ -60,68 +62,103 @@
 
             </section>
             <section>
-                <p>ECMAScript中描述了原型链的概念，并将原型链作为实现继承的主要方法。其基本思想就是利用原型让一个引用类型继承另一个引用类型的属性和方法。</p>
+                <p>ECMAScript中描述了原型链的概念，并将原型链作为实现继承的主要方法。<b>其基本思想就是利用原型让一个引用类型继承另一个引用类型的属性和方法。</b></p>
                 <p>JavaScritp引擎在访问对象的属性时，如果在对象本身中没有找到，则会去原型链中查找，如果找到，直接返回值，如果整个链都遍历且没有找到属性，则返回undefined.原型链一般实现为一个链表，这样就可以按照一定的顺序来查找。</p>
-
+                <p>原型的动态性：对原型对象所做的实时修改都能从实例上立即反应出来。（注意区别添加修改和重写了原型对象）</p>
             </section>
             <section>
-                <img src="../img/js-04-prototype%20chain/001.png" alt="">
-                <p>通过function foo(){}定义一个函数对象，函数对象就会默认带有一个prototype的属性，它的属性是一个对象属性，我们给它添加一个属性z=3</p>
-            </section>
-            <section>
-                <img src="../img/js-04-prototype%20chain/002.png" alt="">
-                <p>接下来，new foo（）；构造器的方法构造一个新的对象，并添加了x，y两个属性，obj的原型会指向构造器的protoType的属性，也就是foo.prototype</p>
-            </section>
-            <section>
-                <p>当我们分别console obj.x、obj.y、obj.z会是什么呢？</p>
-                <p>因为之前已经给obj.y和obj.x赋值了，所以会分别显示2，1；但是我们并没有定义obj.z，这个时候，对象并不会停止寻找，而会查找它的原型，就是foo.prototype
-                    因为foo.prototype里有z=3，console obj.z会显示3</p>
+                <p>
+                    原型对象包含指向构造函数的指针。a实例包含指向a原型对象内部的指针，使得我们可以访问原型对象的属性。如果让b原型对象等于a对象的实例那我们就可以访问a对象的原型对象及其属性和方法了。同理a的原型对象也可以是通过该种方法从c继承过来...
+                </p>
             </section>
         </section>
         <section>
             <section>
-                <p>事实上，我们用字面量创建对象或者用函数对象的默认prototype对象，它也是有原型的，它的原型会指向object.prototype</p>
+                <h3>3.常见问题</h3>
+                <p>原型链怎样实现继承</p>
             </section>
-            <section>
-                <img src="../img/js-04-prototype%20chain/003.png" alt="">
-                <p style="text-align: left">我们并没有定义toString方法，但是为什么obj会有这个方法。</p>
-                <img style="width: 300px;height: 350px;" src="../img/js-04-prototype%20chain/004.png" alt="">
-                <img style="width: 300px;height: 350px;" src="../img/js-04-prototype%20chain/005.png" alt="">
-                <p style="text-align: left">toString方法是object.prototype上的方法。obj继承了这个方法</p>
-            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                原型对象包含指向构造函数的指针，这使得子类可以访问到构造函数中的属性。实例包含指向原型对象的内部的指针。
+            </p>
+            <br>
+            ex:<br>
+            a实例包含指向a原型对象内部的指针，使得我们可以访问原型对象的属性。如果让b原型对象等于a对象的实例那我们就可以访问a对象的原型对象及其属性和方法了。同理a的原型对象也可以是通过该种方法从c继承过来...
+            </p>
         </section>
         <section>
             <section>
                 <h3>5.编码实战</h3>
             </section>
             <section>
-                <img src="../img/js-04-prototype%20chain/006.png" alt="">
+                <p>先给大家引入一个例子：组合使用构造函数模式和原型模式创建自定义类型</p>
+                <pre>
+                <code>
+                    <!--构造函数部分：添加实例的属性-->
+                    function Person(name,age,job){
+                         this.name = name;
+                         this.age = age;
+                         this.job = job;
+                         this.friends = ["Lance","Alice"];
+                    }
+                    <!--原型对象部分：定义方法和共享属性-->
+                    Person.prototype = {
+                          constructor : Person;
+                          sayName : function() {
+                               alert(this.name);
+                    }
+                    }
+                </code>
+                </pre>
             </section>
             <section>
-                <p style="text-align: left">当查找一个对象的属性时，JavaScript 会向上遍历原型链，直到找到给定名称的属性为止，到查找到达原型链的顶部（也就是
-                    Object.prototype），如果仍然没有找到指定的属性，就会返回 undefined。</p>
-                <p style="text-align: left">在刚才那个例子中分别给”Person.prototype “和” Person.proto”这两个原型对象添加了”MaxNumber
-                    “和”MinNumber”属性，这里就需要弄清”prototype”和”proto”的区别了。
-                    “Person.prototype “对应的就是Person构造出来所有实例的原型，也就是说”Person.prototype
-                    “属于这些实例原型链的一部分，所以当这些实例进行属性查找时候，就会引用到”Person.prototype “中的属性。</p>
+               实现原型链的基本模式举例：
+                <pre>
+                    <code>
+                        function SuperType (){
+                            this.property = true;
+                        }
+                        SuperType.prototype.getSuperValue = function(){
+                            return this.property;
+                        }
+                        function SubType() {
+                           this.subproperty = false ;
+                        }
+                        <!--继承SuperType-->
+                        SubType.prototype = new SuperType();
+                        <!--从这里可以看出实现的本质是:!!!重写原型对象-->
+                        <!--往原型里面添加新的方法。这里要注意一个问题-->
+                        SubType.prototype.getSubValue = function(){
+                             return this.subproperty;
+                        };
+                        var instance = new SubType();
+                        alert(instance.getSuperValue());     //true
+                    </code>
+                </pre>
             </section>
         </section>
 
         <section>
             <h3>6.扩展思考</h3>
-            <p>作用域链</p>
-            <p>this值</p>
+            <p>原型链继承方式存在的问题。以及怎样解决</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
-            <p>参考一：<a href="http://www.imooc.com/video/6001" target="_blank">慕课网</a></p>
-            <p>参考二：<a href="http://hzjavaeyer.group.iteye.com/group/wiki/3086-JavaScript-core-concepts" target="_blank">abruzzi的文章</a></p>
+            <p>《JavaScript高级程序设计》</p>
+        </section>
+        <section>
+            <h3>8.扩展思考</h3>
+            <p>其他实现继承的方法还有哪些？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 杨山 </small>
+                <small>BY : 刘洪运 </small>
             </p>
         </section>
 

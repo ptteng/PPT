@@ -31,8 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
-            <p>分享人：张增锋</p>
+            <h2>【JS-task】定时器有哪些用法</h2>
+            <h3>小课堂【郑州第41期】</h3>
+            <p>分享人：陈红远</p>
         </section>
         <section>
             <p>目录</p>
@@ -49,86 +50,78 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。Animation字面上的意思，就是“动画”的意思，
-                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
-                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
+            <p>我们在任务中一般会遇见过这样的两种定时器，第一种是setTimeOut,第二种是setInterval,这两种定时器有如下的区别：</p>
+<p>1、setTimeout允许设置一个超时对象，超时后执行这个对象，但是只执行一次，无周期</p>
+<p>2、setInternval允许设置一个超时对象，超时后执行这个对象，周期等于超时对象指定的时间，周期为无限循环</p>
+<p>比如你打开一个页面后，想间隔几秒自动跳转到另一个页面，则你就需要采用倒计定时器“setTimeout("function();",delaytime)” ，而如果想将某一句话设置成一个一个字的出现，
+则需要用到循环定时器“setInterval("function();",delaytime)” 。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
-                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
-                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
-                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
-                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
-            </P>
+            <p>timename=setTimeout("function();",delaytime);</p>
+            <p>timename=setInterval("function();",delaytime);</p>
+            <p>第一个参数“function()”是定时器触发时要执行的动作，可以是一个函数，也可以是几个函数，函数间用“；”隔开即可。比如要弹出两个警告窗口，便可将“function();”换成“alert('第一个警告窗口!');alert('第二个警告窗口!');”；而第二个参数“delaytime”则是间隔的时间，以毫秒为单位，即填写“5000”，就表示5秒钟。</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p> @keyframes 规则</p><br>
-            <p>兼容性该如何解决</p>
+            <pre>
+                <code>
+                    
+                      var t=null;
+                        var i=0;
+                        function a(){
+                         i++;
+                         if(i==20){
+                          return;
+                         }
+                         t=setTimeout(a,17);
+                        }
+                        a();
+                        alert(i);
+                    
+                </code>
+            </pre>
+            <p>这段代码会出现什么效果？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
-            <p style="text-align:left">
-                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
-                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
-                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
-                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
-                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
-                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
-                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
-                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
-                其中"0%"不能像别的属性取值一样把百分比符号省略。
-            </p>
-        </section>
-        <section>
-            <p>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
-            <p>Chrome 和 Safari 需要前缀 -webkit-。</p>
-            <p>注释：Internet Explorer 9，以及更早的版本，不支持 @keyframe 规则或 animation 属性。</p>
+            <p>结果就是不等循环结束就弹出1了。</p>
+            <P>其实setTimeout和setInterval这两个定时器一旦触发，就是和js程序并行执行的，也就是他们并不在一个时间线上。计时器的作用是仅仅是做一个计划，那就是每隔一段时间执行一次目标方法。计时器的任务每到那个时间点会完成，但是其它时间会继续执行下面的代码。如上程序，a函数运行到定时器前一句的时候，i的值是1，然后执行定时器，17毫秒远远大过程序的运行时间，于是js不等了继续执行，于是alert（i），也就是1。</P>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <p style="margin-left: -15%;font-size: 3rem">
-                    <a href="../demo/css-12-CSS%20PPT/demo1.html">demo1</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo2.html">demo2</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo3.html">demo3</a>
-                </p>
-            </pre>
+            <p>见任务1代码</p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+            <p>为什么多次点击后会越来越快</p>
         </section>
-        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+            <p>参考：<a href="http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html" target="_blank">http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>CSS3的动画效果与3D转换，还有什么其他的作用？</p>
+            <p>思考下计时器的其他原理</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY:徐浩程 张增锋</small></p>
+            <p><small>BY : 沁修 | 陈红远</small></p>
         </section>
 
     </div>
@@ -138,7 +131,6 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -157,7 +149,6 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -171,3 +162,5 @@
 </script>
 </body>
 </html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
