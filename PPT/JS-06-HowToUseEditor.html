@@ -59,11 +59,15 @@
         </section>
         <section >
             <h3>2.知识剖析</h3>
+            <p>1、开始使用UEditor</p>
+            <p>2、定制自己的工具栏</p>
+            <p>3、UEditor简单初始化设置</p>
         </section>
 
         <section style="text-align: justify;text-indent: 2em">
-            <p>UEditor目录： </p>
-            <p>1.下载编辑器并解压，部署包解压后的文件目录结构如下所示</p>
+            <p>知识点1：开始使用UEditor</p>
+            <p>（1）UEditor目录： </p>
+            <p>下载编辑器并解压，部署包解压后的文件目录结构如下所示</p>
             <div class=ct style="display: flex ;flex-direction: row ">
                 <img  src="../img/JS-06-HowToUseEditor/02.png" title="项目结构">
                 <div style="text-align: left;font-size: 1.3rem">
@@ -77,32 +81,21 @@
             </div>
         </section>
         <section style="text-align: justify;text-indent: 2em">
-            <p>UEditor部署： </p>
+            <p>（2）UEditor部署： </p>
             <p>在HTML中引入配置文件ueditor.config.js和源码文件ueditor.all.js以及jquery库</p>
             <div class=ct>
                 <img  src="../img/JS-06-HowToUseEditor/03.png" title="引入js文件">
             </div>
         </section>
         <section style="text-align: justify;text-indent: 2em">
-            <p>实例化UEditor： </p>
+            <p>（3）实例化UEditor： </p>
             <p>至此，UE富文本编辑器已经按照默认配置成功部署</p>
             <div class=ct>
                 <img  src="../img/JS-06-HowToUseEditor/4.png" title="引入js文件">
             </div>
         </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-
-            <p>如何定制自己的工具栏？</p>
-
-
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
         <section style="text-align: justify;text-indent: 2em;font-size: 1.3rem">
+            <p style="font-size:2rem;">知识点2：定制自己的工具栏</p>
             <p>UEditor 工具栏上的按钮列表可以自定义配置,只需要通过修改配置项就可以实现需求</p>
             <p>修改配置项的方法： 1. 方法一：修改 ueditor.config.js 里面的 toolbars </p>
             <img  src="../img/JS-06-HowToUseEditor/6.png">
@@ -112,12 +105,44 @@
         </section>
         <section style="text-align: justify;text-indent: 2em">
             <p>常用功能</p>
-           <img src="../img/JS-06-HowToUseEditor/7.png">
+            <img src="../img/JS-06-HowToUseEditor/7.png">
             <p>完整</p>
             <img src="../img/JS-06-HowToUseEditor/8.png">
         </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>知识点3：UEditor简单的初始化设置</p>
+            <p>常用初始设置： </p>
+            <pre>
+                <code>
+            //focus时自动清空初始化时的内容
+            autoClearinitialContent:true,
+            //关闭字数统计
+            wordCount:true,
+            //关闭elementPath
+            elementPathEnabled:true,
+            //默认的编辑区域高度
+            initialFrameHeight:200,
+            // 更多其他参数，请参考ueditor.config.js中的配置项
+            initialFrameWidth:300
+            //默认的编辑区域宽度
+                </code>
+            </pre>
+            <p>初始化前后对比图见demo</p>
+        </section>
         <section>
-            <p>实例创建后为什么直接执行接口报错?</p>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+
+            <p>问题1:实例创建后为什么直接执行接口报错?</p>
+            <p>问题2：div标签自动转换为p标签</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>问题1：实例创建后为什么直接执行接口报错?</p>
         </section>
         <section style="text-align: justify;text-indent: 2em">
             <p>开发者在创建编辑器时后，会执行一些接口或者调用编辑命令，例如</p>
@@ -151,6 +176,22 @@
                     })
                 </code>
             </pre>
+        </section>
+        <section>
+            <p>问题2：div标签自动转换为p标签</p>
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>背景：刚开始使用UEditor的开发者，会发现一个现象，粘贴到编辑器中的内容如果带有div标签，待粘贴到编辑器之后，会发现粘贴到编辑器中的div已经被转换为p标签了。</p>
+            <p>原因：首先这不是一个bug,这是UEditor对于进入编辑器中的数据进行的过滤处理。在UEditor中表示段落的标签是p标签，很多的编辑操作都是基于p标签进行的处理。</p>
+            <p>解决方案：</p>
+            <pre>
+                <code>
+                  UE.getEditor('editorID', {
+	              allowDivTransToP: false
+                  })
+                </code>
+            </pre>
+
         </section>
         <section>
             <h3>5.编码实战</h3>
@@ -195,6 +236,9 @@
 
         </section>
         <section>
+            <p>链接：<a href="http://119.10.57.69:880/jnshu033/Javascript/task10/home.html#/admin/add" target="_blank">任务详情</a></p>
+        </section>
+        <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
@@ -206,18 +250,7 @@
                         ue.hasContents();//判断是否有内容
                 </code>
             </pre>
-            <pre>
-                <code>
-                      var ue = UE.getEditor('tseditor', options);
-                      //失去焦点事件，生成简介
-                      ue.addListener("blur",function(){//监听失去焦点
-                       var editor=UE.getEditor('tseditor');
-                       var arr =(UE.getEditor('tseditor').getContentTxt());
-                        var desc = document.getElementByIdx_x_x_x("desc");
-                        desc.value=arr.substring(0,180);
-                        })
-                </code>
-            </pre>
+            <p>链接：<a href="http://fex.baidu.com/ueditor/#api-common" target="_blank">常用方法</a></p>
 
         </section>
         <section>
@@ -225,18 +258,21 @@
         </section>
         <section>
             <p>参考：<a href="http://fex.baidu.com/ueditor/" target="_blank">UEditor文档</a></p>
-            <p>参考：<a href="http://www.cnblogs.com/lionden/archive/2012/07/13/ueditor.html">又一编辑神器-百度编辑器</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>编辑器开源，可不可以参考写一个自己的富文本编辑器？</p>
+            <p>讨论1：编辑器开源，可不可以参考写一个自己的富文本编辑器？</p>
+            <p>难度大，考虑问题多，诸如浏览器兼容性等问题</p>
+            <p>讨论2：对UEditor进行二次开发</p>
+            <p>难度比前者小，可以参照官网进行</p>
+            <p>链接：<a href="http://fex.baidu.com/ueditor/#dev-developer" target="_blank">如何进行二次开发</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 李绍博</small></p>
+            <p><small>BY : 李绍博/陈冲</small></p>
         </section>
 
     </div>
