@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+    <title>JS中的事件委托</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a
     <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
@@ -16,12 +17,26 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+    <style>
+        pre {
+            margin: 0 auto !important;
+        }
+
+        p {
+            text-align: left;
+            white-space: pre-line !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+    </style>
 </head>
 <body>
 <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
@@ -31,367 +46,197 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task6】</h2>
-            <h3>小课堂【JS EVENT DELEGATE】</h3>
-            <p>分享人:任乃千</p>
+            <h2>【JS-task6】JS中的事件委托</h2>
+            <h3>小课堂【武汉第74期】</h3>
+            <p style="text-align: center">分享人：胡思豪</p>
         </section>
         <section>
-            <p>目录</p>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.事件种类</p>
-            <p>4.js中的指令</p>
-            <p>5.事件委托</p>
-            <p>6.为什么要用事件委托</p>
-            <p>7.事件委托实现</p>
-            <p>8.总结</p>
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
         </section>
         <section>
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>JavaScript 与HTML之间的交互是通过事件实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。可以使用侦听器（或处理程序）来预订事件，以便事件发生时执行相应的代码。这种在传统软件工程中被称为观察员模式的模型，支持页面的行为与页面的外观之间的松散耦合。</p>
+            <h4>什么是事件处理？</h4>
+            <p>事件处理程序可以为现代web应用程序提供交互能力，因此许多开发人员会向页面中添加大量的处理程序。但是在JavaScript中，添加到页面中的事件处理程序的数量会直接影响页面的整体运行性能。
+                理由：
+                1.每个函数都是对象，都会占用内存。
+                2.事先指定所有的事件处理程序会导致DOM的访问次数增加，会延迟整个页面的交互时间。
+                对“事件处理程序过多”问题的解决方案就是市事件委托（Delegation）。
+                --JavaScript高级程序设计
+                今天就主要介绍一下javascript delegate的用法和原理，以及jQuery等框架中delegate的应用。</p>
+            <pre style="height: 100px">
+                <code>
+                    var Vehicle = function () {
+                    this.price = 1000;
+                    };
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
         </section>
         <section>
-          <pre><code>
-                <!--<!DOCTYPE html>-->
-              <!--<html>-->
-              <!--<head>-->
-              <!--<title>tile</title>-->
-              <!--</head>-->
-              <!--<body>-->
-              <!--<div id="myDiv">Click Me</div>-->
-              <!--</body>-->
-              <!--</html>-->
+            <h4>2.1事件绑定</h4>
+            <p> 当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点，从而将事件委托给父节点来触发处理函数。
+                假设有一个 UL 的父节点，包含了很多个 Li 的子节点：
+                当某个Li被点击的时候需要触发相应的处理事件。我们通常的写法，是为每个Li都添加一些onClick之类的事件监听。
+                demo1
+            </p>
+            <pre ><code style="height: 200px">
+    <ul id="parent-list">
+    <li id="post-1">Item 1</li>
+    <li id="post-2">Item 2</li>
+    <li id="post-3">Item 3</li>
+    <li id="post-4">Item 4</li>
+    <li id="post-5">Item 5</li>
+    <li id="post-6">Item 6</li>
+</ul>
+   <script>
+    //    创建点击事件监听
+    function addListeners4Li(li) {
+        li.onclick = function clickHandler() {
+            alert('点击');
+        };
+    }
+    // 获取dom节点，for循环遍历给所有的li添加点击事件监听
+    window.onload = function () {
+        var ulNode = document.getElementById("parent-list");
+        var liNodes = ulNode.getElementsByTagName("Li");
+        for (var i = 0, l = liNodes.length; i < l; i++) {
+            addListeners4Li(liNodes[i]);
+        }
+    }
+</script>
+                </code></pre>
+        </section>
+
+        <section>
+            <h4>2.2事件代理</h4>
+
+            <p>如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性，并且加大了内存的占用。
+                更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。
+                下页的代码可以完成我们想要的效果：
+            </p>
+        </section>
+        <section>
+            <P>
+                代码演示：demo2
+            </P>
+            <pre ><code style="height: 200px">
+<script>
+// 获取父节点，并为它添加一个click事件
+document.getElementById("parent-list").addEventListener("click",function(e) {
+// 检查事件源e.targe是否为Li,target 事件属性可返回事件的目标节点（触发该事件的节点）
+    if(e.target && e.target.nodeName.toUpperCase() == "LI") {
+// 真正的处理过程在这里
+        console.log("List item ",e.target.id," was clicked!");
+    }
+//    为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。
+});
+</script>
             </code></pre>
-            <p>事件冒泡，即事件开始时由最具体的元素接受，然后逐级向上传播到较为不具体的节点。如果你点击了页面中的div元素，那么这个click事件会按照如下顺序传播：
+            <p>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。
             </p>
         </section>
         <section>
-            <pre>
-                <code>
-                 <!--(1)<div>(2)<body>(3)<html>(4)<document>-->
-                </code>
-            </pre>
+            <h3>2.3 事件冒泡及捕获</h3>
+            <p>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：
+            </p>
+            <img src="../img/js-06-EventDelegate/demo1.png" >
         </section>
         <section>
-            <pre><code>
-            <!--<!DOCTYPE html>-->
-            <!--<html>-->
-            <!--<head>-->
-            <!--<title>tile</title>-->
-            <!--</head>-->
-            <!--<body>-->
-            <!--<div id="myDiv2">Click Me</div>-->
-            <!--</body>-->
-            <!--</html>-->
-        </code></pre>
-            <p>事件捕获，即事件开始时由不具体的元素接受，然后逐级向下传播到较为具体的节点。如果你点击了页面中的div元素，那么这个click事件会按照如下顺序传播：
+            <p>事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。
+                事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。
+                事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被触发。
             </p>
         </section>
         <section>
-           <pre>
-                <code>
-                 <!--(1)<document>(2)<html>(3)<body>(4)<div>-->
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>事件处理程序：事件就是用户或浏览器自身执行的某种动作。诸如click、load和mouseover，都是事件的 名字。而响应某个事件的函数就叫做事件处理程序。事件处理程序的名字以"on"开头。某个元素支持的每种事件，都可以使用一个与事件处理程序同名的HTML特性来置顶。这个特性的值应该是能够执行的Javascript代码。由于这个值是JavaScript，因此是不能在其中使用未经转义的HTML语法字符，例如(&)("")(<)(>)。</p>
-        </section>
-        <section>
-            <p>在HTML中定义的事件处理程序可以包含要执行的具体动作，也可以调用在页面其他地方定义的脚本</p>
-        </section>
-        <section>
-            <button value="Click Me" onclick="alert('Hello world')">这里是个按钮</button>
-            <button value="Click Me" onclick="showMessage()">这也是个按钮</button>
-            <script>
-                function showMessage() {
-                    alert("Hello world")
-                }
-            </script>
-
-            <pre>
-                        <code>
-                            <button value="Click Me" onclick="alert('Hello world')">这里是个按钮</button>
-                    <script>
-                        function showMessage() {
-                            alert("Hello world")
-                        }
-                    </script>
-                            <button value="Click Me2" onclick="showMessage()">这也是个按钮</button>
-                        </code>
-                    </pre>
-        </section>
-        <section>
-            <p>在这个例子中，单击按钮就会调用showMessage()函数。这个函数是在一个独立的script元素中定义的，当然也可以被包含在外部文件中，事件处理程序中的代码在执行时，有权访问全局作用域中的任何代码。
-                这样置顶事件处理程序具有一些独到之处。首先，这样会创建一个封装着元素属性值的函数。这个函数中有一个局部变量event，也就是事件本身。
-            </p>
-            <pre>
-                <code><button value="Click Me" onclick="alert(event.type)">大力戳我</button>
-                </code>
-            </pre>
-            <button value="Click Me" onclick="alert(event.type)">大力戳我</button>
-        </section>
-         <section>
-            <p>Event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。
-                事件通常与函数结合使用，函数不会在事件发生前被执行！</p>
-        </section>
-        <section>
-            <h3>5.js中的事件委托</h3>
-        </section>
-        <section>
-            <p>什么叫事件委托呢？他还有一个名字叫做事件代理。事件委托就是利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。网上有一个很流行的例子：有三个员工同时预计会在周一收到快递。为签收快递，有两种办法：一是三个人在门口等快递；二是委托给前台代收。代收受到快递后，会判断收件人是谁，然后按照收件人的要求签收，甚至代为付款。节省了三个员工一直在门口等的时间，还有一个优势，即使公司来了新员工不论多少，前台也会在收到寄给新员工的快递后核实并代为签收。</p>
-        </section>
-        <section>
-            <h3>6.为什么要用事件委托</h3>
-        </section>
-        <section>
-            <p>一般来说，dom需要有事件处理程序，我们都会直接给它设事件处理程序就好了，那如果是很多的dom需要添加事件处理呢？比如我们有100个li，每个li都有相同的click点击事件，可能我们会用for循环的方法，来遍历所有的li，然后给它们添加事件，那这么做会存在什么影响呢？
-                在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能，因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，这就是为什么性能优化的主要思想之一就是减少DOM操作的原因；如果要用事件委托，就会将所有的操作放到js程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能；
-            </p>
-        </section>
-        <section>
-            <p>每个函数都是一个对象，是对象就会占用内存，对象越多，内存占用率就越大，自然性能就越差了，比如上面的100个li，就要占用100个内存空间，如果是1000个，10000个呢?如果用事件委托，那么我们就可以只对它的父级（如果只有一个父级）这一个对象进行操作，这样我们就需要一个内存空间就够了，是不是省了很多，自然性能就会更好。</p>
-        </section>
-        <section>
-            <h3>7.事件委托实现</h3>
-            <p>举例：实现点击列表中的一个li，弹出hello world,一般方法</p>
-            <p>一般人都是通过找到ul遍历li，点击li时再找到li的位置，执行alert</p>
-            <pre>
-                <code>
-                    <!--<ul id="ul1">-->
-                    <!--<li>111</li>-->
-                    <!--<li>222</li>-->
-                    <!--<li>333</li>-->
-                    <!--<li>444</li>-->
-                    <!--</ul>-->
-
-                    <!--window.onload = function(){-->
-                    <!--var oUl = document.getElementById("ul1");-->
-                    <!--var aLi = oUl.getElementsByTagName('li');-->
-                    <!--for(var i=0;i<aLi.length;i++){-->
-                    <!--aLi[i].onclick = function(){-->
-                    <!--alert(123);-->
-                    <!--}-->
-                    <!--}-->
-                    <!--}-->
-
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>使用事件委托的方式</p>
-            <p>Event对象提供了一个属性叫target，可以返回事件的目标节点，我们成为事件源，也就是说，target就可以表示为当前的事件操作的dom，但是不是真正操作dom，当然，这个是有兼容性的，标准浏览器用ev.target，IE浏览器用event.srcElement，此时只是获取了当前节点的位置，并不知道是什么节点名称，这里我们用nodeName来获取具体是什么标签名，这个返回的是一个大写的，我们需要转成小写再做比较（习惯问题）：</p>
-        </section>
-        <section>
+            <h4>
+                2.4事件委托的优点
+            </h4>
             <p>
-                与访问 DOM中的event 对象不同，要访问IE 中的event 对象有几种不同的方式，取决于指定事
-                件处理程序的方法。在使用DOM0 级方法添加事件处理程序时，event 对象作为window 对象的一个
-                属性存在。
+                通过刚才的对比介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点：
+                1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。
+                2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。
+                3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。
             </p>
-            <pre>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在jQuery中如何使用delegate方法？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>jQuery的delegate的方法需要三个参数，一个选择器，一个事件名称，和事件处理函数。
+                demo3</p>
+            <pre style="height: 200px">
                 <code>
-                        <!--var btn = document.getElementById("myBtn");-->
-                    <!--btn.onclick = function(){-->
-                    <!--var event = window.event;-->
-                    <!--alert(event.type); //"click"-->
-                    <!--};-->
+//  三个参数，1.选择器（元素名，id或者class）；2.事件名称 3.事件处理函数
+    $("#parent-list").delegate("li", "click", function(){
+        // "$(this)" 就是被点击的节点
+        console.log("you clicked a link!",$(this));
+    });
                 </code>
             </pre>
         </section>
         <section>
-            <pre>
-
-                <code>
-                   <!--<ul id="ul2">-->
-                    <!--<li>111</li>-->
-                    <!--<li>222</li>-->
-                    <!--<li>333</li>-->
-                    <!--<li>444</li>-->
-                    <!--</ul>-->
-
-
-                    <!--window.onload = function(){-->
-                    <!--　　var oUl = document.getElementById("ul2");-->
-                    <!--　　oUl.onclick = function(ev){-->
-                    <!--　　　　var ev = ev || window.event;-->
-                    <!--　　　　var target = ev.target || ev.srcElement;-->
-                    <!--　　　　if(target.nodeName.toLowerCase() == 'li'){-->
-                    <!--　 　　　　　　	alert(123);-->
-                    <!--　　　　　　　  alert(target.innerHTML);-->
-                    <!--　　　　}-->
-                    <!--　　}-->
-                    <!--}-->
-
-                </code>
-
-            </pre>
+            <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                    <code>
-                      <!--<div id="box">-->
-                        <!--<input type="button" id="add" value="添加" />-->
-                        <!--<input type="button" id="remove" value="删除" />-->
-                        <!--<input type="button" id="move" value="移动" />-->
-                        <!--<input type="button" id="select" value="选择" />-->
-                        <!--</div>-->
-
-                        <!--window.onload = function() {-->
-                        <!--var Add = document.getElementById("add");-->
-                        <!--var Remove = document.getElementById("remove");-->
-                        <!--var Move = document.getElementById("move");-->
-                        <!--var Select = document.getElementById("select");-->
-
-                        <!--Add.onclick = function () {-->
-                        <!--alert('添加');-->
-                        <!--};-->
-                        <!--Remove.onclick = function () {-->
-                        <!--alert('删除');-->
-                        <!--};-->
-                        <!--Move.onclick = function () {-->
-                        <!--alert('移动');-->
-                        <!--};-->
-                        <!--Select.onclick = function () {-->
-                        <!--alert('选择');-->
-                        <!--}-->
-
-                        <!--}-->
-
-                    </code>
-                </pre>
+            <P>demo已在之前几页讲过，详细代码链接如下
+                <a href="../demo/js-06-EventDelegate/demo.html"> demo链接</a>
+            </P>
         </section>
         <section>
-            <p>事件委托实现方式</p>
-            <pre>
-                <code>
-
-                        <!--window.onload = function(){-->
-                    <!--var oBox = document.getElementById("box");-->
-                    <!--oBox.onclick = function (ev) {-->
-                    <!--var ev = ev || window.event;-->
-                    <!--var target = ev.target || ev.srcElement;-->
-                    <!--if(target.nodeName.toLocaleLowerCase() == 'input'){-->
-                    <!--switch(target.id){-->
-                    <!--case 'add' :-->
-                    <!--alert('添加');-->
-                    <!--break;-->
-                    <!--case 'remove' :-->
-                    <!--alert('删除');-->
-                    <!--break;-->
-                    <!--case 'move' :-->
-                    <!--alert('移动');-->
-                    <!--break;-->
-                    <!--case 'select' :-->
-                    <!--alert('选择');-->
-                    <!--break;-->
-                    <!--}-->
-                    <!--}-->
-                    <!--}-->
-
-                    <!--}-->
-                </code>
-            </pre>
+            <h3>6.扩展思考</h3>
         </section>
+
         <section>
-            <p>添加节点</p>
-            <pre>
-                <code>
-                    <!--<input type="button" name="" id="btn" value="添加" />-->
-                    <!--<input type="button" name="" id="btn" value="添加" />-->
-                    <!--<ul id="ul1">-->
-                    <!--<li>111</li>-->
-                    <!--<li>222</li>-->
-                    <!--<li>333</li>-->
-                    <!--<li>444</li>-->
-                    <!--</ul>-->
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>普通实现</p>
-            <pre>
-                    <code>
-                        <!--window.onload = function(){-->
-                        <!--var oBtn = document.getElementById("btn");-->
-                        <!--var oUl = document.getElementById("ul1");-->
-                        <!--var aLi = oUl.getElementsByTagName('li');-->
-                        <!--var num = 4;-->
-
-                        <!--function mHover () {-->
-                        <!--//鼠标移入变红，移出变白-->
-                        <!--for(var i=0; i<aLi.length;i++){-->
-                        <!--aLi[i].onmouseover = function(){-->
-                        <!--this.style.background = 'red';-->
-                        <!--};-->
-                        <!--aLi[i].onmouseout = function(){-->
-                        <!--this.style.background = '#fff';-->
-                        <!--}-->
-                        <!--}-->
-                        <!--}-->
-                        <!--mHover ();-->
-                        <!--//添加新节点-->
-                        <!--oBtn.onclick = function(){-->
-                        <!--num++;-->
-                        <!--var oLi = document.createElement('li');-->
-                        <!--oLi.innerHTML = 111*num;-->
-                        <!--oUl.appendChild(oLi);-->
-                        <!--mHover ();-->
-                        <!--};-->
-                        <!--}-->
-                    </code>
-                </pre>
-        </section>
-        <section>
-            <p>事件委托实现</p>
-            <pre>
-                <code>
-                        <!--window.onload = function(){-->
-                    <!--var oBtn = document.getElementById("btn");-->
-                    <!--var oUl = document.getElementById("ul1");-->
-                    <!--var aLi = oUl.getElementsByTagName('li');-->
-                    <!--var num = 4;-->
-
-                    <!--//事件委托，添加的子元素也有事件-->
-                    <!--oUl.onmouseover = function(ev){-->
-                    <!--var ev = ev || window.event;-->
-                    <!--var target = ev.target || ev.srcElement;-->
-                    <!--if(target.nodeName.toLowerCase() == 'li'){-->
-                    <!--target.style.background = "red";-->
-                    <!--}-->
-
-                    <!--};-->
-                    <!--oUl.onmouseout = function(ev){-->
-                    <!--var ev = ev || window.event;-->
-                    <!--var target = ev.target || ev.srcElement;-->
-                    <!--if(target.nodeName.toLowerCase() == 'li'){-->
-                    <!--target.style.background = "#fff";-->
-                    <!--}-->
-
-                    <!--};-->
-
-                    <!--//添加新节点-->
-                    <!--oBtn.onclick = function(){-->
-                    <!--num++;-->
-                    <!--var oLi = document.createElement('li');-->
-                    <!--oLi.innerHTML = 111*num;-->
-                    <!--oUl.appendChild(oLi);-->
-                    <!--};-->
-                    <!--}-->
-                </code>
-            </pre>
-        </section>
-        <section>
-            <h3>总结</h3>
-            <p>
-                那什么样的事件可以用事件委托，什么样的事件不可以用呢？
+            <p class="fragment">
+                什么样的事件可以用事件委托，什么样的事件不可以用呢？
                 适合用事件委托的事件：click，mousedown，mouseup，keydown，keyup，keypress。
                 值得注意的是，mouseover和mouseout虽然也有事件冒泡，但是处理它们的时候需要特别的注意，因为需要经常计算它们的位置，处理起来不太容易。
                 不适合的就有很多了，举个例子，mousemove，每次都要计算它的位置，非常不好把控，在不如说focus，blur之类的，本身就没用冒泡的特性，自然就不能用事件委托了。
             </p>
         </section>
-        <section></section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html">陈鑫伟</a></p>
+            <p>参考二：<a
+                    href="http://ithelp.ithome.com.tw/articles/10120565">tony1223 </a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>在很多框架中都引用了委托这个概念用来指定方法的运行作用域。比较典型的如dojo.hitch(scope,method)和ExtJS的createDelegate(obj,args)。有兴趣的同学可以看一下他们的源代码，主要也是js函数的apply方法来制定执行作用域。</p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center">
+                <small>BY : 任乃千 | 胡思豪</small>
+            </p>
+        </section>
 
     </div>
 </div>
@@ -400,7 +245,6 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -419,17 +263,22 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
 </body>
 </html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
