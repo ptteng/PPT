@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.0/angular.js"></script>
+
+</head>
+<body ng-app="myApp"  >
+
+<!--@@-->
+    <!--<div ng-controller="nameController">-->
+        <!--<direct for-name="{{ Name }}"></direct>-->
+    <!--</div>-->
+
+<!--==-->
+<div ng-controller="nameController">
+
+    父级scope中：<input ng-model="mark"/>
+
+    <direct></direct>
+</div>
+<!--&&-->
+</body>
+
+<script>
+
+
+angular.module("myApp", [])
+
+//    @@@@
+//    .directive("direct",function(){
+//    return{
+//        restrict: 'ECMA',
+////        template: '<div>指令中：{{ name }}</div>',
+//        template: '<div>指令中：{{ name }}</div>',
+//        scope:{
+////            name:'@forName'
+//            name:'='
+//        }
+//    }
+//})
+//    .controller("nameController",function($scope){
+//        $scope.Name="张三";
+//    });
+
+///====
+    .directive("direct",function(){
+    return{
+        restrict: 'ECMA',
+        template: '<div>指令中：<input model="mark"/></div>',
+        scope:{
+            model:'='
+        }
+    }
+})
+    .controller("nameController",function($scope){
+        $scope.mark='ss'
+    });
+
+</script>
+</html>

@@ -31,8 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
-            <p>分享人：张增锋</p>
+            <h2>【CSS-task】</h2>
+            <h3>小课堂【郑州第二十期】常见Dom操作有哪些？</h3>
+            <p>分享人：寇晨迪</p>
         </section>
         <section>
             <p>目录</p>
@@ -49,88 +50,106 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。Animation字面上的意思，就是“动画”的意思，
-                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
-                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
+            <p>DOM（文档对象模型）是针对HTML 和XML 文档的一个API（应用程序编程接口）。DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
+        </section>
+        <section>
+            <p>1998 年10 月DOM１级规范成为W3C 的推荐标准，为基本的文档结构及查询提供了接口。本章主
+                要讨论与浏览器中的HTML页面相关的DOM1级的特性和应用，以及JavaScript 对DOM1级的实现。
+                IE、Firefox、Safari、Chrome 和Opera 都非常完善地实现了DOM。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
-                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
-                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
-                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
-                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
-            </P>
+            <p>什么是DOM</p>
+            <p>DOM 是 Document Object Model（文档对象模型）的缩写。
+                DOM是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。
+                在 HTML DOM中，所有事物都是节点。DOM 是被视为节点树的 HTML。</p>
+        </section>
+        <section>
+            <p>DOM节点</p>
+            <p>HTML 文档中的所有内容都是节点。整个文档是一个文档节点,每个 HTML 元素是元素节点，
+            HTML 元素内的文本是文本节点，每个 HTML 属性是属性节点，注释是注释节点。</p>
+        </section>
+        <section>
+            <p>DOM常用操作</p>
+            我们用到最多的是element类型，用于表现HTML元素，提供了对元素标签名、子节点及特性的访问。
+        </section>
+        <section>
+            DOM事件
+            <p>允许 JavaScript 对 HTML 事件作出反应</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>onload 事件——用户进入</p>
+            <p>onunload 事件——用户离开</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p> @keyframes 规则</p><br>
-            <p>兼容性该如何解决</p>
+            <p>如何通过class和tag调用元素?如何对其设置属性？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
-            <p style="text-align:left">
-                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
-                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
-                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
-                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
-                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
-                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
-                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
-                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
-                其中"0%"不能像别的属性取值一样把百分比符号省略。
-            </p>
-        </section>
-        <section>
-            <p>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
-            <p>Chrome 和 Safari 需要前缀 -webkit-。</p>
-            <p>注释：Internet Explorer 9，以及更早的版本，不支持 @keyframe 规则或 animation 属性。</p>
+            <p>一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下</p>
+            <pre>
+                <code>
+                    <div>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                    </div>
+                    <div>
+                        <p>div2</p>
+                    </div>
+                    document.getElementsByClassName("time")[0].innerHTML = "16:43";
+                    document.getElementsByClassName("time")[1].innerHTML = "16:44";
+                    document.getElementsByTagName("div")[0].className = "text-time";
+                </code>
+            </pre>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <p style="margin-left: -15%;font-size: 3rem">
-                    <a href="../demo/css-12-CSS%20PPT/demo1.html">demo1</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo2.html">demo2</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo3.html">demo3</a>
-                </p>
-            </pre>
+            <p>我们运行一下上一页给出的代码，来用DOM改变一下HTML的内容和样式。</p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+            <p>Html5添加了辅助管理DOM焦点的功能。首先就是document.activeElement属性，
+                这个属性始终会引用DOM中当前获得了焦点的元素。
+                另外就是新增了document.hasFocus()方法，这个方法用于确定文档是否获得了焦点。
+                我们可以去学习HTML5中的一些新内容。</p>
         </section>
-        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二：<a href="http://blog.csdn.net/baoendemao/article/details/52295343" target="_blank">CSDN博客</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>CSS3的动画效果与3D转换，还有什么其他的作用？</p>
+            <p>如何合理的写HTML内容和用DOM对其进行操作？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY:徐浩程 张增锋</small></p>
+            <p><small>BY : 沁修 | 寇晨迪</small></p>
         </section>
-
     </div>
 </div>
 
@@ -138,7 +157,6 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -157,7 +175,6 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -171,3 +188,5 @@
 </script>
 </body>
 </html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

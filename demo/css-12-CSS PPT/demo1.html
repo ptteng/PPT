@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS实现简单的幻灯片效果</title>
+    <style type="text/css">
+        img {
+            display: none;
+            width: 100%;
+            height: 600px;
+        }
+
+        input:checked + img {
+            display: block;
+        }
+
+        input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div id="cont">
+    <input id="img1" type="radio" checked="checked" name="img"  />
+    <img src="../../img/css-12-css3animation/banner-1.jpg" />
+    <input id="img2" type="radio" name="img">
+    <img src="../../img/css-12-css3animation/banner-2.jpg" />
+</div>
+<div id="nav">
+    <label for="img1">第一张</label>
+    <label for="img2">第二张</label>
+</div>
+
+<!--兼容性： IE8以及IE8以下的浏览器不兼容，只显示文字，不显示图片-->
+
+
+<!--以上代码实现使用到的技术：
+    除了设置相应的CSS样式，有两点值得注意：
+        1.设置按钮的位置(绝对定位) ，left:-9999px用来隐藏按钮；
+        2.<label>标签中的for属性与input标签中的id关联，然后根据input的checked的状态显示或隐藏图片，来达到显示幻灯片效果的目的。
+-->
+</body>
+</html>
