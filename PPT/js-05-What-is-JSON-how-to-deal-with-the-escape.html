@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>json是什么，如何处理转义</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>json用法，如何处理转义</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：方兵</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <h3>J O S N是什么？</h3>
+                <p>
+                    JSON 是一种轻量级的数据交换格式。 是适用于 Ajax 应用程序的一种有效格式，原因是它使 js 对象和字符串值之间得以快速转换
+                    JSON 同时也是一种传递对象的语法，对象可以是name/value对，数组和其他对象。</p>
+            </section>
+            <section>
+                <p>JSON是一个提供了stringify和parse方法的内置对象</p>
+                <p>stringify将js对象转化为符合json标准的字符串</p>
+                <p>parse将符合json标准的字符串转化为js对象</p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <section>JSON.parse使用的例子
+                <pre>
+                    <code style="background-color: #1c1e20">
+    var str = '{"name":"huangxiaojian","age":"23"}'
+JSON.parse(str)
+//结果：
+Object{
+ age: "23"
+name: "huangxiaojian"
+__proto__: Object }
+                    </code>
+                        </pre>
+
+            </section>
+            <section>
+                <section>JSON.stringify
+                    <p>
+                        语法：
+                        JSON.stringify(value [, replacer] [, space])<br />
+                        value：是必须要的字段。就是你输入的对象。<br />
+                        replacer：这个是可选的。它又分为2种方式，一种是方法，第二种是数组。<br />
+                        情况一：我们先说数组，它是和第一个有关系的。一般来说，我们系列化后的结果是通过键值对来进行表示的。<br />
+                        比如说：<br>
+                        'name:"lan",age:25'<br>
+                    </p>
+                </section>
+            </section>
+
+            <section>
+                <p>
+                    情况二：如果是方法，那很简单，就是说把系列化后的每一个对象传进方法里面进行处理。
+                    space：很好理解，用什么来做分隔符的。
+                    1.如果省略的话，那么显示出来的值 就没有分隔符。直接输出来
+                    2.如果是一个数字的话，那么它就定义缩进几个字符，当然 如果大于10 ，则最大值为10.
+                    3.如果是一些转义字符，比如“\t”，表示回车，那么它每行一个回车。
+                    4.如果仅仅是字符串，OK，就在每行输出值的时候把这些字符串附加上去就OK。当然，最大长度也是10个字符。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code style="background-color: #1c1e20">
+                        var student = {};
+                        student.name = "Lanny";
+                        student.age = "25";
+                        student.location = "China";
+                        var json = JSON.stringify(student);
+                         console.log(student,typeof(student));
+                        console.log(json,typeof(json));
+                        //结果：Object{age:"25",location:"China",name:"Lanny"}   "object"
+                        {"name":"Lanny","age":"25","location":"China"}  string
+                    </code>
+                </pre>
+            </section>
+            <section>
+                如果第一个是对象，第二个是数组的
+                <pre>
+                    <code style="background-color: #1c1e20">
+              var student = {};
+student.qq = "5485891512";
+student.name = "Lanny";
+student.age = 25;
+
+var stu = new Array();
+stu[0] = "qq";
+stu[1] = "age";
+stu[2] = "Hi";//这个student对象里不存在。
+
+var json = JSON.stringify(student,stu);
+alert(json);
+                        //结果：{"qq":"5485891512","age":25}
+                        //第一个对象按照数组的值来索引value值。
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section><h3>3.常见问题</h3>
+            </section>
+            <section>
+                <section>
+                    <p>
+                        js中JSON.parse()与eval()解析json的区别
+                    </p>
+                    <p>
+                    <pre>
+                    <code style="background-color: #1c1e20">
+         var value = 1;
+                        var jsonstr = '{"data1":"hello","data2":++value}';
+                        var data1 = eval_r('('+jsonstr+')');
+                        console.log(data1);//这时value值为2
+                        var data2=JSON.parse(jsonstr);
+                        console.log(data2);//报错
+                    </code>
+                        </pre>
+                    </p>
+                </section>
+            </section>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <section>
+                <p>
+                    <span style="color: red;;">警告</span>：关于JSON和eval需要注意的是：在代码中使用eval是很危险的，
+                    特别是用它执行第三方的JSON数据（其中可能包含恶意代码）时，
+                    尽可能使用JSON.parse()方法解析字符串本身。该方法可以捕捉JSON中的语法错误，
+                    并允许你传入一个函数，用来过滤或转换解析结果。 </p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>5.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/robotech_er/article/details/40260377" target="_blank">参考一</a></p>
+            <p>参考一：<a href="http://www.jb51.net/article/29893.htm" target="_blank">参考二</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 方兵</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
