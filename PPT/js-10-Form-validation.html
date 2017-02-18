@@ -1,0 +1,404 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task10】如何进行表单验证？</h2>
+            <h3>小课堂【武汉第75期】</h3>
+            <p>分享人：冯馨雨</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>JavaScript 可在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证。以减轻后台数据传送压力，提高数据传送的质量和效率。</p>
+            <img src="../img/js-08-Html5Validator/effect.jpg" alt="">
+        </section>
+        
+        <section>
+            <h3>
+                二.知识剖析
+            </h3>
+        </section>
+
+        <section>
+            <h3>常见的表单验证内容</h3>
+            
+            <p>1.是否填写</p>
+            <p>2.长度限制</p>
+            <p>3.数据类型是否正确</p>
+            
+            
+        </section>
+
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+
+        <section>
+            <p>1.有哪些方法可以写表单验证?</p>
+            <p>2.不同的方法分别是什么写法?</p>
+           
+        </section>
+
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+
+        <section>
+            <p>主要介绍三大类写法，分别是：js原生写法、各类表单插件的写法、angular js的表单验证写法。</p>
+            <p></p>
+
+        </section>
+
+        <section>
+            <h3>1.js原生写法</h3>
+            <p>js原生写法主要用到if语句，配合正则表达式。代码量大，验证步骤复杂。</p><br>
+            <a href="http://119.10.57.69:880/jnshu066/fengxinyu/ppt/validation/js-form.html" target="_blank">Demo-JS-Validation</a>
+        </section>
+
+        <section>
+            <h3>2.Bootstrap-Validator插件写法（推荐）</h3>
+            <p>首先需下载插件库：<a href="https://github.com/nghuuphuoc/bootstrapvalidator" target="_blank">源码</a></p>
+            <p>调用插件后，就可以直接使用相应指令进行表单验证，如：message、fields、feedbackIcons</p><br>
+            <a href="http://119.10.57.69:880/jnshu066/fengxinyu/ppt/validation/bootstrapvalidator-master/demo/submitHandler.html" target="_blank">Demo-BootstrapValidator</a>
+        </section>
+
+        <section>
+            <h3>3.angularJs  ng-show写法</h3>
+            <p>利用ng-show指令，规定满足某些情况时，出现展示信息；用该指令内的$dirty、$valid 、$invalid 、$pristine属性来确定具体的情况</p><br>
+            <a href="http://119.10.57.69:880/jnshu066/fengxinyu/ppt/validation/angular js validation.html " target="_blank">Demo-angular ng-show</a>
+        </section>
+
+        <section>
+            <h3>4.angularjs ng-message(angular表单验证插件）（推荐）</h3>
+            <p>需引用angular-messages.js文件，然后就可以直接用ng-messages.  ng-message. 指令进行直接验证和显示</p>
+            <p>这种方法是代码量最少，验证步骤最直观的，但前提是你所写的页面需要用到angular框架。</p><br>
+            <a href="http://119.10.57.69:880/jnshu066/fengxinyu/ppt/validation/ng-message.html " target="_blank">Demo-angular ng-messages</a>
+        </section>
+
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+
+        <section>
+            <p>1.js原生写法</p>
+            <pre><code>
+               JS表单验证
+    <p>是否填写以及长度限制</p>
+    <form name="a" onsubmit="return test()"> 
+        <!-- <textarea name="b" cols="40" rows="6" placeholder="不能超过50个字符！"></textarea> -->
+        <input type="text" name="b" placeholder="不超过6个字符">
+        <br /> 
+        <input type="submit" name="Submit" value="check"> 
+    </form>
+    <br>
+    <script language="javascript"> 
+        function test() 
+        { 
+        if(document.a.b.value==null || document.a.b.value==""){
+            alert("请输入用户名");           
+            return false;
+            }if(document.a.b.value.length>6) { 
+                    alert("不能超过6个字符！"); 
+                    // document.a.b.focus(); 
+                    return false; //阻止表单提交
+                    }
+        } 
+    </script>
+
+            </code></pre>
+        </section>
+
+        <section>
+            <p>2.Bootstrap-Validator插件写法（推荐）</p>
+            <pre>
+                <code>
+                $(document).ready(function() {
+    $('#defaultForm')
+        .bootstrapValidator({
+            message: '这个值是无效的',
+            //live: 'submitted',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    message: '这个用户名是无效的',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名必须填写'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '用户名字符长度必须在6-30之间'
+                        },
+                        /*remote: {
+                            url: 'remote.php',
+                            message: 'The username is not available'
+                        },*/
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '用户名只能由字母、数字、点和下划线'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: '邮箱必须填写'
+                        },
+                        emailAddress: {
+                            message: '邮箱无效'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '必须填写密码'
+                        }
+                    }
+                }
+            }
+        })
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <p>3.angularJs  ng-show写法</p>
+            <pre>
+                <code>
+                <form ng-app="myApp" ng-controller="validateCtrl" 
+name="myForm" novalidate>
+
+<p>用户名:<br>
+<input type="text" name="user" ng-model="user" required>
+<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+    <span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+</span>
+</p>
+
+<p>邮箱:<br>
+<input type="email" name="email" ng-model="email" required>
+<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+    <span ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+    <span ng-show="myForm.email.$error.email">非法的邮箱地址。</span>
+</span>
+</p>
+
+<p>
+<input type="submit"
+ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+myForm.email.$dirty && myForm.email.$invalid">
+</p>
+
+</form>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.user = '哈哈哈';
+    $scope.email = 'hhh@gmail.com';
+});
+</script>
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <p>4.angularjs ng-message(angular表单验证插件）（推荐）</p>
+            <pre>
+                <code>
+                <!DOCTYPE html>
+<html ng-app='app'>
+<head>
+<meta charset='UTF-8'>
+<title>form1</title>
+
+<script type="text/javascript" src='https://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js'></script>
+<script src="https://cdn.bootcss.com/angular-messages/1.6.1/angular-messages.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+<body>
+<h2>angular-messages </h2>
+<div class="col-md-6" >
+<form form" name="myForm" class="form-horizontal" novalidate>
+<label>是否填写、字符长短、邮箱格式</label><br>
+<input type="email" placeholder="ng-Messages测试" name="name" ng-model="username.name"
+ng-minlength=3 ng-maxlength=20 required />
+<div style="color:red">
+    <div ng-messages="myForm.name.$error">
+    <div ng-message="required">必填项</div>
+    <div ng-message="minlength">字符太短小于3</div>
+    <div ng-message="maxlength">字符太长大于20</div>
+    <div ng-message='email'>正确的邮箱格式</div>
+</div>
+</div> 
+</form>
+</div>
+</body>
+<script type="text/javascript">
+angular.module("app", ['ngMessages']);
+</script>
+</html>
+
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+
+        <section>
+            <p>正则表达式怎么用？怎么写？</p>
+            <p><a href="http://www.runoob.com/regexp/regexp-tutorial.html" target="_blank" >教程</a></p>
+        </section>
+
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <!-- <section>
+            <p>
+            autofocus 属性
+autofocus 属性规定在页面加载时，域自动地获得焦点。<br>
+            form 属性规定输入域所属的一个或多个表单。<br>
+            list 属性规定输入域的 datalist。datalist 是输入域的选项列表。<br>
+           min、max 和 step 属性用于为包含数字或日期的 input 类型规定限定（约束）。
+max 属性规定输入域所允许的最大值。
+min 属性规定输入域所允许的最小值。
+step 属性为输入域规定合法的数字间隔（如果 step="3"，则合法的数是 -3,0,3,6 等）。。
+            </p>
+        </section> -->
+        <!-- <section>
+            <p>
+            input:定义输入域，常用。可设置type属性，从而具有不同功能。见详解。<br>
+            isindex:已废弃，用input标签代替。<br>
+            textarea:定义文本域(一个多行的输入控件)，默认可通过鼠标拖动调整大小。<br>
+            button:定义一个按钮。
+            </p>
+        </section>
+        <section>
+            <p>optgroup:定义选项组。选项组内需要放选项option。下拉列表select通常对应一个选项组，故此标签不常用。</p>
+            <p>select:定义一个选择列表，即下拉列表。</p>
+            <p>option:定义下拉列表中的选项。</p>
+            <p>html5新增</p>
+            <p>datalist:定义填写一个input时，提示几个option用于提示。可通过input的list特性与此元素作关联。</p>
+            <p>output:表示计算的结果。可通过for特性与其它能够影响运算的元素（如input）作关联。</p>
+        </section>
+
+        <section>
+            <h3>4.bootstrapValidator</h3>
+        </section>
+        <section>
+            来看bootstrapvalidator的描述：A jQuery form validator for Bootstrap 3。从描述中我们就可以知道它至少需要jQuery、bootstrap的支持。我们首先引入需要的js组件
+        </section>
+                <section>
+                <h3>5.简单实战一下</h3>
+                </section>
+        <section>
+            <h3>5.参考文献</h3>
+        </section> -->
+        <section>
+            <h3>8.参考文献</h3>
+            <p><a href="http://www.cnblogs.com/v-weiwang/p/4834672.html?ptvd" target="_blank">基于jquery，bootstrap数据验证插件bootstrapValidator 教程</a></p>
+            <p><a href="https://www.oschina.net/translate/angularjs-form-validation" target="_blank" >angularJs的表单验证</a></p>
+            <p><a href="http://www.75271.com/957.html" target="_blank" >BootstrapValidator中文文档简略手册</a></p>
+            <p><a href="http://www.runoob.com/angularjs/ng-ng-show.html" target="_blank" >ng-show指令</a></p>
+            <p><a href="http://www.runoob.com/angularjs/angularjs-validation.html" target="_blank" >AngularJS 输入验证</a></p>
+            <p><a href="http://jingyan.baidu.com/article/c843ea0bb2bf3c77931e4ad4.html" target="_blank" >bootstrap validator插件使用流程</a></p>
+            <p><a href="http://www.w3school.com.cn/html5/att_input_required.asp" target="_blank" >HTML 5 input required 属性</a></p>
+            <!-- <p><a href="" target="_blank" ></a></p> -->
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈奭|冯馨雨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

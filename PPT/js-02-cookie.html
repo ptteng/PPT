@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>【JS-task3】域名，COOKIE是什么？有什么用处？COOKIE 和SESSION的区别?COOKIE的有效期</h2>
+                <h3>小课堂【郑州第46期】</h3>
+                <p>分享人：刘明</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+                </section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <p style="text-align:left">IP地址是Internet主机作为路由寻址用的数字体标识，人不容易记忆。
+                    因而产生了域名这一种字符型标识。cookie中文名称为“小型文本文件”，
+                    某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。
+                    定义于RFC2109。是网景公司的前雇员卢·蒙特利在1993年3月的发明。</p>
+                </section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <p style="text-align:left">域名在因特网上用来代替IP地址，因为IP地址没有实际含义，人们不容易记住，
+                    所以用有含义的英文字母来代替。在网络上，专门有DNS（域名服务器）
+                    来进行域名与IP的相互转换，人们输入域名，在DNS上转换为IP，
+                    才能找到相应的服务器，打开相应的网页。</p>
+                </section>
+                <section>
+                    <h6>cookie的用途</h6>
+                    <p style="text-align:left">因为HTTP协议是无状态的，即服务器不知道用户上一次做了什么，这严重阻碍了交互式Web应用程序的实现。在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两饮料。最后结帐时，由于HTTP的无状态性，不通过额外的手段，服务器并不知道用户到底买了什么。 所以Cookie就是用来绕开HTTP的无状态性的“额外手段”之一。服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。在刚才的购物场景中，当用户选购了第一项商品，服务器在向用户发送网页的同时，还发送了一段Cookie，记录着那项商品的信息。当用户访问另一个页面，浏览器会把Cookie发送给服务器，于是服务器知道他之前选购了什么。用户继续选购饮料，服务器就在原来那段Cookie里追加新的商品信息。结帐时，服务器读取发送来的Cookie就行了。</p>
+                </section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <p>COOKIE的有效期</p>
+                    <p>COOKIE 和SESSION的区别</p>
+                </section>
+                <section>
+                    <h3>4.解决方案</h3>
+                </section>
+                <section>
+                    <h5>COOKIE的有效期</h5>
+                    <p>cookie 大致可分为两种状态</p>
+                    <p>临时性质的cookie。当前使用的过程中网站会储存一些你的个人信息，当浏览器关闭后这些信息也会从计算机中删除。</p>
+                    <p style="text-align:left">设置失效时间的cookie。就算浏览器关闭了，这些信息业依然会在计算机中。如 登录名称和密码，这样无须在每次到特定站点时都进行登录。这种cookie 可在计算机中保留几天、几个月甚至几年。</p>
+                </section>
+                <section style="text-align:left">
+                    <p>session的作用和cookie差不多，也是用来解决Http协议不能维持状态的问题。区别：</p>
+                    <p>1.session 在服务器端，cookie 在客户端（浏览器）</p>
+                    <p>2.session 默认被存在在服务器的一个文件里（不是内存）</p>
+                    <p>但是session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 session_id)</p>
+                </section>
+                <section>
+                    <h3>5.编码实战</h3>
+                </section>
+                <section>
+                    <p style="text-align:left">在默认的情况下，cookie 会在浏览器关闭的时候自动清除，但是我们可以通过expires来设置 cookie 的有效期。语法如下：</p>
+                    <pre>
+                        <code>
+                            document.cookie = "name=value;expires=date"
+                        </code>
+                    </pre>
+                    <p style="text-align:left">上面代码中的date值为GMT(格林威治时间)格式的日期型字符串，生成方式如下：</p>
+                </section>
+                <section>
+                    <pre>
+                        <code>
+                            var _date = new Date();
+　　                     _date.setDate(_date.getDate()+30);
+　　                     _date.toGMTString();
+                        </code>
+                    </pre>
+                    <p style="text-align:left">上面三行代码分解为几步来看：
+                    通过new生成一个Date的实例，得到当前的时间；
+                    getDate()方法得到当前本地月份中的某一天，接着加上30就是我希望这个cookie能过在本地保存30天；
+                    接着通过setDate()方法来设置时间；
+                    最后 用toGMTString()方法把Date对象转换为字符串，并返回结果</p>
+                </section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    <p class="fragment">什么是域名解析服务（DNS）</p>
+                </section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section>
+                    <p>参考一：<a href="http://www.cnblogs.com/Darren_code/archive/2011/11/24/Cookie.html" target="_blank">Darren</a></p>
+                </section>
+                <section>
+                    <h3>8.更多讨论</h3>
+                </section>
+                <section>
+                    <h4>鸣谢</h4>
+                    <p style="text-align: center;">感谢大家观看</p>
+                    <p style="text-align: center;"><small>BY : 沁修 | 刘明</small></p>
+                </section>
+            </div>
+        </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+        { src: '../plugin/markdown/marked.js' },
+        { src: '../plugin/markdown/markdown.js' },
+        { src: '../plugin/notes/notes.js', async: true },
+        { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+    </script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

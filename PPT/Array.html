@@ -31,9 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>对一个数组 filter、some、map、foreach的操作分别是什么作用？</h2>
-            <h3>小课堂【武汉第44期】</h3>
-            <p>分享人：邓杰仁</p>
+            <h2>对一个数组 filter、some、map、forEach的操作分别是什么作用？</h2>
+            <h3>小课堂【郑州第48期】</h3>
+            <p>分享人：王义山</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,121 +50,48 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>filter、some、map、foreach是封装的几个方法，是为了更方便的操作数组</p>
+            <p>数组，在编程语言中很重要，其中filter()、some()、map()、forEach()是ECMAScript5为数组定义的5个迭代方法，是为了更方便的对数组进行操作。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p id="a" class="fragment">filter()：<br/>
-                语法：var filteredArray = array.filter(callback[, thisObject]);<br/>
-                参数说明：<br/>
-
-                callback： 要对每个数组元素执行的回调函数。<br/>
-                thisObject ： 在执行回调函数时定义的this对象。<br/>
+            <p>
+                首先，每个方法都接收两个参数：（1）,要在每一项上运行的函数。（2）运行该函数的作用域对象—this（可选）
             </p>
-            <pre>
-                <code>
-
-                 function isBigEnough(element, index, array) {
-                      return (element >= 10);
-                    }
-                       var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
-                       // 12, 130, 44
-                       //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
-                       console.log(filtered);
-
-                </code>
-            </pre>
         </section>
             <section>
-            <p id="b" class="fragment">some():<br/>
-                语对数组中的每个元素都执行一次指定的函数（callback），直到此函数返回 true，<br/>
-                如果发现这个元素，some 将返回 true，如果回调函数对每个元素执行后都返回 false ，<br/>
-                some 将返回 false。它只对数组中的非空元素执行指定的函数，没有赋值或者已经删除的元素将被忽略。<br/>
-                参数说明：<br/>
-
+            <p>
+                其次，传入这些方法中的函数参数本身会接收三个参数：数组项的值；该项在数组中的位置；数组对象本身；
             </p>
-                <pre>
-                <code>
-                     unction isBigEnoug(element, index, array) {
-                            return (element >= 10);
-                        }
-                        var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
-                        // passed is false
-                        passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
-                        // passed is true
-                </code>
-            </pre>
         </section>
-            <section>
-            <p id="c" class="fragment">map():<br/>
-                map() 方法返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。
-            </p>
-                <pre>
-                <code>
-
-                 ["1", "2", "3"].map(parseInt);
-                </code>
-            </pre>
-            </section>
-                <section>
-            <p id="d" class="fragment">forEach():<br/>
-                JavaScript数组的 forEach()函数从头到尾把数组遍历一遍。有三个参数分别是：数组元素，元素的索引，数组本身（如果是一个参数就是数组元素，也就是数组的值。<br/>
-                语法
-
-                array.forEach(callback[, thisObject]);<br/>
-
-            </p>
-                <pre>
-                <code>
-
-                  var data=[1,2,3,4,5,6];
-                  var sum=0;
-                  data.forEach(function(v){//其中的v就是数组的值 123456
-                  sum+=v;})
-                  document.write(sum+"
-                  ");//打印出来是21
-                  data.forEach(function(o,p,q){//分别对应：数组元素，元素的索引，数组本身
-                  q[p]=o+1;
-                  })
-                  document.write(data);
-                                  </code>
-            </pre>
-        </section>
-        <section>
+         <section>  
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>filter、some、map、foreach的区别</p>
-            <p>参考一：<a href="http://wenku.baidu.com/link?url=nLXGHUDKnoKnQJSeswZFDMraubrJ8pz5kPUDUkAPIjVGELqZb93dqgOPWOu2fd_qX3gicXprhxEIryQleiJKB2_t_SIghSP6y1ORI3hcTvq" target="_blank">filter、some、map、foreach的区别</a></p>
+            <p>filter()、some()、map()、forEach()的区别?</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
-            <p>参考一：<a href="http://wenku.baidu.com/link?url=nLXGHUDKnoKnQJSeswZFDMraubrJ8pz5kPUDUkAPIjVGELqZb93dqgOPWOu2fd_qX3gicXprhxEIryQleiJKB2_t_SIghSP6y1ORI3hcTvq" target="_blank">filter、some、map、foreach的区别</a></p>
         </section>
         <section>
-
+            <p class="fragment">filter():对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组。</p>
+            <p class="fragment">some()：对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。</p>
+            <p class="fragment">map():对数组中每一项运行给定函数，返回每次函数调用的结果组成的函数。</p>
+            <p class="fragment">forEach()：对数组中的每一项运行给定函数，这个方法没有返回值。</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
+            <p>以filter()方法为例？</p>
             <pre>
                 <code>
-                //过滤掉小于 10 的数组元素：
-
-    //代码：
-    document.getElementById("a").onclick = isBigEnough();
-    function isBigEnough(element, index, array) {
-        return (element >= 10);
-    }
-    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
-    // 12, 130, 44
-    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
-    console.log(filtered);
-    ///11111111111
-
+                    var numbers = [1,2,3,4,5,4,3,2,1];
+                    var filterResult = numbers.filter(function(item,index,array){
+                        return (item > 2);
+                    });
+                    alert(filterResult);   //[3,4,5,3]
                 </code>
             </pre>
         </section>
@@ -172,7 +99,7 @@
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">filter、some、map、foreach的区别</p>
+            <p class="fragment">filter()、some()、map()、forEach()的共同点是什么？</p>
 
         </section>
         <section>
@@ -187,12 +114,12 @@
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p class="fragment">filter、some、map、foreach的区别</p>
+            <p class="fragment">除了filter()、some()、map()、forEach()，还有一个数组迭代方法是什么？什么作用？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 邓杰仁 | somebody</small></p>
+            <p><small>BY : 沁修 | 火山</small></p>
         </section>
 
     </div>

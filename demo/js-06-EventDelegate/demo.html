@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+            width: 200px;
+            margin: 100px auto;
+        }
+        li{
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<ul id="parent-list">
+    <li id="post-1">Item 1</li>
+    <li id="post-2">Item 2</li>
+    <li id="post-3">Item 3</li>
+    <li id="post-4">Item 4</li>
+    <li id="post-5">Item 5</li>
+    <li id="post-6">Item 6</li>
+</ul>
+
+1
+<script>
+    //    创建点击事件监听
+        function addListeners4Li(li){
+            li.onclick = function clickHandler(){
+                alert('点击');
+            };
+        }
+    // 获取dom节点，for循环遍历给所有的li添加点击事件监听
+        window.onload = function(){
+            var ulNode = document.getElementById("parent-list");
+            var liNodes = ulNode.getElementsByTagName("Li");
+            for(var i=0, l = liNodes.length; i < l; i++){
+                addListeners4Li(liNodes[i]);
+            }
+        }
+</script>
+
+2
+<!--<script>-->
+
+<!--// 获取父节点，并为它添加一个click事件-->
+<!--document.getElementById("parent-list").addEventListener("click",function(e) {-->
+<!--// 检查事件源e.targe是否为Li,target 事件属性可返回事件的目标节点（触发该事件的节点）-->
+<!--if(e.target && e.target.nodeName.toUpperCase() == "LI") {-->
+<!--// 真正的处理过程在这里-->
+<!--console.log("List item ",e.target.id," was clicked!");-->
+<!--}-->
+<!--//    为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。-->
+<!--});-->
+<!--</script>-->
+
+3
+<script>
+//        三个参数，1.选择器（元素名，id或者class）；2.事件名称 3.事件处理函数
+    $("#parent-list").delegate("li", "click", function(){
+        // "$(this)" 就是被点击的节点
+        console.log("you clicked a link!",$(this));
+    });
+</script>
+
+4.
+<script>
+    var delegate = function(client, clientMethod) {
+        return function() {
+            return clientMethod.apply(client, arguments);
+        }
+    }
+    var ClassA = function() {
+        var _color = "red";
+        return {
+            getColor: function() {
+                console.log("Color: " + _color);
+            },
+            setColor: function(color) {
+                _color = color;
+            }
+        };
+    };
+
+    var a = new ClassA();
+    a.getColor();
+    a.setColor("green");
+    a.getColor();
+    console.log("执行代理！");
+    var d = delegate(a, a.setColor);
+    d("blue");
+    console.log("执行完毕！");
+    a.getColor();
+</script>
+
+
+
+</body>
+</html>

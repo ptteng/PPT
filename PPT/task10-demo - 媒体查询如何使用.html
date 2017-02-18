@@ -31,8 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
-            <p>分享人：张增锋</p>
+            <h2>媒体查询如何使用？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：黄国保</p>
         </section>
         <section>
             <p>目录</p>
@@ -49,86 +50,79 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。Animation字面上的意思，就是“动画”的意思，
-                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
-                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
+            <p>  随着响应式设计模型的诞生，Web网站发生翻天腹地的改革浪潮，下面就来讲一下实现响应式设计至关重要的一个知识点，媒体查询。 </p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
-                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
-                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
-                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
-                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
-            </P>
+            <p>媒体查询可以让我们根据设备显示器的特性（如视口宽度、屏幕比例、设备方向：横向或纵向）为其设定CSS样式，
+                媒体查询由媒体类型和一个或多个检测媒体特性的条件表达式组成。媒体查询中可用于检测的媒体特性有 width 、 height 和 color （等）。使用媒体查询，
+                可以在不改变页面内容的情况下，为特定的一些输出设备定制显示效果</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p> @keyframes 规则</p><br>
-            <p>兼容性该如何解决</p>
+            <p>问题：在CSS中媒体查询用到的PX究竟是怎样一个单位？它是相对单位还是绝对单位？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
-            <p style="text-align:left">
-                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
-                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
-                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
-                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
-                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
-                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
-                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
-                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
-                其中"0%"不能像别的属性取值一样把百分比符号省略。
-            </p>
-        </section>
-        <section>
-            <p>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
-            <p>Chrome 和 Safari 需要前缀 -webkit-。</p>
-            <p>注释：Internet Explorer 9，以及更早的版本，不支持 @keyframe 规则或 animation 属性。</p>
+            <p>问题：css里所有的px都是css pixel（ 同时media query使用的px显然也是css pixel。），其显示大小是相对的而不是绝对的，是设备相关的。
+                而css pixel * devicePixelRatio = 实际屏幕像素。</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
             <pre>
-                <p style="margin-left: -15%;font-size: 3rem">
-                    <a href="../demo/css-12-CSS%20PPT/demo1.html">demo1</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo2.html">demo2</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo3.html">demo3</a>
-                </p>
+                <code>
+                    以960px为分界线，改变background颜色，媒体查询的实际应用。
+                    等于960px尺寸的代码：
+                    @media screen and (max-device-width:960px)
+                    {background:red;}
+                    }
+
+                    然后就是当浏览器尺寸小于960px时候的代码了：
+                    @media screen and (min-width:960px){
+                    body{background:orange;}
+                    }
+
+
+                    我们还可以混合使用上面的用法：
+                    @media screen and (min-width:960px) and (max-width:1200px){
+                    body{background:yellow;}
+                    }
+                    上面的这段代码的意思是当页面宽度大于960px小于1200px的时候执行下面的CSS。
+                </code>
             </pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+            <p class="fragment">媒体查询是写在 CSS前面和后面，哪里比较好？</p>
+            <p class="fragment"></p>
+            <p class="fragment"></p>
         </section>
-        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+            <p>参考一：<a href="http://www.qdfuns.com/notes/26218/296b9dc57c46b25b429a219392cbcde2.html">css3 media媒体查询器用法总结</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>CSS3的动画效果与3D转换，还有什么其他的作用？</p>
+            <p></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY:徐浩程 张增锋</small></p>
+            <p><small>BY : 黄国保 | somebody</small></p>
         </section>
 
     </div>

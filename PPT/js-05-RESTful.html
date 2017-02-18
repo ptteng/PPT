@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+    <title></title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -31,8 +31,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
-            <p>分享人：张增锋</p>
+            <h2>什么是rest风格?get与post的区别?application/json与form表单的区别?</h2>
+            <p>分享人：任乃千</p>
         </section>
         <section>
             <p>目录</p>
@@ -49,88 +49,101 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。Animation字面上的意思，就是“动画”的意思，
-                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
-                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
+            <p>RPC（远程过程调用）曾今是Web Service的主流；但其受开发语言的束缚比较大（客户端通常用C#），进入互联网时代后，很难在移动终端使用；RESTful风格服务利用统一载体承载数据、统一接口完成数据操作，取代了RPC成为了主流；</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
-                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
-                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
-                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
-                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
-            </P>
+             <h4>RESTful架构风格的特点</h4>
+            <ol>
+                <li>资源</li>
+                <li>统一接口</li>
+                <li>URI</li>
+                <li>无状态</li>
+            </ol>
+        </section>
+        <section>
+            <p>所谓"资源",就是网络上的实体</p>
+            <p>数据的元操作，分别对应HTTP方法</p>
+            <p>URI最典型的就是URL</p>
+            <p>无状态就是不依赖别的资源</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p> @keyframes 规则</p><br>
-            <p>兼容性该如何解决</p>
+           <p>
+               POST请求和GET请求有什么区别
+           </p>
+            <p>
+                application/json与form表单的区别
+            </p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
-            <p style="text-align:left">
-                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
-                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
-                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
-                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
-                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
-                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
-                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
-                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
-                其中"0%"不能像别的属性取值一样把百分比符号省略。
+            <p>
+                在运输层没有任何区别
             </p>
         </section>
         <section>
-            <p>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
-            <p>Chrome 和 Safari 需要前缀 -webkit-。</p>
-            <p>注释：Internet Explorer 9，以及更早的版本，不支持 @keyframe 规则或 animation 属性。</p>
+            <p>
+                在协议层的区别主要是：
+            </p>
+            <ol>
+                <li>根据RESTful的语义化建议，GET表示获取，POST表示创建</li>
+                <li>GET是安全方法，POST不是安全方法</li>
+                <li>GET幂等，POST不幂等</li>
+                <li>GET不可以带request body，post可以带request body</li>
+            </ol>
+        </section>
+        <section>
+            <p>
+                实践中
+            </p>
+            <ol>
+                <li>GET后退刷新无害，POST数据会重新提交</li>
+                <li>GET可被收藏为书签，POST不可被收藏为书签</li>
+                <li>GET能被缓存，POST不能被缓存</li>
+                <li>GET的编码类型为application/x-www-form-urlencoded，POST的类型为application/x-www-form-urlencoded或multipart/form-data</li>
+                <li>GET的历史记录会被保存在浏览器历史或日志里，POST参数不会保存在浏览器历史中</li>
+                <li>GET的数据长度有限制，URL最大为2048个字符，POST的数据没有限制</li>
+                <li>GET只允许使用ASCII字符，POST没有限制也允许使用二进制字符</li>
+                <li>GET安全性较差，因为所发送的数据是URL的一部分，POST相对安全，因为参数不会被保存在浏览器历史或web服务器日志中</li>
+                <li>GET中的数据在URL中对所有人都是可见的，POST数据不会显示在URL中</li>
+            </ol>
+        </section>
+        <section>
+            <p>
+                application/x-www-form-urlencoded是浏览器的原生表单，Content-Type被指定为application/x-www-form-urlencoded;提交的数据按照?key1=val1&key2=val2……进行编码。
+            </p>
+        </section>
+        <section>
+            <p>
+                application/json作为请求头，告诉服务器端消息主体是序列化后的JSON字符串；
+                {"title":"test","sub":[1,2,3]}
+            </p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <p style="margin-left: -15%;font-size: 3rem">
-                    <a href="../demo/css-12-CSS%20PPT/demo1.html">demo1</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo2.html">demo2</a><br>
-                    <a href="../demo/css-12-CSS%20PPT/demo3.html">demo3</a>
-                </p>
-            </pre>
-        </section>
-        <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+            <p>https是如何提高安全性的</p>
         </section>
-        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
+
         <section>
             <h3>7.参考文献</h3>
-        </section>
-        <section>
-            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+            <p>W3C</p>
+            <p>HTTP权威指南</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
-        <section>
-            <p>CSS3的动画效果与3D转换，还有什么其他的作用？</p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY:徐浩程 张增锋</small></p>
-        </section>
-
     </div>
 </div>
 

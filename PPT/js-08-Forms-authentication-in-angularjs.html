@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .text-left{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>技术分享小课堂</h2>
+            <h3>AngularJs如何进行表单验证</h3>
+            <p>分享人：翟金超</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section class="text-left">
+            <p>当我们做一个表单提交时面临的问题</p>
+            <p>数据绑定</p>
+            <p>验证表单中的元素</p>
+            <p>展示错误信息</p>
+            <p>拦截验证失败的表单提交</p>
+            <p>angular可以有效完成上述问题</p>
+        </section>
+        <section>
+            <h3>
+                2.知识剖析
+            </h3>
+        </section>
+        <section>
+            <p class="text-left">
+                ng-model用于绑定数据<br>
+                required指令: 相当于html5的required属性,验证不能为空<br>
+                ng-maxlength属性: 验证内容的长度最大值<br>
+                ng-minlength属性: 验证内容的长度最小值<br>
+                表单名.$valid : 这个属性用来获取表单验证的状态,如果所有的验证都通过了,它就是true,只要有一项不通过,它就是false<br>
+                ng-disabled属性: 判断按钮是否禁用. 值为true时,禁用该按钮<br>
+                type属性: type="email" , type="number" ,虽然这些都是html5的属性,但是在angular中用法一致,可以兼容不支持html5的浏览器,实现相同的功能<br>
+                ng-class :不同状态下的样式<br>
+                url格式正则等等
+            </p>
+        </section>
+        <section>
+            <section>
+                <p>Angular 的表单属性 $valid, $invalid, $pristine, $dirty</p>
+            </section>
+            <section class="text-left">
+                <p>Angular 提供了有关表单的属性来帮助我们验证表单. 他们给我们提供了各种有关一个表单及其输入的信息，并且应用到了表单和输入.<br>
+                    $valid ng-valid	Boolean 告诉我们这一项当前基于你设定的规则是否验证通过<br>
+                    $invalid ng-invalid	Boolean 告诉我们这一项当前基于你设定的规则是否验证未通过<br>
+                    $pristine ng-pristine	Boolean 如果表单或者输入框没有使用则为True<br>
+                    $dirty ng-dirty	Boolean 如果表单或者输入框有使用到则为True</p>
+                <p>比如，当input验证通过时，angular会自动挂上一个属性&valid，同时在class上加入ng-valid这个样式</p>
+            </section>
+        </section>
+        <section class="text-left">
+            <p>如何访问表单的属性</p>
+            <p>访问表单的属性formName.angularProperty</p>
+            <p>访问表单下input的属性formName.inputName.angularProperty</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>如何使验证结果改变的时候添加不同的样式</p>
+        </section>
+        <section class="text-left">
+            <h3>4.解决方案</h3>
+            <p>使用ng-if,ng-show,ng-class</p>
+            <p>在提示位置加入一个div，给ng-if或者ng-show，控制他何时出现</p>
+            <p>在input的ng-class添加判断条件，改变样式</p>
+            <p>也可以选择添加ng-valid的样式，则判断结果改变时，会自动挂载相应的样式</p>
+        </section>
+        <section>
+            <section>
+                <p>5.编码实战</p>
+                <p>首先我们要建立一个表单</p>
+                <p>然后部署controller</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+<!DOCTYPE html>
+<html ng-app="Form">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="//cdn.bootcss.com/angular.js/1.5.0/angular.js"></script>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .erro{
+        color: red;
+    }
+</style>
+<body  ng-controller="myForm">
+<form name="form" ng-submit="submitForm(form.$valid)" novalidate>
+    <div class="form-group">
+        <label>
+            用户名：
+        </label>
+        <input name="username" ng-pattern="/PATTERN/" type="text"  ng-maxlength="6" ng-model="entity.username" class="form-control" required>
+        <div>{{entity.username}}</div>
+        <!--<div ng-if="form.username.$dirty">
+            <p class="erro" ng-show="form.username.$error.required">不可为空</p>
+            <p class="erro" ng-show="form.username.$error.maxlength">长度有问题</p>
+            <p class="erro" ng-show="form.username.$error.pattern">英文字母</p>
+        </div>-->
+    </div>
+    <div class="form-group">
+        <label>
+            Email：
+        </label>
+        <input name="email" type="email" ng-model="entity.email"
+               ng-class="{'error':entity.email.$dirty&&entity.email.$invalid}"
+               class="form-control" required>
+    </div>
+    <div>
+        <button type="submit" ng-disabled="form.$invalid">提交</button>
+    </div>
+</form>
+</body>
+</html>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        <script type="text/javascript">
+   var app =  angular.module('Form', []);
+   app.controller('myForm', function($scope) {
+       $scope.entity={};
+       $scope.submitForm=function (valid) {
+           if(valid){
+               console.log($scope.entity)
+           }
+       }
+   })
+</script>
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <p>6.扩展思考</p>
+            <p>ng-blur</p>
+        </section>
+        <section>
+            <p>7.参考文献</p>
+            <p>慕课网</p>
+        </section>
+        <section>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 翟金超</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
