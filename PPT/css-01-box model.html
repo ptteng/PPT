@@ -1,0 +1,189 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>理解盒模型及其content,padding,border和margin</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-01】理解盒模型及其content,padding,border和margin</h2>
+
+            <h3>小课堂【武汉第76期】</h3>
+
+            <p style="text-align: center;">分享人：张增锋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">盒子模型是html+css中最核心的基础知识，理解了这个重要的概念才能更好的排版。 我们可以把所有HTML元素都可以看作盒子，里面包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。</p>
+        </section>
+        <section>
+            <img src="../img/css-01-box%20model/box-model-1.gif">
+        </section>
+        <section>
+            <img src="../img/css-01-box%20model/box-model-2.png">
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">
+            盒子的基本要素<br> content-内容<br> padding-内边距(填充）<br> border-边框<br> margin-外边距<br> 一个盒子实际所占有的宽度（或高度）是由”内容+内边距+边框+外边距“组成的
+            </p>
+        </section>
+
+        <section>
+            <p style="text-align: left">图中最内部的框content是元素的实际内容，也就是元素框。当元素为块级元素或内联块级元素时， 可以设置width，height属性来设定内容区的宽高。而内联非替换元素设置width,height属性无效，其宽度随元素的内容而变化。 当默认情况下，块级元素宽度自动填满其父元素宽度。</p>
+        </section>
+        <section>
+            <p style="text-align: left">Padding属性定义了元素边框与元素内容之间的空间。其值不可为负值，背景图与背景色可以显示在padding上。 当在内联非替换元素上设置padding时，不会影响行高计算，但背景色可以显示，从视觉上看可能会延伸到其他行，有可能还会与其他内容重叠。</p>
+            <a href="../demo/css-01-box%20moble/demo1.html">demo1</a>
+        </section>
+        <section>
+            <p style="text-align: left">border指盒模型的边框，边框的相关的属性:宽度(border-width)、样式(border-style)、颜色(border-color)。 在默认情况下，背景会延伸到边框所在的区域下面。如果不希望背景侵入边框所在的范围，我们要做的就是把它的值设置为background-clip;padding-box.</p>
+            <a href="../demo/css-01-box%20moble/demo2.html">demo2</a>
+        </section>
+        <section>
+            <p style="text-align: left">margin是外边距,与padding不同的是，margin可以为负。两个上下方向相邻的元素框垂直相遇时，外边距会合并，合并后的外边距的高度等于两个发生合并的外边距中较高的那个边距值，如图：
+            </p>
+        </section>
+        <section>
+            <p>当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。 当一个元素出现在另一个元素上面时，第一个元素的下外边距与第二个元素的上外边距会发生合并。</p>
+            <img src="../img/css-01-box%20model/993105-20160722171008560-1813889758.png"> <br>
+            <a href="../demo/css-01-box%20moble/demo3.html">demo3</a>
+        </section>
+        <section>
+            当一个元素包含在另一个元素中时（假设没有内边距或边框把外边距分隔开），它们的上和/或下外边距也会发生合并。
+           <img src="../img/css-01-box%20model/4.png">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>W3C标准模式和IE怪异模式</p>
+        </section>
+        <section>
+            <img src="../img/css-01-box model/5.jpg">
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">标准的盒子模型就是之前介绍的那种，而IE模型更像是 box-sizing : border-box; 其内容宽度还包含了border和padding。解决办法就是：在html模板中加doctype声明。</p>
+        </section>
+        <section>
+            <p style="text-align:left">box-sizing属性是用户界面属性里的一种，之所以介绍它，是因为这个属性跟盒子模型有关。</p>
+            <p style="text-align:left">(1) content-box ,默认值，可以使设置的宽度和高度值应用到元素的内容框。盒子的width只包含内容。即总宽度=margin+border+padding+width</p>
+            <p style="text-align:left">(2) border-box , 设置的width值其实是除margin外的border+padding+element的总宽度。盒子的width包含border+padding+内容 即总宽度=margin+width, 很多CSS框架，都会对盒子模型的计算方法进行简化。</p>
+            <p style="text-align:left">(3) inherit , 规定应从父元素继承 box-sizing 属性的值</p>
+        </section>
+        <section>
+            <p style="text-align:left">关于border-box的使用： 1 一个box宽度为100%，又想要两边有内间距，这时候用就比较好 2 全局设置 border-box 很好，首先它符合直觉，其次它可以省去一次又一次的加加减减，它还有一个关键作用——让有边框的盒子正常使用百分比宽度。</p>
+            <a href="../demo/css-01-box%20moble/demo4.html">demo4</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section></section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何进行盒子模型进行布局</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+            盒模型是CSS定位布局的核心内容<br> 盒子内部的布局:<br> 文本的布局<br> 盒模型本身的布局<br> 盒子之间的布局:visual formatting<br> 脱离正常流normal flow的盒子的布局<br> absolute布局上下文下的布局<br> float布局上下文下的布局<br> 正常流normal flow下的盒子的布局<br>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href=" http://www.cnblogs.com/clearsky/p/5696286.html">css 盒子模型理解</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.jb51.net/css/12323.html" target="_blank">CSS网页布局的核心内容:CSS盒模型</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>了解盒子模型层叠结构</p>
+
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 张增锋</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
