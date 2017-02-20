@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-1】ID和class有什么区别</h2>
+            <p>分享人：汤金鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.id样式</p>
+            <p>2.class样式</p>
+            <p>3.ID和class的区别<</p>
+            <p>4.NodeList集合跟Array数组的区别</p>
+        </section>
+        <section>
+            <h3>id样式</h3>
+        </section>
+        <section>
+            <p>ID加前缀“#”，id名一个页面只可以只用一次</p>
+            <p>JS通过id  document.getElementById(IDname),</p>
+            <p>js里面id基本都兼容</p>
+        </section>
+        <section>
+            ID是一个标签，用于区分不同结构和内容，就好像两个同样名字的人在无屋子里面，就会发生混淆，从概念上面来说ID是先找到结构/内容，再给它定义样式的
+        </section>
+        <section>
+            <p>class前面前缀“.”，class可以多次使用</p>
+            <p>通过document.getElementsByClassName('ClassName')获取;</p>
+            <p>class 不兼容IE6,7,8</p>
+        </section>
+        <section>
+            class,是一个样式，可以套用在任何结构和内容上面。就像一件衣服，class是先定义好一种样式，在套多个结构/内容
+        </section>
+        <section>
+            id是一对一的，class是一对多的，id只能调用一次，class可以重复调用。id的权值也要大于class，
+        </section>
+        <section>
+            类的灵活性是非常强大的，但是有些新手会过度使用或滥用。css新手几乎在所有的东西上面都加上类，从而师徒更加精确地控制
+            他们的样式。
+        </section>
+        <section>
+            <h3>分别的优点和缺点</h3>
+        </section>
+        <section>
+            数量： 通过ID只能获取一个dom元素，通过class可以获取一组元素。
+            通用性：ID不能重复，class可以重复，所以class比较好用，这也是jQuery能被广泛应该的原因（选择器好）。
+        </section>
+        <section>
+            NodeList是DOM操作（getElementsByTagName等）取出来的集合，是集合而不是普通的数组，但是他们有
+            数组的一些属性，例如length、下标索引，但是他 们也有自己的属性，例如item，另外NodeList最大的特点就是时效性（live）。
+        </section>
+        <section>
+            例子
+        </section>
+        <section>
+            <ul id="nodelist">
+                <li class="lis">index0</li>
+                <li class="lis">index1</li>
+                <li class="lis">index2</li>
+                <li class="lis">index3</li>
+                <li class="lis">index4</li>
+            </ul><br>
+            var myUl = document.getElementById('nodelist');
+            var lis = myUl.getElementsByTagName('li');
+        </section>
+        <section>
+            NodeList具有length，下标索引这些数组的属性特征，但是我们不可以使用数组的push、pop、shift、
+            unshift等数组原生的方法，这样我们就不能使用数组的原生方法来操作NodeList，所以我们要吧NodeList
+            转化为数组，方便操作。下面的代码就可以把NodeList转化为普通的数组。
+            </section>
+        <section>
+            function collectionToArray(collection){
+            var ary = [];
+            for(var i=0, len = collection.length; i < len; i++){
+            ary.push(collection[i]);
+            }
+            return ary;
+            }
+        </section>
+        <section>
+            <h3>5.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="https://www.zhihu.com/question/19550864/answer/23440690">知乎大神的日常</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+        </section>
+    </div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
