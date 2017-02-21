@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+    
     <title>葡萄藤PPT</title>
-
+    
     <link rel="stylesheet" href="../css/reveal/reveal.css">
-
+    
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
     <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
-
+    
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
-
+    
     <!-- 打印和PDF输出样式 -->
     <script>
         var link = document.createElement('link');
@@ -37,8 +37,8 @@
     <div class="slides">
         <section>
             <h2>angularJS中的依赖注入</h2>
-            <h3>小课堂【成都分部】</h3>
-            <p>分享人：方兵</p>
+            <h3>小课堂【武汉分部】</h3>
+            <p>分享人：王峰/方兵</p>
         </section>
         <section>
             <p>目录</p>
@@ -56,6 +56,12 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
+                <p>以前原始社会，我们需要斧子，然后由于还没有社会分工，只能自己打磨一把来使用，对应在程序上是我们需要一个功能的时候只能自己创建，然后使用new等关键字来调用方法。
+                    然后工业社会阶段，我们需要使用斧子的时候，只需要找到工厂，购买斧子就可以使用，共产主义社会，需要斧子的时候甚至不需要购买，直接坐等社会提供。
+                    依赖注入的意思就是我们需要的东西不是我们自己创建的，而是第三方提供的，我们只需要引用就可以使用了。
+                    不需要的时候就不引用它。</p>
+            </section>
+            <section>
                 依赖注入产生的背景：
             </section>
             <section>
@@ -71,9 +77,10 @@
                     对象与对象之间是松散耦合关系，更重要的是使得应用程序体系结构变得非常灵活，
                     很好的体现了面向对象的设计法则之一---依赖设计原则</p>
             </section>
+            
         </section>
-
-
+        
+        
         <section>
             <section>
                 <h3>2.知识剖析</h3>
@@ -91,30 +98,13 @@
             <section>
                 <p>作用一：可以使我们能够轻松对组件进行测试</p>
                 <p>作用二：降低代码的逻辑复杂度</p>
-
-            </section>
-        </section>
-
-
-        <section>
-            <section>
-                <h3>3.常见问题</h3>
-            </section>
-
-            <section>
-                <p>如何正确使用依赖注入？</p>
-            </section>
-        </section>
-        <section>
-            <section>
-                <h3>4.解决方案</h3>
+            
             </section>
             <section>
-                angularjs提供了一个可注入彼此依赖下列核心组件<br/>
-                包括： &nbsp; 值 &nbsp;工厂&nbsp; 服务&nbsp; 提供者&nbsp; 常值
-            </section>
-            <section>
-                <h3>值</h3>
+                <p>angular提供了几种很好的依赖注入机制，以下5个核心组件用来作为依赖注入
+                    value、factory、service、provider、constant、
+                    值  	工厂     服务 	  提供者     常值</p>
+    
             </section>
             <section>
                 值是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
@@ -135,9 +125,6 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
 });
                 </code>
                 </pre>
-            </section>
-            <section>
-                <h3>工厂</h3>
             </section>
             <section>
                 工厂是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
@@ -162,9 +149,6 @@ mainApp.service('CalcService', function(MathService){
                 </code>
                 </pre>
             </section>
-            <section>
-                <h3>提供者</h3>
-            </section>
             <section>提供者所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间)。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及get()方法，用来返回值/服务/工厂。<pre>
                 <code>
 var mainApp = angular.module("mainApp", []);
@@ -182,9 +166,6 @@ mainApp.config(function($provide) {
 });
                 </code>
                 </pre>
-            </section>
-            <section>
-                <h3>服务</h3>
             </section>
             <section>
                 服务是一个单一的JavaScript包含了一组函数对象来执行某些任务。服务使用service()函数，然后注入到控制器的定义。
@@ -210,9 +191,6 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
                 </pre>
             </section>
             <section>
-                <h3>常量</h3>
-            </section>
-            <section>
                 常量用于通过配置相位值考虑事实，值不能使用期间的配置阶段被传递。
                 <pre>
                 <code>
@@ -221,6 +199,57 @@ mainApp.constant("configParam", "constant value");
                 </code>
                 </pre>
             </section>
+        
+            
+            
+        </section>
+        
+        
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            
+            <section>
+                <p>1、依赖注入的几种方法如何使用</p>
+            </section>
+            <section>
+                <p>2、angular依赖注入的时候，controller里面注入的参数和function的参数列表顺序问题</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                1.推断式注入声明
+                如果没有明确的声明， AngularJS会假定参数名称就是依赖的名称。
+                请注意，这个过程只适用于未经过压缩和混淆的代码，因为AngularJS需要原始未经压缩的参数列表来进行解析
+                当AngularJS实例化这个模块时，会查找greeter并自然而然地把对它的引用传递进去
+                这里我们先看一个简单的依赖注入的例子。demo2
+            </section>
+            <section>
+                2、显式注入声明
+                AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。
+                通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。
+                我们给我们的函数设置的参数名称分别是renamed$scope和renamedGreeter，然后我们在后面使用
+    
+                MyController.$inject=['$scope','greeter'];
+    
+                显式的将我们需要的依赖注入到MyController函数中；
+    
+                所以在MyController函数中，renamedscope代表scope,MyController.inject=[′scope’, ‘greeter’];代表greeter
+            </section>
+            <section>
+                3 行内注入声明
+    
+                AngularJS提供的注入声明的最后一种方式，是可以随时使用的行内注入声明。
+    
+                允许我们在函数定义时从行内将参数传入。此外，它可以避免在定义过程中使用临时变量。
+    
+                这种方式其实是一个语法糖，它同前面提到的通过$inject属性进行注入声明的原理是完全一样的
+            </section>
+            
         </section>
         <section>
             <section>
@@ -228,7 +257,6 @@ mainApp.constant("configParam", "constant value");
             </section>
             <section>
                 计算两个数乘积的小例子<br/>
-                <img style="width:40rem;" src="../img/js-07-What-is-dependency-injection-in-angularJS/1.png" title="烩面" alt="无法显示图片"/>
             </section>
             <section>
             <pre>
@@ -293,7 +321,7 @@ mainApp.constant("configParam", "constant value");
                     它们提供了一种方式来定义一个provider而无需输入所有的复杂的代码。</p>
                 <p class="fragment">↓</p>
             </section>
-
+        
         </section>
         <section>
             <section>
@@ -303,6 +331,7 @@ mainApp.constant("configParam", "constant value");
                 <p>参考：<a href="http://www.yiibai.com/angularjs/angularjs_dependency_injection.html" target="_blank">详解依赖注入</a></p>
                 <p>参考：<a href="http://sentsin.com/web/663.html" target="_blank">理解依赖注入</a></p>
                 <p>参考：<a href="https://www.zhihu.com/question/28097646" target="_blank">深究依赖注入</a></p>
+                <p>参考：<a href="http://blog.csdn.net/luo_xinran/article/details/52153830" target="_blank">深究依赖注入</a></p>
             </section>
         </section>
         <section>
@@ -318,10 +347,10 @@ mainApp.constant("configParam", "constant value");
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 方兵</small>
+                <small>BY : 王峰</small>
             </p>
         </section>
-
+    
     </div>
 </div>
 
@@ -329,7 +358,6 @@ mainApp.constant("configParam", "constant value");
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -348,7 +376,6 @@ mainApp.constant("configParam", "constant value");
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
