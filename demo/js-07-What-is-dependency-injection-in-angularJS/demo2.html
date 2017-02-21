@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link rel="stylesheet" href="../../vendor/bootstrap3/css/bootstrap.min.css"/>-->
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular.js/1.3.18/angular.min.js"></script>
+</head>
+<body data-ng-app="routerApp" data-ng-controller="userCtl">
+<div class="col-md-6 col-xs-6">
+  <!--<input class="pull-right" style="max-width:100%" type="file" onchange="angular.element(this).scope().upLoad(this.files)">-->
+<!--</div>-->
+<!--<div class="col-md-6 col-xs-6">-->
+  <!--<button class="pull-left" type="button" data-ng-click="uploaded()">上传</button>-->
+</div>
+
+
+<div class="file-show col-md-12" id="show">
+  <input type="text" data-ng-model="myName" />
+  <button data-ng-click="sayHello()">打招呼</button>
+  
+</div>
+  
+
+
+</body>
+
+<!--1-->
+<!--<script>-->
+<!--var routerApp= angular.module('routerApp',[]);-->
+  <!--routerApp.config(function($provide) {-->
+      <!--$provide.provider('greeting', function() {-->
+        <!--this.$get = function() {-->
+          <!--return function(name) {-->
+            <!--alert("Hello, " + name);-->
+          <!--};-->
+        <!--};-->
+      <!--});-->
+    <!--});-->
+  <!--routerApp.controller("userCtl", function ($scope, greeting) {-->
+    <!--$scope.myName="ford Prefect";-->
+      <!--$scope.sayHello = function() {-->
+        <!--greeting($scope.myName);-->
+      <!--};-->
+      <!---->
+    <!--});-->
+<!--</script>-->
+
+<!--2-->
+<!--<script>-->
+  <!--var app=angular.module('routerApp', [])-->
+    <!--.factory('greeter', function() {-->
+      <!--return {-->
+        <!--greet: function(msg) {alert(msg);}-->
+      <!--}-->
+    <!--});-->
+  <!---->
+  <!--function MyController(renamed$scope, renamedGreeter) {-->
+    <!--renamed$scope.myName="david";-->
+    <!--renamed$scope.sayHello = function() {-->
+      <!--renamedGreeter.greet("Hello!"+renamed$scope.myName);-->
+    <!--}}-->
+  <!---->
+  <!--MyController.$inject = ['$scope', 'greeter'];-->
+  <!--app.controller('userCtl', MyController);-->
+  <!--//注意这个语句，我这个例子弄了半天，各种报错，就是因为这个语句少了-->
+<!--</script>-->
+
+<!--3-->
+
+<script>
+var routerApp= angular.module('routerApp',[]);
+routerApp.config(function($provide) {
+$provide.provider('greeting', function() {
+this.$get = function() {
+return function(name) {
+alert("Hello, " + name);
+};
+};
+});
+});
+routerApp.controller("userCtl", function($scope, greeting)  {
+$scope.myName="ford Prefect";
+$scope.sayHello = function() {
+greeting($scope.myName);
+};
+
+});
+</script>
+
+
+
+</html>
