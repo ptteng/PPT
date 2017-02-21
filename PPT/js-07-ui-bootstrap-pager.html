@@ -1,0 +1,391 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .info p{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>angular ui-bootstrap分页插件使用方法</h2>
+            <h3>小课堂【修真院】</h3>
+            <p>分享人：黄雄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>angular ui-bootstrap是什么
+                <br/>
+                UI-Bootstrap用angular打造的bootstrap组件，在使用时不需要再依赖其他库，包括了多种常用的组件，
+                今天跟大家分享的分页组件的使用方法。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section style="text-align: left">
+                首先来看看使用分页组件需要用到的框架和依赖
+                <pre>
+                    <code>
+    &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"&gt;&lt;/script&gt;
+    &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"&gt;&lt;/script&gt;
+    &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"&gt;&lt;/script&gt;
+    &lt;script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"&gt;&lt;/script&gt;
+                    </code>
+                </pre>
+        上面的时官网demo的依赖，angularjs用1.5左右的基本上就没有版本兼容的问题了，注意ui-bootstrap-tpls-2.5.0.js是引入了tpls这一个文件，里面包含html模板。
+            </section>
+        </section>
+        <section class="info">
+            <section style="text-align: left">
+                <pre>
+                    <code>
+<div ng-controller="PaginationDemoCtrl">
+    <h4>Default</h4>
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+    <pre>The selected page no: {{currentPage}}</pre>
+    <button type="button" class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button>
+</div>
+                    </code>
+                </pre>
+            </section>
+            <section style="text-align: left">
+                <pre>
+                    <code>
+angular.module('ui.bootstrap.demo').controller('PaginationDemoCtrl', function ($scope, $log) {
+  $scope.totalItems = 64;   //整个数据的长度；控制显示分页按钮的显示个数
+  $scope.currentPage = 4;   //当前页数
+
+  $scope.setPage = function (pageNo) {  //跳转至某一页
+    $scope.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {    //点击页数按钮触发的事件
+    //通过这里获取到当前点击的页数值$scope.currentPage来向后台请求第几页的数据
+    $log.log('Page changed to: ' + $scope.currentPage);
+  };
+
+  $scope.maxSize = 5;                 //按钮显示的最大个数
+  $scope.bigTotalItems = 175;         //最大数据长度
+  $scope.bigCurrentPage = 1;          //最大页数
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>所有属性参数</p>
+                <pre>
+                    <code>
+
+
+属性名	                默认值	备注
+boundary-links	        false	是否显示第一页和最后一页的按钮
+boundary-link-numbers	false	是否显示第一页和最后一页的页数,并在页数过多时用…表示被隐藏的页数
+direction-links	        true	是否显示上一页和下一页的按钮
+first-text	        first	第一页的按钮的名字
+last-text	        last	最后一页的按钮名字
+previous-text	        Previous	上一页的按钮名字
+next-text	        Next	下一页的按钮名字
+force-ellipses	        false	是否在rotate被设置为true并且页数过多时显示为"…"
+rotate	                true	 是否保持当前在可视范围的中间
+items-per-page	        10	每页显示的数量.设置值小于1表示显示所有项
+max-size	        null	可选择的页数范围(如果设置为5,当前页为10,总页数为100,那么可选择第8,9,10,11,12页)
+ng-change	 	               页数变化时调用的函数
+ng-disabled	        false	是否禁用
+ng-model	 	                 当前页数
+num-pages	       angular.noop	只读属性，表示总页数
+page-label	       angular.identity	设置页数标签的表达式
+template-url	        uib/template/pagination/pagination.html  //可以选择替换ui自带的html模板
+total-items	 	         总共有多少条数据
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p class="fragment">
+                如何再次封装分页指令
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <p>页面内的需要分页显示的数据是需要多次更新的，所以需要把数据请求独立出来调用，
+                分页指令这边需要获取的是总的数据长度，需要传出去是当前选中页数值</p>
+            <p>总的长度再请求返回值时才能获取到，通过‘=’绑定一个变量来同步控制器和指令的值，
+            在指令内发生切换页数时通过scope.$parent来调用父级请求数据的函数并将当前页数值通过参数传递过去</p>
+
+        </section>
+        <section>
+            <pre>
+                <code>
+.directive('mypagintion', function (getAdminSercive) {
+    /* 分页 */
+    return {
+        restrict: 'AE',
+        replace: false,
+        templateUrl: 'tpls/dirtpls/pagination.html',
+        scope: {
+            total: '=',
+        },
+        link: function (scope, ele, attrs, supermanCtrl) {
+            /* 分页插件参数 */
+            scope.currentPage = 1; //初始页
+
+            //调用父级的数据请求函数
+            scope.$parent.vm.pagingdata(scope.currentPage)
+            scope.$watch('total', function (n, o) {
+                if (n != o) {
+                    scope.totalItems = scope.total;
+                }
+            })
+            //分页按钮事件触发时调用数据请求函数
+            scope.pageChanged = function () {
+                scope.$parent.vm.pagingdata(scope.currentPage);
+            };
+        }
+    }
+})
+                </code>
+            </pre>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    <!-- 分页指令模板 -->
+ &lt;div style="padding-right: 15px;text-align: right;" &lt;
+     &lt;ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize"
+        class="pagination-sm" boundary-links="true" rotate="true"
+        previous-text=" < " next-text=" > " first-text="首页" last-text="末页"
+        ng-change="pageChanged()"> &lt;/ul &lt;
+ &lt;/div &lt;
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>通过学习一个ui-bootstrap的插件，总结一下经验，在学习使用其他ui-bootstrap插件时能够节省一些时间</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+                <a href="http://angular-ui.github.io/bootstrap/" target="_blank">ui-bootstrap官网</a></p>
+                <a href="http://www.cnblogs.com/pilixiami/p/5634405.html">liumang361个人博客</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :  黄雄</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+    //    原始类型对象直接赋值不会相互影响
+    //    var a = 1;
+    //
+    //    var b = a;
+    //    b = 10;
+    //    console.log(a); // 1
+    ////
+    //    var a = 'hello';
+    //    var b = a;
+    //    b = 'world';
+    //    console.log(a); // hello
+    //
+    //    var a = true;
+    //    var b = a;
+    //    b = false;
+    //    console.log(a);
+
+    //数组浅复制
+    //    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+    //    ];
+    //    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+    //    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+    //    console.log(a)//那么现在打印a 是什么结果呢
+    //
+    //    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+    //    var arrtoo = arr.slice(1);
+    //    arrtoo[2] = "set Map";
+    //    console.log(arr);//One,Two,Three
+    //    console.log(arrtoo);//One,set Map,Three
+
+    //
+    //    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+    //    var arrtooo = arr1.concat(111111);
+    //    arrtooo[1] = "set Map To";
+    //    console.log(arr1);//One,Two,Three
+    //    console.log(arrtooo);//One,set Map To,Three
+
+    //
+    //    var b=[1,2,3,4,5];   //concat的链接
+    //    var c=[6,7,8,9];
+    //    var d =[4,4,22]
+    //    console.log(b.concat(c,d))
+
+    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    var b=new Object();
+    b.name=a.name;
+    b.age=a.age;
+    b.name='xx';
+    console.log(a);//Object { name="yy", age=26}
+    console.log(b);//Object { name="xx", age=26}
+
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+
+
+
+
+    //    var person = {    //第二种深拷贝
+    //        name: 'aa',
+    //        friends: ['da', 'dsa', 'gf']
+    //    };
+    //
+    //    var aPerson = Object.create(person, {
+    ////        name: {
+    ////            value: "gee"
+    ////        }
+    //    });
+    //
+    //    console.log(person.name);
+    //    console.log(aPerson.friends)
+
+    var Chinese = {
+        nation:'中国'
+
+    }
+    var Doctor = {
+        career:'医生'
+    }
+    function extendCopy(p) {
+        var c = {};
+        for (var i in p) {
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+    var Doctor = extendCopy(Chinese);
+    Doctor.career = '医生';
+    console.log(Doctor); // 中国
+    Chinese.birthPlaces = ['北京','上海','香港'];
+    var Doctor = extendCopy(Chinese);
+    Doctor.birthPlaces.push('厦门');
+
+</script>
+</body>
+</html>
