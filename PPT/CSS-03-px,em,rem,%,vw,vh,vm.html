@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】px、em、rem、%、vw、vh、vm这些单位有什么区别？</h2>
+            <h3>小课堂【武汉第77期】</h3>
+            <p>分享人：李玺</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">传统的项目开发中，我们只会用到px、%、em这几个单位，它可以适用于大部分的项目开发，并且拥有比较良好的兼容性。但是你知道吗？从css3开始，浏览器对逻辑单位的支持又提升到了另外一个境界，增加了rem、vh、vw、vm等一些新的长度单位，我们可以利用这些新的单位开发出比较良好的自适应页面，随之覆盖多种不同分辨率的终端，包括移动设备等。现在让我们来看下这些长度单位有什么区别。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">1、px</p>
+            <p style="text-align: left">px就是pixel的缩写，意为像素。px就是一张图片最小的一个点，一张位图就是千千万万的这样的点构成的，比如常常听到的电脑像素是1024x768的，表示的是水平方向是1024个像素点，垂直方向是768个像素点。</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/1.png">
+        </section>
+        <section>
+            <p style="text-align: left">2、em</p>
+            <p style="text-align: left">参考物是父元素的font-size，具有继承的特点。如果自身定义了font-size按自身来计算（浏览器默认字体是16px），整个页面内1em不是一个固定的值。</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/2.png">
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo1.html" target="_blank">demo1</a></p>
+        </section>
+        <section>
+            <p style="text-align: left">3、rem</p>
+            <p style="text-align: left">css3新单位，相对于根元素html（网页）的font-size，不会像em那样，依赖于父元素的字体大小，而造成混乱。</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/3.png">
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo2.html" target="_blank">demo2</a></p>
+        </section>
+        <section>
+            <p style="text-align: left">4、%</p>
+            <p style="text-align: left">一般宽泛的讲是相对于父元素，但是并不是十分准确。</p>
+            <p style="text-align: left">1、对于普通定位元素就是我们理解的父元素</p>
+            <p style="text-align: left">2、对于position: absolute;的元素是相对于已定位的父元素</p>
+            <p style="text-align: left">3、对于position: fixed;的元素是相对于 ViewPort（可视窗口）</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/1.png">
+            <p style="text-align: left">%的第三种情况对于字体没有说明的效果，demo使用width来显示</p>
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo3.html" target="_blank">demo3</a></p>
+        </section>
+        <section>
+            <p style="text-align: left">5、vw</p>
+            <p style="text-align: left">css3新单位，viewpoint width的缩写，视窗宽度，1vw等于视窗宽度的1%。</p>
+            <p style="text-align: left">举个例子：浏览器宽度1200px, 1 vw = 1200px/100 = 12 px。</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/4.png">
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
+        </section>
+        <section>
+            <p style="text-align: left">6、vh</p>
+            <p style="text-align: left">css3新单位，viewpoint height的缩写，视窗高度，1vh等于视窗高度的1%。</p>
+            <p style="text-align: left">举个例子：浏览器高度900px, 1 vh = 900px/100 = 9 px。</p>
+            <p style="text-align: left">兼容性：</p>
+            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/4.png">
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
+        </section>
+        <section>
+            <p style="text-align: left">7、vm</p>
+            <p style="text-align: left">css3新单位，相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vm</p>
+            <p style="text-align: left">举个例子：浏览器高度900px，宽度1200px，取最小的浏览器高度， 1 vm = 900px/100 = 9 px。</p>
+            <p style="text-align: left">由于现在vm的兼容性较差，这里就不做展示了。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align: left">问题一：</p>
+            <p style="text-align: left">为什么一开始在css样式中给body设置font-size：62.5%？</p>
+            <p style="text-align: left">问题二：</p>
+            <p style="text-align: left">在谷歌浏览器运行以下代码，1em是显示多大的字体？</p>
+            <pre>
+                <code>
+                        body{
+                            font-size: 62.5%;
+                        }
+                        p{
+                            font-size:1em;
+                        }
+                </code>
+            </pre>
+            <pre>
+                <code>
+                    <body>
+                    <p>我的字体是多大？</p>
+                    </body>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">答案一：</p>
+            <p style="text-align: left">Font-size=62.5%这就使em值变为16px*62.5%=10px。这样1em=10px，1.2em=12px利于我们进行换算。</p>
+            <p style="text-align: left">答案二：</p>
+            <p style="text-align: left">谷歌浏览器强制最小字体为12号，即使设置成 10px 最终都会显示成 12px，当把html的font-size设置成10px,子节点rem的计算还是以12px为基准。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo1.html" target="_blank">demo1</a></p>
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo2.html" target="_blank">demo2</a></p>
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo3.html" target="_blank">demo3</a></p>
+            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">css还有哪些长度单位？</p>
+
+            <p class="fragment">in:寸</p>
+
+
+            <p class="fragment"> cm:厘米</p>
+
+            <p class="fragment">mm:毫米</p>
+
+            <p class="fragment">t:point，大约1/72寸</p>
+
+            <p class="fragment"> pc:pica，大约6pt，1/6寸</p>
+            <p class="fragment">1in = 2.54cm = 25.4 mm = 72pt = 6pc = 96px</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.xidayun.com/index.php/2016/06/27/rem-vh-vw-vmin-vmax-ex-ch/" target="_blank">你知道这7个css单位么</a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/study/201103/css-length-value-test-demo.html" target="_blank">CSS 长度单位值测试实例页面</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>css3的calc()</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :李玺</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
