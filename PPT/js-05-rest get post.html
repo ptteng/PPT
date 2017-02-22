@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>什么是rest风格?get 与 post的区别?application json 与form表单的区别</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是rest风格?get与post的区别?application json 与form表单的区别?</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：彭勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>rest风格的由来</h4>
+
+            <p class="left" style="text-indent: 2em">
+                Web发展到了1995年，在CGI、ASP等技术出现之后，沿用了多年、主要面向静态文档的HTTP/1.0协议已经无法满足Web应用的开发需求，因此需要设计新版本的HTTP协议。在HTTP/1.1协议的设计工作中，开发者们对于Web之所以取得巨大成功，在技术架构方面的因素做了一番深入的总结。Fielding将这些总结纳入到了一套理论框架之中，然后使用这套理论框架中的指导原则，来指导HTTP/1.1协议的设计方向。Fielding更为系统、严谨地阐述了这套理论框架，并且使用这套理论框架推导出了一种新的架构风格，并且为这种架构风格取名“REST”--Representational State Transfer（表述性状态转移）的缩写。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>什么是rest风格</li>
+                    <li>get与post的区别</li>
+                    <li>application json 与form表单的区别</li>
+                </ol>
+            </section>
+            <section>
+                <h4>1.什么是rest风格</h4>
+                <p class="left" style="text-indent: 2em">REST是所有Web应用都应该遵守的架构设计指导原则。当然，REST并不是法律，违反了REST的指导原则，仍然能够实现应用的功能。但是违反了REST的指导原则，会付出很多代价，特别是对于大流量的网站而言。</p>
+                <p class="left" style="text-indent: 2em">如果要深入理解rest，就要先了解资源（Resource）资源的表述（Representation）状态转移（State Transfer）统一接口（Uniform Interface）超文本驱动（Hypertext Driven）这五个关键字，这里就不多做描述，参考文献上有更加详细的讲解，</p>
+            </section>
+            <section>
+                <P style="float: left"> 再介绍下rest风格的六个约束，大家可以了解下： </P>
+                <ul style="float: left">
+                    <li>客户-服务器：通信只能由客户端单方面发起，表现为请求-响应的形式。</li>
+                    <li>无状态：通信的会话状态（Session State）应该全部由客户端负责维护。</li>
+                    <li>缓存：响应内容可以在通信链的某处被缓存，以改善网络效率。</li>
+                    <li>无状态（Statelessness）</li>
+                    <li>统一接口：通信链的组件之间通过统一的接口相互通信，以提高交互的可见性。</li>
+                    <li>分层系统：通过限制组件的行为（即，每个组件只能“看到”与其交互的紧邻层），将架构分解为若干等级的层。</li>
+                    <li>按需代码:支持通过下载并执行一些代码（例如Java Applet、Flash或JavaScript），对客户端的功能进行扩展。</li>
+                </ul>
+            </section>
+            <section>
+                <h4>2.get与post的区别</h4>
+                <img src="../img/js-05-rest%20get%20post/rest.png">
+                <p class="left">上图是在W3C上找到的答案，但是在网上查看后，有了其他收获。</p>
+
+
+
+            </section>
+            <section>
+                <p class="left">首先我们要知道GET和POST都是HTTP定义的和服务器互交的不同方法，其余两种是PUTt和DELETE。</p>
+                <p class="left">1.语义上的不同:</p>
+                <p class="left">GET：获取指定URL上的资源，是读操作，</p>
+                <p class="left">POST：向指定资源“追加/添加”数据.</p>
+                <P CLASS="left">2.对于“安全”所代表的设定。</P>
+                <p class="left" style="text-indent: 2em">相对于服务器的资源来说，意味着该操作用于获取信息而非修改信息。</p>
+                <p class="left" style="text-indent: 2em">对于传递过程来说，指的是提交的数据不会直接在地址栏看见。
+                    (1)登录页面有可能被浏览器缓存，
+                    (2)其他人查看浏览器的历史纪录。</p>
+            </section>
+            <section>
+                <P class="left">GET是幂等的，POST是非幂等的</P>
+                <P class="left">先介绍下幂等的概念：如果一个操作没有副作用，或者多次操作对资源产生的副作用相同，我们就说这个操作是幂等的.</P>
+                <p class="left">get方法用户获取资源，没有副作用，所以是幂等的；post用于创建资源，是有副作用的，且副作用不同，所以post不是幂等的。（两次相同的POST请求会在服务器端创建两份资源，它们具有不同的URI）</p>
+            </section>
+            <section>
+                <p class="left">关于两种方法发送的大小限制</p>
+                <p class="left" style="text-indent: 2em">HTTP协议没有对get和post做长度的限制，但是浏览器会对url长度做限制，因为url长了，对服务器处理起来也是一种负担，同时容易被恶意攻击。</p>
+                <P class="left" style="text-indent: 2em">GET请求的数据是添加在url后面的例如“login.action?name=hyddd&password=idontknow&verify=%E4%BD%A0 %E5%A5%BD”,由于浏览器对url长度有限制，所有get方法传递数据受限制。</P>
+                <p class="left" style="text-indent: 2em">POST提交是把提交的数据放置在是HTTP包的包体中，所以没有限制。</p>
+            </section>
+            <section>
+                    <h4>application json 与form表单的区别?</h4>
+                <p class="left">   application/json 这个 Content-Type 作为响应头大家肯定不陌生。实际上，
+                    现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。
+                    由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 JSON.stringify，
+                    服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。angular中默认的就是这个格式</p>
+            </section>
+            <section>
+                <p class="left">
+                    application/x-www-form-urlencoded
+                    这应该是最常见的 POST 提交数据的方式了。浏览器的原生 form 表单，如果不设置 enctype 属性，
+                    那么最终就会以 application/x-www-form-urlencoded 方式提交数据。请求类似于下面这样（
+                    无关的请求头在本文中都省略掉了）：
+                    POST http://www.example.com HTTP/1.1
+                    Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                    title=test&sub%5B%5D=1&sub%5B%5D=2&sub%5B%5D=3
+                    首先，Content-Type 被指定为 application/x-www-form-urlencoded；
+                    其次，提交的数据按照 key1=val1&key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。
+                    大部分服务端语言都对这种方式有很好的支持。例如 PHP 中，$_POST['title']
+                    可以获取到 title 的值，$_POST['sub'] 可以得到 sub 数组。
+                </p>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>GET和POSTSHIYONG环境</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">应该符合语义的使用;即获取数据使用GET，增加数据使用POST.</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            主要是概念上的东西，所以没有代码。
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>rest适用环境</p>
+
+            <p>REST是一种为运行在互联网环境中的Web应用量身定制的架构风格。企业内网运行环境之中REST还会面临DO、RPC的巨大挑战。特别是一些对实时性要求很高的应用，REST的表现不如DO和RPC。</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://www.infoq.com/cn/articles/understanding-restful-style" target="_blank">理解本真的REST架构风格</a></p>
+            <p class="left">参考二：<a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank">W3C</a></p>
+            <P class="left">参考三：<a href="https://www.oschina.net/news/77354/http-get-post-different" target="_blank"> 99%的人理解错 HTTP 中 GET 与 POST 的区别  </a></P>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+            <p>面试遇到POST和GET的区别应该如何回答？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
