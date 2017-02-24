@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flex布局</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		.h60{
+			height: 60px !important;
+		}
+		.h120{
+			height: 120px !important;
+		}
+		.h160{
+			height: 160px !important;
+		}
+		.h200{
+			height: 200px;
+		}
+		.h-auto{
+			height: auto;
+		}
+		.line-h{line-height: 150px;}
+		.text1{
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 100px;
+		}
+		.text1-1{
+			width: 60px;
+			height: 60px;
+			float: left;
+			margin-left: 10px;
+			background-color: red;
+		}
+		.text2{
+			display: flex;
+			flex-direction: row-reverse;
+			flex-direction: column;
+			flex-direction: column-reverse;
+			flex-direction: row;
+			padding-bottom: 100px;
+		}
+		.text2-2{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			font-size: 36px;
+			margin: 20px;
+			box-sizing: border-box;
+		}
+		.text3{
+			width: 800px;
+			display: flex;
+			flex-wrap: nowrap;
+			flex-wrap: wrap;
+			flex-wrap: wrap-reverse;
+			padding-bottom: 100px;
+		}
+		.text4{
+			display: flex;
+			justify-content: flex-start;
+			justify-content: flex-end;
+			justify-content: center;
+			justify-content: space-around;
+			justify-content: space-between;
+			padding-bottom: 100px;
+		}
+		.text5{
+			display: flex;
+			height: 400px;
+			align-items: stretch;
+			align-items: baseline;
+			align-items: center;
+			align-items: flex-end;
+			align-items: flex-start;
+			padding-bottom: 100px;
+		}
+		.text6{
+			display: flex;
+			width: 1000px;
+			height: 1000px;
+			background-color: yellow;
+			flex-wrap: wrap;
+			align-content: center;
+			align-content: flex-end;
+			align-content: space-between;
+			align-content: space-around;
+			align-content: flex-start;
+			align-content: stretch;
+			margin-bottom: 100px;
+		}
+		.order{
+			display: flex;
+			order: -1;
+			order: 1;
+		}
+		.flex-grow{
+			display: flex;
+			flex-grow: -1;
+			flex-grow: 2;
+		}
+		.flex-shrink{
+			display: flex;
+			flex-shrink: 0;
+		}
+		.flex-basis{
+			display: flex;
+			flex-basis: 300px;
+			flex-basis: auto;
+		}
+		.align-self{
+			display: flex;
+			align-self: flex-end;
+		}
+	</style>
+</head>
+<body>
+<h2>float等元素失效</h2>
+<div class="text1">
+	<div class="text1-1"></div>
+	<div class="text1-1"></div>
+	<div class="text1-1"></div>
+	<div class="text1-1"></div>
+</div>
+<h2>flex-direction</h2>
+<div class="text2">
+	<div class="text2-2">1</div>
+	<div class="text2-2">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>flex-wrap</h2>
+<div class="text3">
+	<div class="text2-2">1</div>
+	<div class="text2-2">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>justify-content</h2>
+<div class="text4">
+	<div class="text2-2">1</div>
+	<div class="text2-2">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>align-items</h2>
+<div class="text5">
+	<div class="text2-2 line-h h-auto">1</div>
+	<div class="text2-2 h160 h-auto">2</div>
+	<div class="text2-2 h120 h-auto">3</div>
+	<div class="text2-2 h60 h-auto">4</div>
+</div>
+<h2>align-content</h2>
+<div class="text6">
+	<div class="text2-2 line-h h-auto">1</div>
+	<div class="text2-2 h160 h-auto">2</div>
+	<div class="text2-2 h120 h-auto">3</div>
+	<div class="text2-2 h60 h-auto">4</div>
+	<div class="text2-2 line-h h-auto">1</div>
+	<div class="text2-2 h160 h-auto">2</div>
+	<div class="text2-2 h120 h-auto">3</div>
+	<div class="text2-2 h60 h-auto">4</div>
+	<div class="text2-2 line-h h-auto">1</div>
+	<div class="text2-2 h160 h-auto">2</div>
+	<div class="text2-2 h120 h-auto">3</div>
+	<div class="text2-2 h60 h-auto">4</div>
+</div>
+<h2>order</h2>
+<div class="text2">
+<div class="text2-2">1</div>
+	<div class="text2-2 order">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>flex-grow</h2>
+<div class="text2">
+	<div class="text2-2">1</div>
+	<div class="text2-2 flex-grow">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>flex-shrink</h2>
+<div class="text2">
+	<div class="text2-2">1</div>
+	<div class="text2-2 flex-shrink">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>flex-basis</h2>
+<div class="text2">
+	<div class="text2-2">1</div>
+	<div class="text2-2 flex-basis">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+<h2>align-self</h2>
+<div class="text5">
+	<div class="text2-2">1</div>
+	<div class="text2-2 align-self">2</div>
+	<div class="text2-2">3</div>
+	<div class="text2-2">4</div>
+</div>
+</body>
+</html>
