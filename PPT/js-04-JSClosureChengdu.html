@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>闭包是什么、用处如何</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-04】闭包是什么？用处如何?</h2>
+
+            <h3>小课堂【成都分部】</h3>
+
+            <p style="text-align: center;">分享人：郑明月</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。简单来说，假设函数A在函数B中进行了定义，并且当A在执行时访问了B内部的变量对象，那么B就是一个闭包</p>
+            <p style="text-align: left">那么闭包的具体定义是什么呢？当函数可以记住并访问所在的作用域（全局作用域除外）时，就产生了闭包，即使函数是在当前作用域外执行</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>作用域和作用域链</p>
+            <p style="text-align: left">在说到闭包的同时，我们不得不说一下作用域和作用域链，js的执行过程分为两个阶段，第一阶段是代码编译阶段，第二阶段是代码执行阶段。在编译阶段，我们的代码将会被翻译成可执行的代码、并且在此阶段我们的作用域规则将会被确定。在第二阶段，主要任务是执行可执行代码，重点注意下，我们的执行上下文将会在此时生成</p>
+            <img src="../img/js-04-JSClosureChengdu/1.png" alt="" style="max-width: 100%">
+        </section>
+        <section>
+            <section>
+                <p>执行上下文</p>
+                <p style="text-align: left">执行上下文分为两个阶段：创建阶段：在进入函数的时候创建执行上下文，这个创建的操作中，包括了生成变量对象，建立作用域链、确定this指向。</p>
+                <p style="text-align: left">执行阶段：包括变量赋值、函数引用、执行其他代码。经历过这两个阶段之后，它就会等待被js的垃圾回收机制回收</p>
+                <img src="../img/js-04-JSClosureChengdu/2.png" alt="" style="max-width: 100%">
+            </section>
+            <section>
+                <img src="../img/js-04-JSClosureChengdu/3.png" alt="" style="max-width: 100%">
+                <p style="text-align: left">它在创建执行上下文的时候，先生成了变量对象用于保存我们的变量，在这个变量对象中，以function名称为属性名的变量将会储存一个指向function的指针，如果后面存在着同名的函数，那么前面的将会被覆盖，而以var形式赋值的变量将会以这个变量名为属性名储存但是值是undefined，并且，如果具有同名的变量名，会直接跳过，不会被覆盖</p>
+                <p style="text-align: left">它在执行阶段，这个时候才会为var的进行赋值操作。并且执行引用的函数。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>作用域链</p>
+                <p>作用域链是由当前环境和上层环境的一系变量对象组成，它保证了当前执行环境对符合访问权限的变量和函数的有序访问</p>
+            </section>
+            <section>
+                <img src="../img/js-04-JSClosureChengdu/4.png" alt="" style="max-width: 100%">
+                <p style="text-align: left">在上面的例子中，全局，函数test，函数innerTest的执行上下文先后创建。我们设定他们的变量对象分别为VO(global)，VO(test), VO(innerTest)。而innerTest的作用域链，则同时包含了这三个变量对象，所以innerTest的执行上下文可如下表示。</p>
+            </section>
+            <section>
+                <img src="../img/js-04-JSClosureChengdu/5.png" alt="" style="max-width: 100%">
+                <p style="text-align: left">是的，你没有看错，我们可以直接用一个数组来表示作用域链，数组的第一项scopeChain[0]为作用域链的最前端，而数组的最后一项，为作用域链的最末端，所有的最末端都为全局变量对象。</p>
+            </section>
+            <section>
+                <img src="../img/js-04-JSClosureChengdu/6.png" alt="" style="max-width: 100%">
+                <p style="text-align: left">很多人会误解为当前作用域与上层作用域为包含关系，但其实并不是。以最前端为起点，最末端为终点的单方向通道我认为是更加贴切的形容。如图。</p>
+            </section>
+            <section>
+                <p style="text-align: left">所以作用域链是由一系列变量对象组成的，我们可以在这个单向通道中查询变量对象的标识符，这样就能够访问到上一层作用域中的变量了</p>
+            </section>
+            <section>
+                <p>垃圾回收机制</p>
+                <p style="text-align: left">在js中存在着特殊的内存回收机制，就是当一个值在内存中失去引用时，垃圾回收机制会根据它的方法找到它，将它回收，释放内存，我们上面说过，在该函数的执行上下文声明周期结束以后，那么该段函数的执行上下文就失去了引用，其所占用的内存空间就会很快的被垃圾回收机制收回，闭包的存在会阻止这一过程</p>
+                <p style="text-align: left">所以现在，我们可以总结一下闭包的作用</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>闭包可以用在许多地方。它的最大用处有两个：</p>
+                <p>1.可以访问该函数作用域以外的变量对象</p>
+                <p>2.让这些变量的值始终保存在内存中</p>
+            </section>
+            <section>
+                <p style="text-align: left">读取函数内部的变量的例子：</p>
+                <pre>
+            <code>
+                    /*使用闭包读取函数内部的变量*/
+                    function f1(){
+                        n = 999;
+                        function f2(){
+                            alert(n);
+                        }
+                        return f2;
+                    }
+                    var result = f1();
+                    result(); //999
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p style="text-align: left;text-indent: 2rem">在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的"链式作用域"结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗</p>
+            </section>
+            <section>
+                <p style="text-align: left">变量的值始终保存在内存的例子：</p>
+                 <pre>
+            <code>
+                /*使用闭包让函数内部的变量储存在内存中*/
+                function f1(){
+                    var n = 999;
+                    nAdd = function(){
+                        n+=1;
+                    };
+                    function f2(){
+                        alert(n);
+                    }
+                    return f2;
+                }
+                var result = f1();
+                result();//999
+                nAdd();
+                result();//1000
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p style="text-align: left;text-indent: 2rem">在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。因为f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被<a href="http://eatpockyboy.blog.163.com/blog/static/1167346402011321423929/"  target="_blank">垃圾回收机制（garbage collection）</a>回收。这段代码中另一个值得注意的地方，就是"nAdd=function(){n+=1}"这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个<a href="http://www.itxueyuan.org/view/6314.html"  target="_blank">匿名函数（anonymous function）</a>，而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <pre>
+            <code>
+                window.onload = function(){
+                    var el = document.getElementById("id");
+                    el.onclick = function(){
+                        alert(el.id);
+                    }
+                }
+            </code>
+            </pre>
+            <p>
+                这段代码为什么会造成内存泄露？
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+              内存泄漏的原因：执行这段代码的时候，将匿名函数对象赋值给el的onclick属性；然后匿名函数内部又引用了el对象，存在循环引用，所以不能被垃圾回收机制回收；
+            </p>
+            <p style="text-align: left">修改后：</p>
+            <pre>
+            <code>
+                window.onload = function(){
+                    var el = document.getElementById("id");
+                    var id = el.id; //解除循环引用
+                    el.onclick = function(){
+                        alert(id);
+                    }
+                    el = null; // 将闭包引用的外部函数中活动对象清除
+                }
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+             <p>点击按钮会弹出相应的数字0、1、2、3、4</p>
+                <pre>
+            <code>
+                function init({
+                    var pAry = document.getElementsByTagName("button");
+                    for( var i=0; i< pAry.length; i++ ) {
+                        (function(arg){
+                            pAry[i].onclick = function() {
+                                alert(arg);
+                            };
+                        })(i);//调用时参数
+                    }
+                }
+            </code>
+            </pre>
+                <p>
+                    思路：加一层闭包，i以局部变量形式传递给内存函数，在js任务4中的杀人游戏选中的身份死亡有用到。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>在闭包中的this指向问题</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">阮一峰的网络日志：学习Javascript闭包</a></p>
+            <p style="text-align: left">参考二：<a href="https://zhuanlan.zhihu.com/p/22486908#!" target="_blank">逼乎专栏：JS 中的闭包是什么？</a></p>
+            <p style="text-align: left">参考三：<a href="https://segmentfault.com/a/1190000002778015" target="_blank">segmentfault：JS进阶之闭包</a></p>
+            <p style="text-align: left">参考四：<a href="http://www.jianshu.com/p/21a16d44f150" target="_blank">详细图解作用域链与闭包</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>垃圾回收机制（garbage collection）以及匿名函数</p>
+            <img src="../img/js-04-JSClosure/11.jpg">
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 郑明月 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
