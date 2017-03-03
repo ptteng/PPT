@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>SVN和GIT有什么区别？GIT和GITHUB有什么关系？如何用webstorm将代码上传至github</h2>
+            <h3>小课堂【郑州修真院】</h3>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+                <p>在2002年以前，世界各地的志愿者把源代码文件发给Linus，然后由Linus本人通过手工方式合并代码。
+                <br>一直到2002年，Linux系统已经发展了十年了，代码库之大让Linus很难继续通过手工方式管理了，于是Linus选择了一个商业的版本控制系统BitKeeper，BitKeeper的东家BitMover公司出于人道主义精神，授权Linux社区免费使用bitkeeper。
+                <br>但是好景不长，在2005年的时候，linux社区开发Samba的Andrew试图破解BitKeeper的协议（这么干的其实也不只他一个），被BitMover公司发现了（监控工作做得不错！），于是BitMover公司怒了，要收回Linux社区的免费使用权。
+                之后Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！
+                </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+<section>
+ <section style="text-align: left">
+         1,什么是SVN？
+         <br>SVN是Subversion的简称，是一个开放源代码的版本控制系统，相较于RCS、CVS，它采用了分支管理系统，它的设计目标就是取代CVS。互联网上很多版本控制服务已从CVS迁移到Subversion。说得简单一点SVN就是用于多个人共同开发同一个项目，共用资源的目的。
+            </section>
+ <section style="text-align: left">
+              2，什么是Git？
+                 Git是一款免费、开源的分布式版本控制系统。
+                 Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。Git是Linus为了帮助管理内核开发而开发的一个开放源码的版本控制软件。
+            </section>
+           <section style="text-align: left">
+               3，SVN和Git的区别？
+                <br> 1）GIT是分布式的，SVN不是
+                  <br>这是GIT和其它非分布式的版本控制系统，例如SVN，CVS等，最核心的区别
+                  简单的说，分布式的版本控制就是每个人都可以创建一个独立的代码仓库用于管理，各种版本控制的操作都可以在本地完成。每个人修改的代码都可以推送合并到另外一个代码仓库中。
+            </section>
+            <section style="text-align: left">
+                2）Git把内容按源数据方式存储，而SVN是按文件
+                   <br>因为.git目录是处于你的机器上的一个克隆版的版本库，它拥有中心版本库上所有的东西，.git目录的体积大小跟.svn比较，你会发现它们差距很大。
+            </section>
+            <section style="text-align: left">
+                3）所有保存在Git 数据库中的数据都是用此40位的哈希值作索引的，而不是靠文件名。使用哈希值作版本号有两个特点：
+                  <br> 1，不重复性：每个人每次提交后形成的版本号都不会出现重复。
+                  <br> 2，完整性：因为哈希值是根据内容或目录结构计算出来的，所以我们还可以据此来判断数据内容是否被篡改
+            </section>
+            <section style="text-align: left">
+                4）SVN刚开始用时很狗血的一点，SVN必须先Update（合并）才能Commit（提交）,忘记了合并时就会出现一些错误，git还是比较少的出现这种情况。
+            </section>
+            <section style="text-align: left">
+                5）在SVN，当你提交你的完成品时，它将直接记录到中央版本库。当你发现你的完成品存在严重问题时，你已经无法阻止事情的发生了。而Git的提交完全属於本地版本库的活动。而你只需“推”（git push）到主要版本库即可。Git的“推”其实是在执行“同步”（Sync）
+            </section>
+            </section>
+            <section>
+                <section style="text-align: left">
+              3，Git和github的关系：
+                <br> Git是一把枪，github是靶子，你的源代码就是子弹。
+                通俗点来说，就是多个人编辑同一个文件，通过Git实现所有人所编辑文件的更新，github就相当于文件放置的平台。相对于Git本地仓库来说，github是一个远程仓库。
+              </section>
+            <section style="text-align: left">
+                <img src="../img/CSS-02-github/1.jpg" >
+            </section>
+            </section>
+ 
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p class="fragment">
+            如何用webstorm将代码上传至github？
+            </p>
+          <p class="fragment">
+             Git下载之后如何运用？
+          </p>
+            <br><br>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section style="text-align: left">
+             第一个问题：如何用webstorm将代码上传至github？
+            </section>
+            <section style="text-align: left">
+             第二个问题：Git的如何使用？
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+   
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>既然github能上传源码，那么能不能在github上以网页的形式展示呢？
+            </p>
+        </section>
+       
+       
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+              <a href="http://www.cnblogs.com/babywin/p/6073124.html">Git的使用？http://www.cnblogs.com/babywin/p/6073124.html</a></p>
+            <p>参考二：
+              <a href="http://blog.jobbole.com/31444/">http://blog.jobbole.com/31444/.SVN和Git的区别</a></p>
+        </section>
+        <section>
+            8,更多讨论
+        </section>
+        <section>
+         <h3>
+             有没有其他的托管的平台呢？
+         </h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 汪开放</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+//    原始类型对象直接赋值不会相互影响
+//    var a = 1;
+//
+//    var b = a;
+//    b = 10;
+//    console.log(a); // 1
+////
+//    var a = 'hello';
+//    var b = a;
+//    b = 'world';
+//    console.log(a); // hello
+//
+//    var a = true;
+//    var b = a;
+//    b = false;
+//    console.log(a);
+
+    //数组浅复制
+//    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+//    ];
+//    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+//    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+//    console.log(a)//那么现在打印a 是什么结果呢
+//
+//    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+//    var arrtoo = arr.slice(1);
+//    arrtoo[2] = "set Map";
+//    console.log(arr);//One,Two,Three
+//    console.log(arrtoo);//One,set Map,Three
+
+//
+//    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+//    var arrtooo = arr1.concat(111111);
+//    arrtooo[1] = "set Map To";
+//    console.log(arr1);//One,Two,Three
+//    console.log(arrtooo);//One,set Map To,Three
+
+//
+//    var b=[1,2,3,4,5];   //concat的链接
+//    var c=[6,7,8,9];
+//    var d =[4,4,22]
+//    console.log(b.concat(c,d))
+
+    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    var b=new Object();
+    b.name=a.name;
+    b.age=a.age;
+    b.name='xx';
+    console.log(a);//Object { name="yy", age=26}
+    console.log(b);//Object { name="xx", age=26}
+
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+
+
+
+
+//    var person = {    //第二种深拷贝
+//        name: 'aa',
+//        friends: ['da', 'dsa', 'gf']
+//    };
+//
+//    var aPerson = Object.create(person, {
+////        name: {
+////            value: "gee"
+////        }
+//    });
+//
+//    console.log(person.name);
+//    console.log(aPerson.friends)
+
+    var Chinese = {
+        nation:'中国'
+
+    }
+    var Doctor = {
+        career:'医生'
+    }
+    function extendCopy(p) {
+        var c = {};
+        for (var i in p) {
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+    var Doctor = extendCopy(Chinese);
+    Doctor.career = '医生';
+    console.log(Doctor); // 中国
+    Chinese.birthPlaces = ['北京','上海','香港'];
+    var Doctor = extendCopy(Chinese);
+    Doctor.birthPlaces.push('厦门');
+
+</script>
+</body>
+</html>
