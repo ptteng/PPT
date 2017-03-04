@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -33,7 +34,7 @@
         <section>
             <h2>【JS-08】</h2>
             <h3>小课堂【如何使用Bootbox?】</h3>
-            <p>分享人：黄志波，张增锋</p>
+            <p>分享人：黄志波，张增锋,彭勇</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,7 +51,7 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>Bootbox.js是一个小型的JavaScript库，基于 Twitter 的 Bootstrap 开发。它允许你创建使用编程对话框。</p>
+            <p>Bootbox.js是一个小型的JavaScript库，基于 Twitter 的 Bootstrap 开发。它允许你创建使用编程对话框。方便用户快速创建模拟框。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
@@ -81,7 +82,23 @@
                 <p>确认</p>
                 <pre>
                     <code>
-                       bootbox.confirm(message, callback)
+    bootbox.confirm({
+    title: "Destroy planet?",
+    message: "This is a confirm with custom button text and color! Do you like it?",
+    buttons: {
+        confirm: {
+            label: 'Yes',
+            className: 'btn-success'
+        },
+        cancel: {
+            label: 'No',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+        console.log('This was logged in the callback: ' + result);
+    }
+});
                     </code>
                 </pre>
             </section>
@@ -123,8 +140,8 @@
         </section>
         <section>
             <section>
-             <p>警告：基本用法</p>
-             <pre>
+                <p>警告：基本用法</p>
+                <pre>
                  <code>
                      bootbox.alert("This is the default alert!");
                  </code>
@@ -244,10 +261,14 @@ bootbox.prompt("This is the default prompt!", function(result){ console.log(resu
             </section>
             <section><img src="../img/JS-08-useBootbox/7.png"> </section>
         </section>
-    <section>
-        <h3>6.扩展思考</h3>
-    </section>
         <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">如何将bootbox和对于的按钮绑定</p>
+            <code>
+                $(document).on("click", ".alert", function(e) {}
+            </code>
             <p class="fragment">如何设置框的位置</p>
             <p class="fragment">bootbox弹出框如何设置为中文</p>
         </section>
@@ -261,10 +282,9 @@ bootbox.prompt("This is the default prompt!", function(result){ console.log(resu
             <h2>鸣谢</h2>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 黄志波,张增锋</small>
+                <small>BY : 黄志波,张增锋,彭勇</small>
             </p>
         </section>
-
     </div>
 </div>
 
