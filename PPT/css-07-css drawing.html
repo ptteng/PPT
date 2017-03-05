@@ -19,7 +19,7 @@ a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
@@ -32,9 +32,9 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
     <div class="slides">
         <section>
             <h2>【CSS-task7】</h2>
-            <h3>小课堂【郑州第35期】</h3>
+            <h3>小课堂【武汉第91期】</h3>
             <h4>css可以绘制哪些常见的特殊形状？（用纯CSS创建一个三角形的原理是什么？）</h4>
-            <p>分享人：高雪峰</p>
+            <p>分享人：高雪峰/陈冲</p>
         </section>
         <section>
             <p>目录</p>
@@ -57,56 +57,129 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
         <section>
             <h3>2.知识剖析</h3>
             <p>在css绘制图形时，一般要使用到border-radius,transform（旋转:rotate,缩放:scale,倾斜:skew,移动:translate）等属性来实现，接下来演示简单的图形。</p>
+            <p><a href="../demo/css-Deawing-demo.html">demo</a></p>
         </section>
         <section>
             <section>
-                2.1使用CSS绘制圆形
+                2.1使用CSS绘制正方形
             </section>
             <section>
                 <pre>
                    <code>
-                      #circle { 
-                          width: 100px; 
-                          height: 100px; 
-                          background: #00f; 
-                          -moz-border-radius: 50px; 
-                          -webkit-border-radius: 50px; 
-                          border-radius: 50px; 
-                        } 
+                      #suqare {
+                              width: 0;
+                              padding: 20px;
+                              background-color: red;
+                          }
                    </code>
                 </pre>
             </section>
             <section>
-                2.2使用CSS绘制椭圆形
+                2.2使用CSS绘制椭矩形
             </section>
             <section>
                 <pre>
                    <code>
-                      #oval { 
-                        width: 300px; 
-                        height: 150px; 
-                        background: red; 
-                        -moz-border-radius: 150px / 75px; 
-                        -webkit-border-radius: 150px / 75px; 
-                        border-radius: 150px / 75px; 
-                     } 
+                    #ractangle {
+                            width: 0;
+                            padding: 25px 40px;
+                            background-color: green;
+                        }
                    </code>
                 </pre>
             </section>
             <section>
-                2.3使用CSS绘制三角形
+                2.3使用CSS绘制圆
+            </section>
+            <section>
+                <pre>
+                   <code>
+                     #circle {
+                            width: 0;
+                            padding: 20px;
+                            background-color: red;
+                            border-radius: 50%;
+                        }
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.4使用CSS绘制椭圆
+            </section>
+            <section>
+                <pre>
+                   <code>
+                       #ellipse {
+                       width: 0;
+                       padding: 25px 40px;
+                       background-color: green;
+                       border-radius: 50%;
+                       }
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.5使用CSS绘制上三角
+            </section>
+            <section>
+                <pre>
+                   <code>
+                      #triangle-up {
+                           width: 0;
+                           height: 0;
+                           border-left: 50px solid transparent;
+                           border-right: 50px solid transparent;
+                           border-bottom: 100px solid red;
+                       }
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.6使用CSS绘制下三角
+            </section>
+            <section>
+                <pre>
+                   <code>
+                      #triangle-down {
+                          width: 0;
+                          height: 0;
+                          border-left: 50px solid transparent;
+                          border-right: 50px solid transparent;
+                          border-top: 100px solid red;
+                      }
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.7使用CSS绘制右三角
             </section>
             <section>
                 <p>这是一个三角形的代码</p>
                 <pre>
                    <code>
-                      #triangle-up { 
-                          width: 0; 
-                          height: 0; 
-                          border-left: 50px solid transparent; 
-                          border-right: 50px solid transparent; 
-                          border-bottom: 100px solid #555; 
-                        } 
+                      #triangle-right {
+                          width: 0;
+                          height: 0;
+                          border-top: 50px solid transparent;
+                          border-left: 100px solid red;
+                          border-bottom: 50px solid transparent;
+                      }
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.8使用CSS绘制左三角
+            </section>
+            <section>
+                <pre>
+                   <code>
+                     #triangle-left {
+                           width: 0;
+                           height: 0;
+                           border-top: 50px solid transparent;
+                           border-right: 100px solid red;
+                           border-bottom: 50px solid transparent;
+                       }
                    </code>
                 </pre>
             </section>
@@ -126,11 +199,14 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <p>问题1：解决方案</p>
         </section>
         <section>
-            通过上一段三角形的代码向大家直观地进行演示一下！
+            <p>在三角形绘制时，由于使用了div，而块级元素的默认宽度为100%，因而需要设置元素宽度为0。以绘制上三角为例：</p>
+            <p>设置width为0。三角形底部的长为border-left和border-right的和，二者颜色为透明；三角形的高为border-bottom的宽，颜色为红色，就可以得到一个上三角了。</p>
+            <p>举一反三，大家想想设置朝下或者朝右的三角形，该如何设置？</p>
         </section>
       </section>
         <section>
             <h3>5.编码实战</h3>
+            <p><a href="../demo/css-Deawing-demo.html">demo</a></p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
@@ -159,7 +235,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 沁修 | 高雪峰</small></p>
+            <p><small>BY : 沁修 | 高雪峰|陈冲</small></p>
         </section>
 
     </div>
