@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【CSS-task3】开发过程中应该遵守哪些编码规范和class命名规范？</h3>
+            <h4>小课堂【郑州第52期】</h4>
+            <p>分享人：石林涛</p>
+        </section>
+        <section>
+            <h2>目录</h2>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>代码规范的重要性</h3>
+            <ol>
+                <li>规范的代码可以促进团队合作 </li>
+                <li>规范的代码可以减少bug处理 </li>
+                <li>规范的代码可以降低维护成本</li>
+                <li>规范的代码有助于代码审查 </li>
+                <li>养成代码规范的习惯，有助于程序员自身的成长 </li>
+            </ol>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>基本准则</h3>
+                <p>符合web标准, 语义化html, 结构表现行为分离, 兼容性优良。</p>
+                <p>页面性能方面, 代码要求简洁明了有序, 尽可能的减小服务器负载, 保证最快的解析速度.</p>
+            </section>
+            <section>
+                <h3>html规范</h3>
+            </section>
+            <section>
+                <h3>head声明规范</h3>
+                <ul>
+                    <li>页面的第一行添加标准模式声明&lt!DOCTYPE html&gt</li>
+                    <li>html中除了开头的DOC和 'UTF-8'或者head里特殊情况可以大写外，其他都为小写，css类都为小写</li>
+                    <li>建议为 html 根元素指定 lang 属性，从而为文档设置正确的语言 lang="zh-CN"</li>
+                    <li>不同doctype在不同浏览器下会触发不同的渲染模式&lt meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt</li>
+                    <li>非特殊情况下样式文件必须外链至&lthead&gt...&lt/head&gt之间;非特殊情况下JavaScript文件必须外链至页面底部</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>语义化：根据元素的初始意义来使用它。比如用heading定义头部元素，p定义段落文字，善用header，footer,main等</li>
+                    <li>多媒体回溯：对于页面上的多媒体，比如图片、视频等，要确保有可替代的接入接口</li>
+                    <li>在页面中尽量避免使用style属性,即style="…"; 写在相应的样式文件中</li>
+                    <li>给区块代码及重要功能(比如循环)加上注释, 方便后期理解和修改</li>
+                    <li>尽可能减少div嵌套</li>
+                </ul>
+            </section>
+            <section>
+                <h3>css规范</h3>
+            </section>
+            <section>
+                <h4>CSS书写顺序</h4>
+                <ul>
+                    <li>显示属性：display/list-style/position/float/clear …</li>
+                    <li>自身属性（盒模型)：width/height/margin/padding/border</li>
+                    <li>行高：line-height</li>
+                    <li> 文本属性：color/font/text-decoration/text-align/text-indent/vertical-align/white-space/content…</li>
+                    <li>其他：cursor/z-index/zoom/overflow</li>
+                    <li> CSS3属性：transform/transition/animation/box-shadow/border-radius</li>
+                    <li> 如果使用CSS3的属性，如果有必要加入浏览器前缀，则按照 -webkit- / -moz- / -ms- / -o- / std的顺序进行添加，标准属性写在最后</li>
+                </ul>
+            </section>
+            <section>
+                <h4>排版规范</h4>
+                <ul>
+                    <li>如果是在html中写内联的css，则必须写成单行</li>
+                    <li>每一条规则的大括号 { 前后加空格</li>
+                    <li>属性名冒号之前不加空格，冒号之后加空格</li>
+                    <li>每一个属性值后必须添加分号; 并且分号后空格</li>
+                    <li>每个声明结束都应该带一个分号，不管是不是最后一个声明</li>
+                    <li>除16进制颜色和字体设置外，CSS文件中的所有的代码都应该小写</li>
+                    <li>除了重置浏览器默认样式外，禁止直接为html tag添加css样式设置</li>
+                </ul>
+            </section>
+            <section>
+                <h3>class命名</h3>
+            </section>
+            <section>
+                <ul>
+                    <li>规则命名中，一律采用小写加中划线的方式，不允许使用大写字母或 _，必须以字母开头</li>
+                    <li>命名避免使用中文拼音，应该采用更简明有语义的英文单词进行组合</li>
+                    <li>不允许通过1、2、3等序号或者简单字母进行命名，避免与id重名以及后期理解和修改问题</li>
+                    <li> class用于标识某一个类型的对象，命名必须言简意赅</li>
+                    <li>规则名称中不应该包含颜色（red/blue）、定位（left/right）等与具体显示效果相关的信息。应该用意义命名，而不是样式显示结果命名</li>
+                    <li>尽可能提高代码模块的复用，样式尽量用组合的方式</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>怎么减少类的使用，避免满屏的类和声明呢？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>避免重复声明</h3>
+            <img src="../img/CSS-52-Code Standards/1.1.png">
+            <img src="../img/CSS-52-Code Standards/1.2.png">
+        </section>
+        <section>
+            <h3>使用多个类</h3>
+            <p><img src="../img/CSS-52-Code Standards/1.3.png"> </p>
+        </section>
+        <section>
+            <h3>其他方法</h3>
+            <ul>
+                <p>使用属性选择器或者后代选择器</p>
+                <p>把相关的样式放在一起进行声明</p>
+                <p>使用样式表文件</p>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>为什么要尽量使用外部样式表？</h3>
+        </section>
+        <section>
+            <ul>
+                <li>样式与html分离，html只关注结构，更简洁和易读</li>
+                <li>一份css样式可应用于多处html内容，减少重复工作</li>
+                <li>html文件更小，提升了加载速度</li>
+                <li>后期维护时，能减少维护时的工作量。因为只要修改css样式表文件，就能够改变很多网页，甚至改变整个站点的风格特色。避免了一个个网页去修改。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;">
+            <p>参考一：<a href="http://www.css88.com/archives/5364>前端编码规范（2）—— HTML 规范</a></p>
+            <p>参考二：<a href="http://www.css88.com/archives/5505> CSS 和 Sass (SCSS) 规范</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点:为什么要拆分样式表，怎么拆分样式表？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 石林涛</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

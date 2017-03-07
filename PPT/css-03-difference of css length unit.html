@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】</h2>
+            <h3>小课堂【郑州第31期】</h3>
+            <h4>px、em、rem、%、vw、vh、vm等单位有什么区别</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>HTML页面中元素的大小、位置、形状等布局样式都需要通过一种或者多种长度单位进行调整控制，以达到设计要求的样子。</p>
+            <p>一般情况下，我们常常见到和使用px、em、%等单位。</p>
+            <p>随着html、css规范的发展以及一些显示屏幕技术的突破，手机使用率的增长，一些新的长度单位也被定义并应用起来，例如vw、vh、vm等。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1CSS长度单位
+            </section>
+            <section>
+            <p>CSS长度单位可粗略按绝对长度单位和相对长度单位两大类进行区分。</p>
+            <p>绝对长度单位：px、pt(point)、pc(Picas派卡)等</p>
+            <p>相对长度单位：em、rem、vw、vh、vm、%等</p>
+            </section>
+            <section>
+                2.2CSS长度单位概念简介
+            </section>
+            <section>
+                <p><span style="color: red">px</span>：即像素，计算机屏幕上最小的单元。显示器分辨率越高，则所含的像素越多。
+                </p>
+                <p>pc、pt使用不是很多，在这里就不做过多介绍了。</p>
+            </section>
+            <section>
+                <p><span style="color: red">em</span>：相对于当前对象内文本字体的大小，如果当前文本没有设置字体大小，则按相对于浏览器的默认字体大小。
+                </p>
+                <p><span style="color: red">rem</span>：相对于根元素（html元素）的字体的大小。</p>
+                <p><span style="color: red">%</span>：相对于具有相同属性父元素的宽度或字体大小。</p>
+            </section>
+            <section>
+                 <p><span style="color: red">vw</span>：等于视窗宽度的1/100。例如浏览器的宽是900px,则1vw的值为9px。
+                </p>
+                <p>相对应的，<span style="color: red">vh</span>：等于视窗高度的1/100。例如浏览器的高是640px,则1vh的值为6.4px。
+                </p>
+                <p><span style="color: red">vm</span>：一般写成vmin，是相对于以上vw、vh而言的，是两个值的较小的那个。
+                </p>
+            </section>
+             <section>
+                <img src="../img/css-03-difference of css length unit/vm.png">
+             </section>
+            <section>
+            2.3各长度单位总结
+            </section>
+            <section>
+               <img src="../img/css-03-difference of css length unit/length.png">
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一: em和rem虽然一个字母之差，但是使用往往容易混淆，其区别是什么？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>问题1：解决方案</p>
+        </section>
+        <section>
+            通过以下一段代码向大家直观地进行演示：
+            <pre>
+               <code>
+               html {font-size: 30px;}
+               body {font-size: 14px;}
+               div.em {font-size: 1.2em;}
+               div.rem {font-size: 1.2rem;}
+               </code>
+            </pre>
+        </section>
+      </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            通过代码简单地向大家展示一下各长度单位
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一:在自适应网页设计中使用什么样的长度单位比较合适？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/qq_22560431/article/details/50145205" target="_blank">CSS中的长度单位，宽度自适</a></p>
+            <p>参考二：<a href="http://www.w3chtml.com/css3/units/length/" target="_blank">W3SHTML</a></p>
+             <p>参考三：<a href="http://www.kwstu.com/admin/viewarticle/201408292302215358" target="_blank">程序员学院</a></p>
+             <p>参考四：<a href="http://www.cnblogs.com/whitewolf/p/css-em-px-percentage.html" target="_blank">CSS尺寸和字体单位-em、px还是%</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：margin和padding在使用百分比设置尺寸大小时所依据的元素是什么？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

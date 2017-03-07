@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task12】知道css有个content属性吗？有什么作用？有什么应用？</h2>
+            <h3>小课堂【武汉第84期】</h3>
+            <p>分享人：冯馨雨</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>学习前端知识我们常常提到盒模型，盒模型的几个要素，margin、border、padding
+
+、content这四个属性，前三个经常用到讲到，但第四个content属性怎么用？今天我们就来讲讲这个
+
+。<br>
+                content的意思顾名思义，是“内容”，它的作用就是在css中直接生成网页显示的
+
+内容，
+                这个属性要结合：before和：after这俩个伪类属性来使用。下面详细介绍它的用法
+
+。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>content需要配合 :before 和 :after这俩个 伪元素使用，来插入生成内容。
+
+<br>
+                <img src="../img/css-12-Know the CSS has a content attributeWhat is the 
+
+roleWhat's the application/2.png">               
+        </section>
+        
+
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+
+        <section>
+            <p>content各属性值的具体使用方法</p>
+            
+           
+        </section>
+
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+                
+        <section>
+            <h3>具体用法</h3>
+            <a href="https://segmentfault.com/a/1190000002750033" target="_blank">演示</a>
+        </section>
+
+
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+
+        <section>
+            
+            <pre><code>
+              <!-- content:"插入的内容"，或者content:none不插入内容 html: -->
+
+                <h1>这是h1</h1>
+                <h2>这是h2</h2>
+
+              <!-- css -->
+
+                h1::after{
+                    content:"我是h1后插入内容"
+                }
+                h2::after{
+                    content:none
+                } 
+
+            </code></pre>
+        </section>
+        <section>
+            <pre>
+                <code>
+                <!-- 可以使用content属性的open-quote属性值和close-quote属性值在字符串两边添加诸如括号、单引号、双引号之类的嵌套文字符号。open-quote用于添加开始的文字符号，close-quote用于添加结束的文字符号。-->
+
+                h1{
+                    quotes:"(" ")";  /*利用元素的quotes属性指定文字符号*/
+                }
+                h1::before{
+                    content:open-quote;
+                }
+                h1::after{
+                    content:close-quote;
+                }
+                h2{
+                    quotes:"\"" "\"";  /*添加双引号要转义*/
+                }
+                h2::before{
+                    content:open-quote;
+                }
+                h2::after{
+                    content:close-quote;
+                }
+
+                </code>
+            </pre>
+        </section>
+
+        <section>
+                <pre>
+                    <code>
+                    h3::after{
+                        content:url(http://ido321.qiniudn.com/wp-content/themes/yusi1.0/img/new.gif)
+                    }
+                    </code>
+                </pre>
+
+        </section>
+
+             <!-- <section>
+                <pre>
+                    <code>
+                    </code>
+                </pre>
+
+            </section>
+
+             <section>
+                <pre>
+                    <code>
+                    </code>
+                </pre>
+
+            </section>
+
+             <section>
+                <pre>
+                    <code>
+                    </code>
+                </pre>
+
+            </section>
+
+             <section>
+                <pre>
+                    <code>
+                    </code>
+                </pre>
+
+            </section> -->
+        
+
+        <section>
+            <h3>六.拓展思考</h3>
+        </section>
+
+        <section>
+            <p>为什么content属性很少用到</p><br>
+            <p>个人认为，我们前端书写代码时提倡内容样式的分离，而content的伪类写法正好又混淆了这一原则</p>
+        </section>
+
+        <section>
+            <h3>七.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h3>八.参考文献</h3>
+            
+            <p><a href="https://segmentfault.com/a/1190000002750033" target="_blank" >CSS3的content属性详解</a></p>
+            <p><a href="http://www.runoob.com/cssref/pr-gen-content.html" target="_blank" >菜鸟教程对content的解释</a></p>
+            <p><a href="http://www.w3school.com.cn/cssref/pr_gen_content.asp" target="_blank" >W3C对content的解释</a></p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄志波|罗宇|冯馨雨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

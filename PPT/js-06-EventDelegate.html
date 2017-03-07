@@ -27,12 +27,10 @@
         pre {
             margin: 0 auto !important;
         }
-
         p {
             text-align: left;
             white-space: pre-line !important;
         }
-
         .text-center {
             text-align: center !important;
         }
@@ -47,8 +45,8 @@
     <div class="slides">
         <section>
             <h2>【JS-task6】JS中的事件委托</h2>
-            <h3>小课堂【武汉第74期】</h3>
-            <p style="text-align: center">分享人：胡思豪</p>
+            <h3>小课堂【成都小课堂】</h3>
+            <p style="text-align: center">分享人：刘洪运</p>
         </section>
         <section>
             <p style="text-align: center">目录</p>
@@ -70,9 +68,10 @@
                 理由：
                 1.每个函数都是对象，都会占用内存。
                 2.事先指定所有的事件处理程序会导致DOM的访问次数增加，会延迟整个页面的交互时间。
-                对“事件处理程序过多”问题的解决方案就是市事件委托（Delegation）。
-                --JavaScript高级程序设计
-                今天就主要介绍一下javascript delegate的用法和原理，以及jQuery等框架中delegate的应用。</p>
+                对“事件处理程序过多”问题的解决方案就是事件委托（Delegation）。--JavaScript高级程序设计
+                3.事件委托的基本实现方式：在DOM树中尽量高的节点添加事件处理程序，代替在其多个子节点中添加。
+                今天就主要介绍一下javascript delegate的用法和原理，以及jQuery等框架中delegate的应用。
+            </p>
             <pre style="height: 100px">
                 <code>
                     var Vehicle = function () {
@@ -124,7 +123,8 @@
             <h4>2.2事件代理</h4>
 
             <p>如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性，并且加大了内存的占用。
-                更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。
+                js中添加的事件处理程序的数量直接影响页面整体运行的性能那么如何提升性能？更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。
+                （有些情况下及时的移除不需要的事件处理程序也是提升性能的一种解决方案）
                 下页的代码可以完成我们想要的效果：
             </p>
         </section>
@@ -182,11 +182,12 @@ document.getElementById("parent-list").addEventListener("click",function(e) {
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>jQuery的delegate的方法需要三个参数，一个选择器，一个事件名称，和事件处理函数。
+            <p>jQuery的delegate的方法有四个参数，childSelector，一个事件名称，规定传递到函数的额外数据（可选），和事件处理函数。
+                $(selector).delegate(childSelector,event,data,function)
                 demo3</p>
             <pre style="height: 200px">
                 <code>
-//  三个参数，1.选择器（元素名，id或者class）；2.事件名称 3.事件处理函数
+// ex：
     $("#parent-list").delegate("li", "click", function(){
         // "$(this)" 就是被点击的节点
         console.log("you clicked a link!",$(this));
@@ -209,7 +210,7 @@ document.getElementById("parent-list").addEventListener("click",function(e) {
         <section>
             <p class="fragment">
                 什么样的事件可以用事件委托，什么样的事件不可以用呢？
-                适合用事件委托的事件：click，mousedown，mouseup，keydown，keyup，keypress。
+                适合用事件委托的事件：click，mousedown，mouseup，keydown，keyup，keypress。（所有用到按钮的事件，多数的鼠标事件和键盘事件）
                 值得注意的是，mouseover和mouseout虽然也有事件冒泡，但是处理它们的时候需要特别的注意，因为需要经常计算它们的位置，处理起来不太容易。
                 不适合的就有很多了，举个例子，mousemove，每次都要计算它的位置，非常不好把控，在不如说focus，blur之类的，本身就没用冒泡的特性，自然就不能用事件委托了。
             </p>
@@ -218,7 +219,7 @@ document.getElementById("parent-list").addEventListener("click",function(e) {
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html">陈鑫伟</a></p>
+            <p>参考一：<a href="https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html">陈鑫伟的博客</a></p>
             <p>参考二：<a
                     href="http://ithelp.ithome.com.tw/articles/10120565">tony1223 </a>
             </p>
@@ -234,7 +235,7 @@ document.getElementById("parent-list").addEventListener("click",function(e) {
             <h4>鸣谢</h4>
             <p style="text-align: center">感谢大家观看</p>
             <p style="text-align: center">
-                <small>BY : 任乃千 | 胡思豪</small>
+                <small>BY : 任乃千 | 胡思豪 | 刘洪运</small>
             </p>
         </section>
 

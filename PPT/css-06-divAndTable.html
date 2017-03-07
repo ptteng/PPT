@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>div+css的布局较table布局有什么优点?</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task6】div+css的布局较table布局有什么优点?</h2>
+            <h3>小课堂【武汉第89期】</h3>
+            <p>分享人：万维娜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left"><strong>导语：</strong>在90年代，网页初期形式出现，主要的模式为文本，
+                由图片组成，同时，容量较小，在布局上没有任何要求，尤其是标题和段落十分不明确。
+                但是，随着社会的发展，表格布局形式出现，发展为flash动画，发展至今，成为CSS为
+                基础的网页设计形式。对于前端页面重构技术，经历了不同寻常的发展历程：table布局
+                页面--DIV+CSS--HTML5+CSS3，其中最重要的Web前端的灵魂无遗是JavaScript，针对不
+                知道的浏览器和平台，Web前端不再局限于简单、反复的工作范畴。</p>
+        </section>
+        <section>
+            <h3>从table布局到div+css布局.....
+                <br>发生了什么？</h3>
+        </section>
+        <section>
+            <p>
+                早先在1999年的时候，CSS是早已诞生的，但并没有多少人使用，最初的 Web
+                像一个在线版的文档，并没有成为现在这样的平台，不需要过多过多地考虑布局问题，
+                随着互联网第一次泡沫的形成，涌现出大量的门户网站，<u>门户网站</u>是 <strong>Table 布局</strong>
+                的始作俑者，因为他们的首页比一整份报纸的所有版面拼接在一起还复杂，Table 在这方
+                面十分顺手，结合 colspan 和 rolspan，你几乎能够实现任何复杂的版面。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;width: 130%;margin-top: 8%;margin-left: -10%">
+                这种布局风格在2000年代初，一直到中期仍然十分流行，尤其国内，在大为美的潜意识下
+                ，人们把所有能塞到一个页面的东西都塞进了首页，Table 就像一个旧时代的管家，把所
+                有东西虽不能井井有序，但至少是一样不少地编排起来。然而这样的 Web 终于到了让人厌
+                恶的地步，<u>随着搜索，RSS 订阅，以及以博客为代表的个性化 Web 的出现</u>，人们有更多渠
+                道获得信息，而不必去访问那几个让人几乎要晕过去的门户的首页，于是出现了一种清新的
+                ，轻量的 Web 风，使用更简单的布局，更明快的配色，大图标，大 Banner，以及更容
+                易阅读的大字体，同时，<u>在这个时候，CSS 已经非常成熟</u>，而 Firefox, Opera, Safari
+                为代表的浏览器，在遵守 W3C 标准方面要远远好过 IE，人们终于认识到 CSS 的威力。
+                因为 CSS 在布局上，其 <strong>核心是一个 Box 模型</strong>，人们必须为 CSS 找一个可以依附的容器
+                对象。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>Div</strong> 成为幸运者一方面因为它天生就是 <u>Box 的最佳原型</u>，
+                在语义上，Div 代表页面的一个区域，在外形上，它四四方方，更重要的是，
+                它不像P标签或a标签那样事先已经被赋予特殊的语义（虽然它们也能用于 Box 模型）；
+                另一方面，则出于人们对 Table 统治一个臃肿时代的憎恶，一个时代的结束，继任者都会
+                努力抹去旧时代的痕迹，那些旧时代的象征或代表的命运多半如此，人们并不是简单地忘却它们，
+                而是断然划清界限。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Table 的一切不公平待遇就此开始。为什么说不公平，W3C 不建议 Table 布局的时候，
+                只说应使用 CSS 代替，这是什么意思，Table 不支持 CSS 吗？当然支持，而且，由于
+                Table 作为老牌的 HTML 对象，它的地位曾如此重要，任何浏览器都对 Table 提供了最
+                完美的支持，包括 CSS 支持。当人们拥抱 Div 的时候，似乎忘记了 Table 也是 Box，
+                而且是一个拥有多个内格的 Box，Table 作为一个整体，和 Div 在 Box 模型方面没有
+                任何区别，而它的内格，除了 Margin 之外，仍然是一个 Box，内格不含 Margin 概念这
+                是应该理解的。Div 很优秀这不必说，然而当人们说 Div + CSS 的时候，似乎暗示着
+                Table 无法 CSS，这是天大的误会。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>Div 支持的所有 CSS 属性，Table 全部支持</strong>，
+                事实上，在 Div 大红大紫之前，那些 Div 的早期采用者曾信心不足地表示，
+                Table 能做到，Div 都能，而他们也为自己的话付出了代价，企图在 Div 中
+                实现 <u>垂直居中</u>的人明白我的意思，企图在 IE6 中不经 CSS Hack 而实现
+                <u>100% Div 布局</u>的人更明白我的意思。<u>100% Height</u> 问题，几个 Div 之间的
+                <u>宽度自适应</u>问题，相信任何从事 Div + CSS 设计的人会遇到。Table 在这方面的
+                优势并不是因为它本身多么优秀，而是因为它老牌，没有浏览器敢忽视，也因为
+                它的特性原本如此，<u>人们发明表格，是因为希望数据显示得整齐</u>，就这么简单。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">TABLE布局是什么</h3>
+        </section>
+        <section>
+            <h3 style="width: 110%">TABLE布局是web早期兴起的一种布局方式。</h3>
+        </section>
+        <section>
+            <p style="text-align: left">w3c对table标签的定义是：表格由table标签来定义。
+                每个表格均有若干行（由tr标签定义），每行被分割为若干单元格
+                （由td标签定义）。字母 td 指表格数据（table data），即数据单元格的内容。
+                数据单元格可以包含文本、图片、列表、段落、表单、水平线、表格等等。</p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                但是！由于table自带的一些垂直居中、划分区域等等的特性，
+                在早期很流行用table来布局，就像最开始背景介绍里提到的 <u>门户网站</u>，
+                table带来的特性对他们而言实在太方便了，只需要将网页中的各个元素
+                按照版式划分好以后，往里面填东西就可以了。
+            </p>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">DIV+CSS布局是什么</h3>
+        </section>
+        <section style="text-align: left">
+            <p>DIV（division，区分）是HTML的一个标签，具有容器的特性，
+                可以将HTML分割成不同的区块，并且可以将文本、图片、链接等其他的HTML标签
+                放在div容器中，但是如果使用div时，不结合CSS，它就跟其他的标签一样，
+                无法实现布局效果。<br><br>
+                CSS（CascADIng style Sheets，层叠样式表）是用来定义网页的外观显示，
+                于1996年正式推出，在网页中使用CSS样式可以对网页内容的显示进行精确控制。</p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                DIV+CSS布局中， <u>DIV用于搭建网站框架、CSS用于创建网站样式，
+                实质是对网站进行标准化重构，使用CSS将表现与内容分离</u>。<br><br>
+                一般分为三个步骤：<br>
+                1.根据网页的设计效果图分析页面的具体结构，形成div布局结构；<br>
+                2.往各个div块里插入相应的内容；<br>
+                3.编写每个div块的CSS控制定位。<br>
+                （是不是很熟悉？）
+            </p>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">div+css布局相对于table布局的优势</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.网页结构和网页展示形式的分离，使得网页结构简洁清晰，浏览器显示速度加快: <br><br>
+                特性决定性能。因为DIV+CSS页面是HTML和CSS文件分开的，而浏览器打开该页面的时候是
+                同时下载HTML和CSS，所以可以提高网页打开速度。TABLE布局中大量样式设计代码混杂在
+                表格、单元格中，使得可读性大大降低，表格中到处留下设计的足迹，生成的网页代码除
+                了表格本身的代码，还有许多无意义的透明gif占位图及其他元素，文件量庞大，最终导
+                致浏览器下载及解析速度变慢。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.简化网站更新代码，不用再一页一页更新，只用更新外部的CSS文件即可；<br><br>
+                3.大大简化页面代码，有利于数据调用分析，更容易被搜索引擎搜索；
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;width: 105%">
+                4.使得整个网站显示风格保持一致，用户体验更好:<br><br>
+                TABLE布局还有个特性就是浏览器打开的时候必须是浏览器下载以table开始，
+                并以/table结束后，才开始显示块的内容，而DIV的HTML是边加载边显示，
+                因此增加了用户体验。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                5.更加语义化，且支持浏览器的向后兼容。<br><br>
+                div+css符合W3C标准。是专门用来作为容器的，更好的展示了盒子模型。
+                微软等公司均为W3C支持者。这一点是最重要的，因为这保证您的网站不会
+                因为将来网络应用的升级而被淘汰。支持浏览器的向后兼容，也就是无论
+                未来的浏览器大战，胜利的是IE7或者是火狐，您的网站都能很好的兼容。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>DIV+CSS &nbsp;&nbsp;OR&nbsp;&nbsp; TABLE ？<br><br>
+                It’s &nbsp;a&nbsp; question...</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3 style="text-align: left">
+                首先，让我们回想一下之前讲到的DIV+CSS布局的优势...
+            </h3>
+            <p style="text-align: left">
+                1.网页结构和网页展示形式的分离，使得网页结构简洁清晰，浏览器显示速度加快：<br><br>
+                现下电脑配置都不错，且网络速度越来越快，所以现在的网络环境下来说，table布局和
+                div+css布局在页面渲染上的速度差别并不是很明显了。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.简化网站更新代码，不用再一页一页更新，只用更新外部的CSS文件即可；<br><br>
+                统一使用一个css文件，的确可以实现修改一次，全站修改的效果，
+                这样使得维护的成本更低，但是换一个角度想，如果所有页面在加载的时候都要
+                访问一个文件，那这个文件每天的下载量，特别是在搜狐、新浪等网站平台上将
+                达到几亿次，这就需要后面有很多台前端web服务器做支撑，后台的成本无形中也
+                提高了很多，如果后台支撑没做好，页面会出现花屏，之前的工作也白费了，
+                很多人说这样的几率太小了，但是意外发生了对门户后果将非常严重。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                3.大大简化页面代码，有利于数据调用分析，更容易被搜索引擎搜索；<br><br>
+                这个目前并没有很明确的数据支持，而且在中国以百度为垄断的网络环境下，
+                这个是可以忽略的，百度现在完全是人工排序啊，不然莆田系是怎么出来的？
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                4.语义化：<br><br>
+                table布局不一定要用table，也可以用display：table、display：table-row等等来实现。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                总而言之，TABLE和DIV+CSS是目前网页设计布局中的两种方式，各有优劣，
+                不能片面的认为DIV+CSS将取代TABLE布局，也并不是说DIV布局方式不好，
+                而是应该正确看待TABLE在以内容为基础的大型门户中也有很大的作用。
+                DIV+CSS布局作为制作网页、美化网页，提高网站知名度是一个很强大的辅助，
+                可以弥补TABLE制作框架和表格时的很多不足和美工上的缺点，但是完全只用它来做，
+                又有些费时费力，对中小型网站来说并不是很合适，所以网页设计时不能完全排斥任何一种，
+                用 <strong>TABLE+DIV+CSS</strong>也可以是一种很好的组合。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="../demo/css-06-divAndTable/demo1.html">Demo1:使用table布局的效果</a><br><br>
+            <a href="../demo/css-06-divAndTable/demo2.html">Demo2:使用div+css布局的效果</a><br><br>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                什么情况下用table布局会更适合？<br><br>
+                <a href="http://colintoh.com/blog/display-table-anti-hero"> CSS布局的反英雄 - “display：table”</a>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a
+                    href="http://www.cnblogs.com/ulex/archive/2010/11/23/1885588.html"
+                    target="_blank">
+                表格table和CSS DIV排版模式的优缺点比较</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/wangboxian/article/details/7599665"
+                      target="_blank">DIV+CSS和TABLE的区别</a></p>
+            <p>参考三：<a href="http://www.jb51.net/css/37700.html"
+                      target="_blank">详解DIV+CSS布局的好处和意义</a></p>
+            <p>参考四：<a href="http://www.divcss5.com/jiqiao/j18.shtml"
+                      target="_blank">DIV+CSS与TABLE的网页优势何在？</a></p>
+            <p>参考五：<a href="http://www.qdfuns.com/notes/14332/7e37246739ec1b2bd5b8f4519c07d9e1.html"
+                      target="_blank">为什么要用 『 table 布局 』</a></p>
+        </section>
+        <section>
+            <p>以下几篇为知网论文，点击需要下载：</p>
+            <p>参考六：<a href="../demo/css-06-divAndTable/lunwen1.caj"
+                      target="_blank">DIV_CSS技术在网页布局中的应用</a></p>
+            <p>参考七：<a href="../demo/css-06-divAndTable/lunwen2.caj"
+                      target="_blank">Web前端的发展趋势</a></p>
+            <p>参考八：<a href="../demo/css-06-divAndTable/lunwen3.caj"
+                      target="_blank">浅谈DIV_CSS与TABLE布局</a></p>
+            <p>参考九：<a href="../demo/css-06-divAndTable/lunwen4.caj"
+                      target="_blank">网页设计中布局模式的比较</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">对网页布局设计的方式，元芳，你怎么看？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 杨泽平、刘明、万维娜</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何配置nginx，实现在手机上查看页面？</h2>
+            <h3>小课堂【北京第36期】</h3>
+            <p>分享人：陈鹏康</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p> Nginx是一个高性能的HTTP和反向代理服务器，在产品成功的前一刻，为了测试产品上线后的效果，安装nginx可以用你的电脑作为模拟主机来测试产品的功能</p>
+        </section>
+        <section>
+            <h3>2.下载安装</h3>
+        </section>
+        <section>
+                <a href="http://nginx.org/">官方网址</a>
+                <p>下载后直接点击nginx.exe程序，你会发现有个黑色弹出框一闪即逝；说明成功启动；
+                然后随便打开一个浏览器；输入localhost出现下图:</p>
+                <img src="../img/css-03-nginx/111.png">说明配置成功
+        </section>
+        <section>
+            <h3>3.具体测试方法</h3>
+        </section>
+        <section
+            <p> Nginx的配置文件是文件夹中的conf文件下的nginx.conf，其实配置文件默认不修
+                改也是可有用的；如果你通过浏览器输入localhost出现的页面即为文件夹下HTML文件中的index.html；所以你可以将你想要检测的产品放
+                到HTML文件夹中，并将原本的index.html文件给删了，这个时候打开网页输入localhost，使用ctrl+F5清下浏览器缓存即出现你产
+                品中的index.html(产品的首页都会命名为index.html）页面，然后进行一系列测试看看是否OK</p>
+        </section>
+        <section>
+            <h3>3.修改配置</h3>
+        </section>
+        <section>
+            <p>实际的测试过程中，一般不大可能会将产品放入nginx文件里的html文件夹中，这个时候就需要修改配置，使匹配的路径改为我们想要的文件夹</p>
+        </section>
+        <section>
+            <h3>4.操作演示</h3>
+        </section>
+        <section>
+            <h3>6.如何在手机端访问</h3>
+        </section>
+        <section>
+            <p>首先，电脑和手机连接上同一个wifi然后查看电脑ip:win+R→cmd→ipconfig→回车, 找到无限局域网适配器wlan中的ip地址，例如我的是192.168.0.119然后手机浏览器中输入192.168.01.119/task1.html 就可以看到自己的代码</p>
+        </section>
+        <section>
+            <h3>6.常见问题</h3>
+        </section>
+        <section>
+            <p>nginx对文件夹英文取名不敏感，对中文敏感，路径中不能存在中文字符</p>
+            <p>出现报错，nginx路径下的\logs\error.log就是错误日志，复制里面的内容去百度就行</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.zhihu.com/people/kt1123/answers">古尘师姐的知乎回答</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>在配置路径的时候为什么用E:\wy\task，E:\task等路径都会显示错误</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈鹏康</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
