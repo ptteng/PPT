@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>前端框架的选择</h2>
+
+            <p style="text-align: center;">分享人：任乃千</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>前端发展日新月异，每年成百数千框架诞生，当我们需要选择一种来学习时，应该如何挑选？</p>
+            <p>应该从两方面来看，一个是框架本身，另一个是我们的需求。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p><img src="../TIM图片20170308145805.png" height="600" width="560"/></p>
+        </section>
+        <section>
+            <p>三者中，angular的适用范围相对窄一些，react可以拓展到服务端、移动端native部分，vue最轻量、还可以用于业务场景非常轻的页面中</p>
+        </section>
+        <section>
+            <p>状态：在业务界面中我们会根据某些数据去生成一块界面，通过界面上的操作，改变数据，从而影响界面的另一部分。其中存在两种关系，一种是从数据到界面，一种是从界面到数据。不同框架为了简化开发采用了不同的方式进行处理。</p>
+        </section>
+        <section>
+            <p>mvvm流派的angular和vue，通过类似模版的语法，描述界面状态与数据的绑定关系，通过内部转换，把这个关系建立起来，当界面发生变化时，按照规则去更新相应的数据，然后，再根据配置好的规则，从数据更新界面状态。（双向绑定）</p>
+        </section>
+        <section>
+            <p>
+                react通过函数式来实现，推崇的是单向数据流：给定原始界面或数据，施加一个变化，就能推导出另一个状态。
+            </p>
+        </section>
+        <section>
+            <p>
+                组织：整个业务代码的模块关系、业务模型。共识就是组件化，整个应用形成组件树，每个组件树提供对外接口，然后内部只关注自己的实现，需要考虑组件的定义、约束、管理、测试等；
+            </p>
+        </section>
+        <section>
+            <p>业务模型指的是所处领域中的业务数据、规则、流程的集合。即使抛开所有的展示层，这一层也是应当要能够运作起来的。</p>
+        </section>
+        <section>
+            <p>react有redux来辅助管理，angular2引入了RxJS。如果是学习能力强的人，发现面向函数编程模型的时候会非常喜欢，但是对于大型项目，并非好事。用面向对象、面向过程的那些方式，虽然笨重，但是门槛低，符合大多数人的理解和思维模式，而且经验丰富。</p>
+        </section>
+        <section>
+            <p>效率：开发效率和运行效率</p>
+        </section>
+         <section>
+             <p>
+                 组件化是提升开发效率的一种手段，具体到单个组件的实现上，mvvm系的代码量会少一些、开发效率稍高一些。其中，angular因为实现的特殊性，有作用域继承之类的双刃剑黑魔法，开发效率的不稳定因素要高不少，深刻理解的人用起来效率很高，不理解的用了到处是坑。
+             </p>
+         </section>
+        <section>
+            <p>
+                angular是三者中运行效率最低的那个，主要在于数据变更方式是脏检查，当监听数量提高时，极大影响性能。在针对现实情况的测试中，vue是效率最高的那个（使用和react共同约定的测试基准），在大数据的情况下，react效率最高。
+            </p>
+        </section>
+        <section>
+            <p>学习曲线：angular1学习曲线陡峭；angular2即使不用typescript，它使用es2015的js，18个npm依赖包、4个文件、超过三千多字的介绍来实现一个hello world！；react学习曲线陡峭，需要了解jsx和es2015，需要学习构建系统；vue需要你熟悉html、符合es5的js。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何根据自身需求选择框架？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>很多没有问提问者通过选择框架来做什么，就直接跳到技术比较或者直接说用什么的答案令我很恼火。让我们首先来问问题：你通过挑选一个框架来做什么？</p>
+        </section>
+        <section>
+            <ol>
+                <li>在短期内找到工作</li>
+                <li>创造尽可能快的应用</li>
+                <li>作为学习经验来提高javascript</li>
+            </ol>
+        </section>
+        <section>
+            <p>如果你现在的目标是（1），那么你最有可能更好地使用angular或react（注意：不是angular2，至少现在），因为这两个最成熟，最广泛使用，并给你最好的雇佣能力。更多的大型企业在用angular1，而新兴企业在用react。</p>
+        </section>
+        <section>
+            <p>
+                对于目标（2），它进一步取决于你正在建设的应用的类型。它是一个很大程度依靠后端呈现的应用，还是一个纯的SPA？对于前者，你最好使用更轻、更少插入，不需要特定工具，并且使用html（提示vue）。对于SPA，我们必须深入了解性能，功能，API友好性，工具支持，生态系统成熟度等方面的实际技术比较。但这本身是一个相当大的话题，它是主观的，项目依赖的。
+            </p>
+        </section>
+        <section>
+            <p>
+                对于目标（3），你再次从轻量级的东西开始，因为像angular/ember这样的全解决框架预先设定了太多的概念，而且因为你放弃了对于框架的控制，你最终主要在学习框架的API和约定，而不是普遍使用的节能。另一方面，较小的库，由于它们较少的API，迫使你才用更多的控制，并理解不同的部分实际上是如何组合在一起（事实上，以后帮助你选择更大的框架）。
+            </p>
+        </section>
+        <section>
+            <p>这里的实际建议：首先学习javascript本身，并把它精通。这是最安全的堵住。有了坚实的基础，你应该能在几天内掌握vue、react、mithril、riot的基础用法。然后你应该单独用这些框架不加别的工具写个小的应用，来了解这些框架解决什么问题，了解你喜欢哪种——即什么API风格使你更有效率。从而可以尝试更大的框架，因为你现在已经做好了准备。这整个过程可能需要一些时间，但它将是一个有价值的投资，比起深入到单一的框架几个月，然后意识到它不适合你。</p>
+        </section>
+        <section>
+            <p>
+                另一方面，您还应该了解与ES6，基本的node.js，npm如何工作，框架系统、捆绑工具（browserify、webpack、system.js）这样的与框架无关的技术，这些工具在大型SPA中是必不可少。核心思想是不要把所有的鸡蛋放在一个篮子里。选择js框架不是一个或者另一个的问题，你不必永远坚持一个。无论别人说什么，不可能在没有尝试的情况下为自己做出最好的决定，并获得第一手的体验。如果你只用一个，而忽略其他的，你几乎肯定做错了。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <p>
+                这段话是在2016年初，现在情况有哪些不同？
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <a href="https://www.quora.com/Which-should-I-learn-Mithril-Vue-or-Angular/answer/Evan-You-3">尤雨溪quora回答</a>
+            <a href="http://www.yyyweb.com/4600.html">前段里三种框架对比</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY : 任乃千</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
