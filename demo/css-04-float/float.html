@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浮动及清除浮动</title>
+    <style>
+        .case1{
+            /*height: 600px;     */
+            /*（方法1：给父元素设置高度；）*/
+
+            background: green;
+            border:2px solid red;
+            /*overflow: auto;    */
+            /*方法3：给父元素设置overflow*/
+        }
+        .case1 img{
+            float: left;
+        }
+        .case1 p{
+            /*float: right;*/
+        }
+        .clear{
+            /*clear: both;    */
+            /*!*方法2：使用clear属性清除浮动*!*/
+        }
+        .clearfix:before, .clearfix:after {
+               display: table;
+               content: "";
+           }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix {
+            *zoom: 1;
+        }
+    </style>
+</head>
+<body>
+    <!--什么是浮动-->
+    <div class="case1 ">
+        <img src="pet.png" >
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum,
+            nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+            congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis
+            sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc
+            sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare
+            turpis. Donec vitae dui eget tellus gravida venenatis.Integer fringilla congue eros non fermentum. Sed dapibus
+            pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum,
+            nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+            congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis
+            sed ornare eu, lobortis in odio. Praesent convallis urna a</p>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
