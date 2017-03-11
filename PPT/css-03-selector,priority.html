@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<style>
+
+</style>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】</h2>
+
+            <h3>小课堂【武汉第88期】</h3>
+            <h4>CSS选择器，以及选择器的优先级如何计算</h4>
+
+            <p>分享人：龚家豪</p>
+        </section>
+        <section>
+            <p>目录</p>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是选择器？</p>
+        </section>
+        <section>
+            <p style="text-align:left;text-indent: 68px">选择器(selector)是一种模式，用于选择需要添加样式的元素。</p>
+
+            <p style="text-align:left;text-indent: 68px">要使用css对HTML页面中的元素实现一对一，一对多或者多对一的控制，这就需要用到CSS选择器。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1常用的选择器
+            </section>
+            <section>
+                <p>最常用的选择器类型是：类型选择器和后代选择器。</p>
+
+                <p>适用于应用那些使用范围广的一般性样式</p>
+            </section>
+            <section>
+                <p>
+                    <span style="color: red">类型选择器</span>：是用来寻找特定类型的元素，譬如段落或者标题元素。
+                </p>
+
+                <p>类型选择器也称之为 元素选择器 或 简单选择器</p>
+                <pre>
+                    <code>
+                        p{color:black}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    <span style="color: red">后代选择器</span>：可用来寻找特定元素或元素组的后代。
+                </p>
+
+                <p>作用在子代和子代所包含的与其相同标签的所有元素，比如子代是div，那么子代所包含的所有div标签都会被作用到。</p>
+                <pre>
+                    <code>
+                        div p{color:green}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            2.2特定元素选择器
+        </section>
+        <section>
+            <section>
+                ID选择器以及类选择器
+            </section>
+            <section>
+                ID选择器由一个#字符表示
+                <pre>
+                    <code>
+                        #card{background-color:green}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                类选择器由一个.点号表示
+                <pre>
+                    <code>
+                        .foot{font-weight:bold}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                2.3伪类
+            </section>
+            <section>
+                <pre>
+                    <p style="font-size: 24px;line-height: 40px;">
+                        :active 向被激活的元素添加样式。
+                        :focus 向拥有键盘输入焦点的元素添加样式。
+                        :hover 当鼠标悬浮在元素上方时，向元素添加样式。
+                        :link 向未被访问的链接添加样式。
+                        :visited 向已被访问的链接添加样式。
+                        :checked 选择器匹配每个已被选中的 input 元素。
+                        :first-child 向元素的第一个子元素添加样式。
+                    </p>
+                </pre>
+
+            <pre>
+                    <code>
+                        a:link{color:blue}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                2.4通用选择器
+            </section>
+            <section>
+                通用选择器可能是所有选择器中最强大却最少使用的，通用选择器的作用就像是通配符，它可以匹配所有可用的元素。
+                起作用主要在实际中的使用是删除每个元素上默认的浏览器内外边距。
+                通过*号来表示
+            <pre>
+                    <code>
+                        * {margin: 0; padding:0}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                2.5高级选择器
+            </section>
+            <section>
+                <p>子选择器 <span style="color: #ff6666">div > span</span>
+                </p>
+
+                <p>子选择器只作用<span style=color:#f90100;>第一代子元素</span>。<br/><br/>它表示“父>子”的直属关系。
+                    只会作用到子代，子代所包含的所有标签都不会作用到。</p>
+            </section>
+            <section>
+                <p>
+                    相邻兄弟选择器
+                    <span style="color: #ff6666">h2 + p</span>
+                </p>
+
+                <p>相邻同胞选择器可用于定位同一个父元素下某个元素之后相邻的元素</p>
+            </section>
+            <section>
+                <p>
+                    属性选择器
+                    <span style="color: #ff6666">[href]</span>
+             <pre>
+               <code>
+                   [href] {color: #ccc;]
+               </code>
+             </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 选择器使用的优先级是怎么进行计算的？
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">
+                    <span style="color:#333">不同级别</span><br/><br/>
+                    1.在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。<br/>
+                    2.作为style属性写在元素内的样式<br/>
+                    3.id选择器<br/>
+                    3.类选择器<br/>
+                    5.标签选择器<br/>
+                    6.通配符选择器<br/>
+                    7.浏览器自定义或继承<br/><br/>
+                    <span style="color:#333">同一级别</span><br/><br/>
+                    同一级别中后写的会覆盖先写的样式<br/>
+                </p>
+            </section>
+            <section>
+                但是有时候有些规则是多个级别的组合<br/><br/>
+                选择器的特殊性分为4个等级:
+                <br/><br/>
+                内联样式表的权值为 1000
+                <br/>
+                ID 选择器的权值为 100
+                <br/>
+                Class 类选择器的权值为 10
+                <br/>
+                HTML 标签选择器的权值为 1<br/><br/>
+                我们可以把选择器中规则对应做加法，比较权值
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>问题一:子选择器和后代选择器的区别？</p>
+
+            <p class="fragment">子元素选择器作用于“儿子”， 后代选择器作用于“子子孙孙”</p>
+
+            <p>问题二：什么时候需要使用子选择器？ </p>
+
+            <p class="fragment"> 父元素下一级的某种元素具有一些公共的样式 </p>
+
+            <p>问题三：伪类和伪元素的区别? </p>
+
+            <p class="fragment">伪类的操作对象是文档树中已有的元素，而伪元素则创建了一个文档树
+                外的元素。因此，伪类与伪元素的区别在于: <br/>
+                有没有创建一个文档树之外的元素。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+
+            <p>参考二：<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank">W3School</a></p>
+
+            <p>参考三：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank">菜鸟教程</a></p>
+
+            <p>参考四：<a href="http://kb.cnblogs.com/page/545911/">博客园</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：该不该使用 !important?
+                <br/>何时需要使用 !important?</p>
+
+            <p style="text-align:left;text-indent: 68px;">
+                一、特殊需要的用户能够添加!important到字体的排版属性上，
+                比如font-size可以把文本变得更大，或者添加到颜色相关
+                的规则上，提高网页的对比度。
+            </p>
+
+            <p style="text-align:left;text-indent: 68px;">
+                二、有时候，当客户网站上的Css出现一些bug时，需要非常快速
+                地进行修改，这种情况下，就可以使用firebug或者其他一些
+                开发者工具追踪需要修复的Css代码，但如果问题是发生在IE6
+                或者其他一些无法使用调试工具的浏览器上，就需要使用!impo
+                rtant代码进行快速修复了。
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p>
+                <small>BY : 沁修 | 高雪峰 | 龚家豪</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

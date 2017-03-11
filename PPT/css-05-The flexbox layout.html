@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>弹性布局</h2>
+            <h3>小课堂【成都-40期】</h3>
+            <p>分享人：李维文</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.参考文献</p>
+        </section>
+        <section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在Web布局整个演进过程当中，经历了表格布局、定位布局、浮动布局、Flexbox布局等布局模式。除了这些我们常看到的布局之外，还有Grid、Shapes、Regions等这些现代的布局模式。</p>
+        </section>
+            <section>
+            <p>表格布局是最早的布局形式，网页刚出来的时候，内容大部分都是静态的。当时主要依赖HTML中的table来实现布局。那个时候人们喜欢使用可视化的网页设计工具比如Dreamweaver，FrontPage.（如下图早期DW中使用的表格布局）</p>
+            </section>
+            <section>
+                <p>随着CSS的强大和HTML更多元素标签的出现，布局不在局限于表格布局，对于这个时期的网页设计师来说，更多的使用定位布局也就是常用的position属性，这种布局方式虽然能很快的达到想要的效果，但是缺点是明确指定了元素大小及位置之后，就很难维护了。</p>
+            </section>
+            <section>
+                <p>刚开始，浮动（float）的初衷并不是用来布局的，而是用来处理文字排版。但广大机智的CSSer先辈硬是将它应用到了web布局当中，且这种布局方式一度成为主流布局方式。直到flexbox的出现。</p>
+            </section>
+            <section>
+                <p>w3c在2009年提出了flex布局，这种布局方案可以简洁，完整，灵活的实现各种各样，positon和表格布局难以实现的布局，相比于Grid布局，flexbox布局更适合小规模的布局。后面还有适合大规模布局的Grid，就（还）不（没）赘（学）述（到）了。</p>
+            </section>
+            </section>
+        <section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+           <p>
+        </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">一，怎么运用flex布局</h1>
+                <p>  flex布局非常灵活，任一容器都可以指定为flex布局。块状只需要display属性规定为flex即可。行内元素也可以指定为flex布局，将display属性设置为inline-flex。还有WebKit内核的浏览器需要加上-webkit前缀。需要注意的是设置成为flex布局之后，子元素的float，clear，vertical-align就会失效。</p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">二，基本概念</h1>
+                <p> </p>采用flex布局的元素就被称为flex容器（flex contain），它的所有子元素称为flex项目（flex item）。容器默认存在两根轴线，一根主轴（main axis）一根交叉轴（cross axis）。项目默认沿主轴排列，单个项目占据的主轴空间叫main size，占据的交叉轴空间叫cross size.
+                <img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png"> </p>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <h1 style="font-size:60px;text-align: left;">三，容器属性</h1>
+                <p>flex容器和flex项目各自都有不同的属性。它们共同对整体布局起作用。容器的主要属性有:
+                <p>1.flex-direction 决定项目在主轴的排列方向。</p>
+                <p>2.flex-wrap 决定如果一条轴线排不下了，该如何换行。</p>
+                <p>3.flex-row 是flex-direction和wrap的简写形式，默认row nowrap。</p>
+                <p>4.justify-content 决定项目在主轴方向上如何对齐。</p>
+                <p>5.align-items 决定项目在交叉轴上如何对齐。</p>
+                <p>6.align-content 定义多根轴线如何对齐。</p>
+                </p>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>那flex-direction属性是如何规定项目在主轴上的排列方向的呢？flex-direction通过取一下4个值来规定不同的方向。
+                <p>1.flex-direction :row;表示默认值，主轴在水平方向，从左到右。</p>
+                <p>2.flex-direction :row-reverse;主轴在水平方向，从右到左，reverse就是反转的意思嘛。</p>
+                <p>3.flex--direction:column;主轴在垂直方向上，从上到下。（column意思是纵列。）敲黑板，划重点。这样规定的话，你就把主轴方向从水平换成竖直方向了。</p>
+                <p>4.flex--direction:column-reverse; 主轴在垂直方向上，同样的，反转一下，是从下到上。</p>
+                <p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071005.png" </p>
+                </p>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>默认情况下，项目都排在一条直线上。而如果一条轴线排不下，那我们就需要用到flex-wrap规定如何换行了。它可能取3个值。
+                <p>1.flex-wrap :nowrap;也是这个属性的默认值，表示不换行，项目等比例缩小（如果没规定flex-shrink为0的情况下）。</p>
+                <p>2.flex-wrap:wrap;表示换行，且第一行在上方。</p>
+                <p>3.flex-wrap:wrap-reverse;这个时候，也会换行，但是第一行就要跑到下方去了，毕竟reverse.</p>
+                </p>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>flex-row 略过，大家知道它是上面两个的缩写，默认值是什么，知道怎么用就好了。下面讲justify-content，这个有啥用呢？这个就是用来规定项目在主轴方向上如何对齐的。它有5个值。大家也可以通过下面的图片了解下
+                <p>1.flex-start;也是这个属性的默认值，表示主轴起点对齐。</p>
+                <p>2.flex-end：主轴终点对齐</p>
+                <p>3.center： 居中</p>
+                <p>4.space-between：两端对齐，项目之间的间隔都相等。</p>
+                <p>5.space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</p>
+                </p>
+            </section>
+            <section>
+                <img style="width: 60%;height: 50vw;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png">
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>而这个align-items，则是规定项目在交叉轴上的对齐方式。</p>
+                <p>1.flex-start;也是这个属性的默认值，表示交叉轴起点对齐。</p>
+                <p>2.flex-end：交叉轴终点对齐</p>
+                <p>3.center： 居中</p>
+                <p>4.stretch（默认值）：这个要注意了啊，和上面学的justify-content不同了，表示如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
+                <p>5.baseline: 项目的第一行文字的基线对齐。</p>
+                </p>
+            </section>
+            <section>
+                <img style="width: 60%;height: 50vw;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071011.png">
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>flex contain最后一项属性align-content就厉害了，规定多根轴线的对齐方式，但是如果只有一根轴线的话，这个是不起作用的。</p>
+                <p>1.flex-start;与交叉轴的起点对齐。。</p>
+                <p>2.flex-end：交叉轴终点对齐</p>
+                <p>3.center： 与交叉轴的中点对齐。</p>
+                <p>4.space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</p>
+                <p>5.space-around: 项目的第一行文字的基线对齐。</p>
+                <p>6.stretch(默认值)：轴线占满整个交叉轴。</p>
+                </p>
+            </section>
+            <section>
+                <img style="width: 60%;height: 50vw;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png">
+            </section>
+            <section style="text-align: left; font-size: 27px">
+                <h1 style="font-size:60px;">四，项目属性</h1>
+                <p>flex项目的属性也有6个。项目的属性有:
+                <p>1.order 决定项目的排列顺序，数值越小，排列越靠前。</p>
+                <p>2.flex-grow 决定项目的放大比例，默认值是0，也就是存在剩余空间，不放大。</p>
+
+                <p>3.flex-shrink 是也就是决定项目的缩小比例，默认是1，表示剩余空间不足时，等比缩小，如果需要不变，可以设置为0。
+                    </p>
+                <p>4.flex-basis 定义了在分配多余项目之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
+                <p>5.flex 是以上三个的简写，默认0 1 auto，也就是不放大，不缩小，占据项目本来大小的主轴空间。该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)，这里也不过多赘述。</p>
+                <p>6.align-self属性 默认auto，继承flex容器，也就是父元素的align-items属性，项目和algn-items一样，只是决定单个item对交叉轴的对齐方式。</p>
+                </p>
+            </section>
+            <section>
+                <p style="font-size: 27px;">放大属性</p>
+                <img style="width:40%;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071014.png">
+                <p style="font-size: 27px;">缩小属性</p>
+                <img style="width:40%;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071015.jpg">
+                <p style="font-size: 27px;">align-self属性</p>
+                <img style="width:40%;" src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071016.png">
+            </section>
+            </section>
+
+        <section>
+            <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style="text-align: left; font-size: 30px">
+            <p> 做任务5的时候，容器类两个行内元素，将容器设置为flex布局时，两边的元素都会自动换行。</p>
+
+        </section>
+            </section>
+        <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>2使用flex-shrink属性，规定左边的值为0，也就是不缩小，这个问题就迎刃而解了。</p>
+        </section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            用flex布局，完成骰子几个面，从一到六。
+            <pre>
+                <code>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            flex-wrap: wrap;}
+        [class$="face"] {
+            margin:16px;
+            padding:4px;
+            background-color: black;
+            width: 104px;
+            height:104px;
+            border-radius:10%;}
+        [class$="pip"] {
+            width:24px;
+            height:24px;
+            border-radius:50%;
+            background-color: white;
+            display: block;
+            margin:4px;}
+        .first_face {display:flex;
+            justify-content:center;
+            align-items: center;}
+        .second_face {
+            display: flex;
+            flex-direction:column;
+            justify-content:space-around;
+            align-items: center;}
+        .second2_face {
+            display: flex;
+            justify-content:space-between;
+        }
+        .second_pip {
+            align-self:flex-end;}
+        .third_face {
+            display: flex;
+            justify-content:space-between;}
+        .third_pip {
+            align-self:center;}
+        .forth_face {
+            display: flex;
+            justify-content: space-between;}
+        .column {display:flex;
+            justify-content: space-between;
+            flex-direction:column;}
+        .fifth_face {
+            display: flex;
+            justify-content:space-between;}
+        .fifth_pip {
+            align-self:center;}
+        .sixth_face {
+            display: flex;justify-content: space-between;}
+    </style>
+
+</head>
+<body>
+<div class="first_face">
+    <span class="pip"></span>
+</div>
+<div class="second_face">
+    <span class="pip"></span>
+    <span class="pip"></span>
+</div>
+<div class="second2_face">
+    <span class="pip"></span>
+    <span class="second_pip"></span>
+</div>
+<div class="third_face">
+    <span class="pip"></span>
+    <span class="third_pip"></span>
+    <span class="second_pip"></span>
+</div>
+<div class="forth_face">
+    <div class="column">
+    <span class="pip"></span>
+    <span class="pip"></span>
+    </div>
+    <div class="column">
+        <span class="pip"></span>
+        <span class="pip"></span>
+    </div>
+</div>
+<div class="fifth_face">
+    <div class="column">
+        <span class="pip"></span>
+        <span class="pip"></span>
+    </div>
+
+    <span class="fifth_pip"></span>
+
+    <div class="column">
+        <span class="pip"></span>
+        <span class="pip"></span>
+    </div>
+
+</div>
+<div class="sixth_face">
+    <div class="column">
+        <span class="pip"></span>
+        <span class="pip"></span>
+        <span class="pip"></span>
+    </div>
+    <div class="column">
+        <span class="pip"></span>
+        <span class="pip"></span>
+        <span class="pip"></span>
+    </div>
+</div>
+</body>
+</html>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>效果如下</h3>
+            <img src="https://ptteng.github.io/PPT/img/css-05-The%20flexbox%20layout/result.png" <a src="http://zengyupei.cn/flextest.html"></a>
+        </section>
+        <section>
+            <p>灵活应用了flex布局中的属性，完成骰子的效果，大家可以尝试一下。</p>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+        </section>
+        <section>
+            <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">flex详解--阮一峰的个人博客</a><br>
+            <a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html">flex实例--阮一峰的个人博客</a><br>
+            <a href="http://www.w3cplus.com/css/css-layout-model.html">布局演变史</a><br>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王碧洋 | somebody | 李维文</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
