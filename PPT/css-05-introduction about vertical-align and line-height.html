@@ -31,10 +31,10 @@
 <div class="reveal">
 	<div class="slides">
 		<section>
-			<h2>【CSS-task5】</h2>
-			<h3>小课堂【郑州第36期】
-			<h4>介绍line-height与vertical-align</h4>
-			<p>分享人：李达</p>
+			<h2>【CSS-task6】</h2>
+			<h3>小课堂【武汉第98期】
+			<h4>浅入line-height与vertical-align</h4>
+			<p>分享人：赵林杰</p>
 		</section>
 		<section>
 			<h3>目录</h3>
@@ -68,47 +68,29 @@
 			<p>设置固定长度(px,rem等固定单位)</p>
 			<p>设置数字:设置数字，此数字会与当前的字体尺寸相乘来设置行间距。</p>
 			<p>设置百分比:基于当前字体尺寸的百分比行距</p>
-			<p><strong>注意问题：</strong>数字可以直接被继承，然后在计算行高，而百分比是先计算出行高，在以px继承</p>
+			<p><strong>注意：</strong>数字可以直接被继承，然后在计算行高，而百分比是先计算出行高，在以px继承</p>
 		</section>
 		<section>
 			<h4>2.vertical-align基本概念与应用</h4>
 			<p>定义：使行内元素的基线相对于该元素所在行的基线的垂直对齐</p>
-			<p>可以使用的值：(1)默认值baseline:元素基线与父元素基线对齐</p>
-			<p>(2)相对于父元素来说的:
-				<span>text-top(元素顶端与父元素字体顶端对齐)</span>
-				<span>text-bottom</span>
-				<span>sub</span>
-				<span>super</span>
-				<span>middle</span>
-				<span>length</span>
-				<span>percentage</span>
-			<p>(3)相对于整行来说的：top(元素的顶端与整行的顶端对齐) bottom</p>
-		</section>
-		<section>
-			<img src="../img/css-15-vertical-alignAndline-height/02.png">
-			<p>行框：是指本行的一个虚拟的矩形框，由行内框组成
-				(每个元素都会生成一个行内框，其高度等于font-siz)，行框高度是本行所有行内框高度最大值</p>
-			<img src="../img/css-15-vertical-alignAndline-height/02.gif">
-		</section>
-		<section>
-			<p>super 使元素的基线相对于基准元素的基线升高</p>
-			<p>sub使元素的基线降低。移动的幅度由浏览器决定</p>
-			<img src="../img/css-15-vertical-alignAndline-height/03.gif">
-			<p>length和percentage可以使元素的基线相对于基准元素移动</p>
-			<p>与上下标不同，这2个属性可以精确控制文字上下移动的幅度</p>
+			<p>默认值baseline:元素基线与父元素基线对齐</p>
+			<p>众所周知，vertical-align支持很多属性值；(关键字值:vertical-align等等: middle;长度值：vertical-align: 4px等等；百分比值：vertical-align: 10%...等等)</p>
+			<p>注意：vertical-align的百分比值不是相对于字体大小或者其他什么属性计算的，而是相对于line-height计算的。
 		</section>
 		<section>
 			<h3>3.常见问题</h3>
 		</section>
 		<section>
-			<h4>为什么有时候设置了vertical-align但是对图片却不起作用？</h4>
+			<h4>为什么在div内插入图片，会发现图片下面有一段空白间隙？</h4>
+			<p><a href="file:///F:/dom.html">进来玩玩</a></p>
 		</section>
 		<section>
 			<h3>4.解决方案</h3>
 		</section>
 		<section>
-			<p>vertical-align垂直属性是相对于所在行基线，只有图片没有文字自然难以实现垂直居中</p>
-			<p>解决方案：1、使用line-height撑起行高<br>2、将父元素改为table-cell</p>
+			<p>1,图片默认是inline水平的，而vertical-align对块状水平的元素无感。因此，我们只要让图片display水平为block就可以了，我们可以直接设置display或者浮动、绝对定位等</p>
+			<p>
+			2,直接修改line-height值</p>
 		</section>
 		<section>
 			<h3>5.编码实战</h3>
@@ -145,8 +127,9 @@
 		</section>
 		<section>
 			<p>参考一：<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/vertical-align">MDN</a></p>
-			<p>参考二：<a href="http://www.cnblogs.com/xiaohuochai/p/5271217.html">深入理解line-height与vertical-align</a></p>
+			<p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/">深入理解line-height与vertical-align</a></p>
 			<p>参考三：<a href="http://www.zhangxinxu.com/wordpress/2010/05/%E6%88%91%E5%AF%B9css-vertical-align%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E4%B8%8E%E8%AE%A4%E8%AF%86%EF%BC%88%E4%B8%80%EF%BC%89/">对CSS vertical-align的一些理解与认识（一）</a></p>
+
 		</section>
 		<section>
 			<h3>8.更多讨论</h3>
