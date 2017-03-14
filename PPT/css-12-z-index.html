@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task】</h2>
+            <h3>小课堂【郑州第46期】</h3>
+            <p>主  题：z-index和层叠上下文如何形成的</p>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>z-index是针对网页显示中的一个特殊属性。因为显示器是显示的图案是一个二维平面，拥有x轴和y轴来表示位置属性。为了表示三维立体的概念如显示元素的上下层的叠加顺序引入了z-index属性来表示z轴的区别。表示一个元素在叠加顺序上的上下立体关系。</p>
+        </section>
+        <section>
+        <p><img src="../img/CSS-12-index/tu2.png"></p>
+        </section>
+        <section>
+         <p><img src="../img/CSS-12-index/tu.png"></p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>第一，看看z-index</h4>
+            <p>z-index可能有的值：
+            <br><img src="../img/CSS-12-index/tu4.png" style="width:70%;">
+            <br><span style="color:red;">注释:</span>所有主流浏览器都支持 z-index 属性。任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 "inherit"。
+            <br>IE6/7下position不为static，且z-index不存在时z-index为0，除此之外的浏览器z-index为auto。
+         <br> z-index为auto的元素不参与层级关系的比较.</p>
+        </section>
+        <section>
+            <h4>第二，层叠上下文？ </h4>
+            <p>层叠上下文:英文叫“stacking content”,是HTML中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。这里出现了z轴，z轴是我们的眼睛与页面的垂直抽象的距离。</p>
+            <P>层叠上下文是一个概念，跟BFC类似，概念的这个东西是比较抽象的，要好好理解理解。
+             <img src="../img/CSS-12-index/tu3.png">
+            </P>
+        </section>
+        <section>
+            <h4>第三，层叠顺序？</h4>
+            <p>层叠顺序：英文叫“stacking order”. 表示元素发生层叠时候有着特定的垂直显示顺序</p>
+        </section>
+        <section>
+            <P>
+            <img src="../img/CSS-12-index/tu5.png" style="width:100%;"></p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>处理两个或两个以上盒子之间z-index的复杂关系？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1,两个div，无设置z-index，第二个粉色div向上移动50px时.</p>
+        </section>
+         <section>
+            <p>2,两个div，粉色div设置z-index为-5时，</p>
+        </section>
+        <section>
+            <p>3,黄色div设置z-index为30，粉色为25时，30>25，</p>
+        </section>
+        <section>
+            <p>4,如果两个元素都没有定位发生位置重合现象或者两个都已定位元素且z-index相同发生位置重合现象，那么按文档流顺序，后面的覆盖前面的。</p>
+        </section>
+        <section>
+            <p>5,如果两个元素都没有设置z-index，使用默认值，一个定位一个没有定位，那么定位元素覆盖未定位元素</p>
+        </section>
+        <section>
+            <p>6,如果父元素z-index有效，那么子元素无论是否设置z-index都和父元素一致，在父元素上方</p>
+        </section>
+       <section>
+            <p>7,如果父元素z-index失效（未定位或者使用默认值），那么定位子元素的z-index设置生效 </p>
+        </section>
+       <section>
+            <p>8,如果兄弟元素的z-index生效，那么其子元素覆盖关系有父元素决定 </p>
+        </section>
+         <section>
+            <h3>5.编码实战</h3>
+        </section>     
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题：为什么内联元素的层叠顺序要比块状元素高？</p>
+            <img src="../img/CSS-12-index/tu6.png">
+        </section>
+    <section>
+<p>内联元素一般都是基于语义级(semantic)的基本元素，它只能容纳文本或者其他内联元素，通常被包括在块元素中使用，常见内联元素有“a、b、br”等,基本上可以说成内联元素变成了块状元素的子元素，所以子元素也就是内联元素要高于块状元素。</p>
+     </section>   
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考1：<a href="http://www.myexception.cn/HTML-CSS/2023767.html" target="_blank"></a>http://www.myexception.cn/HTML-CSS/2023767.html" </p>
+            <p>参考2：<a href="http://www.w3cplus.com/css/how-z-index-works.html" target="_blank"></a>http://www.w3cplus.com/css/how-z-index-works.html</p>
+            <p>参考3：<a href="
+           http://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/">鑫空间</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：opacity是否会对z-index有影响？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 |汪开放</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

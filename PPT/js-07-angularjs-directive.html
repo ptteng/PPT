@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS控制台的使用</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task7】angular 指令</h2>
+            <p>分享人：徐浩程</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>AngularJS 指令是扩展的 HTML 属性，带有前缀 ng-。</p>
+            <p>AngularJS 通过内置的指令来为应用添加功能。</p>
+            <p>AngularJS 允许你自定义指令。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left;font-size: 1.8rem;margin-left:12rem;">
+            <p>1.ng-app 指令初始化一个 AngularJS 应用程序。</p>
+            <p>2.ng-init 指令初始化应用程序数据。</p>
+            <p>3.ng-model 指令把元素值（比如输入域的值）绑定到应用程序。</p>
+            <p>4.ng-repeat 指令会重复一个 HTML 元素</p>
+            <p>5.你可以使用 .directive 函数来添加自定义的指令。</p>
+        </section>
+        <section>
+            <p>3.常见问题</p>
+        </section>
+        <section>
+            <p>如果创建自定义指令</p>
+        </section>
+        <section>
+            <p>4.解决方案</p>
+        </section>
+        <section>
+            <p>restrict值</p>
+            <p>A作为属性使用&nbsp&nbsp&nbsp&nbspC作为类名使用</p>
+            <p>M作为注释使用&nbsp&nbsp&nbsp&nbspE作为元素名使用</p>
+            <img src="../img/js-07-angularjs-directive/111.png">
+        </section>
+        <section>
+            <p>template参数:两种形式</p>
+            <p>HTML文本形式</p>
+            <pre>
+                <code>
+                <script>
+                    var app = angular.module("myApp", []);
+                    app.directive("runoobDirective", function() {
+                        return {
+                            template : "<h1>自定义指令!</h1>"
+                        };
+                    });
+                </script>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>函数形式</p>
+            <pre>
+                <code>
+                js部分：
+                angular.module('app',[])
+                    .directive('myDirective', function () {
+                        return {
+                            restrict: 'E',
+                            template: function (elem, attr) {
+                        return "<a href='" + attr.value + "'>" + attr.text + "</a>";
+                     }
+                };
+            })
+            html部分:
+            <my-directive value="http://www.baidu.com" text="百度"></my-directive>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>templateUrl参数</p>
+            <p>文本形式</p>
+            <pre>
+                <code>
+                    angular.module('app',[])
+                        .directive('myDirective', function () {
+                            return {
+                                restrict: 'AEC',
+                                templateUrl: 'js/directives/searchParams/search-params.html',
+                        };
+                    })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>函数形式</p>
+            <pre>
+                <code>
+                angular.module('app',[])
+                    .directive('myDirective', function () {
+                        return {
+                            restrict: 'AEC',
+                            templateUrl: function (elem, attr) {
+                                return attr.value + ".html";  //当然这里我们可以直接指定路径，同时在模板中可以包含表达式
+                            }
+                        };
+                    })
+                </code>
+            </pre>
+        </section>
+        <section style="text-align: left">
+            <p>scope参数</p>
+            <p>scope参数是可选的，可以被设置为true或一个对象。默认值是false。</p>
+            <p>当为true时：继承并隔离，父子作用域互相影响</p>
+            <p>当为false时：继承但是不隔离，也就是说子作用域改变并不会影响父作用域</p>
+            <p>当为{}时：隔离且不继承</p>
+        </section>
+        <section>
+            <p> controller参数</p>
+            <p>controller参数可以是一个字符串或一个函数。当设置为字符串时，会以字符串的值为名字，来查找注册在应用中的控制器的构造函数.</p>
+            <pre>
+                <code>
+                    angular.module('myApp', [])
+                        .directive('myDirective', function() {
+                                restrict: 'A',
+                                controller: 'SomeController'
+                        })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>可以在指令内部通过匿名构造函数的方式来定义一个内联的控制器</p>
+            <pre>
+                <code>
+                    angular.module('myApp',[])
+                        .directive('myDirective', function() {
+                            restrict: 'A',
+                            controller:
+                                function($scope, $element, $attrs, $transclude) {
+                                        // 控制器逻辑放在这里
+                            }
+                        });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>5.编码实战</p>
+        </section>
+        <section>
+            <p>6.扩展思考</p>
+        </section>
+        <section>
+            <p>自定义指令有什么缺陷？</p>
+        </section>
+        <section>
+            <p>7.参考文献</p>
+            <p><a href="http://www.runoob.com/angularjs/angularjs-directives.html" target="_blank">菜鸟教程</a></p>
+            <p><a href="http://www.cnblogs.com/rohelm/p/4051437.html" target="_blank">博客园</a></p>
+        </section>
+        <section>
+            <p>8.更多讨论</p>
+            <p>
+               自己尝试做一个自定义省市联动指令
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 徐浩程</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+    	section p{
+            text-align: left;
+    	}
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task1】</h2>
+            <h3>小课堂【武汉第96期】</h3>
+            <h4>什么是浮动？有哪些消除浮动的方法？</h4>
+            <h4>分享人：汤特</h4>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>浮动是怎么诞生的？浮动最初设计的目的并没那么多事儿，就只是用来实现文字环绕效果而已。</p>
+            <p><a href="../demo/css-04-float/float.html">点我看文字环绕效果</a></p>
+            <p>
+                但是早期的前端开发者发现：浮动的元素可以设置宽高并且可以内联排列，是介于inline和block之间的一个神奇的存在，
+                在inline-block出来之前，浮动大行其道。直到inline-block出来后，浮动也有它自己独特的使用场景。
+            </p>
+
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>浮动到底是什么？
+                浮动核心就一句话：浮动元素会脱离文档流并向左/向右浮动，直到碰到父元素或者另一个浮动元素。请默念3次！提到文档流，那
+            下面我们讲讲什么是文档流。</p>
+        </section>
+        <section>
+            <section>
+                2.1 文档流的概念
+            </section>
+            <section>
+                <p>文档流是文档中可显示对象在排列时所占用的位置。</p>
+                <p>将窗体自上而下分成一行行显示，并在每行中按从左到右的顺序排放元素的效果，就是文档流直观的表现。</p>
+                <img src="../img/css-01-what is float how to remove float/wendang.png"  alt="文档流样图"/>
+            </section>
+            <section>
+                2.2 浮动，脱离文档流
+            </section>
+            <section>
+                <p>通过使用浮动属性，可以使元素脱离文档流，上浮到文档流之上，随后可以改变其位置的现象。参看下边的图片,浮动的绿色块已经上天了，跟蓝红
+                    两个块已经不再一个层面上了。</p>
+                <img src="../img/css-01-what is float how to remove float/float.png" alt="浮动时图层的情况">
+            </section>
+            <section>
+                2.3 浮动的属性值
+            </section>
+            <section>
+                <p>浮动的属性值有三个：float：none；float：left；float：right；</p>
+                <p>浮动不是任意的，其还是在父元素的范围之中，不能脱离于父元素的内容区域。</p>
+                <p>我们回到前面那个页面看看，浮动元素能不能浮动到父元素外面去</p>
+                <a href="../demo/css-04-float/float.html">点我</a>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题及为什么要清除浮动</h3>
+        </section>
+        <section>
+            <p>如果我们不给父元素设置高度，我们知道如果它里面的元素不浮动的话，
+                那么这个外层的高是会自动被撑开的。</p>
+            <p>若浮动元素比它的父元素还高，那么它就会溢出父元素外面，<a href="../demo/css-04-float/float.html">点我看浮动元素溢出</a></p>
+            <p>当内层元素所有浮动后，则影响更大：</p>
+            <p>（1）背景不能显示 </p>
+            <p>（2）边框不能撑开</p>
+            <p>（3）高度塌陷等</p>
+
+            <p>我们还是回到前面那个网页看看，是不是有这些影响<a href="../demo/css-04-float/float.html">点我</a></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>方法1：父级div定义 height</p>
+            <p>原理：父级div手动定义height，就解决了父级div无法自动获取到高度的问题。</p>
+            <p>优点：简单、代码少、容易掌握</p>
+            <p> 缺点：只适合高度固定的布局，要给出精确的高度，如果高度和父级div不一样时，会产生问题</p>
+            <p>建议：不推荐使用，只建议父元素高度固定的布局时使用</p>
+            <p><a href="../demo/css-04-float/float.html">点我设置高度</a></p>
+        </section>
+        <section>
+            <p>方法2：</p>
+            <p>使用clear属性：在相同的父元素中，浮动的子元素之后添加一个空标签，设置样式为："clear：both;"标签可以是div，也可以是p，或者br等块元素。</p>
+            <p>原理：left	在左侧不允许浮动元素;
+                right	在右侧不允许浮动元素;
+                both	在左右两侧均不允许浮动元素
+            <a href="../demo/css-04-float/float.html">点我使用clear属性</a>
+            <p>优点：通俗易懂，容易掌握，适合菜鸟前期使用。</p>
+            <p>缺点：可以想象通过此方法，会添加多少无意义的空标签，有违结构与表现的分离，一旦代码量大的话，在后期维护中将是噩梦。</p>
+            <p>建议：不推荐使用，但此方法是以前主要使用的一种清除浮动方法。</p>
+        </section>
+        <section>
+            <p>方法3：对父元素设置overflow的样式，即overflow: auto/hidden;</p>
+            <p>原理：必须定义width，在IE6中还需要触发 hasLayout ，例如 zoom：1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度</p>
+            <p>优点：不存在结构和语义化问题，代码量极少</p>
+            <p>缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，不能和position配合使用，无法显示需要溢出的元素；</p>
+            <p>建议：只推荐没有使用position或对overflow:hidden理解比较深的朋友使用。</p>
+            <a href="../demo/css-04-float/float.html">点我设置overflow</a>
+        </section>
+        <section>
+            <p>方法四：据说是最高大上的方法:after（注意：作用于浮动元素的父亲）</p>
+            <p>它就是利用:after和:before来在元素内部插入两个元素块，从面达到清除浮动的效果。
+                其实现原理类似于clear:both方法，只是区别在于:clear在html插入一个div.clear标签，
+                而outer利用其伪类clear:after在元素内部增加一个类似于div.clear的效果(clearfix用在父元素上面)。下面来看看其具体的使用方法：
+                <a href="../demo/css-04-float/float.html">点我使用clearfix</a>
+            </p>
+            <pre>
+                .clearfix:before, .clearfix:after {
+                display: table;
+                content: "";
+                }
+                .clearfix:after {
+                clear: both;
+                }
+                .clearfix {
+                *zoom: 1;
+                }
+            </pre>
+        </section>
+          <section>
+              <p>优点：结构和语义化完全正确,代码量居中。浏览器兼容性强，支持好、不容易出现怪问题（ 知乎，Apple，stackoverflow等都是使用的这种方法）</p>
+              <p>缺点：复用方式不当会造成代码量增加，初学者不理解原理，要两句代码结合使用才能让主流浏览器都支持。</p>
+              <p>建议：推荐使用，建议定义公共类，以减少CSS代码。</p>
+          </section>
+      </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: 大家还知道哪些清除浮动的方法？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.baffinlee.com/front-end/clearfix.html" target="_blank">清除浮动（clearfix）的几种方式</a></p>
+            <p>参考二：<a href="http://zh.learnlayout.com/float.html" target="_blank">学习CSS布局</a></p>
+             <p>参考三：<a href="https://my.oschina.net/leipeng/blog/221125" target="_blank">css清除浮动float的三种方法总结</a></p>
+             <p>参考四：<a href="http://www.jb51.net/article/13995.htm" target="_blank">CSS清除浮动常用方法小结</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：float浮动会使元素脱离文档流，那使用position属性的原理进行元素的定位是不是和它是一样使元素脱离文档流呢？假如脱离的话，他们是不是浮动到同一个层面上了？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>同时也感谢：胡嘉杰师兄，高峰师兄的指点。</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
