@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .text-left{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task】</h2>
+            <h3>小课堂【成都第1期】</h3>
+            <p>分享人：韩沁修</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>CSS动画允许动态展现CSS样式的变化。动画包括两个部分:描述动画的样式规则和用于指定动画开始、结束以及中间点样式的关键帧。</p>
+            <p>相较于传统的脚本实现动画技术，使用CSS动画有三个主要优点：</p>
+            <ul>
+                <li>能够非常容易地创建简单动画，你甚至不需要了解JavaScript就能创建动画。</li>
+                <li>动画运行效果良好，甚至在低性能的系统上。渲染引擎会使用跳帧或者其他技术以保证动画表现尽可能的流畅。而使用JavaScript实现的动画通常表现不佳（除非经过很好的设计）。</li>
+                <li>让浏览器控制动画序列，允许浏览器优化性能和效果，如降低位于隐藏选项卡中的动画更新频率。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>创建动画序列，需要使用animation属性或其子属性，该属性允许配置动画时间、时长以及其他动画细节，但该属性不能配置动画的实际表现，动画的实际表现是由 @keyframes规则实现</p>
+        </section>
+        <section>
+            <section>
+                <p class="text-left">animation-delay:设置延时，即从元素加载完成之后到动画序列开始执行的这段时间。</p>
+                <p class="text-left">animation-direction:设置动画在每次运行完后是反向运行还是重新回到开始位置重复运行.</p>
+                <p class="text-left">animation-duration:设置动画一个周期的时长。</p>
+                <p class="text-left">animation-iteration-count:设置动画重复次数， 可以指定infinite无限次重复动画</p>
+            </section>
+            <section>
+                <p class="text-left">animation-name:指定由@keyframes描述的关键帧名称。</p>
+                <p class="text-left">animation-play-state:允许暂停和恢复动画。</p>
+                <p class="text-left">animation-timing-function:设置动画速度， 即通过建立加速度曲线，设置动画在关键帧之间是如何变化。</p>
+                <p class="text-left">animation-fill-mode:指定动画执行前后如何为目标元素应用样式。</p>
+            </section>
+        </section>
+        <section>
+            <p>定义一个动画</p>
+            <p>将其赋给html</p>
+        </section>
+        <section>
+            <section>
+                <p>
+                    @keyframes 规则<br>
+                    要定义CSS动画，我们需要先使用@keyframes 规则来声明关键帧。你还需要给动画命名，便于后面引用。<br>
+                    例如，如果你创建了一个在屏幕上移动的小车的动画，你可能需要把动画命名为像drive这样的，然后你的 @keyframes 规则应该是这样写的：
+                </p>
+                <pre>
+                <code>
+                @keyframes drive {
+                }
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>什么是关键帧?</p>
+                <p>
+                    动画是由关键帧组成的！在@keyframes声明中，我们有两种方法来对它进行定义：关键字from 和 to；或百分比。<br>
+                    非常简单的动画可能只是把一个对象从一个地方移动到另一个地方。在这种情况下，关键字from 和 to非常适合来定义关键帧。<br>
+                    正如它们的名字，通过写关键帧来定义动画从哪里开始，然后到哪里结束。如果我们把它应用在我们上边提到的简单的小车动画，我们可以把我们的小车从它当前的位置（坐标为0）移动到一个往右400px的位置，来让它在屏幕上移动。<br>
+                </p>
+                <pre>
+                    <code>
+                    @keyframes drive { from { transform: translateX(0); } to { transform: translateX(400px); } }
+                </code>
+                </pre>
+            </section>
+            <section>
+                <p>将动画赋给HTML元素</p>
+                <p>一旦创建了关键帧声明块，就需要准备把动画赋给一个HTML元素或其它元素。我们还需要为HTML元素定义一个简短的属性列表，比如img元素，为它应用我们刚才创建的动画。著作权归作者所有。</p>
+                <pre><code>
+                    .car { animation-name: drive; animation-duration:1s; }
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>简写的顺序</p>
+            <p>改变动画的速度</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>一个animation定义的动画简写属性可能是这样的：</p>
+            <pre><code>animation: myAnimation 1s ease-in-out 2s 4</code></pre>
+            <pre>
+            <code>animation: （animation-name)(animation-duration)
+                (animation-timing-function)(animation-delay)(animation-iteration-count)</code>
+            </pre>
+            <pre><code><single-animation> = <single-animation-name> || <time> || <single-animation-timing-function> || <time> || <single-animationiteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state></code></pre>
+            <p>动画的名称，持续时间，速率，延迟时间，重复次数，方向，结束位置，启动停止动画</p>
+        </section>
+        <section>
+            <section>
+                <p>“时间是动画的一部分，它为每一次移动赋予了意义。移动可以是通过简单地在两个不同的位置绘制相同的内容，然后在两者之间插入数个其它的图片来完成。但是这样屏幕上的看到的就只是单纯的移动，而不是动画。”——Harold Whitaker and John Halas, Timing for Animation</p>
+                <p>Easing是速率被分配到整个动画过程中的方式。在CSS中，我们的easing是用animation-timing-function属性处理的。我们有三种定义timing的方式：关键字；自定义三次贝塞尔曲线；steps。它们有自己独特的概念，所以它实际上并没有做任何的easing。</p>
+            </section>
+            <section class="text-left">
+                <p>预定义的easing关键字是：ease (默认); linear; ease-in; ease-out和ease-in-out。</p>
+                <p>linear:匀速</p>
+                <p>eaes-in:从最快速越来越慢</p>
+                <p>ease-out:一直加速</p>
+                <p>ease-in-out：先加速后减速</p>
+            </section>
+            <section>
+                <p>贝塞尔曲线</p>
+                <p>值得庆幸的是，easing的值我们有不止五个关键字可以选择。在我们希望能够有更多的easing选择的时候，三次贝塞尔曲线来拯救我们了！上面的几个关键字也可以被定义为三次贝塞尔曲线。这些关键字有点像常见贝塞尔曲线的快捷方式。当你需要的控制比上边五个关键字提供的更多的时候，你可以为你的timing函数创建三次贝塞尔曲线，这样easing可选择的值就几乎是无限的！</p>
+            </section>
+            <section>
+                <img src="../img/css-01-animation/1.png" height="423" width="512"/>
+                <p>这是一个ease-in-out的曲线图，先平缓后陡峭后平缓，图像化表现了其速度变化</p>
+                <pre><code>.someClass { animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190); }</code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何使用steps让雪碧图动起来</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Title</title>
+                </head>
+                <style>
+                    body {
+                        background:#678bb3;
+                        padding:0;
+                        margin:0;
+                    }
+
+                    .sky {
+                        width:100%;
+                        height:1000px;
+                        background: transparent url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/sky.jpg) top left no-repeat;
+                        background-size: 100% 100%;
+                        margin:auto;
+                        position:relative;
+                    }
+
+                    .cloud {
+                        width: 248px;
+                        height:131px;
+                        position: absolute;
+                        background:transparent url(http://www.w3cplus.com/sites/default/files/blogs/2015/1506/cloud.png) 0 0 no-repeat;
+                    }
+
+                    .cloud01 {
+                        top:100px;
+                        left:300px;
+                        z-index:100;
+                        animation:drift 25s linear infinite;
+                    }
+
+                    .cloud02 {
+                        top:240px;
+                        z-index: 200;
+                        animation: drift 35s linear 10s infinite backwards;
+                    }
+
+                    @keyframes drift {
+                        from {transform: translateX(-255px);}
+                        to {transform: translateX(1350px);}
+                    }
+
+                    .sprite {
+                        width:245px;
+                        height:400px;
+                        display:block;
+                        background:transparent url(../../img/walker.png) 0 0 no-repeat;
+                        margin:3em auto;
+                        animation: walker 1s steps(10) infinite;
+                    }
+
+                    @keyframes walker {
+                        from {background-position:0 0;}
+                        to {background-position:0 -4000px;}
+                    }
+                </style>
+                <body>
+                <div class="sky">
+                    <div class="cloud cloud01"></div>
+                    <div class="cloud cloud02"></div>
+                </div>
+                <div class="sprite"></div>
+                </body>
+                </html>
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.w3cplus.com/css3/CSS3-animation.html" target="_blank">某网站</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <section>如何使用纯css完成一个轮播图</section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | somebody</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

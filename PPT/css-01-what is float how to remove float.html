@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task1】</h2>
+            <h3>小课堂【郑州第44期】</h3>
+            <h4>什么是浮动？有哪些消除浮动的方法？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在现在的网页编写过程中，经常遇到设计的模板中诸如图片、文字、表格等的位置，通过常规的设置无法到达设计要求的布局时，就会想到引用使元素浮动的方法，将它放到需要的位置。由此，我们引入今天分享的内容：float属性。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>浮动，就是目前我们常用的float属性，在CSS中的作用是使所涉及的元素脱离文档流并使其可以有移动到其父元素的最左边或者最右边的效果。</p>
+        </section>
+        <section>
+            <section>
+                2.1 文档流的概念
+            </section>
+            <section>
+                <p>文档流是文档中可显示对象在排列时所占用的位置。</p>
+                <p>将窗体自上而下分成一行行显示，并在每行中按从左到右的顺序排放元素的效果，就是文档流直观的表现。</p>
+                <img src="../img/css-01-what is float how to remove float/wendang.png"  alt="文档流样图"/>
+            </section>
+            <section>
+                2.2 浮动，脱离文档流
+            </section>
+            <section>
+                <p>通过使用浮动属性，可以使元素脱离文档流，上浮到文档流之上，随后可以改变其位置的现象。参看下边的图片</p>
+                <img src="../img/css-01-what is float how to remove float/float.png" alt="浮动时图层的情况">
+            </section>
+            <section>
+                2.3 浮动的属性值
+            </section>
+            <section>
+                <p>浮动的属性值有三个：float：none；float：left；float：right；</p>
+                <p>浮动不是任意的，其还是在父元素的范围之中，不能脱离于父元素的内容区域。</p>         
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 使用浮动虽然方便了特殊显示内容的布局，但有时也会出现一些问题。如何在布局中消除float的副作用，不影响其他元素正常的布局效果？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>问题：使用浮动会影响周边元素及父级元素的位置和width，height属性。</p>
+        </section>
+        <section>
+            方法：第一种，可以对其父元素设置合适的高度。一般设置高度需要能确定内容高度才能设置，并且要保证相应高度不需要有自适应或者响应式要求等情况下才行。
+        </section>
+        <section>
+            方法：第二种，在相同的父元素中，浮动的子元素之后添加一个空标签，设置样式为："clear：both;"标签可以是div，也可以是p，或者br等块元素。因为该属性的作用是清除浮动对该元素的影响，也就是同级div浮动之后导致浮动元素脱离文档流而使未浮动元素上移，在页面中的显示效果就为浮动元素将未浮动元素遮住，清除之后该未浮动元素就会放置于浮动元素的下方，也就是可以像文档流时的布局效果，但又因为此未浮动元素没有宽高等属性，所以父元素的高度就会基于此元素的上边框计算，也就相当于文档流中的自适应高度。
+        </section>
+        <section>
+            方法：第三种，对父元素设置overflow的样式。overflow:hidden属性相当于是让父级紧贴内容，这样即可紧贴其对象内内容（包括使用float的div盒子），从而实现了清除浮动。不能和position配合使用，因为超出的尺寸的会被隐藏。overflow:auto，与hidden原理一样，不过内容过多表现不同。
+        </section>
+        <section>
+            方法：第四种，对父元素设置伪类:after，设置其中的属性。IE8以上和非IE浏览器才支持:after。zoom(IE转有属性)可解决ie6,ie7浮动问题，触发haslayout。
+        </section>
+      </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: 大家还知道哪些清除浮动的方法？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.divcss5.com/jiqiao/j406.shtml" target="_blank">DIVCSS5——CSS清除浮动，清除float浮动</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/hanqingtao/p/5856103.html" target="_blank">浮动的影响及如何清除浮动带来的影响 </a></p>
+             <p>参考三：<a href="http://www.jb51.net/article/13994.htm" target="_blank">css别忘记清除浮动clear:both</a></p>
+             <p>参考四：<a href="http://www.jb51.net/article/13995.htm" target="_blank">CSS清除浮动常用方法小结</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：float浮动会使元素脱离文档流，那使用position属性的原理进行元素的定位是不是和它是一样使元素脱离文档流呢？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
