@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-02】js有哪几种传参方式</h2>
+
+            <h3>小课堂【成都】</h3>
+
+            <p style="text-align: center;">分享人：梁家健</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">在“单机”模式下，只需要使用其本身所建立的变量即可。显然，在如今的前端环境，一个稍微正式点的项目都不太可能是这个情况，页面的跨越、服务器后台进行数据请求等，都需要一个或数个传参的方法。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>几种常见的传参方式</h3>
+            <p>1，localStorage和sessionStorage</p>
+            <p style="text-align: left">将数据存储在localStorage中，如果不使用removeItem()或者delete删除，或者用户未清楚浏览器缓存，数据会一直保留在磁盘上，一般它的大小有5M的限制。另外，要访问同一个localStorage对象，页面必须来自同一个域名(子域名无效)，使用同一个协议，在同一个端口上</p>
+            </section>
+			<section>
+            <p>而数据存储在sessionStorage中，该数据只保持到浏览器关闭，因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储</p>
+            <p>他们都属于storage类型，因此拥有storage类型的方法</p>
+            <p>保存数据：setItem(key,value);
+<br>读取数据：getItem(key);
+<br>删除单个数据：removeItem(key);
+<br>删除所有数据：clear();
+<br>得到某个索引的key：key(index);</p>
+            </section>
+		</section>
+		<section>
+            <section>
+               <p>2，cookie传递参数</p>
+			   <p style="text-align: left">HTTP Cookie，通常直接叫做cookie，Cookie是浏览器访问服务器后，服务器传给浏览器的一段数据。</p>
+               <p style="text-align: left">目前有些 Cookie 是临时的，有些则是持续的。临时的 Cookie 只在浏览器上保存一段规定的时间，一旦超过规定的时间，该 Cookie 就会被系统清除.</p>
+			</section>
+            <section>
+               <p>3，URL传递参数</p>
+			   <p style="text-align: left">一个完整的网页地址大致分成protocol、host、path、search、hash五部分，其中search和hash（?号以后的数据）是我们可以在程序中作为参数部分进行传递。在网页初始化的时候读取search和hash的数据然后进行一系列操作，而search（?name=张三&type=admin）也常用作后台的请求参数。</p>
+            </section>
+			<section>
+               <p>4，ajax</p>
+			   <p style="text-align: left">AJAX 是一种用于创建快速动态网页的技术。
+通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		    <p style="text-align: left">下面是url方法和ajax的简单例子，有兴趣可以阅读一下：</p>
+		    <section>
+               <p>URL</p>
+			   <pre>
+                 <code style="background-color: #1c1e20">
+$(function() {  
+    //获取url中传来的数据  
+    var openId = getParamValue("openId");  
+    //当传递过来的数据中包含有中文数据的时候，需要在添加编码设置，                                                                 
+    //也就可以写成这样：var name = decodeURI(getParamValue("userName"));这样写的话                                                              
+    //就可以正确获得中文字符。  
+});  
+//分解url获得数据部分  
+function getUrlParams() {  
+    var search = window.location.search;  
+    // 写入数据字典   
+    var tmparray = search.substr(1, search.length).split("&");  
+    var paramsArray = new Array;  
+    if (tmparray != null) {  
+        for (var i = 0; i < tmparray.length; i++) {  
+            var reg = /[=|^==]/; // 用=进行拆分，但不包括==   
+            var set1 = tmparray[i].replace(reg, '&');  
+            var tmpStr2 = set1.split('&');  
+            var array = new Array;  
+            array[tmpStr2[0]] = tmpStr2[1];  
+            paramsArray.push(array);  
+        }  
+    }  
+    // 将参数数组进行返回   
+    return paramsArray;  
+}  
+// 根据参数名称获取参数值   
+function getParamValue(name) {  
+    var paramsArray = getUrlParams();  
+    if (paramsArray != null) {  
+        for (var i = 0; i < paramsArray.length; i++) {  
+            for (var j in paramsArray[i]) {  
+                if (j == name) {  
+                    return paramsArray[i][j];  
+                }  
+            }  
+        }  
+    }  
+    return null;  
+}  
+                 </code>
+               </pre>
+            </section>
+			<section>
+               <p>ajax</p>
+			   <pre>
+                 <code style="background-color: #1c1e20">
+function orderCancel(orderId, commant){  
+    var flag = false;  
+    $.ajax({  
+        type: "POST",  
+        url: "../order/orderCancel.action", //orderModifyStatus  
+        data: {"orderId":orderId,"commant":commant},  
+        dataType:"json",
+        success: function(data){  //参数正确执行
+            var member = eval("("+data+")"); //包数据解析为json 格式                                                            
+            if(member.success=="true"){  //请求成功执行
+                flag = true;  
+            }else if(member.success=="false") {  //请求失败执行
+                alert(member.info);  
+            }  
+        },  
+        error: function(json){  //参数错误执行
+            alert("订单取消异常，请刷新后重试...");  
+        }  
+    });  
+    hidediv();  
+    return flag;  
+}
+                 </code>
+               </pre>
+            </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://blog.csdn.net/u010630362/article/details/27527485" target="_blank">url方法</a></p>
+            <p style="text-align: left">参考二：<a href="http://blog.csdn.net/coffeesmile/article/details/20992829" target="_blank">ajax方法</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 梁家健 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

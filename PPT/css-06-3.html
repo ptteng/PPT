@@ -1,158 +1,223 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+	<title>葡萄藤PPT</title>
 
-    <link rel="stylesheet" href="../css/reveal/reveal.css">
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
 
-    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
-    <!-- syntax highlighting 代码高亮主题 -->
-    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
 
-    <!-- 打印和PDF输出样式 -->
-    <script>
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
+	<!-- 打印和PDF输出样式 -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
 </head>
 <body>
 <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
-    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
-    <div class="slides">
-        <section>
-            <a href="//www.jnshu.com" target="_blank"><img src="../img/demo/logo.png" class="logo"/></a>
-            <h2>技术分享小课堂</h2>
-            <h3>rgba和opacity的透明效果有什么不同？display和visiblity有什么区别？</h3>
-        </section>
-        <section>
-            <h3>rgba和opacity的透明效果有什么不同？</h3>
-        </section>
-        <section>
-            <p>在css3以前，我们的css中的颜色都是基于RGB的，都是纯色，但是CSS通过alpha颜色和opacity属性，为我们引入了不透明度和透明度这一全新的概念。</p>
-        </section>
-        <section>
-            <h2>什么是rgba？</h2>
-            <section>
-                <p>R：红色值。正整数 | 百分数 </p>
-                <p>G：绿色值。正整数 | 百分数 </p>
-                <p>B：蓝色值。正整数 | 百分数 </p>
-                <p>A：Alpha透明度。取值0~1之间。</p>
-            </section>
-        </section>
-        <section>
-            <h2>rgba取值</h2>
-                <p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
-                <p>rgba颜色模型有四个值，最后一个是alpha通道的值，取值在0.0到1.0之间</p>
-            <img src="../img/css-06-3-rgba/fang_2.png">
+	<div class="slides">
+		<section>
+			<h2>【CSS-task6】</h2>
+			<h3>小课堂【武汉第99期】</h3>
+			<h3>rgba和opacity,display和visiblity区别</h3>
+			<p>分享人：叶紫阳</p>
+		</section>
+		<section>
+			<h3>目录</h3>
+			<h4>1.背景介绍</h4>
+			<h4>2.知识剖析</h4>
+			<h4>3.常见问题</h4>
+			<h4>4.解决方案</h4>
+			<h4>5.编码实战</h4>
+			<h4>6.扩展思考</h4>
+			<h4>7.参考文献</h4>
+			<h4>8.更多讨论</h4>
+		</section>
+		<section>
+			<h3>一.背景介绍</h3>
+		</section>
+		<section>
+			<p>1.大家在写页面时，会用到各种元素，比如div,  img等等。有时候一张页面会放好几张图片，图片如果显示效果都一样，看起来很单调，</p>
+			<p> 整个页面给人的感觉会很硬。那么，怎么能让页面的元素有一种多样化，甚至有一种朦胧美呢？于是，有了opacity和rgba()这两个属性。
+				其中，opacity属性是css3新提的属性。</p>
+		</section>
+		<section>
+			<p>2.另外，在看一下display和visibility背景介绍，故名思意，display和visibility是与元素显示有关系的，这两个属性都可以控制元素的
+				显示与隐藏。</p>
+			<p>究其作用，我们可以知道，为了提高用户的体验，实现更好的页面甚至元素与用户的互动，当用户开始某个操作时，可以通过display和visibility
 
-        </section>
-        <section>
-            <h2>什么是Opacity？</h2>
-                <p>opacity 设置元素的不透明级别</p>
-            <p>取值:不透明度，从 0.0 （完全透明）到 1.0（完全不透明）。</p>
-        </section>
+				这两个属性让元素显示或者隐藏, 或者以哪种方式显示。</p>
+		</section>
+		<section>
+			<p> 3.综上所述；其实某个元素产生的背景和原因，就是为了满足日益增长的用户体验要求。</p>
+		</section>
 
-            <section>
-                <p>对比:rgba()和opacity都能实现透明效果,但最大的不同是opacity作用于元素，以及元素内的所有内容的透明度，而rgba()只作用于元素的颜色或其背景色
-                </p>
-                <p>说的专业一点：opacity属性的值，可以被其子元素继承。而RGBA设置的元素的后代元素不会继承不透明属性。</p>
-            </section>
-            <section>
-                <p>我们把opacity和background设置相同的不透明取值看一下效果</p>
-                <p>opacity=0.5   background设为 rgba(255,0,0,0.5)  </p>
-                <img src="../img/css-06-3-rgba/fang_1.png">
-            </section>
+		<section>
+			<h3>二.知识剖析</h3>
+		</section>
+		<section>
+			<h3>display的属性值</h3>
+				<p>block:独占一行，可以设置宽高。</p>
+				<p>inline:表现为一个行级元素（一般情况下不独占一行）</p>
+				<p>inline-block：不独占一行，但是可以设置宽高。同时具有inline和block的特性。</p>
+				<p>none:元素不可见，并且不为其保留相应的位置。</p>
+		</section>
+		<section>
+			<h3>visibility的属性值</h3>
+			<p>hidden 元素不可见，但仍然为其保留相应的空间</p>
+			<p>visible 元素可见，默认值</p>
+			<p>collapse 只对table对象起作用，能移除行或列但不会影响表格的布局。</p>
+			<p>visibility:inherit 继承上级元素的visibility值</p>
+		</section>
+		<section>
+			<p>dispaly和visibility二者的区别：</p>
+			<p>display:none 元素不可见，在文档流中不占据空间</p>
+			<p>visibility：hidden 元素不可见，但是占据空间</p>
+			<a href="../demo/css-06-RGBA%20and%20opacity/display-demo.html">点我</a>
+		</section>
+		<section>
+			<p>还有一点是，从visibility：hidden转换为visibility：visible时比display：none转换为display：block性能要好，
+				因为display在切换可见性时，文档流会重新书写,所以visibility：visible性能更好。</p>
+		</section>
+		<section>
+			<h3>rgba</h3>
+			<p>R：红色值。正整数 | 百分数</p>
+			<p>G：绿色值。正整数 | 百分数</p>
+			<p>B：蓝色值。正整数 | 百分数</p>
+			<p>A：透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。</p>
+		</section>
+		<section>
+			<p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
+			<p>RGBA是在R（Red）G（Green）B（Blue）模式上增加了alpha通道，alpha通道是不透明度，即，如果一个元素的alpha通道数值为0%（或0），
+				那该元素就是完全</p>
+			<p>透明的（也就是看不见的，但是可以透过该元素看到该元素下的元素），数值为100%（或255）时则意味着该元素完全不透明。</p>
+			<p>例子：rgba(55,146,179,.5) ; //rgb值为“55,146,179”，.5使设定的rgb值为50%透明,1为完全不透明，0为完全透明</p>
+		</section>
+		<section>
+			<h3>Opacity</h3>
+			<p>opacity属性是CSS3的属性，设置元素的不透明级别</p>
+			<p>取值说明: value 不透明度，从0.0(完全透明)到1.0（完全不透明）。</p>
+			<p>注意：IE8以及更早版本支持替代的filter属性。例如：filter: Alpha（opacity=50）;</p>
+			<pre>
+                <code>
+	                .rgba {
+	                background: rgba(255,0,0,0.5);
+	                }
+	                .opacity {
+	                background : red ; opacity: 0.5;
+	                }
+                </code>
+            </pre>
+		</section>
+		<section>
+			<h3>1.Opacity和rgba()的用法以及二者的区别：</h3>
+			<p>然后，RGBA和opacity都是用来设置元素的不透明度的，那么两者有什么区别呢？</p>
+			<p>opacity会继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。</p>
+			<p>简单来说就是opacity作用于元素和元素所有内容的透明,看一下例子</p>
+			<a href="../demo/css-06-RGBA%20and%20opacity/rgba-demo.html">rgba和opacity的区别</a>
+		</section>
+		<section>
+			<p>所以，rgba相对于opacity还是技高一筹的，当然只要是涉及颜色的，都可以用rgba来设置。比如background-color,text-shadow, box-shadow。</p>
+		</section>
+		<section>
+			<h3>三.常见问题</h3>
+			<p>透明度的兼容性</p>
+			<p>一般主流的浏览器都支持这两个属性，我们需要注意的是旧版本的ie浏览器</p>
+		</section>
+		<section>
+			<h3>四.解决方案</h3>
+			<p>旧版本的ie浏览器提供了filter这一属性，下面是兼容性写法</p>
+			<pre>
+                <code>
+	                .transparent_class {
+	                filter:alpha(opacity=50);
+	                -moz-opacity:0.5;
+	                -khtml-opacity: 0.5;
+	                opacity: 0.5;
+	                }
+                </code>
+            </pre>
+		</section>
+		<section>
+			<h3>五.编码实战</h3>
+		</section>
+		<section>
+			<h3>六.拓展思考</h3>
+		</section>
+		<section>
+			<p>属性的应用</p>
+			<p><a href="http://www.whutyzy.cc/task08/position-list.html">透明度的应用</a></p>
+			<p><a href="http://www.jnshu.com/task/1/39/detail#0">可见性的应用</a></p>
+		</section>
+		<section>
+			<h3>七.参考文献</h3>
+			<p>参考一：<a href="http://www.cnblogs.com/Chenshuai7/p/5188068.html">DIV中display和visibility属性差别 </a></p>
+			<p>参考二:<a href="http://www.cnblogs.com/myvin/p/4621417.html" target="_blank">rgba与opacity区别小解</a></p>
+		</section>
+		<section>
+			<h3>八.更多讨论</h3>
+		</section>
+		<section>
+			<a href="http://www.jnshu.com/task/1/39/detail#0">visibility的妙用</a>
+			<p>除此之外，还有哪些比较巧妙的用法？</p>
+		</section>
+		<section>
+			<h4>鸣谢</h4>
+			<p>感谢大家观看</p>
+			<p><small>BY : 沁修 | 火山 | 叶紫阳</small></p>
+		</section>
 
-        <section>
-            <h2>RGBA 和Opacity分情况使用</h2>
-            <p>针对以上两种方法的不同特性，我们可以分情况使用两者。例如，当我们需要制作透明的边框时 ，就使用ragb颜色，当我们需要背景图片透明时，需要使用alpha属性</p>
-        </section>
-        <section>
-
-            <h3>display和visiblity有什么区别？</h3>
-        </section>
-        <section>
-            <h2>什么是display？</h2>
-                <p>设置元素按什么样的方式来显示，是按块显示，显示成一条线的形式，显示为“消失”等等 </p>
-                <p>主要取值:block;inline;none</p>
-            <p>display默认属性值为块级的元素：</p>
-        </section>
-        <section>
-            <h2>什么是visiblity？</h2>
-            <p>设置元素按什么样的方式来显示，是按块显示，显示成一条线的形式，显示为“消失”等等 </p>
-            <p>HTML元素（对象）的宽度、高度等各种属性值都将“丢失”。</p>
-        </section>
-
-        <section>
-            <h2>display:none与visible:hidden的区别</h2>
-
-        </section>
-
-        <section>
-            <h2>display:none</h2>
-            <p>不为被隐藏的对象保留其物理空间，即该对象在页面上彻底消失，通俗来说就是看不见也摸不到。</p>
-        </section>
-
-        <section>
-            <h2>visible:hidden</h2>
-            <p>使对象在网页上不可见，但该对象在网页上所占的空间没有改变，也即是说它仍具有高度、宽度等属性值。通俗来说就是看不见但摸得到。</p>
-        </section>
-        <section>
-            <h2>什么时候使用Visibility或者Display属性？</h2>
-            <p> 如果你想隐藏某元素，但在页面上保留该元素的空间的话，你应该使用visibility：hidden。</p>
-            <p> 如果你想在隐藏某元素的同时让其它内容填充空白的话应该使用display：none。</p>
-
-        </section>
-        <section>
-            <h4>感谢观看</h4>
-            <p><small>BY : 方兵 </small></p>
-        </section>
-    </div>
+	</div>
 </div>
 
 <script src="../lib/reveal/js/head.min.js"></script>
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-    // 以下为常见配置属性的默认值
-    // {
-    // 	controls: true, // 是否在右下角展示控制条
-    // 	progress: true, // 是否显示演示的进度条
-    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-    // 	keyboard: true, // 是否启用键盘快捷键来导航
-    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-    // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
-    // 	loop: false, // 是否循环演示
-    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
-    // 	fragments: true, // 全局开启和关闭碎片。
-    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
-    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
-    // }
-    // 初始化幻灯片
-    Reveal.initialize({
-        history: true,
-        dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-        ]
-    });
+
+	// 以下为常见配置属性的默认值
+	// {
+	// 	controls: true, // 是否在右下角展示控制条
+	// 	progress: true, // 是否显示演示的进度条
+	// 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+	// 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+	// 	keyboard: true, // 是否启用键盘快捷键来导航
+	// 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+	// 	center: true, // 是否将幻灯片垂直居中
+	// 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+	// 	loop: false, // 是否循环演示
+	// 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+	// 	fragments: true, // 全局开启和关闭碎片。
+	// 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+	// 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+	// 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+	// 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+	// }
+
+	// 初始化幻灯片
+	Reveal.initialize({
+		history: true,
+		dependencies: [
+			{ src: '../plugin/markdown/marked.js' },
+			{ src: '../plugin/markdown/markdown.js' },
+			{ src: '../plugin/notes/notes.js', async: true },
+			{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
 </script>
 </body>
 </html>

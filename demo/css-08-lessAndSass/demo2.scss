@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  padding: 0;
+  width: 100%;
+  background: #ccc;
+
+}
+
+//变量
+//sass中可以定义变量，方便统一修改和维护。
+//---------------------------------------------------------------------------------
+$color: #4D926F;
+i {
+  color: $color;
+}
+
+h2 {
+  color: $color;
+}
+
+//嵌套
+//sass可以进行选择器的嵌套，表示层级关系，看起来很优雅整齐。
+ul {
+  width: 50%;
+  margin: 0 auto;
+  padding: 2rem;
+  li {
+    padding: 2rem;
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      color: #6c71c4;
+    }
+  }
+
+}
+
+//mixin
+//sass中可用mixin定义一些代码片段，且可传参数，方便日后根据需求调用。从此处理css3的前缀兼容轻松便捷。
+@mixin box-sizing($sizing:5px) {
+  -webkit-border-radius: $sizing;
+  -moz-border-radius: $sizing;
+  border-radius: $sizing;
+
+}
+
+.i1, .i2 {
+  @include box-sizing();
+
+}
+
+.i3, .i4, .i5, .i6 {
+  @include box-sizing(20px);
+
+}
+
+//扩展/继承
+//sass可通过@extend来实现代码组合声明，使代码更加优越简洁。
+.disp {
+  margin: 5em;
+  display: inline-block;
+  width: 50px;
+  height: 40px;
+  background: blue;
+}
+
+.i1, .i2, .i3, .i4, .i5, .i6 {
+  @extend .disp;
+}
+
+//运算
+//sass可进行简单的加减乘除运算等
+.i5, .i6 {
+  height: 200px*50%;
+}
+
