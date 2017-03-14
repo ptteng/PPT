@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task03】</h2>
+            <h3>小课堂【郑州第50期】</h3>
+            <h4>手机分辨率和网页中的px是一回事吗？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在我们从设计人员那里拿到网页模板时经常要按照模板的尺寸进行网页的代码编写，做出模板的样子来显示到不同的分辨率的设备上，我们通常使用像素这个单位作为我们进行网页制作的单位，那么像素和设备的分辨率之间是一样的概念吗？又或者有什么不同？</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1像素的概念
+            </section>
+            <section>
+                <p>像素（pixel)，全称为图像元素，是表示显示器或图像显示大小的基本单位。</p>
+                <p>又可以分为物理像素和设备独立像素（dips:device-independent-pixels)来进行分析。</p>
+            </section>
+            <section>
+                <p>1. 物理像素：指显示器上显示大小的基本单位。它是个物理部件，由红、蓝、绿三色次像素等部件组合而成。</p>
+                <img src="../img/css-03-difference between resolition and pixel/1.jpg" alt="物理像素">
+            </section>
+            <section>
+                <p>2. 设备独立像素：可以认为是计算机坐标系中的一个点。这个点代表一个可以由程序使用并控制的虚拟像素。</p>
+                <img src="../img/css-03-difference between resolition and pixel/4.png" alt="设备独立像素">
+            </section>
+            <section>
+                2.2 分辨率的概念
+            </section>
+            <section>
+                <p>分辨率（Resolution)，是一个表示平面图像精细程度的概念，它通常是以横向和纵向点的数量来衡量的，表示为水平点数*垂直点数的形式，例如1366px*768px。分辨率的概念在具体的划分中，有分为显示分辨率、打印分辨率、扫描分辨率等概念。</p>
+            </section>
+            <section>
+                <p><b>显示分辨率：</b>显示器在显示图像时的分辨率，用点来衡量，在这里，点的概念其实就是物理像素。跟屏幕大小和显示部件的技术有关，固定值。</p>
+                <p><b>打印分辨率：</b>直接关系到输出打印的图像或者文字质量的概念，用dpi(dot per inch)表示，即每英寸能够打印多少个点。</p>
+                <p>扫描分辨率是一种输入分辨率，而显示分辨率和打印分辨率都是输出分辨率。我们在使用扫描仪扫描图形时可以根据需要调节扫描的精度，不像显示分辨率和打印分辨率是固定的或只有几种可选。扫描分辨率也用dpi来表示，但它不像打印机那样垂直分辨率和水平分辨率是一致的，扫描仪的水平分辨率是垂直分辨率的一半。</p>
+            </section>
+            <section>
+                <p><b>PPI：</b>Pixel per Inch，每英寸的像素数，衡量图像分辨率，也就是显示分辨率。</p>
+                <img src="../img/css-03-difference between resolition and pixel/3.jpg" alt="PPI公式">
+            </section>
+            <section>
+                <img src="../img/css-03-difference between resolition and pixel/5.png" alt="PPI公式">
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一: 用代码编写的网页大小是如何显示到设备上的，展现相同效果的？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这里要引入<span style="color:red;">设备像素比(dpr)</span>的概念，它定义了物理像素和设备独立像素之间的关系。</p>
+            <p>其公式表述为：设备像素比=物理像素/设备独立像素（在某一方向上，x方向或者y方向）。</p>
+            <p>我们还可以通过PPI/160来获得设备像素比。对于真实像素密度等于像素密度等级上的逻辑值的设备，1dp = 1/160 inch，对于不等于逻辑值的设备，比如上述表格第二个设备，180.27 != 160 这个差值 android 操作系统会进行等比缩放来弥补。比如在这个设备上用的 160dp 到最后真正在屏幕上用多少个像素表示呢，这其实经过了 2 个步骤： </p>
+        </section>
+        <section>
+            <p>1. dp 转程序中的 px，按照 dp 转 px 的公式，在设备上如果 160dp=160px，160dp 和我们程序里面用 160px 完全等价。</p>
+            <p>2. 程序中的 px 转显示屏上的 px，程序中160px 在设备显示屏上用的是 180 px。160px -> 180px 这个过程是android操作系统自动完成的，我们不需要关心</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一: 手机网页做成多大的比较合适？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.douban.com/note/169367388/" target="_blank">“像素”和“分辨率”的概念是什么？</a></p>
+            <p>参考二：<a href="http://www.woshipm.com/ucd/198774.html" target="_blank">屏幕尺寸，分辨率，像素，PPI之间到底什么关系？</a></p>
+             <p>参考三：<a href="http://blog.csdn.net/zhaoyw2008/article/details/46008513" target="_blank">android 手机屏幕密度等级和屏幕逻辑尺寸</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：<pre><code><meta name="viewport"></code></pre>的工作原理？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
