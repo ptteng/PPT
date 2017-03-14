@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】px、em、rem、%、vw、vm、vh等单位有什么区别？</h2>
+            <h3>小课堂【成都第50期】</h3>
+            <p>分享人：李婷</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>我们知道，长度单位是Web页设计中最常用的一个单位。一个排列无序、杂乱无章的页面不可能给人们留下什么好的印象。于是，在设计的时候需要为元素的位置、尺寸精确地定义一些值，以使其达到预期的效果。传统的单位有：px、%、em，而随着技术的发展，css3增加了一些新的单位rem、vh、vw、vm等，使我们的web页面能适应各种不同的终端显示，现在我们来看看这些单位的区别。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>px</p>
+            <p>一般而言，pixel（像素）是图像的基本采样单位。所以它不是一个确定的物理量，也不是一个具体的点或者小方块（尽管可以用点和小方块来呈现），而是一个抽象概念,单位面积内的像素，可大可小。 按照CSS规范的定义，CSS中的px是一个相对长度，它相对的，是显示器(viewing device)的分辨率。</p>
+        </section>
+        <section>
+        	<section>
+            <p>%</p>
+            <p>一般来说是相对于父元素来讲，但有特殊情况：</p>
+            <p>1、如果用来设置字体，相对的是父元素的字体大小，大多数浏览器中默认的字体尺寸是100%。</p>
+            <p>2、如果用来设置宽和高等非字体尺寸，则以百分比为单位的长度值是基于具有相同属性的父元素的长度值。</p>
+            </section>
+            <section>
+            <p>何为父元素，相对定位（relative），绝对定位（absolute），浮动（float），固定（fixed）中如何找寻父元素？</p>
+       		</section>
+       		<section>
+            <p>由于HTML是树形结构，标签套标签，一般情况下的父子关系很明朗</p>
+            <p>1、相对定位元素，它的父元素符合标签嵌套。</p>
+            <p>2、绝对定位元素，它的父元素是离它最近的定位元素（绝对定位，相对定位，固定，但不包括浮动）或者视窗尺寸（没找到定位元素时）。</p>
+            <p>3、浮动元素，它的父元素也符合标签嵌套。</p>
+            <p>4、</p>固定元素（特殊的绝对定位），它的父元素是视窗（浏览器默认用来展示内容的区域的尺寸，不是html 或body 的尺寸）。
+        	</section>
+        </section>      
+        <section>
+            <p>em</p>
+            <p>相对长度单位。em是相对于父元素的font-size而计算的。如果当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体(16px)尺寸。</p>
+        </section>
+        <section>
+            <p>rem</p>
+            <p>em是相对于其父元素来设置字体大小的，这样就会存在一个问题，进行任何元素设置，都有可能需要知道他父元素的大小。而Rem是相对于根元素html，这样就意味着，我们只需要在根元素确定一个参考值。</p>
+            <p>注意：谷歌浏览器强制最小字体为12号，即使设置成 10px 最终都会显示成 12px，当把html的font-size设置成10px,子节点rem的计算还是以12px为基准。</p>
+        </section>
+        <section>
+            <p>vh</p>
+            <p>vh是视窗高度单位。1vh等于可视区高度的百分之一。如果浏览器的高是 800px, 1vh 求得的值为 8px 。</p>
+        </section>
+        <section>
+            <p>vw</p>
+            <p>vw是视窗宽度单位。1vw等于可视区宽度的百分之一。如果浏览器的宽是 500px, 1vw求得的值为 5px 。</p>
+        </section>
+        <section>
+            <p>vm</p>
+            <p>vm是相对于视窗的宽度或高度的百分之一，取决于哪个更小。在宽为500px高为800px分辨率的显示器下1vm=5px</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么给body的CSS样式设置font-size为62.5%？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。为了简化font-size的换算，所以需要在css中的body选择器中声明Font-size=62.5%，这就使em值变为 16px*62.5%=10px, 这样12px=1.2em, 10px=1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p><img src="../img/css-03-px % em rem vw vh vm/task3-1.png"></p>
+            <p><img src="../img/css-03-px % em rem vw vh vm/task3-2.png"></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>除了这些单位还有什么其他的单位？</p>
+        </section>
+        
+        <section>
+            <p>ex：相对长度单位。相对于字符“x”的高度。此高度通常为字体尺寸的一半。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。
+			<p>pt：点（Point），绝对长度单位。大约1/72寸.</p>
+            <p>pc：派卡（Pica），绝对长度单位。大约6pt，1/6寸,相当于我国新四号铅字的尺寸。</p>
+			<p>in：英寸（Inch），绝对长度单位。</p>
+			<p>mm：毫米（Millimeter），绝对长度单位。</p>
+			<p>cm：厘米（Centimeter），绝对长度单位。</p>
+            <p>1in = 2.54cm = 25.4 mm = 72pt = 6pc = 96px</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/qq_22560431/article/details/50145205" target="_blank">CSS中的长度单位，宽度自适</a>
+            </p>
+            <p>参考二：<a href="http://www.cnblogs.com/lssmd/p/4450572.html" target="_blank">css单位介绍em ex ch rem vw vh vm cm mm in pt pc px</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>各种单位在什么情况下用比较好？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :李婷</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
