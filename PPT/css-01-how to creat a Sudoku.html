@@ -1,0 +1,195 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>九宫格有哪几种方法可以实现，他们各自的优缺点是什么？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-01】九宫格的布局你能够想到哪些办法实现？它们各自的优缺点是什么？</h2>
+
+            <h3>小课堂【武汉第102期】</h3>
+
+            <p style="text-align: center;">分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">要做九宫格，首先得明白什么是盒子模型。盒子模型是html+css中最核心的基础知识，理解了这个重要的概念才能更好的排版。 我们可以把所有HTML元素都可以看作盒子，里面包含了元素内容（content）、内边距（padding）、边框（border）、外边距（margin）几个要素。</p>
+        </section>
+        <section>
+            <img src="../img/css-01-box%20model/box-model-1.gif">
+        </section>
+        <section>
+            <img src="../img/css-01-box%20model/box-model-2.png">
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">
+                盒子的基本要素<br> content-内容<br> padding-内边距(填充）<br> border-边框<br> margin-外边距<br> 一个盒子实际所占有的宽度（或高度）是由”内容+内边距+边框+外边距“组成的
+            </p>
+        </section>
+
+        <section>
+            <p style="text-align: left">图中最内部的框content是元素的实际内容，也就是元素框。当元素为块级元素或内联块级元素时， 可以设置width，height属性来设定内容区的宽高。而内联非替换元素设置width,height属性无效，其宽度随元素的内容而变化。 当默认情况下，块级元素宽度自动填满其父元素宽度。</p>
+        </section>
+        <section>
+            <p style="text-align: left">Padding属性定义了元素边框与元素内容之间的空间。其值不可为负值，背景图与背景色可以显示在padding上。 当在内联非替换元素上设置padding时，不会影响行高计算，但背景色可以显示。</p>
+
+        </section>
+        <section>
+            <p style="text-align: left">border指盒模型的边框，边框的相关的属性:宽度(border-width)、样式(border-style)、颜色(border-color)。 在默认情况下，背景会延伸到边框所在的区域下面。如果不希望背景侵入边框所在的范围，我们要做的就是把它的值设置为background-clip;padding-box.</p>
+        </section>
+        <section>
+            <p style="text-align: left">margin是外边距,与padding不同的是，margin可以为负。两个上下方向相邻的元素框垂直相遇时，外边距会合并。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">在本次小课堂，将展示如何用2种不同的html样式，4种CSS样式来制作出九宫格。分别是<br/>
+        </section>
+        <section>
+            <h3>HTML的2种表示形式</h3>
+        </section>
+        <section>
+            <h3>1.使用div+css布局。</h3>
+            <p style="text-align: left">使用9个div,将div标签inline-block化，使div能够水平排列。然后对div标签设置背景色，使用padding内边距来撑开div标签宽高，控制好外边距，使得div标签之间间距相等。<br/>
+            它的优点是1.网页载入比较快，由于DIV+CSS中的CSS富含丰富的样式，表现更加灵活。<br/>
+            2.页面内容与样式分离可以是网页代码减少，使页面的样式的调整变得更加方便。<br/>
+            3.表现和结构分离，在团队开发中更容易分工合作而减少相互关联性。<br/>
+                它的缺点是：浏览器兼容性 。DIV+CSS更容易出现多种浏览器不兼容的问题，主要原因是不同的浏览器对web标准默认值不同。</p>
+            <a href="../demo/css-01-how to creat a Sudoku/demo1.html">demo1</a>
+        </section>
+        <section>
+            <h3>2.使用ul,li布局。</h3><p style="text-align: left">ul,li布局和div布局很像，同样使用9个li，将li标签inline-block化。然后对li标签设置背景色，使用padding内边距来撑开li标签宽高，控制好外边距，使得li标签之间的间距相等。<br/>这种方法的优点是层次分明，不易混乱；缺点是ul,li标签是有默认的margin和padding.</p>
+            <a href="../demo/css-01-how to creat a Sudoku/demo2.html">demo2</a>
+        </section>
+        <section>
+            <h3>CSS的4种表示形式</h3>
+        </section>
+        <section>
+            <p>CSS中要实现自适应，就需要使用尺寸单位，比如%，rem，vw;
+            ,百分比单位是相对于父元素。rem单位相对于html根元素,vw单位相对于屏幕宽度。</p>
+        </section>
+        <section>
+            <p>使用flex布局来完成9宫格的制作。</p>
+            <a href="../demo/css-01-how to creat a Sudoku/demo3.html">demo3</a>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.不同的浏览器对ul,li标签有默认边距，该如何解决？<br/>
+               2.为什么九宫格布局不能定高？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">1.对于第一个问题，一般情况下通过对ul设置margin:0;padding:0;就能清除ul的默认间距。要去除去除li的默认间距至少有2种方法：<br/>1）.将li标签之间的间隙去除。2）.在body元素中添加font-size:0;。</p>
+            2.对于第二个问题。因为要实现自适应。自适应是在通常情况下宽度充满屏幕的基础上进行的，通常不会对高度进行控制，如果高度固定，就不能起到自适应的效果。
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>还有哪些方法可以去除li的默认间距</p>
+        </section>
+        <section>
+            <p>首先得了解不同浏览器所对应的letter-spacing与字体大小/字体关系，详细的请看</p>
+                <a href="http://www.zhangxinxu.com/wordpress/2010/11/%E6%8B%9C%E6%8B%9C%E4%BA%86%E6%B5%AE%E5%8A%A8%E5%B8%83%E5%B1%80-%E5%9F%BA%E4%BA%8Edisplayinline-block%E7%9A%84%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/">letter-spacing与字体大小/字体关系的数据表</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left"><a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">去除inline-block的N种方法</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>你还能想到几种办法来实现九宫格布局？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>感谢大家的观看</small>
+                <small>BY : 张增锋 李玺</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

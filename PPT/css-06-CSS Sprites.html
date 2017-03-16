@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是CSS Sprites</h2>
+            <h3>小课堂【成都-51期】</h3>
+            <p>分享人：李维文</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.参考文献</p>
+        </section>
+        <section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在计算机图形学中，sprites指的是包含于场景中的二维图像或者动画。</p>
+        </section>
+            <section>
+            <p>最开始这项技术是应用于街机游戏中，里面的人物和可移动物品大多数都是应用了sprites，为啥要叫sprites（精灵）呢？</p>
+            </section>
+            <section>
+                <p>精灵并不是帧缓冲中位图数据的一部分，而是“悬浮”于帧缓冲中的数据之上，没有对其中的数据产生影响，就像幽灵和精灵一样。</p>
+            </section>
+            <section>
+                <p></p>
+            </section>
+            <section>
+                <p>CSS精灵也差不多是这个意思，可以将原本需要多张图像文件分别显示，整并为单一图像文件的分区显示技术，借由减少下载图像文件数量，提高网页的显示性能。</p>
+            </section>
+            <section>
+                <p> 那这项技术为啥能减少http请求呢？讲到这里就要提一下，浏览器在加载网页的时候图片文件及外部的JS、CSS文件都需要单独下载，JS是堵塞HTML下载进程的，图片是另外开启进程来下载的，不同的浏览器会有不同的同时下载图片的数量的限制或者一个或者五个或者十个，反正是有限制的，所以如果一个遍布了图片的网页，或者一系列网页，即使你网速再快也要分批次的下载这些图片。</p>
+            </section>
+            <section>
+                <p>而且每个图片的下载都是一次完整的HTTP请求-响应。而把很多小图片集中到一张图片上这样在只需要一个HTTP请求-响应，在现在网速条件下不超过200k的图片下载速度是差不多的，下载一次之后无论是该页面还是站点其它页面使用包含在这张大图上的图片的时候就可以使用缓存，不会带来反复下载的开销，所以只有一个HTTP请求-响应。</p>
+            </section>
+            <section>
+                <p>所以使用CSS sprites最大的好处就是减少HTTP请求，加快网站响应速度，提高网站性能。有同学可能会问了，多几个HTTP请求真的会那么严重吗？如果使用一张大图，那么很可能大图中有几个图片用不到，这不是多加载内容了吗，和多几次HTTP请求开销差距有那么大吗？</p>
+            </section>
+            <section>
+                <p>还有一个好处，这样不但快了，还省流量了，因为HTTP请求-响应会在客户端和服务器端交互HTTP报文，所以下载一个图片所用流量不只是图片大小，每个HTTP报文会占用网络流量的。也许有同学会问，谁会在乎那点而流量，你别说还真有人在乎，如果你不是自己机房，而是把服务器放在别人机房就知道流量也是很贵的，如果你的网站每天被访问数十亿次，这点儿流量就会让你肉疼了，不知道大家看过Google首页Page Source没有，截取一部分，可以发现，人家连HTML的换行符、缩进、空格都给省了，你说图的是可读性吗。</p>
+            </section>
+            <section><img src="http://images.cnitblog.com/blog/349217/201310/02170611-6b9ee0686f4b448e883d08ff50f719fb.png"><p>更别说对众多的手机用户了，流量都是钱呐！</p></section>
+            </section>
+        <section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+           <p>
+        </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">一，如何实现CSS sprites</h1>
+                <p>1.我们需要找到需要使用的小图标，然后对图标进行切图，切出来我们需要的图片或者图标。</p>
+                <p>2.将这些切好的图片拼接在一起,这里我们可以使用photoshop，但是更好的是很多前辈制作了许多sprites图生成工具，也就是俗称的雪碧图生成工具，下面我给大家演示一下。</p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">二，应用到网页</h1>
+                <p>好了，我们做好需要使用的雪碧图，现在需要将这个图应用到我们的网页中，利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字精确的定位出背景图片的位置。根据雪碧图中图标的具体像素大小，再规定元素的具体大小，然后使用background-position找到图标的位置。元素大小相当于相机机头，background-position相当于移动相机找到我们需要的景物，下面给大家简单的演示一下。 </p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">三，css sprites的优缺点</h1>
+                <p>优点</p>
+                <p>上面也提到了，通过减少下载图片的数量以减少http请求数量，减少http报文，节省流量，增加访问速度，提高网页的性能。这是它最大的优点。</p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">三，css sprites的优缺点</h1>
+                <p>缺点</p>
+                <p>1.每次制作雪碧图都很繁琐，增大前端和UI的工作量。</p>
+                <p>2.雪碧图制作完成之后，维护特别困难，每次要加或者换图片都需要重新制作一整张图片。</p>
+                <p>3.难以实现自适应，图片的大小都限定死了。</p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">三，css sprites综合点</h1>
+                <p>一切为了性能，这些缺点只能忍受了，但是大家做雪碧图之前也要考虑清楚，哪些图片不适合使用雪碧图，综合考虑，合理使用。</p>
+            </section>
+            </section>
+
+        <section>
+            <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style="text-align: left; font-size: 30px">
+            <p> 雪碧图如何自适应</p>
+
+        </section>
+            </section>
+        <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这是个坑。。。。需要自适应的图片就不要使用雪碧图了嘛！</p>
+        </section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a herf="http://www.cnblogs.com/scgw/archive/2011/03/19/1988908.html">用CSS sprites写一副扑克牌。</a>
+            <p>这个蛮有趣的，大家有兴趣可以尝试下，更加熟悉CSS sprites的使用。</p>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+        </section>
+        <section>
+            <a href="https://zh.wikipedia.org/wiki/%E7%B2%BE%E7%81%B5_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6)#CSS_Sprite">Wiki百科 sprites</a><br>
+            <a href="http://www.cnblogs.com/scgw/archive/2011/03/19/1988908.html">简单实例让你快速掌握css sprites精髓</a><br>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :李维文</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
