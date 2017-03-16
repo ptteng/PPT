@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<style>
+
+</style>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+           <h3>css选择器的优先级是怎么样设定的？权重又是什么？</h3>
+            <h3>小课堂【郑州第52期】</h3>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是选择器？</p>
+        </section>
+        <section>
+            <p>要使用css对HTML页面中的元素实现一对一，一对多或者多对一的控制，这就需要用到CSS选择器。</p>
+            HTML页面中的元素就是通过CSS选择器进行控制的。
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+            <p>CSS的选择器可以分为三大类，</p>即id选择器、class选择器、标签选择器。
+            <br>用法如下：
+             <p>#id名 { 属性名:属性值; }</p>
+                (例：div id=“wu”>&nbsp;&nbsp;&nbsp;#wu{color:red})
+            <p> .class名 { 属性名:属性值; }</p>
+            (例：div class=“liu”>&nbsp;&nbsp;&nbsp;.liu{color:red})
+           <p> 标签名 { 属性名:属性值; }</p>
+              (例：《p》<b style="color:red">内容</b>《/p》&nbsp;&nbsp;&nbsp;p{color:red})
+            </section>
+            <section>
+                他们之间又可以以不同的方式进行组合，如下：
+
+                <p>后代选择器: 父代名 后代名 { 属性名:属性值; }</p>
+                <p style="font-size:28px; color:red">注释：后代选择器：就是对象当中所有的子元素，孙子元素以及最底层的元素</p>
+            </section>
+            <section>
+               <p>子代选择器: 父代名>子代名 { 属性名:属性值; }</p>
+                
+
+                <p style="font-size:28px;color:red">注释：子选择器：就单单是子元素，子元素的子元素也就是孙子元素就不算了</p>
+
+            </section>
+            <section>
+                 <p>群组选择器: #name1, .name2, #name div { 属性名:属性值; }</p>
+            </section>
+        </section>
+        <section>
+      <h5>伪类选择器:{ name:伪类}</h5>
+        </section>
+            
+        <section>
+            <section>
+            <pre>
+                    <p style="font-size: 24px;line-height: 40px;">
+                        :active 向被激活的元素添加样式。
+                        :focus 向拥有键盘输入焦点的元素添加样式。
+                        :hover 当鼠标悬浮在元素上方时，向元素添加样式。
+                        :link 向未被访问的链接添加样式。
+                        :visited 向已被访问的链接添加样式。
+                        :checked 选择器匹配每个已被选中的 input 元素。
+                        :first-child 向元素的第一个子元素添加样式。
+                    </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                2.4通用选择器
+            </section>
+            <section>
+                通用选择器可能是所有选择器中最强大却最少使用的，通用选择器的作用就像是通配符，它可以匹配所有可用的元素。
+                起作用主要在实际中的使用是删除每个元素上默认的浏览器内外边距。
+                通过*号来表示
+            <pre>
+                    <code>
+                        * {margin: 0; padding:0}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 选择器使用的优先级是怎么进行计算的？也就是权重问题
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">
+                    <span style="color:#333">同一权重</span><br/>
+                   按照它在CSS样式表里声明的顺序，后声明的优先，例如：
+                   <br/>h1 {color: blue}
+                   <br/>h1 {color: red}
+                   <br/>最终胜出的是color: red<br/><br/>
+                   <span style="color:#333">不同权重</span><br/><br/>
+                    在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。<br/><br/>
+                </p>
+            </section>
+
+            <section>
+
+            <img src="images/quanzhong.png">
+            </section>
+            <section>
+                    <p>1.最高优先级是 (直接在标签中的设置样式，假设级别为1000)(div style="color:Red;")</p>
+　　2.次优先级是（ID选择器 ,假设级别为100）   #myDiv{color:Red;}
+　　<p>3.其次优先级是（类选择器，假设级别为10）.divClass{color:Red;}</p>
+　　4.最后优先级是 （标签选择器，假设级别是 1）  div{color:Red;}
+　　<p>5.那么后代选择器的优先级就可以计算了啊</p>
+　　比如 .divClass  span { color:Red;}   优先级别就是：10+1=11
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>问题一:子选择器和后代选择器的区别？</p>
+
+            <p class="fragment">子元素选择器的对象只包括“儿子”， 后代选择器的对象包括“子子孙孙”</p>
+
+            <p>问题二：什么时候需要使用子选择器？ </p>
+
+            <p class="fragment"> 父元素下一级的某种元素具有一些公共的样式 </p>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+
+            <p>参考二：<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank">W3School</a></p>
+
+            <p>参考三：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank">菜鸟教程</a></p>
+
+            <p>参考四：<a href="http://kb.cnblogs.com/page/545911/">博客园</a></p>
+            <p>参考四：<a href=" https://zhidao.baidu.com/question/326933586560497725.html?fr=iks&word=css%D1%A1%D4%F1%C6%F7&ie=gbk">百度贴吧</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+             <p>伪类和伪元素的区别? </p>
+
+            <p class="fragment">伪类的操作对象是文档树中已有的元素，而伪元素则创建了一个文档树外的元素。因此，伪类与伪元素的区别在于: <br/>
+                有没有创建一个文档树之外的元素。
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p>
+                <small>BY : 沁修 | 汪开放</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
