@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task13】响应式的优点与缺点？</h2><br><br>
+            <p>分享人：赵灵杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.优点是？</p>
+            <p>4.缺点是？</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left"> 随着3G-4G的普及，越来越多的人使用手机上网。
+                手机的屏幕比较小，宽度通常在600像素以下；PC的屏幕宽度，一般都在1000像素以上（目前主流宽度是1366×768），有的还达到了2000像素。同样的内容，要在大小迥异的屏幕上，都呈现出满意的效果，并不是一件容易的事。
+                响应式布局是Ethan Marcotte在2010年5月份提出的一个概念，简而言之，就是一个网站能够兼容多个终端——而不是为每个终端做一个特定的版本。这个概念是为解决移动互联网浏览而诞生的。响应式布局可以为不同终端的用户提供更加舒适的界面和更好的用户体验，而且随着目前大屏幕移动设备的普及，用“大势所趋”来形容也不为过。随着越来越多的设计师采用这个技术，我们不仅看到很多的创新，还看到了一些成形的模式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left"><p style="text-align: left;">实现方法？</p>
+            <P> 1、设置屏幕按1：1的尺寸显示，在 iPhone 和其他智能手机的浏览器提供网站全视图浏览，并禁止用户缩放页面。（meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"）</p>
+             <p style="text-align:left"> 2、不固定宽度。
+            3、相对大小的字体。
+            4、流动布局。</p>
+            <p style="text-align:left"> 5、选择加载CSS。</p>
+            <p style="text-align: left;">6、CSS的@media规则。（ 举例如下：
+
+     @media screen and (min-width:1000px){...}              对应PC端页面;
+
+     @media screen and (max-width:1000px) and (min-width:768px) {...}        对应平板端页面;
+
+     @media screen and (max-width:768px){...}           对应手机端页面;）</p>
+            <p style="text-align: left;">
+            </P>
+        </section>
+        <section>
+            <h3>3.优点</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">1，同样的布局，却可以在不同的设备上有不同排版，这就是响应式最大的优点，在分辨率不同，设备环境进行一些不同的设计，所有开发维护和运营上，相对多个版本成本会降低很多。图片超出显示区域时，图片就被裁剪了。</p>
+            <p style="text-align: left;">2,兼容性好，跨平台，移动设备尺寸参差不齐，版本定制通常只适用于固定规格的设备，但不适用分辨率变化较大的设备。</p>
+            <p style="text-align: left;">3,方便改动，响应式设计是针对页面的，可以只对必要的页面进行改动，其他页面不受影响。</p>
+        </section>
+        <section>
+            <h3>4.缺点</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">1.页面加载的代码多了，导致文件增大，影响加载速度</p>
+            <p style="text-align: left;">2.在响应式设计中，图片、视频等资源一般是统一加载的，这就导致在低分辨率的机子上，实际加载了大于它的显示要求的图片或视频，导致不必要的流量浪费，影响加载速度；</p>
+            <p style="text-align: left;">3.局限性，对于响应式，局限性较大，不适合一些大型的门户网或者电商网站，一般门户网或电商网站一个界面内容较多，而响应式最忌讳较多内容，代码过多会影响运行速度。</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <p style="margin-left: -15%;font-size: 3rem">
+                    <a href="http://119.10.57.69:880/ptt250">demo1</a>
+                </p>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >如何区分响应式和自适应？</a></p>
+        </section>
+        <section>响应式和自适应的区别<a href="http://www.mizuiren.com/391.html">介绍</a></section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.5icool.org/a/201309/a2517.html">什么是响应式</a></p>
+            <p >参考二：<a href="http://www.cnblogs.com/sy123456/p/5653915.html">博客院</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>响应式在web布局中有多重要？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY:阿九</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
