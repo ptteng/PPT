@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Reset与Normalize</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task12】如何做默认样式重置？resetting 和 normalizing 之间有什么区别？</h2>
+            <h3>小课堂【郑州第五十七期】</h3>
+            <p>分享人：王相博</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p><strong>默认样式重置出现的原因：</strong>因为现在的浏览器很多，
+                并且每个浏览器都有自己的默认样式（如谷歌浏览器），这样就会导致
+                一个页面在多个浏览器下的展示产生差异，所以我们需要做一些处理使
+                每个浏览器下展示一致，于是就出现了默认样式重置的说法，可以说，
+                兼容性是CSS reset诞生的的主要原因。</p>
+        </section>
+        <!--<section>-->
+            <!--<img src="../img/css-12-ReserAndNormalize/Chrome2.png" style="margin: 0">-->
+            <!--<img src="../img/css-12-ReserAndNormalize/Chrome1.png" style="margin: 0">-->
+        <!--</section>-->
+        <section>
+            <p>
+                最早的一份CSS reset来自Tantek 的 <a href="http://tantek.com/log/2004/undohtml.css">undohtml.css</a>，
+                很简单的代码，Tantek 根据自己的需要，对浏览器的默认样式进行了一些重置。
+                其余比较有名的CSS reset如业界领袖Eric Meyer的<a href="http://meyerweb.com/eric/tools/css/reset/">reset </a>。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">Reset是什么？</h3>
+        </section>
+        <section>
+            <p>我们可以把它叫做CSS重设，也有人叫做CSS复位、默认CSS、CSS重置等。
+                CSS重设就是由于各种浏览器解释CSS样式的初始值有所不同，导致设计师
+                在没有定义某个CSS属性时，不同的浏览器会按照自己的默认值来为没有定
+                义的样式赋值，所以我们要先定义好一些CSS样式，去“覆盖”浏览器的CSS默认属性，
+                来让所有浏览器都按照同样的规则解释CSS，这样就能避免发生这种问题。</p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>CSS reset的作用</strong>是让各个浏览器的CSS样式有一个统一的基准，
+                而这个基准更多的就是“清零”！如下面常见但事实上极不推荐的代码： </p>
+            <p>
+                *{ margin:0; padding:0; }<br>
+                其中*就是常说的通配符，它代表了HTML里面任意一个标签。
+                如上代码所示，很多人喜欢拿通配符做样式重置，但是对于网站优化而言，
+                使用通配符的做法是非常不可取的，因为这种做法相当消耗浏览器的性能。
+                原因在于星号代表任意一个标签，当浏览器解析到星号时，
+                就会 <u>将页面中所有用到的标签都进行一次样式重置，不管这个标签是否有这样的默认样式。</u>
+                虽然这种性能消耗可以被忽略不计， 但是做为一个有责任心的web前端开发人员来说，
+                如无必要，通配符还是尽量不要出现在样式重置中。
+            </p>
+        </section>
+        <section>
+            <a href="http://blog.bingo929.com/css-reset-collection.html">
+                目前比较全的CSS重设(reset)方法总结
+            </a>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">Normalize是什么？</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Normalize.css 只是一个很小的CSS文件，但它在默认的HTML元素样式上
+                提供了跨浏览器的高度一致性。相比于传统的CSS reset，Normalize.css
+                是一种现代的、为HTML5准备的优质替代方案。Normalize.css现在已经被
+                用于Twitter Bootstrap、HTML5 Boilerplate、GOV.UK、Rdio、CSS Tricks
+                以及许许多多其他框架、工具和网站上。 <br><br>
+                源码见：
+                <a href="http://119.10.57.69:880/ptt147/Lesson/css-12-ResetAndNormalize/normalize.css">normalize</a>、
+                <a href="https://github.com/necolas/normalize.css">GitHub源码</a>
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">normalize创造的目的：</p>
+            <ol>
+                <li>保护有用的浏览器默认样式而不是完全去掉它们</li>
+                <li>一般化的样式：为大部分HTML元素提供</li>
+                <li>修复浏览器自身的bug并保证各浏览器的一致性</li>
+                <li>优化CSS可用性：用一些小技巧</li>
+                <li>解释代码：用注释和详细的文档来</li>
+            </ol>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">reset和normalize的区别</h3>
+        </section>
+        <section>
+            <p style="font-weight: bold;text-align: left">
+                1. Normalize.css 保护了有价值的默认值
+            </p>
+            <p style="text-align: left">
+                Reset通过为几乎所有的元素施加默认样式，强行使得元素有相同的视觉效果。
+                相比之下，Normalize.css保持了许多默认的浏览器样式。这就意味着你不用再
+                为所有公共的排版元素重新设置样式。当一个元素在不同的浏览器中有不同的默认值时，
+                Normalize.css会力求让这些样式保持一致并尽可能与现代标准相符合。
+            </p>
+        </section>
+        <section>
+            <p style="font-weight: bold;text-align: left">
+                2. Normalize.css 修复了浏览器的bug
+            </p>
+            <p style="text-align: left">
+                它修复了常见的桌面端和移动端浏览器的bug。
+                这往往超出了Reset所能做到的范畴。关于这一点，
+                Normalize.css修复的问题包含了HTML5元素的显示设置、
+                预格式化文字的font-size问题、在IE9中SVG的溢出、许多
+                出现在各浏览器和操作系统中的与表单相关的bug。
+            </p>
+        </section>
+        <section>
+            <p style="font-weight: bold;text-align: left">
+                3. Normalize.css 不会让你的调试工具变的杂乱
+            </p>
+            <p style="text-align: left">
+                使用Reset最让人困扰的地方莫过于在浏览器调试工具中大段大段的继承链，
+                如下图所示。在Normalize.css中就不会有这样的问题，因为在我们的准则中
+                对多选择器的使用时非常谨慎的，我们仅会有目的地对目标元素设置样式。
+                <img src="../img/css-13-reset/reset-bad.PNG">
+            </p>
+        </section>
+        <section>
+            <p style="font-weight: bold;text-align: left">
+                4. Normalize.css 是模块化的
+            </p>
+            <p style="text-align: left">
+                这个项目已经被拆分为多个相关却又独立的部分，
+                这使得你能够很容易也很清楚地知道哪些元素被设置了特定的值。
+                因此这能让你自己选择性地移除掉某些永远不会用到部分（比如表单的一般化）。
+            </p>
+        </section>
+        <section>
+            <p style="font-weight: bold;text-align: left">
+                5. Normalize.css 拥有详细的文档
+            </p>
+            <p style="text-align: left">
+                Normalize.css的代码基于详细而全面的跨浏览器研究与测试。
+                这个文件中拥有详细的代码说明并在Github Wiki中有进一步的说明。
+                这意味着你可以找到每一行代码具体完成了什么工作、为什么要写这句代码、
+                浏览器之间的差异，并且你可以更容易地进行自己的测试。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                总得来说，<u>CSS Reset 是革命党</u> ，CSS Reset 里最激进那一派提倡不管你有用没用，
+                通通给我脱了衣服，于是 *{margin:0;} 等等运动，把人家全拍了。看似是众生平等了，
+                实则是浪费了资源又占不到便宜，有求于人家的时候还得给加回去，实在需要人家的默认
+                样式了怎么办？自己看着办吧。<br>
+                <u>Normalize.css 是改良派。</u>他们提倡，各个元素都有其存在的道理，
+                简单粗暴地一视同仁是不好的。谁都有谁的作用，给他们制定个规范，确保他们
+                在任何浏览器里都干好自己的活儿就好了。
+            </p>
+            <a href="https://www.zhihu.com/question/20094066/answer/25004727" style="float: right">
+                来源于‘知乎用户’[侵删]</a>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>reset和normalize如何选用？还是直接不用？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                这需要以自身的需求为基点出发去选择，是个公说公有理婆说婆有理的事，
+                故而在此只给出一些建议：
+            </p>
+            <p style="text-align: left">
+                1.如果要使用reset。则尽量不要去直接拷贝CSS reset的代码，
+                自己网站上没用到的不用重置，且无意义的重置不要
+                （比如div本不需要{margin：0；padding：0}），
+                尽量保证用到的重置是高效简洁的；
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.如果要使用normalize，可以将normalize.css作为自己项目的基础CSS，
+                自定义样式值来满足自己的需求。(例如去掉a标签自带的下划线和p标签的自带的margin）
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                3.如果选择不用，可以根据自己需要的再去设置改变，或者写一段适合自己的修改默认样式的代码。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="http://119.10.57.69:880/ptt147/Lesson/css-12-ResetAndNormalize/demo1.html">Demo1：各个元素在不同浏览器中的表现形式</a><br><br>
+            <a href="http://119.10.57.69:880/ptt147/Lesson/css-12-ResetAndNormalize/demo2.html">Demo2：用常见reset代码</a><br><br>
+            <a href="http://119.10.57.69:880/ptt147/Lesson/css-12-ResetAndNormalize/demo3.html">Demo3：用normalize.css</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                到底该不该用 CSS reset？<br><br>
+                <a href="https://www.zhihu.com/question/23554164"> 参考知乎讨论</a>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a
+                    href="http://www.zhangxinxu.com/wordpress/2010/04/css-reset%E7%9A%84%E9%87%8D%E6%96%B0%E5%AE%A1%E8%A7%86-%E9%81%BF%E5%85%8D%E6%A0%B7%E5%BC%8F%E9%87%8D%E7%BD%AE/   "
+                    target="_blank">
+                张鑫旭-《CSS reset的重新审视 – 避免样式重置》</a></p>
+            <p>参考二：<a href="http://jerryzou.com/posts/aboutNormalizeCss/"
+                      target="_blank">作者写的介绍：来，让我们谈一谈 Normalize.css</a></p>
+            <p>参考三：<a href="https://www.zhihu.com/question/20094066/answer/25004727"
+                      target="_blank">Normalize.css 与传统的 CSS Reset 有哪些区别？</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">讨论:应该如何做到最优的样式重置呢?</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 彭勇、胡嘉杰、万维娜、王相博</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
