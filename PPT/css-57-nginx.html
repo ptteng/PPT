@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>成都小课堂：nginx</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/black.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>如何配置nginx，实现在手机上查看页面？</h2>
+                    <h2>介绍</h2>
+                <h3>小课堂【成都第57期】</h3>
+                <p style="text-align: center;">分享人：吴彦澄</p>
+            </section>
+            <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.怎么安装</p>
+            <p>4.实际操作</p>
+            <p>5.问题思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+            </section>
+            <section><h3>一、背景介绍</h3></section>
+              <section>
+                <section>
+                  <h3>1.nginx是什么</h3>
+                </section>
+                <section>
+                        <p style="text-align: center">Nginx是一个高性能网页服务器</p>
+                </section>
+                <section>
+                        <p style="text-align: center">那么什么是高性能网页服务器呢？</p>
+                </section>
+                <section>
+                        <p style="text-align: center">不百度，不谷歌来思考一下这个问题，对于普通用户群体来说，什么是一个<strong style="color:red">高性能站点</strong></p>
+                </section>
+                <section>
+                        <p style="text-align: center">一般的用户所反能接受的打开网页的速度是在<strong style="color:red">4秒以内</strong>越快越好，很有可能超过4秒你的网页可能就会被别人所关闭，那么高性能所指的，就是指哪些响应速度很快的哪些网站。今天我给大家介绍的Nginx就是能帮你构建出这种高性能服务器的一个平台</p>
+                </section>
+              </section>
+              <section><h3>二、知识剖析</h3></section>
+                <section>
+                    <section><h3>1.谁选择了Nginx</h3></section>
+                    <section>
+                        <h3>国内</h3>
+                        <p style="text-align: center">百度、京东、新浪、网易、腾讯、知乎、搜狐、盛大</p>
+                        <p>淘宝使用的是自己改造过的nginx，Tengine</p>
+                    </section>
+                    <section>
+                        <section>
+                            <h3>国外</h3>
+                            <p style="text-align: center">比较出名的有Wordpress、Instagram、Facebook、GitHub</p>
+                        </section>
+                    </section>
+                    <section>
+                      <h3>nginx有什么优点</h3>
+                    </section>
+                    <section>
+                        <ol style="text-align: center">
+                            <li style="color: red"><strong>支持SLB</strong></li>
+                            <li style="color: red"><strong>更加高效，更加安全</strong></li>
+                            <li style="color: red"><strong>快速传输媒体</strong></li>
+                            <li><strong>支持WEB加速提升移动端性能</strong></li>
+                            <li><strong>防DDos攻击</strong></li>
+                            <li>跨平台</li>
+                            <li>高并发</li>
+                            <li><strong>优点还有很多，比如反向代理和正向代理</strong></li>
+                        </ol>
+                      </section>
+                </section>
+            </section>
+            <section>
+              <section>
+                <h3>三、怎么安装</h3>
+              </section>
+              <section>
+                  <h3>如何安装nginx</h3>
+                  <ol>
+                      <li><strong style="color:red">选择你对应的系统版本</strong></li>
+                      <li>Windows系统可以到官方网站<a href="">http://nginx.org/</a>下载对应的版本</li>
+                      <li>如果你是Linux系统可以使用具体的命令行进行操作</li>
+                      <p>如果是Centos系统<br>sudo yum install nginx<br>如果你是Ubuntu系统可以使用<br>sudo apt install nginx</p>
+                      <li>MAC系统也可以通过命令行的方式来进行安装</li>
+                      <p>先brew search nginx搜索nginx<br>使用brew install nginx进行安装</p>
+                  </ol>
+              </section>
+            </section>
+
+            <section>
+              <section><h3>四、实际操作</h3></section>
+                  <section>
+                      <h3>Ubuntu</h3>
+                      <ol>
+                        <li>使用putty、Bitvise等工具连上你的服务器</li>
+                        <li>使用root账户</li>
+                        <li>输入命令行 Sudo apt ingstall nginx</li>
+                        <li>把你的网页上传到服务器上,可以通过各种方式FTP等</li>
+                      </ol>
+                    </section>
+                    <section><h3>现场使用手机查看</h3></section>
+                    <section>
+                        <h3>为了方便演示，这里我给大家用模拟器演示一下具体的效果</h3>
+                    </section>
+                  </section>
+            <section>
+              <section><h3>五、思考问题</h3></section>
+              <section>
+                <p>Nginx除了用来搭建网站还可以用来做什么？</p>
+              </section>
+            </section>
+            <section>
+              <section>
+                  <h3>六、参考文献</h3>
+              </section>
+              <section>
+                  <a href="http://www.centoscn.com/nginx/2016/0329/6956.html">Nginx的七大优势</a><br>
+                  <a href="http://www.tuicool.com/articles/VV7nim6">我们为什么要用nginx，nginx的特点</a><br>
+                  <a href="http://baike.baidu.com/link?url=psvcLj9q23JaU4dOmQJAMEGFsqoLeE29R0pKAymlrAsEBJEXWVDYMHL4rt7H4GB03k6YbCyvAlzXisSgaovpWq">百度百科nginx</a>
+              </section>
+            </section>
+            <section>
+              <section>
+                  <h3>七、常见问题</h3>
+              </section>
+              <section>
+                  <p>nginx对文件夹英文取名不敏感，对中文敏感，路径中不能存在中文字符出现报错，nginx路径下的\logs\error.log就是错误日志，复制里面的内容去百度就行</p>
+              </section>
+            </section>
+            <section>
+                <h4>感谢观看</h4>
+                <p><small>by 吴彦澄</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>
