@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Collaborative Development&Slides tutorial</title>
+    <title>【CSS-02】如何使用github+hexo搭建个人网站l</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -16,11 +16,13 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi)
+            ? '../css/reveal/print/pdf.css'
+            : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -31,56 +33,80 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3>【ppt-01】如何关联github项目仓库和小课堂PPT的相关教程</h3>
-            <h3>小课堂【武汉-12期】</h3>
-            <p>分享人：杨泽平</p>
+            <h3>【CSS-02】如何使用github+hexo搭建个人网站</h3>
+            <h3>小课堂【武汉-109期】</h3>
+            <p>分享人：庄引</p>
         </section>
+
         <section>
             <p>目录</p>
-            <div style="text-align:left ; padding:3% 25%">
-                <p>1.如何关联github项目仓库</p>
-                <p>2.小课堂PPT完整的开发流程</p>
-                <p>3.如何将文件上传到github</p>
-            </div>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
         </section>
+
         <section>
             <section>
-                <h4>1.如何关联github项目仓库</h4>
+                <h1>1.为什么要搭建自己的独立网站?
+                </h1>
             </section>
             <section>
-                <p>首先，你必须要有github帐号并知道用户名。</p>
-                <div style="text-align:left ; padding:0% 12%">
-                    <p>不清楚如何注册github的请 <a style="color: #e77; padding: 0 2%" href="http://jingyan.baidu.com/article/4e5b3e192200e291911e2468.html" target="_blank">点这里</a>
+                <p>
+                    你是不是一直想要一个搭建自己的独立博客，但是觉得申请域名+服务器的太麻烦了就一直没有实现。Hexo是优秀的静态博客框架再搭配现在流行的github，简直是写博客的黄金搭档（免费+方便）。于是就上网参考了好多教程最后磕磕碰碰的搭建了起来。 但是网上的教程多多少少都有点问题,或是时间久远,没有及时更新;或是步骤不详细,不能解决出错。 于是就有了这个我自己总结的教程，一是自己总结一下。二是给也想搭建Hexo博客的童鞋们多一点参考。 本教程是基于Window 10系统用户，Hexo3版本
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>安装前提</h1>
+                <p>首先，你必须要有github帐号并知道创建repository。</p>
+                <div style="text-align:left ; padding:0 12%">
+                    <p>没有github账号的
+                        <a style="color: #e77; padding: 0 2%" href="https://github.com/" target="_blank">点这里</a>
                     </p>
                 </div>
             </section>
             <section>
-                <h4>如何关联github项目仓库中的PPT项目</h4>
-                <div style="text-align:left ; padding:3% 15% ;font-size:35px">
-                    <p >1. 登陆<a href="http://my.wiki.ptteng.com/pages/viewpage.action?pageId=13965044" target="_blank">wiki</a>查看葡萄藤的官方github帐号并登陆</p>
+                <h4>如何创建repository</h4>
+                <p style="color:red;">强调:创建的repository name必须是 XX.github.io(XX为你自己的github用户名)</p>
+            </section>
+            <section>
+                <h1>前提软件</h1>
+                <div style="text-align:left ; padding:0 12% ;font-size:35px">
+                    <p>所需软件有
+                        <img src="../img/CSS-02-How to use github to build  you own personal website/logo.svg" alt="nodejs">
+                        Node.js
+                        <a style="color: #e77; padding: 0 2%" href="https://nodejs.org/en/" target="_blank">点这里</a>: 作用：node.js用来创建hexo博客框架的，我当前安装版本为：node-v5.6.0-x64
+                        <img src="../img/CSS-02-How to use github to build  you own personal website/git.png" alt="git">
+                        Git客户端
+                        <a style="color: #e77; padding: 0 2%" href="https://git-scm.com/download" target="_blank">点这里</a>: 作用：把本地的hexo内容提交到github上去，我当前安装的是Git-2.11.0-64-bit
+                    </p>
                 </div>
             </section>
             <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>2. 如图操作 </p>
-                    <img src="../img/ppt-01-Collaborative Development&Slides tutorial/one.jpg" alt="">
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>3. 如图操作 </p>
+                <div style="text-align:left ; padding:0 12% ;font-size:35px">
+                    <p>3. 如图操作
+                    </p>
                     <img src="../img/ppt-01-Collaborative Development&Slides tutorial/two.jpg" alt="">
                 </div>
             </section>
             <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>4. 如图操作 </p>
+                <div style="text-align:left ; padding:0 12% ;font-size:35px">
+                    <p>4. 如图操作
+                    </p>
                     <img src="../img/ppt-01-Collaborative Development&Slides tutorial/3.jpg" alt="">
                 </div>
             </section>
             <section>
                 <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>5. 如图操作 </p>
+                    <p>5. 如图操作
+                    </p>
                     <img src="../img/ppt-01-Collaborative Development&Slides tutorial/4.jpg" alt="">
                 </div>
             </section>
@@ -91,61 +117,61 @@
                 </div>
             </section>
         </section>
+
         <section>
-            <section>
-                <h4>2.小课堂PPT完整的开发流程</h4>
-            </section>
-            <section>
-                <p>一.从github下载PPT项目相关文件</p>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>1.登入github，如图操作</p>
-                    <img  src="../img/ppt-01-Collaborative Development&Slides tutorial/2-1.jpg" alt="">
-                    <p>如遇到文件下载速度缓慢，请自备VPN。</p>
-                </div>
-            </section>
-            <section>
-                <p>二.小课堂PPT制作的相关教程</p>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:25px">
-                    <p style="font-size:35px">约定：</p>
-                    <ul style="padding:0% 15% ">
-                        <li>每个PPT为一个html页面，位置放于PPT文件夹下，命名规则按{职业-任务序号-分享主题英文标题}的方式命名。</li><br>
-                        <li>每个PPT所需要的图片均放到/img下，创建和html名称相同的文件夹。如/PPT/demo.html的图片放到/img/demo/下</li><br>
-                        <li style='color:red; font-weight: bold'>PPT制作后需要在index.html首页将内容添加到表格内</li><br>
-                        <li>PPT制作方法参考PPT/demo.html，复制粘贴代码，内容修改</li><br>
-                        <li style='color:red; font-weight: bold'>PPT内容结构严格参照PPT/demo.html</li><br>
-                        <li >更改以前已有的PPT分享后，需要将自己的名字添加到PPT尾页前人名字之后</li><br>
-                    </ul>
-                </div>
-            </section>
-            <section>
-                <p>1.) PPT内容的制作。</p>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:25px">
-                    <p>将解压后的PPT项目文件夹中的demo页面引入到ide中。<br>第32行的div标签内，就是我们要编辑内容的地方。<br><br>
-                        主要的几个标签用法：
-                    </p>
-                    <p style='padding:0% 5%'>
-                        <span style="color:red">section</span>：页面的容器。<br>
-                        <pre style="width:100%">
+            <h4>2.小课堂PPT完整的开发流程</h4>
+        </section>
+        <section>
+            <p>一.从github下载PPT项目相关文件</p>
+        </section>
+        <section>
+            <div style="text-align:left ; padding:0% 12% ;font-size:35px">
+                <p>1.登入github，如图操作</p>
+                <img src="../img/ppt-01-Collaborative Development&Slides tutorial/2-1.jpg" alt="">
+                <p>如遇到文件下载速度缓慢，请自备VPN。</p>
+            </div>
+        </section>
+        <section>
+            <p>二.小课堂PPT制作的相关教程</p>
+        </section>
+        <section>
+            <div style="text-align:left ; padding:0% 12% ;font-size:25px">
+                <p style="font-size:35px">约定：</p>
+                <ul style="padding:0% 15% ">
+                    <li>每个PPT为一个html页面，位置放于PPT文件夹下，命名规则按{职业-任务序号-分享主题英文标题}的方式命名。</li><br>
+                    <li>每个PPT所需要的图片均放到/img下，创建和html名称相同的文件夹。如/PPT/demo.html的图片放到/img/demo/下</li><br>
+                    <li style='color:red; font-weight: bold'>PPT制作后需要在index.html首页将内容添加到表格内</li><br>
+                    <li>PPT制作方法参考PPT/demo.html，复制粘贴代码，内容修改</li><br>
+                    <li style='color:red; font-weight: bold'>PPT内容结构严格参照PPT/demo.html</li><br>
+                    <li >更改以前已有的PPT分享后，需要将自己的名字添加到PPT尾页前人名字之后</li><br>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <p>1.) PPT内容的制作。</p>
+        </section>
+        <section>
+            <div style="text-align:left ; padding:0% 12% ;font-size:25px">
+                <p>将解压后的PPT项目文件夹中的demo页面引入到ide中。<br>第32行的div标签内，就是我们要编辑内容的地方。<br><br>
+                    主要的几个标签用法：
+                </p>
+                <p style='padding:0% 5%'>
+                    <span style="color:red">section</span>：页面的容器。<br>
+                    <pre style="width:100%">
                             <code>
                                 <section>
-                    <p>1.) PPT内容的制作。</p>
-            </section>
-            </code>
-            </pre>
-            <span style="color:red">pre+code</span>：效果如下，适合代码演示。
-            <pre style="width:100%">
+                <p>1.) PPT内容的制作。</p>
+        </section>
+        </code>
+        </pre>
+        <span style="color:red">pre+code</span>：效果如下，适合代码演示。
+        <pre style="width:100%">
                             <code class="hljs mipsasm" style="padding:0">
                             <span style="color:red">pre+code</span>：效果如下，适合代码演示。
                             <div style="text-align:left ; padding:0% 12% ;font-size:25px"></div>
                             </code>
                         </pre>
-            </p>
+        </p>
     </div>
     </section>
     <section>
@@ -186,7 +212,7 @@
             页面js相关设置：
             <pre>
                        <code>
-                                               // 以下为常见配置属性的默认值
+                                               <!-- // 以下为常见配置属性的默认值
                     // {
                     //  controls: true, // 是否在右下角展示控制条
                     //  progress: true, // 是否显示演示的进度条
@@ -203,7 +229,7 @@
                     //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
                     //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
                     //  mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
-                    // }
+                    // } -->
                        </code>
                    </pre>
             <p>如果需要更改 在页面底部script内的<span style="color:red">Reveal.initialize</span>函数内设置</p>
@@ -226,7 +252,8 @@
         </section>
         <section>
             <p>请在wiki上面查询葡萄藤在ipresst网站的账号密码 点击链接后登陆！</p>
-            <p>仅以webStorm为例，详细操作<a href="http://www.ipresst.com/w/30orku/edit" target="_blank">点我</a></p>
+            <p>仅以webStorm为例，详细操作<a href="http://www.ipresst.com/w/30orku/edit" target="_blank">点我</a>
+            </p>
             <!--<p>上传完毕之后请在github PPT项目中的表格页面<span style="color:red">在线修改！</span></p>-->
         </section>
         <section>
@@ -255,36 +282,28 @@
 
 <script>
 
-    // 以下为常见配置属性的默认值
-    // {
-    // 	controls: true, // 是否在右下角展示控制条
-    // 	progress: true, // 是否显示演示的进度条
-    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-    // 	keyboard: true, // 是否启用键盘快捷键来导航
-    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-    // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
-    // 	loop: false, // 是否循环演示
-    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
-    // 	fragments: true, // 全局开启和关闭碎片。
-    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
-    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
-    // }
-
-    // 初始化幻灯片
+    // 以下为常见配置属性的默认值 { 	controls: true, // 是否在右下角展示控制条 	progress: true, // 是否显示演示的进度条 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去 	keyboard: true, // 是否启用键盘快捷键来导航 	overview:
+    // true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式 	center: true, // 是否将幻灯片垂直居中 	touch: true, // 是否在触屏设备上启用触摸滑动切换 	loop: false, // 是否循环演示 	rtl: false, // 是否将演示的方向变成RTL，即从右往左 	fragments: true, // 全局开启和关闭碎片。 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0
+    // 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom 	transitionSpeed: 'default', // 过渡速度，default/fast/slow 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片 } 初始化幻灯片
     Reveal.initialize({
         history: true,
         transition: 'convex',
 
-
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {
+                src: '../plugin/markdown/marked.js'
+            }, {
+                src: '../plugin/markdown/markdown.js'
+            }, {
+                src: '../plugin/notes/notes.js',
+                async: true
+            }, {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
         ]
     });
 </script>
