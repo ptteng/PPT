@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>成都小课堂：flexbox</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>Flexbox（弹性盒布局模型）</h2>
+                    <h2> 介绍</h2>
+                <h3>小课堂【成都第53期】</h3>
+                <p style="text-align: center;">分享人：何华飒</p>
+            </section>
+            <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.扩展思考</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+            </section>
+            <section><h3>一、背景介绍</h3></section>
+            <section>
+                    <p style="text-align: left">Flexbox布局的诞生，是为了提供一种更佳有效的布局方式，更有效率的处理某些特殊布局(例如垂直居中）。它可以更好的控制项目的对齐和自由分配容器空间，即使它们的大小是未知的或动态的，因此得其名"flex"。</p>
+                <p style="text-align: left">Flexbox可以简便而完整的实现各种页面布局，可作为display属性 、position属性 、 float属性等布局方式的补充。</p>
+
+            </section>
+            <section><h3>二、知识剖析</h3></section>
+            <section>
+                <h3>1、Flex布局是什么？</h3>
+                <p style="text-align: left">Flex是Flexible Box的缩写，意为"弹性布局"，其主要思想是通过控制项目的宽度、高度，使其可以自动填满容器的可用空间，适应所有类型的显示设备以及屏幕大小。
+                <p style="text-align: left"> 任何一个容器都可以指定为Flex布局,行内元素也可以使用Flex布局。</p>
+                <p style="text-align: left">优点：提高网页布局的效率，几行代码就可以很好的控制元素的对齐、居中等。</p>
+                <p style="text-align: left">缺点：“弹性布局”，间距、宽高等无法固定。</p>
+            </section>
+            <section>
+                <section>
+                    <h3>2、基本概念</h3>
+                    <p style="text-align: left">采用Flex布局的元素，称为Flex容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称"项目"。</p>
+                    <p style="text-align: left">注意：Flex容器不是块容器，因此有些设计用来控制块布局的属性在Flexbox布局中不适用。例如float、clear属性和vertical-align属性在Flex容器上就没有作用。</p>
+                </section>
+                <section> <img src="../img/css-37-flexbox/flex.png" alt="column">
+                    <p style="font-size: 2rem">容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；
+                        交叉轴的开始位置叫做cross start，结束位置叫做cross end。项目默认沿主轴排列。
+                        Flex项目的在主轴方向的宽度或高度，就是项目的主轴长度叫做main size，Flex项目的在侧轴方向的宽度或高度，就是项目的侧轴长度，叫做cross size。</p>
+                </section>
+            </section>
+            <section>
+                <h3>3. 父级属性</h3>
+                <ol>
+                    <li style="color: red">flex:direction <strong>设置主轴方向,确定子元素主轴排列方式</strong></li>
+                    <li style="color: red">justify-content <strong>主轴上子元素对齐方式</strong></li>
+                    <li style="color: red">align-items<strong>侧轴子元素对齐方式</strong></li>
+                    <li>flex:wrap <strong>主轴宽度不够时是否换行显示</strong></li>
+                    <li>flex-flow <strong>是flex-direction属性和flex-wrap属性的简写形式</strong></li>
+                    <li>align-content <strong>侧轴上有剩余空间时,侧轴对齐方式</strong></li>
+                </ol>
+                <br>
+            </section>
+            <section>
+                <h3>4 .子级属性</h3>
+                <ol>
+                    <li>order <strong>子元素排列顺序</strong></li>
+                    <li>flex-shrink <strong>子元素收缩比率</strong></li>
+                    <li>flex-grow <strong>子元素扩展比率</strong></li>
+                    <li>flex-basis <strong>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</strong></li>
+                    <li>flex <strong>是flex-grow,flex-shrink 和 flex-basis的简写</strong></li>
+                    <li>align-self <strong>允许单个项目有与其他项目不一样的对齐方式,可以覆盖弹性容器的默认的侧轴对齐方式(align-items)</strong></li>
+                </ol>
+            </section>
+            <section>
+            <h3>5. 属性详解</h3>
+            </section>
+            <section>
+                <section>
+                    <h3>flex-direction</h3>
+                    <p>row<strong>（默认值）：主轴为水平方向，起点在左端。</strong></p>
+                    <img src="../img/css-53-flexbox/row.png" alt="column">
+                </section>
+                <section>
+                    <p>row-reverse<strong>：主轴为水平方向，起点在右端。</strong></p>
+                    <img src="../img/css-53-flexbox/row-reverse.png" alt="column">
+                </section>
+                <section>
+                    <p>column<strong>：主轴为垂直方向，起点在上沿。</strong></p>
+                    <img src="../img/css-53-flexbox/column.png" alt="column">
+                </section>
+                <section>
+                    <p>column-reverse<strong>：主轴为垂直方向，起点在下沿。</strong></p>
+                    <img src="../img/css-53-flexbox/column-reverse.png" alt="column"><br>
+                    <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>justify-content</h3>
+                    <p>center<strong>水平居中对齐</strong></p>
+                    <img src="../img/css-53-flexbox/center.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start<strong>水平靠左对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-start.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-end<strong>水平靠右对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-end.png" alt="column">
+                </section>
+                <section>
+                    <p>space-around<strong>水平均匀分布</strong></p>
+                    <img src="../img/css-53-flexbox/space-around.png" alt="column">
+                </section>
+                <section>
+                    <p>space-between<strong>水平两端对齐,每个项目两侧的间隔相等。</strong></p>
+                    <img src="../img/css-53-flexbox/space-between.png" alt="column"><br>
+                    <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>align-items</h3>
+                    <p>stretch<strong>默认值，拉伸等高,占满容器高度</strong></p>
+                    <img src="../img/css-53-flexbox/stretch2.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start<strong>垂直顶部对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-start2.png" alt="column"><br>
+                </section>
+                <section>
+                    <p>flex-end<strong>垂直底部对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-end2.png" alt="column">
+                </section>
+                <section>
+                    <p>center<strong>垂直居中对齐</strong></p>
+                    <img src="../img/css-53-flexbox/center2.png" alt="column">
+                </section>
+                <section>
+                    <p>baseline<strong>项目的第一行文字的基线对齐</strong></p>
+                    <img src="../img/css-53-flexbox/baseline.png" alt="column"><br>
+                    <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>flex-wrap</h3>
+                    <p>nowrap<strong>默认值,不换行</strong></p>
+                    <img src="../img/css-53-flexbox/no-wrap.png" alt="column">
+                </section>
+                <section>
+                    <p>wrap<strong>换行显示</strong></p>
+                    <img src="../img/css-53-flexbox/wrap.png" alt="column">
+                </section>
+                <section>
+                    <p>wrap-reverse<strong>逆序换行显示</strong></p>
+                    <img src="../img/css-53-flexbox/wrap-reverse.png" alt="column"><br>
+                    <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+                </section>
+            </section>
+
+
+            <section>
+                <section>
+                    <h3>align-content</h3>
+                    <p>stretch<strong>默认值,拉伸,占满容器高度，项目高度由项目内容决定</strong></p>
+                    <img src="../img/css-53-flexbox/stretch3.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-start<strong>垂直顶部对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-start3.png" alt="column">
+                </section>
+                <section>
+                    <p>flex-end<strong>垂直底部对齐</strong></p>
+                    <img src="../img/css-53-flexbox/flex-end3.png" alt="column">
+                </section>
+                <section>
+                    <p>center<strong>垂直居中对齐</strong></p>
+                    <img src="../img/css-53-flexbox/center3.png" alt="column">
+                </section>
+                <section>
+                    <p>space-between<strong>垂直两端对齐</strong></p>
+                    <img src="../img/css-53-flexbox/space-between3.png" alt="column">
+                </section>
+                <section>
+                    <p>space-around<strong>垂直轴均匀分布</strong></p>
+                    <img src="../img/css-53-flexbox/space-around3.png" alt="column"><br>
+                    <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+                </section>
+            </section>
+            <section>
+                <p>order<strong>子元素排列顺序（默认值为0）</strong></p>
+                <p>设置的值越小越靠前</p>
+                <img src="../img/css-53-flexbox/order.png" alt="column"><br>
+            </section>
+            <section>
+                <section>
+                    <p>flex-grow<strong>子元素扩展比例</strong></p>
+                    <p>剩余宽度 * 占比值/总比值</p>
+                    <p>默认值为0，即如果存在剩余空间，也不放大。</p>
+                </section>
+                <section>
+                    <p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+                    <img src="../img/css-53-flexbox/grow.png" alt="column"><br>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <p>flex-shrink<strong>子元素收缩比例</strong></p>
+                    <p>溢出宽度 * 占比值/总比值</p>
+                    <p>默认值为1,即如果空间不足，该项目将缩小。都为1的话，均匀缩小。</p>
+                </section>
+                <section>
+                    <p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
+                    <img src="../img/css-53-flexbox/shrink.png" alt="column"><br>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <p>flex-basis</p>
+                    <strong>属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</strong><br>
+                </section>
+            </section>
+            <section>
+                <section>
+                <p>align-self</p>
+                <strong>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</strong><br>
+                </section>
+                <section>
+                    <p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。</p>
+                    <img src="../img/css-53-flexbox/align-self.png" alt="column"><br>
+                </section>
+            </section>
+            <section>
+                <h3>三、编码实战</h3>
+            <a href="../demo/css-53-flexbox/demo1.html">demo1</a>
+            </section>
+            <section><h3>四、拓展思考</h3></section>
+
+            <section>
+            <h4>flex布局最常用的是什么场景？</h4>
+            </section>
+            <section>
+                <p>一般实现垂直居中是一件很麻烦的事，但flex布局轻松解决</p>
+            <pre>
+                <code>
+                    display:flex;
+                    justify-content: center;
+                    align-items: center;
+                </code>
+            </pre>
+            </section>
+            <section>
+                <h3>五、参考文献</h3>
+            </section>
+            <section>
+                <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">flex详解--阮一峰的个人博客</a><br>
+                <a href="http://www.w3cplus.com/css3/a-guide-to-flexbox-new.html">一个完整的Flexbox指南</a><br>
+                <a href="http://blog.csdn.net/u010130282/article/details/52627661">css之flex兼容</a>
+            </section>
+            <section>
+                <h3>六、更多讨论</h3>
+            </section>
+            <section>
+                <p>请用flex布局，完成以下图案</p>
+                <a href="http://caniuse.com/#search=flexbox" target="_blank"><img src="../img/css-53-flexbox/eles.png" alt="兼容性"></a>
+                <a href="../demo/css-53-flexbox/demo2.html">demo2</a>
+            </section>
+            <section>
+                <h4>感谢观看</h4>
+                <p><small>by 何华飒</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

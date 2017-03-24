@@ -1,0 +1,314 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>【CSS-02】如何使用github+hexo搭建个人网站?</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi)
+            ? '../css/reveal/print/pdf.css'
+            : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .block-div {
+            text-align:left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【CSS-02】如何使用github+hexo搭建个人网站?</h3>
+            <h3>小课堂【武汉-109期】</h3>
+                    分享人：庄引
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+             8.更多讨论
+        </section>
+
+        <section>
+            <section>
+                <h3>1.1为什么要搭建自己的独立网站?</h3>
+                <div class="block-div">
+                    搭建独立网站的目的就是锻炼自己的技术，分享自己学习的过程，并实践自己的学习内容。
+                     
+                    Hexo 是优秀的静态博客框架再搭配现在流行的 Github（免费+方便）。
+                    <!--于是就有了这个我自己总结的教程，一是自己总结一下。二是给也给用 Github 搭建博客的童鞋们一点参考。-->
+                    本教程是基于 Window 10 系统， Hexo 3 及以上版本
+                </div>
+            </section>
+            <section>
+                <section>
+                    <h3> 什么是 <a href="https://hexo.io/zh-cn/docs/index.html"> Hexo</a>？</h3>
+                    <div class="block-div">
+                        Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
+                    </div>
+                </section>
+            </section>
+                 <section>
+                    <section>
+                        <h3>为什么要使用 Hexo？</h3>
+                        <div class="block-div">
+                            因为 GitHub 上托管的页面都是静态页面，所有有服务器响应需求的页面无法实现。但是可以通过插入第三方代码来实现，诸如评论、分享、代码示例等动态的木块。
+                        </div>
+                    </section>
+                </section>
+            </section>
+
+        <section>
+            <section>
+                <h3>2.1 前提条件</h3>
+                <div class="block-div">首先，你必须要有Github帐号并知道如何创建repository。 没有Github账号转到
+                    <a style="color: purple;" href="https://github.com/" target="_blank">这里</a>.
+                <!--</div>-->
+            <!--</section>-->
+
+            <!--<section>-->
+                <!--<h3>2.2创建repository</h3>-->
+                <div class="block-div">新建的repository name的格式必须是 zhuangyin8.github.io(将 zhuangyin8 改为你自己的Github用户名) </div>
+
+            </section>
+
+            <section>
+                <h3>2.3 前提软件</h3>
+                <div class="block-div">
+                    <!--<img src="../img/CSS-02-How to use github to build  you own personal website/logo.svg" alt="nodejs">-->
+                    <p>安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：</p>
+                    Node.js<a style="color: purple; href="https://nodejs.org/en/" target="_blank">下载地址</a>
+                    <p>nosde.js 创建hexo博客框架，安装版本为: node-v6.10.1-x64.msi </p>
+                    <img src="../img/CSS-02-How to use github to build  you own personal website/git.png" alt="git">
+                    <p>Git客户端<a style="color: purple; href="https://git-scm.com/download" target="_blank">下载地址</a></p>
+                    <p>git 把本地内容提交到github上去，安装版本: Git-2.12.1-64-bit.exe</p>
+                    由于众所周知的原因，从上面的链接下载git for windows最好挂上一个代理，否则下载速度十分缓慢。也可以参考 <a href="https://github.com/waylau/git-for-win">这个页面</a>，收录了存储于百度云的下载地址。
+                 </div>
+            </section>
+
+            <section>
+                    <h3>2.4 安装Hexo  </h3>
+                <div class="block-div">
+                    如果您的电脑中已经安装上述必备程序，那么接下来只需要使用 npm 即可完成 Hexo 的安装。
+                    在桌面任意位置点击鼠标右键，选择 Git Base 输入 安装 hexo 命令：
+                    <p style="color:purple;">npm  install -g hexo-cli</p>
+                    安装完成后，在你希望存储博客文件的文件夹下（如E:\Hexo），执行以下指令(在E:\Hexo 内点击鼠标右键，选择 Git Bash)，
+                    <p style="color:purple;"> hexo init</p>
+<!--                <img src="../img/CSS-02-How to use github to build  you own personal website/Git Bash Here.png" alt="Hexo
+                    即会自动在目标文件夹建立网站所需要的所有文件。(下载速度可能很慢,请耐心等待)"> -->
+                </div>
+            </section>
+
+            <section>
+                    <h3>2.5 本地预览</h3>
+                <div class="block-div">
+                    让我们看看刚刚下载的hexo文件带来了什么，在E:\hexo内执行以下命令：
+                    <p style="color:purple;">hexo g</p>
+                    <p style="color:purple;">hexo s</p>
+                    然后用浏览器访问 http://localhost:4000/，此时，你应该在浏览器看到了一个漂亮的博客了，
+                    当然这个博客只是在本地的，hexo3使用的默认主题是landscape。
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.1 编辑_config.xml文件关联你的Github</h3>
+                <div class="block-div">
+                    创建Repository，先把博客放到Github上去看看效果。编辑E:\Hexo下的_config.yml文件，
+                        建议使用开源的<a href="https://atom.io/">Atom</a>。
+                    <!--<img src="https://github-atom-io-herokuapp-com.global.ssl.fastly.net/assets/logo-4e073dbd4c0ce67ece1b30a6b31253b9.png" alt="">-->
+                <!--</div>-->
+            <!--</section>-->
+            <!--<section>-->
+                <!--<h3>5.2部署本地文件到github</h3>-->
+                <!--<div class="block-div">-->
+                    在_config.yml最下方，修改如下配置并保存(将 https://github.com/zhuangyin8/zhuangyin8.github.io.git 修改为你自己新建的repository 的 ssh 地址)。
+                    <!--<p style="color:purple; "> deploy:</p>-->
+                    <!--<p style="color:purple; "> type: git</p>-->
+                    <!--<p style="color:purple; "> repository: https://github.com/zhuangyin8/zhuangyin8.github.io.git</p>-->
+                    <!--<p style="color:purple; "> branch: master</p>-->
+                        <img src="../img/CSS-02-How to use github to build  you own personal website/Capture00.PNG" alt="">
+                </div>
+            </section>
+            <section>
+                <h3>3.2配置SSH</h3>
+                <div class="block-div">
+                    如果你是第一次使用Github或者是已经使用过，但没有配置过SSH，则可能需要配置一下
+                        在Git Bash输入以下指令（任意位置点击鼠标右键），检查是否已经存在了SSH keys。</p>
+                    <p style="color:purple; ">ls -al ~/.ssh</p>
+                    如果不存在就没有关系，如果存在的话，直接删除.ssh文件夹里面所有文件：
+                </div>
+            </section>
+            <section>
+                <h3>3.3 ssh-agent 验证</h3>
+                <div class="block-div">
+                    输入以下指令后，回车，
+                    出现提示让你输入的时候直接需要回车3次，如下图所示：
+                    <p style="color:purple; ">ssh-keygen -t rsa -C "zhuangyin8@gmail.com"</p>
+                    <b>将"zhuangyin8@gmail.com"修改成你注册Github时候的邮箱</b>
+                    <img src="../img/CSS-02-How to use github to build  you own personal website/Capture3.PNG" alt="">
+                </div>
+            </section>
+            <section>
+                <h3>3.4部署本地文件到github</h3>
+                <div class="block-div"> 然后键入以下指令：
+                    <p style="color:purple; ">ssh-agent -s</p>
+                    <img src="../img/CSS-02-How to use github to build  you own personal website/Capture5.PNG" alt="">
+                </div>
+            </section>
+            <section>
+                <h3>3.5部署本地文件到github</h3>
+                <div class="block-div"> 继续输入指令：
+                    <p style="color:purple; ">ssh-add ~/.ssh/id_rsa</p>
+                    输入之后，在我这里是出错了，不知道你的有没有出错。
+                    <img src="../img/CSS-02-How to use github to build  you own personal website/Capture1.PNG" alt="">
+                </div>
+            </section>
+            <section>
+                <h3>3.6部署本地文件到github</h3>
+                <div class="block-div"> 继续输入指令：
+                    <p style="color:purple; ">ssh-add ~/.ssh/id_rsa</p>
+                    输入之后，在我这里是出错了，不知道你的有没有出错。
+                    <img src="../img/CSS-02-How to use github to build  you own personal website/Capture1.PNG" alt="">
+                </div>
+            </section>
+            <section>
+                <h3>3.7部署本地文件到github</h3>
+                <div class="block-div">  到了这一步，就可以添加SSH  key到你的Github账户了。键入以下指令，拷贝Key（先拷贝了，
+                    等一下可以直接粘贴）：
+                    <p style="color:purple; ">ssh-add ~/.ssh/id_rsa</p>
+                 </div>
+            </section>
+            <section>
+                <h3>3.8部署本地文件到github</h3>
+                <div class="block-div">然后到Github里面，点击右上角的设置图标Settings,找到SSH and GPG keys, 随便你命名，
+                    黏贴上你刚才复制的key,然后点Add SSH key，最后会让你重新输入下gitHub的密码
+                </div>
+                <img src="../img/CSS-02-How to use github to build  you own personal website/Capture4.PNG" alt="">
+
+            </section>
+            <section>
+                <h3>3.9部署本地文件到github</h3>
+                <img src="../img/CSS-02-How to use github to build  you own personal website/Capture.PNG" alt="">
+                <div class="block-div"></div>
+            </section>
+            <section>
+                <h3>3.10部署本地文件到github</h3>
+                <div class="block-div">
+                    最后还是测试一下吧，键入以下命令：
+                    <p style="color:purple; ">ssh -T git@github.com</p>
+                    你可能会看到有警告，没事，输入“yes”就好
+                    以上就表示SSH配置好了，执行以下命令部署到Github上。
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5.常见问题</h3>
+                <div class="block-div">
+                    <p>1.出现ERROR  Deployer not found : github.</p>
+                    <p>hexo的配置文件_config.yml中任何":"后面都是带一个空格的</p>
+                    <p>2.输入ssh-add ~/.ssh/id_rsa之后， 出错了</p>
+                    <p>如果你的也是这样子出错了的话，就输入以下指令：</p>
+                    <p style="color:purple; ">eval `ssh-agent -s`</p>
+                    <p style="color:purple; ">ssh-add</p>
+
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                <h4>为什么使用Github+Hexo 搭建个人网站?</h4>
+                超快速度:
+                Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。
+                支持 Markdown:
+                Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。
+                一键部署:
+                只需一条指令即可部署到 GitHub Pages, Heroku 或其他网站。
+                丰富的插件:
+                Hexo 拥有强大的插件系统，安装插件可以让 Hexo 支持 Jade, CoffeeScript。
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+                <p>【1】<a href="https://hexo.io/zh-cn/docs/">Hexo文档</a></p>
+                【2】 <a href="http://www.jianshu.com/p/ba76165ca84d">hexo干货系列：（一）hexo+gitHub搭建个人独立博客 - 简书</a>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+                 主题是默认的landscape，略显简单，hexo还有更多自定义主题等待你去探索。怎么更换hexo的默认主题?
+                 <a href="https://hexo.io/themes/">hexo主题下载及配置</a>
+                <a href="http://www.jianshu.com/p/ebc3b4281d52"> hexo干货系列：（二）hexo主题下载及配置  </a>
+            </section>
+            
+        </section>
+
+
+</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+   Reveal.initialize({
+        history: true,
+        transition: 'convex',
+
+        dependencies: [
+            {
+                src: '../plugin/markdown/marked.js'
+            }, {
+                src: '../plugin/markdown/markdown.js'
+            }, {
+                src: '../plugin/notes/notes.js',
+                async: true
+            }, {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

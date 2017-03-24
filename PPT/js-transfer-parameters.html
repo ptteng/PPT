@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>url传参的优缺点？还可以通过什么传递？</h2>
+                <h3>小课堂【北京】</h3>
+                <p>分享人：汤金鑫</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+            </section>
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <p>，比如 http://www.cnallshop.com/sch?id=1这个地址就是带参数的，参数是？
+                        后面的id=1，网站的程序会根据此参数查询数据库。 有好多参数可以带，基本是和数据库操作有关的</p>
+                </section>
+                <section>
+                    <p>url传参是通过URL拼接字符串传递到下个页面</p>
+                </section>
+            <section>
+                Web页面是动态和交互的，Web页面之间的数据交换往往存在一些参数的传递，不管是通过哪种语言平台编写Web页面处理程序，其参数传递的方式方法类似，且多种多样，常见方式主要包括通过URL地址、Application/Session、Cache、Cookie以及基于服务器文件或数据库等。
+                URL地址传递参数方式在我们Web页面程序处理中非常常见，其形式是在页面地址后面附带参数的方式浏览页面，如：“http://test.net/Expert/PostNew.asp?room=301”，其中“room=301”即我们传递的参数名称和值。URL地址方法可以很方便的在页面之间切换并传递参数，无
+                需额外的处理，基于正常情况下不会产生性能损失，以Asp.net程序中URL参数传递处理为例，其简单处理过程
+            </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    url传参的优缺点
+                </section>
+                <section>
+                    1)URL地址法简洁易用，可同时传递多个字符型参数；
+                    2)URL地址法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况比较不会性能损失；
+                    3)URL传递参数长度受限，最大为2K；
+                    4)URL只能传递字符型参数；
+                    5)信息泄露：URL地址在客户端可见，导致会泄露信息，可能被黑客用来攻击系统。
+                    优点传输速度快
+                    缺点GET传递的数据是有长度限制的，字符串别人能看见，如果内容很多，建议还是采用隐藏表单的POST的方法进行传递，或者是使用Ajax
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    1）因URL传递参数长度受限，最大为2K，在应用中可能会出现超出范围时的处理错误；
+                    2）URL只能传递字符型参数，在应用中，经常会传递一些中文名的参数或URL地址，因为发送页面和接收页面的字符编码方式不一样而导致参数解析处理错误，参数包含中文时出现乱码或者参数接收错误；
+                    3）Web程序中对字符编码的方法多种多样，但是有些方法对一些特殊字符，如：! @ # $& * ( ) = : / ; ? + '中的某些不能进行编码，因此对参数中包含某些特殊字符时不能正确处理，当参数中包含这些特殊字符时，软件接收处理出现异常；
+                    </section>
+                        <section>
+                    4）URL可以传递一定长度大小字符型参数，在应用中经常通过URL接收的参数需要进一步进行逻辑处理，比如类型转换或者数字计算操作等，处理过程中开发人员可能会对参数在界面输入时限制处理不充分，而且开发人员在后续逻辑处理中过分信任传递过来的参数而未进行充分逻辑判断，导致在后续的逻辑处理中出现边界处理或者类型转换的错误，导致程序出现异常甚至崩溃；
+                    5）URL地址中的参数经常与数据库SQL语句中的参数关联，如果开发人员对SQL语句参数化处理不完善，通过URL地址传递参数也容易引起SQL注入问题，参数中包含特殊字符、类型或者长度不符合要求时导致程序出错，甚至可以通过这个入口破坏或者获取数据库信息；
+                    6）URL显示传递参数，容易产生信息泄露问题，一些关键信息URL地址在客户端可见，这些信息可能被黑客用来攻击系统。
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>4.解决方案</h3>
+                </section>
+                    <section>
+                        针对采用URL地址传递参数的Web程序，为发现及解决其应用问题，我们通过以下几个方面进行测试：
+                        1）分析软件需求，是否需要处理超过2K大小的参数，如需要则通过Web界面控件或者URL输入超出2K大小参数进行测试，通过这种方式可以发现软件是否可以正常处理超出2K大小参数的需求问题；如无需求也可以通过此测试检测软件在参数大小超过2K时是否进行了相应的限制或者错误处理；
+                        2）通过Web界面控件或者URL输入中文字符参数进行测试，检测软件在接收页面处理是否正常，是否出现乱码或者异常错误；
+                        3）通过Web界面控件或者URL输入各种特殊字符，例如：! @ # $& * ( ) = : / ; ? + '等，检测软件接收处理是否正常，是否可以显示处理必须的特殊字符；
+                        </section>
+                            <section>
+                        4）通过Web界面控件或者URL输入参数边界值，同时包括输入各种类型参数，检测软件运行是否正常；
+                        5）通过Web界面控件或者URL输入包含跟数据库SQL语句相关的一些特殊字符参数如’= 和一些关键字符串等，检测软件是否存在SQL注入问题，同时也可以采用一些安全测试工具，对URL输入参数进行SQL注入的渗透测试；
+                        6）检测URL参数中是否包含关键信息，并可通过获取信息通过安全测试工具进行恶意破坏或者攻击测试。
+                    </section>
+            <section>
+                针对URL地址传递参数应用问题，在应用中有如下建议：
+                1）在安全性要求较高的系统中不推荐使用这种方法，只适合在一些安全性要求不高，页面逻辑比较的简单的场合；
+                2）对参数长度超出2K的传递建议不要采取此方式；
+                3）对地址信息进行编码，且保证发送页面和接收页面编码和解码方式对应一致；
+                </section>
+                    <section>
+                4）对从URL地址中接收的参数信息进行边界和类型校验；
+                5）为防止信息泄露，对URL传递的参数进行加密处理，同时需要考虑加密和解密过程的性能损失；
+                6）为防止信息泄露，也可对URL进行重写，经过一定算法重组的URL信息，使在IE中不显示真正的参数或者网页链接信息。
+            </section>
+            </section>
+            <section>
+                <section>
+                    <h3>5.编码实战</h3>
+                </section>
+                <section>
+                    第一种：直接在URL后面加参数：
+                    localhost:21811/Handler1.ashx?id=1&name="abc"
+                </section>
+                <section>
+                    第二种：用超链接的方法传递参数：当点击超链接的时候，首先会跳转到localhost:21811/Handler1.ashx页面，然后还会传递id 和name 两个参数过去
+                    "localhost:21811/Handler1.ashx?id=1&name='abc'"超链接传递参数
+                </section>
+                <section>
+                    第三种：通过js方法传递:用户点击这个button按钮，触发onClick事件，执行Go()方法，跳转到localhost:21811/Handler1.ashx页面，同时传递了id，和name两个参数过去
+                    input type="button" onclick="Go()" value="通过js方法传递参数"
+                </section>
+                <section>
+                    第四种：通过form表单传递
+                    form action="Handler1.ashx" method="get"注意action里面的连接不能带参数的
+                        input type="text" name="id" value="3" /
+                        input type="text" name="name" value="abc" /
+                        input type="submit" value="通过传递参数" /
+                    /form
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    还有什么传参的方法
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section>
+                       <p>参考：四种传参方式<a href="http://www.jb51.net/article/69972.htm" target="_blank"></a></p>
+                </section>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  padding: 0;
+  width: 100%;
+  background: #ccc;
+}
+
+
+//变量
+//变量允许我们在一个地方定义一系列通用的值，然后在整个样式表中调用。
+//所以在做全局样式调整的时候我们可能只需要修改几行代码就可以了。
+//------------------------------------------------------------------------------
+@color: #4D9266;
+//改变变量的值之后试一试
+//@color:red;
+i {
+  color: @color;
+}
+
+h2 {
+  color: @color;
+}
+
+
+//混合
+//混合是指在一个 CLASS 中引入另外一个已经定义好的的 CLASS，
+//就像在当前 CLASS 中增加一个属性一样。Less实现了这种嵌套。
+//我们还可以使用参数，就好像我们再用一个函数一样。
+//------------------------------------------------------------------------------
+.rounded-corners(@radius:5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.disp {
+  margin: 5em;
+  display: inline-block;
+  width: 50px;
+  height: 40px;
+  background: blue;
+}
+
+.i1, .i2 {
+  .disp;
+  .rounded-corners;
+}
+
+.i3, .i4,.i5,.i6 {
+  .disp;
+  .rounded-corners(20px);
+}
+
+
+
+//嵌套规则
+//我们可以在一个选择器中嵌套另一个选择器来实现继承，这样很大程度减少了代码量，
+//并且代码看起来更加的清晰。
+ul {
+  width: 50%;
+  margin: 0 auto;
+  padding: 2rem;
+  li {
+    //padding: 2rem;
+    display: inline-block;
+/*    cursor: pointer;*/
+
+  }
+  &:hover {
+    color: #6c71c4;
+  }
+}
+
+
+/*函数与运算*/
+/*运算提供了对属性值和颜色的加、减、乘、除操作，赋予你创建属性之间复杂关系的能力。*/
+运算应当只出现在圆括号中，这样能确保与CSS的兼容。
+@base-color:#111;
+.i5,.i6{
+  background:(@base-color*3);
+}

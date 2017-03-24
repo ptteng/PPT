@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何配置nginx，实现在手机上查看页面？</h2>
+            <h3>小课堂【郑州第四十七期】</h3>
+            <p>分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.下载安装</p>
+            <p>3.测试方法</p>
+            <p>4.修改配置</p>
+            <p>5.操作演示</p>
+            <p>6.手机访问</p>
+            <p>7.常见问题</p>
+            <p>8.参考文献</p>
+            <p>9.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p> Nginx是一个高性能的HTTP和反向代理服务器，在产品成功的前一刻，为了测试产品上线后的效果，安装nginx可以用你的电脑作为模拟主机来测试产品的功能</p>
+        </section>
+        <section>
+            <section>
+                <h4>http服务器——反向代理服务器</h4>
+                <ul>
+                    <li>HTTP是Web协议集中的重要协议，它是从客户机/服务器模型发展起来的。客户机/服务器是运行一对相互通信的程序，客户与服务器连接时，首先，向服务器提出请求，服务器根据客户的请求，完成处理并给出响应。</li>
+                    <li>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端。</li>
+                </ul>
+            </section>
+            <section>
+                <h4>那么nginx都有哪些应用呢</h4>
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/JD.png">
+                <img src="../img/css-02-how%20to%20configure%20nginx/sina.png">
+                <img src="../img/css-02-how%20to%20configure%20nginx/6CN.png">
+                <img src="../img/css-02-how%20to%20configure%20nginx/douban.png">
+                <p>在国内，已经有 淘宝、新浪博客、新浪播客、网易新闻、六间房、56.com、Discuz!、水木社区、豆瓣、YUPOO、海内、迅雷在线 等多家网站使用 Nginx 作为Web服务器或反向代理服务器。</p>
+            </section>
+            <section>
+                <p>在国外，运用在俄罗斯最大的门户网站Rambler上，同时被俄罗斯超过20%的虚拟主机平台采用作为反向代理服务器。</p>
+                <img src="../img/css-02-how%20to%20configure%20nginx/rambler.png">
+            </section>
+            <section>
+                <h4>Nginx的优势</h4>
+                <ol>
+                    <li>跨平台：能在大多数Unix like os编译运行，而且也有Windows移植版本</li>
+                    <li>配置简单：非常容易上手，配置风格跟程序开发一样</li>
+                    <li>非阻塞、高并发连接：官方测试支撑5万，实际环境也能到2~3万</li>
+                    <li>事件驱动：采用epoll模型，支持更大的并发连接</li>
+                    <li>Master/Worker进程：一个master进程，生成一个或者多个worker进程</li>
+                </ol>
+            </section>
+            <section>
+                <ol>
+                    <li>内存消耗小：3万并发，开10个Nginx进程才消耗150M内存</li>
+                    <li>内置的健康检查功能：Nginx代理的后端的某台Web服务器宕机时不影响前端访问</li>
+                    <li>节省宽带：支持GZIP压缩，可以添加浏览器本地的Header头</li>
+                    <li>稳定性高：用于反向代理，宕机概率微乎其微<li><img src="../img/css-02-how%20to%20configure%20nginx/shut%20up.jpg">
+                </ol>
+            </section>
+            <section>
+                <h4>BSD协议</h4>
+                <p><所有人> = 加州大学董事</p>
+                    <p><机构> = 加州大学伯克利分校</p>
+                        <p><年份> = 1998</p>
+                            <p>在最初的BSD许可中......包括但不限于本软件针对特定用途的可售性及适用性的暗示......的情况下。</p>
+            </section>
+            <section>
+                <p><span style="font-size: 10rem">才不要你钱！</span> </p>
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>2.下载安装</h3>
+        </section>
+        <section>
+            <a href="http://nginx.org/">官方网址</a>
+            <p>下载后直接点击nginx.exe程序，你会发现有个黑色弹出框一闪即逝；说明成功启动；
+                然后随便打开一个浏览器；输入localhost出现下图:</p>
+            <img src="../img/css-02-how%20to%20configure%20nginx/welcome%20to%20nginx.png">说明配置成功
+        </section>
+        <section>
+            <h3>3.具体测试方法</h3>
+        </section>
+        <section>
+        <p> Nginx的配置文件是文件夹中的conf文件下的nginx.conf，其实配置文件默认不修
+            改也是可有用的；如果你通过浏览器输入localhost出现的页面即为文件夹下HTML文件中的index.html；所以你可以将你想要检测的产品放
+            到HTML文件夹中，并将原本的index.html文件给删了，这个时候打开网页输入localhost，使用ctrl+F5清下浏览器缓存即出现你产
+            品中的index.html(产品的首页都会命名为index.html）页面，然后进行一系列测试看看是否OK</p>
+        </section>
+        <section>
+            <h3>3.修改配置</h3>
+        </section>
+        <section>
+            <p>实际的测试过程中，一般不大可能会将产品放入nginx文件里的html文件夹中，这个时候就需要修改配置，使匹配的路径改为我们想要的文件夹</p>
+        </section>
+        <section>
+            <h3>4.操作演示</h3>
+        </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/not%20found.png">
+
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/win10%20local.png">
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/listen.png">
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/form.png">
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/wrong.png">
+            </section>
+            <section>
+                <img src="../img/css-02-how%20to%20configure%20nginx/right.png">
+            </section>
+            <section>
+                <h4>一开始更改的conf文件为什么不起作用呢</h4>
+            </section>
+        <section>
+            <h3>6.如何在手机端访问</h3>
+        </section>
+        <section>
+            <p>首先，电脑和手机连接上同一个wifi然后查看电脑ip:win+R→cmd→ipconfig→回车, 找到无限局域网适配器wlan中的ip地址，例如我的是192.168.0.119然后手机浏览器中输入192.168.01.119/task1.html 就可以看到自己的代码</p>
+        </section>
+        <section>
+            <h3>6.常见问题</h3>
+        </section>
+        <section>
+            <p>nginx对文件夹英文取名不敏感，对中文敏感，路径中不能存在中文字符</p>
+            <p>出现报错，nginx路径下的\logs\error.log就是错误日志，复制里面的内容去百度就行</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.open-open.com/lib/view/open1417488526633.html">深度开源</a></p>
+            <p>参考二：<a href="http://www.ha97.com/5194.html" >服务器运维架构</a></p>
+            <p>参考三：<a href="https://www.zhihu.com/people/kt1123/answers">古尘师姐的知乎回答</a></p>
+            <p>参考四：<a href="http://baike.baidu.com/link?url=qs_jpKwsZJ4r0nWu4djnib6SgMAdjZAleD3PmLl-ozuuMknHzUlbYKxtkUr3QaVWlEUMl0HHvtB0vltQ57IyNK">百度百科</a> </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>在配置路径的时候为什么用E:\wy\task，E:\task等路径都会显示错误</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修/董瑞</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

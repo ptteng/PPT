@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>去掉inline-block间隙的几种方法</h3>
+            <h3>小课堂【郑州第五十八期】</h3>
+            <p style="text-align: center;">分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section><h3>一、背景介绍</h3></section>
+        <section>
+            <p style="text-align:left;font-size: 31px">
+            display:inline; 内联元素，简单来说就是在同一行显示。
+            </br>display:block; 块级元素，简单来说就是就是有换行，会换到第二行。
+            </br>display:inline-block; 就是在同一行内的块级元素,也就是我们常说的表格布局。
+            </p>
+            <a href="../demo/css-08-inline-block/inline-block-demo.html">demo</a>
+        </section>
+        <section><h3>二、知识剖析</h3></section>
+        <section>
+            <section>
+            <p>inline-block水平呈现的元素间，换行显示或空格分隔的情况下会有间距, 这种表现是符合规范的应该有的表现（如果有人认为是bug就太()ay ()oy 了）。
+               不过，但是这类间距有时会对我们布局，或是兼容性处理产生影响，需要去掉它，该怎么办呢？以下展示N种方法</p>
+            </section>
+            <section>
+              <p>方法一、元素间留白间距出现的原因就是标签段之间的空格，因此，去掉HTML中的空格，自然间距就木有了
+              </p>
+                <a href="../demo/css-08-inline-block/demo2.html">demo2</a>
+            </section>
+            <section>
+                <p>方法二、让闭合标签吃胶囊，对于某些元素可以将中间的结束标签去掉</p>
+                <a href="../demo/css-08-inline-block/demo2.html">demo2</a>
+            </section>
+        </section>
+        <section>
+            <p>方法三：font-size：0</p>
+            <p>这个方法，基本上可以解决大部分浏览器下inline-block元素之间的间距(IE7等浏览器有时候会有1像素的间距)。</p>
+            <a href="../demo/css-08-inline-block/demo4.html">demo3</a>
+        </section>
+
+        <section>
+            <p>方法四：使用margin负值</p>
+            <p>margin负值的大小与上下文的字体和文字大小相关，Arial字体的margin负值为-3像素，Tahoma和Verdana就是-4像素，而Geneva为-6像素。
+            由于外部环境的不确定性，以及最后一个元素多出的父margin值等问题，这个方法不适合大规模使用。</p>
+             <a href="../demo/css-08-inline-block/demo3.html">demo4</a>
+        </section>
+        <section>
+            <p>方法五：使用word-spacing和letter-spacing</p>
+        </section>
+        <section>
+            <p style="text-align:left">一个是字符间距(letter-spacing)一个是单词间距(word-spacing)，大同小异。
+                负值只要大到一定程度，其兼容性上的差异就可以被忽略。因为，貌似负值很大，也不会发生重叠。</p>
+            <a href="../demo/css-08-inline-block/demo5.html">demo5</a>
+        </section>
+        <section><h3>三、常见问题</h3></section>
+        <section>
+            <section>
+            <p>上面使用到的几种方法都存在一定的缺陷</p>
+            <p>使用无闭合标签来去掉空隙时，对于a标签可行，但对于span标签就不可行。</p>
+            <a href="../demo/css-08-inline-block/demo2.html">demo2</a>
+            </section>
+            <section>
+                <p>使用margin负值时，margin负值的大小与上下文的字体和文字大小相关，以及最后一个元素多出的负margin值等问题，
+                    这个方法不适合大规模使用。</p>
+                   <a href="../demo/css-08-inline-block/demo3.html">demo3</a> 
+                <p>使用letter-spacing和word-spacing时，
+                    其在不同浏览器下效果不同，在Opera浏览器下最小间距1像素，然后，letter-spacing再小就还原了。</p>
+            </section>
+        </section>
+        <section><h3>四、解决方案</h3></section>
+        <section>
+            <p>在不同情况下选用不同的方法，font-size基本上可以解决大部分浏览器下inline-block元素之间的间距</p>
+            <p>或者可以同时写多种方法，这样就可以兼容不同浏览器</p>
+        </section>
+        <section><h3>五、编码实战</h3></section>
+        <section><h3>六、拓展思考</h3></section>
+        <section>
+            <h4>inline-block空隙产生的原因</h4>
+            <p>通过前面的列子我们可以看到当没有换行或者回车时，空隙就不存在了，所以说间隙是由换行或者回车导致的，应该无大问题。
+                ，其实space是由换行或回车所产生空白符所致，解决办法：就是去掉空白符。
+                </br>为什么font-size会对间隙有影响。
+                space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱font的控制。</p>
+        </section>
+        <section>
+            <h3>七、参考文献</h3>
+        </section>
+        <section>
+        <p>参考一：
+            <a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">张鑫旭-鑫空间-鑫生活</a></p><br>
+           <p>参考二： <a href="http://demo.doyoe.com/css/inline-block-space/">inline-block元素间间隙产生及去除详解</a></p><br>
+           <p>参考三：<a href="https://tieba.baidu.com/p/4766076959">百度菜鸟前端贴吧</a>
+           </p>
+        </section>
+        <section>
+            <h3>更多讨论</h3>
+        </section>
+        <section>
+            <p>其他去除inline-block元素间间隙的方法</p>
+            <a href="https://css-tricks.com/fighting-the-space-between-inline-block-elements/">Fighting the Space Between Inline Block Elementsx</a>
+            </br><a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">张鑫旭-鑫空间-鑫生活</a>
+        </section>
+        <section>
+            <h4>鸣写</h4>
+            <h3>感谢观看</h3>
+            <p><small>BY ︱汪开放</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>
