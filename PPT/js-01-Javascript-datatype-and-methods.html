@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-01】 <br>JS数据类型简介</h2>
+
+            <h3>小课堂【成都第60期】</h3>
+
+            <p style="text-align: center;">分享人：左少华</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>1995年5月，Brendan Eich只用了10天，就设计完成了这种语言的第一版。它是一个大杂烩，语法有多个来源：</p>
+            <img src="../img/js-01-Javascript-datatype-and-methods/page1.png" alt="">
+            <p>javascript是一门面向对象的弱类型语言， ECMAScript的数据类型分别两类：基本数据类型和对象类型;<br>
+               基本数据类型为字符串、数值、布尔值、Null、Undefined;<br>
+                对象类型可以分为Object、Array、Function等; <br>
+                ECMAScript6又规定了一种新的基本数据类型：Symbol.
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section><h2>一、基本数据类型</h2></section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（1）字符串（String类型）</h4>
+                <p>字符串是一个由零或多个 Unicode 字符（字母、数字和标点符号）组成的。 使用字符串数据类型表示 JavaScript 中的文本。
+                    字符串放在单引号或双引号之中。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page2.png" alt=""> <br>
+                字符串默认只能写在一行内，分成多行将会报错。<br>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page3.png" alt="">
+                <img src="../img/js-01-Javascript-datatype-and-methods/page4.png" alt=""> <br>
+                若长字符串要分成多行，可以在每一行的尾部使用反斜杠。
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（2）数值（Number类型）</h4>
+                <p>JS数值类型分为整数和浮点数。</p>
+                <p>JavaScript内部，所有数字都是以64位浮点数形式储存，即使整数也是如此。所以，1与1.0是相同的，是同一个数。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page5.png" alt=""> <br>
+            </section>
+            <section style="text-align: left;">
+                <h5>数值精度</h5>
+                根据国际标准IEEE 754，JavaScript浮点数的64个二进制位，从最左边开始，是这样组成的。<br>
+                第1位：符号位，0表示正数，1表示负数； <br>
+                第2位到第12位：储存指数部分； <br>
+                第13位到第64位：储存小数部分（即有效数字）；<br>
+            </section>
+            <section style="text-align: left;">
+                <h5>数值范围</h5>
+                根据标准，64位浮点数的指数部分的长度是11个二进制位，意味着指数部分的最大值是2047（2<sup>11</sup>-1）。<br>
+                64位浮点数的指数部分的值最大为2047，分出一半表示负数，则JavaScript能够表示的数值范围为[2<sup>1014</sup>, 2<sup>-1023</sup>)，
+              超出这个范围的数无法表示。
+            </section>
+            <section style="text-align: left;">
+                <h5>数值的进制</h5>
+                <p>使用字面量（literal）时，JavaScript对整数提供四种进制的表示方法：十进制、十六进制、八进制、2进制。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page6.png" alt=""> <br>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page7.png" alt="">
+                <img src="../img/js-01-Javascript-datatype-and-methods/page8.png" alt="">
+                <img src="../img/js-01-Javascript-datatype-and-methods/page9.png" alt="">
+            </section>
+            <section style="text-align: left;">
+                <h5>特殊数值</h5>
+                <p>正零和负零</p>
+                在JavaScript内部，实际上存在2个0：一个是+0，一个是-0。它们是等价的。
+                <p>NaN</p>
+                NaN是JavaScript的特殊值，表示“非数字”（Not a Number），主要出现在将字符串解析成数字出错的场合。
+                <p>Infinity</p>
+                Infinity表示“无穷”，用来表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非0数值除以0，得到Infinity。
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（3）布尔值（Boolean类型）</h4>
+                <div   style="text-align: left;">
+                    <p>布尔值代表“真”和“假”两个状态。“真”用关键字true表示，“假”用关键字false表示。布尔值只有这两个值。</p>
+                    下列运算符会返回布尔值：<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page10.png" alt=""><br>
+                    转换规则是除了下面六个值被转为false，其他值都视为true。<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page11.png" alt="">
+                </div>
+
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（4）Undefined类型</h4>
+                <p>Undefined类型只有一个值，即特殊的undefined。使用var声明变量但未对其初始化时，这个变量的值就是undefined.</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page12.png" alt=""><br>
+                注意：包含undefined值的变量与尚未定义的变量的区别！<br>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page13.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（5）Null类型</h4>
+                <p>Null类型是第二个只有一个值的数据类型，这个特殊的值就是null。</p>
+                <p>从逻辑角度来看，null值表示一个空对象指针。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page14.png" alt="">
+                <p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。</p>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（6）Symbol类型——ES6新类型</h4>
+                <p>ECMAScript2015(ES6)引入了一种新的基本数据类型Symbol，表示独一无二的值。</p>
+                <p>Symbol值通过Symbol函数生成。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page15.png" alt="">
+            </section>
+            <section><h2  style="font-family: 'Times New Roman';text-transform:none;">二、对象类型</h2></section>
+            <section>
+                <h4>对象分类</h4>
+                <div style="text-align: left;">
+                    <p>对象又可以分成三个子类型。</p>
+                    狭义的对象（object）；<br>
+                    数组（array）；<br>
+                    函数（function）；<br>
+                    <p>
+                        JavaScript的所有数据，都可以视为广义的对象。不仅数组和函数属于对象，就连基本类型的数据（数值、字符串、布尔值）
+                        也可以用对象方式调用。但是我们通常所说的”对象“都特指狭义的对象。
+                    </p>
+                </div>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（6）对象</h4>
+                <p>JavaScript 中的所有事物都是对象：字符串、数字、数组、日期等。在 JavaScript 中，对象是拥有属性和方法的数据。</p>
+                <p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义。属性由逗号分隔：</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page21.png" alt=""> <br>
+                <strong>属性和方法</strong><br>
+                    属性是与对象相关的值。
+                    方法是能够在对象上执行的动作。<br>
+                    举例：汽车就是现实生活中的对象。<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page16.png" alt="">
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page17.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">创建 JavaScript 对象</h4>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page18.png" alt="">
+                <h5 style="font-family: 'Times New Roman';text-transform:none;">访问对象的属性: objectName.propertyName</h5>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page19.png" alt="">
+                <h5 style="font-family: 'Times New Roman';text-transform:none;">访问对象的方法: objectName.methodName()</h5>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page20.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（7）数组</h4>
+                <p>数组用来在单独的变量名中存储一系列的值。</p>
+                <p>我们使用关键词 new 来创建数组对象或字面量语法来创建数组。下面的代码定义了一个名为 mycars 的数组对象：</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page22.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">数组的读写</h4>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page23.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">（8）函数</h4>
+                <div style="text-align: left">
+                    <p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。</p>
+                    <p>JavaScript 函数语法</p>
+                    函数是由这样的方式进行声明的：关键字 function、函数名、一组参数，以及置于括号中的待执行代码。<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page24.png" alt="">
+                </div>
+
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4 style="font-family: 'Times New Roman';text-transform:none;">Javascript数据类型的判断</h4>
+
+            <p>举一个栗子，在登陆页面的中账号只能输入手机号码不能输入其他字符，怎么样判断输入字符的数据类型？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">好用的typeof</h4>
+            <p>typeof可以解决大部分的数据类型判断，是一个一元运算，放在一个运算值之前，其返回值为一个字符串，该字符串说明运算数的类型。</p>
+            <img src="../img/js-01-Javascript-datatype-and-methods/page25.png" alt="">
+            <p>这样一来就很明显了，除了前四个类型外，null、对象、数组返回的都是object类型；对于函数类型返回的则是function。</p>
+        </section>
+        <section style="text-align: left;">
+            <p>然后这里就可以再引申出另一个更具普遍性的问题， <br>判断数据类型的方法有哪些？</p>
+            <p>JavaScript有三种方法，可以确定一个值到底是什么类型。</p>
+            typeof运算符 <br>
+            instanceof运算符 <br>
+            Object.prototype.toString方法 <br>
+            <!--<img src="../img/js-01-Javascript-datatype-and-methods/page26.png" alt="">-->
+            <!--<img src="../img/js-01-Javascript-datatype-and-methods/page27.png" alt="">-->
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            在控制台演示三种方法的使用：<br>
+            typeof运算符 <br>
+            instanceof运算符 <br>
+            Object.prototype.toString方法 <br>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">javascript数据类型转换</h4>
+            <p>
+                JavaScript是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。 <br>
+                虽然变量没有类型，但是数据本身和各种运算符是有类型的。如果运算符发现，数据的类型与预期不符，就会自动转换类型。<br>
+                详细参考：<a href="http://javascript.ruanyifeng.com/grammar/conversion.html">数据类型转换详解</a>
+                
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>《JavaScript高级程序设计》</p>
+            <p><a href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程(阮一峰著)</a></p>
+            <p><a href="http://www.w3school.com.cn/js/index.asp">W3School JavaScript 教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            null和undefined的区别和联系？
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY : 左少华 | somebody</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

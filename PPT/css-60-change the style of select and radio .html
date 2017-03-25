@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何改变默认radio和select的样式</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-60】</h2>
+            <h3>小课堂【改变默认radio和select的样式】</h3>
+            <p>分享人:石林涛</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">HTML表单用于选择的标签有两个，一个是选择框，选择框又分为单选radio和多选checbox；另外一个是下拉菜单，下拉菜单也有单选和多选两种，都是通过select标签进行实现。默认样式如图：</p>
+            <img src="../img/css-60-change%20the%20style%20of%20select%20and%20radio/1.jpg">
+            <p style="text-align: left">但是我们出于美观性以及多样性的要求，往往需要修改他们的默认样式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>首先我们简要回顾一下radio和select的知识。</p>
+            <img src="../img/css-60-change%20the%20style%20of%20select%20and%20radio/2.jpg">
+        </section>
+        <section>
+            <p>select代码实现</p>
+            <img src="../img/css-60-change%20the%20style%20of%20select%20and%20radio/3.jpg">
+            <img src="../img/css-60-change%20the%20style%20of%20select%20and%20radio/4.jpg">
+        </section>
+        <section>
+            <p>一个小知识点label</p>
+            <pre><code>
+  <!--<form>
+  <label for="male">男</label>
+  <input type="radio" name="gender" id="male" />
+  <br />
+  <label for="female">女</label>
+  <input type="radio" name="gender" id="female" />
+  <br />
+  <label for="email">输入你的邮箱地址</label>
+  <input type="email" id="email" placeholder="Enter email">
+</form>-->
+            </code></pre>
+        </section>
+        <section>
+            <p>我们先看一些修改过的样式</p><br><br><br>
+            <a href="https://codepen.io/AngelaVelasquez/pen/Eypnq" target="_blank">radio样式修改</a><br>
+            <a href="https://codepen.io/ericrasch/pen/zjDBx" target="_blank">select样式修改</a>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>怎么改变默认radio和select的样式呢？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>我们的css-task10里面就需要解决这两个问题。</p>
+            <a href="http://119.10.57.69:880/ptt242/task10/task10.html" target="_blank">
+                <img src="../img/css-60-change%20the%20style%20of%20select%20and%20radio/5.png">
+            </a>
+        </section>
+        <section>
+            <p>改变radio的样式</p>
+            <pre><code>
+<!--<label class="cha-label" for="optionsRadios1">
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" class="regular-radio"
+           checked>
+    <span class="demo-radioInput"></span>对口箱
+</label>-->
+
+.regular-radio {
+    display: none;
+}
+.demo-radioInput {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:1.5rem;
+    width:1.8rem;
+    height:1.8rem;
+    border:1px solid #d6d6d6;
+    border-radius:50%;
+    background: #f8f9fb;
+}
+.regular-radio:checked + .demo-radioInput:after {
+    display: inline-block;
+    height:1.8rem;
+    width:1.8rem;
+    background-color:#f8f9fb;
+    border:0.7rem solid #1d7ad9;
+    border-radius:50%;
+    content: "";
+}
+            </code></pre>
+        </section>
+        <section>
+            <p>改变select的样式</p>
+            <pre><code>
+<!--<label>
+    <select class="form-control">
+        <option>查看详情</option>
+        <option>长度分类</option>
+        <option>参照标准</option>
+    </select>
+    <span class="cha-arrow">
+       <span class="downarrow"></span>
+   </span>
+</label>-->
+
+select.form-control {
+    height:3.8rem;
+    font-size:1.4rem;
+    padding:0.6rem 5.4rem 0.6rem 1.8rem;
+    color: #999;
+    border:1px solid #e8e8e8;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+select.form-control::-ms-expand {
+    display: none;
+}
+.cha-arrow {
+    display: inline-block;
+    position: relative;
+    top:-3.3rem;
+    left:9.2rem;
+    width:2.4rem;
+    height:2.8rem;
+    background: #1d7ad9;
+    border-radius:0.5rem;
+}
+.downarrow {
+    display: inline-block;
+    margin:45% 26%;
+    width:0;
+    height:0;
+    border-left:0.6rem solid transparent;
+    border-right:0.6rem solid transparent;
+    border-top:0.85rem solid white;
+}
+            </code></pre>
+            <a href="http://caniuse.com/#search=appearance" target="_blank">appearance兼容性</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>还有没有其他的实现方法呢？</p><br><br>
+            <a href="http://www.cnblogs.com/icerainsoft/p/4097886.html" target="_blank">HTML单选按钮样式更换</a><br>
+            <a href="http://www.cnblogs.com/depsi/archive/2016/01/21/5147743.html" target="_blank">修改radio、checkbox、select默认样式的方法</a><br>
+            <a href="http://www.jianshu.com/p/0e2a67cde03d#" target="_blank">自定义checkbox/radio</a><br>
+            <a href="http://blog.csdn.net/u013261261/article/details/44562907" target="_blank">特殊字符</a>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/depsi/archive/2016/01/21/5147743.html" target="_blank">修改radio、checkbox、select默认样式的方法</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/icerainsoft/p/4097886.html" target="_blank">HTML单选按钮样式更换</a></p>
+            <p>参考三：<a href="http://www.jianshu.com/p/0e2a67cde03d#" target="_blank">自定义checkbox/radio</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>这些方法的优劣？还有没有其他实现方法？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 石林涛</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
