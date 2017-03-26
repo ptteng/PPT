@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-10】如何使用正则表达式？</h2>
+
+            <h3>小课堂【成都】</h3>
+
+            <p style="text-align: center;">分享人：梁家健</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">正则表达式由一些普通字符和一些元字符（metacharacters）组成。普通字符包括大小写的字母和数字，而元字符则具有特殊的含义。</p>
+            <p style="text-align: left">在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">假设你在一篇英文小说里查找hi，你可以使用正则表达式hi，当然，这个也算是正则表达式。</p>
+                <p style="text-align: left">这几乎是最简单的正则表达式了，它可以精确匹配这样的字符串：由两个字符组成，前一个字符是h,后一个是i。通常，处理正则表达式的工具会提供一个忽略大小写的选项，如果选中了这个选项，它可以匹配hi,HI,Hi,hI这四种情况中的任意一种。</p>
+                <p style="text-align: left">不幸的是，很多单词里包含hi这两个连续的字符，比如him,history,high等等。用hi来查找的话，这里边的hi也会被找出来。如果要精确地查找hi这个单词的话，我们应该使用\bhi\b。</p>
+			</section>
+			<section>
+				<p style="text-align: left">假如你要找的是hi后面不远处跟着一个Lucy，你应该用\bhi\b.*\bLucy\b。</p>
+				<p style="text-align: left">这里，.是另一个元字符，匹配除了换行符以外的任意字符。*同样是元字符，不过它代表的不是字符，也不是位置，而是数量——它指定*前边的内容可以连续重复使用任意次以使整个表达式得到匹配。因此，.*连在一起就意味着任意数量的不包含换行的字符。现在\bhi\b.*\bLucy\b的意思就很明显了：先是一个单词hi,然后是任意个任意字符(但不能是换行)，最后是Lucy这个单词。</p>
+				<p style="text-align: left">如果同时使用其它元字符，我们就能构造出功能更强大的正则表达式。比如下面这个例子：</p>
+			</section>
+			<section>
+				<p style="text-align: left">0\d\d-\d\d\d\d\d\d\d\d匹配这样的字符串：以0开头，然后是两个数字，然后是一个连字号“-”，最后是8个数字(也就是中国的电话号码。当然，这个例子只能匹配区号为3位的情形)。</p>
+				<p style="text-align: left">这里的\d是个新的元字符，匹配一位数字(0，或1，或2，或……)。-不是元字符，只匹配它本身——连字符(或者减号，或者中横线，或者随你怎么称呼它)。</p>
+				<p style="text-align: left">为了避免那么多烦人的重复，我们也可以这样写这个表达式：0\d{2}-\d{8}。这里\d后面的{2}({8})的意思是前面\d必须连续重复匹配2次(8次)。</p>
+				<p style="text-align: left">这就是正则表达式的简单匹配方法，再多的就不说了，下面就针对angular的表单验证举两个正则表达式的应用小例子。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code style="background-color: #1c1e20">
+<form name="myForm" ng-model="myForm">
+  <div class="list2-list"><span class="list2-project"><b>姓名：</b></span>
+    <input type="text" class="list2-text" name="lisName" ng-model="vm.lisName" 
+	placeholder="姓名" ng-pattern="/^[\u4e00-\u9fa5]{2,6}$/" />
+    <span style="color:red" ng-show="myForm.lisName.$dirty && myForm.lisName.$invalid">
+	请输入2-6位中文字符
+    </span>
+  </div>
+  <div class="list2-list"><span class="list2-project"><b>QQ：</b></span>
+    <input type="text" class="list2-text" name="lisQQ" ng-model="vm.lisQQ" 
+	placeholder="QQ" ng-pattern="/^[0-9]{6,15}$/" />
+    <span style="color:red" ng-show="myForm.lisQQ.$dirty && myForm.lisQQ.$invalid">
+	请输入6-15位数字
+    </span>
+  </div>
+</form>
+                </code>
+            </pre>
+            <p style="text-align: left">上面是修真院的js任务10中的输入框内容验证的一段代码，明显的，限定“姓名”为2~6位中文字符，限定“QQ”为6~15位数字，若不满足条件，则输出对应的红色文字警告。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://baike.baidu.com/link?url=ji0hID2eiNGX1fEm9jMWSXIU8GjkDffqYHbKbNJc7RHlvrMzGCrUZdLBcVBIl_w_IlKQ6-AfFuTCWDqb-Ubq5G1I2W4gTNmzVP655apVrRzE_uaEQZMKw2R9YbzGUUnbOp5v-4FlN5sqV8MXNune2a#4" target="_blank">百度百科</a></p>
+            <p style="text-align: left">参考二：<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank">正则表达式30分钟入门教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 梁家健 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
