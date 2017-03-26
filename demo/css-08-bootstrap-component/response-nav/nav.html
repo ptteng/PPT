@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航栏</title>
+	<link rel="stylesheet" href="response-nav.css">
+</head>
+<body>
+	<div class="container clearfix nav-wrap" id="nav-wrap">
+		<div class="navbar-header clearfix" id="navbar-header">
+			<button type="button" class="navbar-toggle" id="btn">
+				<span>click</span>
+			</button>
+		</div>
+		<div class="navbar-collapse" id="menu">
+			<ul class="my-nav clearfix">
+				<li>首页</li>
+				<li>职业</li>
+				<li>推荐</li>
+				<li>关于</li>
+			</ul>
+		</div>
+	</div>
+<div class="main-wrap"></div>
+</body>
+<script>
+	function $(id){
+		return document.getElementById(id);
+	}
+	function navToggle() {
+		var nav_wrap=$("nav-wrap");
+		var navbar=$("menu");
+		var btn=$("btn");
+		var nav_count=0;
+		btn.addEventListener("click",function () {
+			var menuHeight=navbar.offsetHeight;
+			if(nav_count===0){
+				nav_wrap.style.marginBottom=menuHeight+"px";
+				nav_count=1;
+			}
+			else{
+				nav_wrap.style.marginBottom=0;
+				nav_count=0;
+			}
+			
+		},false);
+	}
+	window.onload=function () {
+		navToggle();
+	}
+	window.onresize=function () {
+		window.location.reload();
+	}
+</script>
+</html>
