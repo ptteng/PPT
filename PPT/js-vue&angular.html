@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>浅谈vue&angular</h2>
+            <p>分享人：翟金超</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>Vue.js 是一个用来构建网页界面的 JavaScript 库。同其它的一些工具结合在一起，它也可以成为一个新“框架”。</p>
+            <p>Vue 比较新颖，没历史包袱,它吸取了 React 和 Angular 的教训，同时也吸收了它们的成功之处。我们看到的 Vue 是轻量级且容易学习掌握的。而且有中文文档，更加方便学习</p>
+            <p>angular是google维护的项目，目前出到angular2，而且最近</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>angular和vue之间的比较</p>
+        </section>
+        <section>
+        <img src="../img/vue&angular/vue_angulr1.png">
+        </section>
+        <section>
+        <img src="../img/vue&angular/vue_angulr2.png">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>Vue.js与angular在数据实现的思考</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <section>
+            <p>　Vue与Angular同属于MVVM框架，MVVM的本质是通过数据绑定链接View和Model，让数据的变化自动映射为视图的更新。Vue.js在数据绑定的API设计上借鉴了Angular的指令机制：用户可以通过具有特殊前缀的HTML 属性来实现数据绑定，也可以使用常见的花括号模板插值，或是在表单元素上使用双向绑定：</p>
+        </section>
+        <section>
+        <img src="../img/vue&angular/vue&angular3.jpg">
+        <p>插值本质上也是指令，只是为了方便模板的书写。在模板的编译过程中，Vue.js会为每一处需要动态更新的DOM节点创建一个指令对象。每当一个指令对象观测的数据变化时，它便会对所绑定的目标节点执行相应的DOM操作。基于指令的数据绑定使得具体的DOM操作都被合理地封装在指令定义中，业务代码只需要涉及模板和对数据状态的操作即可，这使得应用的开发效率和可维护性都大大提升。</p>
+        </section>
+        </section>
+        <section style="text-align:left">
+             Vue.js采用的则是基于依赖收集的观测机制。也有一说法，叫做数据劫持，用到了ES5的Object.defineProperty()，所以它只能兼容到IE9之后的环境。它的基本原理是：<br>
+
+            1将原生的数据改造成 “可观察对象”。一个可观察对象可以被取值，也可以被赋值。<br>
+            2在watcher的求值过程中，每一个被取值的可观察对象都会将当前的watcher注册为自己的一个订阅者，并成为当前watcher的一个依赖。<br>
+            3当一个被依赖的可观察对象被赋值时，它会通知所有订阅自己的watcher重新求值，并触发相应的更新。<br>
+            4依赖收集的优点在于可以精确、主动地追踪数据的变化，不存在上述提到的脏检查的两个问题。但传统的依赖收集实现，比如Knockout，通常需要包裹原生数据来制造可观察对象，在取值和赋值时需要采用函数调用的形式，在进行数据操作时写法繁琐，不够直观；同时，对复杂嵌套结构的对象支持也不理想。
+        </section>
+        <section style="text-align:left">
+            Angular的数据观测采用的“脏值检查机制”，每一个指令都会有一个对应的用来观察到对象的变化，这个应用叫做watcher，一个作用域中可能会有多个watcher，当数据发生变化，页面更新，Angular会遍历当前页面中所有的watcher，对他们一一求值，与之前的值进行对比，如果求值的结果变化了，就会触发对应的更新，这个过程叫做digest cycle。脏值检查的劣势也就有两点：<br>
+
+            1任何数据变动都意味着当前作用域的每一个watcher需要被重新求值，因此当watcher的数量庞大时，应用的性能就不可避免地受到影响，并且很难优化。<br>
+            2当数据变动时，框架并不能主动侦测到变化的发生，需要手动触发digest cycle才能触发相应的DOM 更新。Angular通过在DOM事件处理函数中自动触发digest cycle部分规避了这个问题，但还是有很多情况需要用户手动进行触发，这一点很容易在初学者出现问题，不知道什么情况。
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>如何选择适合自己的框架</p>
+        </section>
+        <section>
+            <p>vue年轻有活力，angular亦是最流行的库，该如何进行选择</p>
+            <p>首选自然是适合自己的，对比与angular的大而全而霸道（在其控制范围内不可以使用诸如原生的写法）vue的扩展性也很强，可以在有需要的地方在引入使用，比较方便，然而诸如路由之类的亦没有加入核心，（也许在以后有改善）而且国人使用的气氛浓厚，也很有前途。当然angular作为google扶持的项目，在资源方面自然是雄厚无比的，找到项目的技术中心，分析利弊，才能更好的做出选择，没有最好的框架，只有最</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="http://www.oschina.net/translate/vuejs-is-good-but-is-it-better-than-angular-or-rea">链接1</a>
+            <a href="http://blog.csdn.net/haoshidai/article/details/52346865">链接2</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 翟金超</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
