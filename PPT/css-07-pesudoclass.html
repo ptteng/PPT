@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>IT修真院</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task7】</h2>
+            <h3>常用的伪类选择器有哪些以及使用场景？</h3>
+            <h3>小课堂【郑州第六十三期】</h3>
+            <p>分享人：王相博</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">有时候，我们需要根据文档之外的其他条件对元素应用样式，例如表单元素或链接的状态。这时候要用伪类选择器来完成。</p>
+        </section>
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>CSS的伪类语法和别的语法有点不一样，其主要有两种语法表达方式</p>
+        </section>
+        <section>
+            <h4>第一种</h4>
+            <p>E:pseudo-class {property:value}</p>
+            <p>示例： a:link {color:red;}</p>
+            <p><br>/*其中E为元素;pseudo-class为伪类名称;property是css的属性;value为css的属性值*/</p>
+        </section>
+        <section>
+            <h4>第二种</h4>
+            <p>E.class:pseudo-class{property:value}</p>
+            <p>示例： a.selected:hover {color: blue;}</p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align:left;">一、动态伪类<br><br><br> 动态伪类，因为这些伪类并不存在于HTML中,而只有当用户和网站交互的时候才能体现出来，动态伪类包含两种，第一种是我们在链接中常看到的锚点伪类，如":link",":visited";另外一种被称作用户行为伪类，如“:hover”,":active"和":focus"。
+                </p>
+            </section>
+            <section>
+                <p style="font-family: Microsoft YaHei,serif;text-align: left;font-size:1.5rem;">
+                    .demo a:link {background:red;}/*链接没有被访问时前景色为红色*/<br><br> .demo a:visited{background:yellow;}/*链接被访问过后前景色为黄色*/<br><br> .demo a:focus{background:black;}/*链接被选中后背景色为黑色*/<br><br> .demo a:hover{background:green;}/*鼠标悬浮在链接上时前景色为绿色*/<br><br> .demo a:active{background:blue;}/*鼠标点中激活链接那一下前景色为蓝色*/<br><br>
+                </p>
+            </section>
+            <section>
+                <p style="text-align:left;">伪类顺序<br>
+
+                    　　对于伪类顺序，有一个口诀是LoVe-HAte，代表着伪类的顺序是link、visited、focus、hover、active。<br>但是否伪类的顺序只能如此吗？<br>为什么是这个顺序呢？<br>
+</p></section><section><p style="text-align:left">
+                    　　CSS层叠中有一条法则十分重要，就是后面覆盖前面，所以伪类的顺序是需要精心考虑的。<br>
+
+                    　　【1】link和visited必须在最前面，且没有先后顺序，否则link或visited的效果将被覆盖<br>
+
+                    　　[注意]link和visited称为静态伪类，只能应用于超链接<br>
+
+                    　　【2】hover、active、focus这三个伪类必须是focus、hover、active的顺序，因为在focus状态下，也需要触发hover和active，而要触发active一定要先触发hover，所以active要放在hover后面
+</p></section><section><p style="text-align:left">
+                    　　[注意]hover、active、focus称为动态伪类，可应用于任何元素，但IE7-浏览器不支持:focus，:hover和:active在IE6-浏览器下只支持给a标签设置。
+
+                        　　<br>所以最终的顺序只有两种:link、visited、focus、hover、active或visited、link、focus、hover、active
+                </p>
+            </section>
+            <section>
+                <h3>他们所表达的意思是：</h3>
+                <p style="text-align:left;">:hover用于当用户把鼠标移动到元素上面时的效果；<br><br> :active用于用户点击元素那一下的效果（正发生在点的那一下，松开鼠标左键此动作也就完成了）<br><br> :focus用于元素成为焦点，这个经常用在表单元素上。
+                </p>
+            </section>
+            <section>
+                <p>
+                    二、UI元素状态伪类<br><br> 我们把":enabled",":disabled",":checked"伪类称为UI元素状态伪类，这些主要是针对于HTML中的Form元素操作，最常见的比如我们"type="text"有enable和disabled两种状态，前者为可写状态后者为不可状态；另外"type="radio"和"type="checkbox""有"checked"和"unchecked"两种状态。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>三.常见问题</h3>
+        </section>
+        <section>
+            <p>常用的伪类选择器有哪些以及使用场景？</p>
+        </section>
+        <section>
+            <h3>四.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                常用的伪类选择器有：visited、focus、hover、active。<br><br>他们一般用于按钮或者链接等一些需要和用户交互的地方。
+            </p>
+        </section>
+        <section>
+            <h3>五.代码实战</h3>
+        </section>
+
+        <section>
+            <pre>
+                <code>
+                    .demo a:link {background:red;}/*链接没有被访问时背景色为红色*/
+                    .demo a:visited{background:orange;}/*链接被访问过后背景色为黄色*/
+                    .demo a:focus{background:black;}/*链接被选中后背景色为黑色*/
+                    .demo a:hover{background:green;}/*鼠标悬浮在链接上时背景色为绿色*/
+                    .demo a:active{background:blue;}/*鼠标点中激活链接那一下背景色为蓝色*/
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+        <section>
+            <p>伪类选择器和伪元素有什么区别？
+            </p>
+        </section>
+        <section>
+            <p>
+                　　伪类经常与伪元素混淆，伪元素的效果类似于通过添加一个实际的元素才能达到，而伪类的效果类似于通过添加一个实际的类来达到。实际上css3为了区分两者，已经明确规定了伪类用一个冒号来表示，而伪元素则用两个冒号来表示。<br><br>
+                常见的伪元素有::before ; ::after ;
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+                <a href="http://www.w3cplus.com/css3/pseudo-class-selector" target="_blank">airen的博客</a>
+            </p>
+            <p>参考二：
+                <a href="#" target="_blank">精通CSS</a>
+            </p>
+            <p>参考三：
+                <a href="http://www.cnblogs.com/xiaohuochai/p/5518943.html" target="_blank">博客园：深入了解CSS伪类</a>
+            </p>
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+        </section>
+        <section>
+            <p>伪类还有什么其他的作用吗？</p>
+        </section>
+        <section>
+
+            <br>大家有时间可以去了解一下结构伪类，都是可以控制子元素的第一个或最后一个，也可以控制间隔几个生效，比如选择135跳几个数可以自己定，从几开始也可以自己定，由于时间比较紧，学的也不怎么好，这次大家了解有这个知识点，下次再和大家分享结构伪类。
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 王相博</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
