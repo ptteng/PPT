@@ -132,17 +132,36 @@
             </section>
              <section>
             <h5>数据类型如何转换</h5>
-           
+           <p>1. 强制转换 强制转换主要指使用Number、String和Boolean三个构造函数，手动将各种类型的值，转换成数字、字符串或者布尔值。
+                </p>
             <pre>
                     <code>
-                        var num =10
-                        num.toString()  //'10'
-                        num.toString(2)  //'1010'  参数是输出二进制格式字符串
- 
+                         // 数值：转换后还是原来的值
+                        Number(324) // 324
+
+                        // 字符串：如果可以被解析为数值，则转换为相应的数值
+                        Number('324') // 324
+
+                        // 字符串：如果不可以被解析为数值，返回NaN
+                        Number('324abc') // NaN
+
                         var a = null
                         var b
                         String(a)  //'null'
                         String(b)  //'undefined'
+                        
+                        Boolean(undefined) // false
+                        Boolean(null) // false
+                        Boolean(0) // false
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h5>自动转换</h5>
+                <pre>
+                    <code>
+                        // 1. 不同类型的数据互相运算
+                123 + 'abc' // "123abc"
                     </code>
                 </pre>
             </section>
