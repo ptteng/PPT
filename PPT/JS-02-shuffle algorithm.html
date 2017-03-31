@@ -107,23 +107,23 @@
         <section>
             <pre>
                 <code class="hljs actionscript">
-                    <span style="color: #66d9ef;">function</span> <span style="color: #a6e22e;">shuffle</span><span style="color: #f8f8f2;">(</span><span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">)</span> <span style="color: #f8f8f2;">{</span>
-                    <span style="color: #66d9ef;">var</span> <span style="color: #a6e22e;">copy</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">[],</span>
-                    <span style="color: #a6e22e;">n</span> <span style="color: #f92672;">=</span> <span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">.</span><span style="color: #a6e22e;">length</span><span style="color: #f8f8f2;">,</span>
-                    <span style="color: #a6e22e;">i</span><span style="color: #f8f8f2;">;</span>
-                    <span style="color: #75715e;">// 如果还剩有元素则继续。。。</span>
-                    <span style="color: #66d9ef;">while</span> <span style="color: #f8f8f2;">(</span><span style="color: #a6e22e;">n</span><span style="color: #f8f8f2;">)</span> <span style="color: #f8f8f2;">{</span>
-                    <span style="color: #75715e;">// 随机抽取一个元素</span>
-                    <span style="color: #a6e22e;">i</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">Math.</span><span style="color: #a6e22e;">floor</span><span style="color: #f8f8f2;">(Math.</span><span style="color: #a6e22e;">random</span><span style="color: #f8f8f2;">()</span> <span style="color: #f92672;">*</span> <span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">.</span><span style="color: #a6e22e;">length</span><span style="color: #f8f8f2;">);</span>
-                    <span style="color: #75715e;">// 如果这个元素之前没有被选中过。。</span>
-                    <span style="color: #66d9ef;">if</span> <span style="color: #f8f8f2;">(</span><span style="color: #a6e22e;">i</span> <span style="color: #66d9ef;">in</span> <span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">)</span> <span style="color: #f8f8f2;">{</span>
-                    <span style="color: #a6e22e;">copy</span><span style="color: #f8f8f2;">.</span><span style="color: #a6e22e;">push</span><span style="color: #f8f8f2;">(</span><span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">[</span><span style="color: #a6e22e;">i</span><span style="color: #f8f8f2;">]);</span>
-                    <span style="color: #66d9ef;">delete</span> <span style="color: #a6e22e;">array</span><span style="color: #f8f8f2;">[</span><span style="color: #a6e22e;">i</span><span style="color: #f8f8f2;">];</span>
-                    <span style="color: #a6e22e;">n</span><span style="color: #f92672;">--</span><span style="color: #f8f8f2;">;</span>
-                    <span style="color: #f8f8f2;">}</span>
-                    <span style="color: #f8f8f2;">}</span>
-                    <span style="color: #66d9ef;">return</span> <span style="color: #a6e22e;">copy</span><span style="color: #f8f8f2;">;</span>
-                    <span style="color: #f8f8f2;">}</span>
+function shuffle(array) {
+    var copy = [],
+      n = array.length,
+      i;
+    // 如果还剩有元素则继续。。。
+    while (n) {
+        // 随机抽取一个元素
+        i = Math.floor(Math.random() * array.length);
+        // 如果这个元素之前没有被选中过。。
+        if (i in array) {
+            copy.push(array[i]);
+            delete array[i];
+            n--;
+        }
+    }
+    return copy;
+}
                 </code>
             </pre>
             <p>我们创建了一个copy数组，然后遍历目标数组，将其元素复制到copy数组里，同时将该元素从目标数组中删除，这样下次遍历的时候就可以跳过这个序号。</p>
@@ -137,19 +137,16 @@
         <section>
             <pre>
                 <code class="hljs actionscript">
-                    Array.prototype.shuffle = <span class="keyword"><span class="keyword">function</span></span>() {
-                    <span class="keyword"><span class="keyword">var</span></span> input = <span class="keyword"><span class="keyword">this</span></span>;
-
-                    <span class="keyword"><span class="keyword">for</span></span> (<span class="keyword"><span class="keyword">var</span></span> i = input.length-<span class="number"><span class="number">1</span></span>; i &gt;=<span class="number"><span class="number">0</span></span>; i--) {
-
-                    <span class="keyword"><span class="keyword">var</span></span> randomIndex = Math.floor(Math.random()*(i+<span class="number"><span class="number">1</span></span>));
-                    <span class="keyword"><span class="keyword">var</span></span> itemAtIndex = input[randomIndex];
-
-                    input[randomIndex] = input[i];
-                    input[i] = itemAtIndex;
-                    }
-                    <span class="keyword"><span class="keyword">return</span></span> input;
-                    }
+  Array.prototype.shuffle = function() {
+    var input = this;
+    for (var i = input.length - 1; i >= 0; i--) {
+      var randomIndex = Math.floor(Math.random() * (i + 1));//获取小于this.length的随机整数
+      var itemAtIdex = input[randomIndex];
+      input[randomIndex] = input[i];
+      input[i] = itemAtIdex;//input[randomIndex]和input[i]交换值
+    }
+    return input;
+  }
                 </code>
             </pre>
         </section>
