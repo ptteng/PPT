@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task11】</h2>
+            <h3>小课堂【武汉第123期】</h3>
+            <h4>如何使用sass?</h4>
+            <h4>分享人：汤特</h4>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Sass 是一款强化 CSS 的辅助工具，它在 CSS 语法的基础上增加了变量 (variables)、嵌套 (nested rules)、
+                混合 (mixins)、导入 (inline imports) 等高级功能，这些拓展令 CSS 更加强大与优雅。使用 Sass 以及 Sass 的样式库
+                （如 Compass）有助于更好地组织管理样式文件，以及更高效地开发项目。
+            </p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>2.1如何安装sass？</h4>
+            </section>
+            <section>
+                    <p>
+                        window下安装SASS首先需要安装Ruby，先从官网下载Ruby并安装。
+                        安装过程中请注意勾选Add Ruby executables to your PATH添加到系统环境变量。
+                    </p>
+                    <p>安装成功后，因为国内网络的问题会导致gem源间歇性中断，因此我们需要更换gem源。</p>
+                    <pre><code>
+//1.删除原gem源
+gem sources --remove https://rubygems.org/
+
+//2.添加国内源,注意：很多教程使用的是淘宝的源，现在已经不能用了，使用下面这个。
+gem sources -a https://gems.ruby-china.org/
+
+//3.打印是否替换成功
+gem sources -l
+
+//4.更换成功后打印如下
+*** CURRENT SOURCES ***
+https://ruby.taobao.org/
+                </code></pre>
+            </section>
+            <section>
+                <h4>2.2 如何编译sass？</h4>
+            </section>
+            <section>
+                <p>sass编译有很多种方式，如命令行编译模式、sublime插件SASS-Build、编译软件koala、前端自动化软件codekit、
+                    Grunt打造前端自动化工作流grunt-sass、Gulp打造前端自动化工作流gulp-ruby-sass等。</p>
+                <p>推荐使用软件编译，koala是一款免费好用编译器</p>
+                <a href="http://koala-app.com/">koala编译器</a>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <h4>3.1 变量的使用</h4>
+            </section>
+            <section>
+                <p>所有变量以$符号开头,如下</p>
+                <pre><code>
+                        $blue:#1875e7;
+                        .case1{
+                          text-align: center;
+                          color: $blue;
+                        }
+            </code></pre>
+            </section>
+            <section>
+                <h4>3.2 计算功能</h4>
+            </section>
+            <section>
+                <p>SASS允许在代码中使用算式：</p>
+                <pre><code>.case2{
+  text-align: center;
+  font-size: 12px+12px;
+}</code></pre>
+            </section>
+            <section>
+                <h4>3.3 嵌套的使用</h4>
+            </section>
+            <section>
+                <p>嵌套在不同情况下有不同的写法</p>
+                <pre><code>
+                    //方法1
+                    div h1 {
+    　            　　　color : red;
+    　            　}
+                </code></pre>
+                <pre><code>
+                    方法2
+                    div {
+　               　　　hi {
+　               　　　　　color:red;
+　               　　　}
+　               　}
+                </code></pre>
+            </section>
+            <section>
+                <p>在嵌套的代码块内，可以使用&引用父元素。比如a:hover伪类，可以写成：</p>
+                <pre><code>
+                    .case3{
+                          background-color: gray;
+                          p{
+                            text-align: center;
+                            font-size: 12px+12px;
+                            &:hover {color: red}
+                          }
+                        }
+                </code></pre>
+            </section>
+            <section>
+                <h4>3.4 注释</h4>
+            </section>
+            <section>
+                <p>SASS共有两种注释风格。</p>
+                <p>标准的CSS注释 /* comment */ ，会保留到编译后的文件。</p>
+                <p>单行注释 // comment，只保留在SASS源文件中，编译后被省略。</p>
+            </section>
+            <section>
+                <h4>3.5 代码的重用之继承与mixin</h4>
+            </section>
+            <section>
+                <p>继承：SASS允许一个选择器，继承另一个选择器。比如，现有case1:</p>
+                <pre><code>
+                    $blue:#1875e7;
+                    .case1{
+                    text-align: center;
+                    color: $blue;
+                    }
+                </code></pre>
+            </section>
+            <section>
+                <p>case4要继承case1，就要使用@extend命令</p>
+                <pre><code>
+                    .case4{
+                        @extend .case1;
+                        }
+                </code></pre>
+            </section>
+            <section>
+                <p>mixin:使用@mixin命令，定义一个代码块。</p>
+                <pre><code>
+@mixin font-st($value:pink){
+  text-align: center;
+  font-size: 36px;
+  color: $value;
+}
+                </code></pre>
+                <p>使用@include命令，调用这个mixin。</p>
+                <pre><code>
+.case5{
+  @include font-st;
+}
+                </code></pre>
+                <p>有时也可以增加参数方便改变样式。</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <a href="../demo/css-11-sass/test.html">sass代码实例</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>sass如何使用判断语句？</p>
+            <a href="http://www.ruanyifeng.com/blog/2012/06/sass.html">阮一峰sass的使用</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.sass.hk/guide/" target="_blank">sass基础教程</a></p>
+            <p>参考二：<a href="http://www.ruanyifeng.com/blog/2012/06/sass.html" target="_blank">sass用法指南</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>sass如何使用循环来批量创建类似css块样式？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>by：汤特</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
