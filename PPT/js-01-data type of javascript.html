@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task03】</h2>
+            <h3>小课堂【郑州第73期】</h3>
+            <h4>JavaScript的数据类型和常用的方法</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>随着我们的任务推进，基本已经陆续开始JavaScript部分的任务，今天跟大家分享和讨论一下JavaScript的基础部分的数据类型的知识。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1JavaScript数据类型有哪些
+            </section>
+            <section>
+                <p>在ECMAScript中，将数据类型分为6种，分别是Undefined[ˌʌndɪˈfaɪnd]、Null[nʌl]、Boolean[ˈbu:liən]、Number和String [strɪŋ]，还有一个复杂数据类型Object[ˈɒbdʒɪkt]。</p>
+                <p>ECMAScript 是标准化的 JavaScript 语言，它是一种由Ecma国际（前身为欧洲计算机制造商协会）通过ECMA-262标准化的脚本程序设计语言。这种语言在万维网上应用广泛，它往往被称为JavaScript或JScript，但实际上后两者是ECMA-262标准的实现和扩展。1997 年发布了第一版，1998 年和1999 年发布了第二和第三个版本，之后 ECMAScript 沉寂 了许多年，直到 Ajax 流行起来后标准工作才再次起步，2009 年发布了第五个版本，2015 年发布了第六个版本，第七个版本被称为 ECMAScript 2016，ECMAScript 2017为 ECMAScript 发布的第八个版本。</p>
+            </section>
+            <section>
+                2.2 Undefined数据类型
+            </section>
+            <section>
+                <p>Undefined数据类型只是一个值，即特殊的undefined。在使用var声明变量但为对其进行初始化时，变量的值就是undefined。</p>
+                <pre>
+                    <code>
+                        var q;
+                        alert(q == undefined); //ture
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.3 Null数据类型
+            </section>
+            <section>
+                <p>Null数据类型也是一个只有一个值的数据类型。其特殊值就是Null。从逻辑上看，null是一个空的对象指针。</p>
+                    <pre>
+                        <code>
+                            var a = null;
+                            typeof (a);
+                            alert(null == undefined); //true
+                        </code>
+                    </pre>
+                <p>undefined值派生自null值。</p>
+            </section>
+            <section>
+                2.4 Boolean数据类型
+            </section>
+            <section>
+                <p>Boolean数据类型，译作布尔值，只有两个字面量：true和false。它们是区分大小写的。 </p>
+                <p>任何数据类型的值调用Boolean()函数都会返回一个Boolean值</p>
+                <img src="../img/js-01-data type of javascript/boolean.png">
+            </section>
+            <section>
+                2.5 Number数据类型
+            </section>
+            <section>
+                <p>Number数据类型使用IEEE754格式表示，分为整数和浮点数值（浮点数值在某些语言中也被成为双精度数值）。</p>
+                <p>不同进制的字面表达不同</p>
+                <pre>
+                        <code>
+                            var num1 = 42;   //十进制
+                            var num2 = 071;  //八进制
+                            var num3 = 079;  //十进制（尾数9超过了八进制的范围）
+                            var num4 = 0xA;  //十六进制
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <p>
+                    浮点数值，必须包含一个小数点，小数点后必须至少有一个数字。如果小数点前边的整数为0 ，推荐要写上，如果没写，安好插件的编辑器会报这个错误。
+                </p>
+                <p>对于极大或者极小数，用科学技术法e表示浮点数值。大多数浏览器中的最大值为1.7976931348623157e+308。超出JavaScript数值范围的值会返回一个特殊值Infinity值，正数为Infinity（正无穷），负数为-Infinity（负无穷）。其值无法继续参与下一步运算。可以使用isFinite()函数判别数值是不是有穷的。</p>
+                <pre>
+                    <code>
+                        var num5 = 5.56e8; //556000000
+                        
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>NaN，非数值（Not a number）。表示一个本来要返回数值的操作未返回数值的情况，省去报错。有两个特点：1. 任何涉及NaN的操作都会返回NaN。2. NaN和任何值都不相等，包括其本身。</p>
+                <pre>
+                    <code>
+                        alert(NaN == NaN);   //false
+                        alert(isNaN("10"));  //false 可以被转换成数值10
+                        alert(isNaN("red")); //true  不能转换为数值
+                        alert(isNaN(true));  //false 可以被转换成数值1
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.6 String数据类型
+            </section>
+            <section>
+                <p>
+                    String数据类型表示由零或者多个16位Unicode字符组成的字符序列，简称字符串。由('')("")表示。字符串是不可变的，一旦创建，值不能改变。
+                </p>
+                <p>使用toString()，可以将其他类型值转换成字符串，但是null和undisturbed不适用这个方法。使用String()函数可以将null和undisturbed进行转换。</p>
+                <pre>
+                    <code>
+                        var value1 = 10;
+                        var value2 = true;
+                        var value3 = null;
+                        var value4;
+                        alert(String(value1));   //"10"
+                        alert(String(value2));   //"true"
+                        alert(String(value3));   //"null"
+                        alert(String(value4))；  //"undefined"
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.7 Object数据类型
+            </section>
+            <section>
+                <p>Object数据类型，称为对象，是一组数据和功能（函数）的集合。可以用new操作符后跟要创建的对象类型的名称来创建。也可以用字面量表示法创建。在其中添加不同名（包含空字符串在内的任意字符串）的属性。</p>
+                <pre>
+                    <code>
+                    1   var person = new Object();
+                        person.name = "大娃";
+                        person.age = 24;
+
+                    2   var person = {
+                        name: "大娃"，
+                        age:29  //最后一个属性不能添加逗号
+                    }
+
+                    3   var person = new Object();
+                        person["name"] = "大娃";
+                        person["age"] = 24;
+                    </code>
+                </pre>
+
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 数据类型之间转换的方法有哪些？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>转换成字符串的方法：toString()，String()函数；</p>
+            <p>转换成数字的方法：Number()、parseInt()、parseFloat()这三个函数；</p>
+            <p>转换成布尔值的方法：Boolean()函数；</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                    <code>
+              一    var num1 = Number("Hello world!");   //NaN
+                    var num2 = Number("");               //0
+                    var num3 = Number("000011");         //11
+                    var num4 = Number(true);             //1
+
+              二    var num1 = parseFloat("12345world");   //12345
+                    var num2 = parseFloat("");               //NaN
+                    var num3 = parseFloat("0xA");            //10(十六进制)
+                    var num4 = parseFloat(43.2);             //43
+                    var num5 = parseFloat("070");            //56(八进制)
+                    var num6 = parseFloat("70");             //70(十进制)
+
+              三    var num1 = parseFloat("12345world");   //12345
+                    var num3 = parseFloat("0xA");            //0
+                    var num4 = parseFloat(43.288.5);         //43.288
+                    var num5 = parseFloat("070.58");         //70.58
+                    var num6 = parseFloat("3.123e3");        //70(十进制)     
+                    </code>
+                </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: 数组类型属于哪种类型？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：《JavaScript权威指南》</p>
+            <p>参考二：《JavaScript高级程序设计》</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：基本数据类型和引用类型的区别？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
