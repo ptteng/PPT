@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JS有哪几种传参方式?</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="width: 110%">【JS-task3】JS有哪几种传参方式?</h2>
+            <h3>小课堂【武汉第120期】</h3>
+            <p>分享人：万维娜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;letter-spacing: 1px"><strong>为啥需要页面之间传参？</strong><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                我们做前端的，总不可能就写那么几个静态页面就可以了，
+                那也太无趣了，为了使前端搞的事有趣一点，就需要页面之间能够互动，
+                这样我们能做的事就更多啦，比如做个小游戏之类的~
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>页面传参主要的几种方式</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.URL：通过URL进行传值，把要传递的信息接在URL上，
+                然后打开该url后页面获取参数信息，再用js进行处理。<br><br>
+                2.cookie（最传统）：Cookie是浏览器存储少量命名数据，
+                它与某个特定的网页或网站关联在一起。Cookie用来给浏览器提供内存，
+                以便脚本和服务器程序可以在一个页面中使用另一个页面的输入数据。
+                实现思想就是通过document.cookie进行设置值以及取值。<br><br>
+                3.session：session会在一定时间内保存在服务器上。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                4.Window.open：这两窗口之间存在着关系，
+                父窗口parent.htm打开子窗口son.htm，
+                子窗口可以通过window.opener指向父窗口,
+                这样可以访问父窗口的对象。<br><br>
+                5.localStorage、sessionStorage（html5）：
+                localStorage和sessionStorage一样都是用来存储客户端临时信息的对象，
+                他们均只能存储字符串类型的对象。<br>
+                localStorage生命周期是永久，
+                这意味着除非用户显示在浏览器提供的UI上清除localStorage信息，
+                否则这些信息将永远存在。sessionStorage生命周期为当前窗口或标签页，
+                一旦窗口或标签页被永久关闭了，那么所有通过sessionStorage存储的数据也就被清空了。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">传参方式的优缺点？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                4.1 URL传参：<br>
+                优点：取值方便，可以跨域。<br>
+                缺点：值长度有限制。<br><br>
+                4.2 cookie传参：<br>
+                优点：兼容性最好，可以在同源内的任意网页内访问，生命期可以设置。<br>
+                缺点：值长度有限制（存储的容量小），还得注意请求接口时别带到http head。<br><br>
+                4.3 session：<br>
+                优点：安全性比较好 <br>
+                缺点：当访问增多，会比较占用你服务器的性能 <br>
+
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;width: 110%">
+                4.4 localStorage、sessionStorage：<br>
+                优点：使用起来非常简单、方便。<br>
+                缺点：兼容性有点小问题。兼容性： 现代浏览器（firefox safari chrome opera）都支持，IE8以下（不包括IE8）不支持。<br><br>
+                4.5 Window.open：<br>
+                优点：取值方便，只要window.opener指向父窗口,就可以访问所有对象，不仅可以访问值，还可以访问父窗口的方法.值长度无限制。<br>
+                缺点：两窗口要存在着关系，就是利用window.open打开的窗口，不能跨域。<br>
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section style="text-align: left;margin-left: 15%">
+            <a href="../demo/js-03-TransferParametersWay/demo1.html" target="_blank">
+                Demo1:url传参</a><br><br>
+            <a href="../demo/js-03-TransferParametersWay/demo2.html" target="_blank">
+                Demo2:cookie传参</a><br><br>
+            <a href="../demo/js-03-TransferParametersWay/demo3.html" target="_blank">
+                Demo3:Window.open传参</a><br><br>
+            <a href="../demo/js-03-TransferParametersWay/demo4.html" target="_blank">
+                Demo4:localStorage、sessionStorage传参</a><br><br>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>更多的页面传参方法</h3><br>
+            <a href="http://www.cnblogs.com/GetAlert/p/4435193.html" target="_blank">
+                http://www.cnblogs.com/GetAlert/p/4435193.html</a><br><br>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 10%">
+            <p>参考一：<a
+                    href="http://blog.csdn.net/qq380107165/article/details/7330612"
+                    target="_blank">
+                JS页面间传值</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/GetAlert/p/4435193.html"
+                      target="_blank">JS页面间数据传递的各种方法</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/u012545279/article/details/17530561"
+                      target="_blank">js页面之间传参方式集合</a></p>
+            <p>参考四：<a href="http://blog.csdn.net/liuyan19891230/article/details/50961335"
+                      target="_blank">前端在html页面之间传递参数的方法</a></p>
+            <p>参考五：<a href="https://www.zhihu.com/question/32104492"
+                      target="_blank">Javascript关于传递值到另外一个页面</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3 style="text-align: left;width: 120%">
+                除了前台页面间传参，<br>
+                我们还需要传参给后台来进行数据的交互，<br>怎样传参给后台呢？
+            </h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 万维娜</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

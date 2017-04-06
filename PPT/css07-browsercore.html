@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="font-size: 55px">【CSS-task7】主流浏览器内核有哪几种？</h2>
+            <h3>小课堂【成都第72期】</h3>
+            <p>分享人：陈昱恺</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>浏览器最重要或者说最核心的部分是“Rendering Engine”，可大概译为“渲染引擎”，不过我们一般习惯将之称为“浏览器内核”。负责对网页语法的解释并渲染网页。所以，通常所谓的浏览器内核也就是浏览器所采用的渲染引擎，渲染引擎决定了浏览器如何显示网页的内容以及页面的格式信息。</p>
+        </section>
+        <section><h3>浏览器的渲染过程</h3>
+        <img src="http://s1.51cto.com/wyfs02/M01/8B/43/wKioL1hIzNPT9KQwAAAe8F8tWkY640.png-wh_651x-s_2459046825.png">
+        <img src="http://s3.51cto.com/wyfs02/M01/8B/43/wKioL1hIzNOhm9N_AABdTknh0Jg393.png-wh_600x-s_4271816174.png">
+        </section>
+        <section>
+            <h3>2.四大浏览器内核介绍</h3>
+            <p>1)Trident (['traɪd(ə)nt])</p>
+            <p>2)Gecko (['gekəʊ])</p>
+            <p>3)Webkit</p>
+            <p>4)Chromium/Blink</p>
+            <p>5)Presto (['prestəʊ])</p>
+        </section>
+        <section><h3>1)Trident</h3>
+        <p style="font-size: 18px">Trident(IE内核)：该内核程序在 1997 年的 IE4 中首次被采用，是微软在 Mosaic（"马赛克"，这是人类历史上第一个浏览器，从此网页可以在图形界面的窗口浏览） 代码的基础之上修改而来的，并沿用到 IE11，也被普遍称作 "IE内核"。</p>
+        <p style="font-size: 18px">Trident实际上是一款开放的内核，其接口内核设计的相当成熟，因此才有许多采用 IE 内核而非 IE 的浏览器(壳浏览器)涌现。由于 IE 本身的 "垄断性"（虽然名义上 IE 并非垄断，但实际上，特别是从 Windows 95 年代一直到 XP 初期，就市场占有率来说 IE 的确借助 Windows 的东风处于 "垄断" 的地位）而使得 Trident 内核的长期一家独大，微软很长时间都并没有更新 Trident 内核，这导致了两个后果——一是 Trident 内核曾经几乎与 W3C 标准脱节（2005年），二是 Trident 内核的大量 Bug 等安全性问题没有得到及时解决，然后加上一些致力于开源的开发者和一些学者们公开自己认为 IE 浏览器不安全的观点，也有很多用户转向了其他浏览器，Firefox 和 Opera 就是这个时候兴起的。非 Trident 内核浏览器的市场占有率大幅提高也致使许多网页开发人员开始注意网页标准和非 IE浏览器的浏览效果问题。</p>
+        <p style="font-size: 18px">补充：IE 从版本 11 开始，初步支持 WebGL 技术。IE8 的 JavaScript 引擎是 Jscript，IE9 开始用 Chakra，这两个版本区别很大，Chakra 无论是速度和标准化方面都很出色。</p>
+        <p style="font-size: 18px">国内很多的双核浏览器的其中一核便是 Trident，美其名曰 "兼容模式"。</p>
+        <p style="font-size: 18px">Window10 发布后，IE 将其内置浏览器命名为 Edge，Edge 最显著的特点就是新内核 EdgeHTML。</p>
+        </section>
+        <section>
+        <h3>2)Gecko</h3>
+        <p style="font-size: 18px">Gecko(Firefox 内核)：Netscape6 开始采用的内核，后来的 Mozilla FireFox(火狐浏览器) 也采用了该内核，Gecko 的特点是代码完全公开，因此，其可开发程度很高，全世界的程序员都可以为其编写代码，增加功能。因为这是个开源内核，因此受到许多人的青睐，Gecko 内核的浏览器也很多，这也是 Gecko 内核虽然年轻但市场占有率能够迅速提高的重要原因。</p>
+        <p style="font-size: 18px">事实上，Gecko 引擎的由来跟 IE 不无关系，前面说过 IE 没有使用 W3C 的标准，这导致了微软内部一些开发人员的不满；他们与当时已经停止更新了的 Netscape 的一些员工一起创办了 Mozilla，以当时的 Mosaic 内核为基础重新编写内核，于是开发出了 Gecko。不过事实上，Gecko 内核的浏览器仍然还是 Firefox (火狐) 用户最多，所以有时也会被称为 Firefox 内核。此外 Gecko 也是一个跨平台内核，可以在Windows、 BSD、Linux 和 Mac OS X 中使用。</p>
+        </section>
+        <section>
+        <h3>3)Webkit</h3>
+        <p style="font-size: 18px">一提到 webkit，首先想到的便是 chrome，可以说，chrome 将 Webkit内核 深入人心，殊不知，Webkit 的鼻祖其实是 Safari。现在很多人错误地把 webkit 叫做 chrome内核（即使 chrome内核已经是 blink 了），苹果都哭瞎了有木有。</p>
+        <p style="font-size: 18px">Safari 是苹果公司开发的浏览器，使用了KDE（Linux桌面系统）的 KHTML 作为浏览器的内核，Safari 所用浏览器内核的名称是大名鼎鼎的 WebKit。 Safari 在 2003 年 1 月 7 日首度发行测试版，并成为 Mac OS X v10.3 与之后版本的默认浏览器，也成为苹果其它系列产品的指定浏览器（也已支持 Windows 平台）。</p>
+        <p style="font-size: 18px">如上述可知，WebKit 前身是 KDE 小组的 KHTML 引擎，可以说 WebKit 是 KHTML 的一个开源的分支。当年苹果在比较了 Gecko 和 KHTML 后，选择了后者来做引擎开发，是因为 KHTML 拥有清晰的源码结构和极快的渲染速度。</p>
+        <p style="font-size: 18px">Webkit内核 可以说是以硬件盈利为主的苹果公司给软件行业的最大贡献之一。<br/>随后，2008 年谷歌公司发布 chrome 浏览器。</p>
+        </section>
+        <section>
+            <h3>4)Chromium/Bink</h3>
+            <p style="font-size: 18px ">然而 2013 年 4 月 3 日，谷歌在 Chromium Blog 上发表博客，称将与苹果的开源浏览器核心 Webkit 分道扬镳，在 Chromium 项目中研发 Blink 渲染引擎（即浏览器核心），内置于 Chrome 浏览器之中。</p>
+            <p style="font-size: 18px">Blink 其实是 WebKit 的分支，如同 WebKit 是 KHTML 的分支。Google 的 Chromium 项目此前一直使用 WebKit(WebCore) 作为渲染引擎，但出于某种原因，并没有将其多进程架构移植入Webkit。</p>
+            <p style="font-size: 18px">后来，由于苹果推出的 WebKit2 与 Chromium 的沙箱设计存在冲突，所以 Chromium 一直停留在 WebKit，并使用移植的方式来实现和主线 WebKit2 的对接。这增加了 Chromium 的复杂性，且在一定程度上影响了 Chromium 的架构移植工作。</p>
+            <p style="font-size: 18px">基于以上原因，Google 决定从 WebKit 衍生出自己的 Blink 引擎（后由 Google 和 Opera Software 共同研发），将在 WebKit 代码的基础上研发更加快速和简约的渲染引擎，并逐步脱离 WebKit 的影响，创造一个完全独立的 Blink 引擎。这样以来，唯一一条维系 Google 和苹果之间技术关系的纽带就这样被切断了。</p>
+            <p style="font-size: 18px">Blink 引擎问世后，国产各种 chrome 系的浏览器也纷纷投入 Blink 的怀抱，可以在浏览器地址栏输入&nbsp;<code style="color:red;">chrome://version</code>&nbsp;进行查看。</p>
+        </section>
+        <section>
+            <h3>5)Presto</h3>
+            <p style="font-size: 18px">Presto 是挪威产浏览器 opera 的 "前任" 内核，为何说是 "前任"，因为最新的 opera 浏览器早已将之抛弃从而投入到了谷歌大本营。</p>
+            <p style="font-size: 18px">Opera 在 2013 年 2 月宣布放弃 Presto，转而跟随 Chrome 使用 WebKit 分支的 Chromium 引擎作为自家浏览器核心引擎，Presto 内核的 Opera 浏览器版本永远的停留在了 12.17。在 Chrome 于 2013 年推出 Blink 引擎之后，Opera 也紧跟其脚步表示将转而使用 Blink 作为浏览器核心引擎。</p>
+        </section>
+        <section>
+            <h3>3.各浏览器的私有前缀</h3>
+            <p>Trident内核css前缀为"-ms-"</p>
+            <p>Gecko内核css前缀为"-moz-"</p>
+            <p>WebKit内核css前缀为"-webkit-"</p>
+            <p>Presto内核css前缀为"-o-"</p>
+        </section>
+        <section>
+            <h3>4.扩展思考</h3>
+            <p>CSS3的属性为什么要带前缀?</p>
+        </section>
+        <section>
+            <h3>5.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+        </section>
+        <section>
+            <h3>6.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :陈昱恺</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

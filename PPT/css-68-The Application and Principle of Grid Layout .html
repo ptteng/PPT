@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>栅格布局的实际运用及原理</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-68】</h2>
+            <h3>小课堂【栅格布局的实际运用及原理】</h3>
+            <p>分享人:石林涛</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">1692年，新登基的法国国王路易十四感到法国的印刷水平不尽人意，因此命令成立一个管理印刷的皇家特别委员会。他们的首要任务是设计出科学的、合理的， 重视功能性的新字体。委员会由数学家尼古拉斯加宗（Nicolas Jaugeon）担任领导，他们以罗马体为基础，采用方格为设计依据，每个字体方格分为64个基本方格单位，每个方格单位再分成36个小格，这样，一个印刷版面就有2304个小格组成，在这个严谨的几何网格网络中设计字体的形状，版面的编排，试验传达功能的效能，这是世界上最早对字体和版面进行科学实验的活动，也是栅格系统最早的雏形。</p>
+            <p style="text-align: left">网页栅格系统的定义为：以规则的网格阵列来指导和规范网页中的版面布局以及信息分布。栅格系统的使用，不仅可以让网页的信息呈现更加美观易读，更具可用性。而且，对于前端开发来说，网页将更加的灵活与规范。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p class="fragment">我们接触到的布局方式有哪些呢？</p>
+            <p class="fragment">我们常用的布局方式是那些？</p>
+            <p class="fragment">接下来我们以任务8为例，看一下栅格布局的实际运用。</p>
+        </section>
+        <section>
+            <p>首页</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/1.png">
+        </section>
+        <section>
+            <p>代码实现</p>
+            <pre><code>
+<!--<div class="container">
+    &lt;!&ndash;优势&ndash;&gt;
+<div class="row">
+    <div class="dominant col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dominant-box flexbox flex-column">
+            <div class="icon-tag"><img src="img/rocket.png"></div>
+            <h5>高效</h5>
+            <p>将五到七年的成长时间，缩短到一年到三年</p>
+        </div>
+    </div>
+    <div class="dominant col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dominant-box flexbox flex-column">
+            <div class="icon-tag"><img src="img/archive.png"></div>
+            <h5>规范</h5>
+            <p>标准的实战教程，不会走弯路</p>
+        </div>
+    </div>
+    <div class="dominant col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dominant-box flexbox flex-column">
+            <div class="icon-tag"><img src="img/connections.png"></div>
+            <h5>人脉</h5>
+            <p>同班好友，同院学长，技术大师，
+                入学就混入职脉圈，为以后铺平
+                道路。</p>
+        </div>
+    </div>
+    <div class="dominant col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="outputting flexbox flex-column">
+            <h6><img src="img/user.png">&nbsp;12400</h6>
+            <p>累计在线学习人数</p>
+            <h6><img src="img/user.png">&nbsp;12400</h6>
+            <p>学员已经找到满意工作</p>
+        </div>
+    </div>
+</div>-->
+            </code></pre>
+        </section>
+        <section>
+            <p>底部</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/2.png">
+        </section>
+        <section>
+            <p>代码实现</p>
+            <pre><code>
+<!-- <div class="footer-left col-lg-5 col-md-5 col-sm-6 col-xs-12">
+            <p>技能树 — 改变你我</p>
+            <ul>
+                <li class="verticalline"><a href="">关于我们</a></li>
+                <li class="verticalline"><a href="">联系我们</a></li>
+                <li><a href="task15-3.html">合作企业</a></li>
+            </ul>
+        </div>
+        <div class="footer-middle col-lg-5 col-md-5 col-sm-6 col-xs-12">
+            <p>旗下网站</p>
+            <ul>
+                <li><a href="">草船云孵化器</a></li>
+                <li><a href="">最强IT特训营</a></li>
+            </ul>
+            <ul>
+                <li><a href="">葡萄藤轻游戏</a></li>
+                <li><a href="">桌游精灵</a></li>
+            </ul>
+        </div>
+        <div class="footer-right col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <p>微信公众平台</p>
+            <img src="img/QRcode.png">
+        </div>-->
+            </code></pre>
+        </section>
+        <section>
+            <p>推荐页</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/3.png">
+        </section>
+        <section>
+            <p>职业介绍页</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/4.png">
+        </section>
+        <section>
+            <p>栅格套栅格，非全局页面的运用</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/5.png">
+        </section>
+        <section>
+            <p>代码实现</p>
+            <pre><code>
+ <!--<div class="courses col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <ul class="course box-shadow clearfix">
+                    <li class="job tr">
+                        <img class="col-xs-5 col-sm-5" src="img/icon-head.png">
+                        <div class="col-xs-7 col-sx-7">
+                            <h3>web前端工程师</h3>
+                            <p>
+                                Web前端开发工程师，主要职责是&lt;!&ndash;
+							&ndash;&gt;利用（X）HTML/CSS/JavaScript/&lt;!&ndash;
+							&ndash;&gt;flash等各种Web技术进行产品的开&lt;!&ndash;
+							&ndash;&gt;发。
+                            </p>
+                        </div>
+                    </li>
+                    <li class="tr">
+                        <div class="td col-sm-6 col-xs-6 gray">门槛<img src="img/star.png"></div>
+                        <div class="td col-sm-6 col-xs-6 gray">难易程度<img src="img/star.png"><img src="img/star.png">
+                        </div>
+                    </li>
+                    <li class="tr">
+                        <div class="td col-sm-6 col-xs-6 gray">成长周期<span>1-3</span>年</div>
+                        <div class="td col-sm-6 col-xs-6 gray">稀缺程度<span>345</span>家</div>
+                    </li>
+                    <li class="pay">
+                        <div class="pay-left col-sm-6 col-xs-6"><p class="gray">薪资待遇</p></div>
+                        <div class="pay-right pd0 col-sm-6 col-xs-6">
+                            <div class="col-sm-5 col-xs-5">
+                                0-1年
+                            </div>
+                            <div class="col-sm-7 col-xs-7">
+                                5-10K/月
+                            </div>
+                            <div class="col-sm-5 col-xs-5">
+                                1-3年
+                            </div>
+                            <div class="col-sm-7 col-xs-7">
+                                10-20K/月
+                            </div>
+                            <div class="col-sm-5 col-xs-5">
+                                3-5年
+                            </div>
+                            <div class="col-sm-7 col-xs-7">
+                                20-50K/月
+                            </div>
+                        </div>
+                    </li>
+                    <li class="td pd0 col-sm-12 col-xs-12">
+                        有<span>286人</span>正在学习
+                    </li>
+                    <li class="td pd0 gray col-sm-12 col-xs-12">
+                        提示:在你学习之前你应该已经掌握XXXX、XXX等语言基础
+                    </li>-->
+            </code></pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>栅格布局的原理是什么呢？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">栅格布局其实就是依赖于自然布局中的宽度百分比以及浮动来实现的。</p>
+            <p style="text-align: left">而要弄清楚栅格布局的原理，我们可以直接通过查看bootstrap中栅格布局的源码来进行实现。</p>
+            <ul>
+                <li>屏幕的自适应：xs,sm,md,lg</li>
+                <li>利用百分比实现的网格布局</li>
+                <li>container与container-fluid的区别</li>
+                <li>offset,push,pull</li>
+            </ul>
+        </section>
+        <section>
+        <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>栅格布局中，怎么实现响应式中的内容切换呢？</h4>
+            <p class="fragment">visible-xs、hidden-xs来进行实现，查看源代码。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/MuYunyun/p/5751444.html#_label2" target="_blank">Bootstrap学习笔记上</a></p>
+            <p>参考二：<a href="http://v3.bootcss.com/css/" target="_blank">Bootstrap中文网</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>怎么实现栅格布局的五等分？</p>
+            <img src="../img/css-68-The Application and Principle of Grid Layout/6.png">
+            <p class="fragment">怎么用flexbox来实现栅格布局？</p>
+            <a href="http://www.jianshu.com/p/240c66d8a97e" target="_blank">flex栅格布局简介</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 石林涛</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

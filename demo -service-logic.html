@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【js-task4】杀人和投票的业务逻辑上有什么区别？</h3>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：黄国保</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>业务逻辑是什么？</h3>
+            <p>不同的项目有不同的功能，不同的功能需要不同的实现，实现这些核心功能的代码就叫业务逻辑</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>让你实现一个功能，给你两个数，让你获取它的和，你所写的如何才能获得任意给定的两个数的和，这个程序实现过程称为业务逻辑处理。</p>
+            <p>就像家里规矩–“吃饭前必须洗手”“有客人来要起立”-就是业务逻辑的生活化实例。</p>
+
+        </section>
+        <section>
+            3.常见问题
+        </section>
+        <section>
+            那么我们今天的主题——杀人和投票的业务逻辑上有什么区别？
+        </section>
+        <section>
+            4.解决方案
+        </section>
+        <section>
+            <p>实际上就是如何设置彼此的权限，以及定义游戏结束。刚才讲过，程序实现过程称为业务逻辑处理。</p>
+        </section>
+        <section>
+            <p>程序实现的过程——</p>
+            <p>1.获取上个页面设置的玩家数量，和玩家身份</p>
+        </section>
+        <section>
+            <p>如何定义死亡</p>
+        </section>
+        <section>
+            <p>具体场景具体定义，比如用户眼中：头像变暗了（画个叉叉，写个死亡之类），不可点击和其他操作。程序上：要清除他的身份和号码。</p>
+        </section>
+
+        <section>
+            <p>杀手怎么杀人？</p>
+        </section>
+        <section>
+            <p>杀手杀人要满足当杀手人数过多时，被杀对象不是杀手，以及活着进入到杀人环节</p>
+        </section>
+        <section>
+            投票要怎么投死人?
+        </section>
+        <section>
+          <pre>
+                     投票也要满足少数服从多数的原则，要考虑到当票数相等时会出现什么情况？
+                1，是要进入下一个环节。
+                2，或者是两个被投票者双双出局。
+                3，还是不许出现这种情况， 必须要决定投一个人，否则判定杀手胜利。
+                        ——这些都是要在写程序之前说清楚，然后用程序实现的。
+
+            </pre>
+        </section>
+        <section>
+            <p>如何定义游戏结束。</p>
+        </section>
+        <section>
+            <p>因为写的是简易版的杀人游戏，所以这里就讨论简易版的相关规则，</p>
+            <p>平民胜利规则：平民只有一种胜利方式，当杀手一方全部被投死的时候。</p>
+            <p>杀手胜利规则：平民一方死光了，或者进入到下一轮的参与人数<=2时（因为此时为了活命，双方会互相投票，出现死循环，这种情况直接定义杀手胜利）
+            </p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄国保 | somebody</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

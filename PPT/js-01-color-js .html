@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-01】随机的取一种颜色，随机的性能怎么样？</h2>
+            <h3>小课堂【武汉第118期】</h3>
+            <p>分享人：汤特</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在做饼状图，标签云等js效果时，经常需要随机获取颜色进行使用。这时通常有两种方法:一是准备一组漂亮的候选颜色，
+                二是随机生成颜色。在数量很多或不明确时，只能选择第二种方法。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>知识点1：在CSS中一般怎么表示颜色？</h4>
+            <p>1.使用颜色名：比如yellow,black,white,blue等等</p>
+            <p>2.使用十六进制值：比如#000000，#FFFFFF等。长度为6，值为16进制的从0到F。</p>
+            <p>3.使用 rgb 值：比如rgb(0,0,0)，rgb(255,255,255)等。取值范围为0到255</p>
+        </section>
+        <!-- 内联元素 -->
+        <section>
+            <h4>知识点2：取随机数用到的几个Math方法</h4>
+            <p> Math.random()：生成大于 0 小于 1 的随机数。下面的代码可以生成 0～100 的随机数。</p>
+            <p>Math.ceil(n)：ceil() 可以把小数点以下部分舍去并使整数部分加 1 。举例来说，3.6 会进位到 4 ，-3.6 会进位到 -3 。</p>
+            <p> Math.floor(n)：floor() 可以把小数点以下部分舍去，即取整。举例来说，3.6 会取整为 3 ，-3.6 会取整为 -4 。</p>
+            <p> Math.round(n)：round() 可以把整数四舍五入。举例来说，3.6 会四舍五入为 4 ，-3.6 会四舍五入为 -4 。</p>
+        </section>
+        <section>
+            <h4>知识点3：随机取一种颜色的几种函数写法及其优劣</h4>
+            <p>
+                <a href="../demo/js-01-color-js/js1.html">点我使用demo</a>
+            </p>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>我们看到在上个demo中，我使用了Math.random()配合Math.floor(n)取颜色。思考一下，这种方法去颜色有没有规律可循
+            会不会存在某些颜色取到的概率大一点呢？使用Math.ceil(n)，Math.round(n)呢？</p>
+        </section>
+        <section>
+            <p>我们写一个函数做一下测试：</p>
+            <pre><code>var temp;
+var arr=[0,0,0,0,0,0,0,0,0,0,0,0];
+for(var i=0;i<1000000;i++){
+    temp=Math.floor(Math.random()*10+1);
+    arr[temp]=arr[temp]+1;
+}
+for (var j = 1; j < arr.length; j++) {
+    console.log("得到"+j+"的概率:" + arr[j]/1000000);
+}
+            </code></pre>
+        </section>
+        <section>
+            <p>可以看到，使用Math.round(n)时，在取一头一尾两个数的概率只有其他数的一半，这是为什么呢？</p>
+            <p>因为我们要每个数字出现的概率相等，就要保证每个区间长度相等，使用 round 取整后(可以把整数四舍五入),
+                映射到1的区间为(1,1.5) 映射到2的区间为（1.5, 2.5）......  (9.5,10.5)，（10.5,11） 可见其区间长度是不同的，即1和11出现的概率为其他数字出现概率的一半。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>还有其他随机取颜色的方法么？</p>
+            <p>其实css表示颜色，还有一种hsb模型，hsb( (0~360°),(0～100%), (0～100%))</p>
+            <p>跟之前rgb方法类似，将内部数随机取值，拼接起来，不过涉及到角度，实现起来较麻烦，有兴趣的小课堂过后可以去试试</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/zztt/p/4024906.html" target="_blank">Javascript产生服从均匀分布随机数</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/rubylouvre/archive/2009/09/24/1572977.html" target="_blank">javascript获取随机颜色</a></p>
+            <p>参考三：<a href="http://taobaofed.org/blog/2015/12/07/some-thing-about-random/" target="_blank">Math.random() 二三事</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>刚才我们谈到取随机数的概率要一样，那么不一样怎么实现呢？</p>
+            <p>比如我们常见的转盘抽奖</p>
+            <p><a href="http://www.17sucai.com/pins/15838.html">转盘抽奖</a></p>
+            <a href="http://taobaofed.org/blog/2015/12/07/some-thing-about-random/">更多资料</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :汤特</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -9,23 +9,20 @@
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement('link');
+        var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
-<style>
-
-</style>
 <body>
 <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
@@ -34,189 +31,238 @@
 <div class="reveal">
     <div class="slides">
         <section>
-           <h3>css选择器的优先级是怎么样设定的？权重又是什么？</h3>
-            <h3>小课堂【郑州第52期】</h3>
-            <p>分享人：汪开放</p>
+            <h2>【CSS-task3】</h2>
+            <h3>小课堂【郑州第51期】</h3>
+            <h4>CSS选择器，以及选择器的优先级如何计算</h4>
+            <p>分享人：高雪峰</p>
         </section>
         <section>
             <p>目录</p>
-
             <p>1.背景介绍</p>
-
             <p>2.知识剖析</p>
-
             <p>3.常见问题</p>
-
             <p>4.解决方案</p>
-
             <p>5.编码实战</p>
-
             <p>6.扩展思考</p>
-
             <p>7.参考文献</p>
-
             <p>8.更多讨论</p>
         </section>
         <section>
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>什么是选择器？</p>
+            <p>为何会有CSS选择器？</p>
         </section>
         <section>
-            <p>要使用css对HTML页面中的元素实现一对一，一对多或者多对一的控制，这就需要用到CSS选择器。</p>
-            HTML页面中的元素就是通过CSS选择器进行控制的。
+            <p>HTML页面中元素的尺寸大小，颜色，状态等是可以通过CSS选择器进行控制的。</p>
+            <p>要想使用CSS将样式应用于特定的HTML元素，我们就需要想办法找到这个元素。</p>
+            <p>而在CSS中，执行这一个任务的样式规则任务的部分称之为
+                <span style="color: red">选择器(Selector)</span>[1]</p>
         </section>
-
+        
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
             <section>
-            <p>CSS的选择器可以分为三大类，</p>即id选择器、class选择器、标签选择器。
-            <br>用法如下：
-             <p>#id名 { 属性名:属性值; }</p>
-                (例：div id=“wu”>&nbsp;&nbsp;&nbsp;#wu{color:red})
-            <p> .class名 { 属性名:属性值; }</p>
-            (例：div class=“liu”>&nbsp;&nbsp;&nbsp;.liu{color:red})
-           <p> 标签名 { 属性名:属性值; }</p>
-              (例：《p》<b style="color:red">内容</b>《/p》&nbsp;&nbsp;&nbsp;p{color:red})
+                2.1常用的选择器
             </section>
             <section>
-                他们之间又可以以不同的方式进行组合，如下：
-
-                <p>后代选择器: 父代名 后代名 { 属性名:属性值; }</p>
-                <p style="font-size:28px; color:red">注释：后代选择器：就是对象当中所有的子元素，孙子元素以及最底层的元素</p>
+            <p>最常用的选择器类型是：类型选择器和后代选择器。</p>
+            <p>适用于应用那些使用范围广的一般性样式</p>
             </section>
             <section>
-               <p>子代选择器: 父代名>子代名 { 属性名:属性值; }</p>
-                
-
-                <p style="font-size:28px;color:red">注释：子选择器：就单单是子元素，子元素的子元素也就是孙子元素就不算了</p>
-
+                <p>
+                    <span style="color: red">类型选择器</span>：是用来寻找特定类型的元素，譬如段落或者标题元素。
+                </p>
+                <p>类型选择器也称之为 元素选择器 或 简单选择器</p>
+                <pre>
+                    <code>
+                        p{color:black}
+                    </code>
+                </pre>
             </section>
             <section>
-                 <p>群组选择器: #name1, .name2, #name div { 属性名:属性值; }</p>
+                <p>
+                    <span style="color: red">后代选择器</span>：可用来寻找特定元素或元素组的后代。
+                </p>
+                <p>后代选择器由其他两个选择器之间的空格表示,后代选择器作用于所有子后代元素。</p>
+                <pre>
+                    <code>
+                       div p{color:green}
+                    </code>
+                </pre>
             </section>
+              </section>
+        <section>
+            2.2特定元素选择器
         </section>
         <section>
-      <h5>伪类选择器:{ name:伪类}</h5>
-        </section>
-            
-        <section>
             <section>
+                ID选择器以及类选择器
+            </section>
+            <section>
+                ID选择器由一个#字符表示
+                <pre>
+                    <code>
+                        #card{background-color:green}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                类选择器由一个.点号表示
+                <pre>
+                    <code>
+                        .foot{font-weight:bold}
+                    </code>
+                </pre>
+            </section>
+        </section>
+     <section>
+        <section>
+            2.3伪类
+        </section>
+        <section>
+            有时候我们需要根据文档结构之外的其他条件对元素应用样式，譬如表单元素或者链接的状态
+            这就需要使用伪类选择器来完成
             <pre>
-                    <p style="font-size: 24px;line-height: 40px;">
-                        :active 向被激活的元素添加样式。
-                        :focus 向拥有键盘输入焦点的元素添加样式。
-                        :hover 当鼠标悬浮在元素上方时，向元素添加样式。
-                        :link 向未被访问的链接添加样式。
-                        :visited 向已被访问的链接添加样式。
-                        :checked 选择器匹配每个已被选中的 input 元素。
-                        :first-child 向元素的第一个子元素添加样式。
-                    </p>
-            </section>
+                    <code>
+                        a:link{color:blue}
+                    </code>
+                </pre>
+        </section>
+      </section>
+    <section>
+        <section>
+            2.4通用选择器
         </section>
         <section>
-            <section>
-                2.4通用选择器
-            </section>
-            <section>
-                通用选择器可能是所有选择器中最强大却最少使用的，通用选择器的作用就像是通配符，它可以匹配所有可用的元素。
-                起作用主要在实际中的使用是删除每个元素上默认的浏览器内外边距。
-                通过*号来表示
+            通用选择器可能是所有选择器中最强大却最少使用的，通用选择器的作用就像是通配符，它可以匹配所有可用的元素。
+            起作用主要在实际中的使用是删除每个元素上默认的浏览器内外边距。
+            通过*号来表示
             <pre>
                     <code>
                         * {margin: 0; padding:0}
                     </code>
                 </pre>
-            </section>
         </section>
+    </section>
+   <section>
+       <section>
+           2.5高级选择器
+       </section>
+       <section>
+           <p>子选择器
+           <span style="color: #ff6666">#nav>li</span>
+           </p>
+           <p>子选择器只是选择元素的直接后代，即子元素。它表示“父>子”的直属关系。</p>
+       </section>
+       <section>
+           <p>
+               相邻同胞选择器
+               <span style="color: #ff6666">h2 + p</span>
+           </p>
+           <p>相邻同胞选择器可用于定位同一个父元素下某个元素之后相邻的元素</p>
+       </section>
+       <section>
+           <p>
+               属性选择器
+               <span style="color: #ff6666">[title]</span>
+             <pre>
+               <code>
+                   [title] {margin-left: 10px}
+               </code>
+             </pre>
+       </section>
+   </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>问题: 选择器使用的优先级是怎么进行计算的？也就是权重问题
-            </p>
+            <p>问题一: 对多个选择器使用的优先级是怎么进行计算的？
+                如何合理的使用类型选择器？</p>
+            <p>问题二：对于伪类中的链接选择器的顺序是怎样的？
+                应该如何执行？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
+      <section>
         <section>
-            <section>
-                <p style="text-align: left;">
-                    <span style="color:#333">同一权重</span><br/>
-                   按照它在CSS样式表里声明的顺序，后声明的优先，例如：
-                   <br/>h1 {color: blue}
-                   <br/>h1 {color: red}
-                   <br/>最终胜出的是color: red<br/><br/>
-                   <span style="color:#333">不同权重</span><br/><br/>
-                    在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。<br/><br/>
-                </p>
-            </section>
-
-            <section>
-
-            <img src="../img/css-03-Selector/quanzhong.png">
-            </section>
-            <section>
-                    <p>1.最高优先级是 (直接在标签中的设置样式，假设级别为1000)(div style="color:Red;")</p>
-　　2.次优先级是（ID选择器 ,假设级别为100）   #myDiv{color:Red;}
-　　<p>3.其次优先级是（类选择器，假设级别为10）.divClass{color:Red;}</p>
-　　4.最后优先级是 （标签选择器，假设级别是 1）  div{color:Red;}
-　　<p>5.那么后代选择器的优先级就可以计算了啊</p>
-　　比如 .divClass  span { color:Red;}   优先级别就是：10+1=11
-            </section>
+            <p>问题1：解决方案</p>
+        </section>
+        <section>
+            选择器的特殊性分为4个等级
+            <br/>
+            内联样式表的权值为 1000
+            <br/>
+            ID 选择器的权值为 100
+            <br/>
+            Class 类选择器的权值为 10
+            <br/>
+            HTML 标签选择器的权值为 1
+        </section>
+      </section>
+        <section>
+           <section>
+            <p>
+                问题2：对于伪类中的链接选择器的顺序是怎样的？
+                应该如何执行？
+            </p>
+           </section>
+           <section>
+               伪类的执行顺序为：
+            <pre>
+               <code>
+               a:link {color: #000;} /* 未访问的链接 */
+               a:visited {color: #F00;} /* 已访问的链接 */
+               a:hover{color: #0F0;} /* 鼠标在链接上 */
+               a:active {color: #00F;} /击激活链接——在你点击该链接之后，
+                   页面正在转向新地址的时候，链接显示此颜色；
+                   当你已经到了要链接的页面，然后再返回，原页面上的此链接仍是此颜色
+               </code>
+            </pre>
+           </section>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
-
+        <section>
+            <pre>
+                <code>
+                    a {color:#fff;text-decoration: none;}
+                    a:hover{color: #f00;}
+                    #links a {color:red;}
+                    #links > a {color:blue;}
+                </code>
+            </pre>
+        </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
-
         <section>
-            <p>问题一:子选择器和后代选择器的区别？</p>
-
-            <p class="fragment">子元素选择器的对象只包括“儿子”， 后代选择器的对象包括“子子孙孙”</p>
-
-            <p>问题二：什么时候需要使用子选择器？ </p>
-
-            <p class="fragment"> 父元素下一级的某种元素具有一些公共的样式 </p>
-            </p>
+            <p class="fragment">问题一:子选择器和后代选择器的区别？</p>
+            <p class="fragment">问题二：如何引用外部选择器？</p>
+            
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
             <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
-
             <p>参考二：<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank">W3School</a></p>
-
-            <p>参考三：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank">菜鸟教程</a></p>
-
-            <p>参考四：<a href="http://kb.cnblogs.com/page/545911/">博客园</a></p>
-            <p>参考四：<a href=" https://zhidao.baidu.com/question/326933586560497725.html?fr=iks&word=css%D1%A1%D4%F1%C6%F7&ie=gbk">百度贴吧</a>
+             <p>参考三：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank">菜鸟教程</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-             <p>伪类和伪元素的区别? </p>
-
-            <p class="fragment">伪类的操作对象是文档树中已有的元素，而伪元素则创建了一个文档树外的元素。因此，伪类与伪元素的区别在于: <br/>
-                有没有创建一个文档树之外的元素。
-            </p>
+            <p>讨论点一：在选择器的样式中添加“!important”后的优先级是如何筛选的？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
-
             <p>感谢大家观看</p>
-
-            <p>
-                <small>BY : 沁修 | 汪开放</small>
-            </p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
         </section>
 
     </div>
@@ -248,14 +294,10 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            {src: '../plugin/markdown/marked.js'},
-            {src: '../plugin/markdown/markdown.js'},
-            {src: '../plugin/notes/notes.js', async: true},
-            {
-                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>

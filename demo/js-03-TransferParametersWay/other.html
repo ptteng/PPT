@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<p>我是第二个页面</p>
+</body>
+<script>
+    var url = location.search;
+    obj = {};
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            obj[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    alert(obj.name)
+</script>
+</html>

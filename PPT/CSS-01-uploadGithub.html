@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何使用git将代码上传至githup?</h2>
+            <h3>小课堂【成都修真院】</h3>
+            <p>分享人：曹樾</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是git？</h3>
+            <p>
+                   git是linux之父为了更好的管理linux内核开发而创立的分布式版本控制/软件配置管理软件
+                    分布式相比于集中式的最大区别在于开发者可以提交到本地，每个开发者通过克隆（git clone），
+                    在本地机器上拷贝一个完整的Git仓库。
+                </p>
+        </section>
+        <section>
+            <h3>什么是github？</h3>
+            <p>
+                GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。
+                GitHub 于 2008 年 4 月 10 日正式上线，除了 Git 代码仓库托管及基本的 Web 管理界面以外，还提供了订阅、讨论组、文本渲染、
+                在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，
+                其中不乏知名开源项目 Ruby on Rails、jQuery、python 等。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+            <h3>如何下载安装git？</h3>
+            <p>① windows平台下，<a href="https://git-for-windows.github.io/">点我下载</a></p>
+            <p>② 上面的链接速度很慢的话，移步国内镜像 <a href="https://pan.baidu.com/s/1kU5OCOB#list/path=%2Fpub%2Fgit">我是镜像</a></p>
+            <p>③ 安装完成后右键点击桌面空白处，能找到gitbash即安装成功</p>
+            <p>④ 在命令行输入以下代码：</p>
+            <pre><code>
+                $ git config --global user.name "Your Name"/就是你的github账号名称
+                $ git config --global user.email "email@example.com"/就是你注册github账号的邮箱
+            </code></pre>
+    </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h3>3.1 创建版本库</h3>
+                <p>① 创空目录（比如learngit）随便写点什么</p>
+                <pre><code>
+                    $ mkdir learngit/mkdir就是make directory制造路径
+                    $ cd learngit/cd 就是change directory改变路径，指向learngit
+                    $ pwd/pwd就是print working directory打印工作路径，会显示现在所处的位置
+                </code></pre>
+                <p>② 将目录变为git可管理的仓库</p>
+                <pre><code>
+                    $ git init/初始化仓库，在文件内部生成.git文件;文件夹的话直接右键选择
+						git base here
+                </code></pre>
+            </section>
+            <section>
+                <p>③ 将文件添加到版本库</p>
+                <p>比如创建一个readme.txt，放到learngit目录下</p>
+                <p>用git add 添加文件</p>
+                <pre><code>
+                    git add readme.txt
+                </code></pre>
+                <p>用git commit提交文件到仓库</p>
+                <pre><code>
+                    git commit -m "我是第一次添加的内容"
+                </code></pre>
+                <p>注意：可多次add文件，一次commit，一次上传整个文件夹git add -A</p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section>
+                <h3>4.1 查看工作区状态</h3>
+                <p>① 使用git status</p>
+                <p>② 使用git diff</p>
+            </section>
+            <section>
+                <h3>4.2 版本回退</h3>
+                <p>多次add commit任务后，自己混乱了，想回到之前的某个版本，怎么办？比如：</p>
+                <pre><code>
+                    第一次修改：我是版本一；
+                    第二次修改：我是版本二；
+                    第三次修改：我是版本三
+                </code></pre>
+                <p>①可通过git log查看历史记录，或者git log --pretty=oneline</p>
+                <p>②可通过git reset --hard HEAD~1/2/3回到前面1，2，3个版本（单独用）</p>
+                <p>③可通过版本号git reset --hard 版本号回到前面</p>
+                <p>④可通过git reflog查看历史命令</p>
+            </section>
+            <section>
+                <h3>4.3 删除文件</h3>
+                <p>通常我们把文件直接右键删除了，导致工作区和版本库不一致，如何知道删除了哪些，怎么把已删除的文件恢复？</p>
+                <p>①使用git status命令</p>
+                <p>②确实删除文件，如下：</p>
+                <pre><code>
+                    $ git rm test.txt/rm就是remove，这些命令一般是英文单词的简写
+                    rm 'test.txt'
+                    $ git commit -m "remove test.txt"
+                    [master d17efd8] remove test.txt
+                    1 file changed, 1 deletion(-)
+                    delete mode 100644 test.txt
+                </code></pre>
+                <p>③ 删错了，如下：</p>
+                <pre><code>
+                    git checkout -- test.txt
+                </code></pre>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+            <section>
+                <h3>5.1 设置远程仓库</h3>
+                <p>
+                    ① 创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，
+                    如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+                    SSH Key一般都是git@github.com:"你的github名字"/文件名字.git
+                </p>
+                <pre><code>
+                    $ ssh-keygen -t rsa -C "youremail@example.com"
+
+                </code></pre>
+                <p>
+                    ② 登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+                    然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
+                </p>
+            </section>
+            <section>
+                <h3>5.2 添加远程仓库</h3>
+                <p>① 登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库</p>
+                <p>② 在Repository name填入learngit，其他保持默认设置，点击“Create repository”按钮，就成功地创建了一个新的Git仓库</p>
+            </section>
+            <section>
+                <p>③ 我们根据GitHub的提示，在本地的learngit仓库下运行命令</p>
+                <pre><code>
+                在github相应文件下点击"clone or downmload"下面会有SSH Key
+                    git remote add origin git@github.com:xxxxxxx
+                </code></pre>
+                <p>上传之前最好先pull下保证把缓存区的文件传到工作区</p>
+                <pre><code>
+                    $ git pull -rebase origin master
+                </code></pre>
+                <p>④ 把本地库的所有内容推送到远程库上(-u仅以一次需要，后面不用)</p>
+                <pre><code>
+                    $ git push -u origin master
+                </code></pre>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+                <p>① 什么是分支管理，有什么作用？</p>
+                <p>
+                    分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，
+                    由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
+                    现在有了分支，就不用怕了。你创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，
+                    想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。
+                </p>
+            </section>
+            <section>
+                <p>② 常见的分支管理有关命令</p>
+                <p>
+                    查看分支：git branch <br>
+                    创建分支：git branch (分支名) <br>
+                    切换分支：git checkout (分支名) <br>
+                    创建+切换分支：git checkout -b (分支名) <br>
+                    合并某分支到当前分支：git merge (分支名) <br>
+                    删除分支：git branch -d (分支名)
+                </p>
+            </section>
+        </section>    
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考1：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a></p>
+            <p>参考2：<a href="https://zhuanlan.zhihu.com/p/21377146">Git是什么</a></p>
+            <p>参考3：<a href="http://rogerdudler.github.io/git-guide/index.zh.html">Git简明指南</a></p>
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+            <p>① git说到底只是为了更好使用github的工具，如何更好的利用github？</p> 
+            <p>② 关注你想学习的各种有趣且的东西，举例分享一个git存储库可视化程序 </p>          
+			<a href="https://github.com/pcottle/learnGitBranching">pcottle / learnGitBranching：一个交互式的git可视化来挑战和教育！</a></p>         
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 曹樾</small></p>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

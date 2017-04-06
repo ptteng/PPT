@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-01】JS数据类型</h2>
+
+            <h3>小课堂【武汉第116期】</h3>
+
+            <p style="text-align: center;">分享人：赵灵杰</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>“数据类型”在数据结构中的定义“一个值的集合以及定义在这个值集上的一组操作”。在编程语言中，能够表示并操作的值的类型称做数据类型。
+
+            JavaScript 语言的每一个值，都属于某一种数据类型。JavaScript 的数据类型，共有六种。（ES6新增第七种 Symbol 一种数据类型，它的实例是唯一且不可改变的。类型的值）</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>字符串</h4>
+
+                <p>字符串值是一个由零或多个 Unicode（统一码） 字符（字母、数字和标点符号）组成的链表。 使用字符串数据类型表示 JavaScript 中的文本。 在脚本中包含字符串，方法是使用单引号或双引号将其括起来。
+                    被单引号引起的字符串内可以包含双引号，而被双引号引起的字符串内也可以包含单引号。</p>
+
+                <p>实例：</p>
+            <pre>
+            <code>
+                var answer="Nice to meet you!";
+                var answer="He is called 'Bill'"; //双引号包含单引号
+                var answer='He is called "Bill"'; //单引号包含双引号
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h4>数值 number</h4>
+                <h5>整数 var x=1 //整数通过十进制，八进制等的字面值来表示 ;</h5>
+                <h5>浮点数 var x=3.14 //数值中必须包含一个小数点，且小数点后必须有一位数字</h5>
+                <p>在JavaScript内部，所有数字都是以64位浮点数形式储存，即使整数也是如此。所以，1与1.0是相同的，是同一个数。</p>
+                <p>容易造成混淆的是，某些运算只有整数才能完成，此时JavaScript会自动把64位浮点数，转成32位整数，然后再进行运算，参见《运算符》一节的”位运算“部分。</p>
+                <p>注意：由于浮点数不是精确的值，所以涉及小数的比较和运算要特别小心。</p>
+
+
+                <p>实例：  (0.3 - 0.2) === (0.2 - 0.1)//false</p>
+            </section>
+            <section>
+                <p>极大或极小的数字可以通过科学（指数）计数法来书写：</p>
+                <pre>
+            <code>
+                var y=123e5; // 12300000
+                var z=123e-5; // 0.00123
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h4>布尔值</h4>
+
+                <p>虽然字符串和数字数据类型实际上可以有无限多个不同的值，但布尔值数据类型只能有两个值。 它们是文本 true(真) 和 false（假）。</p>
+
+                <p>实例：</p>
+            <pre>
+            <code>
+                var x=true;
+                var y=false;
+            </code>
+            </pre>
+            </section>
+            <!--
+            <section>
+                <h4>数组</h4>
+
+                <p>数组用来在单独的变量名中存储一系列的值。</p>
+
+                <p>我们使用关键词 new 来创建数组对象。下面的代码定义了一个名为 myArray 的数组对象：</p>
+            <pre>
+            <code>
+                var myArray=new Array(); //定义一个名字为myArray的数组
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>有两种向数组赋值的方法（你可以添加任意多的值，就像你可以定义你需要的任意多的变量一样）。</p>
+
+                <p>1：</p>
+             <pre>
+            <code>
+                var mycars=new Array(); //定义一个名字为myArray的数组
+                mycars[0]="Saab"; //数组第一个值为Saab
+                mycars[1]="Volvo"; //数组第二个值为Volvo
+                mycars[2]="BMW"; //数组第三个值为BMW
+            </code>
+            </pre>
+                <p>也可以使用一个整数自变量来控制数组的容量：</p>
+                <pre>
+            <code>
+                var mycars=new Array(3); //定义一个名字为myArray的数组，数组中有3个值
+                mycars[0]="Saab"; //数组第一个值为Saab
+                mycars[1]="Volvo"; //数组第二个值为Volvo
+                mycars[2]="BMW"; //数组第三个值为BMW
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>2：</p>
+             <pre>
+            <code>
+                var mycars=new Array("Saab","Volvo","BMW"); 定义一个名字为myArray的数组，数组的值分别是Saab、Volvo、BMW
+            </code>
+            </pre>
+            </section>
+            -->
+            <section>
+                <h4>对象</h4>
+
+                <p>JavaScript 中的所有事物都是对象：字符串、数值、数组、函数...(万物皆对象)</p>
+
+
+
+                <p>对象是带有属性和方法的特殊数据类型。</p>
+
+                <p>创建对象有两种方法：</p>
+
+                <p>1.定义并创建对象的实例</p>
+
+                <p>2.使用函数来定义对象，然后创建新的对象实例</p>
+            </section>
+            <section>
+                <p>
+                    篇幅有限，这里就只讲下创建直接的实例对象。（（object）是JavaScript的核心概念，推荐：<a href="http://javascript.ruanyifeng.com/grammar/object.html">http://javascript.ruanyifeng.com/grammar/object.html</a>），这个例子创建了对象的一个新实例，并向其添加了四个属性：</p>
+             <pre>
+            <code>
+                person=new Object(); //定义一个名为person的对象
+                person.firstname="Bill"; //对象firstname属性值为Bill
+                person.lastname="Gates"; //对象lastname属性值为Gates
+                person.age=56; //对象age属性值为56
+                person.eyecolor="blue"; //对象eyecolor属性值为blue
+            </code>
+            </pre>
+                <p>替代语法（使用对象 literals）：</p>
+            <pre>
+            <code>
+                person={firstname:"John",lastname:"Doe",age:56,eyecolor:"blue"};
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h4>null</h4>
+
+                <p>null 数据类型在 JavaScript 中仅具有一个值：null。null 关键字不能用作函数或变量的名称。</p>
+
+                <p>null用来表示空值，即没有对象被呈现，可以通过将变量的值设置为 null 来清空变量：</p>
+            <pre>
+            <code>
+                var car="Volvo"; //把字符串Volvo赋值给变量car
+                document.write(car + "<br/>"); //输出变量car，应该显示Volvo
+                var car=null; //把null赋值给变量car
+                document.write(car + "<br/>"); //输出变量car，应该显示null
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h4>undefined </h4>
+
+                <p>如果使用的对象属性不存在，或使用的是已声明但未赋值的变量，undefined 值将被返回。</p>
+
+                <p>一个未初始化的变量的值为undefined,一个没有传入实参的形参变量的值为undefined,如果一个函数什么都不返回,则该函数默认返回undefined。</p>
+
+                <p>你可以使用严格相等运算符来判断一个值是否是undefined：</p>
+            <pre>
+            <code>
+                var x;
+                if (x === undefined) {
+                // 执行到这里
+                }
+                else {
+                // 不会执行到这里
+                }
+            </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+
+            <p style="text-align: center;">怎么样判断值的数据类型？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4>好用的typeof</h4>
+
+            <p>typeof可以解决大部分的数据类型判断，是一个一元运算，typeof运算符可以返回一个值的数据类型，可能有以下结果。</p>
+         <pre>
+            <code>
+                var a="string"; console.log(typeof a); //string
+                var a=1; console.log(typeof a); //number
+                var a=false; console.log(typeof a); //boolean
+                var a; console.log(typeof a); //undfined
+
+                var a = null; console.log(typeof a); //object
+                var a = document; console.log(typeof a); //object
+                var a = []; console.log(a); //object
+
+                var a = function(){}; console.log(typeof a) //function 除了可以判断数据类型还可以判断函数类型
+            </code>
+            </pre>
+            <p>这样一来就很明显了，除了前四个类型外，null、对象、数组返回的都是object类型；对于函数类型返回的则是function。</p>
+        </section>
+        <section>
+            <p>然后这里就可以再引申出另一个灰常热门并且解决方法已普遍存在的问题，如何判断数据是个数组类型？</p>
+
+            <p>js判断数组类型的方法(这里只说一种最简单的方法)：</p>
+
+            <p>instance，故名思义，“实例”，所以instanceof 用于判断一个变量是否是某个对象的实例，是一个三元运算---和typeof最实质上的区别
+
+                a instanceof b?alert("true"):alert("false") //注意b值是你想要判断的那种数据类型，不是一个字符串，比如Array：</p>
+            <pre>
+            <code>
+                var a=[];
+                console.log(a instanceof Array) //返回true
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <!--
+        <section>
+            <section>
+                <p>数据类型的转换：将数字转换成字符串</p>
+            </section>
+            <section>
+                <p>提示：全局方法 String() 可以将数字转换为字符串。</p>
+            </section>
+            <section>
+            <pre>
+            <code>
+                var x = 123;
+                document.getElementById("demo").innerHTML =
+                String(x) + "<br>" + // 将变量 x 转换为字符串并返回
+                String(123) + "<br>" + // 将数字 123 转换为字符串并返回
+                String(100 + 23); // 将数字表达式转换为字符串并返回
+            </code>
+            </pre>
+                <p>显示效果</p>
+
+                <p>123</p>
+
+                <p>123</p>
+
+                <p>123</p>
+            </section>
+        </section>
+        -->
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+
+            <p>如何将字符串转换为数字</p>
+
+            <p>更多请参考：<a href="http://www.runoob.com/js/js-type-conversion.html">http://www.runoob.com/js/js-type-conversion.html</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+     
+
+            <p>w3c：<a href="http://www.w3school.com.cn/js/js_datatypes.asp">http://www.w3school.com.cn/js/js_datatypes.asp</a></p>
+
+            <p>微软Javascript开发者文档：<a href="https://msdn.microsoft.com/zh-cn/library/7wkd9z69(v=vs.94).aspx">https://msdn.microsoft.com/zh-cn/library/7wkd9z69(v=vs.94).aspx</a></p>
+            <p>重点推荐：<a href="http://javascript.ruanyifeng.com/#introduction">Javascript标准参考（阮一峰）</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论：判断数据类型还有没有更多方法？</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY : 李玺 | 小九</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
