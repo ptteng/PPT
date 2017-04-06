@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task4】移动端登录页的header有哪些实现方式？</h2>
+            <h3>小课堂【武汉第121期】</h3>
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>
+        伴随移动互联网的快速发展，移动客户端的使用数据量正在的逐步的逼近PC端，而这一现象主要的推力应归公于手机app应用的迅速发展。不仅如此，wifi的覆盖范围不断拓宽，这也使得移动端APP应用的发展空间有了更大的平台，而手机app的数量也呈井喷趋势。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+            <p>常见的五种基本布局：
+            <ul>
+                <li>零布局</li>
+                <li>display布局</li>
+                <li>float布局</li>
+                <li>position布局</li>
+                <li>flex布局</li>
+            </ul>
+            
+            </section>
+            <section>
+            <p>几个常见的app登陆header</p>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/baiduyun.PNG" alt="">
+            </section>
+            <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/zhihu.PNG" alt="">
+            </section>
+            <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/weixin.PNG" alt="">
+            </section>
+             <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/eleme.PNG" alt="">
+            </section>
+            <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/douyu.PNG" alt="">
+            </section>
+             <section>
+            <p>从上面的这些app可以看出除了一些无header的app登陆页面其他大致可以分为左元素-标题-（右元素）这种结构</p>
+            </section>
+             <section>
+            针对这种类型布局，可以在两边设置浮动，中间设置居中即可
+
+<br>
+            <a href="../demo/css-04-mobileappheader/demo2.html" target="_blank">demo1</a>
+            </section>
+            <section>
+            绝对定位的方法布局：可以将header部分设置成relative，然后将左右浮动元素都设置成absolute<br>
+            <a href="../demo/css-04-mobileappheader/demo3.html" target="_blank">demo2</a>
+            </section>
+            <section>
+            设置table-cell,设置了display:table-cell的元素对宽度高度敏感，对margin值无反应，响应padding属性,vertical-align：middle可以同时将多行文字设置垂直居中<br>
+            <a href="../demo/css-04-mobileappheader/demo4.html" target="_blank">demo3</a>
+            </section>
+            <section>
+            使用flex布局可以简便、完整、响应式地实现各种页面布局,这种响应式的布局是应用的最广泛的<br>
+             <a href="../demo/css-04-mobileappheader/demo5.html" target="_blank">demo4</a>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>使用浮动定位的时候由于左右元素不相会导致标题元素不居中，原因是因为header部分进行居中的时候是去掉了浮动元素所占据的空间再进行的居中<br></p>
+             <a href="../demo/css-04-mobileappheader/demo2re.html">demo5</a>
+        </section>
+        <section>
+            <h3>4.解决方案
+           </h3>
+        </section>
+        <section>
+            <p>  将左右元素设置一个相同的宽度,可以让中间的标题依然居中，但是这样会导致一些美观问题，所以建议大家不要使用float进行布局
+            <a href="../demo/css-04-mobileappheader/demo2re1.html">demo6</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>见demo</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment"> 设计登陆界面的时候遵循什么模式会比较吸引人？</p>
+            <p class="fragment">像简书，豆瓣一刻这样的，先呈现的是登录，也就是说，APP默认进入这一页面的主要是已有账号的用户，但为新用户提供了注册选项，但在页面的重要程度低于登录的——只是一个跳转到注册页面的链接。这也是主流的APP登录/注册页面的设计模式<br>
+            还有一些APP为了简化流程方便用户注册，推荐用户用第三方账号登录而弱化注册新用户选项，如种子习惯和糗事百科。<br>
+            背景精美的插画，或者图片,没有装饰性的元素，只有简单的logo
+            </p>
+           
+        </section>
+         <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/lagou.PNG" alt="">
+
+            </section>
+            <section>
+            <img src="https://raw.githubusercontent.com/ptteng/PPT/master/img/css-04-mobileappheader/jianshu.PNG" alt="">
+
+            </section>
+            <section>
+            <img src="../img/css-04-mobileappheader/121.png" alt="">
+
+            </section>
+            
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.zhihu.com/question/37254177" target="_blank">知乎</a></p><br>
+            <p>参考二：<a href="http://www.qdfuns.com/notes/13976/1f305c05c91960db7679a3dce26eaabd.html" target="_blank">前端网</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>还可以使用其他的布局设计app登陆的header部分吗</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>杨宇飞师兄</p>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王力</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

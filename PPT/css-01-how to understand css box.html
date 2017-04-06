@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【css-01】如何理解css盒模型</h2>
+            <h3>小课堂【郑州第69期】</h3>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                网页设计中常听的属性名：内容(content)、填充(padding)、边框(border)、边界(margin)， CSS盒子模式都具备这些属性。
+                这些属性我们可以用日常生活中的常见事物——盒子作一个比喻来理解，所以叫它盒子模式。
+                CSS盒子模型就是在网页设计中经常用到的CSS技术所使用的一种思维模型。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                想象一个盒子，它有：外边距（margin）、边框（border）、内边距（padding）、内容（content）四个属性；
+                让我们俯视这个盒子，它有上下左右四条边，所以每个属性除了内容（content），都包括四个部分：上下左右；这四部分可同时设置，也可分别设置；
+                内边距可以理解为盒子里装的东西和边框的距离，而边框有厚薄和颜色之分，内容就是盒子中间装的东西，外边距就是边框外面自动留出的一段空白。
+            </p>
+        </section>
+        <section>
+            <img src="img/how to understand css box/1124550.png">
+        </section>
+        <section>
+            <h3>深入理解</h3>
+        </section>
+        <section>
+            <ul>
+                <li>这些属性我们可以把它转移到我们日常生活中的盒子（箱子）上来理解。</li>
+                <li>内容（content）就是盒子里装的东西；</li>
+                <li>而填充（padding）就是怕盒子里装的东西（贵重的）损坏而添加的泡沫或者其它抗震的辅料；</li>
+                <li>边框（border）就是盒子本身了；</li>
+                <li>至于边界（margin）则说明盒子摆放的时候的不能全部堆在一起，要留一定空隙保持通风，同时也为了方便取出嘛。</li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li>与现实生活中盒子不同的是，现实生活中的东西一般不能大于盒子，否则盒子会被撑坏的，而CSS盒子具有弹性，里面的东西大过盒子本身最多把它撑大，但它不会损坏</li>
+                <li>填充和边界只有宽度属性，可以理解为生活中盒子里的抗震辅料厚度</li>
+                <li>而边框有大小和颜色之分，可以对每一条边框定义不同的样式</li>
+                <li>边界就是该盒子与其它东西要保留多大距离</li>
+                <li>width和height定义的是Content部分的宽度和高度而不是整个盒子的高度，这个是初学者常犯的一个错误</li>
+                <li>padding border margin的宽度依次加在外面,背景会填充padding和content部分</li>
+            </ul>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+                不同标准下的盒模型
+            </p>
+        </section>
+        <section>
+            <h4>W3C标准盒模型</h4>
+        </section>
+        <section>
+            <p>
+                外盒尺寸计算（元素空间尺寸）</br>
+
+                element空间高度＝内容高度＋内距＋边框＋外距</br>
+
+                element空间宽度＝内容宽度＋内距＋边框＋外距</br>
+
+                内盒尺寸计算（元素大小）</br>
+
+                element高度＝内容高度＋内距＋边框（height为内容高度）</br>
+
+                element宽度＝内容宽度＋内距＋边框（width为内容宽度）
+            </p>
+        </section>
+        <section>
+            <h4>IE传统下盒模型</h4>
+            <h5>(IE6以下，不包含IE6或“QuicksMode下IE5.5+”)</h5>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                外盒尺寸计算（元素空间尺寸）</br>
+
+                element空间高度＝内容高度＋外距（height包含了元素内容宽度、边框、内距）</br>
+
+                element宽间宽度＝内容宽度＋外距（width包含了元素内容宽度、边框、内距）</br>
+
+                内盒尺寸计算（元素大小）</br>
+
+                element高度＝内容高度（height包含了元素内容宽度、边框、内距）</br>
+
+                element宽度＝内容宽度（width包含了元素内容宽度、边框、内距）
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <a href="DEMO%20for%20css%20box.html">DEMO for css box</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>问题一：嵌套块级元素时，子元素margin的参考标准是？具体来说就是父元素的content-box，padding-box还是border-box？</h4>
+        </section>
+        <section>
+            <p>
+                <a href="DEMO%20for%20neating.html">DEMO for nesting</a>
+            </p>
+        </section>
+        <section>
+            <h4>问题二：overflow:hidden隐藏的是超出哪里的部分呢？具体来说就是超出content-box，padding-box还是margin-box会被隐藏？</h4>
+        </section>
+        <section>
+            <p>
+                <a href="DEMO%20for%20overflow.html">DEMO for overflow:hidden</a>
+            </p>
+        </section>
+        <section>
+            <h4>问题三：position:absolute定位参考点是什么？</h4>
+        </section>
+        <section>
+            <h4>这个不用专门写demo，回到盒模型演示</h4>
+            <a href="DEMO%20for%20css%20box.html">DEMO for box model</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://www.cnblogs.com/clearsky/p/5696286.html">博客园-CSS盒模型理解</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.360doc.com/content/14/1226/09/10504424_435839490.shtml">如何理解CSS盒模型</a></p>
+            <p style="text-align: left">参考三：<a href="http://www.runoob.com/css/css-boxmodel.html">菜鸟教程</a></p>
+            <p style="text-align: left">参考四：<a href="https://zhuanlan.zhihu.com/p/24778275">知乎-css盒模型定位与扫盲</a></p>
+            <p style="text-align: left">参考五：<a href="http://www.cnblogs.com/tudas/p/confusing-css-box-model.html">chao's blog</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>盒模型的适用范围，什么时候选择使用盒子，什么时候选择别的布局</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

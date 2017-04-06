@@ -1,0 +1,239 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>洗牌算法具体指的是什么？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        l ink.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【js-02】洗牌算法具体指的是什么？</h2>
+            <h3>小课堂【武汉第119期】</h3>
+            <p style="text-align: center;">分享人：徐童</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+            <p style="text-align: left">
+                洗牌算法是我们常见的随机问题，在玩游戏，随机排序时经常用到。同时它也是一道经典的面试题。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style=" ">
+               何为洗牌算法？
+            </p>
+        </section>
+            
+        <section>
+            <p style="text-align:left">
+                一个1到n的序列，随机打乱，保证每个数出现在任意一个位置的概率相同。
+            </p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+            
+        <section>
+            <p>
+                有哪些实现算法？
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="">
+                Fisher-Yates Shuffle<br/>
+                <a href="https://bost.ocks.org/mike/shuffle/">链接</a>
+            </p>
+        </section>
+        <section>
+            <p style=" ">
+                一般化方法
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                假如要洗牌，那么最随机的做法无疑是从牌堆里随便抽一张出来，然后放在一边，之后从剩下的牌里重复之前的操作，直到所有牌都被抽出来放到了另一堆中。抽象到代码世界，按相同的做法，就是随机从数组里取出一个元素，保存到另一个数组，然后重复之，直到原数组中所有元素都处理掉。<br/>
+                <br/>
+                <a href="http://sandbox.runjs.cn/show/1hylhpck" style="">演示1</a>
+            </p>
+        </section>
+        <section>
+            <p style="">
+                <img src="../img/js-02-shuffle/demo1.png" alt="" style="width: 65%;">
+            </p>
+        </section>
+         <section>
+            <p style="text-align: left">
+                缺点：即使一个序号上的元素已经被处理过了，由于随机函数产生的数是随机的，所有这个被处理过的元素序号可能在之后的循环中不断出现.
+            </p>
+        </section>
+        <section>
+            <p style=" ">
+                改进方法
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                处理完一个元素后，我们用Array的splice()方法将其从目标数组中移除同时也更新了目标数组的长度，如此一来下次遍历的时候是从新的长度开始，不会重复处理的情况了。<br/>
+                <a href="http://sandbox.runjs.cn/show/v6a7gq0f">演示2</a>
+            </p>
+        </section>
+        <section>
+            <p style="">
+                <img src="../img/js-02-shuffle/demo2.png" alt="" style="width: 65%;">
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                缺点：因为调用splice来删除数组元素会导致删除位置之后的所有元素要做shift操作来向前补充，从而达到将数组长度减小的目的，当然这是在后台自动完成的，但这无疑增加了算法的复杂度。
+            </p>
+        </section>
+        <section>
+            <p style=" ">
+                算法能否再次优化？
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                考虑不创建新的数组来保存已经抽取的元素:随机从数组中抽出一个元素，然后与最后个元素交换，相当于把这个随机抽取的元素放到了数组最后面去，表示它已经是被随机过了，同时被换走的那个元素跑到前面去了，会在后续的重复操作中被随机掉。一轮操作过后，下一轮我们只在剩下的n-1个元素也就是数组的前n-1个元素中进行相同的操作，直到进行到第一个。<br/>
+                <a href="http://sandbox.runjs.cn/show/jabgttzr">演示3</a>
+            </p>
+        </section>
+        <section>
+            <p style="">
+                <img src="../img/js-02-shuffle/demo3.png" alt="" style="width: 65%;">
+            </p>
+        </section>
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>不使用random函数如何实现？</p>
+        </section>
+
+        <section>
+            <p>
+                更改冒泡排序.
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                先了解冒泡排序<br/>
+                思想：比较相邻两个数，如果前者大于后者，就把两个数交换位置；这样一来，第一轮就可以选出一个最大的数放在最后面；那么经过n-1轮，就完成了所有数的排序。<br/>
+                <a href="../demo/js-02-shuffle/bubble.html">冒泡排序</a> <br/>
+                <a href="http://runjs.cn/detail/jcdxyuo0">冒泡排序视觉化</a>
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                如果把冒泡排序中的比较逻辑更改一下，就可以取得不同的结果。它只能是在算法不公开的情况下，
+                产生一个乱序序列。 <br/>
+                <a href="../demo/js-02-shuffle/bubble-change.html">链接</a>
+            </p>
+        </section>    
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://www.cnblogs.com/Wayou/p/fisher_yates_shuffle.html">由乱序播放说开了去-数组的打乱算法Fisher–Yates Shuffle</a></p>
+            <p style="text-align: left">参考二：<a href="https://github.com/julycoding/The-Art-Of-Programming-By-July/blob/master/ebook/zh/02.09.md">UC面试题-完美洗牌算法</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                1.关于洗牌算法，你有其他实现想法吗？<br/><br/>
+                2.除了洗牌算法，还有哪些经典的排序算法？<br/><br/>
+                <a href="http://www.cnblogs.com/beli/p/6297741.html">十大排序算法</a>
+            </p>
+        </section>
+        
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 徐童</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
