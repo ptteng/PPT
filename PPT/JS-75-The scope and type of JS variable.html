@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS变量的作用域及类型</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-75】</h2>
+            <h3>小课堂【JS变量的作用域及类型】</h3>
+            <p>分享人:石林涛</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">Javascript和Java、C这些语言不同，它是一种无类型、弱检测的语言。它对变量的定义并不需要声明变量类型，我们只要通过赋值的形式，可以将各种类型的数据赋值给同一个变量。</p>
+            <p style="text-align: left">i=100;//Number类型 </p>
+            <p style="text-align: left">i="variable";//String类型 </p>
+            <p style="text-align: left">i={x:4};//Object类型 </p>
+            <p style="text-align: left">i=[1,2,3];//Array类型</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>变量的声明</h4>
+            <p style="text-align: left" class="fragment">JS中变量申明分显式申明和隐式申明。</p>
+            <p style="text-align: left" class="fragment">var i=100;//显式申明</p>
+            <p style="text-align: left" class="fragment">i=100;//隐式申明</p>
+            <p style="text-align: left" class="fragment">在函数中使用var关键字进行显式申明的变量是做为局部变量;而没有用var关键字，使用直接赋值方式声明的是全局变量。</p>
+            <p style="text-align: left" class="fragment">当我们使用访问一个没有声明的变量时，JS会报错。而当我们给一个没有声明的变量赋值时，JS不会报错，相反它会认为我们是要隐式申明一个全局变量，这一点一定要注意。</p>
+        </section>
+        <section>
+            <h4>全局变量和局部变量 </h4>
+            <p class="fragment">当JS解析器执行时，首先就会在执行环境里构建一个全局对象，我们定义的全局属性就是做为该对象的属性读取，在顶层代码中我们使用this关键字和window对象都可以访问到它。</p>
+            <p class="fragment">而函数体中的局部变量只在函数执行时生成的调用对象中存在，函数执行完毕时局部变量即刻销毁。</p>
+            <p class="fragment">因此在程序设计中我们需要考虑如何合理声明变量，这样既减小了不必要的内存开销，同时能很大程度地避免变量重复定义而覆盖先前定义的变量所造成的Debug麻烦。 　　</p>
+        </section>
+        <section>
+            <h4>变量的作用域</h4>
+            <p class="fragment">任何程序语言中变量的作用域都是一个很关键的细节。JS中变量的作用域相对与JAVA、C这类语言显得更自由，一个很大的特征就是JS变量没有块级作用域，函数中的变量在整个函数都中有效。</p>
+        </section>
+        <section>
+            <h4>JS变量的两种类型 </h4>
+            <p class="fragment">基本类型值：指的是保存在栈内存中的简单数据段；</p>
+            <p class="fragment">引用类型值：指的是那些保存在堆内存中的对象，意思是，变量中保存的实际上只是一个指针，这个指针执行内存中的另一个位置，由该位置保存对象；</p>
+        </section>
+        <section>
+            <h4>JS变量的两种访问方式 </h4>
+            <p class="fragment">基本类型值：按值访问，操作的是他们实际保存的值；</p>
+            <p class="fragment">引用类型值：按引用访问，当查询时，我们需要先从栈中读取内存地址，然后再顺藤摸瓜地找到保存在堆内存中的值。</p>
+            <img class="fragment" src="../img/JS-75-The scope and type of JS variable/1.jpg">
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4>函数中变量的隐式声明和显示声明有什么区别呢？</h4>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <pre><code>
+//定义一个输出函数
+function outPut(s){
+document.writeln(s)
+}
+//全局变量
+var i=0;
+//定义外部函数
+function outer(){
+//访问全局变量
+outPut(i);
+//定义一个类部函数
+function inner(){
+//定义局部变量
+var i = 1;// i=1; 如果用隐式申明　那么就覆盖了全局变量i
+outPut(i);
+}
+inner();
+outPut(i);
+}
+outer();
+            </code></pre>
+        </section>
+        <section>
+            <pre><code>
+//定义一个输出函数
+function outPut(s){
+document.writeln(s)
+}
+//全局变量
+var i=0;
+//定义外部函数
+function outer(){
+//访问全局变量
+outPut(i);
+//定义一个内部函数
+function inner(){
+outPut(i);
+var i=1;
+outPut(i);
+}
+inner();
+outPut(i);
+}
+outer();
+            </code></pre>
+        </section>
+        <section>
+            <p style="text-align: left" >JS函数体中声明的本地变量在整个函数中都有效，因此在上面代码中var　i = 1 ;在inner函数中都有效，实际上显式声明的变量i是在预编译时就已经编译到调用对象中了。</p>
+            <p style="text-align: left" class="fragment">不同于隐式声明变量在解释时才被定义为全局变量，只是在调用outPut(i)时，还没有将它初始化变量，此时的本地变量i是未赋值变量，而不是未定义变量，因此输出了undefined。</p>
+            <pre class="fragment" ><code>
+function inner(){
+var i; //定义但不赋值
+outPut(i);
+i=1;
+outPut(i);
+}
+            </code></pre>
+            </p>
+        </section>
+        <section>
+        <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>基本类型和引用类型在赋值上的区别是什么？</h4>
+        </section>
+        <section>
+            <pre><code>
+//定义一个输出函数
+function outPut(s){
+document.writeln(s)
+}
+var a = 3;
+var b = a;
+outPut(b);
+a = 4;
+outPut(a);
+outPut(b);
+            </code></pre>
+        </section>
+        <section>
+            <pre><code>
+//定义一个输出函数
+function outPut(s){
+document.writeln(s)
+}
+var a_array = [1,2,3];
+var b_array = a_array;
+outPut(b_array);
+a_array[3] = 4;
+outPut(b_array);
+            </code></pre>
+        </section>
+        <section>
+            <img class="fragment" src="../img/JS-75-The scope and type of JS variable/2.jpg">
+            <img class="fragment" src="../img/JS-75-The scope and type of JS variable/3.jpg">
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/terryglp/articles/1776695.html" target="_blank">JS变量以及其作用域详解</a></p>
+            <p>参考二：<a href="http://blog.sina.com.cn/s/blog_6fd4b3c10101d0va.html">JS的基础类型与引用类型</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>函数中参数是怎么赋值的？</p>
+        </section>
+        <section>
+            <pre><code>
+function setName(obj) {
+                obj.name = "Nicholas";
+                obj = new Object();
+                obj.name = "Greg";
+                }
+                var person = new Object();
+                setName(person);
+                document.write(person.name);
+            </code></pre>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 石林涛</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
