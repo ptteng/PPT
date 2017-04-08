@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>bootstrap有哪些常用组件</h3>
+            <h3>小课堂【成都第105期】</h3>
+            <p style="text-align: center;">分享人：王奎智</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section><h3>一、背景介绍</h3></section>
+        <section>
+            <p style="text-align:left;font-size: 31px">
+                Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。
+                </br>Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。
+                </br>Bootstrap中包含了丰富的Web组件，根据这些组件，可以快速的搭建一个漂亮、功能完备的网站。
+            </p>
+        </section>
+        <section><h3>二、知识剖析</h3></section>
+            <section>
+	            <p>什么是组件</p>
+                <p style="text-align: justify">组件:一般是指软件系统的一部分，承担了特定的职责，可以独立于整个系统进行开发和测试，一个良好设计的组件应该可以在不同的软件系统中被使用(可复用)。</br>
+                    例如bootstrap的轮播图就是一个组件。他可以应用在不同的网站开发中。</p>
+            </section>
+            <section>
+                <p>目前常用的bootstrap组件：</br>
+                    <ul>
+	                    <li>轮播图</li>
+                        <li>下拉菜单</li>
+                        <li>响应式导航栏</li>
+                    </ul>
+                </p>
+            </section>
+        <section><h3>三、常见问题</h3></section>
+        <section>
+            <p>如何使用bootstrap组件做一个轮播图？</p>
+        </section>
+        <section><h3>四、解决方案</h3></section>
+	    <section>
+            <section>
+                <h6>一个轮播图的组成部分</h6>
+                <p style="text-align:left">
+                    1.轮播计数器</br>
+                    2.轮播图片容器</br>
+                    3.轮播控制器
+                </p>
+            </section>
+            <section>
+                <h6>外框</h6>
+                <p style="text-align:left;font-size:28px;">整个轮播是放在一个div .carousel和.slide的div中的</br>
+                    给这个容器定义一个 ID 值，方便后面采用 data 属性来声明触发</br>
+                    data-ride 属性：取值 carousel，并且将其定义在 carousel 上</p>
+	        <pre>
+		        <code>
+        <div id="slidershow" class="carousel slide" data-ride="carousel"></div>
+		        </code>
+	        </pre>
+            </section>
+            <section>
+                <h6>轮播计数器</h6>
+                <p style="text-align:left;font-size:28px;">其表现形式为底部小圆点<br/>
+                    在容器 div.carousel 的内部添加轮播图片计算器<br/>
+                    采用 carousel-indicators 样式，其主要功能是显示当前图片的播放顺序<br/>
+                    一般采用有序列表来制作</p>
+                <pre>
+		        <code>
+         <ol class="carousel-indicators">
+             <li class="active" data-target="#slidershow" data-slide-to="0"></li>
+             <li data-target="#slidershow" data-slide-to="1"></li>
+             <li data-target="#slidershow" data-slide-to="2"></li>
+         </ol>
+		        </code>
+	        </pre>
+            </section>
+            <section>
+                <h6>轮播图片容器</h6>
+                <p style="text-align:left;font-size:28px;"><br/>
+                    每多一张需要轮播的图片就多一个item<br/>
+                    第一个item需要添加active</p>
+                <pre>
+		        <code>
+         <div class="carousel-inner">
+             <div class="item active">
+                 <a href="#"><img src="../img/captain.png"></a>
+                 <div class="carousel-caption">
+                     <p>死亡の潮の潮、私の古い友達を探して</p>
+                 </div>
+             </div>
+             <div class="item">
+                 <a href="#"><img src="../img/shadow.png"></a>
+                 <div class="carousel-caption">
+                     <p>私の存在を感じるでしょう</p>
+                 </div>
+             </div>
+             <div class="item">
+                 <a href="#"><img src="../img/sven.png"></a>
+                 <div class="carousel-caption">
+                     <p>孤独の死、私は孤独のように生きている</p>
+                 </div>
+             </div>
+        </div>
+                </code>
+	        </pre>
+            </section>
+            <section>
+                <h6>轮播控制器</h6>
+                <p style="text-align:left;font-size:28px;">
+                    data-slide：取值包括 prev，next<br/>
+                    prev表示向后滚动，next 表示向前滚动<br/>
+                    该属性值同样定义在轮播图控制器的 a 链接上
+                <pre>
+		        <code>
+          <a class="left carousel-control" href="#slidershow" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#slidershow" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+                </code>
+	        </pre>
+            </section>
+        </section>
+	    <section>
+		    <h6>具体代码</h6>
+		    <pre>
+			    <code>
+<div id="slidershow" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li class="active" data-target="#slidershow" data-slide-to="0"></li>
+        <li data-target="#slidershow" data-slide-to="1"></li>
+        <li data-target="#slidershow" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <a href="#"><img src="../img/captain.png"></a>
+            <div class="carousel-caption">
+                <p>死亡の潮の潮、私の古い友達を探して</p>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#"><img src="../img/shadow.png"></a>
+            <div class="carousel-caption">
+                <p>私の存在を感じるでしょう</p>
+            </div>
+        </div>
+        <div class="item">
+            <a href="#"><img src="../img/sven.png"></a>
+            <div class="carousel-caption">
+                <p>孤独の死、私は孤独のように生きている</p>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#slidershow" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#slidershow" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+			    </code>
+		    </pre>
+	    </section>
+        <section><h3>五、编码实战</h3></section>
+	    <section><h3><a href="../demo/css-08-bootstrap-component/demo2.html">demo</a></h3></section>
+        <section><h3>六、拓展思考</h3></section>
+        <section>
+            <h4>有没有不使用bootstrap就能实现轮播图的方法</h4>
+        </section>
+        <section>
+            <h3>七、参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.jb51.net/article/75806.htm">全面解析Bootstrap图片轮播效果</a></p><br>
+            <p>参考二：<a href="http://www.cnblogs.com/bkylee/p/6385973.html">博客园bootstrap的carousel图片轮播</a></p><br>
+        </section>
+        <section>
+            <h3>八、更多讨论</h3>
+        </section>
+        <section>
+            <p>还有没有类似bootstrap的框架</p>
+	        <a href="http://amazeui.org/">妹子做的框架</a>
+        </section>
+        <section>
+            <h4>鸣写</h4>
+            <h3>感谢观看</h3>
+            <p><small>BY ︱胡嘉杰︱叶紫阳︱王奎智</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>

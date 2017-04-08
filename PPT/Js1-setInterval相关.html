@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task1】setInterval() 定时器的有关</h2>
+            <h3>小课堂【成都第68期】</h3>
+            <p>分享人：韩阳</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+                <section>
+                    <p>setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+                    setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。
+                    提示： 1000 毫秒= 1 秒。
+                    </p>
+                </section>
+                <section>
+                    <p>
+                    setTimeout <br>
+                    setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式。
+                    </p>
+                </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p> 语法
+                    setInterval(code,millisec,lang)<br>
+
+
+                    参数	描述
+                    code	必需。要调用的函数或要执行的代码串。
+                    millisec	必须。周期性执行或调用 code 之间的时间间隔，以毫秒计。
+                    lang	可选。 JScript | VBScript | JavaScript
+                </p>
+            </section>
+                <section>
+                    <p>
+                        语法
+                        setTimeout(code,millisec)
+                        参数	描述
+                        code	必需。要调用的函数后要执行的 JavaScript 代码串。
+                        millisec	必需。在执行代码前需等待的毫秒数。
+                    </p>
+                </section>
+            <section>
+                <p>
+                    注：调用过程中，可以使用clearTimeout(id_of_settimeout)终止
+                </p>
+            </section>
+        </section>
+            <section>
+                <p>
+                    setInterval与setTimeout区别是什么
+                </p>
+            </section>
+        <section>
+            <p>
+                很简单
+                setInterval就是间隔型定时器
+                etTimeout就是延时型定时器
+            </p>
+        </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>setInterval多次触发以后为什么越来越快？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+            <p>
+                造成这个情况的原因很简单，你每启动一次setInterval事件
+                多次启动会造成定时器的时间叠加 这样当然会越来越快。
+                解决的办法也很简单
+            </p>
+            </section>
+            <section>
+            <p>
+            之前变量var timer是写在onclick内部的 每次点击都会var一次 相当于重新赋值在函数内部var 就相当于局部变量
+            重新赋值之后 这个局部变量就会被销毁
+            导致此时timer已经不存在了
+            点击but2就找不到timer了
+            </p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    <input type="text" id="clock" size="35" />
+                    <script language=javascript>
+                    var int=self.setInterval("clock()",50)
+                    function clock()
+                    {
+                    var t=new Date()
+                    document.getElementById("clock").value=t
+                    }
+                    </script>
+                    </form>
+                    <button onclick="int=window.clearInterval(int)">
+                        Stop interval
+                    </button>
+                </code>
+            </pre>
+        </section>
+        <!--<section>-->
+            <!--<h3>6.扩展思考</h3>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<p class="fragment">  </p>-->
+            <!--<p class="fragment">css会先查看规则的权重（!important），加了权重的优先级最高，当权重相同的时候，会-->
+                <!--比较规则的特殊性，根据前面的优先级计算规则决定哪条规则起作用，当特殊性值也一样的时-->
+                <!--候，css规则会按顺序排序，后声明的规则优先级高，成为人生赢家，当上总经理出任CEO迎娶白富美。</p>-->
+        <!--</section>-->
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+            <p>参考二：<a href="https://www.douban.com/note/559486620/?type=rec" target="_blank">豆瓣</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p> 还有哪些更好的方法来解决定时器触发变快的办法呢</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 韩阳</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

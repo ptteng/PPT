@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3 style="text-align: left"> 加和不加META的VIEWPORT有什么区别？</h3>
+            <h3>小课堂【武汉】</h3>
+            <p>分享人：龚家豪</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+            <h4><xmp><meta name="viewport" content="width=device-width"></xmp></h4>
+            <p style="text-align: left">它的意思是调整layout viewport的宽度与ideal viewport相等。起初它是苹果做的一个扩展，但是与此同时被更多的浏览器所借鉴。</p>
+        </section>
+        <section>
+            <p>像素</p>
+            <ul>
+                <li>设备像素/物理像素:设备像素是我们直觉上觉得「靠谱」的像素。这些像素为你所使用的各种设备都提
+                    供了正规的分辨率。
+                </li>
+                <li>设备独立像素(device independent pixels)：（也可以称为设备无关的逻辑像素）<br/>
+                    <img src="../img/css-01-mate&viewport/depend.png">
+                </li>
+                <li>CSS像素:是Web编程的概念，指的是CSS样式代码中使用的逻辑像素。
+                </li>
+            </ul>
+        </section>
+        <section>
+                    <ul>
+                <li>每英寸像素(pixel per inch)：
+                    ppi，表示每英寸所拥有的像素(pixel)数目，数值越高，代表显示屏能够以越高的密度显示图像。
+                </li>
+                <li>
+                    设备像素比(device pixel ratio)：
+                    以上计算出ppi是为了得到密度分界，获得默认缩放比例，即设备像素比。
+                </li>
+                    </ul>
+        </section>
+
+        <section>
+            <p>ppi与dpr对应列表</p>
+            <img src="../img/css-01-mate&viewport/dpr.PNG" style="width:100%;">
+        </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <b>viewport</b>
+                <p style="text-align: left">
+                    viewport:viewport的功能是用来约束你网站中最顶级包含块元素（containing block）html的。
+                </p>
+            </section>
+            <section>
+                <ul>
+                <li>visual viewport:是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页
+                面的部分，或者通过缩放来改变visual viewport的大小。无论怎样，CSS布局，尤其是百分
+                比宽度，是以layout viewport做为参照系来计算的</li>
+                <li>layout viewport:整个网页的内容区域</li>
+
+                </ul>
+            </section>
+            <section>
+
+               <p> 如图所示</p>
+                <img src="../img/css-01-mate&viewport/layout-viewport.jpg" style="height:80vh;">
+                <img src="../img/css-01-mate&viewport/visual-viewpot.jpg" style="height:80vh;">
+            </section>
+            <section>
+                <p>ideal viewport</p>
+                <ul>
+                <dl>为了完美适配visual viewport（完美适配指的是，首先不需要用户缩放和横向滚
+                    动条就能正常的查看网站的所有内容；第二，文字的大小是合适。当然,不只是文字，其他元素
+                    像图片什么的也是这个道理。）这个viewport叫做ideal viewport—移动设备的理想viewport。</dl>
+                    <dl>
+                        ideal viewport并没有一个固定的尺寸，不同的设备拥有有不同的ideal viewport。例如iphone5
+                        的ideal viewport宽度是320px。也就是说，在iphone5中，css中的320px就代表iphone屏幕的宽度。
+                    </dl>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style="text-align: left">
+            <p>为什么要写<br/>
+                <pre>
+              <code> <meta name="viewport" content="width=device-width,
+              initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> </code>
+            </pre>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            meta:可提供有关页面的元信息，包含“名字 与 数据” 对子
+            name: 名字
+            content：内容
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section style="text-align: left">
+            <section>
+                <b>动态改变meta viewport标签</b><br/>
+                方法1.可以使用document.write来动态输出meta viewport标签，例如：
+                <pre>
+                    <code>
+                        document.write('<meta name="viewport" content="width=device-width,initial-scale=1">')
+                    </code>
+                </pre>
+                方法2.通过setAttribute来改变
+                <pre>
+                    <code>
+                        <meta id="testViewport" name="viewport" content="width = 380">
+                        <script>
+                             var mvp = document.getElementById('testViewport');
+                             mvp.setAttribute('content','width=480');
+                        </script>
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://weizhifeng.net/viewports.html" target="_blank">Haorooms</a></p>
+            <p>参考二：<a href="http://weizhifeng.net/viewports2.html" target="_blank">tuicool</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section style="text-align: left">
+            <p>讨论点一</p>
+            媒体查询中max-width/min-width是根据什么的宽度来判断的？
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 李仁 |  龚家豪</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

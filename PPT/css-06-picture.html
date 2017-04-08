@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>CSS绘制特殊图形</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：吴昊</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>css绘图，或者说用css属性在页面中呈现出一些特殊的图案效果，例如下拉菜单中的倒三角，页面转换时页面中下部的圆圈等，如何用纯css来实现</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                css绘制特殊图案并不是通过很多的div拼凑起来，而是通过修改div内的属性来实现，如background-color，border-radius等属性
+            </p>
+        </section>
+         <section>  
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么要用css画图，直接切图不是更方便快捷么？css绘图的优点和缺点有什么？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>为什么要用css画图，直接切图不是更方便快捷么？</p>
+            <p class="fragment">简单的图形在页面中很多，用css可以减少http的请求</p>
+            <p class="fragment">css呈现的是矢量图，缩放不会失真</p>
+            <p class="fragment">不用为了一个小图标的缩放去跪着求UI！！</p>
+        </section>
+        <section>
+            <p>css绘图的优点和缺点有什么？</p>
+            <p class="fragment">减少http请求，页面加载速度提升</p>
+            <p class="fragment" style="color: black">无法呈现出复杂图形</p>
+            <p class="fragment" style="color: black">遇到复杂图形还是得求UI妈妈！！</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>圆：有几点需要注意，其一宽度和高度值相同，其二圆角值为宽度或高度值的一半。</p>
+            <pre>
+                <code>
+                    #circle {
+                    width: 100px;
+                    height: 100px;
+                    background: red;
+                    -moz-border-radius: 50px;
+                    -webkit-border-radius: 50px;
+                    border-radius: 50px;
+                    }
+                </code>
+                <div style="
+                    width: 100px;
+                    height: 100px;
+                    background: red;
+                    -moz-border-radius: 50px;
+                    -webkit-border-radius: 50px;
+                    border-radius: 50px;
+                    "></div>
+            </pre>
+        </section>
+        <section>
+            <p>半圆：制作半圆和圆使用的方法是一样的，但需要配合元素的高度，宽度以及圆角的方位，制作出半圆形效果。border-radius:↖ ↗ ↘ ↙  </p>
+            <pre>
+                <code>
+                    #semicircle{
+                    width: 100px;
+                    height: 50px;
+                    background: red;
+                    -moz-border-radius: 100px 100px 0 0;
+                    -webkit-border-radius:  100px 100px 0 0;
+                    border-radius:  100px 100px 0 0;
+}
+                </code>
+                <div style="
+                    width: 100px;
+                    height: 50px;
+                    background: red;
+                    -moz-border-radius: 100px 100px 0 0;
+                    -webkit-border-radius:  100px 100px 0 0;
+                    border-radius:  100px 100px 0 0;
+                    "></div>
+            </pre>
+        </section>
+        <section>
+        <p>三角：最常用的小图标 </p>
+        <pre>
+                <code>
+                    #triangle{
+                        width: 0;
+                        height: 0;
+                        border-top: 40px solid green;
+                        border-right: 40px solid blue;
+                        border-left: 40px solid black;
+                        border-bottom: 40px solid red;
+                    }
+                </code>
+                <div style="
+                        width: 0;
+                        height: 0;
+                        border-top: 40px solid green;
+                        border-right: 40px solid blue;
+                        border-left: 40px solid black;
+                        border-bottom: 40px solid red;
+                    "></div>
+            </pre>
+        </section>
+        <section>
+            <p>三角：实例一个方向，其他方向只需要改变transparent所在的位置即可 </p>
+            <pre>
+                <code>
+                    #triangle-right{
+                        width: 0;
+                        height: 0;
+                        border: 50px solid;
+                        border-color: transparent transparent transparent red;
+                    }
+                </code>
+                <div style="
+                        width: 0;
+                        height: 0;
+                        border: 50px solid;
+                        border-color: transparent transparent transparent red;
+                    "></div>
+            </pre>
+        </section>
+        <section>
+            <p>汉堡图标：修真院任务中常见的小图片，用
+            </p>
+        </section>
+        <section>
+            <p>娱乐 吃豆人：仿三角形做法，用width和height为0来做一个圆，然后将一个border方向设置为transparent透明 </p>
+            <pre>
+                <code>
+                    #Pac-man{
+                        width: 0;
+                         height: 0;
+                        border: 60px solid;
+                         border-color: red transparent red red ;
+                        -moz-border-radius: 60px;
+                        -webkit-border-radius: 60px;
+                        border-radius: 60px;
+                    }
+                </code>
+                <div style="
+                    width: 0;
+                    height: 0;
+                    border: 60px solid;
+                    border-color: red transparent red red ;
+                    -moz-border-radius: 60px;
+                    -webkit-border-radius: 60px;
+                    border-radius: 60px;
+                    "></div>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>一些变形的图形该怎么做</p>
+            <p class="fragment">平行四边形（tansform：skew X轴拉伸）</p>
+            <p class="fragment">椭圆（长宽不等的圆形变形）</p>
+            <p class="fragment">六芒星（一个正三角一个倒三角，绝对定位重叠）</p>
+            <p class="fragment">气泡对话框（方形+左右三角形）</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.xuanfengge.com/css3-drawing-various-graphic-effects.html" target="_blank">CSS3绘制各种图形</a></p>
+            <p>被惊艳：<a href="http://a.singlediv.com/?utm_source=ourjs.com" target="_blank">纯CSS制作复杂图像的展示</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>css绘图真的有用么？有UI干嘛还要自己做？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 吴昊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>如何使用gulp编辑less</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task11】如何用gulp编辑less</h2>
+            <h3>小课堂【武汉第122期】</h3>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Gulp.js 是一个自动化构建工具,开发者可以使用它在项目开发过程中自动执行常见任务。
+                Gulp.js 是基于 Node.js 构建的,利用 Node.js 流的威力,你可以快速构建项目。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>2.1 gulp.js有哪些优点？</h3>
+        </section>
+        <section>
+            <h4 style="text-align: left">1.易于使用</h4>
+            <p style="text-align: left">
+                通过代码优于配置的策略，Gulp 让简单的任务简单，复杂的任务可管理。
+            </p>
+            <h4 style="text-align: left">2.构建快速</h4>
+            <p style="text-align: left">利用 Node.js 流的威力，你可以快速构建项目并减少频繁的 IO 操作。</p>
+            <h4 style="text-align: left">3.插件高质</h4>
+            <p style="text-align: left">Gulp 严格的插件指南确保插件如你期望的那样简洁高质的工作。</p>
+            <h4 style="text-align: left">4.易于学习</h4>
+            <p style="text-align: left">通过最少的 API，掌握 Gulp 毫不费力，构建工作尽在掌握：如同一系列流管道。</p>
+        </section>
+        <section>
+            <h3>3.常见问题：如何安装gulp插件</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>1.安装Node.js</strong><br>
+                打开node.js官网，点击硕大的绿色按钮，它会根据系统信息选择对应版本（.msi文件）。然后像安装QQ一样安装它就好了。
+                <a href="http://nodejs.cn/download/" target="_blank">node.js中文官网</a>
+            </p>
+        </section>
+        <section style="text-align: left;">
+            <strong>2.使用命令行</strong>
+            <p style="text-align: left;">打开cmd命令行，输入node -v查看安装的nodejs版本，出现版本号，说明刚刚已正确安装nodejs。PS：未能出现版本号，请尝试注销电脑重试；</p>
+            <p style="text-align: left">输入npm -v;查看npm版本号；</p>
+        </section>
+        <section>
+            <strong>3.npm介绍</strong>
+            <p style="text-align: left;">
+                npm（node package manager）nodejs的包管理器，用于node插件管理（包括安装、卸载、管理依赖等）；
+            </p>
+            <p style="text-align: left;">使用npm安装gulp插件：命令提示符执行npm install gulp</p>
+            <p style="text-align: left;">使用npm卸载gulp插件：npm uninstall gulp</p>
+            <p style="text-align: left;">使用npm更新gulp插件:npm update gulp</p>
+            <p style="text-align: left;">查看当前已安装插件 npm list;（必须在命令行默认路径查看，否则会出现报错的情况）</p>
+        </section>
+        <section>
+            <strong>4.cnpm安装</strong>
+            <p style="text-align: left;">如果使用npm安装失败的话，可以使用cnpm安装。即使用命令提示符执行npm install cnpm -g --registry=https://registry.npm.taobao.org；</p>
+        </section>
+        <section>
+            <strong>5.新建package.json文件到项目文件夹</strong>
+            <p style="text-align: left;">在package.json文件中添加以下内容<img src="../img/css-11-How to use the gulp to write less/package.png"></p>
+        </section>
+        <section>
+            <strong>6.安装gulp-less插件</strong>
+            <p>在含有package.json中命令提示符中输入npm install gulp-less;即可安装gulp-less插件；</p>
+        </section>
+        <section>
+            <strong>7.新建一个gulpfile.js文件</strong>
+            <p>在gulpfile.js文件中添加<br/>
+                <img src="../img/css-11-How to use the gulp to write less/gulpfile.png"><br/>
+                新建完之后输入命令行gulp less即可编译出css文件
+            </p>
+        </section>
+        <section>
+            <h3>5、编码实战</h3>
+        </section>
+        <section>
+            <h3>6、扩展思考</h3>
+            <p>
+                gulp插件除了能够编译less文件外，还有哪些功能？
+            </p>
+        </section>
+        <section>
+            <p>
+                通过修改package.json文件，安装glup相关插件，修改gulpfile.js文件可以实现压缩css文件，js文件，压缩图片，编译sass，less等作用。在从而达到最大限度的节省开发成本的作用。<br/>
+                对gulp感兴趣的可以查看<a href="https://github.com/nimojs/gulp-book">gulp入门指南</a>
+            </p>
+        </section>
+        <section>
+            <h3>7、参考文献</h3>
+            <a href="https://github.com/nimojs/gulp-book">gulp入门指南</a>
+            <a href="http://www.gulpjs.com.cn/">gulp中文网</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">除了使用gulp编辑less之外，还有哪些编译工具可以编辑less？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 王峰</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

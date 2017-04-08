@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>如何使用sass</title>
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+  <!-- 打印和PDF输出样式 -->
+  <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+  <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h2>如何使用sass</h2>
+      <h3>小课堂【成都第66期】</h3>
+      <p>分享人：刘思言</p>
+    </section>
+    <section>
+      <p>目录</p>
+      <p>1.背景介绍</p>
+      <p>2.知识剖析</p>
+      <p>3.常见问题</p>
+      <p>4.解决方案</p>
+      <p>5.编码实战</p>
+      <p>6.扩展思考</p>
+      <p>7.参考文献</p>
+      <p>8.更多讨论</p>
+    </section>
+    <section>
+      <h3>1.背景介绍</h3>
+    </section>
+    <section>
+      <p style="text-align: left">
+        对于很多程序员来说，css这种语言，没有变量，没有函数，没有一些他们熟悉的编程的语法，只有对于属性的一行行描述，
+        这让他们在写css的时候十分的头痛。<br>
+        很自然的，这时候就会有人想要为css加入一些编程的元素，这样的情况下，css预处理
+        语言就应运而生。而今天要讲的sass就是最早也是最成熟的一门css的预处理语言。
+      </p>
+    </section>
+    <section>
+      <h3>2.知识剖析</h3>
+    </section>
+    <section>
+      <p style="text-align: left">
+        Sass是一门Css的预处理语言，Sass可以简化Css的开发和维护。<br>
+        Sass 是对 CSS 的扩展，让 CSS 语言更强大、优雅。 它允许你使用变量、
+        嵌套规则、 @mixins、@import等众多功能， 并且完全兼容 CSS 语法。
+        sass是ruby语言写出来的，但是不懂ruby也可以使用sass，可以说，只要你会写css，就可以用sass。
+      </p>
+    </section>
+    <section>
+      <h3>3.常见问题</h3>
+    </section>
+    <section>
+      <h3 style="letter-spacing: 2px">3-1.sass的安装和编译，语法的选择</h3>
+    </section>
+    <section>
+      <h3 style="letter-spacing: 2px">3-2.sass常用功能的基本用法</h3>
+        <p>
+        1.变量
+        2.嵌套
+        3.混合器@mixin
+        <br>
+        4.自定义函数@function
+        5.零碎的小问题
+        </p>
+    </section>
+    <section>
+      <h3>4.解决方案</h3>
+    </section>
+    <section>
+      <h3>一、安装sass</h3>
+      <p style="width: 105%">
+        sass基于Ruby语言开发而成，因此安装sass前需要安装Ruby。
+        在安装完成ruby后，在命令行内输入
+        <pre>
+          <code>
+            gem install sass
+          </code>
+        </pre>
+      </p>
+    </section>
+    <section>
+      <h3>二、变量</h3>
+      <p>
+        sass 是以$开头定义的变量，变量定义格式如下
+        <pre>
+          <code>
+            $white:#000;//名为白的黑
+            $black:#fff;//名为黑的白
+          </code>
+        </pre>
+      </p>
+      <p>要注意的是，在有全局变量的情况下，sass是没有局部变量的。</p>
+    </section>
+    <section>
+      <h3>三、嵌套</h3>
+      <p>
+      <pre>
+          <code>
+            //选择器嵌套
+            .nav {
+              font-size:200px;
+              a {
+                display:block;
+                color:#fff;
+              }
+              h2 {
+                line-height:20px;
+              }
+            }
+            //属性嵌套
+            .box {
+              background {
+                color：#000；
+                size：cover；
+                repeat：no-repeat；
+              }
+            }
+          </code>
+        </pre>
+      </p>
+    </section>
+    <section>
+      <h3>四、混合（@mixin）</h3>
+      <p>
+        @mixin 可以将一部分样式提取出来，变成模块，供其他选择器重复使用。而且@mixin还可以用来传递参数。
+        调用的时候只需要用 @include就可以，代码演示如下。
+      </p>
+    </section>
+    <section>
+      <pre>
+          <code>
+            //一个定义好的基本button样式
+            @mixin button {
+              width: 50px;
+              height: 50px;
+              border:1px solid #fff;
+            }
+            //一个调用基本button样式的button
+            .logo-button {
+              @include button
+              background-color: yellowgreen;
+            }
+          </code>
+        </pre>
+    </section>
+    <section>
+      <h3>五、自定义函数</h3>
+      sass提供用户可以自定义函数，我们来看一个比较简单的函数
+      <pre>
+        <code>
+          //px和rem的转换
+          $browser-font-size:10px;
+          html {
+            font-size: $browser-font-size;
+          }
+          @function pxTorem($px) {
+            @return $px/$browser-font-size*1rem
+          }
+          //使用
+          .box {
+            width: pxTorem(20px);
+          }
+        </code>
+      </pre>
+    </section>
+    <section>
+      <h3>六、一些琐碎的小问题</h3>
+      <ul>
+        <li>&符号</li>
+        <li>@import</li>
+        <li>注释</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>5.编码实战</h3>
+    </section>
+    <section>
+      <h3>6.扩展思考</h3>
+    </section>
+    <section>
+      <p>
+        Sass中的@if @for @else怎么用
+      </p>
+    </section>
+    <section>
+      <h3>7.参考文献</h3>
+    </section>
+    <section style="text-align: left;margin-left: 30%">
+      <p>参考一：<a href="http://www.sasschina.com/guide/"
+              target="_blank">SASS中文网</a>
+      </p>
+      <p>参考二：<a href="http://www.w3cplus.com/blog/tags/302.html"
+                target="_blank">SASS-w3cplus</a></p>
+    </section>
+    <section>
+      <h3>8.更多讨论</h3>
+    </section>
+    <section>
+      <p style="letter-spacing: 5px">LESS和SASS你会选择哪个，这两个语言又有什么区别</p><br><br>
+    </section>
+    <section>
+      <h4>鸣谢</h4>
+      <p>感谢大家观看</p>
+      <p>
+        <small>BY : 刘思言</small>
+      </p>
+    </section>
+
+  </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function goNext() {
+        var a=document.getElementById('input1').value;
+        var b=document.getElementById('input2').value;
+        var aO={name:a};
+        var bO={name:b};
+        var aN = JSON.stringify(aO);//使用json把对象转换为字符串
+        var bN = JSON.stringify(bO);//使用json把对象转换为字符串
+        sessionStorage.a = aN;//把字符串储存到缓存中
+        localStorage.b = bN;//把字符串储存到缓存中
+        window.location.href = "demoFour.html"
+    }
+
+</script>
+<body>
+我是sessionStorage：<input type="text" id="input1">
+我是localStorage: <input type="text" id="input2">
+<button onclick="goNext()">aaa</button>
+</body>
+</html>

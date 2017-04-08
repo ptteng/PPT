@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-04】json是什么，如何处理转义？</h2>
+            <h3>小课堂【北京】</h3>
+            <p style="text-align: center;">分享人：杨超</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>曾经xml是互联网传输结构化数据的事实标准。web服务的第一次浪潮很大程度上都是建立在xml之上的，突出的特点是服务器与服务器之间的通信。但是不少人认为xml过于繁琐、冗长。</p>
+            <p>2006年，Douglas Crockford把JSON(JavaScript Object Notation)提交给IETF。而JSON的应用早在2001年就开始了。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">JSON数据的书写格式是：名称/值对。</p>
+                <p style="text-align: left">名称/值对组合中的名称写在前面（在双引号中），值对写在后面，中间用冒号隔开，2个组合之间用逗号隔开</p>
+                <p style="text-align: left">其中值可以是：数字整数或浮点数、字符串（在双引号中）、逻辑值（true或false）、数组（在方括号中）、对象（在花括号中）、null</p>
+                <p style="text-align: left">使用方式：</p>
+                <pre>
+                    <code style="background-color: #1c1e20">
+var json = {"name":"myname","password":123456}
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何利用json来传输数据</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>在同一页面，json可以直接调用，使用“json的名称.需要调用的数据的名称”</p>
+            <pre>
+                <code>json.a</code>
+            </pre>
+        </section>
+        <section>
+            <p>在不同页面，json可以利用web存储调用</p>
+            <ul>
+                <li>首先把json转化为字符串：JSON.stringify()</li>
+                <li>利用web存储存储转换好的字符串，比如sessionStorage</li>
+                <li>在另一个页面调用存储的字符串</li>
+                <li>利用JSON.parse()将字符串解析为json对象</li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>在json对象中，如何处理转义问题？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>JavaScript高级程序设计</p>
+            <p><a href="http://www.runoob.com/json/json-tutorial.html">菜鸟教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p style="text-align: left">我们常看到{name:"myname",password:123456}和{"name":"myname","password":123456}这样两种格式，这2种写法有什么不一样的地方？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY : 杨超</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
