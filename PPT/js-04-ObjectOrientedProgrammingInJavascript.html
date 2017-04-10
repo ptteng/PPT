@@ -42,8 +42,8 @@
     <div class="slides">
         <section>
             <h2>【JS-task4】JS中的面向对象编程</h2>
-            <h3>小课堂【武汉第54期】</h3>
-            <p style="text-align: center">分享人：胡思豪</p>
+            <h3>小课堂【成都第77期】</h3>
+            <p style="text-align: center">分享人：李维文</p>
         </section>
         <section>
             <p style="text-align: center">目录</p>
@@ -72,15 +72,9 @@
         <section>
             <section>
                 <p>
-                    （注意：JavaScript不是一种模块化编程语言，ES5不支持”类”（class），也没有”模块”（module）。ES6正式支持”类”和”模块”，但还没有成为主流。）
-
-                    形象的解释↓↓↓
+                    Javascript是一种基于对象（object-based）的语言，遇到的东西几乎都是对象，但是它不是一种面对对象的语言。像其他语言里面的class（类），它就没办法直接用了。（听说ES 6可以用了，笔者一直学的ES5，6暂未研究，有兴趣的同学可以去看看教程）
                 </p>
             </section>
-            <section>
-                <img style="width: 700px" src="../img/js-04-ObjectOrientedProgrammingInJavascript/666.jpg">
-            </section>
-
         </section>
 
         <section>
@@ -88,85 +82,92 @@
         </section>
         <section>
             <h4>2.1对象的概念</h4>
-            <p> （1）“对象”是单个实物的抽象。
-                一本书、一辆汽车、一个人都可以是“对象”，一个数据库、一张网页、一个与远程服务器的连接也可以是“对象”。
-                当实物被抽象成“对象”，实物之间的关系就变成了“对象”之间的关系，从而就可以模拟现实情况，针对“对象”进行编程。
-
-                （2）“对象”是一个容器，封装了“属性”（property）和“方法”（method）。
-                所谓“属性”，就是对象的状态；
-                所谓“方法”，就是对象的行为（完成某种任务）。
-                比如，我们可以把动物抽象为animal对象，“属性”记录具体是那一种动物，“方法”表示动物的某种行为（奔跑、捕猎、休息等等）。
+            <p> 因为JS是一个基于对象的语言，所以我们遇到的大多数东西几乎都是对象。例如函数就是一个对象，如果你要在js里面新建一个对象,这样写其实就是创建了一个object的实例。
+            对象就是一个容器，封装了属性和方法。
+            属性就是对象的状态，比如下面的name属性。
+            方法就是写在对象里面的函数，也就是对象的行为，比如下面的sayName方法。
+                <code>var person = new object()；
+                      person.name = "Tom"; <!-- person对象的name属性 -->
+                      person.sayNmae = function() {
+                          alert(this.name);<!-- person对象的sayName方法 -->
+                  }
+                </code>
             </p>
         </section>
-        <section>
-            <h4>2.2 构造函数</h4>
+                <section>
+            <h4>2.2 工厂模式</h4>
             <p>
                 “面向对象编程”的第一步，就是要生成“对象”。
-                JavaScript语言的对象体系，不是基于“类”，而是基于构造函数（constructor）和原型链（prototype）。
-                所谓“构造函数”，就是专门用来生成“对象”的函数。它提供模板，描述对象的基本结构。一个构造函数，可以生成多个对象，这些对象都有相同的结构。
-                构造函数的写法就是一个普通的函数，但是有自己的特征和用法。
+                但是很多时候我们不得不面临重复生成很多对象的情况，如果我有一千个人要记录他们的信息，像上面这种方法写的话，大大增加了代码的重复量，为了解决这个问题，人们开始使用工厂模式的一种变体,写法如下页。
+                虽然工厂模式解决了代码复用的问题，但是却没办法显示实例（person1）和对象o之间的关系，比如aler（person1 instanceof o）; //false
             </p>
+
         </section>
         <section>
             <P>
                 代码演示：
             </P>
-            <pre style="height: 100px">
+             <pre>
                 <code>
-                    var Vehicle = function () {
-                    this.price = 1000;
+                    function Person(name,age, job) {
+                    this.name = name;
+                    this.age = age;
+                    this.job = job;
+                    this.sayName = function() {
+                        alert(this.name)
                     };
+                    }
+                    person1 = new Person("Tom",20,"Engineer")；
+                    person2 = new Person("Damon",22,"Waiter")；
                 </code>
             </pre>
+        </section>
+        <section>
+            <h4>2.2 构造函数</h4>
             <p>
-                上面代码中，Vehicle就是构造函数，它提供模板，用来生成对象实例。为了与普通函数区别，构造函数名字的第一个字母通常大写。
+                后来就出现了构造函数，用来创建特定类型的对象，可以将实例和对象联系起来，用到了JS中的“this”，写法如下：
+                这样对象和实例之间就有关系了，以new这种方式调用构造函数会经历4个步骤：
+                （1）创建一个新对象。</br >
+                （2）将构造函数的作用域赋给新对象（这个this就指向了这个新对象）。</br >
+                （3）执行函数内代码（给对象添加属性）</br >
+                （4）返回新对象。</br >
+            </p>
+
+        </section>
+        <section>
+            <P>
+                代码演示：
+            </P>
+             <pre>
+                <code>
+                    function Person(name,age, job) {
+                    this.name = name;
+                    this.age = age;
+                    this.job = job;
+                    this.sayName = function() {
+                        alert(this.name)
+                    };
+                    }
+                    person1 = new Person("Tom",20,"Engineer")；
+                    person2 = new Person("Damon",22,"Waiter")；
+                </code>
+            </pre>
+        </section>
+           <section>
+            <P>
+                构造函数特点：
+            </P>
+            <p>
+                上面代码中，Persoon就是构造函数，它提供模板，用来生成对象实例。为了与普通函数区别，构造函数名字的第一个字母通常大写。
                 构造函数的两个特点：
                 1.函数体内部使用了this关键字，代表了所要生成的对象实例。
-                2.生成对象的时候，必需用new命令，调用Vehicle函数。
+                2.生成对象的时候，必需用new命令，调用函数。
+                如果忘了使用new命令，直接调用构造函数会导致构造函数变成普通函数，就不会生成实例对象，并且此时的this这时代表全局对象，将造成一些意想不到的结果。
             </p>
-        </section>
-        <section>
-            <h3>2.3 new 命令</h3>
-            <p>
-                new命令的作用，就是执行构造函数，返回一个实例对象。
-            </p>
-            <pre style="height: 175px">
-                <code>
-  var Vehicle = function (){                           ①
-  this.price = 1000;
-};
-
-var v = new Vehicle();
-v.price // 1000
-console.log(v.price)
-                </code>
-            </pre>
-            <p>
-                上面代码通过new命令，让构造函数Vehicle生成一个实例对象，保存在变量v中。这个新生成的实例对象，从构造函数Vehicle继承了price属性。在new命令执行时，构造函数内部的this，就代表了新生成的实例对象，this.price表示实例对象有一个price属性，它的值是1000。
-            </p>
-        </section>
-        <section>
-            <p>使用new命令时，根据需要，构造函数也可以接受参数。</p>
-            <pre style="height: 175px">
-                <code>
- var Vehicle = function (p) {
-  this.price = p;
-};
-var v = new Vehicle(500);
-                </code>
-            </pre>
-            <p>new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。下面两行代码是等价的。</p>
-            <pre style="height: 175px">
-                <code>
-var v = new Vehicle();
-var v = new Vehicle;
-                </code>
-            </pre>
         </section>
         <section>
             <section>
-                <P>如果忘了使用new命令，直接调用构造函数会导致构造函数变成普通函数，就不会生成实例对象，并且此时的this这时代表全局对象，将造成一些意想不到的结果。
-                </P>
+
                 <pre>
                 <code>
                     ②
@@ -190,7 +191,7 @@ v.price
         </section>
         <section>
             <h4>
-                2.4原型和原型链
+                2.3原型和原型链
             </h4>
             <p>
                 原型prototype
@@ -209,57 +210,183 @@ v.price
             </p>
         </section>
         <section>
-            <h4>2.5 构造函数的继承</h4>
+            <p>            
+                利用原型（prototype）的继承特性，我们可以将我们的函数写成
+            </p>
+             <pre>
+                <code>
+                    function Person() {
+                    };
+                    Person.prototype.name = "Tom";
+                    Person.prototype.age = "20";
+                    Person.prototype.job = "engineer";
+                    Person.prototype.sayName = function() {
+                    alert(this.name);
+                    };
+                    var person1 = new Person();
+                    var person2 = new Person();
+                    alert(person1.sayName == person2.sayName); //true
+                </code>
+            </pre>
+        </section>
+                <section>
+            <p>            
+                因为原型的继承，person1和person2的prototype都指向Person的prototype，所以这两个函数其实是相等的。但是用工厂函数或者构造模式， alert(person1.sayName == person2.sayName);就绝对不会为真了。
+            </p>
+            <p>奇淫巧技1：每次写属性都要加一个prototype是不是很麻烦，其实还有另外一种写法</p>
+                         <pre>
+                <code>
+                    function Person() {
+                    }
+                    Person.prototype = {
+                        name : "Tom";
+                        age  : "20";
+                        job : "engineer";
+                        sayName : function() {
+                        alert(this.name);
+                        }
+                    }
+                    var person1 = new Person();
+                    var person2 = new Person();
+                    alert(person1.sayName == person2.sayName); //true
+                </code>
+            </pre>
+
+        </section>
+        <section>
+            <h4>2.4 构造函数的继承</h4>
             <p>
                 让一个构造函数继承另一个构造函数，是非常常见的需求。
-                可以分成两步实现。
-                1.在子类的构造函数中，调用父类的构造函数。
+                也有多种方法实现，各有优缺点。比如现在有一个动物对象的构造函数，和一个猫对象的构造函数。
             </p>
-            <pre style=" height: 150px">
+            <pre>
                 <code>
-
-  function Sub(value) {
-  Super.call(this);
-  this.prop = value;
+function Animal() {
+      this.species = “动物”;
+}；
+function Cat(name,color) {
+    this.name = name;
+    this.color = color;
 }
                 </code>
             </pre>
-            <P>
-                上面代码中，Sub是子类的构造函数，this是子类的实例。在实例上调用父类的构造函数Super，就会让子类实例具有父类实例的属性。
-            </P>
+            <p>
+                如何才能使Cat继承Animal呢？
+            </p>
         </section>
         <section>
-            <p>2.让子类的原型指向父类的原型，这样子类就可以继承父类原型。</p>
+            <h4>2.4.1 构造函数绑定</h4>
+            <p>第一种方法也是最简单的方法，使用call或apply方法，将父对象的构造函数绑定在子对象上，即在子对象构造函数中加一行：</p>
             <pre>
                 <code>
 
-Sub.prototype = Object.create(Super.prototype);
-Sub.prototype.constructor = Sub;
-Sub.prototype.method = '...';
+function Cat(name,color){
+　　　　Animal.apply(this, arguments); //加的
+　　　　this.name = name;
+　　　　this.color = color;
+　　}
+　　var cat1 = new Cat("大毛","黄色");
+　　alert(cat1.species); // 动物
                 </code>
             </pre>
-            <p>
-                上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。</p>
         </section>
-        <section>
-            <P>
-                另外一种写法是Sub.prototype等于一个父类实例。
-            </P>
+               <section>
+            <h4>2.4.2 prototype（原型）模式</h4>
+            <p>第二种方法更常见，使用prototype属性。
+如果"猫"的prototype对象，指向一个Animal的实例，那么所有"猫"的实例，就能继承Animal了。</p>
             <pre>
                 <code>
-Sub.prototype = new Super();
+　Cat.prototype = new Animal();
+　　Cat.prototype.constructor = Cat;
+　　var cat1 = new Cat("大毛","黄色");
+　　alert(cat1.species); // 动物
                 </code>
             </pre>
-            <P>
-                上面这种写法也有继承的效果，但是子类会具有父类实例的方法。有时，这可能不是我们需要的，所以不推荐使用这种写法。
-            </P>
+            <p>代码的第一行，我们将Cat的prototype对象指向一个Animal的实例。相当于将Cat原先的原型对象删除，重新赋一个Animal实例的值。但是任何一个prototype对象都有一个constructor属性，指向它的构造函数。这个时候Cat的构造函数也改变了，变成了Animal。</p>
+        </section>
+         <section>
+            <h4>2.4.2 prototype（原型）模式</h4>
+            <p>所以我们需要“Cat.prototype.constructor = Cat”将Cat的构造函数重新指向为Cat，不然的话会很容易出问题。</p>
+            <p>这是很重要的一点，编程时务必要遵守。如果替换了prototype对象，
+            <pre>
+                <code>
+　b.prototype = new a();
+                </code>
+            </pre>
+            那么，下一步必然是为新的prototype对象加上constructor属性，并将这个属性指回原来的构造函数。</p>
+            <pre>
+            <code>
+  b.prototype.constructor = b;
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h4>2.4.3 直接继承prototype（原型）</h4>
+            <p>第三种方法是对第二种方法的改进。由于Animal对象中，不变的属性都可以直接写入Animal.prototype。所以，我们也可以让Cat()跳过 Animal()，直接继承Animal.prototype。现在我们将Animal对象改写</p>
+            <pre style="height:150px">
+                <code>
+function Animal() {
+    Animal.prototype.species = "动物";
+}
+                </code>
+            </pre>
+            <p>然后，将Cat的prototype对象，指向Animal的prototype对象，这样就完成了继承。</p>
+                        <pre>
+                <code>
+　　Cat.prototype = Animal.prototype;
+　　Cat.prototype.constructor = Cat;
+　　var cat1 = new Cat("大毛","黄色");
+　　alert(cat1.species); // 动物
+                </code>
+            </pre>
+        </section>
+                <section>
+            <h4>2.4.3 直接继承prototype（原型）</h4>
+            <p>与前一种方法相比，这样做的优点是效率比较高（不用执行和建立Animal的实例了），比较省内存。缺点是 Cat.prototype和Animal.prototype现在指向了同一个对象，那么任何对Cat.prototype的修改，都会反映到Animal.prototype。所以Animal.prototype的构造函数也变成了Cat。</p>
+            <p>这个时候我们就需要引入一个空对象作为中转的中介,无论Cat的constructor如何变，只会影响到中转对象F而无法影响到父对象Animal了。</p>
+                        <pre>
+                <code>
+　　var F = function(){};
+　　F.prototype = Animal.prototype;
+　　Cat.prototype = new F();
+　　Cat.prototype.constructor = Cat;
+                </code>
+            </pre>
+        </section>
+                </section>
+                <section>
+            <h4>2.4.3 直接继承prototype（原型）</h4>
+            <p>然后我们将上述方法封装成为一个函数，使用起来就很方便了</p>
+                        <pre>
+                <code>
+　function extend(Child, Parent) {
+　　　　var F = function(){};
+　　　　F.prototype = Parent.prototype;
+　　　　Child.prototype = new F();
+　　　　Child.prototype.constructor = Child;
+　　　　Child.uber = Parent.prototype;
+　　}
+                </code>
+            </pre>
+        </section>
+           <section>
+            <h4>2.4.3 直接继承prototype（原型）</h4>
+
+            <p>使用的时候方法如下：</p>
+                                    <pre>
+                <code>
+　　extend(Cat,Animal);
+　　var cat1 = new Cat("大毛","黄色");
+　　alert(cat1.species); // 动物
+                </code>
+            </pre>
+            <p>奇淫巧技2:封装函数的时候怎么方便怎么写不必太过考虑语义化的东西，比如写个状态机，直接将状态用数字表示，这样比字符串的形式好判断多了。但是一点也不语义化。</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>1.必须要声明new来创建实例对象吗？</p>
-            <p>2.原型链向上追溯的终点是什么？</p>
+            <p>必须要声明new来创建实例对象吗？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
@@ -269,7 +396,7 @@ Sub.prototype = new Super();
                 为了保证构造函数必须与new命令一起使用，一个解决办法是，在构造函数内部使用严格模式，即第一行加上use strict。</p>
             <pre style="height: 200px">
                 <code>
-function Fubar(foo, bar){   ④
+function Fubar(foo, bar){   
         'use strict';
         this._foo = foo;
         this._bar = bar;
@@ -288,7 +415,7 @@ function Fubar(foo, bar){   ④
             <p>另一个解决办法，是在构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象。</p>
             <pre>
                 <code>
-function Fubar(foo, bar){          ⑤
+function Fubar(foo, bar){          
   if (!(this instanceof Fubar)) {
     return new Fubar(foo, bar);
   }
@@ -307,8 +434,7 @@ Fubar(1, 2)._foo // 1
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <P>创建构造函数和构造函数的继承
-                <a href="../demo/js-04-ObjectOrientedProgrammingInJavascript/demo1.html"> demo链接，F12调试见第三段script代码</a>
+            <P>用面对对象编程的思想写状态机
             </P>
 
         </section>
@@ -331,7 +457,7 @@ Fubar(1, 2)._foo // 1
             <p>参考二：<a
                     href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&cof=FORID%3A11&ie=UTF-8&q=Javascript+%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B&sa.x=9&sa.y=8">阮一峰</a>
             </p>
-            <p>参考三：<a href="https://www.zhihu.com/question/19854505">知乎</a></p>
+            <p>参考三：《Javascript高级程序设计》chapter 6</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -346,7 +472,7 @@ Fubar(1, 2)._foo // 1
             <h4>鸣谢</h4>
             <p style="text-align: center">感谢大家观看</p>
             <p style="text-align: center">
-                <small>BY : 黄雄 | 胡思豪</small>
+                <small>BY : 黄雄 | 胡思豪|李维文</small>
             </p>
         </section>
 
