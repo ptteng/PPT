@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-05】为什么有时我们需要配置hosts来本地测试？和什么有关？若不配置hosts会影响什么？ </h2>
+            <h3>小课堂【北京】</h3>
+            <p style="text-align: center;">分享人：杨超</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>我们通常通过字母和数字组合的域名来访问网站，而不是通过直接输入ip地址访问，因为数字和字母的组合更容易理解和记忆，但是对于计算机来说却不是这样，计算机更擅长处理比如ip地址这样的一连串数字。</p>
+            <p>所以，DNS服务应运而生，它负责的就是由域名查找ip地址，或逆向由ip地址反查域名。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>计算机在输入域名后不会马上求助nds服务，而是会先在本地的hosts文件中查找是否有相对应的信息，如果找不到，才会求助dns服务。</p>
+            <img src="../img/js-05-hosts/shiyitu.png" >
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>配置hosts的好处</p>
+        </section>
+        <section>
+            <ul>
+                <li>加快域名解析</li>
+                <li>方便本地测试</li>
+                <li>方便局域网之间的访问</li>
+                <li>可以屏蔽特定的网站</li>
+            </ul>
+        </section>
+        <section>
+            <p>如何查找并修改hosts文件？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>hosts文件的路径：C:\Windows\System32\Drivers\Etc</p>
+            <p>可以直接用文本编辑器打开并修改</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>hosts屏蔽网站的原理是什么？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://baike.baidu.com/link?url=yVzT3nRzbWk8ifInFtD0qOOdS7_q7HpDbfqQVQVck5zgN3ymzNIrf_e4mg-pTrrZMi9UQ0pMzLPVdMZXFKneWq">百度百科：hosts</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p style="text-align: left">如何一次性屏蔽掉所有网站？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY : 杨超</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
