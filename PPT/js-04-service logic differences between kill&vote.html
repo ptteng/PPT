@@ -1,0 +1,232 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>杀人和投票的业务逻辑上有什么区别？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        l ink.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【js-04】杀人和投票的业务逻辑上有什么区别？</h2>
+            <h3>小课堂【武汉第127期】</h3>
+            <p style="text-align: center;">分享人：徐童</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                在实现一个页面前，我们需要先清楚该页面的业务逻辑。<br/>
+                混沌的状态思路不清晰，不利于编程。今天我们来看一下任务4的两个功能页面，杀人和投票的业务逻辑是什么，它们有什么区别。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                什么是业务逻辑？
+            </p>
+        </section>
+        <section>
+            <p style="">
+                <img src="../img/js-04-service logic differences between kill&vote/demo1.gif" alt="" style="width: 65%;">
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                业务逻辑部分是软件产品的核心，它客观存在于软件产品内部，界面交互部分是业务逻辑与使用者进行交流的接口，使用者通过界面交互部分，与业务进行交流。软件产品除界面和交互外的一切都可看作是广义上的业务逻辑。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style=" ">
+               1.杀人的业务逻辑？<br/>
+               2.投票的业务逻辑？<br/>
+               3.简易版二者区别？<br/>
+               4.定义游戏结束？<br/>
+            </p>
+        </section>
+            
+        <section>
+            <p style="text-align:left">
+               简易版：<br/>
+                杀人的业务逻辑？<br/>
+                一．玩家无操作时：1.打印出每个玩家的身份方框。2.标记出已经出局的玩家。<br/>
+                二．选择杀死玩家时：1。点击选中玩家的方框时，给出相应被选中提示。不可以选择已出局玩家。杀手不可以杀死同伙。3.更换选择玩家时，该玩家状态标记为被选中，其他玩家都为未选中。<br/>
+                三．确认杀死玩家时，对该玩家的对象属性更改。例如生命属性更改为killed，并记录死亡天数。<br/>
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+               投票的业务逻辑？<br/>
+                一．玩家无操作时：1.打印出每个玩家的身份方框。2.标记出已经出局的玩家。<br/>
+                二．选择投死玩家时：1。点击选中玩家的方框时，给出相应被选中提示。不可以选择已出局玩家。3.更换选择玩家时，该玩家状态标记为被选中，其他玩家都为未选中。<br/>
+                三．确认杀死玩家时，对该玩家的对象属性更改。例如生命属性更改为voted。记录该玩家死亡天数。<br/>
+                四．每次投票结束后，天数+1.<br/>
+                五．判断游戏是否结束。<br/>
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+            简易版二者区别？<br/>
+            杀人时不可以选择同阵营玩家。投票时，玩家不知道阵营身份，可以不分阵营的选择投死玩家。投票后天数+1.
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+               定义游戏结束？
+                判断条件？<br/>
+                每天结束后判断玩家人数，当杀手人数大于等于平民人数时游戏结束，或者当杀手人数为0时结束游戏。
+            </p>
+        </section>
+
+        <section>
+            <h3>3.常见问题&4.解决方案</h3>
+        </section>
+            
+        <section>
+            <p>
+               1.如何获取玩家方框内的文字？
+            </p>
+        </section>
+        <section>
+            <p>
+                <pre>
+                  $(".box").click(function () {
+                    //获取被选中的盒子内文字
+                    var roleText=$($(this).find(".role")).text();
+                </pre>
+            </p>
+        </section>
+         <section>
+            <p>
+               2.如何判断是否达成条件？
+            </p>
+        </section>
+         <section style="text-align: left;">
+            <p>
+              在这里分享一个思路，如果其他同学有不同想法欢迎分享讨论。<br/>
+                <pre>
+                var aliveKill=[];
+                var aliveVill=[];
+                </pre>
+                循环总数组，使用判断条件分别把活着的杀手和活着的平民存储到相应数组里。<br/>
+                判断两个数组的长度即可得出是否达成结束条件以及胜负分别是谁。<br/>
+            </p>
+        </section>
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section style="text-align: left;">
+            <p>如果是多人客户端版狼人杀，杀人和投票的业务逻辑应该怎么安排呢？</p>
+        </section>
+
+        <section style="text-align: left;">
+            <p>
+                在简易版基础上添加逻辑。<br/>
+                杀人：杀手玩家可以看到同阵营玩家的身份。其他玩家视角，所有玩家身份不显示。有多个杀手时，选择要杀的玩家不统一，则少数服从多数，如果每个杀手选择对象均不同，那么？提案一：从候选者里随机选择一个玩家杀死。
+            </p>
+        </section>
+    
+        <section>
+            <p style="text-align: left;">
+                投票：所有玩家都看不到其他玩家的身份。投票时不同玩家投票不同，选取票数最多的投死。若出现最多票数相同情况，再考虑。提案一：从中随机选择一个。
+            </p>
+        </section>    
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://www.uml.org.cn/zjjs/201008021.asp ">细说业务逻辑</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.cnblogs.com/zhaoxiaolei/archive/2012/04/06/2434112.html">如何理解业务逻辑</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                简易版的业务逻辑，你有其他的想法吗？ 如何实现？<br/><br/>
+            </p>
+        </section>
+        
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 徐童</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
