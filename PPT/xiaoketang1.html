@@ -1,0 +1,160 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task5】	手机分辨率和网页中的px是一回事吗？</h2>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：李仁</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>我们通常使用像素这个单位作为我们进行网页制作的单位，那么像素和设备的分辨率是一样的概念吗？又或者有什么不同？</p>
+
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>像素（pixel)，全称为图像元素，是表示显示器或图像显示大小的基本单位。 </p>
+            <ol>
+                <li> 物理像素：指显示器上显示大小的基本单位。</li>
+                <p></p>
+                <li>设备独立像素：可以认为是计算机坐标系中的一个点。这个点代表一个可以由程序使用并控制的虚拟像素。</li>
+            </ol>
+        </section>
+        <section>
+            <p>分辨率是指显示器所能显示的像素有多少。由于屏幕上的点、线和面都是由像素组成的，显示器可显示的像素越多，画面就越精细，同样的屏幕区域内能显示的信息也越多，所以分辨率是个非常重要的性能指标之一。可以把整个图像想象成是一个大型的棋盘，而分辨率的表示方式就是所有经线和纬线交叉点的数目。显示分辨率一定的情况下，显示屏越小图像越清晰，反之，显示屏大小固定时，显示分辨率越高图像越清晰</p>
+
+        </section>
+
+         <section>
+            <h3>常见问题</h3>
+            <p>将设备像素（device pixels）和CSS像素(css pixel)混为一谈</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+             <p>在css中我们一般使用px作为单位，在桌面浏览器中css的1个像素往往都是对应着电脑屏幕的1个物理像素，这可能会造成我们的一个错觉，那就是css中的像素就是设备的物理像素。</p>
+             <p>但实际情况却并非如此，css中的像素只是一个抽象的单位，在不同的设备或不同的环境中，css中的1px所代表的设备物理像素是不同的。</p>
+        </section>
+        <section>
+             <p>在早先的移动设备中，屏幕像素密度都比较低</p>
+            <p>如iphone3，它的分辨率为320x480,这时，一个css像素是等于一个物理像素的。</p>
+            <p>后来随着技术的发展，移动设备的屏幕像素密度越来越高，从iphone4开始分辨率提高了一倍，变成640x960</p>
+            <p>但屏幕尺寸却没变化，这就意味着同样大小的屏幕上，像素却多了一倍，这时，一个css像素是等于两个物理像素的。</p>
+            <p>安卓设备上也是同理，安卓设备上的一个css像素相当于多少个屏幕物理像素，也因设备的不同而不同，没有一个定论。</p>
+        </section>
+        <section>
+            <p> 还有一个因素也会引起css中px的变化，那就是用户缩放。例如，当用户把页面放大一倍，那么css中1px所代表的物理像素也会增加一倍；反之把页面缩小一倍，css中1px所代表的物理像素也会减少一倍。</p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.更多讨论</h3>
+            <p>viewport</p>
+            <p>viewport，翻译为视口，也即可视区域的大小。</p>
+            <p>html元素也即文档的宽度，来自于viewport的宽度。</p>
+            <p>在移动端，情况将变得复杂，我们把这个viewport称为layout viewport，在手机上面，因为手机的屏幕很小，
+                当初iphone发布时，为了显示完整的桌面网页，就把给layout viewport设置了一个980px的值。安卓手机上测试也是980px。</p>
+        </section>
+             <p></p>
+        <section>
+            <p>但是这样显示网页，那网页的字体、元素都很小，小到打开这样一个网页，首先要做的就是放大页面。为了提高可读性，Apple允许通meta标签来设置layout viewport的宽度</p>
+            <p>通常我们把layout viewport设置为device-width</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="http://www.tuicool.com/articles/ri2AJv">http://www.tuicool.com/articles/ri2AJv</a> </p>
+            <p><a href="http://www.cnblogs.com/2050/p/3877280.html">http://www.cnblogs.com/2050/p/3877280.html</a> </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 李仁 | </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
