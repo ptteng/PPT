@@ -1,0 +1,169 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>iconfont的原理和用法介绍</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-05】iconfont的原理和用法介绍</h2>
+
+            <h3>小课堂【武汉第100期】</h3>
+
+            <p style="text-align: center;">分享人：周霆伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">利用字体工具把我们平时 Web 上用的图形图标（icons）转换成 web fonts，就成了 icon fonts，它可以借助 CSS 的 @font-face 嵌入到网页里，用以显示 icons。因为字体是矢量化图形，它天生具有「分辨率无关」的特性，在任何分辨率和PPI下面，都可以做到完美缩放，不会像传统位图， 如：png，jpeg，放大后有锯齿或模糊现象。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">
+                为什么要用 icon fonts？
+                除了「分辨率无关」这个最大的优点之外，icon fonts 还具有：
+
+                文件小：相比图片几十几百KB的容量，icon fonts 几乎是羽翼级轻量。
+                加载性能好：因为图标都被打包进一套字体内，http 请求 减少。这如同我们常用的 css 雪碧图 技术。
+                支持CSS样式：和普通字体一样，你可以利用CSS来定义大小、颜色、阴影、hover状态、透明度、渐变等等…
+                兼容性好：web fonts 起源很早，别说主流浏览器，连IE6/7都能良好支持。除了一些老的移动端浏览器，如Android 2.1以下的初代浏览器，Opera mini 这类自限型浏览器。            </p>
+        </section>
+
+        <section>
+            <p style="text-align: left">首先，加载一个包含数百图标的 Icon Font，却只使用其中几个图标，非常浪费加载时间。 如果是自己制作 Icon Font 以及把多个 Icon Font 中用到的图标整合成一个 Font 也非常不方便。当然使用阿里UX矢量图标库可以解决这个问题</p>
+        </section>
+        <section>
+            <p style="text-align: left"></p>
+            <a href="file:///C:/Users/Administrator/Desktop/font_pvbuquierz77gb9/demo_fontclass.html" target="_blank">说明</a>
+        </section>
+        <section>
+        <h3>3.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left"></p>
+                <a href="file:///C:/Users/Administrator/Desktop/PPT-master/demo/css-05-IconFont/lllll.html" target="_blank">demo</a>
+            </section>
+        </section>
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+        <section>
+            <p>字体图标在safair或chrome浏览器下被加粗</p>
+        </section>
+        <section>
+            <img src="C:\Users\Administrator\Desktop\PPT-master\img\css-05-IconFont\qqqqqq.png">
+        </section>
+        <section>
+            <h3>5.解决方案</h3>
+        </section>
+        <section>
+            <p>这个现象是由于字体图标存在半个像素的锯齿，在浏览器渲染的时候直接显示一个像素了，导致在有背景下的图标显示感觉加粗；所以在应用字体图标的时候需要对图标样式进行抗锯齿处理，CSS代码设置如下：
+                .iconfont{-webkit-font-smoothing: antialiased;}</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何添加彩色的iconfont</p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left"></p>
+                <a href="file:///C:/Users/Administrator/Desktop/font_pvbuquierz77gb9/demo_symbol.html" target="_blank">说明</a>
+            </section>
+        </section>
+        <section>
+            <p style="text-align: left"></p>
+            <a href="file:///C:/Users/Administrator/Desktop/PPT-master/demo/css-05-IconFont/%E5%BD%A9%E8%89%B2iconfont/llllll.html" target="_blank">demo2</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考：<a href="http://www.iconfont.cn/help/iconuse.html">图标应用教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>了解Iconfont的制作</p>
+
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 周霆伟</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
