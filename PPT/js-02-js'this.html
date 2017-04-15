@@ -1,0 +1,343 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JS中this的指向</h2>
+            <h3>小课堂【郑州第八十二期】</h3>
+            <p>分享人：王相博</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在Java语言中，this关键字的含义是明确且具体的，表示当前对象。而在javascript中，this是动态绑定的，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。这就导致了this具备了多重含义，可以使得javascript更灵活的使用。但是，带来了灵活性的同时也会给我们初学者带来不少困惑。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>全局环境中的this</p>
+                <pre>
+                <code>
+                  console.log(this);
+                </code>
+                </pre>
+            <p>总结：在全局作用域中它的 this 执行当前的全局对象（浏览器端是 Window，node 中是 global）</p>
+        </section>
+        <section>
+            <p>严格模式 ‘use strict’下的this</p>
+                <pre>
+                <code>
+                  'use strict';
+                  function test() {
+                  console.log(this);
+                  };
+                  
+                  test();
+                  
+                  // undefined
+                </code>
+                </pre>
+            <p>原因：this 并不会指向全局，而是 undefined，这样的做法是为了消除 js 中一些不严谨的行为</p>
+        </section>
+        <section>
+            <p>在javascritp中，不一定只有对象方法的上下文中才有this， 全局函数调用和其他的几种不同的上下文中也有this指代。 它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。JavaScript 中函数的调用有以下几种方式：作为对象方法调用，作为函数调用，作为构造函数调用，和使用 apply 或 call 调用。</p>
+        </section>
+        <section>
+            <p>1.作为对象方法调用:this 被自然绑定到该对象</p>
+                <pre>
+                <code>
+                var obj = {
+                    name: 'qiutc',
+                    foo: function() {
+                    console.log(this.name);
+                    }
+                }
+                    obj.foo();
+                    // 'qiutc'
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>2.作为函数调用:this被绑定到全局对象</p>
+                <pre>
+                <code>
+                  function test() {
+                    console.log(this);
+                    };
+                    test();
+                    // Window
+                </code>
+                </pre>
+        </section>
+        <section>
+            <p>3.作为构造函数调用:this 绑定到新创建的对象上</p>
+                <pre>
+                <code>
+                function Person(name) {
+                    this.name = name;
+                    console.log(this);
+                    }
+
+                    var p = new Person('dawa');
+
+                    // Person {name: "dawa"}
+                </code>
+                </pre>
+            <p>注：构造函数不使用new调用，则和普通函数一样。一般地，构造函数首字母大写</p>
+        </section>
+        <section>
+            <p>4.使用 apply 或 call 调用：在 JavaScript 中函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法。</p>
+                <pre>
+                <code>
+    function cat(){}
+    cat.prototype={
+        name:"tom",
+        food:"fish",
+        say: function(){
+            console.log(this.name+" love "+this.food);
+        }};
+    var blackCat = new cat;
+    blackCat.say();
+    whiteDog = {name:"dog",food:"bone"};
+    blackCat.say.call(whiteDog);
+    bird = {food:"fly", name:"blue"};
+    blackCat.say.apply(bird);
+                </code>
+                </pre>
+        </section>
+        <section>
+            <h3>3、常见问题</h3>
+        </section>
+        <section>
+                <pre>
+                <code>
+                  var obj = {
+                   name: 'qiutc',
+                   foo: function() {
+                     console.log(this);
+                   },
+                   foo2: function() {
+                     console.log(this);
+                     setTimeout(this.foo, 1000);
+                   }
+                 }
+                 
+                 obj.foo2();
+                </code>
+                </pre>
+            <p>现象：两次打印的this不一样</p>
+        </section>
+
+        <section>
+            <h3>4、解决方案</h3>
+        </section>
+        <section>
+            <p>可以这么这么解决：利用 闭包 的特性来处理</p>
+                <pre>
+                <code>var obj = {
+                      name: 'qiutc',
+                      foo: function() {
+                        console.log(this);
+                      },
+                      foo2: function() {
+                        console.log(this);
+                        var _this = this;
+                        setTimeout(function() {
+                          console.log(this);  // Window
+                    
+                          console.log(_this);  // Object {name: "qiutc"}
+                        }, 1000);
+                      }
+                    }
+                    
+                    obj.foo2();</code>
+                </pre>
+            <p>可以看到直接用 this 仍然是 Window；因为 foo2 中的 this 是指向 obj，我们可以先用一个变量 _this 来储存，然后在回调函数中使用 _this，就可以指向当前的这个对象了</p>
+        </section>
+        <section>
+            执行这段代码我们会发现两次打印出来的 this 是不一样的：<br>
+
+            第一次是 foo2 中直接打印 this，这里指向 obj 这个对象，我们毋庸置疑；<br>
+
+            但是在 setTimeout 中执行的 this.foo ，却指向了全局对象，这里不是把它当作函数的方法使用吗？这一点经常让很多初学者疑惑；<br>
+            其实，setTimeout 也只是一个函数而已，函数必然有可能需要参数，我们把 this.foo 当作一个参数传给 setTimeout 这个函数，就像它需要一个 fun 参数，在传入参数的时候，其实做了个这样的操作 fun = this.foo，看到没有，这里我们直接把 fun 指向 this.foo 的引用；执行的时候其实是执行了 fun() 所以已经和 obj 无关了，它是被当作普通函数直接调用的，因此 this 指向全局对象。<br>
+
+            这个问题是很多异步回调函数中普遍会碰到的；
+        </section>
+
+        <section>
+            <h3>5、编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+    var p = document.getElementsByTagName("p");
+    function cat(){}
+    cat.prototype={
+        name:"tom",
+        food:"fish",
+        say: function(){
+            console.log(this.name+" love "+this.food);
+        }};
+    var blackCat = new cat;
+    blackCat.say();
+    whiteDog = {name:"dog",food:"bone"};
+    blackCat.say.call(whiteDog);
+    bird = {food:"fly", name:"blue"};
+    blackCat.say.apply(bird);
+    function changeStyle(attr,value){
+        this.style[attr] = value;
+    }
+    var box = document.getElementsByTagName("p");
+    window.changeStyle.call(box[1],"borderTop","20px solid black");
+                </code>
+            </pre>
+    </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题：如何理解this？</p>
+            <p class="fragment">当一个函数被调用时，拥有它的object会作为this传入。在全局下，就是window or global，其他时候就是相应的object。 也可以看到，call和apply就是利用这一点实现更改this 值的</p>
+        </section>
+        <section>
+            <p>分享</p>
+                <pre>
+                <code>
+                 'use strict';
+
+                 function foo() {
+                   console.log(this);
+                 }
+
+                 setTimeout(foo, 1);
+
+                 // window
+                </code>
+                </pre>
+            <p>现象：加了严格模式，foo 调用也没有指定 this，应该是出来undefined，但是这里仍然出现了全局对象</p>
+        </section>
+        <section>
+            <p>难道是严格模式失效了吗？
+
+                并不，即使在严格模式下，setTimeout 方法在调用传入函数的时候，如果这个函数没有指定了的 this，那么它会做一个隐式的操作—-自动地注入全局上下文，等同于调用 foo.apply(window) 而非 foo()；
+
+                当然，如果我们在传入函数的时候已经指定 this，那么就不会被注入全局对象，比如： setTimeout(foo.bind(obj), 1);；</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+                <a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/">深入浅出 JavaScript 中的 this</a>
+            </p>
+            <p>参考二：
+                <a href="https://qiutc.me/post/this-this-this-in-javascript.html">JavaScript 中的 this !</a>
+            </p>
+            <p>参考三：
+                <a href="http://caibaojian.com/toutiao/6859">JavaScript中的this用法与指向</a>
+            </p>
+            <p>参考四：
+                <a href="https://www.zhihu.com/question/19636194">如何理解 JavaScript 中的 this 关键字？</a>
+            </p>
+        </section>
+        <section>
+            <h3>8、更多讨论</h3>
+        </section>
+        <section>
+            <p>this含义为何如此丰富？</p>
+            <p>理解this的指向有何意义？</p>
+            <p>
+                <a href="http://www.imooc.com/article/1848">答案链接</a>
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :王相博|刘其勇|郑明月| 陈冲 | 赵锐泉</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [{
+            src : '../plugin/markdown/marked.js'
+        }, {
+            src : '../plugin/markdown/markdown.js'
+        }, {
+            src : '../plugin/notes/notes.js',
+            async : true
+        }, {
+            src : '../plugin/highlight/highlight.js',
+            async : true,
+            callback : function(){
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>
