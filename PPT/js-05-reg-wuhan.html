@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+    	section p{
+            text-align: left;
+    	}
+        .menu p{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-05】</h2>
+            <h3>小课堂【武汉第132期】</h3>
+            <h4>如何使用正则表达式</h4>
+            <h4>分享人：汤特</h4>
+        </section>
+        <section class="menu">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>正则表达式到底是什么东西？</h4>
+            <p>正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），
+                计算机科学的一个概念。正则表通常被用来检索、替换那些符合某个模式(规则)的文本。
+                正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合组成一个“规则字符串”，
+                这个“规则字符串”用来表达对字符串的一种过滤逻辑。
+            </p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1 元字符，拥有特殊含义的字符
+            </section>
+            <section>
+               <p>常用的元字符</p>
+                <pre><code>
+                    代码	          说明
+                     .	    匹配除换行符以外的任意字符
+                     \w	    匹配字母或数字或下划线或汉字
+                     \s	    匹配任意的空白符
+                     \d	    匹配数字
+                     \b	    匹配单词的开始或结束
+                     ^	    匹配字符串的开始
+                     $	    匹配字符串的结束
+                </code></pre>
+                <p>我们举个例子来看看这些元字符是什么意思</p>
+                <p>元字符^（和数字6在同一个键位上的符号）和$都匹配一个位置，这和\b有点类似。^匹配你要用来查找的字符串的开头，$匹配结尾。
+                    这两个代码在验证输入的内容时非常有用，比如一个网站如果要求你填写的QQ号必须为5位到12位数字时，可以使用：^\d{5,12}$。
+                </p>
+            </section>
+            <section>
+                <p>因为使用了^和$，所以输入的整个字符串都要用来和\d{5,12}来匹配，也就是说整个输入必须是5到12个数字，
+                    因此如果输入的QQ号能匹配这个正则表达式的话，那就符合要求了。
+                </p>
+            </section>
+            <section>
+                2.2 字符转义
+            </section>
+            <section>
+                <p>如果你想查找元字符本身的话，比如你查找.,或者*,就出现了问题：你没办法指定它们，因为它们会被解释成别的意思。
+                    这时你就得使用\来取消这些字符的特殊意义。因此，你应该使用\.和\*。当然，要查找\本身，你也得用\\.
+                </p>
+                <p>例如：jnshu\.com匹配jnshu.com</p>
+                <p>C:\\Windows匹配C:\Windows</p>
+            </section>
+            <section>
+                2.3 重复
+            </section>
+            <section>
+                <p>常用的限定符</p>
+                <pre><code>
+                    代码/语法	     说明
+                        *	    重复零次或更多次
+                        +	    重复一次或更多次
+                        ?	    重复零次或一次
+                       {n}	    重复n次
+                       {n,} 	重复n次或更多次
+                       {n,m}	重复n到m次
+                </code></pre>
+                <p>例如：</p>
+                <p>Windows\d+匹配Windows后面跟1个或更多数字</p>
+                <p>^\w+匹配一行的第一个单词(或整个字符串的第一个单词，具体匹配哪个意思得看选项设置</p>
+            </section>
+            <section>
+                2.4 反义
+            </section>
+            <section>
+                <p>有时需要查找不属于某个能简单定义的字符类的字符。比如想查找除了数字以外，其它任意字符都行的情况，这时需要用到反义：</p>
+                <p>常用的反义代码</p>
+                <pre><code>
+                    代码/语法	                    说明
+                        \W	        匹配任意不是字母，数字，下划线，汉字的字符
+                        \S	        匹配任意不是空白符的字符
+                        \D	        匹配任意非数字的字符
+                        \B	        匹配不是单词开头或结束的位置
+                       [^x]	        匹配除了x以外的任意字符
+                       [^aeiou]	    匹配除了aeiou这几个字母以外的任意字符
+                </code></pre>
+                <p>例子：\S+匹配不包含空白符的字符串。</p>
+                <p>&lt;a[^b]+>匹配用尖括号括起来的以a开头的字符串。</p>
+            </section>
+            <section>
+                2.5 贪婪与懒惰
+            </section>
+            <section>
+                <p>懒惰限定符</p>
+                <pre><code>
+                    代码/语法	            说明
+                        *?	    重复任意次，但尽可能少重复
+                        +?	    重复1次或更多次，但尽可能少重复
+                        ??	    重复0次或1次，但尽可能少重复
+                        {n,m}?	    重复n到m次，但尽可能少重复
+                        {n,}?	    重复n次以上，但尽可能少重复
+                </code></pre>
+            </section>
+            <section>
+                <p>当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能多的字符。以这个表达式为例：a.*b，
+                    它将会匹配最长的以a开始，以b结束的字符串。如果用它来搜索aabab的话，它会匹配整个字符串aabab。这被称为贪婪匹配。
+                </p>
+                <p>有时，我们更需要懒惰匹配，也就是匹配尽可能少的字符。前面给出的限定符都可以被转化为懒惰匹配模式，只要在它后面加上一个问号?。
+                    这样.*?就意味着匹配任意数量的重复，但是在能使整个匹配成功的前提下使用最少的重复。现在看看懒惰版的例子吧：
+                </p>
+                <p>a.*?b匹配最短的，以a开始，以b结束的字符串。如果把它应用于aabab的话，它会匹配aab（第一到第三个字符）和ab（第四到第五个字符）。</p>
+
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <a href="../demo/js-05-reg-wuhan/js5.html">点我查看正则的应用</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>回到前面的贪婪与懒惰匹配，为什么第一个匹配是aab（第一到第三个字符）而不是ab（第二到第三个字符）？</p>
+            <p>简单地说，因为正则表达式有另一条规则，比懒惰／贪婪规则的优先级更高：最先开始的匹配拥有最高的优先权</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank">正则表达式30分钟入门教程</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/zfc2201/archive/2012/12/18/2824107.html" target="_blank">js常用正则表达式
+            </a></p>
+             <p>参考三：<a href="http://tool.oschina.net/regex/#" target="_blank">在线正则表达式测试</a></p>
+             <p>参考四：<a href="http://my.wiki.ptteng.com/pages/viewpage.action?pageId=13404847" target="_blank">葡萄藤wiki</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>正则表达式还有其他那些与法呢？</h4>
+            <a href="https://msdn.microsoft.com/zh-cn/library/az24scfc.aspx">MSDN在线文档</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h5>感谢大家观看</h5>
+            <h5>by:汤特</h5>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
