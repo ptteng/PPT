@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>F12Console的用法，以及如何Debug技巧</h3>
+            <h3>小课堂【郑州第七十八期】</h3>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+          <p>long long ago，互联网在刚刚起步的时代，网页前端还主要以内容展示为主，浏览器脚本还只能为页面提供非常简单的辅助功能的时候。那个时候，网页主要运行在以IE6为主的浏览器中，JS的调试功能还非常弱，只能通过内置于Window对象中的alert方法来调试。</p>
+          <p>什么是console？</p>
+            <p>Console 是用于显示 JS和 DOM 对象信息的单独窗口。并且向 JS 中注入1个 console 对象，使用该对象 可以输出信息到 Console 窗口中。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>一、控制台显示方式：</h3>
+            <p>1，全频专用面板形式</p>
+            <p>2，全频专用抽屉形式</p>
+        </section>
+        <section>
+            <p>二、消息堆叠</p>
+            <p>如果一条消息连续重复，而不是在新行上输出每一个消息实例，控制台将“堆叠”消息并在左侧外边距显示一个数字。此数字表示该消息已重复的次数。</p>
+            <p>
+            <pre>
+                <code>
+                    for (var i = 0;i<10;i++){
+                        if(i % 5 === 0){
+                            console.log("大娃");
+                        }
+                        else{
+                            console.log("二娃");
+                        }
+                    }
+                </code>
+            </pre>
+            <p>如果您倾向于为每一个日志使用一个独特的行条目，请在 Settings 设置中启用 Show timestamps。</p>
+        </section>
+        <section>
+            <p>三、处理控制台历史记录</p>
+            <p>1.清除历史记录</p>
+            <p>2.保留历史记录</p>
+            <p>3.保存历史记录</p>
+        </section>
+        <section>
+            <p>1.清除历史记录</p>
+            <p style="text-align:left">●在控制台中点击右键，然后按 Clear console。</p>
+             <p style="text-align:left">   ●在控制台中键入 clear()。</p>
+              <p style="text-align:left">  ●从您的 JavaScript 代码内调用 console.clear()。</p>
+               <p style="text-align:left"> ●按 Ctrl+L （Mac、Windows、Linux）。</p>
+        </section>
+        <section>
+            <p>2.保留历史记录</p>
+            <p style="text-align:left">启用控制台顶部的 Preserve log 复选框可以在页面刷新或更改之间保留控制台历史记录。 消息将一直存储，直至您清除控制台或者关闭标签。</p>
+        </section>
+        <section>
+            <p>3.保存历史记录</p>
+            <p>在控制台中点击右键，然后选择 Save as，将控制台的输出保存到日志文件中。</p>
+        </section>
+        <section>
+            <p>四、选择执行环境</p>
+                <p style="text-align:left"> 环境默认为：top（页面的顶部框架）</p>
+                <p style="text-align:left"> 不过开发者很少需要在 top 以外的任意环境中操作。 输入一个变量，期待返回一个值，只是为了查看该变量是否为 undefined（因为该变量是在不同环境中定义的），这会非常令人困惑。</p>
+        </section>
+        <section>
+            <p>五、过滤控制台输出</p>
+            <p style="text-align:left"> 点击 Filter 按钮，可以过滤控制台输出。您可以按严重性等级、按正则表达式模式或者通过隐藏网络消息的方式进行过滤。</p>
+            <p>
+              <pre>
+                <code>
+        按严重性等级进行过滤的说明如下所示：
+           选项及显示的内容:
+               All             显示所有控制台输出
+               Errors          仅显示 console.error() 的输出。
+               Warnings        仅显示 console.warn() 的输出。
+               Info            仅显示 console.info() 的输出。
+               Logs            仅显示 console.log() 的输出。
+               Debug           仅显示 console.timeEnd() 和console.debug() 的输出。
+                </code>
+              </pre>
+            </p>
+        </section>
+        <section>
+            <p>六、其他设置</p>
+<pre>
+  <code>
+设置及说明
+   Hide network messages           默认情况下，控制台将报告网络问题。
+                                   启用此设置将指示控制台不显示这些错误的日志。
+                                   例如，将不会记录 404 和 500 系列错误。
+   Log XMLHttpRequests             确定控制台是否记录每一个 XMLHttpRequest。
+   Preserve log upon navigation    在页面刷新或导航时保留控制台历史记录。
+   Show timestamps                 在调用时向显示的每条控制台消息追加一个时间戳。
+                                   对于发生特定事件时的调试非常实用。这会停用消息堆叠。
+   Enable custom formatters        控制 JavaScript 对象的格式设置。
+  </code>
+<pre>
+        </section>
+        <section>
+            <p>七、log 方法第一个参数支持类似 C 语言 printf 字符串替换模式</p>
+<pre>
+  <code>
+  Log 支持下面几种替换模式：
+                ● %s  代替字符串
+                ● %d  代替整数
+                ● %f  代替浮点值
+                ● %o  代替 Object
+   </code>
+</pre>
+        </section>
+        <section>
+            <p>八、console.xxx的五种显示方法</p>
+<pre>
+    <code>
+        console.log("金刚小葫芦");
+        console.info("蛇精");
+        console.debug("爷爷");
+        console.warn("二娃：妖精，快放了我爷爷");
+        console.error("三娃：妖精，再不放我爷爷，一口水淹死你");
+    </code>
+</pre>
+        </section>
+        <section>
+            <p>九.console.trace()</p>
+            <p>trace 方法可以查看当前函数的调用堆栈信息，即当前函数是如何调用的</p>
+        </section>
+        <section>
+            <p>十、console.group, groupCollapsed, groupEnd</p>
+        <pre>
+          <code>                console.group("第一组");
+                console.info("大娃");
+                console.log("二娃");
+                console.log("三娃");
+                console.groupEnd();
+
+                console.group("第二组");
+                console.debug("四娃");
+                console.log("五娃");
+                console.log("六娃");
+                console.groupEnd();
+
+                console.groupCollapsed();
+                console.group("第三组");
+                console.warn("爷爷");
+                console.error("蛇精");
+                console.log("七娃");</code>           
+        </pre>
+        <p>这 3 个函数用于把 log 等输出的信息进行分组，方便阅读查看。
+groupCollapsed 方法与 group 方法一样，只是显示的分组默认是折叠的.
+</p>
+        </section>
+        <section>
+            <p>十一、console.time(name)/console.timeEnd(name)</p>
+            <p>简单来说就是：用来测试 js 函数的执行时间</p>
+    <pre>
+        <code>
+            console.time("test");
+            for(var i = 0; i<1000;i++){
+                console.log(i);
+            }           
+            console.timeEnd("test");
+        </code>
+    </pre>
+        </section>
+        <section>
+            <p>十二、console.count("title")</p>
+            <p>count方法用于统计当前代码被执行过多少次，title 参数可以在次数前面输出额外的标题以帮助阅读。</p>
+        <pre>
+            <code>
+                (function(){
+                    test();
+                    test();
+                    test();
+                    test();
+                });
+ 
+                var test = function(){
+                };
+                console.count("test被执行次数：");
+            </code>
+        </pre>
+        </section>
+        <section>
+        <p>十三、 console.dir</p>
+        <p>dir方法是把列出对象的所有方法。比如，我们显示console对象下都些什么方法：
+console.dir(console);</p>
+</section>
+        <section>
+            <p>十四、console.dirxml(node)</p>
+            <p>把 html 元素的html 代码打印出来,等同于log</p>
+        </section>
+        <section>
+            <p>十五、console.table(data)</p>
+            <p>able 方法把data 对象用表格的方式显示出来，这在显示数组或者格式一样的JSON 对象的时候非常有用。
+            注：table 只支持 FireBug，而且是在 firebug1.6+版本后才有。</p>
+        </section>
+        <section>
+            <p>JS调试必备的五个debug技巧</p>
+<pre>
+    <code>
+        1. debugger;JavaScript代码中加入一句debugger;来手工造成一个断点效果。
+        2.设置在DOM node发生变化时触发断点,断点的触发条件可以设置成
+        节点被删除、节点的属性有任何变化，或它的某个子节点有变化发生。
+        3. Ajax 断点,
+        XHR断点，或Ajax断点，就像它们的名字一样，可以让我们设置一个断点，
+        在特定的Ajax调用发生时触发它们。
+        4. sources断点调试
+        5. 使用Audits改进你的网站
+    </code>
+</pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>为什么不提倡用alert进行调试？</p>
+        </section>
+        <section>
+        <p style="text-align:left"> 一方面，传统的alert调试方式已经渐渐不能满足前端开发的种种场景。而且alert调试方式弹出的调试信息，那个窗口着实不太美观，而且会遮挡部分页面内容，着实有些不太友好。</p>
+        <p style="text-align:left"> 另一方面，alert的调试信息会中断代码，阻碍页面的继续渲染。这就意味着开发人员调试完成后，必须手动清除这些调试代码，实在有些麻烦。</p>
+        <p style="text-align:left"> 另外，如果在循环中使用alert，光关闭弹出的窗口就够自己累的了，哈哈！</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p >参考一：<a href="http://www.jb51.net/article/47812.htm">脚本之家</a></p>
+            <p >参考二：<a href="http://blog.163.com/zhangmihuo_2007/blog/static/27011075201452522824347/">网易博客：月上西楼</a></p>
+            <p >参考三：<a href="https://developers.google.com/web/tools/chrome-devtools/console/?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3">Google Developers官网</a></p>
+            <p>参考三：<a href="http://ms.csdn.net/geek/67969?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io">CSDN中文IT网</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>还有没有其他的console的使用方法？</p>
+            <p>还有没有其他的debug技巧？</p>
+            <a href="http://ms.csdn.net/geek/67969?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io">CSDN中文IT网</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 汪开放 | </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
