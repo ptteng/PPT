@@ -16,11 +16,11 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -32,17 +32,26 @@
     <div class="slides">
         <section>
             <h2>【JS-task10 Echarts】</h2>
-            <p>分享人：赵锐泉</p>
+
+            <p>分享人：龚家豪</p>
         </section>
         <section>
             <p>目录</p>
+
             <p>1.背景介绍</p>
+
             <p>2.知识剖析</p>
+
             <p>3.常见问题</p>
+
             <p>4.解决方案</p>
+
             <p>5.编码实战</p>
+
             <p>6.扩展思考</p>
+
             <p>7.参考文献</p>
+
             <p>8.更多讨论</p>
         </section>
         <section>
@@ -52,6 +61,7 @@
             <p>
                 Echarts是什么
             </p>
+
             <p style="text-align: left">
                 ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，
                 兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），
@@ -66,13 +76,8 @@
             <p>
                 Echarts的特性
             </p>
-            <p>
-                如何使用Echarts
-            </p>
         </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
+
         <section>
             <p>
                 丰富的图表类型
@@ -89,6 +94,7 @@
         </section>
         <section>
             <p>多个坐标系的支持</p>
+
             <p>
                 ECharts 3 开始独立出了“坐标系”的概念，支持了直角坐标系（catesian，同 grid）、极坐标系（polar）、
                 地理坐标系（geo）。图表可以跨坐标系存在，例如折、柱、散点等图可以放在直角坐标系上，
@@ -104,17 +110,26 @@
         <section>
             <p>大数据量的展现</p>
             <img src="../img/js-10-Echarat/3.png" alt="">
-
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>获取Echarat</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>如何使用Echarat</p>
-        </section>
-        <section>
-            <p>获取Echarat</p>
-            <img src="../img/js-10-Echarat/4.png" alt="">
+            <p style="text-align: left; color:#fcfcfc">你可以通过以下几种方式获取 ECharts。</p>
+            <ol>
+                <li>从官网下载界面选择你需要的版本下载</li>
+                <li>在 ECharts 的 GitHub 上下载最新的 release 版本，解压出
+                    来的文件夹里的 dist 目录里可以找到最新版本的 echarts 库。
+                </li>
+                <li>通过 npm 获取 echarts，npm install echarts --save，详见官网的“在 webpack 中使用 echarts”</li>
+                <li>cdn 引入，你可以在 cdnjs，npmcdn 或者国内的 bootcdn 上找到 ECharts 的最新版本。</li>
+            </ol>
         </section>
         <section>
             <h3>5.编码实战</h3>
@@ -156,13 +171,13 @@
                             //图例组件展现了不同系列的标记(symbol)，颜色和名字。
                             // 可以通过点击图例控制哪些系列不显示。
                             legend: {
-                                data:['销量']
+                                data: ['销量']
                             },
                             //直角坐标系 grid 中的 x 轴，一般情况下单个 grid
                             //组件最多只能放左右两个 x 轴，多于两个 x 轴需要通过配置 offset
                             // 属性防止同个位置多个 x 轴的重叠。
                             xAxis: {
-                                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
                             },
                             yAxis: {},
                             //系列列表。每个系列通过 type 决定自己的图表类型
@@ -193,6 +208,7 @@
             <p>
                 异步加载
             </p>
+
             <p>
                 入门示例中的数据是在初始化后setOption中直接填入的，
                 但是很多时候可能数据需要异步加载后再填入。ECharts
@@ -206,24 +222,24 @@
                     var myChart = echarts.init(document.getElementById('main'));
 
                     $.get('data.json').done(function (data) {
-                        myChart.setOption({
-                            title: {
-                                 text: '异步数据加载示例'
-                            },
-                            tooltip: {},
-                                legend: {
-                                data:['销量']
-                            },
-                            xAxis: {
-                                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                            },
-                            yAxis: {},
-                            series: [{
-                                name: '销量',
-                                type: 'bar',
-                                data: [5, 20, 36, 10, 10, 20]
-                            }]
-                        });
+                    myChart.setOption({
+                    title: {
+                    text: '异步数据加载示例'
+                    },
+                    tooltip: {},
+                    legend: {
+                    data:['销量']
+                    },
+                    xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                    }]
+                    });
                     });
                 </code>
             </pre>
@@ -233,38 +249,38 @@
                 <code style="background-color: #1c1e20">
                     var myChart = echarts.init(document.getElementById('main'));
                     // 显示标题，图例和空的坐标轴
-                        myChart.setOption({
-                            title: {
-                                text: '异步数据加载示例'
-                            },
-                            tooltip: {},
-                            legend: {
-                                data:['销量']
-                            },
-                            xAxis: {
-                                 data: []
-                            },
-                            yAxis: {},
-                                series: [{
-                                name: '销量',
-                                type: 'bar',
-                                data: []
-                                }]
-                            });
+                    myChart.setOption({
+                    title: {
+                    text: '异步数据加载示例'
+                    },
+                    tooltip: {},
+                    legend: {
+                    data:['销量']
+                    },
+                    xAxis: {
+                    data: []
+                    },
+                    yAxis: {},
+                    series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: []
+                    }]
+                    });
 
-                            // 异步加载数据
-                            $.get('data.json').done(function (data) {
-                            // 填入数据
-                                myChart.setOption({
-                                xAxis: {
-                                    data: data.categories
-                                },
-                                series: [{
-                                // 根据名字对应到相应的系列
-                                name: '销量',
-                                data: data.data
-                            }]
-                        });
+                    // 异步加载数据
+                    $.get('data.json').done(function (data) {
+                    // 填入数据
+                    myChart.setOption({
+                    xAxis: {
+                    data: data.categories
+                    },
+                    series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: data.data
+                    }]
+                    });
                     });
                 </code>
             </pre>
@@ -280,11 +296,17 @@
         </section>
         <section>
             <h3>8.更多讨论</h3>
+            有哪些好看的demo？
+            <p><a href="http://echarts.baidu.com/index.html">echarts官网</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
+
             <p>感谢大家观看</p>
-            <p><small>BY : 赵锐泉</small></p>
+
+            <p>
+                <small>BY : 赵锐泉|龚家豪</small>
+            </p>
         </section>
 
     </div>
@@ -316,10 +338,14 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
