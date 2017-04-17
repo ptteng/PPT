@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是CSS Sprites</h2>
+            <h3>小课堂【武汉-135期】</h3>
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+       
+            <section>
+            <p>当在浏览器里输入一个URL地址的时候，你会感觉无数张图片“唰唰唰”的闪出来了。在这个过程中，浏览器会把这个网站的主资源（就是Html文件）拉取回来，然后开始分析网页中的Js，Img之类的标签，然后再去拉取这些图片和资源，这些后拉取的资源称为「子资源」</p>
+            </section>
+            <section>
+                <p>对于浏览器来说，他们的请求方式都是发起一个Http请求，经历三次握手，并把文件拉取回来，一般的浏览器内核只能同时并发4，5个网络请求，所以大量的小图片特别影响性能，不但网页加载完成时间慢，还可能影响一些重要的JS逻辑，使得网页响应也变慢，卡死等等，对于浏览器来说，发起一个Http请求，来回几百毫秒的耗时，已经是相当高的资源耗费</p>
+            </section>
+            <section>
+                <p>然后很多人就想到了一种办法，把网页中一些背景图片整合到一张图片文件中，再利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字精确的定位出背景图片的位置。</p>
+            </section>
+            <section>
+                <p>这样可以将原本需要多张图像文件分别显示，整并为单一图像文件的分区显示技术，借由减少下载图像文件数量，提高网页的显示性能。</p>
+            
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+      
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">一，使用雪碧图的优缺点</h1>
+            </section>
+            <section    
+                <p>优点：</p>
+                <p>1、利用CSS Sprites能很好地减少网页的http请求，从而大大的提高页面的性能，这也是CSS Sprites最大的优点，也是其被广泛传播和应用的主要原因； <br>
+2、CSS Sprites能减少图片的字节，曾经比较过多次3张图片合并成1张图片的字节总是小于这3张图片的字节总和。<br> 
+3、解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素进行命名，从而提高了网页的制作效率。</p>
+            </section>
+            <section>
+            	<p>缺点：</p>
+            	<p>
+            	1.在图片合并的时候，你要把多张图片有序的合理的合并成一张图片，还要留好足够的空间，防止板块内出现不必要的背景；这些还好，最痛苦的是在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂<br>
+            	2.至于可维护性，这是一般双刃剑。可能有人喜欢，有人不喜欢，因为每次的图片改动都得往这个图片删除或添加内容，显得稍微繁琐。而且算图片的位置（尤其是这种上千px的图）也是一件颇为不爽的事情。<br>
+            	3.由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性
+            	</p>
+            </section>
+            <section >
+            <h1 style="font-size:60px;text-align: left;">二，如何制作雪碧图</h1>
+            <p>1.photoshop<br>
+               2.雪碧图制作软件<br>
+               3.在线制作网站
+           </p>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">三，应用到网页</h1>
+                <p>好了，我们做好需要使用的雪碧图，现在需要将这个图应用到我们的网页中，利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字精确的定位出背景图片的位置。根据雪碧图中图标的具体像素大小，再规定元素的具体大小，然后使用background-position找到图标的位置。元素大小相当于相机机头，background-position相当于移动相机找到我们需要的景物，下面给大家简单的演示一下。 </p>
+            </section>
+            
+            </section>
+
+       
+            <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style=" font-size: 30px">
+            <p>为什么给雪碧图的backgroup-position的值是负值?</p>
+
+        </section>
+            </section>
+        <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>首先我语法们来看一下backgroup-position的</p>
+            <p>语法：background-position：x, y;<br>
+         定义：背景图片相对容器原点的起始位置；<br>
+         取值：<br>
+         关键字：top | center | bottom | left | center | right<br>
+         百分比：百分数<br>
+         具体值：px、rem、em等确值<br>
+        默认值为：0% 0%（即坐标原点）</p>
+        </section>
+        <section>
+			<span>容器：background作用的元素，即其视口，超出该容器的部分，将被隐藏。
+，以容器的起始点作为原点（0，0）绘制背景图片的起始位置坐标轴。
+background-position将定义背景图片起始于坐标轴的哪个位置，浏览器将其他部分隐藏，仅显示容器内的背景内容。</span>
+			<img src="../img/css-07-sprites/icon01.jpg" alt="">
+        </section>
+        <section>
+        <span>设置background-position: -50px -50px，背景图的起始点位于（-50px, -50px）；
+由此，显示的背景是被截断后的容器内的图片内容，其他象限遮罩部分图片不可见。
+总结：background-position为背景图的起始点，可相对整个坐标轴进行定位，且仅容器内的背景图内容可见</span>
+			<img src="../img/css-07-sprites/icon04.jpg" alt="">
+        </section>
+        
+
+        </section>
+        <section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>见demo</p>
+            <a href="../demo/css-07-sprites/demo.html">demo1</a><br>
+              <a href="../demo/css-07-sprites/demo2.html">demo2</a><br>
+                <a href="../demo/css-07-sprites/demo3.html">demo3</a>
+        </section>
+        </section>
+		<section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+    
+        <section>
+		如何使用百分比来设置雪碧图的background-position?
+        </section>
+            <section>
+           width: 218px;<br>
+           height: 218px;<br>
+         sprite：654px*436px<br>
+         (容器(container)的size — 背景图片的size) * 百分比<br>
+         其中：containerWidth为容器宽，containerHeight为容器高，bgWidth为雪碧图宽，bgHeight为雪碧图宽<br>
+ 
+         如：background-position: a% b%;<br>
+         换算：
+         x = (containerWidth - bgWidth) * a%<br>
+         y = (containerHeight - bgHeight) * b%<br>
+         
+        </section>
+        </section>
+        <section>
+		 <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+		<a href="">http://www.cnblogs.com/hity-tt/p/6345007.html</a>
+		
+        </section>
+
+        </section>
+      </section>
+      <section>
+		 <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+			如何实现雪碧图的自适应和响应式
+        </section>
+        </section>
+
+        <section>
+            <h4>鸣谢：李维文</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :王力</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
