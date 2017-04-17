@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task03】</h2>
+            <h3>小课堂【郑州第84期】</h3>
+            <h4>对一个数组 filter、some、map、foreach的操作分别有什么作用？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>前两天群里发了一份面试的题，看到有这个题目，这几种方法都是数组中的迭代方法，今天我们来学习讨论一下！</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1迭代方法
+            </section>
+            <section>
+                <p>在ECMAScript5中为数组定义了5个迭代方法，分别是every()、filter()、forEach()、map()和some()。以上5中方法中都接收两个参数：在每一个项上运行的函数和一个可选的参数——运行该函数的作用域对象。传入的函数会接收三个参数：数组项的值，该项在数组中的位置（可选）和数组对象本身（可选）。</p>
+                <p>例如，它这样表达：</p>
+                <pre>
+                    <code>
+                        var a = [0,1,3,4,5,6,2,4,5];
+                        var every = a.every(function(item, index, array){
+                            return (item > 2);
+                        });
+                        console.log(every);   //false
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.2 every()方法的使用
+            </section>
+            <section>
+                <p>every()：对数组中的每一项运行给定的函数，如果该函数对<b style="color: red;">数组中的每一项</b>都返回true，则运行结果返回true。every() 不会对空数组进行检测，也不会改变原始数组。</p>
+                <pre>
+                    <code>
+                        var a = [0,1,3,4,5,6,2,4,5];
+                        var every = a.every(function(item, 0, a){
+                            return (item > 2);
+                        });
+                        console.log(every);   //false
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.3 some()方法的使用
+            </section>
+            <section>
+                <p>some()：对数组中的每一项运行给定的函数，如果该函数对<b style="color: red;">数组中的任一项</b>返回true，则运行结果返回true。同样的，some() 不会对空数组进行检测，也不会改变原始数组。</p>
+                    <pre>
+                        <code>
+                        var b = [0,1,2,3,4,5,6];
+                        var some = b.some(function(item, 0, b){
+                            return (item > 2);
+                        });
+                        console.log(some);   //true
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                2.4 forEach()方法的使用
+            </section>
+            <section>
+                <p>forEach()：对数组中的每一项运行给定的函数，这个函数没有返回值。forEach() 的用法和for循环迭代数组一样。该方法对于空数组是不会执行回调函数的。</p>
+                    <pre>
+                        <code>
+                       1. var b = [0,1,2,3,4,5,6];
+                            b.forEach(function(item){
+                            console.log(item);
+                        });
+                       2. function square(num){
+                           console.log(num * num) ;
+                        }
+                        var nums = [1,2,3,4,5];
+                        console.log(nums.forEach(square));
+                       3. var sum = 0;
+                        nums.forEach(function(value){sum += value;});
+                       4. nums.forEach(function(v,i,a){a[i] = v + 1;})
+
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                2.5 map()方法的使用
+            </section>
+            <section>
+                <p>map()：对数组中的每一项运行给定的函数，返回每次函数调用的<b style="color: red;">结果</b>组成的数组。不会对空数组进行检测，也不会改变原始数组</p>
+                    <pre>
+                        <code>
+                        var nums = [1,2,3,4,5];
+                        var nums2 = nums.map(function square(item){
+                           return item * 2;
+                        });
+                        console.log(nums2);
+                        </code>
+                    </pre>
+            </section>
+             <section>
+                2.6 fiter()方法的使用
+            </section>
+            <section>
+                <p>fiter()：对数组中的每一项运行给定的函数，返回该函数会<b style="color: red;">返回true的项</b>组成的数组。不会对空数组进行检测，也不会改变原始数组。</p>
+                    <pre>
+                        <code>
+                        var nums = [1,2,3,4,5,7,5,3];
+                        var nums2 = nums.filter(function(item){
+                           return item > 2;
+                        });
+                        console.log(nums2);
+                        </code>
+                    </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何判断两个数组中相同的项，然后将相同的部分或者不同的部分生成新的数组？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这里要引入一个简单的案例向大家演示一下。</p>
+            <pre>
+                <code>
+                var num1 = [1,2,3,4,5,7];
+                var num2 = [2,3,5];
+                var nums = num1.filter(function(val){
+                   return num2.indexOf(val) >= 0;
+                });
+                console.log(nums);
+                </code>
+            </pre>
+            
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: forEach()方法和$.each()的区别？</p> 
+            <pre>
+                <code>
+                    [].forEach(function(value, index, array) {
+                      // ...
+                    });
+                    //等同于
+                    $.each([], function(index, value, array) {
+                      // ...
+                    });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：JavaScript高级程序设计</p>
+            <p>参考二：JavaScript权威指南</p>
+            <p>参考三：<a href="http://www.jb51.net/article/81955.htm" target="_blank">JS中的forEach、$.each、map方法推荐</a></p>
+            <p>参考四：<a href="http://www.runoob.com/jsref/jsref-obj-array.html" target="_blank">菜鸟教程中JavaScript Array 对象</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：JavaScript Array对象中还有哪些方法值得我们在现有任务中注意？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
