@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>js页面传参</h2>
+            <h3> </h3>
+            <p>分享人：北京-web-刘其勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍-</h3>
+                <h5>URL中的？、#、&</h5>
+                <p style="text-align: left">protocol :// hostname[:port] / path / [;parameters][?query]#fragment ①</p>
+                <p style="text-align: left">http://localhost:8088/home/class/?name=qiyong&uid=6039#css</p>
+                <ul>
+                    <li>?:查询--给动态网页传递参数，键和值用=链接，多组用&隔开③</li>
+                    <li>#：信息片段，指定页面中的片段②</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+                <p>页面传参的两种方法</p>
+                <ul>
+                    <li>url传参</li>
+                    <li>本地存储（cookie、session storage、locacl storage）</li>
+                </ul>
+            </section>
+            <section>
+                <h4>url传参：添加参数与获取参数</h4>
+                <p>添加参数和跳转</p>
+                <p style="text-align: left">js和jquery的页面跳转方法均可带参数跳转：<br>
+                    location.href="url?"+"name="+value <br>
+                    window.open("url?"+"name="+value)等
+                </p>
+                <p style="text-align: left">ajax方法的url和param也可以用来在url里添加参数，只是不会跳转页面。</p>
+            </section>
+            <section>
+                <h4>获取url里的参数</h4>
+                <p style="text-align: left">获取当前页面的URL：window.location.href <br>
+                    获取URL中参数的部分：window.location.search④</p>
+                <p style="text-align: left">获取URL内的参数： <br>
+                    使用.split()进行切割<br>
+                </p>
+                <p>http://s.weibo.com/weibo/web?topnav=1&wvr=6&b=1</p>
+            </section>
+            <section>
+                <h5>.split()方法</h5>
+                <pre> <code>
+                    var str=location.search.split("?")[1].split("&");
+                    var par=[];
+                    for(var i=1;i<=str.length;i++)
+                        {par[i-1]=str[i].split("=")}
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>angularJs如何进行URL传参</p>
+            <p>var id = getUrlParam("id");
+                var order_num=getUrlParam("order_num")
+                var owner_mobile = getUrlParam("owner_mobile");
+                var carriager_mobile = getUrlParam("carriager_mobile");</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+                <ol>
+                    <li>依赖--$stateParams服务 <br>
+                        angular.module('myApp')
+                        .controller('addNewCtrl',function ($scope,$http, $state,$stateParams) {
+                    </li>
+                    <li>传递参数 <br>
+                        接收参数的页面的控制器： url:'/addNew?id&name',
+                        <pre> <code>
+                            .state('tab.addNew', {
+                            url:'/addNew?id',
+                            templateUrl:'views/addNew.html',
+                            controller:'addNewCtrl',
+                            resolve:{
+                        </code></pre>
+                        视图层（ui-router的方法）：ui-sref="tab.addNew({id:company.id}) <br>
+                    </li>
+                    <li>获取参数
+                        $scope.id=$stateParams.id;
+                    </li>
+                </ol>
+        </section>
+        <section>
+            <h3>5。编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <ul>
+                <li>有哪些场景需要进行页面传参</li>
+                <li>还有哪些方便的方法获取参数</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>1.<a href="http://baike.baidu.com/link?url=dDPjVzp4vaKmPFSBIdzZ2fi3JBzWZCdNd54CGJJCJ6PiXv9_a61sXu6ZyzdEhXErBLWafuI4altqNkjKCve2p3zQxIpaIXcGpVXtMUpmjhW">url介绍</a></p>
+            <p>2. <a href="https://jnshu2040.github.io/csstask/task15/zhiye.html#m-sift-pm">url:#</a></p>
+            <p>3.<a href="http://weibo.com/?category=1760">url:?</a></p>
+            <p>4. <a href="https://sjolzy.cn/Get-some-js-url-url-and-parameters-and-to-analyze-any-part-of.html">获取url的各部分</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>URL与URI的区别</p>
+            <p>URL传参与本地存储传参的利弊</p>
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+        </section>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
