@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>json</title>
+</head>
+<body>
+
+</body>
+<script>
+	var friend={
+		"firstName": "哈士奇",
+		"lastName": "大金毛",
+		"phone":"1234567",
+		"age":19
+	};
+	console.log("firend的类型是"+typeof(friend));
+	console.log("转换为json格式后firend的类型是"+typeof(JSON.stringify(friend)) );
+	localStorage.setItem("obj-friend",friend);
+	localStorage.setItem("json-friend",'{"firstName": "哈士奇","lastName": "大金毛","phone":"1234567","age":19}');
+	console.log("直接将对象传输而不格式化，再将该对象取出来时");
+	console.log(localStorage.getItem("obj-friend"));
+	console.log("该对象数据类型为"+typeof(localStorage.getItem("obj-friend")));
+	try{
+		JSON.parse(localStorage.getItem("obj-friend"));
+	}
+	catch (event){
+		console.log(event);
+	}
+	console.log(localStorage.getItem("json-friend"));
+	console.log(JSON.parse(localStorage.getItem("json-friend")));
+	
+	var person={
+		name:"哈士奇",
+		age:12,
+		phone:"123456"
+	};
+	console.log(JSON.stringify(person,["name","age"]));
+	function jsonDemo(key,value) {
+		if(key=="name"){
+			value="大金毛";
+			return value;
+		}
+		else{
+			return value;
+		}
+	}
+	console.log(JSON.stringify(person,jsonDemo));
+</script>
+</html>
