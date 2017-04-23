@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task03】</h2>
+            <h3>小课堂【郑州第89期】</h3>
+            <h4>JavaScript中的操作符</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在进入Javascript阶段学习后，一直对操作符这块部分的知识点没有引起太多注意，今天就和大家分析一下！探索一下这部分的知识点，提高javascript的技能。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1 操作符
+            </section>
+            <section>
+                <p>在ECMA-262中定义了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符等。它们能够适用于很多值，例如：字符串、数字值、布尔值，甚至对象（不过，在应用于对象时，相应的操作符通常都会调用对象的valueOf()、toString()方法，以便取得可以操作的值）。</p>
+            </section>
+            <section>
+                2.2 一元操作符
+            </section>
+            <section>
+                <p>只能操作一个值的操作符就称为一元操作符。是最简单的操作符。它包括递增和递减操作符，以及一元加和减操作符。</p>
+                <p>递增和递减操作符直接借鉴自C语言，分为前置型和后置型。</p>
+                <pre>
+                    <code>
+                        var age = 22;
+                        ++age;
+                        console.log(age);   //23
+                        //等同于
+                        var age = 22;
+                        age = age + 1;
+                        //也等同于
+                        var age = 22;
+                        age++;
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>前置型和后置型的区别：执行前置递增或者递减操作时，变量的值都是在语句被求值以前改变的。后置型与之相反。</p>
+                <pre>
+                    <code>
+                        var age = 22;
+                        console.log(age); //22
+                        var another = ++age + 2 ;
+                        console.log(age);   //23
+                         console.log(another);  //等于变量age的值前置递减后再加2的结果
+                        //等同于
+                        var age = 22;
+                        age = age + 1;
+                        //也等同于
+                        var age = 22;
+                        age++;
+                        //另一个对比
+                        var num1 = 2;
+                        var num2 = 30;
+                        var num3 = --num1 + num2;
+                        var num4 = num1 + num2;
+                    </code>
+                </pre>
+            </section>
+            <section>
+                一元加减操作符是写在数值前边的，和数学中定义的正负是一个概念。在这里就不再演示了。
+            </section>
+            <section>
+                2.3 布尔操作符
+            </section>
+            <section>
+                <p>在if(){}else{}这样的条件判断句中，我们需要提供一种可供判断的操作符进行条件的辨别。这里先介绍一下布尔操作符，其包括：非（NOT）、与（AND）、或（OR）。</p>
+                <p>非（NOT）又叹号（！）表示，与（AND）由和号（&&）表示，或（OR）由两个竖线符号（||）表示。</p>
+                    <pre>
+                        <code>
+                        console.log(!false);  
+                        console.log(!"");    
+                        console.log(!"false"); 
+                        console.log(!0);
+                        console.log(!NaN); 
+                        console.log(!false);
+                        console.log(!1234); 
+                        //以下同于boolean()方法
+                        console.log(!!false);  
+                        console.log(!!"");    
+                        console.log(!!"false"); 
+                        console.log(!!0);
+                        console.log(!!NaN); 
+                        console.log(!!false);
+                        console.log(!!1234); 
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <p>
+                逻辑与操作符是一个短路的操作符。如果第一个操作数能够决定结果，就不会对第二个操作数求值。第一个操作数返回false时就不会再对第二个操作数进行求值。返回true是会继续对第二个操作数进行求值。</p>
+                <p>逻辑或操作符也是一个短路的操作符。第一个操作数返回true时就不会再对第二个操作数进行求值。</p>
+
+                <pre>
+                        <code>
+                        var a = true && false;
+                        console.log(a);
+                        var b = false || true;
+                        console.log(b);
+                        </code>
+                    </pre>
+            </section>
+            <section>
+            2.4 乘性操作符
+            </section>
+            <section>
+                <p>这里的乘性操作符包含了乘法、除法和求模。如果参与乘性计算的某个操作数不是数值，后台会先使用number()转型函数将其转换为数值。</p>
+                <p>乘法使用星号（*）表示。</p>
+                <p>除法使用斜线号（/）表示。</p>
+                <p>求模，即余数，由百分号（%）表示。</p>
+                    <pre>
+                        <code>
+                        var c = 58 * 22;
+                        console.log(c);
+                        var d = 58 / 22;
+                        console.log(d);
+                        var e = 58 % 22;
+                        console.log(e);
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                2.5 加性操作符
+            </section>
+            <section>
+                <p>加性操作符包括了加法和减法。</p>
+                    <pre>
+                        <code>
+                        var h = 5 + 8;
+                        console.log(h);
+                        var f = "5" + 8;
+                        console.log(f);
+                        //一个常见的问题
+                        var num1 = 5;
+                        var num2 = 15;
+                        var message = "5加15等于" + num1 + num2;
+                        //减法
+                        var result1 = 5 -true;
+                        var result2 = NaN - 1;
+                        var result3 = 5 - "";
+                        var result4 = 5 - "1";
+                        var result5 = 5 - null;
+                        </code>
+                    </pre>
+            </section>
+             <section>
+                2.6 关系操作符
+            </section>
+            <section>
+                <p>关系操作符包括：小于（<）、大于（>）、小于等于（<=）和大于等于（>=）。然后比较完成后返回一个布尔值。</p>
+                <p>如果两个都是数值，执行数值比较。</p>
+                <p>如果两个是字符串，比较字符串对应的字符编码值。</p>
+                <p>如果只有一个是数值，另外一个会转换为数值进行数值比较。</p>
+                    <pre>
+                        <code>
+                        console.log("Back" < "number");
+                        console.log("Back".toLowerCase() < "number"..toLowerCase());
+                        console.log("23" < "3");
+                        console.log("b" < 2);
+                        console.log( NaN < 3);
+                        console.log( NaN >= 3);
+                        </code>
+                    </pre>
+            </section>
+             <section>
+                2.7 相等操作符
+            </section>
+            <section>
+                <p>相等操作符包含两组操作符：相等和不相等——先转换再比较，全等和不全等——仅比较但不转换。</p>
+                <p>相等用（==）表示，不相等用（!=）表示。全等用（===）表示，不全等用（!==）表示。</p>
+                <p>如果只有一个是布尔值，比较之前要转换为数值。如果一个为字符串，另一个是数值，比较前会转换为数值。</p>
+                    <pre>
+                        <code>
+                        console.log(null == undefind);
+                        console.log(undefind == 0);
+                        console.log(null == 0);
+                        console.log("NaN" == NaN);
+                        console.log(NaN == 5);
+                        console.log(NaN == NaN);
+                        console.log( NaN != NaN);
+                        console.log( false == 0);
+                        console.log(true == 1);
+                        console.log(true == 2);
+                        console.log("5" == 5);
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <p>全等和不全等</p>
+                <pre>
+                    <code>
+                    console.log("55" == 55);
+                    console.log("55" === 55);
+                    console.log(null === undefind);
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.8 条件操作符
+            </section>
+            <section>
+                <pre>
+                    <code>
+                    var max = (4 > 6) ? 4 : 8;
+                    console.log(null === undefind);
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.9 赋值操作符
+            </section>
+            <section>
+            <p>简单的赋值操作符：等号（=）表示。复杂的有：乘赋值（*=），除赋值（/=），模赋值（%=），加赋值（+=），减赋值（-=），左移赋值（<<=），有符号右移赋值（>>=），无符号右移赋值（>>>=）。</p>
+                <pre>
+                    <code>
+                    var m = 4;
+                    m = m + 4;
+                    //等同于
+                    var num = 10;
+                    num += num;
+                   </code>
+                </pre>
+            </section>
+            <section>
+                2.10 逗号操作符
+            </section>
+            <section>
+            <p>使用逗号操作符可以在一条语句中执行多个操作。也可以用来赋值，返回表达式中最后一项。</p>
+                <pre>
+                    <code>
+                    var num1 = 1, num2= 2, num3 = 3;
+                    var num = (5,8,4,3);
+                   </code>
+                </pre>
+            </section>
+        </section>
+        
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 相关的问题在前边已经提到了</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>回顾前边的演示。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: 在使用操作符时大家还有哪些心得体会？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：JavaScript高级程序设计</p>
+            <p>参考二：JavaScript权威指南</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：操作符的局限？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
