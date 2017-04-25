@@ -30,13 +30,16 @@
     <button ng-click="changeClass()">点击联动</button>
     <div ng-class="{'style-one' : istrue ,'style-two' : !istrue }">联动</div>
 <!--ng-bind ng-model-->
+    <span>第一种写法</span>
     <div ng-bind="number"></div>
+    <span>第二种写法</span>
+    <div>{{number}}</div>
     <input type="text" ng-model="number">
 <!--ng-repeat-->
-<!-- track by $index -->
-    <ul  >
-        <!--<li ng-repeat="li in name track by $index" >我叫{{li.name}}+,今年芳龄{{li.age}}岁+{{$index}}</li>-->
-        <li ng-repeat="li in name  track by $index" >{{li}}+{{$index}}</li>
+<!-- track by $index 避免有重复数组报错-->
+    <ul>
+        <li ng-repeat="li in name track by $index" >{{$index}}我叫{{li}}</li>
+        <!-- <li ng-repeat="li in name  track by $index" >{{li}}+{{$index}}</li> -->
     </ul>
 <script>
     angular.module ('myApp',[])
