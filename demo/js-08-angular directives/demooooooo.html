@@ -10,7 +10,13 @@
     {{a}}
     <div >
        <div class="demo-one"></div>
+<!--        <demo-One a="a"></demo-One> -->
+       <span>{{a}}</span>
     </div>
+<!--     <input type="text" ng-model="data">
+     <div ng-hide="true">
+        <input type="text" ng-model="data">
+    </div>   -->
 </body>
 <script>
 angular.module("myApp", [])
@@ -20,9 +26,13 @@ angular.module("myApp", [])
     .directive('demoOne',function () {
         return{
             restrict:"AEC",
-            template:'<input type="text" ng-model="a" >',
+            template:'<input type="text" ng-model="a">',
             replace: true,
             scope:{},
+            // scope:{a : '@'},
+            // scope:{a : '='},
+            // scope:true,
+            // scope:false,
             controller:['$scope',function ($scope) {
                 $scope.a='123'
             }]

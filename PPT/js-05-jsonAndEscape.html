@@ -31,11 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【js-05】json是什么，如何处理转义？</h2>
-
-            <h3>小课堂【成都】</h3>
-
-            <p style="text-align: center;">分享人：梁家健</p>
+            <h2>小课堂【武汉第137期】</h2>
+            <h3>json是什么，如何处理转义？</h3>
+            <p >分享人：叶紫阳</p>
         </section>
         <section>
             <p>目录</p>
@@ -52,129 +50,185 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align: left">在程序员的大门前，不管是c、c++、java，亦或是web，对于初学者而言，数据格式是首先要掌握和熟悉的，数值型、整数、浮点数、字符串、数组等等，都耳熟能详。</p>
-            <p style="text-align: left">json，同样是数据格式的一种，是JavaScript的原生格式，在其与后端的数据交换中有较为广泛的应用。
-</p>
+            <p style="text-align: left">数据传输是我们在编写代码时经常遇到的一个场景。给数据一个统一的格式有利于我们编写和解析数据。</p>
+            <p style="text-align: left">json，是数据格式的一种，在其与后端的数据交换中有较为广泛的应用。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-            <section>
-                <p style="text-align: left">JSON 数据的书写格式是：名称/值对。</p>
-                <p style="text-align: left">名称/值对组合中的名称写在前面（在双引号中），值对写在后面，中间用冒号隔开，</p>
-                <p style="text-align: left">其中 值 可以是：数字（整数或浮点数）、字符串（在双引号中）、逻辑值（true或false）、数组（在方括号中）、对象（在花括号中）、null</p>
-                <p style="text-align: left">使用方式：</p>
-                <pre>
-                    <code style="background-color: #1c1e20">
-var json = {"name":"myname","password":123456}
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <p style="text-align: left">或者是嵌套使用</p>
-                <pre>
-                    <code style="background-color: #1c1e20">
-var people = {
-    "programmers": [{"firstName": "Brett", "lastName":"McLaughlin"}, 
-                    {"firstName":"Jason", "lastName":"Hunter"}],
-    "authors": [{"firstName": "Isaac", "lastName":"Asimov"}, 
-                {"firstName":"Tad", "lastName":"Williams"}]
-}; 
-console.log(json);
-console.log(json.name);
-console.log(people.authors[1].firstName);
-//输出结果：
-Object
-    name: "myname"
-    password: 123456
-    __proto__: Object
-myname
-Tad
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <p style="text-align: left">转义概述</p>
-                <p style="text-align: left">为什么需要转义？在js中我们使用的js对象进行处理，但是在与后端数据交换的时候，我们发送规定的json格式的字符串，所以在给后端发送或接受数据的时候，需要</p>
-                <p style="text-align: left">{name:"myname",password:123456} <–>  "{"name":"myname","password":123456}"</p>
-                <p style="text-align: left">其中json字符串转js对象，调用parse方法：</p>
-                <p style="text-align: left">js对象 = JSON.parse(json字符串);</p>
-                <p style="text-align: left">js对象转json字符串，调用stringify方法：</p>
-                <p style="text-align: left">json字符串 = JSON.stringify(js对象);</p>
-            </section>
-        </section>
+	    <section>
+		    <h4>什么是json</h4>
+		    <p style="text-align: justify">JSON是一种格式，基于文本，优于轻量，用于交换数据</p>
+		    <ul style="text-align: left;display:block">
+			    <li> 一种数据格式</li>
+			    <li>基于文本的数据格式</li>
+			    <li>轻量级的数据格式</li>
+			    <li>被广泛地用于数据交换</li>
+		    </ul>
+	    </section>
+	    <section>
+		    <h3>一种数据格式</h3>
+		    <ul style="font-size: 28px">
+			    <li>姓名“二百六”，身高“160cm”，体重“60kg”</li>
+			    <li>name="二百六"&amp;height="160cm"&amp;weight="60kg"</li>
+			    <li>&lt;person&gt;&lt;name&gt;二百六&lt;/name&gt;&lt;height&gt;160&lt;/height&gt;&lt;weight&gt;60&lt;/weight&gt;&lt;/person&gt;</li>
+			    <li>{"name":"二百六","height":160,"weight":60}</li>
+		    </ul>
+	    </section>
+	    <section>
+		    <h3>基于文本的数据格式</h3>
+		    <p style="text-align: justify">JSON是基于文本的数据格式，相对于基于二进制的数据，所以JSON在传递的时候是传递符合JSON这种格式的字符串，而不是一个对象。</p>
+	    </section>
+	    <section>
+		    <h3>轻量级的数据格式</h3>
+		    <p style="text-align: justify">在JSON之前，有一个数据格式叫xml，现在还是广泛在用，但是JSON更加轻量，如xml需要用到很多标签，像上面的例子中，你可以明显看到xml格式的数据中标签本身占据了很多空间，而JSON比较轻量，即相同数据，以JSON的格式占据的带宽更小，这在有大量数据请求和传递的情况下是有明显优势的。</p>
+	    </section>
+	    <section>
+		    <h3>被广泛地用于数据交换</h3>
+		    <p style="text-align: justify">轻量已经是一个用于数据交换的优势了，但更重要的JSON是易于阅读、编写和机器解析的，即这个JSON对人和机器都是友好的，而且又轻，独立于语言（因为是基于文本的），所以JSON被广泛用于数据交换。<br>
+			    以前端JS进行ajax的POST请求为例，后端PHP处理请求为例：</p>
+		    <ol>
+			    <li>前端构造一个JS对象，用于包装要传递的数据，然后将JS对象转化为JSON字符串，再发送请求到后端；</li>
+			    <li>后端PHP接收到这个JSON字符串，将JSON字符串转化为PHP对象，然后处理请求。</li>
+		    </ol>
+	    </section>
+	    <section>
+		    <h3>js中的json函数</h3>
+		    <ul style="text-align: left">
+			    <li> JSON.stringify:将JS数据结构转化为符合JSON格式的对象，再将该对象转化为字符串。</li>
+			    <li>JSON.parse:将JSON字符串解析为JS数据结构。</li>
+		    </ul>
+	    </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p style="text-align: left">在json字符串转换成对象，还有eval_r('('+json字符串+')')这个方法，但是在对目标数据进行读取时，可能会出现一些意外的错误：</p>
-            <pre>
-                <code style="background-color: #1c1e20">
-var value = 1;
-var jsonstr = '{"data1":"hello","data2":++value}';
-var data1 = eval_r('('+jsonstr+')');
-console.log(data1);//这时value值为2
-var data2=JSON.parse(jsonstr);
-console.log(data2);//报错
-                </code>
-            </pre>
+	        <h3>json常见问题</h3>
+	        <ui style="text-align: justify">
+		        <li>什么是json？</li>
+		        <li>什么是JSON对象？</li>
+		        <li>json对象和js对象有什么区别？</li>
+		        <li>什么是json格式？</li>
+	        </ui>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p style="text-align: left">原因：eval_r获取的json对象的值中，如果有执行代码，也将照样执行！所以若不能保证数据的安全性，不要使用eval_r方法进行转义。</p>
+	        <h4>什么是json？</h4>
+            <p style="text-align: justify">json指的就是一种格式，一种数据交换的格式，"JSON"全名"JavaScript Object Notation"，所以它的格式（语法）是基于JS的，但它就是一种格式，而JS对象是一个实例，是存在于内存的一个东西。<br>
+	            说句玩笑话，如果JSON是基于PHP的，可能就叫PON了，形式可能就是这样的了['propertyOne' => 'foo', 'propertyTwo' => 42,]，如果这样，那么JSON可能现在是和PHP比较密切了。</p>
         </section>
+	    <section>
+		    <h4>什么是JSON对象？</h4>
+		    <p style="text-align: justify">JSON对象实际上是指js内置的一个静态对象，有2个方法，分别用于JSON字符串和JS数据结构之间的转化。</p>
+		    <p style="text-align: justify">但是对于一个符合json格式的js对象，我们有时候也会简称为json对象，实际上这种叫法不对容易造成误解，只有js对象，或者json格式，没有所谓的json对象这种说法（除非是特指JSON这个原生的静态对象），只有符合json格式的js对象这一说法。</p>
+	    </section>
+	    <section>
+		    <h4>json格式与js对象语法的区别？</h4>
+		    <p style="text-align: justify">没有json对象，只有符合json格式的对象，所以问题应该换成普通的对象和json格式的对象有什么区别？</p>
+		    <table style="font-size: 18px">
+			    <thead>
+			    <tr>
+				    <th id="对比内容" style="text-align:left;"> 对比内容 </th>
+				    <th id="json" style="text-align:left;"> JSON </th>
+				    <th id="js对象" style="text-align:left;"> JS对象 </th>
+			    </tr>
+			    </thead>
+			
+			    <tbody>
+			    <tr>
+				    <td style="text-align:left;"><p>键名 </p></td>
+				    <td style="text-align:left;"><p>必须是加双引号 </p></td>
+				    <td style="text-align:left;"><p>可允许不加、加单引号、加双引号 </p></td>
+			    </tr>
+			
+			    <tr>
+				    <td style="text-align:left;"><p>属性值 </p></td>
+				    <td style="text-align:left;"><p>只能是数值（10进制）、字符串（双引号）、布尔值和null，<br>也可以是数组或者符合JSON要求的对象，<br>不能是函数、NaN, Infinity, -Infinity和undefined </p></td>
+				    <td style="text-align:left;"><p>爱啥啥 </p></td>
+			    </tr>
+			
+			    <tr>
+				    <td style="text-align:left;"><p>逗号问题 </p></td>
+				    <td style="text-align:left;"><p>最后一个属性后面不能有逗号 </p></td>
+				    <td style="text-align:left;"><p>可以 </p></td>
+			    </tr>
+			
+			    <tr>
+				    <td style="text-align:left;"><p>数值 </p></td>
+				    <td style="text-align:left;"><p>前导0不能用，小数点后必须有数字 </p></td>
+				    <td style="text-align:left;"><p>没限制  </p></td>
+			    </tr>
+			
+			    </tbody>
+		    </table>
+	    </section>
+	    <section>
+		    <h4>什么是json格式？</h4>
+		    <p style="text-align: justify">数据以键值对的形式存储，和对象的格式有点像</p>
+		    <pre>
+			    <code style="text-align: center">
+var person={name:"哈士奇"};
+//一个普通的js对象
+var obj2 = {"width":100,"height":200,"name":"rose"};
+// 可把这个称做：JSON 格式的 JavaScript 对象
+
+var str1 = '{"width":100,"height":200,"name":"rose"}';
+// 可把这个称做：JSON 格式的字符串
+
+var arr = [
+{"width":100,"height":200,"name":"rose"},
+{"width":100,"height":200,"name":"rose"},
+{"width":100,"height":200,"name":"rose"},
+];
+// 这个可叫JSON格式的数组，是JSON的稍复杂一点的形式
+
+var str2='['+
+'{"width":100,"height":200,"name":"rose"},'+
+'{"width":100,"height":200,"name":"rose"},'+
+'{"width":100,"height":200,"name":"rose"},'+
+']';
+// 这个可叫稍复杂一点的 JSON 格式的字符串
+			    </code>
+		    </pre>
+	    </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <p style="text-align: left">下面是一个简单的json数据发送应用，有兴趣可以阅读一下：</p>
-            <pre>
-                <code style="background-color: #1c1e20">
-$(document).ready(function(){  
-    var saveDataAry=[];  
-    var data1={"userName":"test","address":"gz"};  
-    var data2={"userName":"ququ","address":"gr"};  
-    saveDataAry.push(data1);  
-    saveDataAry.push(data2);         
-    $.ajax({ 
-        type:"POST", 
-        url:"user/saveUser", 
-        dataType:"json",      
-        contentType:"application/json",               
-        data:JSON.stringify(saveData), 
-        success:function(data){ 
-
-        } 
-     }); 
-});  
-                </code>
-            </pre>
-            <p style="text-align: left"></p>
+            <p style="text-align: left">因为json是一种文本格式，所以我们要传输的数据只能是以字符串的形式传输</p>
+            
+            <a href="../demo/js-05-json/json.html">json-demo</a>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
-        <section>
-            <p style="text-align: left">我们常看到{name:"myname",password:123456}和{"name":"myname","password":123456}这样两种格式，即js对象和json，然而js对象和json有什么不一样的地方？</p>
-            <p style="text-align: left">（答案在参考文献三处）</p>
-        </section>
+	    <section>
+		    <h3>JSON.stringify方法的第二个参数</h3>
+		    <p style="text-align: justify">JSON.stringify方法的第二个参数可以是数组。也可以是方法。</p>
+		    <ul>
+			    <li>如果第二个参数是一个函数，那么序列化过程中的每个属性都会被这个函数转化和处理</li>
+			    <li>如果第二个参数是一个数组，那么只有包含在这个数组中的属性才会被序列化到最终的JSON字符串中</li>
+		    </ul>
+		    <a href="../demo/js-05-json/json.html">demo</a>
+	    </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p style="text-align: left">参考一：<a href="http://baike.baidu.com/link?url=9IQTsK4HUx5AIrIA6cr2Z1Hi0EwYwJ20VFP5QiCO_TOf46VWmWll_dXETyEvwYkt-5IV0tCk4kItvEO9tyhDza" target="_blank">百度百科</a></p>
-            <p style="text-align: left">参考二：<a href="http://blog.csdn.net/qianyiyiding/article/details/51615961" target="_blank">Json对象和Json字符串的区别</a></p>
-            <p style="text-align: left">参考三：<a href="http://blog.csdn.net/goskalrie/article/details/52151175" target="_blank">json属性名必须加引号的讨论</a></p>
+            <p style="text-align: left">参考文献：<a href="https://apriltail.com/2017/03/25/json-ru-guo-ni-yuan-yi-yi-ceng-yi-ceng-bo-kai-wo-de-xin-ni-hui-fa-xian-zhe-li-shui-hen-shen-shen-ru-li-jie-json/" target="_blank">JSON：如果你愿意一层一层剥开我的心，你会发现...这里水很深——深入理解JSON</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
+	    <section>
+		    <h3>json和xml作为数据传输的格式分别有什么优缺点？</h3>
+		    <a href="http://blog.csdn.net/tangtiantian520/article/details/50945582">answer</a>
+	    </section>
         <section>
             <h4>感谢观看</h4>
-            <p><small>BY : 梁家健 </small></p>
+            <p><small>BY : 叶紫阳 </small></p>
         </section>
     </div>
 </div>

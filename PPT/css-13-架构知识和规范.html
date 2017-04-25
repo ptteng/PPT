@@ -1,0 +1,195 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+<style>
+    li{
+        text-align: left;
+    }
+</style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h5>任务13所学到的架构知识，和任务12所学到的规范有没有冲突的地方？如果有冲突，你会选择哪种方式？为什么？</h5>
+            <h3>小课堂【武汉第136期】</h3>
+            <p>分享人：周霆伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考资料</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>CSS学起来并不难，但在大型项目中，就变得难以管理，特别是不同的人在CSS书写风格上稍有不同，团队上就更加难以沟通，所有就要有代码规范。不管有多少人共同参与同一项目，一定要确保每一行代码都像是同一个人编写的。</p>
+            <p>CSS架构是让代码容易修改和扩展。良好的CSS架构必须是可预测、可重用、可维护和可伸缩的</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>代码规范，先是书写顺序。</p>
+            <li>1.位置属性(position, top, right, z-index, display, float等)</li>
+            <li>2.大小(width, height, padding, margin)</li>
+            <li>3.文字系列(font, line-height, letter-spacing, color- text-align等)</li>
+            <li>4.背景(background, border等)</li>
+            <li>5.其他(animation, transition等)</li>
+        </section>
+        <section>
+            <h3>命名规则</h3>
+            <p style="text-align: left">头部是header，底部是footer，字体是font，菜单是menu之类的。
+            尽量用英文单词，不加中槓和下划线,一律用小写，怕别人不懂就加注释，让别人一看就能明白是什么的代码。</p>
+        </section>
+        <section>
+             <h3>CSS架构</h3>
+            <p>架构好一个网站需要在写之前理清思路，确定好目标，让网站的各部分都分开。</p>
+            <p>一个好的网站可以由个人或者团队轻易地管理，无需花费太多的学习成本。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.架构网站经常会犯的错误<br/></p>
+        </section>
+        <section>
+            一个规则做太多事
+           <pre>
+               <code>
+                   .widget {
+                   position: absolute;
+                   top: 20px;
+                   left: 20px;
+                   background-color: red;
+                   font-size: 1.5em;
+                   text-transform: uppercase;
+                   }
+               </code>
+           </pre>
+        </section>
+        <section>
+            <p>如果你需要在网站的其他区域使用该组件，那么上面的这个代码明显是错误的，不可重用的。
+                问题的关键是你让.widget这个选择器做的事情太多，不仅对该组件的位置进行了规定，还对它的外观和感觉方面进行了样式。外观和感觉可以通用，而位置是不可以的。有时候，把它们整合起来使用反而会大打折扣。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>最好的方法是CSS中尽可能少的包含HTML架构。CSS则是应该定义元素的视觉效果，无论该视觉元素在哪里。如果有一些特定的组件需要在不同的场合显示不同的效果，那么应该赋予不同的名称。例如，CSS通过.button类选择器定义了一个按钮组件。如果HTML想要一个特定的元素看起来像按钮，那么就可以使用.button。如果这里有特殊要求，这里的按钮与其他的有所不同（有可能更大和宽些），那么CSS需要定义一个新的类，HTML可以使用新的类来赋予该元素新的视觉效果。</p>
+        </section>
+        <section>
+            <h3>2.CSS架构是否和代码规范有冲突？</h3>
+        </section>
+        <section>
+            <p>不同的人他不同的架构方法也不一样，上面提到的这种，最好的办法是不同的元素用不同的CSS文件来写，类似这样。</p>
+            <img src="http://119.10.57.69:880/jnshu269/lll.png">
+            <p>注意，如果你在font.css里定义了所有要用到的文字属性，那就千万不要在别的地方再写和font有关的属性。不然别人接手的时候不好维护，也可能会出现意想不到的情况。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>6.拓展思考</p>
+        </section>
+        <section>
+            还有哪些CSS的架构方法？
+        </section>
+        <section>
+            <p>原子类</p>
+            <p>也有的人就喜欢把所有的东西都写在一个CSS里，用的就是原子类。</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    .f12{font-size:12px}
+                    .f13{font-size:13px} 
+                   .lh150{line-height:150%}
+                   .lh180{line-height:180%}
+                    .unl{text-decoration:underline;}
+                    .no_unl{text-decorati}
+                </code>
+            </pre>
+            <p>类似这样，一个属性就是一个类，但是我个人不是很喜欢这种写法。因为与其这样写，不如直接写style，只是一个权重的问题，style权重比选择器高，但是这也无关痛痒。因人而异吧。</p>
+        </section>
+        <section>
+            <h4>总结</h4>
+            <p>有一个好的架构思路，一般来说是不会与编码规范有冲突的，如果不小心启到了冲突，那么还是架构更加优先，因为编码规范的话，如果怕别人看不懂还可以加注释，而架构则是会影响到整个网站。</p>
+        </section>
+        <section>7.参考资料
+        <a href="http://blog.jobbole.com/31147/">伯乐在线</a>
+        </section>
+        <section>
+            <h3>感谢大家观看</h3>
+            <p>分享人：周霆伟</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

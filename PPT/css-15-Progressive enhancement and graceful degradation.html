@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>渐进增强和优雅降级之间的区别</h2>
+            <h3>小课堂【郑州-85期】</h3>
+            <p>分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.课后讨论</p>
+            <p>7.参考文献</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>渐进增强和优雅降级是在CSS3出现之后才火起来的。由于低级浏览器，（特）比（别）如（是）IE6等，不支持CSS3的浏览器，但是CSS3的样式又特别优秀不忍放弃
+                    ，所以在高级浏览器中应用CSS3样式，在低级浏览器只保证基本功能。</p>
+            </section>
+            <section>
+                <p>“渐进增强”是被Steven Champeon创造于2003年3月11日在奥斯汀的SXSW互动大会，并于2003年3月和6月间通过一系列Webmonkey教程文章的公布。
+                    （我找了半天资料，翻了下英文文章也只找到这段历史，无奈脸），谷歌公司是很支持这种开发方式的啊，我认为渐进增强不仅是一个前端开发思想，更加是一个程序开发思想。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">一，什么是渐进增强</h1>
+                <p>在网页开发中，渐进增强认为应该专注于内容本身。一开始针对低版本的浏览器构建页面，满足最基本的功能，再针对高级浏
+                    览器进行效果，交互，追加各种功能以达到更好用户体验,换句话说，就是以最低要求，实现最基础功能为基本，向上兼容。以css为例，以下这种写法就是渐进增强。</p>
+                <pre>.box {
+                    -webkit-border-radius: 10px;
+                       -moz-border-radius: 10px;
+                            border-radius: 10px;
+                }</pre>
+            </section>
+            <section>
+                <h1 style="font-size:60px;text-align: left;">二，什么是优雅降级</h1>
+                <p>在网页开发中，优雅降级指的是一开始针对一个高版本的浏览器构建页面，先完善所有的功能。然后针对各个不同的浏览器进行测试，修复，保证低级浏览器也有基本功能
+                    就好，低级浏览器被认为“简陋却无妨 (poor, but passable)” 可以做一些小的调整来适应某个特定的浏览器。但由于它们并非我们所关注的焦点，因此除了修复较
+                    大的错误之外，其它的差异将被直接忽略。也就是以高要求，高版本为基准，向下兼容。同样以css为例，优雅降级的写法如下。</p>
+                <pre>.box {
+                    border-radius: 10px;
+                    -moz-border-radius: 10px;
+                    -webkit-border-radius: 10px;
+                    }</pre>
+            </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">三，渐进增强和优雅降级的区别</h1>
+                <p>讲到这里，有同学肯定觉得这两者好像区别不大，不就一个正着写，一个倒着写么？实现的效果不差不多？</p>
+                <p>我看完基本概念之后也很懵逼啊，不就是一个向上兼容，一个向下兼容么，实现的效果不都一样吗？有啥子区别嘛！</p>
+                <p>后来深入了解了之后才发现这两者区别还是大大的有的。</p>
+                <p>容我一一道来呀！</p>
+
+            </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">从成本出发</h1>
+                <p>1.如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。
+                    你想一下不可能拿个基本功能版给客户看呀，多寒酸，搞不好一气之下就不找你做了，然后就炸了。但是呢，也有好处，就是提供了较好的平台稳定性，维护起来资金小，
+                    长期来说降低开发成本。</p>
+                <p>2.那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的
+                    产品，优雅降级不失为一种节约成本的方法。</p>
+            </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">从技术出发</h1>
+                <p>前缀CSS3（-webkit- / -moz- / -o-*）和正常CSS3在浏览器中的支持情况是这样的：</p>
+                <p>1.很久以前：浏览器前缀CSS3和正常CSS3都不支持；</p>
+                <p>2.不久之前：浏览器只支持前缀CSS3，不支持正常CSS3；</p>
+                <p>3.现在：浏览器既支持前缀CSS3，又支持正常CSS3；</p>
+                <p>4.未来：浏览器不支持前缀CSS3，仅支持正常CSS3.</p>
+                <pre>
+                    .transition { /*渐进增强写法*/
+                    -webkit-border-radius:30px 10px;
+                       -moz-border-radius:30px 10px;
+                            border-radius:30px 10px;
+                    }
+                    .transition { /*优雅降级写法*/
+                    border-radius:30px 10px;
+                    -moz-border-radius:30px 10px;
+                    -webkit-border-radius:30px 10px;
+                    }
+                </pre>
+            </section>
+            <section style="text-align: left;">
+                <h1 style="font-size:60px;text-align: left;">从技术出发</h1>
+                <p>按理说这两种写法效果应该是一样的，但是我们现在浏览器停留在操蛋的第三阶段，也就是现在，既支持前缀写法，又支持正常写法，这样就要出问题了。</p>
+                <p><strong>当属性超过一个参数值的时候，不同属性产生的作用是不一样的!</strong></p>
+                <a href="http://www.zhangxinxu.com/study/201009/css3-properties-order.html">点击链接查看效果</a>
+                <p>可以看到，采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题
+                    ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>渐进增强和优雅降级如何抉择</p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left; font-size: 30px">
+                <p>如果开发时间充裕，开发资金到位，就不存在抉择这个问题了，肯定是渐进增强好呀！</p>
+                <p>但是现实往往很骨感。</p>
+                <p>这个时候，就要看你开发产品的受众，受众使用的客户端。如果受众年龄覆盖面广，客户端从移动到平板到电脑，比如淘宝这种页面，那没得选，老老实实选渐进增强。</p>
+                <p>如果受众客户端单一，例如一个移动端页面，再渐进增强PC端就没那么重要了。</p>
+                <p>各有优势，但现实是绝大多数公司采用的都是渐进增强方式，毕竟业务优先，体验不会凌驾在业务上。</p>
+            </section>
+            <section>
+                <p>开发个人网站？随便你怎么用啦，你开心就好咯。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>这节没啥可实战的，或者说实战起来太大，大家码代码的时候都试试就好。</p>
+            </section>
+        </section>
+        <section>
+            <h3>6.课后讨论</h3>
+        </section>
+        <section>
+            <p>大家学习过程中有没有遇到其他类似如上的border-radius的属性？</p>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <a href="http://www.zhangxinxu.com/wordpress/2010/09/%E9%9C%80%E8%AD%A6%E6%83%95css3%E5%B1%9E%E6%80%A7%E7%9A%84%E4%B9%A6%E5%86%99%E9%A1%BA%E5%BA%8F/">《需警惕css3属性的书写顺序》 --张鑫旭</a><br>
+                <a href="http://augus-blog.logdown.com/posts/143403-graceful_degradation_and_progressive_enhancement">《认识优雅降级和渐进增强》 --Angus</a><br>
+                <a href="http://www.jianshu.com/p/d313f1108862">《渐进增强 VS 优雅降级》 -- 康斌</a>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :李维文/董瑞</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

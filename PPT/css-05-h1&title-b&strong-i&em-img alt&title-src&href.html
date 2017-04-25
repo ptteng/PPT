@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>成都小课堂</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>文本格式与图像插入</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task5】</h2>
+            <h3>title与h1、b与strong、i与em、img的alt与title、src与href有什么区别？</h3>
+            <h4>小课堂【成都第85期】</h4>
+            <p>分享人：王帅</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.拓展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>HTML自1991年发展至今，经过多个版本的更改和补充，可使用的标签数量越来越多，其中有些标签在使用中表象相同，实际代表的意义不同。
+                本次小课堂针对文本格式、图像的文字注释和替代、链接的一些属性，对他们进行区分学习</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+            <h4>2.1 title与h1的区别</h4>
+            <p>定义：title是网站标题，h1是文章主题</p>
+            <p>作用：title概括网站信息，可以直接告诉搜索引擎和用户这个网站是关于什么主题和内容的，是显示在网页Tab栏里的；h1突出文章主题，面对用户，更突出其视觉效果，指向页面主体信息，是显示在网页中的</p>
+            </section>
+            <section>
+                <h4>2.1代码实战</h4>
+                <pre><code>
+                    <title>成都小课堂</title>
+                    <h1>我是文本标题</h1>
+                </code></pre>
+                <h1>我是文本标题</h1>
+            </section>
+        </section>
+        <section>
+            <section>
+            <h4>2.2 b与strong的区别</h4>
+            <p>定义：b(bold)是实体标签，用来给文字加粗，而strong是逻辑标签，作用是加强字符语气</p>
+            <p>区别：b标签只是加粗的样式，没有实际含义，常用来表达无强调或着重意味的粗体文字，比如文章摘要中的关键词、评测文章中的产品名称、文章的导言；
+                而strong表示标签内字符重要，用以强调，其默认格式是加粗，但是可以通过CSS添加样式</p>
+            <p>建议：为了符合CSS3的规范，b应尽量少用而改用strong，字体如果需要加粗，用CSS添加样式，要着重语句，用strong</p>
+            </section>
+            <section>
+                <h4>2.2代码实战</h4>
+                <pre><code>
+                    <p>我是原文字</p>
+                    <b>我是bold</b>
+                    <strong>我是strong</strong>
+
+                </code></pre>
+                <p>我是原文字</p>
+                <b>我是bold</b><br>
+                <strong>我是strong</strong><br>
+
+            </section>
+        </section>
+        <section>
+            <section>
+            <h4>2.3 i与em的区别</h4>
+            <p>定义：i(italic)是实体标签，用来使字符倾斜，而em(emphasis)是逻辑标签，作用是强调文本内容</p>
+            <p>区别：i标签只是斜体的样式，没有实际含义，常用来表达无强调或着重意味的斜体，比如生物学名、术语、外来语；而em表示标签内字符重要，用以强调，其默认格式是斜体，但是可以通过CSS添加样式</p>
+            <p>建议：为了符合CSS3的规范，i应尽量少用而改用em</p>
+            </section>
+            <section>
+                <h4>2.3代码实战</h4>
+                <pre><code>
+                    <p>我是原文字</p>
+                    <i>我是斜体i</i>
+                    <em>我是em</em>
+                    </code></pre>
+                <p>我是原文字</p>
+                <i>我是斜体i</i><br>
+                <em>我是em</em><br>
+
+            </section>
+        </section>
+        <section>
+            <section>
+            <h4>2.4 img中的alt与title属性</h4>
+            <p>alt属性是在你的图片因为某种原因不能加载时在页面显示的提示信息，它会直接输出在原本加载图片的地方</p>
+            <p>title属性是在你鼠标悬停在该图片上时显示一个小提示，鼠标离开就没有了，有点类似jQuery的hover</p>
+            </section>
+            <section>
+                <h4>2.4代码实战</h4>
+             <pre>
+                 <code>
+                     <img src="../img/css-5-CDh1&title--b&strong--i&em--img-alt&title--src&href/huoguo.jpg" height="110" width="147" title="火锅" alt="火锅图示">
+                     <img src="../img/css-5-CDh1&title--b&strong--i&em--img-alt&title--src&href/huoguo1.jpg" height="110" width="147" title="" alt="火锅店不在了">
+                 </code>
+             </pre>
+            <img src="../img/css-5-CDh1&title--b&strong--i&em--img-alt&title--src&href/huoguo.jpg" height="110" width="147" title="火锅" alt="火锅图示"/>
+            <img src="../img/css-5-CDh1&title--b&strong--i&em--img-alt&title--src&href/huoguo1.jpg" height="110" width="147" title="" alt="火锅店不在了"/>
+            </section>
+        </section>
+            <section>
+            <h4>2.5 src与href的区别</h4>
+            <p>定义：href指定网络资源的位置建立链接或关系，用在link和a等元素上。src将外部资源嵌入到当前标签所在位置，如img图片和js脚本等</p>
+            <p>区别：我们在可替换的元素上使用src，然而把href用于在涉及的文档和外部资源之间建立一个关系。
+                浏览器解析src属性时，会暂停其他资源的下载和处理，直至将该资源加载，编译，执行完毕。
+                浏览器解析到href的时候会识别该链接内容，对其进行下载不会停止对当前文档的处理</p>
+            </section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                如何在代码中使用链接属性添加样式或者JS文件？
+            </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>href (Hypertext Reference)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。当我们写下：
+                <pre><code><link href="style.css" rel="stylesheet" /></code></pre>
+                <p>浏览器明白当前资源是一个样式表，页面解析不会暂停（由于浏览器需要样式规则去画或者渲染页面，渲染过程可能会被暂停）。
+                    这与把css文件内容写在style标签里不相同，因此建议使用link标签而不是"@import"来把样式表导入到html文档里</p>
+            </section>
+            <section>
+                <p>src (Source)属性仅仅嵌入当前资源到当前文档元素定义的位置。当浏览器找到
+                <pre><code><script src="script.js"></script></code></pre>在浏览器下载，编译，执行这个文件之前页面的加载和处理会被暂停。
+                这个过程与把js文件放到script标签里类似。这也是建议把JS文件放到底部加载的原因。当然，img标签页与此类似。浏览器暂停加载直到提取和加载图像。</p>
+            </section>
+        </section>
+        <section>
+            <h3>5.代码实战</h3>
+        </section>
+        <section>
+            <section>
+            <h3>6.拓展思考</h3>
+            </section>
+            <section>
+                <h3>如何使用这些标签并尽量符合编码规范呢？</h3>
+            </section>
+            <section>
+                <h4>以下是W3C中相关的一段话</h4>
+                <p>注释：根据 HTML5 规范，在没有其他合适标签更合适时，才应该把 b 标签作为最后的选项。HTML5 规范声明：应该使用 h1 - h6 来表示标题，使用 em 标签来表示强调的文本，应该使用 strong 标签来表示重要文本，应该使用 mark 标签来表示标注的/突出显示的文本。</p>
+                <p>提示：您也能够使用 CSS "font-weight" 属性来设置粗体文本。</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.zhihu.com/question/19551271" target="_blank">HTML5 中的 b/strong，i/em 有什么区别？</a></p>
+            <p>参考二：<a href="https://segmentfault.com/a/1190000002877022" target="_blank">url、href、src 详解</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/annsheshira23/article/details/51133709" target="_blank">HTML中href、src区别</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王帅</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>简述JS中的面向对象编程</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        p {
+            text-align: left
+        }
+
+        .a > p {
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Task-04】简述JS中的面向对象编程</h2>
+            <h3>小课堂【武汉第139期】</h3>
+            <p style="text-align: center">分享人：徐童</p>
+        </section>
+        <section class="a">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-indent: 2em;text-align: justify">
+                什么是面向对象编程？</p>
+            <p style="text-indent: 2em;text-align: justify">
+                面向对象编程是一种通用思想，主要概念为：<br/>
+                把一组数据结构和处理它们的方法组成对象（object），把相同行为的对象归纳为类（class），通过类的封装（encapsulation）隐藏内部细节，通过继承（inheritance）实现类的特化（specialization）／泛化（generalization），通过多态（polymorphism）实现基于对象类型的动态分派（dynamic dispatch）。</p>
+        </section>
+        <section>
+            <p style="text-indent: 2em;text-align: justify">
+                通俗的说：就是把需要的变量和方法交给一个对象，然后直接通过使用这个对象来进行操作。</p>
+            <p style="text-indent: 2em;text-align: justify">
+                （注意：JavaScript不是一种模块化编程语言,ES5不支持”类”（class），也没有”模块”（module）。ES6正式支持”类”和”模块”，但是并不是所有的浏览器都支持es6的。我们本次讲解基于ES5）</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>知识点：1.理解对象</h3>
+            <h3>知识点：2.创建对象</h3>
+            <h3>知识点：3.继承</h3>
+        </section>
+        <section>
+            <p style="text-align: left">对象的概念</p>
+            <p style="text-align: left">
+                “对象”是单个实物的抽象。<br/>
+                一本书、一辆汽车、一个人都可以是“对象”，一个数据库、一张网页、Date、Array、甚至一个与远程服务器的连接也可以是“对象”。<br/>
+                就像一个黑盒子，你使用其功能而无需明了原理。<br/>
+            </p>
+        </section>
+        <section>
+            <p>
+                “对象”是一个容器，封装了“属性”（property）和“方法”（method）。
+                所谓“属性”，就是对象的状态；如Array对象具有length属性。一个人具有身高，体重属性。
+                所谓“方法”，就是对象的行为（完成某种任务）。比如，我们可以把动物抽象为animal对象，“属性”记录具体是那一种动物，“方法”表示动物的某种行为（奔跑、捕猎、休息等等）。如Date对象的getfullyear方法。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">面向对象的特征详解</p><br>
+            <p class="fragment" style="font-size: .8em">
+                封装：找到变化并且把它封装起来<br>
+                继承：子类继承父类，可以继承父类的方法及属性，实现了多态以及代码的重用，因此也解决了系统的重用性和扩展性，但是继承破坏了封装.<br>
+                多态：接口的多种不同的实现方式即为多态。接口是对行为的抽象.方法不变，通过接收的参数变化，来实现多态。<br><br>
+            </p>
+            <p class="fragment">一张图生动解释面向对象的特征名词→</p>
+        </section>
+        <section>
+            <img src="../img/JS-04-OOPrograming/demo1.jpg" height="482" width="527"/>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p class="fragment" style="font-size: .8em">如何封装一个对象？</p>
+            <p class="fragment" style="font-size: .8em">构造函数模式</p>
+            <p class="fragment" style="font-size: .8em">Prototype模式</p>
+            <p class="fragment" style="font-size: .8em">如何实现构造函数的继承？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="fragment" style="font-size: .8em">构造函数模式</p>
+            <pre class="fragment">
+                <code>
+                    function Cat(name,color){
+                        this.name = name;
+                        this.color = color;
+                        this.type = "猫科动物";
+                        this.eat = function(){alert(name+"吃老鼠");};
+                    }
+                    var cat1= new Cat("大毛","黄色");
+                </code>
+            </pre>
+            <a class="fragment" href="../demo/JS-04-OOPrograming/demo1.html">构造函数模式demo</a>
+        </section>
+        <section>
+            <p style="font-size: .8em">
+                Prototype模式:可以让所有对象实例共享它包含的属性和方法。不必在构造函数中定义对象实例的信息。
+            </p>
+            <pre>
+                <code>
+                    function Cat(){
+                        Cat.prototype.name = '阿黄';
+                        Cat.prototype.color = '黄色';
+                        Cat.prototype.type = "猫科动物";
+                        Cat.prototype.sayName = function(){alert(this.name)};
+                    }
+                    var cat1=new Cat();
+                    var cat2=new Cat();
+                </code>
+            </pre>
+            <a href="../demo/JS-04-OOPrograming/demo2.html">Prototype模式demo</a>
+        </section>
+        <section>
+            <p style="font-size: .8em">
+                如何实现构造函数的继承:在子类型构造函数内部调用超类型构造函数。通过apply（）或call（）方法可以在新创建的对象上执行构造函数。优势：可以在子类函数中向超类型构造函数传递参数
+            </p>
+            <pre >
+                <code>
+                function SuperType() {
+                    this.colors=["red","yellow","green"];
+                }
+                function SubType() {
+                    //继承SuperType函数
+                    SuperType.call(this,"small");
+                }
+
+                function bt1() {
+                    var instance1=new SubType();
+                    instance1.colors.push("black");
+                    alert(instance1.colors);
+                }
+                function bt2() {
+                    var instance2=new SubType();
+                    alert(instance2.colors);
+                }function bt3(){
+                var instance3=new SubType();
+                alert(instance3.size);
+                alert(instance3.colors);
+                 }
+                </code>
+            </pre>
+            <a href="../demo/JS-04-OOPrograming/demo3.html">借用构造函数实现继承demo</a>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">面向对象与面向过程的区别？</p>
+            <p class="fragment" style="font-size: .6em">传统的过程式编程（procedural programming）由一系列函数或一系列指令组成；而面向对象编程的程序由一系列对象组成。<br/>
+                每一个对象都是功能中心，具有明确分工，可以完成接受信息、处理数据、发出信息等任务。因此，面向对象编程具有灵活性、代码的可重用性、模块性等特点，容易维护和开发，非常适合多人合作的大型应用型软件项目。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://javascript.ruanyifeng.com/#toc3" target="_blank">JavaScript 标准参考教程（alpha）-阮一峰</a></p>
+            <p>参考二：JavaScript高级程序设计：第六章</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p class="fragment">还有哪些继承的模式？</p>
+            <p class="fragment"><a href="http://www.cnblogs.com/ayqy/p/4471638.html" target="_blank">重新理解JS的6种继承方式</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:center;">感谢大家观看</p>
+            <p style="text-align:center;">
+                <small>BY :陈尚欢 | 胡思豪 | 徐童</small>
+                <br>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

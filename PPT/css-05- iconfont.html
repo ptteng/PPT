@@ -1,0 +1,267 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用iconfont？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-05】如何使用IconFont？</h2>
+
+            <h3>小课堂【郑州第80期】</h3>
+
+            <p style="text-align: center;">分享人：黄鑫鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是iconfont</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Iconfont.cn是由阿里巴巴UX部门推出的矢量图标管理网站，也是国内首家推广Webfont形式图标的平台。网站涵盖了1000多个常用图标并还在持续更新中，Iconfont平台为用户提供在线图标搜索、图标分捡下载、在线储存、矢量格式转换、个人图标库管理及项目图标管理等基础功能。我认为iconfont可以理解为定制的图标字体。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>(1)@font-face是什么？
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                @，即at-rule是一个声明，为CSS提供执行或怎么表现的指令。每个声明以@开头,后紧跟一个可用的关键字，这个关键字充当一个标识符，用于表示CSS该做什么。这是一个通用的语法，尽管每个at-rule有其它语法变体。常规规则如下：@[KEYWORD]
+                (RULE);<br></p>
+        </section>
+        <section>
+            <p>
+                @font-face这个规则允许在web页面上加载自定义字体，对自定义字体有不同程度的支持，但是这个规则接受语句创建和提供这些字体。
+            </p>
+            <pre>
+               <code >
+                 @font-face {
+                           font-family: 'MyWebFont';
+                           src: url('myfont.woff2') format('woff2'),
+                                url('myfont.woff') format('woff');
+                        }
+
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">(2)<br>-moz-对应 Firefox,<br>
+                -webkit-对应 Safari and Chrome<br>
+                -o- for Opera<br>
+                -ms- for Internet Explorer<br>
+                上面这些前缀是为了处理不同浏览器之间的兼容问题，现在最新版的浏览器基本都支持css3 基本都不用写前缀 ，写前缀是为了向前兼容老版本的浏览器而已。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                (3)<br>-webkit-text-stroke-width: 0.2px;/*对图标边缘进行描边*/<br>
+                -webkit-font-smoothing: antialiased;/*对字体进行抗锯齿渲染*/<br>
+            </p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align: left"> (1)如何使用iconfont？<br>
+                (2)字体图标在pc端的chrome浏览器下会出现严重的锯齿；<br>
+                (3)字体图标在safair或chrome浏览器下被加粗<br>
+            </p>
+        </section>
+        <section>
+            <h3>4.问题解决</h3>
+        </section>
+
+        <section>
+            <p>1.如何使用iconfont？</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                （1） 首先在Iconfont-阿里巴巴矢量图标库上面将你需要的图标点击购物车按钮加入“暂存架”
+            </p>
+        </section>
+        <section>
+            <img src="../img/css-05-iconfont/css05ppt01.png">
+        </section>
+
+        <section>
+            <p style="text-align: left">(2)选择完所有要用的图标后“存储为项目”，给它命名。然后在“图标管理”-“图标应用项目”中找到这个项目，获取在线链接，把里面的代码复制到CSS中。</p>
+        </section>
+        <section>
+            <img src="../img/css-05-iconfont/css05ppt02.png">
+        </section>
+        <section>
+            (3)在HTML中需要使用到图标时，使用iconfont类名。<br>
+            <pre>
+               <code >
+
+
+                <i class="iconfont" > &#xe86e;</i>
+
+
+                </code>
+          </pre>
+            里面写上你想用的图标下面的Unicode
+        </section>
+        <section>
+            <p style="text-align: left">(4)然后你可以通过控制iconfont类的属性改变图标的样式，比如：</p>
+            <pre>
+               <code >
+               .iconfont{
+	                 font-family:"iconfont";
+	                 font-size:16px;
+	                 font-style:normal;
+	                 -webkit-font-smoothing: antialiased;
+                     -webkit-text-stroke-width: 0.2px;
+                     -moz-osx-font-smoothing: grayscale;
+                     padding-left:20px
+                 }
+
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p>2.字体图标在pc端的chrome浏览器下会出现严重的锯齿；</p>
+        </section>
+        <section>
+            <img src="../img/css-05-iconfont/css05ppt04.png">
+        </section>
+        <section>
+            <p>出现以上现象可以对字体图标的边缘进行模糊；（只支持webkit内核浏览器,参数数值不宜设置得很大，这会带来图标加粗的问题）</p>
+        <pre>
+               <code >
+                 -webkit-text-stroke-width: 0.2px;
+
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p>3.字体图标在safair或chrome浏览器下被加粗</p>
+        </section>
+        <section>
+            <img src="../img/css-05-iconfont/css05ppt05.png">
+        </section>
+        <section>
+            <p>以上现象是由于字体图标存在半个像素的锯齿，在浏览器渲染的时候直接显示一个像素了，导致在有背景下的图标显示感觉加粗；所以在应用字体图标的时候需要对图标样式进行抗锯齿处理，CSS代码设置如下：</p>
+        <pre>
+               <code >
+                 .iconfont{-webkit-font-smoothing: antialiased;}
+
+                </code>
+          </pre>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>是否可以上传图标呢？下面是图标生成工具的链接<br><br>
+            <a href="http://www.iconfont.cn/help/platform.html">图标生成工具</a> </p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left"><a href="https://www.zhihu.com/question/25952487">知乎：阿里巴巴iconfont怎么是正确的使用方式？</a><br><br>
+                <a href="http://www.iconfont.cn/plus">阿里巴巴iconfont</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>还有什么别的途径可以使用小图标？</p>
+        </section>
+        <section>
+            <p style="text-align: left">1.雪碧图<br><br>
+                2.bootstrap图标库<br><br>
+            3.more:......</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>感谢大家的观看</small>
+                <small>BY : 黄鑫鑫</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -36,8 +36,8 @@
     <div class="slides">
         <section>
             <h2>【Task-07】Angular UI-Router的使用</h2>
-            <h3>小课堂【成都第二十五期】</h3>
-            <p style="text-align: center">分享人：李绍博</p>
+            <h3>小课堂【成都第八十八期】</h3>
+            <p style="text-align: center">分享人：左少华</p>
         </section>
         <section class="a">
             <p>目录</p>
@@ -72,17 +72,17 @@
             </pre>
             <p>html标签中设置视图插入位置: 如</p>
             <pre>
-                <code><div view></div></code>
+                <code> <div ui-view></div> </code>
             </pre>
         </section>
         <section>
             <p style="text-align: left">UI-router基本参数</p>
             <p class="fragment" style="font-size: .8em">$stateProvider：配置应用状态<br>用法：$stateProvider.state(stateName, stateConfig)</p>
             <p class="fragment" style="font-size: .8em">stateConfig:对象，该路由的具体配置项</p>
-                <p class="fragment" style="font-size: .8em">url：默认相对路径（以^开头的是绝对路径)<br>views：每个子视图可以包含自己的模板、控制器和预载入数据。设置多视图。如果在单个状态不需要此属性。<br>template: HTML字符串或者返回HTML字符串的函数(一般用templateUrl)<br>templateUrl: HTML模板的路径或者返回HTML模板路径的函数<br>controller、controllerProvider：指定任何已经被注册的控制器或者一个作为控制器的函数<br>resolve：预载入列依赖或数据，注入到控制器中。<br>onEnter, onExit:路由进入OR退出时执行的函数</p>
+                <p class="fragment" style="font-size: .8em">url：默认相对路径（以^开头的是绝对路径)<br>views：每个子视图可以包含自己的模板、控制器和预载入数据。设置多视图。如果在单个状态不需要此属性。<br>template: HTML字符串或者返回HTML字符串的函数(一般用templateUrl)<br>templateUrl: HTML模板的路径或者返回HTML模板路径的函数<br>controller、controllerProvider：指定任何已经被注册的控制器或者一个作为控制器的函数<br>resolve：预载入依赖或数据，注入到控制器中。<br>onEnter, onExit:路由进入OR退出时执行的函数</p>
         </section>
         <section>
-            <p style="font-size: .8em">1.view:当一个页面需要嵌入多个视图时，可以配置参数，这里介绍相对路径的配置，绝对路径用@的形式，可查看官方文档</p>
+            <p style="font-size: .8em">1.views:当一个页面需要嵌入多个视图时，可以配置参数，这里介绍相对路径的配置，绝对路径用@的形式，可查看官方文档</p>
             <pre>
                 <code>html
   <div ui-view="filters"></div>
@@ -120,24 +120,25 @@
                 <code>//在controller中注入promiseObj获取值
  controller: function($scope，promiseObj){
           $scope.items = promiseObj.data.items;
+          }
                 </code>
             </pre>
-            <p style="font-size: .8em"> data:注入自定义数据</p>
+            <p style="font-size: .5em"> data:注入自定义数据</p>
         </section>
         <section>
-            <p style="font-size: .8em">ronEnter 和 onExit 回调函数,在进入该路由和离开该路由时触发</p>
+            <p style="font-size: .8em">onEnter 和 onExit 回调函数,在进入该路由和离开该路由时触发</p>
             <pre>//这个做登陆验证也不错，进入需要登陆的模块时，检测登陆状态，未登陆就跳转，做一些弹窗也可以
                 <code>$stateProvider.state("contacts", {
-  template: '<h1>{{title}}</h1>',
+  template: '<h4> {{title}} </h4>',
   resolve: { title: 'My Contacts' },
   controller: function($scope, title){
     $scope.title = title;
   },
   onEnter: function(title){
-    if(title){ ... do something ... }
+    if (title) { ... do something ... }
   },
   onExit: function(title){
-    if(title){ ... do something ... }
+    if (title) { ... do something ... }
   }
 })
                 </code>
@@ -273,7 +274,7 @@ ui-sref="field.moduleDetail({id:item.id})" //url 中http://admin.luoboduo.com/#/
             <h4>鸣谢</h4>
             <p style="text-align:center;">感谢大家观看</p>
             <p style="text-align:center;">
-                <small>BY :李绍博</small>
+                <small>BY :李绍博  | 左少华</small>
             </p>
         </section>
     </div>

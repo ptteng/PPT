@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>BFC及其工作方式</h2>
-            <h3>小课堂【成都】</h3>
-            <p>分享人：郑明月</p>
+            <h3>小课堂【成都 第七十八期】</h3>
+            <p>分享人：刘思言</p>
         </section>
         <section>
             <p>目录</p>
@@ -106,42 +106,35 @@
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <p>
-                <a href="http://www.cnblogs.com/xiaohuochai/p/5248536.html" target="_blank">请点击我</a>
-            </p>
-        </section>
-        <section>
             <p>自适应两栏布局</p>
             <pre>
                 <code>
-    <style>
-     body {
-         width: 300px;
-         position: relative;
-     }
-
-     .aside {
-         width: 100px;
-         height: 150px;
-         float: left;
-         background: #f66;
-     }
-
-     .main {
-         height: 200px;
-         background: #fcc;
-     }
-    </style>
-            <body>
-                    <div class="aside"></div>
-                     <div class="main"></div>
-            </body>
+                    <style>
+                     .side-l {
+                       float: left;
+                       width: 300px;
+                       height: 200px;
+                       background-color: aqua;
+                     }
+                     .main {
+                       overflow: hidden;
+                       height: 200px;
+                       background-color: yellowgreen;
+                     }
+                    </style>
+                    <body>
+                      <div class="side-l"></div>
+                      <div class="main">
+                        <div class="inside-box"></div>
+                        <p>这是一段文字</p>
+                      </div>
+                   </body>
                 </code>
             </pre>
         </section>
         <section>
             <p>上面中的例子我们可以看出，每个元素的margin box的左边与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</p>
-            <p>因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。</p>
+            <p>因此，虽然存在浮动的元素，但main的左边依然会与包含块的左边相接触。</p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
@@ -151,54 +144,32 @@
             <pre>
             <code>
                 <style>
-                    .par {
-                        border: 5px solid #fcc;
-                        width: 300px;
-                    }
-
-                    .child {
-                        border: 5px solid #f66;
-                        width: 100px;
-                        height: 100px;
-                        float: left;
-                    }
+                    .wrap {
+                      overflow: hidden;
+                      border: #ff6666 solid 3px; }
+                    .wrap .part {
+                      float: left;
+                      margin-left: 20px;
+                      width: 100px;
+                      height: 100px;
+                      background-color: aqua; }
                 </style>
                 <body>
-                <div class="par">
-                    <div class="child"></div>
-                    <div class="child"></div>
-                </div>
+                  <div class="wrap">
+                    <div class="part"></div>
+                    <div class="part"></div>
+                  </div>
                 </body>
             </code>
             </pre>
         </section>
         <section>
             <p>根据BFC布局规则第六条：计算BFC的高度时，浮动元素也参与计算</p>
-            <p>为了清除内部浮动，我们可以触发par生成BFC，那么par在计算高度时，par内部的浮动元素child也会参与计算</p>
+            <p>为了清除内部浮动，我们可以触发wrap生成BFC，那么wrap在计算高度时，wrap内部的浮动元素也会参与计算</p>
         </section>
         <section>
             <p>防止垂直margin重叠</p>
-            <pre>
-            <code>
-                <style>
-                    .pp {
-                        color: #f55;
-                        background: #fcc;
-                        width: 200px;
-                        line-height: 100px;
-                        text-align: center;
-                        margin: 100px;
-                    }
-                </style>
-                <body>
-                <p class="pp">Haha</p>
-                <p class="pp">Hehe</p>
-                </body>
-            </code>
-                </pre>
-        </section>
-        <section>
-            <p>两个p之间的距离为100px，发送了margin重叠</p>
+            <p>两个p之间的距离为5px，发送了margin重叠</p>
             <p>根据BFC布局规则第二条：Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</p>
         </section>
         <section>
@@ -206,25 +177,23 @@
             <pre>
             <code>
                 <style>
-                    .wrap {
-                        overflow: hidden;
-                    }
-
-                    .pp {
-                        color: #f55;
-                        background: #fcc;
-                        width: 200px;
-                        line-height: 100px;
-                        text-align: center;
-                        margin: 100px;
-                    }
+                  .main {
+                    overflow: scroll;
+                    background-color: yellowgreen; }
+                  .main p {
+                    color: rebeccapurple;
+                    margin: 5px; }
+                  .main .p-wrap {
+                    overflow: hidden; }
                 </style>
-                <body>
-                <p class="pp">Haha</p>
-                <div class="wrap">
-                    <p class="pp">Hehe</p>
-                </div>
-                </body>
+                
+                  <div class="main">
+                    <p>这是第一个p</p>
+                    <div class="p-wrap">
+                      <p>这是第二个p</p>
+                    </div>
+                    <p>这是第三个p</p>
+                
             </code>
             </pre>
         </section>
@@ -239,6 +208,7 @@
         </section>
         <section>
             <p>参考一：<a href="http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html" target="_blank">前端精选文章</a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/" target="_blank">张鑫旭博客</a></p>
         </section>
         <section>
             <h3>8.扩展思考</h3>
@@ -247,7 +217,7 @@
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 郑明月</small>
+                <small>BY : 郑明月|刘思言</small>
             </p>
         </section>
 

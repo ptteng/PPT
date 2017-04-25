@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>前端垮域问题有哪些常用的解决方式？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="width: 110%">【JS-task5】前端跨域问题有哪些常用的解决方式？</h2>
+            <h3>小课堂【武汉第128期】</h3>
+            <p>分享人：万维娜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;letter-spacing: 1px"><strong>为什么需要跨域？</strong><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                受浏览器<u>同源策略</u>的限制，本域的js不能操作其他域的页面对象（比如DOM）。
+                但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。
+                所以我们要通过一些方法使<u>本域的js能够操作其他域的页面对象或者使其他域的
+                    js能操作本域的页面对象</u>（iframe之间）。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                这里需要明确的一点是： 所谓的<u>域跟js的存放服务器没有关系</u>，
+                比如baidu.com的页面加载了google.com的js，
+                那么此js的所在域是baidu.com而不是google.com。也就是说，
+                此时该js能操作baidu.com的页面对象，而不能操作google.com的页面对象。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.<b>跨域</b>：指的是浏览器不能执行其他网站的脚本。
+                它是由浏览器的同源策略造成的，
+                是浏览器对javascript施加的安全限制。<br><br>
+                2.<b>同源策略</b>：它是由Netscape提出的一个著名的安全策略。
+                同源是指，域名，协议，端口相同。浏览器执行javascript脚本时，
+                会检查这个脚本属于那个页面，如果不是同源页面，就不会被执行。<br><br>
+                3.<b>为什么script标签引入的文件不受同源策略的限制？</b>：
+                <u>因为script标签引入的文件内容是不能够被客户端的js获取到的，
+                    不会影响到被引用文件的安全</u>，所以没必要使script标签引入的文件遵循浏览器的同源策略。
+                而通过ajax加载的文件内容是能够被客户端js获取到的，所以ajax必须遵循同源策略，
+                否则被引入文件的内容会泄漏或者存在其他风险。
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-05-cross-domain/img.png">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">有哪些常用的跨域方式？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left;width: 140%;margin-left: -20%">
+                4.1使用iFrame访问另一个域。 然后再从另一个页面读取iFrame的内容。jquery等有一些封装。据说Firefox等可能不支持读取另一个iFrame的内容。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;a)document.domain + iframe (domain 属性可返回下载当前文档的服务器域名,只有在主域相同的时候才能使用该方法)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;b)location.hash +
+                iframe（原理是利用location.hash来进行传值）：假设域名a.com下的文件cs1.html要和cnblogs.com域名下的cs2.html传递信息。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;1)
+                cs1.html首先创建自动创建一个隐藏的iframe，iframe的src指向cnblogs.com域名下的cs2.html页面 <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;2) cs2.html响应请求后再将通过修改cs1.html的hash值来传递数据 <br>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;3)
+                同时在cs1.html上加一个定时器，隔一段时间来判断location.hash的值有没有变化，一旦有变化则获取获取hash值 <br>
+                注：由于两个页面不在同一个域下IE、Chrome不允许修改parent.location.hash的值，所以要借助于a.com域名下的一个代理iframe <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;c)window.name + iframe（window.name 的好处在于：name 值在不同的页面（甚至不同域名）加载后依旧存在，并且可以支持非常长的
+                name 值【2MB】） <br>
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;width: 110%">
+                4.2CORS（背后的思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，
+                从而决定请求或响应是应该成功，还是应该失败。） <br>
+                4.3跨域 XMLHttpRequest 请求。<br>
+                4.4通过JSONP跨域： 通过script标签引入一个js或者是一个其他后缀形式（如PHP，jsp等）
+                的文件，此文件返回一个js函数的调用，如返回JSONP_getUsers(["paco","john","lili"])，
+                也就是说此文件返回的结果调用了JSONP_getUsers函数，并且把["paco","john","lili"]传进去，
+                这个["paco","john","lili"]是一个用户列表。那么如果此时我们的页面中有一个JSONP_getUsers函数，
+                那么JSONP_getUsers就被调用到，并且传入了用户列表。此时就实现了在本域获取其他域数据的功能，
+                也就是跨域。<br>
+                4.5 动态创建script： 这种方法其实是JSONP跨域的简化版，JSONP只是在此基础上加入了回调函数。<br>
+                4.6服务器代理。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>5.1使用iFrame跨域</p>
+            <p>a)document.domain + iframe :</p>
+            <pre>
+                <code>
+                    //在www.a.com/a.html中：
+                        document.domain = 'a.com';
+                        var ifr = document.createElement('iframe');
+                        ifr.src = 'http://www.script.a.com/b.html';
+                        ifr.display = none;
+                        document.body.appendChild(ifr);
+                        ifr.onload = function(){
+                        var doc = ifr.contentDocument ||ifr.contentWindow.document;
+                            //在这里操作doc，也就是b.html
+                        ifr.onload = null;
+                        };
+                    //在www.script.a.com/b.html中：
+                        document.domain = 'a.com';
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>b)location.hash + iframe:</p>
+            <pre>
+                <code>
+                    //b.html页面的关键代码如下:
+                        try {
+                            parent.location.hash = 'data';
+                        } catch (e) {
+                            // ie、chrome的安全机制无法修改parent.location.hash，
+                            var ifrproxy = document.createElement('iframe');
+                            ifrproxy.style.display = 'none';
+                            ifrproxy.src = "http://www.baidu.com/proxy.html#data";
+                            document.body.appendChild(ifrproxy);
+                        }
+                    //proxy.html页面的关键代码如下:
+                        //因为parent.parent（即baidu.com/a.html）
+                        和baidu.com/proxy.html属于同一个域，
+                        所以可以改变其location.hash的值
+                        parent.parent.location.hash = self.location.hash.substring(1);
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>c)window.name + iframe:</p>
+            <pre>
+                <code>
+                      //1) 创建a.com/cs1.html
+                      //2) 创建a.com/proxy.html，并加入如下代码
+                        <script>
+                            function proxy(url, func) {
+                              var isFirst = true;
+                              ifr = document.createElement('iframe');
+                              loadFunc = function () {
+                                 if (isFirst) {
+                                   ifr.contentWindow.location = 'http://a.com/cs1.html';
+                                    isFirst = false;
+                                     } else {
+                                       func(ifr.contentWindow.name);
+                                       ifr.contentWindow.close();
+                                       document.body.removeChild(ifr);
+                                       ifr.src = '';
+                                       ifr = null;
+                                        }
+                                   };
+                              ifr.src = url;
+                              ifr.style.display = 'none';
+                              if (ifr.attachEvent) ifr.attachEvent('onload', loadFunc);
+                              else ifr.onload = loadFunc;
+                              document.body.appendChild(iframe);
+                          }
+                        </script>
+                        </head>
+                        <body>
+                          <script>
+                            proxy('http://www.baidu.com/', function (data) {
+                                console.log(data);
+                            });
+                          </script>
+                        </body>
+                        //3) 在b.com/cs1.html中包含：
+                        <script>
+                            window.name = '要传送的内容';
+                        </script>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>5.3跨域 XMLHttpRequest 请求:</p>
+            <pre>
+                <code>
+                   var xhr = new XMLHttpRequest();//建立xhr对象
+                     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {//等待回调
+                            alert(xhr.statusText);
+                          } else {
+                             alert("Request was unsuccessful: " + xhr.status);
+                            }
+                     xhr.open("get", "example.php", false);
+                    //请求的类型、请求的URL和是否异步发送
+                      xhr.send(data);//参数
+                         }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>5.4通过JSONP跨域：</p>
+            <pre>
+                <code>
+                  function handleResponse(response){
+                        console.log('The responsed data is: '+response.data);
+                    }
+                    var script = document.createElement('script');
+                    script.src = 'http://www.baidu.com/json/?callback=handleResponse';
+                    document.body.insertBefore(script, document.body.firstChild);
+                    /*handleResonse({"data": "zhe"})*/
+                    //原理如下：
+                    //当我们通过script标签请求时
+                    //后台就会根据相应的参数(json,handleResponse)
+                    //来生成相应的json数据(handleResponse({"data": "zhe"}))
+                    //最后这个返回的json数据(代码)就会被放在当前js文件中被执行
+                    //至此跨域通信完成
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>怎么选择跨域的方法？</h3><br>
+            <p style="text-align: left;width: 110%">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                跨域的方法很多，不同的应用场景我们都可以找到一个最合适的解决方案。
+                比如单向的数据请求，我们应该优先选择JSONP或者window.name，
+                双向通信优先采取location.hash，
+                在未与数据提供方达成通信协议的情况下我们也可以用server proxy的方式来抓取数据。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 10%">
+            <p>参考一：<a
+                    href="http://www.cnblogs.com/JChen666/p/3399951.html"
+                    target="_blank">
+                前端解决跨域问题的8种方案（最新最全）</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/yoissee/p/5901677.html"
+                      target="_blank">解决前端跨域请求的几种方式</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/kongjiea/article/details/44201021"
+                      target="_blank">深入理解前端跨域方法和原理</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>
+                怎么用nginx跨域？
+            </h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 李绍博|万维娜</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

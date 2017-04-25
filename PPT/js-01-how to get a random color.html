@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【js-01】随机的出现一种颜色</h2>
+            <h3>小课堂【郑州第81期】</h3>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在页面上很多时候需要我们给出随机的数字或颜色来表明身份或各种其他用途，是一种比较常见的js技巧</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                第一，怎么实现随机
+            </p>
+            <p style="text-align: left">
+                第二，怎么让它表现为颜色
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">如何正确使用随机函数</h3>
+            <h3 style="letter-spacing: 2px">如何将随机的函数与颜色关联起来</h3>
+            <h3 style="letter-spacing: 2px">随机颜色后的九宫格不变回原色</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>随机函数</h3>
+        </section>
+        <section>
+            <h4>完全数字随机法</h4>
+            <code>
+                function change_color(){
+                return"#"+(00000+(Math.floor(Math.random()*16777216)).toString(16).slice(-6));
+                }
+            </code>
+        </section>
+        <section>
+            <h4>RGB法</h4>
+            <code>
+                function randomRgbColor() {
+                var r = Math.floor(Math.random() * 256);
+                var g = Math.floor(Math.random() * 256);
+                var b = Math.floor(Math.random() * 256);
+                return `rgb(${r},${g},${b})`;
+                }
+            </code>
+        </section>
+        <section>
+            <h4>将数字与颜色关联</h4>
+            <code>
+                square[x].style.background = change_color();
+                square[y].style.background = change_color();
+                square[z].style.background = change_color();
+            </code>
+        </section>
+        <section>
+            <h4>变回原色</h4>
+            <p>用循环遍历九宫格，在变色结束后重新赋予原色</p>
+            <code>
+                for (a=0;a<9;a++){
+                    square[a].style.backgroundColor ="#ff1493";
+                }
+            </code>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                如何转化颜色格式？
+            </p>
+        </section>
+        <section>
+            <p>RGB转换为16进制</p>
+            <code>
+                function rgb2Hex(rgb) {
+                if (/^rgb\((\d{1,3}\,){2}\d{1,3}\)$/i.test(rgb)) { //test RGB
+                var hex = '#'; //定义十六进制颜色变量
+                rgb.replace(/\d{1,3}/g, function(kw) { //提取rgb数字
+                kw = parseInt(kw).toString(16); //转为十六进制
+                kw = kw.length < 2 ? 0 + kw : kw; //判断位数，保证两位
+                hex += kw; //拼接
+                });
+                return hex; //返回十六进制
+                } else {
+                console.log(`Input ${rgb} is wrong!`);
+                return '#000'; //输入格式错误,返回#000
+                }
+                }
+            </code>
+        </section>
+        <section>
+            <p>16进制转化为RGB</p>
+            <code>
+                function hex2Rgb(hex) { //十六进制转为RGB
+                var rgb = []; // 定义rgb数组
+                if (/^\#[0-9A-F]{3}$/i.test(hex)) { //判断传入是否为#三位十六进制数
+                let sixHex = '#';
+                hex.replace(/[0-9A-F]/ig, function(kw) {
+                sixHex += kw + kw; //把三位16进制数转化为六位
+                });
+                hex = sixHex; //保存回hex
+                }
+                if (/^#[0-9A-F]{6}$/i.test(hex)) { //判断传入是否为#六位十六进制数
+                hex.replace(/[0-9A-F]{2}/ig, function(kw) {
+                rgb.push(eval('0x' + kw)); //十六进制转化为十进制并存如数组
+                });
+                return `rgb(${rgb.join(',')})`; //输出RGB格式颜色
+                } else {
+                console.log(`Input ${hex} is wrong!`);
+                return 'rgb(0,0,0)';
+                }
+                }
+            </code>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 30%">
+            <p>参考一：《JS编程艺术》</p>
+            <p>参考二：<a
+                    href="http://www.docin.com/p-908956141.html">
+                豆丁网</a></p>
+            <p>参考三：<a href="http://www.jb51.net/article/102109.htm">脚本之家</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">大家知道RGBA属性是有透明度属性的，那么通过哪种方法可以直接把透明度也转化过来呢</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY :董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task02】</h2>
+            <h3>小课堂【郑州第79期】</h3>
+            <h4>JS有哪些传参方式</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>目前我们大部分人已经进入js的任务，尤其任务2以后就会遇到网页间数据传递给下一个或者多个页面进行使用的情况，有什么方法能够实现，满足我们目前的需要，现在就跟大家分享讨论一下！</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1参数传递的几种方法
+            </section>
+            <section>
+                <p>第一个，使用url实现；</p>
+                <p>第二个，使用Cookie实现；</p>
+                <p>第三个，使用Web Storage(网络存储)实现；</p>
+                <p>第四个，基于Angular的一些方法；</p>
+                <p>第五个，基于Ajax[ˈeɪˌdʒæks]的一些方法；</p>
+                <p>。。。。。。</p>
+            </section>
+            <section>
+                2.2 url的实现方法
+            </section>
+            <section>
+                <p>url参数的书写格式：http://www.wowo.html?name=rhythmk&key=567574</p>
+                <p>url和参数之间用"?"隔开，多个参数之间用"&"符号连接</p>
+                <p>url参数的调用方法：person=location.search;</p>
+            </section>
+            <section>
+                2.3 url的优缺点
+            </section>
+            <section>
+                <p>优点：</p>
+                <li>URL地址法简洁易用，可同时传递多个字符型参数；</li>
+                <li>URL地址法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况比较不会性能损失；</li>
+                <p>缺点：</p>
+                <li>URL传递参数长度在IE浏览器中受限，最大为2K；</li>
+                <li>信息安全无法保障：URL地址在客户端可见，导致会泄露信息，可能被恶意用来攻击系统或者其他行为。</li>
+                <li>URL只能传递字符型参数，传递中文时，由于字符编码方式不一样,可能导致参数解析处理错误。</li>
+            </section>
+            <section>
+                2.4 Cookie的实现方法
+            </section>
+            <section>
+                <p>在Javascript中处理cookie有些复杂，使用document.cookie属性可以设置一个新的cookie字符串。例如：document.cookie = "name=Nicholas";为了规范，一般要写成这种形式：document.cookie = encodeURIComponent("name") + "=" + encodeURIComponent("Nicholas");</p>
+                <p>以上的例子，书写很不方便，后来又演化出来使用设置好的对象——CookieUtil来进行编写Cookie的方法：</p>
+                <p>设置cookie：CookieUtil.set("name","Nicholas","/books/projs/","www.wrox.com",new Date("January 1, 2020"));</p>
+                <p>删除设置的cookie： CookieUtil.unset("name","Nicholas","/books/projs/")</p>
+            </section>
+            <section>
+                2.5 Cookie的特点
+            </section>
+            <section>
+                <li>每个域中的cookie的个数有限制：IE7最多为50个，Firefox为50个，Opera为30个，Chrome没有硬性规定。超出后，浏览器自动清除以前的cookie。</li>
+                <li>cookie的尺寸也有限制，为了兼容性，最后设置在4095B（含4095）以内。它影响一个作用域的所有cookie。</li>
+                <li>cookie的名称不区分大小写。mycookie和MyCokie是一样的。不过最后区分，因为涉及到url编码。</li>
+                <li>cookie的值是字符串形式的。</li>
+                <li>cookie的作用域设置时要注意作用域的范围。</li>
+            </section>
+            <section>
+                2.6 Web Storage
+            </section>
+            <section>
+               <li>Web Storage有两个对象：sessionStorage和localStorage（globalStorage在H5中已经被localStorage取代）。</li>
+               <li>存储数据有两种：按方法、按属性；</li>
+               <li>sessionStorage.setItem("name","Nicholas");</li>
+               <li>sessionStorage.name="Nicholas";</li>
+               <li>读取方法也一样，有两种：</li>
+               <li>var name = sessionStorage.getItem("name");</li>
+               <li>var name = sessionStorage.name;</li>
+               <li>删除的方法：</li>
+               <li>sessionStorage.removeItem("name");</li>
+               <li>var name = sessionStorage.name;</li>
+            </section>
+            <section>
+                <p>Web Storage的大小同样是受限制的，因各浏览器设置不同，local Storage最小有2.5MB，最大5MB；session storage最小有2.5MB，最大5MB。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 以上的方法如何在实践中使用</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>编码实战中引入简单的案例向大家演示一下。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+         <section>
+            <p><a href="../demo/js-02-data transmission/js-02-data transmission url demo.html">demo1-url</a></p>
+            <p><a href="../demo/js-02-data transmission/js-02-data transmission demo.html">demo2-web storage</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题: 大家还使用过哪些觉得不错的传参方式？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二：《Javascript权威指南》</p>
+            <p>参考三：<a href="https://ptteng.github.io/PPT/PPT/js-03-TransferParametersWay.html#/14" target="_blank">武汉师姐的小课堂</a></p>
+            <p>参考四：<a href="https://ptteng.github.io/PPT/PPT/js-03-url.html#/" target="_blank">成都师兄的小课堂</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：网页内传参的方法？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

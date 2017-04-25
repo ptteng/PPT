@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>洗牌算法具体指的是什么</h3>
+            <h3>小课堂【成都第89期】</h3>
+            <p style="text-align: center;">分享人：王奎智</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section><h3>一、背景介绍</h3></section>
+        <section>
+            <section>
+                <img src="https://pic1.zhimg.com/v2-e266f26cc8117bc4856ee7d250af31f4_r.jpg"><br />
+                <p style="text-align:left;font-size: 31px">
+                    洗牌算法(Shuffling Algorithm)，顾名思义，它的产生是用来解决类似洗牌这种场景的问题的，目的是产生一串等概率的随机列，使得很难去预测牌的顺序。
+                </p>
+            </section>
+            <section>
+                <img src="../img/js-2-shuffle/1.jpg">
+                <p style="text-align:left;font-size: 31px">
+                    现在的各种牌类游戏都有自己的洗牌算法，为了保证游戏的趣味性，各自的实现中都有自己考虑的因素添加在其中。
+                    </br>1999年，一个很流行的在线扑克平台的开发者开发的洗牌软件，带有很微小但很致命的漏洞，导致了灾难性的结果。
+                    </br>黑客只要知道手中的两张牌和3张公用牌，就可以猜出转牌和河牌时会来什么牌，以及其他玩家的牌。
+                </p>
+            </section>
+            <section>
+                <img src="../img/js-2-shuffle/2.png">
+                <p style="text-align:left;font-size: 31px">
+                    洗牌算法的应用也很广，比如三国杀游戏、斗地主游戏等等。讲一个最常见的场景，就是播放器的随机播放。
+                    有些播放器的随机播放，是每次产生一个随机数来选择播放的歌曲，这样就有可能还没有听完所有的歌前，又听到已经听过的歌。
+                    另一种就是利用洗牌算法，把待播放的歌曲列表shuffle。
+                    如何判断使用的是哪一种方案呢？ 很简单，如果点上一首还能回去，则利用的是洗牌算法，如果点上一首又是另外一首歌，则说明使用的是随机产生方法。
+                </p>
+            </section>
+        </section>
+        <section><h3>二、知识剖析</h3></section>
+        <section>
+            <section>
+                <h3>Fisher–Yates Shuffle</h3>
+                <p style="text-align:left;font-size: 31px">
+                    其算法思想就是 从原始数组中随机抽取一个新的元素到新数组中
+                </p>
+                <ul>
+                    <li>从还没处理的数组中，产生一个[0, n]之间的随机数 random</li>
+                    <li>从剩下的n个元素中把第 random 个元素取出到新数组中</li>
+                    <li>删除原数组第random个元素</li>
+                    <li>重复第 2 3 步直到所有元素取完</li>
+                    <li>最终返回一个新的打乱的数组</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Knuth-Durstenfeld Shuffle</h3>
+                <p style="text-align:left;font-size: 31px">
+                    每次从未处理的数组中随机取一个元素，然后把该元素放到数组的尾部，即数组的尾部放的就是已经处理过的元素，这是一种原地打乱的算法，每个元素随机概率也相等，时间复杂度从 Fisher 算法的 O(n2)提升到了 O(n)
+                </p>
+                <ul>
+                    <li>选取数组(长度n)中最后一个元素(arr[length-1])，将其与n个元素中的任意一个交换，此时最后一个元素已经确定</li>
+                    <li>选取倒数第二个元素(arr[length-2])，将其与n-1个元素中的任意一个交换</li>
+                    <li>重复第 1 2 步，直到剩下1个元素为止</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Inside-Out Algorithm</h3>
+                <p style="text-align:left;font-size: 31px">
+                    Knuth-Durstenfeld Shuffle 是一个in-place算法，原始数据被直接打乱，有些应用中可能需要保留原始数据，因此需要开辟一个新数组来存储打乱后的序列。 Inside-Out Algorithm 算法的基本思想是设一游标i从前向后扫描原始数据的拷贝，在[0, i]之间随机一个下标j，然后用位置j的元素替换掉位置i的数字，再用原始数据位置i的元素替换掉拷贝数据位置j的元素。其作用相当于在拷贝数据中交换i与j位置处的值。
+                </p>
+            </section>
+        </section>
+        <section><h3>三、常见问题</h3></section>
+        <section>
+            <p>Fisher–Yates Shuffle是如何实现的？</p>
+        </section>
+        <section><h3>四、解决方案</h3></section>
+        <section>
+            <h3>Fisher–Yates Shuffle的JS实现</h3>
+        </section>
+        <section>
+            <pre>
+                <code class="hljs actionscript">
+  Array.prototype.shuffle = function() {
+    var input = this;
+    for (var i = input.length - 1; i >= 0; i--) {
+      var randomIndex = Math.floor(Math.random() * (i + 1));//获取小于this.length的随机整数
+      var itemAtIndex = input[randomIndex];
+      input[randomIndex] = input[i];
+      input[i] = itemAtIndex;//input[randomIndex]和input[i]交换值
+    }
+    return input;
+  }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>shuffle 函数挂载在 Array 对象的原型之下，便于数组直接调用该函数。在 shuffle 函数内部，this 引用的就是调用该 shuffle 的数组。
+                用一个新的变量引用 this，也就是调用 shuffle 函数的数组。接下来的for循环用于遍历所有数组内的所有元素，并进行随机交换。
+                注意，遍历顺序是从后往前进行的，也就是说从 input.length-1 位置的元素开始，直到遍历到数组中的第一个元素。遍历过程中的位置由变量 i 指定。
+                接下来，使用了两行代码在指定范围内挑选一个随机元素。 变量randomIndex存储了一个随机数，该随机数可以用作数组的索引，进而提取一个随机元素。注意，该随机数的最大值并不是数组的长度，而是变量i的值。
+                确定了随机元素的索引之后，用新的变量保存该元素的值，然后交换选中元素和随机元素的值。
+            </p>
+        </section>
+        <section><h3>五、编码实战</h3></section>
+        <section><h3>六、拓展思考</h3></section>
+        <section>
+            <h4>怎么保证这个算法得到的数组是完全随机的（即等概）？</h4>
+        </section>
+        <section>
+            <h3>使用程序得到的一般是伪随机数</h3>
+            <p>
+                笔者目前了解到最优秀的是梅森旋转算法，其在低于623次元的空间以内不存在线性回归，但仍然是一个伪随机算法。
+            </p>
+        </section>
+        <section>
+            <h3>七、参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.zhihu.com/question/23810169">洗牌算法怎样才够乱</a></p><br>
+            <p>参考二： <a href="http://www.tuicool.com/articles/qIjqQzb">洗牌算法shuffle - caochao88</a></p><br>
+            <p>参考三： <a href="http://blog.jobbole.com/64897/">当随机不够随机：一个在线扑克游戏的教训</a></p><br>
+            <p>参考四： <a href="http://www.cnblogs.com/jkisjk/archive/2012/04/23/javascript_shuffle.html">随机问题之--洗牌算法</a></p>
+        </section>
+        <section>
+            <h3>八、更多讨论</h3>
+        </section>
+        <section>
+            <p>还有没有更简单的洗牌算法</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h3>感谢观看</h3>
+            <p><small>BY ︱王奎智</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>

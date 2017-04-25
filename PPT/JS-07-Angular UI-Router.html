@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用ui-router</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        p {
+            text-align: left
+        }
+
+        .a > p {
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Task-06】如何使用ui-router？</h2>
+            <h3>小课堂【武汉第133期】</h3>
+            <p style="text-align: center">分享人：徐童</p>
+        </section>
+        <section class="a">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-indent: 2em;text-align: justify">
+                路由(route),几乎所有的MVC(VM)框架都应该具有的特性，因为它是前端构建单页面应用(SPA)必不可少的组成部分。</p>
+            <p style="text-indent: 2em;text-align: justify">
+                对于angular而言，自然也有内置的路由模块-ngRoute。但由于功能的局限性，往往不能满足开发需求。于是，AngularUI团队基于ngRoute开发了第三方模块-UI-Router。ngRoute在多视图和嵌套视图上较弱，ui-router弥补了这些缺点。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">UI-Router注入与配置</p>
+            <p style="text-align: left">和ngRoute一样，UI-Router首先需要作为依赖注入应用</p>
+            <pre>
+                <code>angular.module("myApp", ["ui.router"]).config(function($stateProvider){
+        $stateProvider.state(stateName, stateConfig);
+                })</code>
+            </pre>
+            <p>html标签中设置视图插入位置: 如</p>
+            <pre>
+                <code><div ui-view=""></div></code>
+            </pre>
+            <a href="../demo/JS-07-Angular UI-Router/main.html">DEMO</a>
+        </section>
+        <section>
+            <p style="text-align: left">UI-router基本参数</p>
+            <p class="fragment" style="font-size: .8em">$stateProvider：配置应用状态<br>用法：$stateProvider.state(stateName,
+                stateConfig)</p>
+            <p class="fragment" style="font-size: .8em">stateConfig:对象，该路由的具体配置项</p>
+            <p class="fragment" style="font-size: .8em">url：默认相对路径（以^开头的是绝对路径)<br>views：每个子视图可以包含自己的模板、控制器和预载入数据。设置多视图。如果在单个状态不需要此属性。<br>template:
+                HTML字符串或者返回HTML字符串的函数(一般用templateUrl)<br>templateUrl: HTML模板的路径或者返回HTML模板路径的函数<br>controller、controllerProvider：指定任何已经被注册的控制器或者一个作为控制器的函数<br>resolve：预载入列依赖或数据，注入到控制器中。<br>onEnter,
+                onExit:路由进入OR退出时执行的函数</p>
+        </section>
+        <section>
+            <p style="font-size: .8em">1.view:当一个页面需要嵌入多个视图时，可以配置参数，这里介绍相对路径的配置，绝对路径用@的形式，可查看官方文档</p>
+            <pre>
+                <code>html
+  <div ui-view="filters"></div>
+  <div ui-view="tabledata"></div>
+  <div ui-view="graph"></div>
+</code>
+                <code>$stateProvider
+  .state('report',{
+    views: {
+      'filters': {
+        templateUrl: 'report-filters.html',//指定模板
+        controller: function($scope){ ... controller stuff just for filters view ... }//控制器
+      },
+      'tabledata': {
+        templateUrl: 'report-table.html',
+        controller: function($scope){ ... controller stuff just for tabledata view ... }
+      },
+      'graph': {
+        templateUrl: 'report-graph.html',
+        controller: function($scope){ ... controller stuff just for graph view ... }
+      }
+    }
+  })</code>
+            </pre>
+        </section>
+        <section>
+            <p style="font-size: .8em"> resolve:向该路由控制器注入依赖或数据,格式{string|function}</p>
+            <pre>
+                <code>resolve: {promiseObj:  function($http){
+            return $http({method: 'GET', url: '/someUrl'})
+               .then (function (data) {
+                   return doSomeStuffFirst(data);
+               });
+         }},   </code>
+                <code>//在controller中注入promiseObj获取值
+ controller: function($scope，promiseObj){
+          $scope.items = promiseObj.data.items;
+                </code>
+            </pre>
+            <p style="font-size: .8em"> data:注入自定义数据</p>
+        </section>
+        <section>
+            <p style="font-size: .8em">ronEnter 和 onExit 回调函数,在进入该路由和离开该路由时触发</p>
+            <pre>//这个做登陆验证也不错，进入需要登陆的模块时，检测登陆状态，未登陆就跳转，做一些弹窗也可以
+                <code>$stateProvider.state("contacts", {
+                  template: '<h1>{{title}}</h1>',
+                  resolve: { title: 'My Contacts' },
+                  controller: function($scope, title){
+                    $scope.title = title;
+                  },
+                  onEnter: function(title){
+                    if(title){ ... do something ... }
+                  },
+                  onExit: function(title){
+                    if(title){ ... do something ... }
+                  }
+                })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1、路由间参数如何传递？</p>
+            <p>2、嵌套路由父子关系如何定义？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1、路由间参数如何传递？</p>
+            <p style="font-size: .8em">一、通过url传递：url中传递参数也有好几种形式，如（ui-sref="a({}),$state.go('a',({}))"）</p>
+            <pre>
+                <code>url:"/contacts/:contactId" //url中传入参数为 /contacts/42
+url: "/contacts/{contactId}"</code>
+                <code>//若为查询参数
+url: "/contacts?myParam" //将匹配url的“/ contacts？myParam = value”
+url: "/contacts?myParam1&myParam2" //will match to url of "/contacts?myParam1=value1&myParam2=wowcool"
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p style="font-size: .8em">二、通过params属性设置</p>
+            <pre>
+                <code>
+                .state('contacts', {
+                        url: "/contacts",
+                        params: {
+                            param1: null
+                        },
+                        templateUrl: 'contacts.html'
+                    })
+                <a ui-sref="contacts({param1: value1})">View Contacts</a> or $state.go('contacts', {param1: value1})
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <p>2、嵌套路由父子关系如何定义？</p>
+            <pre>
+                <code>
+                $stateProvider
+                    .state('contacts.list', {});//点标记法(推荐)
+                $stateProvider //parent属性
+                    .state({
+                        name: 'list',       // 状态名也可以直接在配置里指定
+                        parent: 'contacts'  // 父路由的状态名
+                    });
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            子级路由
+            <a href="../demo/JS-07-Angular UI-Router/main.html">DEMO</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">UI-router工作原理？</p>
+            <p class="fragment">路由对于前端MVC(VM)而言，就是将hash值(#xxx)与一系列的路由规则进行查找匹配，匹配出一个符合条件的规则，然后根据这个规则，进行数据的获取，以及页面的渲染。</p>
+        </section>
+        <section>
+            <p>大致过程</p>
+            <p style="font-size: .8em">1.创建路由规则</p>
+            <pre><code>.state('home', {
+        url: '/abc',
+        template: 'hello world'
+    });</code></pre>
+            <p style="font-size: .6em">
+                首先，$urlRouterProvider创建并存储一个state对象，里面包含着该路由规则的所有配置信息。然后，调用$urlRouterProvider.when(...)方法，进行路由的注册(之前是路由的创建)</p>
+
+            <p style="font-size: .8em">2.路由查找匹配</p>
+            <p style="font-size: .6em">（1）angular 在刚开始的$digest时，$rootScope会触发$locationChangeSuccess事件（angular在每次浏览器hash
+                change的时候也会触发$locationChangeSuccess事件）<br>（2）ui.router
+                监听了$locationChangeSuccess事件，于是开始通过遍历一系列rules，进行路由查找匹配<br>
+                （3）当匹配到路由后，就通过$state.transitionTo(state,...)，跳转激活对应的state<br>
+                （4）最后，完成数据请求和模板的渲染</p>
+            <p style="font-size: .6em">当我们访问http://xxxx#/abc的时候，这个路由规则被匹配到，对应的模板会被填到某个div[ui-view]中</p>
+        </section>
+        <section>
+            <p style="font-size: .6em">一般路由要对rules进行遍历，但ui-router进行了优化：</p>
+            <p class="fragment" style="font-size: .6em">
+                ui.router在创建路由时，会实例化一个对应的state对象，并存储起来(states集合里面)，每一个state对象都有一个state.name进行唯一标识(如：'home') </p>
+            <p class="fragment" style="font-size: .6em">
+                当通过ui-sref(会调用$state.go())指令或直接通过$state.go()跳转时，ui-sref="home"指令会给对应的dom添加click事件，然后根据state.name，直接跳转到对应的state，跳转到对应的state之后，ui.router会改变hash，所以触发’$locationChangeSuccess'事件，然后执行回调，在回调中通过一个判断代码规避循环rules</p>
+            <p class="fragment" style="font-size: .6em">
+                所以尽量避免直接使用href="#/xxx"来改变hash，然后跳转到对应state。这么做将进行rules遍历，浪费性能</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/01-02/p/6071392.html" target="_blank">angular中的路由</a></p>
+            <p>参考二：<a href="https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stateprovider-1"
+                      target="_blank">uiroueter官方文档</a></p>
+            <p>参考三：<a href="https://www.oschina.net/translate/angularjs-ui-router-nested-routes" target="_blank">AngularJS
+                ui-router (嵌套路由）</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>uiRouter中还要很多对应事件，了解之后在项目中很有帮助</p>
+            <p class="fragment" style="font-size: .6em">state事件<br>$rootScope.$on('$stateChangeStart', function(event,
+                toState, toParams, fromState, fromParams){ ... })
+                <br>$rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams){ ... })
+                <br>$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){ ...
+                })<br>$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams,
+                error){ ... })
+            </p>
+            <p class="fragment" style="font-size: .6em">view事件<br>View被加载但是DOM树构建之前时：<br>$scope.$on('$viewContentLoading',
+                function(event, viewConfig){ ... });
+                <br>View被加载而且DOM树构建完成时：<br>$scope.$on('$viewContentLoaded', function(event){ ... });</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:center;">感谢大家观看</p>
+            <p style="text-align:center;">
+                <small>BY :李绍博 | 徐童</small>
+                <br>
+                <small>特别鸣谢：龚家豪</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

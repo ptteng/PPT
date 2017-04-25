@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<label for="keyname">别名(key):</label>  
+    <input type="text" id="keyname" name="keyname" class="text"/>  
+    <br/> 
+    <label for="sitename">网站名：</label>  
+    <input type="text" id="sitename" name="sitename" class="text"/>  
+    <br/>  
+    <label for="siteurl">网 址：</label>  
+    <input type="text" id="siteurl" name="siteurl"/>  
+    <br/>  
+    <input type="button" onclick="save()" value="新增记录"/>  
+    <hr/> 
+
+
+    <label for="search_phone">输入别名(key)：</label>  
+    <input type="text" id="search_site" name="search_site"/>  
+    <input type="button" onclick="find()" value="查找网站"/>  
+    <p id="find_result"><br/></p>  
+    <script type="text/javascript">
+    	//保存数据  
+    function save(){  
+        var site = {};
+        site.keyname = document.getElementById("keyname").value;
+        site.sitename = document.getElementById("sitename").value;  
+        site.siteurl = document.getElementById("siteurl").value;
+        var str = JSON.stringify(site); // 将对象转换为字符串
+        localStorage.setItem(site.keyname,str);  
+        alert("保存成功");
+    }  
+    //查找数据  
+    function find(){  
+        var search_site = document.getElementById("search_site").value;  
+        var str = localStorage.getItem(search_site);  
+        var find_result = document.getElementById("find_result");
+        var site = JSON.parse(str);  
+        find_result.innerHTML = search_site + "的网站名是：" + site.sitename + "，网址是：" + site.siteurl;  
+    } 
+    </script> 
+</body>
+</html>

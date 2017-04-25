@@ -1,0 +1,274 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何实现水平垂直居中？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-06】如何实现水平垂直居中？</h2>
+
+            <h3>小课堂【郑州第86期】</h3>
+
+            <p style="text-align: center;">分享人：黄鑫鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+            在初学css的过程中，水平居中和垂直居中是我们经常遇到的问题，一提到水平居中，就想到text-align：center，
+                一提到水平居中，就想到vertical-align:middle。这两个属性是如何实现作用的？它们对所有的对象都适用吗？
+            让我们来一探究竟！
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>水平居中有哪几种方式？
+            </h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.使用inline-block 和 text-align实现
+            </p>
+            <pre>
+               <code >
+                 .parent{text-align: center;}
+                 .child{display: inline-block;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.使用margin:0 auto来实现
+            </p>
+            <pre>
+               <code >
+                 .child{width: 200px; margin: 0 auto;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                3.使用绝对定位实现
+            </p>
+            <pre>
+               <code >
+                 .parent{position:relative;}<br>
+                 /*或者实用margin-left的负值为盒子宽度的一半也可以实现，不过这样就必须知道盒子的宽度，但兼容性好*/<br>
+                 .child{position:absolute; left:50%; transform:translate(-50%);}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                4.实用flex布局实现
+            </p>
+            <pre>
+               <code >
+                 .parent{display:flex; justify-content:center;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <h3>垂直居中有哪几种方式？
+            </h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.vertical-align
+            </p>
+            <pre>
+               <code >
+                 .parent{display:inline-block;vertical-align:middle;line-height:20px;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.实用绝对定位
+            </p>
+            <pre>
+               <code >
+                .parent{position:relative;}
+                .child{positon:absolute; top:50%; transform:translate(0,-50%);}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                3.实用flex实现
+            </p>
+            <pre>
+               <code >
+                 .parent{display:flex; align-items:center;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>
+                1.水平垂直同时居中如何实现？<br><br>
+                2.各种方式的作用对象？
+            </h3>
+        </section>
+        <section>
+            <h3>4.问题解决</h3>
+        </section>
+        <section>
+            <h3>
+                1.水平垂直同时居中如何实现？
+            </h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.利用vertical-align,text-align,inline-block实现
+            </p>
+            <pre>
+               <code >
+                 .parent{display:inline-block; vertical-align:middle; text-align:center;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                2.利用绝对定位实现
+            </p>
+            <pre>
+               <code >
+                .parent{position:relative;}
+                .child{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                3.实用flex实现
+            </p>
+            <pre>
+               <code >
+                 .parent{display:flex;justify-content:center;align-items:center;}
+                </code>
+          </pre>
+        </section>
+        <section>
+            <h3>
+                2.各种方式的作用对象？
+            </h3>
+        </section>
+        <section>
+            <img src="../img/css-06-horizontal center and vertical center/horizon.png">
+        </section>
+        <section>
+            <img src="../img/css-06-horizontal center and vertical center/vertically.png">
+        </section>
+        <section>
+            <img src="../img/css-06-horizontal center and vertical center/vertical-horizon.png">
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>还有别的垂直居中的方式吗？</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">利用HTML和CSS实现常见的布局：
+                <a href="https://segmentfault.com/a/1190000003931851">https://segmentfault.com/a/1190000003931851</a><br><br>
+                张鑫旭：我对CSS vertical-align的一些理解与认识（一）：
+                <a href="http://www.zhangxinxu.com/wordpress/2010/05/%E6%88%91%E5%AF%B9css-vertical-align%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E4%B8%8E%E8%AE%A4%E8%AF%86%EF%BC%88%E4%B8%80%EF%BC%89/">http://www.zhangxinxu.com/wordpress/2010/05/</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>vertical-align对行内块元素与行内元素作用方式的区别？</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>感谢大家的观看</small>
+                <small>BY : 黄鑫鑫</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

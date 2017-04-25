@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>network中的请求信息，headers中的每一项分别是什么意义? </h2>
+            <h3> </h3>
+            <p>分享人：刘其勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <p style="text-align: left">http请求中的request header和response header
+                </p>
+                <p>浏览器发送和接收http请求的时候，每条都带有一个“请求头”。它携带发送者的信息，也可以包含自定义的数据。</p>
+            </section>
+            <section>
+                <h3>http请求的7个步骤：</h3>
+                <ol>
+                    <li>建立TCP链接</li>
+                    <li>浏览器发送请求（GET/sample/hello.jsp HTTP/1.1）</li>
+                    <li>浏览器发送请求头（request header）</li>
+                    <li>服务器发送应答（HTTP/1.1 200 OK）</li>
+                    <li>服务器发送应答头（response header）</li>
+                    <li>服务器发送数据</li>
+                    <li>服务器关闭TCP连接</li>
+                </ol>
+            </section>
+            <section>
+                <dl >
+                    <dt>HTTP报文的结构</dt>
+                    <dd>请求/响应头、空行、数据</dd>
+                </dl>
+                <dl>
+                    <dt>请求头的结构</dt>
+                    <dd>请求行</dd>
+                    <dd>首部字段（请求首部字段、通用首部字、实体首部字段）</dd>
+                </dl>
+                <dl>
+                    <dt>响应头的结构</dt>
+                    <dd>状态行</dd>
+                    <dd>首部字段（相应首部字段、通用首部字段、实体首部字段）</dd>
+                </dl>
+            </section>
+                <section><img src="../img/js-5-XMLHttpRequestHeader/http.jpg" alt=""></section>
+                <section><img src="../img/js-5-XMLHttpRequestHeader/request.jpg" alt=""></section>
+                <section><img src="../img/js-5-XMLHttpRequestHeader/response.jpg" alt=""></section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析：header内的每条项目的作用②</h3>
+            </section>
+            <section>
+                <h5>所有可能的字段列表④</h5>
+                <iframe src="http://blog.csdn.net/ggghub/article/details/50318881"
+                        style="overflow: scroll;width: 100%;height: 75vh;">
+                </iframe>
+            </section>
+            <section>
+                <h3>请求头中常见的字段</h3>
+                <p style="text-align: left">
+                        GET /URL/ HTTP/1.1 请求行-方法、URI、HTTP版本<br>
+                        Host: 发出请求的页面所在的域<br>
+                        Connection: 表示是否需要持久连接。<br>
+                        Upgrade-Insecure-Requests: 声明支持升级的安全类型（https）<br>
+                        User-Agent: 浏览器的用户代理字符串<br>
+                        Accept:指定客户端能够接收的内容类型 <br>
+                        Referer: 发出请求的页面的URI<br>
+                        Accept-Encoding:浏览器可以支持的压缩编码类型。<br>
+                        Accept-Language: 浏览器可以接受的字符编码集。<br>
+                        Cookie: 该请求域名下的所有cookie值<br>
+                </p>
+            </section>
+            <section>
+                <h3>应答头中常见的字段</h3>
+                <p style="text-align: left">
+                    Connection:keep-alive --表示是否需要持久连接。<br>
+                    Content-Encoding:gzip --web服务器支持的返回内容压缩编码类型。
+                    Content-Type:text/html --媒体类型
+                    Date:Wed, 12 Apr 2017 09:33:01 GMT --原始服务器消息发出的时间
+                    Last-Modified:Sat, 01 Apr 2017 12:59:48 GMT --请求资源的最后修改时间
+                    Server:nginx/1.2.4  --web服务器软件名称
+                    Transfer-Encoding:chunked --文件传输编码的格式
+                </p>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>如何修改和配置请求头</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>使用XHR对象的.setRequestHeader()方法</p>
+            <pre><code>
+        req1.open('post','url',true);
+        req1.setRequestHeader('myheader','myvalue');
+        req1.send("数据");
+            </code></pre>
+        </section>
+        <section>
+            <h3>5.编码实战：</h3>
+
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>HTTP2.0中做了哪些改进</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>1.<a href="https://wenku.baidu.com/view/d0e0d1ea83c4bb4cf6ecd122.html?re=view">http1.1协议/</a></p>
+            <p>2. <a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00JTQK1L4/ref=sr_1_1?ie=UTF8&qid=1491982693&sr=8-1&keywords=%E5%9B%BE%E8%A7%A3HTTP">
+                《图解HTTP》</a></p>
+            <p>4.<a href="http://kb.cnblogs.com/page/92320/">HTTP header</a></p>
+            <p>5. <a href="https://sanwen8.cn/p/11aknaP.html">通用首部字段详解</a></p>
+            <p>6. <a href="http://sanwen.net/a/tndqqoo.html">请求首部字段详解</a></p>
+            <p>7. <a href="https://my.oschina.net/u/2965390/blog/761408">响应首部字段详解</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+        </section>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
