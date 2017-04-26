@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>margin负值在页面布局中有哪些应用？</title>
+    <title>Collaborative Development&Slides tutorial</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -22,6 +22,10 @@
         link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+    <style>
+
+
+    </style>
 </head>
 <body>
 <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
@@ -31,337 +35,296 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3>【css-08】margin负值在页面布局中有哪些应用？</h3>
+            <h3>【CSS-08】margin负值在页面布局中有哪些应用？</h3>
             <h3>小课堂【武汉-143期】</h3>
             <p>分享人：庄引</p>
         </section>
         <section>
+
             <p>目录</p>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.常见问题</p>
-            <p>4.解决方案</p>
-            <p>5.编码实战</p>
-            <p>6.扩展思考</p>
-            <p>7.参考文献</p>
-            <p>8.更多讨论</p>
+            <div style="text-align:center ;%">
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </div>
         </section>
         <section>
             <section>
                 <h3>1.背景介绍</h3>
+                <div style="text-align:left ; ">
+                    <p>CSS中的负边距(negative margin)就是将margin属性的值设为负值，在CSS布局中很多的布局方法都依赖于负边距。
+                        三列布局是前端设计中很常见的页面布局方式，三列一般分别是居左的导航，且宽度固定；主列是居中的主要内容，宽度自适应；附加列一般是广告等额外信息，居右且宽度固定。
+                        圣杯布局和双飞翼布局都可以实现这种三列布局， 圣杯布局和双飞翼布局是前端工程师必须掌握，
+                        因为它既能体现你懂HTML结构又能体现出你对ＤIV+CSS布局的掌握，也能带来带来最好的用户体验。
+                    </p>
+                </div>
             </section>
+        </section>
+        <section>
             <section>
-                <p> CSS盒模型中，margin是我们老熟悉的一个属性了， 它的负值你用过吗？ 你知道margin负值的秘密武器吗？我们一起看看吧！
-                    CSS中的负边距(negative margin)是布局中的一个常用技巧，只要运用得合理常常会有意想不到的效果。很多特殊的css布局方法都依赖于负边距，
-                    所以掌握它的用法对于前端的同学来说，那是必须的。本文非常基础，老鸟可以略过。在页面布局中，最喜欢自适应宽带布局，无论几列，这样适应性会更强。
-                    其中有一种网站最常见布局，左中右三列布局，三栏布局，我们可能首先想到的是，设定各自的宽度，然后依次浮动就好了。但是这里的问题是，
-                    中间栏也就是主内容栏的宽度是不固定的，需要随着浏览器窗口变化而变化。
+                <h3>2.知识剖析:margin是什么?</h3>
+                <div style="text-align:left;">
+                    <blockquote>外边距属性定义元素周围的空间。通过使用单独的属性，可以对上、右、下、左的外边距进行设置。也可以使用简写的外边距属性同时改变所有的外边距。--W3School
+                    </blockquote>
+                    <blockquote>设置外边距会在元素外创建额外的"空白"。“空白”通常是指不能放其他元素且父元素背景可见的区域。--CSS权威指南(第三版)P217</blockquote>
+                    <blockquote>
+                        外边距（margin）。可以设置盒子与相邻元素的间距。--CSS设计指南(第三版)P64
+                    </blockquote>
+                </div>
+            </section>
 
-                    如何实现呢？
-
-                    这里就要学习一个小技巧，margin负值的使用。给margin设定负值，很多时候对排版是神来之笔，在此就是。
-
-                    我们考虑，要设定中间的宽度为随浏览器变化而调整，那设定它为width:100% 就可以了，就可以占据整个父元素的全部内容。
-                    但是这里的问题是：如果中间栏设定了100%，那其他的就没地方放了，怎么办？
-                    我们可以用浮动和margin负值来解决这个问题。</p>
-                <div style="text-align:left">
-                    <p>不清楚如何注册github的请 <a style="color: #e77; padding: 0 2%"
-                                          href="http://jingyan.baidu.com/article/4e5b3e192200e291911e2468.html"
-                                          target="_blank">点这里</a>
+            <section>
+                <div style="text-align:left ;">
+                    <h3>margin 取负值 ?</h3>
+                    <p>首先必须先理解margin移动的基准点，而margin的值决定移动的方向和数值。
+                        margin的参考线有两类，一类是top、left，它们以外元素作为参考线，另一类是right、bottom，它们以自身作为参考线。
+                        简单点说就是：当margin-top、margin-left为负值的时候，会把元素上移、左移，同时元素在文档流中的位置也发生相应变化,
+                        这点与position:relative的元素设置top、left后元素还占据原来位置不同当margin-bottom、margin-right设为负值的时候，
+                        元素本身没有位置变化，后面的元素会上移、左移。
                     </p>
                 </div>
             </section>
             <section>
-                <h4>2.知识剖析</h4>
+                <div style="text-align:left ; ">
+                    <!--<p>下面这张图很直观地解释了margin的移动，。-->
+                    <img src="https://pic3.zhimg.com/v2-a7d813afe7ab2c6c4233146609d00dfa_b.png" alt="margin移动的基准点"
+                         style="float:left;">
+                    红色箭头表示正值时候的移动方向，当margin为负值的时候就反方向移动
+                    总地来说，就是当margin-fonttop、left为负值的时候与参考线的距离减少，当margin-right、bottom为负值的时候参考线就向左、上面移动。 </p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>
+                    圣杯布局 是典型的 CSS 布局问题，有着众多的解决方案。如果你不熟悉圣杯布局的历史，这篇文章 能够提供很好的总结，并连接了几个众所周知的解决方案。
+                    圣杯布局由页头 (header)，中间部分 (center)，页脚 (footer)，和三栏组成。中间的一栏是主要内容，左边和右边提供如广告、导航的链接。</p>
 
-                <!--<div style="text-align:left;">-->
-
-                <p>1一个负margin应该是这样设置的：</p>
+            </section>
+            <section>
+                <img src="http://jns.img.bucket.ks3-cn-beijing.ksyun.com/skill/daily/1be2349b-fe7f-4064-b9d8-1b8377a1dcc7.PNG"
+                     alt="">
+            </section>
+            <section>
+                <img src="http://jns.img.bucket.ks3-cn-beijing.ksyun.com/skill/daily/09ee4d1e-b09b-4994-ad78-4415e1efffa9.PNG"
+                     alt="">
+            </section>
+            <section>
+                原圣杯布局 是典型的 CSS 布局问题
+                圣杯布局由页头 (header)，中间部分 (container)，页脚 (footer)，和三栏组成。中间的一栏是主要内容，左边和右边提供如广告、导航的链接。
+                两边带有固定宽度中间可以流动（fluid）；
+                中间一栏 (主要内容) 在 HTML 源码中应该首先元素出现；
+                使用的 HTML 标记尽量少,仅需一个额外的 div 标签
+                仅需非常简单的 CSS，带上最少的兼容性补丁
+                当页面内容不够满页面时，页脚应固定在底部。
+            </section>
+            <section>
+                <h3>第1步 建立骨架</h3>
+                <p>
+                    先完成 header, footer 和 container 三个 主要的div</p>
                 <pre>
-                        <code>#content {margin-left:-100px;}</code>
-                    </pre>
-                <!--</div>-->
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>A、负margin是绝对标准的CSS
-                        W3C标准对于margin属性来说，负值是被允许的。 。
-                        B、负maring不是一种hack方法
-                        因为缺乏对负marign的理解，或者因为它长得像hack，就认为它是一种hack方法。除非你是用来修复自己在其他地方造成的错误。
-                        C、不脱离文档流
-                        不使用float的话，负margin元素是不会破坏页面的文档流。所以如果你使用负margin上移一个元素，所有跟随的元素都会被上移。
-                        D、完全兼容
-                        所有现代浏览器都完全支持负margin（IE6在大多数情况下也支持）。
-                        E、浮动会影响负margin的使用
-                        负margin不是你每天都用的CSS属性，应用时应小心谨慎。
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>如果使用得当，负margin是非常强大的属性，以下是2种（负margin占主导位置）的场景。 /p>
-                        <img src="../img/ppt-01-Collaborative Development&Slides tutorial/two.jpg" alt="">
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>4. 如图操作 </p>
-                    <img src="../img/ppt-01-Collaborative Development&Slides tutorial/3.jpg" alt="">
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>5. 如图操作 </p>
-                    <img src="../img/ppt-01-Collaborative Development&Slides tutorial/4.jpg" alt="">
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>6. 将复制好的链接发送给被邀请人 ，被邀请人点击链接完成关联操作。</p>
-                    <p>被邀请人如果点开链接提示404错误，请登出github重新点击链接即可关联~</p>
-                </div>
-            </section>
-        </section>
-        <section>
-            <section>
-                <div style="text-align:left">
-                    <h3>1.带竖线分隔的横向列表（例如：网站底部栏目）</h3>
+                    <code>
+                        <header></header>
 
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/96f892aa82ee851b2506a0a87260c06c.jpg"
-                         alt="带竖线分隔的横向列表（例如：网站底部栏目）">
-                    <p>传统的分隔符是使用 “|” 来实现的，弊端显而易见，不利于表现与结构的分离，同时增加了后台输出时的判断工作。所以我们采用border-left 左边框来模拟分割线，
-                        然后通过margin-left：-1px隐藏掉第一个列表项的边框，父元素设置 overflow：hidden 来隐藏溢出部分，这样完美达到首尾无分割线的要求。</p>
-                </div>
+                        <div id="container">
+
+                        </div>
+                        <footer></footer>
+                    </code>
+                </pre>
             </section>
             <section>
-                <div style="text-align:left">
-                    <h3>2、带底部分割线的竖向列表（例如：新闻列表）</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/dc5ec5ac6cdc0c0defc095c0b602db42.jpg"
-                         alt="带底部分割线的竖向列表（例如：新闻列表）">
-                    <p>原理同横向列表相同，需要注意的是 margin 负值在 IE 中的层级bug，详细参见：IE6 IE7 IE8(Q)
-                        负边距 (margin) 导致元素溢出 hasLayout 容器时显示异常，得到的最终解决方案是用 zoom：1确保触发hasLayout，
-                        然后设置position:relative。</p>
-                </div>
+                <h3>4 多栏等高</h3>
+                <p>正如上面所说，有时候我们还希望多栏等高，使页面看起来更美。于是便有了经典的
+                    padding-bottom：9999px；margin-bottom：-9999px；先通过padding把盒子扩展到足够高，然后通过margin 负值把它给拉回来，
+                    最后父元素设置overflow：hidden隐藏溢出，这样多栏布局中就会以最高栏为其他栏的视觉高度。
+                    当然万物没有完美的，这种等高方法的弊端如下：
+                    1）当高度超过9999px时候失效，当然一般高度不会超过这个，也可以设置为最大值 32767px（为啥，因为int的最大值就是32767，超过这个数值会以最大值计算）
+                    2）无法设置底部边框
+                    其他的就不多说了，以后会专门写一篇多栏等高的文章，详细介绍各种方法的利弊，大家按需使用。</p>
+
             </section>
             <section>
-                <div style="text-align:left">
-                    <h3>3、两栏、三栏自适应布局</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/34ced08e2069d2015e90f91e6e0725d0.jpg"
-                         alt="两栏、三栏自适应布局">
-                    <p>曾经有这样一个经典的需求：
-                        1）两栏抑或三栏布局，主体自适应宽度；
-                        2）一个或两个侧边栏固定宽度；
-                        3）主体部分xhtml结构在最前面（网速慢时可以优先显示，对SEO有利）
-                        4）自适应高度，且不影响等高；
-                        5）兼容IE6+，firefox，chrome，opera。
-                        于是乎margin负值便大放光彩，首先是国外出现的圣杯布局，掀起一股margin负值热潮。紧接着在栅格化布局大行其道的淘宝，玉伯大湿进一步利用margin
-                        布局，玉伯美其名曰：双飞翼布局--比翼双飞，像鸟儿翱翔蓝天一样自由。(双飞翼布局完整demo) 至此，margin负值在布局之路上配合float妹子，
-                        已经发挥得淋漓尽致。</p>
-                    <a href="">优雅的demo</a>
-                </div>
+                ​ container 的内边距设置为左右两栏各自的宽度：
+                <img src="https://segmentfault.com/image?src=http://alistapart.com/d/holygrail/diagram_01.gif&objectId=1190000004524159&token=41b5bed96346a86e14d5f51d2cfd1755"
+                     alt="">
             </section>
             <section>
-                <div style="text-align:left">
-                    <h3>4、多栏等高</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/bc913325a30ef0d67e8b93e23e5f7224.jpg"
-                         alt="多栏等高">
-                    <p>多栏等高，使页面看起来更美。于是便有了经典的 padding-bottom：9999px；margin-bottom：-9999px；先通过padding把盒子扩展到足够高，然后通过margin伪娘把它给拉回来，最后父元素设置overflow：hidden隐藏溢出，这样多栏布局中就会以最高栏为其他栏的视觉高度。
-                        当然万物没有完美的，这种等高方法的弊端如下：
-                        1）当高度超过9999px时候失效，当然一般高度不会超过这个，也可以设置为最大值 32767px（为啥，因为int的最大值就是32767，超过这个数值会以最大值计算）
-                        2）无法设置底部边框
-                        其他的就不多说了，以后会专门写一篇多栏等高的文章，详细介绍各种方法的利弊，大家按需使用。</p>
-                    <a href="">优雅的demo</a>
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left">
-                    <h3>5、产品列表</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/fe6b2c697106b497192f5721a2d06039.jpg"
-                         alt="产品列表">已知高宽元素水平垂直居中
-                    <p>有时候会要求一行产品列表左右两边是没有空隙的，中间有一定的间距；比如我们设置了li { margin-right：20px;} 那么最后一个肯定也是有20px的间距的，怎么办？
-                        我们可以通过设置父元素（比如ul）margin-right：-20px；
-                        来扩展容器的宽度，然后把整体的宽度加在最外层的元素上，此处如果把宽度加在了父元素上（比如ul）会导致此方法失效，因为宽度定死了，margin负值便无法扩展容器的宽度了。。</p>
-                    <a href="">优雅的demo</a>
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left">
-                    <h3>6、已知高宽元素水平垂直居中</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/ebcd4cd8d29f06c6e04303e5346a0d3b.jpg"
-                         alt="产品列表">
-                    <p>对于水平居中当然我们有更好的方法，块级元素设置 margin-left:auto; margin-right:auto; 行内元素可以使用 text-align：center 。
-                        垂直居中就不多说了，深入研究又是一篇文章了！</p>
-                    <a href="">优雅的demo</a>
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left">
-                    <h3>7、模拟表格线</h3>
-                    <img src="http://www.iyunlu.com/d/file/view/CSS-XHTMl/2012-05-03/ddf938c45f7f186ac203e8665d2b04ca.jpg"
-                         alt="产品列表">已知高宽元素水平垂直居中
-                    <p>上面的布局通过表格当然很好实现，但是前几天 点点 老兄说这个结构要用 ul无序列表来写，第一时间便想到了用 inline-block 和margin负值来做了。
-                        实际中问题还是挺多的，遇到了IE宽度奇偶BUG。国外大神的解决方法是 body{margin-left:1px; }，但是发现治标不治本，IE6和7还是坑爹。
-                        于是想到了把li的宽度设置为小数 width:49.99%; 虽然IE6-7右边框还是有一点点错位，但是视觉上基本可以了，无需刻意追求1px的差异。
-                        然后 点点 老兄又说了：如果用CSS3 如何写呢？那么自然想到了 columns 属性，研究发现这爷们居然也有IE的奇偶癖好了，两列的时候，
-                        li 如果是奇数除了chrome，其他现代浏览器都越好似的，一起错位了。
-                        这个问题我们下回分解，margin负值能很好的解决这样的需求了，兼容性也不错。</p>
-                    <a href="">优雅的demo</a>
-                </div>
-            </section>
-            <section>
-                <p>扩展思考</p>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:25px">
-                    <p style="font-size:35px">约定：</p>
-                    <ul style="padding:0% 15% ">
-                        <li>每个PPT为一个html页面，位置放于PPT文件夹下，命名规则按{职业-任务序号-分享主题英文标题}的方式命名。</li>
-                        <br>
-                        <li>每个PPT所需要的图片均放到/img下，创建和html名称相同的文件夹。如/PPT/demo.html的图片放到/img/demo/下</li>
-                        <br>
-                        <li style='color:red; font-weight: bold'>PPT制作后需要在index.html首页将内容添加到表格内</li>
-                        <br>
-                        <li>PPT制作方法参考PPT/demo.html，复制粘贴代码，内容修改</li>
-                        <br>
-                        <li style='color:red; font-weight: bold'>PPT内容结构严格参照PPT/demo.html</li>
-                        <br>
-                        <li>更改以前已有的PPT分享后，需要将自己的名字添加到PPT尾页前人名字之后</li>
-                        <br>
-                    </ul>
-                </div>
-            </section>
-            <section>
-                <p>1.) PPT内容的制作。</p>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:25px">
-                    <p>将解压后的PPT项目文件夹中的demo页面引入到ide中。<br>第32行的div标签内，就是我们要编辑内容的地方。<br><br>
-                        主要的几个标签用法：
-                    </p>
-                    <p style='padding:0% 5%'>
-                        <span style="color:red">section</span>：页面的容器。<br>
-                        <pre style="width:100%">
-                            <code>
-                                <section>
-                    <p>1.) PPT内容的制作。</p>
-            </section>
-            </code>
+                <h3>第2步 加入三栏</h3>
+                <p>
+                    此时我们有了基本框架，可以把三栏加入进去了。
+                <pre>
+                <code>
+                    <header></header>
+
+                    <div id="container">
+                       <div id="center" class="column">
+                       </div>
+                       <div id="left" class="column">
+                       </div>
+                       <div id="right" class="column">
+                       </div>
+                    </div>
+
+                    <footer></footer>
+                </code>
             </pre>
-            <span style="color:red">pre+code</span>：效果如下，适合代码演示。
-            <pre style="width:100%">
-                            <code class="hljs mipsasm" style="padding:0">
-                            <span style="color:red">pre+code</span>：效果如下，适合代码演示。
-                            <div style="text-align:left ; padding:0% 12% ;font-size:25px"></div>
-                            </code>
-                        </pre>
-            </p>
-    </div>
-    </section>
-    <section>
-        <div style="text-align:left ; padding:2% 12% ;font-size:25px">
-            <span style="color:red">section内部嵌套section</span>：2个页面支持上下翻阅（只支持1层嵌套）。<br><br>格式如下：
-            <pre style="width:100%">
-                        <code class="hljs mipsasm" style="padding:0">
-                        <section>
-                            <section>第一个页面</section>
-                            <section>第二个页面</section>
-                        </section>
-                        </code>
-                    </pre>
-            <span>其他相关：</span><br>
-            <div style="padding:0 5%">
-                <p class="fragment">1.注意标签有没有默认样式。</p>
-                <p class="fragment">2.如需更改样式，不要使用外联样式表。</p>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div style="text-align:left ; padding:2% 12% ;font-size:25px">
-            <p>注意上个页面的淡入特效，代码如下：</p>
 
-            <pre style="width:100%">
-                        <code>
-                            <div style="padding:0 5%">
-                                <p class="fragment">1.注意标签有没有默认样式。</p>
-                                <p class="fragment">2.如需更改样式，不要使用外联样式表。</p>
-                             </div>
-                        </code>
-                    </pre>
-            <p>在标签处添加class名为fragment即可 。</p>
-        </div>
-    </section>
-    <section>
-        <div style="text-align:left ; padding:2% 12% ;font-size:25px">
-            页面js相关设置：
-            <pre>
-                       <code>
-                                               // 以下为常见配置属性的默认值
-                    // {
-                    //  controls: true, // 是否在右下角展示控制条
-                    //  progress: true, // 是否显示演示的进度条
-                    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-                    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-                    //  keyboard: true, // 是否启用键盘快捷键来导航
-                    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-                    //  center: true, // 是否将幻灯片垂直居中
-                    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
-                    //  loop: false, // 是否循环演示
-                    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
-                    //  fragments: true, // 全局开启和关闭碎片。
-                    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-                    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-                    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
-                    //  mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
-                    // }
-                       </code>
-                   </pre>
-            <p>如果需要更改 在页面底部script内的<span style="color:red">Reveal.initialize</span>函数内设置</p>
-        </div>
-    </section>
-    <section>
-        <div style="text-align:left ; padding:2% 12% ;font-size:25px">
-            <p>快捷键相关：</p>
-            <span style="color:red">esc,o</span>：PPT缩略图模式。可跳转任意一张页面。<br>
-            <span style="color:red">s</span>：弹出1个页面，带有计时功能+当前时间。意义不明<br>
-            <span style="color:red">b</span>：黑屏 意义不明<br>
-            <span style="color:red">j,k</span>：上一张，下一张<br>
-            <span style="color:red">p</span>：上一步操作<br>
-        </div>
-    </section>
-    </section>
-    <section>
-        <section>
-            <h4>3.如何将文件上传到github</h4>
+            </section>
+            <section>
+                <p>接着我们给每一栏配上合适的宽度，并将它们设为浮动。同时我们需要清除 footer 的上下环境，以免遭跟上面三栏一起浮动。</p>
+            </section>
+            <section>
+                 <pre>
+                     <code>
+                         #container .column {
+                           position: relative;
+                           float: left;
+                        }
+
+                        #center {
+                           width: 100%;
+                        }
+
+                        #left {
+                           width: 200px;
+                           /* LC width */
+                           right: 200px;
+                           /* LC width */
+                           margin-left: -100%;
+                        }
+
+                        #right {
+                           width: 150px;
+                           /* RC width */
+                           margin-right: -100%;
+                        }
+
+                        footer {
+                           clear: both;
+                        }
+                     </code>
+                 </pre>
+            </section>
+
+            <section>
+                ​中间一栏的 100% 宽是基于它的父容器 container 的宽度而言的，由于 container 设置了内边距，因此中间栏看起来就处在了网页的中间，
+                但左右两栏由于排在中间栏的后面，且因空间不够被挤到了中间栏的下面，如下图所示：
+                <img src="https://segmentfault.com/image?src=http://alistapart.com/d/holygrail/diagram_02.gif&objectId=1190000004524159&token=3dee3f40248f3b62fa738e5ae7898dbf"
+                     alt="">
+            </section>
+            <section>
+                <h3>第3步 把左侧栏放上去</h3>
+                中间栏已经就位，剩下的事情就是把左右两栏放上去了，接下来我们先放左侧栏。
+
+                首先，我们先将它的外边距设置为 -100%，这样一来，
+                由于浮动的关系，左侧栏就能上位，与中间栏交叠在一起，并占据了左边。而右侧栏由于左侧栏的上位，自动向前浮动到了原来左侧栏的位置。
+                <img src="https://segmentfault.com/image?src=http://alistapart.com/d/holygrail/diagram_03.gif&objectId=1190000004524159&token=be9da59e2a05133fd5d697e707a21c98"
+                     alt="">
+            </section>
+            <section>
+                接着我们要用到相对定位属性（relative），并设置一个与左侧栏等宽的偏移量：
+                <pre>
+                    <code>
+                        #container .column {
+                           position: relative;
+                           float: left;
+                        }
+
+                        #left {
+                           width: 200px;
+                           /* LC width */
+                           right: 200px;
+                           /* LC width */
+                           margin-left: -100%;
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                可以看到，它设置的 right 属性就是相对于 container 的右边线向左偏移 200px，如此一来，它就完美地跑到了 container 左内边距的位置，也就是我们希望它呆的地方，如下图所示：
+                <img src="https://segmentfault.com/image?src=http://alistapart.com/d/holygrail/diagram_04.gif&objectId=1190000004524159&token=ad164e0de18d97a1d528e41cabd95adf"
+                     alt="">
+            </section>
+            <section>
+                <h3> 第4步 把右侧栏放上去
+                </h3>
+                最后，我们需要把右侧栏放上去，此时只需利用上面的原理把他放到 container 的右外边距的位置即可，我们需要再一次设置一个负外边距的值，它等于右侧栏的宽度：
+                <pre>
+                    <code>
+                        ​#right {
+                            width: 150px;
+                           /* RC width */
+                           margin-right: -100%;
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                至此，所有的栏目都就位了~
+                <img src="https://segmentfault.com/image?src=http://alistapart.com/d/holygrail/diagram_05.gif&objectId=1190000004524159&token=e3824f9bfc1fa952292cc9ae8efd2221"
+                     alt="">
+            </section>
         </section>
+
         <section>
-            <p>请在wiki上面查询葡萄藤在ipresst网站的账号密码 点击链接后登陆！</p>
-            <p>仅以webStorm为例，详细操作<a href="http://www.ipresst.com/w/30orku/edit" target="_blank">点我</a></p>
-            <!--<p>上传完毕之后请在github PPT项目中的表格页面<span style="color:red">在线修改！</span></p>-->
+            <section>
+                <h3>6.扩展思考</h3>
+                <div style="text-align:left;">
+                当浏览器缩小到一定程度时，这个布局可能会被破坏,怎么解决?
+                可以在body上添加min-width属性解决
+                圣杯布局其实和双飞翼布局是什么关系?
+                事实上，圣杯布局其实和双飞翼布局是一回事。它们实现的都是三栏布局，两边的盒子宽度固定，中间盒子自适应。它们实现的效果是一样的，差别在于其实现思想。
+                圣杯布局的优点?
+
+                <li>使主要内容列优先加载。</li>
+                <li>允许任何列是最高的。</li>
+                <li>没有额外的div,简洁明了。</li>
+                <li>需要的hack很少。</li>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left;">
+                    双飞翼布局的优点： 双飞翼布局非常灵活，通过调整css代码可以实现各种布局。例如，利用双飞翼布局实现了一套栅格布局系统。
+                    <li>DOM按照主、子、附加列的顺序加载，实现了重要内容先加载。</li>
+                    <li>main部分是自适应宽度的，易在定宽布局和流体布局中切换。</li>
+                    <li>在浏览器上的兼容性非常好，</li>
+                    <li> 实现了内容与布局的分离</li>
+                    <li>任何一栏都可以是最高栏，不会出问题。</li>
+                    <li>需要的hack非常少。</li>
+                </div>
+            </section>
         </section>
+
         <section>
-            最后 请再次看一遍约定。
-            <div style="text-align:left ; padding:0% 12% ;font-size:25px">
-                <p style="font-size:35px">约定：</p>
-                <ul style="padding:0% 15% ">
-                    <li>每个PPT为一个html页面，位置放于PPT文件夹下，命名规则按{职业-任务序号-分享主题英文标题}的方式命名。</li>
-                    <br>
-                    <li>每个PPT所需要的图片均放到/img下，创建和html名称相同的文件夹。如/PPT/demo.html的图片放到/img/demo/下</li>
-                    <br>
-                    <li style='color:red; font-weight: bold'>PPT制作后需要在index.html首页将内容添加到表格内</li>
-                    <br>
-                    <li>PPT制作方法参考PPT/demo.html，复制粘贴代码，内容修改</li>
-                    <br>
-                    <li style='color:red; font-weight: bold'>PPT内容结构严格参照PPT/demo.html</li>
-                    <br>
-                    <li>更改以前已有的PPT分享后，需要将自己的名字添加到PPT尾页前人名字之后</li>
-                    <br>
-                </ul>
+            <h3>7.参考文献</h3>
+            <li><a href="https://segmentfault.com/a/1190000004524159">(2)关于「圣杯布局」 - 天道酬勤 - SegmentFault</a></li>
+            <li><a href="http://www.jianshu.com/p/f9bcddb0e8b4">圣杯布局和双飞翼布局（前端面试必看） - 简书</a></li>
+            <li>            <a href="https://theqwang.github.io/2016/01/08/%E6%B5%85%E6%9E%90%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80%E5%92%8C%E5%8F%8C%E9%A3%9E%E7%BF%BC%E5%B8%83%E5%B1%80/">浅析圣杯布局和双飞翼布局 | theqwang'blog</a>
+            </li>
+
+        </section>
+
+        <section>
+            <h3>8.更多思考:</h3>
+            <div style="text-align:left">
+                圣杯布局与双飞翼布局在实现上的异同点：
+                <li>两种布局方式都是把主列放在文档流最前面，使主列优先加载。</li>
+                <li>两种布局方式在实现上也有相同之处，都是让三列浮动，然后通过负外边距形成三列布局。</li>
+                两种布局方式的不同之处在于如何处理中间主列的位置：圣杯布局是利用父容器的左、右内边距定位；双飞翼布局是把主列嵌套在div后利用主列的左、右外边距定位。</li>
+                <li>两者相比较，双飞翼布局虽然多了一个div，却减少了相对定位属性的代码，个人认为双飞翼布局在实现思路和代码简洁度上都要比圣杯布局更好一些。</li>
+
             </div>
         </section>
-    </section>
-    <section>
-        完~
-    </section>
-</div>
+    </div>
 </div>
 
 <script src="../lib/reveal/js/head.min.js"></script>
