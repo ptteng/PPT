@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind</title>
+    <style>
+        p{
+            border:1px solid;
+            padding: 2% 0;
+        }
+        .red{
+            background-color: red;
+        }
+        .clickme{
+            border:1px solid;
+            width:200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <p id="p1">段落文本1段落文本1段落文本1段落文本1</p>
+    <p id="p2">段落文本2段落文本2段落文本2段落文本2</p>
+    <hr>
+
+    <button class="clickme">Click here</button>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+<script>
+
+    $("p").bind("click", function(){
+        alert( $(this).text() );
+    });
+
+    $("#p1").bind({
+        click:function(){$(this).css("background-color","blue");},
+        mouseover:function(){$("body").css("background-color","red");},
+        mouseout:function(){$("body").css("background-color","#FFFFFF");}
+    });
+
+//    ___________动态添加元素__________________
+    $(".clickme").bind('click', function() {
+        alert('123');
+        $('body').append('<div class="clickme">Another target</div>');
+    });
+
+</script>
+</html>

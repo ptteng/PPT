@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .clickme{
+            border:1px solid;
+            width:200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <a href="">111</a>
+
+    <button class="clickme">Click here</button>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.6.4/jquery.js"></script>
+<script>
+    $("a").live({
+        click: function() {
+            alert("1111");
+        },
+        mouseleave: function() {
+            alert("鼠标");
+        }
+    });
+    $(".clickme").live('click', function() {
+        alert('123');
+        $('body').append('<div class="clickme">Another target</div>');
+    });
+</script>
+</html>
