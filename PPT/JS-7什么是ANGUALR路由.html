@@ -1,0 +1,419 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+  <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h2>【JS-07】什么是angualr路由</h2>
+      <h3>小课堂【成都第95期】</h3>
+      <p>分享人：韩阳</p>
+    </section>
+    <section>
+      <p>目录</p>
+      <p>1.背景介绍</p>
+      <p>2.知识剖析</p>
+      <p>3.常见问题</p>
+      <p>4.解决方案</p>
+      <p>5.编码实战</p>
+      <p>6.扩展思考</p>
+      <p>7.参考文献</p>
+      <p>8.更多讨论</p>
+    </section>
+    <section>
+      <section>
+        <h3>1.背景介绍</h3>
+      </section>
+      <section>
+        <p>一、什么是路由</p>
+        <div style="text-align: left; padding: 0 5%;">
+          <p>在开讲之前，首先谈谈APP应用。平时我们用的app总是多页面，如果用原生安卓或者苹果，那当然很流畅啦。但是当我们用一般的html页面做移动端，简单时候我们可以用<a href=""></a>这样的标签去链接页面时，速度还是可以的。
+            　　但是当我们的应用越来越多时，切换起来没那么流畅。又是碍于网速，页面加载进来有点慢。但是在angular里面，我们可以用路由进行切换。因为在angular里面，我们用户一般在加载这样的应用时，会整个的缓存在手机上。我们用路由进行切换时，不用再发起HTTP请求了。体验比原来好。</p>
+          </div>
+      </section>
+      <section>
+        <div style="text-align: left; padding: 0 5%;">
+          <p>angular有自带的路由模块叫ngRouter。但是，大家很少用它，因为它的功能太有限，往往满足不了需求，
+            于是基于ngRouter开发的第三方路由模块，ui.router ，受到了大家的“追捧”。所以今天主要是围绕ui-router来进行学习
+            首先讲一下ui.router的一些优点在哪里？
+            1，多视图，2，嵌套视图。
+            多视图，就是页面可以显示多个动态变化的不同区块。
+            嵌套视图就是页面某个动态变化区块中，嵌套着另一个可以动态变化的区块。</p>
+        </div>
+      </section>
+
+    </section>
+    <section>
+      <section>
+        <h3>2.知识剖析</h3>
+      </section>
+      <section>
+        <p>ui-router 的工作原理非常类似于 Angular 的路由控制器，但它只关注状态。在应用程序的整个用户界面和导航中，一个状态对应于一个页面位置通过定义controller、template和view等属性，来定义指定位置的用户界面和界面行为   通过嵌套的方式来解决页面中的一些重复出现的部位
+        </p>
+
+      </section>
+
+
+    </section>
+    <section>
+      <h3>3.常见问题</h3>
+      <p>跳转页面的时候如何传参？</p>
+    </section>
+    <section>
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+        <p>ui-sref、$state.go跳转页面的两种方式，其实本质上面ui-sref最后也是通过state.go方法进行实现页面的跳转，下面讲一下如何实现传参</p>
+        <pre>
+          <code>
+            .controller('pageOneCtrl', function ($scope, $state) {
+              $scope.toPage2 = function (id) {
+                 $state.go('page2', {ID:id});
+             };
+            //接收页面：
+            .controller('pageTwoCtrl’, function ($scope, $state, $stateParams) {
+              var receivedId = $stateParams.ID;
+               console.log(receivedId);
+            //打印的结果即为id
+            });
+          </code>
+        </pre>
+      </section>
+    </section>
+    <section>
+      <h3>5.编码实战</h3>
+    </section>
+    <section>
+      <section>
+        <pre>
+          <code>
+            var myApp = angular.module("myApp",['ui.router','oc.lazyLoad','directives']);
+
+myApp.config(function($stateProvider,$urlRouterProvider,$ocLazyLoadProvider){
+
+    var _lazyLoad = function(loaded){
+        return function($ocLazyLoad){
+            return $ocLazyLoad.load(loaded,{serie: true});
+        }
+    };
+
+$urlRouterProvider.when("","/pageTab");
+
+    $stateProvider
+        .state("pageTab",{
+            url:"/pageTab",
+            templateUrl:"pageTab.html",
+
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['css/pageTab.css',
+                    'framework/ptteng-paging/pagination.js']
+                )
+            }
+        })
+        .state("pageTab.page1",{
+            url:"/page1",
+            templateUrl:"page1.html",
+            controller:'load',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/page1.js','css/page1.css']
+                )
+            }
+        })
+        .state("pageTab.page2",{
+            url:"/page2",
+            templateUrl:"page2.html",
+            controller:'register',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/page2.js','css/page2.css']
+                )
+            }
+    })
+        .state("pageTab.oldport",{
+            url:"/oldport",
+            templateUrl:"oldport.html",
+            controller:'oldList',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/oldport.js','css/oldlist.css']
+                )
+            }
+        })
+
+        .state("pageTab.page3",{
+            url:"/page3/:id",
+            templateUrl:"page3.html",
+            controller:'signUp',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/test.js','css/page3.css']
+                )
+            }
+        })
+
+        .state("pageTab.page4",{
+            url:"/page4",
+            templateUrl:"page4.html",
+            // controller:'simpleUp',
+            resolve:{
+               loadMyFile:_lazyLoad(
+                   ['js/page4.js','css/page4.css']
+               )
+            }
+        })
+
+});
+
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code>
+            var myApp=angular.module('myApp',['ui.router','oc.lazyLoad']);
+
+myApp.config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider){
+
+    var _lazyLoad = function(loaded){
+        return function($ocLazyLoad){
+            return $ocLazyLoad.load(loaded,{serie: true});
+        }
+    };
+
+    $urlRouterProvider.otherwise('/home');
+
+    $stateProvider
+        .state('home',{
+            url:'/home',
+            templateUrl:'templates/1-homepage.html',
+            //resolve 会等待文件加载完毕再执行渲染，不会二次渲染。
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['css/1-homepage.css']
+                )
+            }
+        })
+        .state('set',{
+            url:'/set',
+            templateUrl:'templates/2-set.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'set',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/set.js','css/2-set.css']
+                )
+            }
+        })
+        .state('check',{
+            url:'/check',
+            templateUrl:'templates/3-check.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'check',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/check.js','css/3-check.css']
+                )
+            }
+        })
+        .state('display',{
+            url:'/display',
+            templateUrl:'templates/4-display.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'display',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/display.js','css/4-display.css']
+                )
+            }
+        })
+        .state('calendar',{
+            url:'/calendar',
+            templateUrl:'templates/5-calendar.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'calendar',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/calendar.js','css/5-calendar.css']
+                )
+            }
+        })
+        .state('kill',{
+            url:'/kill',
+            templateUrl:'templates/6-kill.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'kill',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/kill.js','css/6-kill.css']
+                )
+            }
+        })
+        .state('message',{
+            url:'/message',
+            templateUrl:'templates/7-message.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'message',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/message.js','css/7-message.css']
+                )
+            }
+        })
+        .state('vote',{
+            url:'/message',
+            templateUrl:'templates/8-vote.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'vote',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/vote.js','css/8-vote.css']
+                )
+            }
+        })
+        .state('result',{
+            url:'/message',
+            templateUrl:'templates/9-result.html',
+            //controller  function、string或数组类型，在当前模板上执行的controller函数，生成新的scope
+            controller:'result',
+            resolve:{
+                loadMyFile:_lazyLoad(
+                    ['js/result.js','css/9-result.css']
+                )
+            }
+        })
+
+});
+          </code>
+        </pre>
+      </section>
+
+    </section>
+    <section>
+      <section>
+        <h3>6.扩展思考</h3>
+      </section>
+      <section><p> 还有其他一些传参方法是如何实现的？</p></section>
+      <section>
+        <p>可以通过点击事件进行传参</p>
+      </section> <section>
+      <p>
+        html中：<br/>
+        ng-click=“toPage2(name,number)”
+      </p>
+      控制器中：
+      <pre>
+        <code>
+          .controller('pageOneCtrl', function ($scope, $state) {
+ $scope.toPage2 = function (name,number) {
+ $state.go('page2', {
+ args:{
+  NAME:name,
+  NUMBER:number
+  });
+ };
+});
+        </code>
+      </pre>
+    </section>
+      <section>
+        在第二个页面中通过$staeParams获得参数ID。
+        <pre>
+          <code>
+            .controller('pageTwoCtrl’, function ($scope, $state, $stateParams) {
+   var receivedName = $stateParams.args.NAME;
+   var receivedNumber = $stateParams.args.NUMBER;
+});
+          </code>
+        </pre>
+      </section>
+    </section>
+    <section>
+      <h3>7.参考文献</h3>
+    </section>
+    <section>
+      <p>参考一：<a href="http://www.oschina.net/translate/angularjs-ui-router-nested-routes
+AngularJS ui-router" target="_blank">嵌套路由</a></p>
+      <p>参考一：<a href="http://www.cnblogs.com/GoodPingGe/p/4364383.html" target="_blank">路由用法和概念</a></p>
+      <p>参考一：<a href="http://blog.csdn.net/tenlee/article/details/52400531" target="_blank">ui-router管理状态</a></p>
+    </section>
+    <section>
+      <section>
+        <h3>8.更多讨论</h3>
+      </section>
+      <section>
+        <p>在项目开发中，如何实现深层嵌套？</p>
+      </section>
+    </section>
+    <section>
+      <h4>鸣谢</h4>
+      <p>感谢大家观看</p>
+      <p><small>BY : 成都-赵锐泉  <br> 武汉-王峰<br> 成都-韩阳</small></p>
+    </section>
+
+  </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+  // 以下为常见配置属性的默认值
+  // {
+  //    controls: true, // 是否在右下角展示控制条
+  //    progress: true, // 是否显示演示的进度条
+  //    slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  //    history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  //    keyboard: true, // 是否启用键盘快捷键来导航
+  //    overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  //    center: true, // 是否将幻灯片垂直居中
+  //    touch: true, // 是否在触屏设备上启用触摸滑动切换
+  //    loop: false, // 是否循环演示
+  //    rtl: false, // 是否将演示的方向变成RTL，即从右往左
+  //    fragments: true, // 全局开启和关闭碎片。
+  //    autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+  //    transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+  //    transitionSpeed: 'default', // 过渡速度，default/fast/slow
+  //    mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+  // }
+  // 初始化幻灯片
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      { src: '../plugin/markdown/marked.js' },
+      { src: '../plugin/markdown/markdown.js' },
+      { src: '../plugin/notes/notes.js', async: true },
+      { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+  });
+</script>
+</body>
+</html>
