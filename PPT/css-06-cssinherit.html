@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>css有哪些属性可以继承？</h3>
+
+            <h4>小课堂【北京第94期】</h4>
+
+            <p>分享人：王立志</p>
+        </section>
+        <section>
+            <p>目录</p>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>了解css样式表的继承，我们先从文档树（HTML DOM）开始，文档树由HTML元素组成,文档树和家族树类似，也有祖先、后代、父亲、孩子、兄弟</p>
+            <img src="../img/css-06-inherit/img1.png" alt="" width="449" height="234">
+        </section>
+        <section>
+            <p>css样式表继承指的是，特定的css属性向下传递到后代元素</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                对于一些可以继承的属性，可以只设置上级的CSS样式表树形，子级（下级）不用设置，会自动继承此CSS属性，可以减少CSS代码，便于维护。
+            </p>
+        </section>
+        <section>
+            <p>
+                那么有哪些属性可以自动继承呢
+            </p>
+        </section>
+        <section>
+            <p>有继承性的属性：<br>
+                <pre style="box-shadow: none;font-size: 20px ">
+
+    1、字体系列属性
+
+    font：组合字体
+
+    font-family：规定元素的字体系列
+
+    font-weight：设置字体的粗细
+
+    font-size：设置字体的尺寸
+
+    font-style：定义字体的风格
+
+    font-variant：设置小型大写字母的字体显示文本，这意味着所有的小写字母均会被转换为
+                  大写，但是所有使用小型大写字体的字母与其余文本相比，其字体尺寸更小。
+
+    font-stretch：允许你使文字变宽或变窄。所有主流浏览器都不支持。
+
+    font-size-adjust：为某个元素规定一个 aspect 值，字体的小写字母 "x" 的高度与
+                      "font-size" 高度之间的比率被称为一个字体的 aspect 值。这
+                      样就可以保持首选字体的 x-height。
+
+                </pre>
+            </p>
+        </section>
+        <section>
+            <p>有继承性的属性：<br>
+            <pre  style="box-shadow: none;font-size: 20px ">
+
+    2、文本系列属性
+
+    text-indent：文本缩进
+
+    text-align：文本水平对齐
+
+    line-height：行高
+
+    word-spacing：增加或减少单词间的空白（即字间隔）
+
+    letter-spacing：增加或减少字符间的空白（字符间距）
+
+    text-transform：控制文本大小写
+
+    direction：规定文本的书写方向
+
+    color：文本颜色
+
+                </pre>
+            </p>
+        </section>
+        <section>
+            <p>有继承性的属性：<br>
+            <pre  style="box-shadow: none;font-size: 20px ">
+
+3、元素可见性：visibility
+
+4、表格布局属性：caption-side、border-collapse、border-spacing、
+                 empty-cells、table-layout
+
+5、列表属性：list-style-type、list-style-image、list-style-position、list-style
+
+6、生成内容属性：quotes
+
+7、光标属性：cursor
+
+8、页面样式属性：page、page-break-inside、windows、orphans
+
+9、声音样式属性：speak、speak-punctuation、speak-numeral、speak-header、
+                 speech-rate、volume、voice-family、pitch、pitch-range、
+                 stress、richness、、azimuth、elevation
+
+                </pre>
+            </p>
+        </section>
+        <section>
+        <pre  style="box-shadow: none;font-size: 25px ">
+    <p>所有元素可以继承的属性：<br>
+    1、元素可见性：visibility、opacity
+    2、光标属性：cursor
+    <p> 内联元素可以继承的属性:</p>
+    1、字体系列属性
+    2、除text-indent、text-align之外的文本系列属性
+    <p>块级元素可以继承的属性:</p>
+    1、text-indent、text-align
+        </pre>
+        </section>
+        <section>
+            <p>无继承的属性<br>
+        <pre  style="box-shadow: none;font-size: 25px ">
+
+    1、display
+    2、文本属性：vertical-align：
+                 text-decoration：
+                 text-shadow：
+                 white-space：
+                 unicode-bidi：
+    3、盒子模型的属性:宽度、高度、内外边距、边框等
+    4、背景属性：背景图片、颜色、位置等
+    5、定位属性：浮动、清除浮动、定位position等
+    6、生成内容属性:content、counter-reset、counter-increment
+    7、轮廓样式属性:outline-style、outline-width、outline-color、outline
+    8、页面样式属性:size、page-break-before、page-break-after
+        </pre>
+        </section>
+        <section>
+            <p>继承中比较特殊的几点</p>
+            <p>1、a 标签的字体颜色不能被继承</p>
+            <p>1、&lth1&gt-&lth6&gt标签字体的大下也是不能被继承的</p>
+            <p>因为它们都有一个默认值</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>继承中容易引起的错误:</p>
+            <code>body{color:blue}</code>
+            <p>在有些浏览器中这句定义会使除表格之外的文本变成蓝色。从技术上来说，这是不正确的，但是它确实存在。所以我们经常需要借助于某些技巧，比如将css定义成这样：<br>
+                <code>body,table,th,td{color:blue}</code><br>
+                这样表格内的文字也会变成蓝色。</p>
+        </section>
+        <section>
+            <p>问题1：多种样式混合应用的优先级问题</p>
+            <p>问题2：font-size的继承问题</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                当有多个规则都能应用于同一个元素时，权重越高的样式将被优先采用。<br>
+                <a href="../demo/css-06-inherit/demo.html">demo</a>
+            </p>
+        </section>
+        <section>
+            <p>
+                被继承的特性按权重计算方法计算，权重为0，这就意味着任何显示声明的规则将会覆盖其继承样式。因此，不管一条规则具有多高的权重，如果没有其他规则能应用于这个继承元素，那么它也只是个被继承的规则而已
+            </p>
+        </section>
+        <section>
+            <p>
+                font-size是可以被继承的。但是它的方式有一些特别。Font-size的子类继承的不是实际值，而是计算后的值。
+                <br>下面是一个例子
+                <br>
+                <code>
+                &ltp&gt字体大小属性&ltem&gt继承特性&lt/em&gt的演示代码&lt/p&gt
+                </code>
+            </p>
+        </section>
+        <section>
+            <p>
+                <code>p { font-size:14px;}</code><br>
+                由于浏览器默认字体大小是16px，而p定义了字体14px，所以em继承了p的字体大小属性，也是14px；
+            </p>
+            <img src="../img/css-06-inherit/img4.png" alt="" width="909" height="198">
+        </section>
+        <section>
+            <p>
+                <code>p { font-size:85%;}</code><br>
+                浏览器默认字体大小16px,而p定义了字体大小(16px X 85% = 13.6px). 13.6px这个值将被子元素em继承。
+            </p>
+            <img src="../img/css-06-inherit/img3.png" alt="" width="909" height="198">
+        </section>
+        <section>
+            <p>
+                <code>p { font-size:0.85em;}</code><br>
+                浏览器默认字体大小16px,而p定义了字体大小(16px X 0.85 = 13.6px). 13.6px这个值将被子元素em继承。
+            </p>
+            <img src="../img/css-06-inherit/img2.png" alt="" width="909" height="198">
+        </section>
+        <section>
+            <p>
+                <code>body { font-size: 85%; }<br>
+                    h1 { font-size: 200%; }<br>
+                    h2 { font-size: 150%; }</code><br>
+                浏览器默认字体大小16px,而body定义了字体大小(16px X 85% = 13.6px). 如果子元素没有指定字体大小13.6px这个值将被子元素继承。
+            </p>
+            <img src="../img/css-06-inherit/img5.png" alt="" width="909" height="241">
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>inherit关键字</p>
+        </section>
+        <section>
+            <p>inherit 关键字指定一个属性应从父元素继承它的值。<br>
+               inherit 关键字可用于任何 HTML 元素上的任何 CSS 属性。</p>
+            <a href="../demo/css-06-inherit/demo1.html">demo1</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://jingyan.baidu.com/article/7f41ececcf637a593d095cfd.html" target="_blank">学习CSS的继承性</a></p>
+            <p>参考二：<a href="https://www.oschina.net/translate/css3-inheritance-tips-tricks" target="_blank">继承的技巧</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>除了inherit关键字外，还有什么其他的关键字继承特性</p>
+        </section>
+        <section>
+            <p>在css3中新增加了几个继承特性</p>
+            <p>initial:用来设置css属性值为它的默认值，也就是浏览器默认设置的css属性值。</p>
+            <p>unset:一个属性定义了unset值，如果该属性是默认继承属性，该值等同于inherit，如果该属性是非继承属性，该值等同于initial</p>
+            <p>all: [ inherit | initial | unset ]:   最后，all是一个属性而不是一个值。你可以指定inherit、initial或者unset来影响所有的属性，例如重置所有CSS属性为浏览器默认：</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>武汉朱文山师兄</p>
+
+            <p>感谢大家观看</p>
+
+            <p>
+                <small>BY : 王立志</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+<!--<script>-->
+    <!--//过滤掉小于 10 的数组元素：-->
+    <!--//代码：-->
+    <!--document.getElementById("a").onclick = isBigEnough();-->
+    <!--function isBigEnough(element, index, array) {-->
+        <!--return (element >= 10);-->
+    <!--}-->
+    <!--var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);-->
+    <!--// 12, 130, 44-->
+    <!--//结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44-->
+    <!--console.log(filtered);-->
+    <!--///11111111111-->
+    <!--//检查是否有数组元素大于等于10：-->
+    <!--document.getElementById("b").onclick = isBigEnoug();-->
+    <!--function isBigEnoug(element, index, array) {-->
+        <!--return (element >= 10);-->
+    <!--}-->
+    <!--var passed = [2, 5, 8, 1, 4].some(isBigEnoug);-->
+    <!--// passed is false-->
+    <!--passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);-->
+    <!--// passed is true-->
+    <!--//结果：-->
+    <!--//[2, 5, 8, 1, 4].some(isBigEnough) ： false-->
+    <!--//[12, 5, 8, 1, 4].some(isBigEnough) ： true-->
+    <!--console.log(passed);-->
+    <!--console.log(passed2);-->
+    <!--////2222222222222222222222-->
+    <!--//将所有的数组元素转换为大写：-->
+    <!--document.getElementById("c").onclick = makeUpperCase();-->
+    <!--var strings = ["hello", "Array", "WORLD"];-->
+    <!--function makeUpperCase(v) {-->
+        <!--return v.toUpperCase();-->
+    <!--}-->
+    <!--var uppers = strings.map(makeUpperCase);-->
+    <!--// uppers is now ["HELLO", "ARRAY", "WORLD"]-->
+    <!--// strings is unchanged-->
+    <!--//结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD-->
+    <!--console.log(uppers);-->
+    <!--/////333333333333333333-->
+    <!--document.getElementById("d").onclick = printElt();-->
+    <!--//打印数组内容：-->
+    <!--function printElt(element, index, array) {-->
+        <!--document.writeln("[" + index + "] is " + element + "<br />");-->
+    <!--}-->
+    <!--[2, 5, 9].forEach(printElt);-->
+    <!--// Prints:-->
+    <!--// [0] is 2-->
+    <!--// [1] is 5-->
+    <!--// [2] is 9-->
+    <!--//结果：-->
+    <!--//[0] is 2-->
+    <!--//[1] is 5-->
+    <!--//[2] is 9-->
+    <!--/////////44444444444444-->
+<!--</script>-->
+</body>
+</html>
