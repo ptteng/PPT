@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+function changeSize()
+{
+	$(this).animate({fontSize:"+=3px"});
+}
+function changeSpacing()
+{
+	$(this).animate({letterSpacing:"+=2px"});
+}
+// 文字扩大并使间距扩大
+$(document).ready(function(){
+	$("body").on("click","p",changeSize);
+	$("body").on("click","p",changeSpacing);
+	$("button").click(function(){
+		$("body").off("click","p");
+	});
+});
+// 文字扩大两次
+$(document).ready(function(){
+	var x=0;
+	$("#big").click(function(event){
+		$("#big").animate({fontSize:"+=5px"});
+		x++;
+		if (x>=2)
+		{
+			$(this).off(event);
+		}
+	});
+});
+</script>
+</head>
+<body>
+
+<p>这是一个段落 。</p>
+<p>这是另外一个段落。</p>
+<p>点击任意一个段落来修改段落的字体大小。</p>
+<button>移除所有的 click 事件句柄</button>
+<p id="big">点击这个段落放大字体，只会放大两次。</p>
+</body>
+</html>
