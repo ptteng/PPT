@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是ajax</h2>
+            <h3>小课堂【郑州修真院】</h3>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+                <p>什么是Ajax？
+                    Asynchronous Javascript And Xml
+                    顾名思义——异步Javascript和Xml，是指一种基于服务器的页面异步处理技术，广泛用于创建交互式网页应用。Ajax的概念由杰西·詹姆士·贾瑞特所提出，该技术的出现改变了古老的，用户请求——等待——响应这种web交互模式。<br><br><br>
+                    Ajax技术：
+                     使网页实现异步更新，这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
+                </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+            <h4>传统的请求方式</h4>
+            <p>传统的web应用程序中，用户向服务器发送一个请求，然后等待，服务器接受到用户的请求然后响应。在这段时间内，用户只能傻乎乎的一直盯着空白页面。这是因为以往的传输方式为同步处理方式（排队式请求）
+            </p>
+                </section>
+            <section>
+                <img src="../img/js-05-ajax/pic01.png">
+            </section> 
+            <section>   
+               <img src="../img/js-05-ajax/pic02.png">
+            </section>
+        </section>
+        <section>
+            <section>
+            <h4>ajax的工作方式</h4>
+            <p>和传统的web应用不同，Ajax采取了异步交互避免了用户请求——等待——应答交互方式的缺点。Ajax在应用程序和服务器中引入了一个中间层————Ajax引擎，它是用Javascript编写的，在一个隐藏的框架中运行。Ajax引擎负责呈现用户界面，以及代表用户和服务器进行交互。Ajax引擎允许用户和服务器进行异步的交互。自从用了ajax，用户再也不用傻乎乎的盯着空白页面了。
+            </p>
+            </section>
+         
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style="font-family: 'Times New Roman'; text-transform:none; text-align: left;">
+            <p class="fragment">1、IE浏览器下面的缓存问题</p>
+            <p class="fragment">2、跨域问题</p>
+            <p class="fragment">3、Ajax乱码问题</p>
+            <p class="fragment">4、为post提交时，需要注意的问题</p>
+            <p class="fragment">5、Ajax对象属性的大小写问题</p>
+            <br><br>
+            <p class="fragment">下面一一讲解常见问题出现的原因和解决办法</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section style="text-align: left">
+                第一个问题，最经典的问题：在ie浏览器下面使用get请求时，如果第一次请求了数据之后ie的就会自动缓存，如果下一次再发送同样的请求的时候浏览器会自动先去找缓存显示出来，所以如果请求的数据有变化的时候，这里是看不到变化的。
+                解决办法：
+                xhr.open("get","xxxx.aspx?_dc="+new Date().getTime(),true);
+                给rul加上时间戳或者随机数（_dc=。。。），使url变成唯一，或者改成post请求。
+            </section>
+            <section >
+                第二个问题，跨域问题:
+                当协议、子域名、主域名、端口号中任意一个不相同时，都算不同的“域”。
+                不同的域之间相互请求资源，就叫“跨域”。
+            </section>
+            
+            <section>
+                <p>由于在工作中需要使用AJAX请求其他域名下的请求，但是会出现拒绝访问的情况，这是因为基于安全的考虑，AJAX只能访问本地的资源，而不能跨域访问。</p>
+                <img src="../img/js-05-ajax/1116.png" alt="">
+            </section>
+            <section>
+                <p>1,服务器跨域的方法————代理</p>
+                <p>这种方式是通过后台(ASP、PHP、JAVA、ASP.NET)获取其他域名下的内容，然后再把获得内容返回到前端，这样因为在同一个域名下，所以就不会出现跨域的问题。</p>
+                <p>2,服务器跨域的方法———JSONP</p>
+                <p>简单来说就是在HTML内声明在你要访问的页面中进行调用。比如：在www.aaa.com页面中声明，在www.bbb.com页面中调用。但是JSONP只支持 “GET” 请求，但不支持 “POST” 请求。</p>
+                <pre>
+                    <code>
+                        <script src="http://www.bbb.com/getinfo.php"></script>
+                    </code>
+                </pre>
+            </section>
+            <section style="text-aling:left">
+                <p>3,服务器跨域的方法————XHR2</p>
+                <p >“XHR2” 全称 “XMLHttpRequest Level2”是HTML5提供的方法，对跨域访问提供了很好的支持。</p>
+
+        <p >* IE10一下的版本都不支持</p>
+
+        <p >* 只需要在服务器端头部加上下面两句代码：</p>
+
+　　    <pre>
+        header( "Access-Control-Allow-Origin:*" );
+
+　　    header( "Access-Control-Allow-Methods:POST,GET" );
+</pre>
+            </section>
+            <section>
+            <p>4,本地跨域的方法————配置nginx</p>
+            <p>本地上面直接Nginx跨域可以实现。在服务器上的话，交给后端吧。。。 注意 Nginx跨域可以同时配置多个接口的，就是 多写几个location就好了，然后location后面带的参数不一样就可以了。</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                   第三个问题：Ajax乱码问题</p>
+                   <p>
+                    乱码问题虽然我们目前遇到的不多，但是也属于比较常见的一个问题了。出现的主要原因就是编码不一致导致的。
+                    如果出现乱码问题了，首先检查一下meta声明的charset要和请求的页面返回的charset一致。response.charset="gb2312或者utf-8"
+                   </p>
+                </section>
+            <section>
+                <p style="text-align: left">第四个问题：使用post，需要注意的问题</p>
+     <p> 如果为post提交时，注意要设置content-type为"application/x-www-form-urlencoded"，这样在动态页才可以使用request/request.form/request.querystring对象通过键获取值，否则得使用2进制数据，然后自己分析2进制数据生成字符串对象，使用正则什么的获取对应的值。</p>
+<p>需要在open以后才能使用xhr.setRequestHeader方法，否则出错。
+		    用原生写时必须在open（）方法之后send方法之前调用。
+                </p>
+                
+            </section>
+            <section>
+                <p style="text-align: left">
+                    第五个问题：ajax对象属性的大小写问题</p>
+ <p style="text-align: left">有些浏览器比如火狐，对大小写是敏感的，if(xhr.readystate==4)这种写法，在ie下是成立的，但是在火狐下就行不通了，因为ie不区分大小写，火狐是区分大小的。标准写法为if(xhr.readyState==4)，同理还有属性 responseText，responseXML。</p>
+ <p style="text-align: left">
+ <b>习惯采用驼峰形式的写法可以避免这个问题</b>
+                </p>
+            </section>
+            
+            
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>   
+    <p>readyState值说明</p>
+    
+    <p class="fragment">状态0，未初始化，表明对象已经建立，但未初始化，也就是尚未调用Oen方法创建Http请求。</p>
+     <p class="fragment">状态1，初始化，表明对象已经建立，但是未调用send方法发送Http请求</p>
+     <p class="fragment"> 状态2，发送数据，表明send方法已经被调用，但是当前的状态以及Http头未知。</p>
+     <p class="fragment">状态3，数据传送中，表明服务器已经接受部分数据，因为响应时间以及Http头补全，这时通过 response系列方法获取部分数据会出现错误</p>
+     <p class="fragment">状态4，传送完成，数据接收完毕，此时可以通过response系列方法获取完整的回应数据。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/fanyx/p/5775939.html">什么是跨域</a></p>
+            <p>参考二：<a href="http://www.syntaxsuccess.com/viewarticle/angular-
+                promises%E2%80%93then-vs-success">angular中then和.success的区别</a></p>
+            <p>参考三：<a href="http://bbs.csdn.net/topics/310120750">
+                来自我大CSDN的ajax常见问题</a></p>
+            <p>参考三：<a href="http://www.jb51.net/article/16966.htm">脚本之家：ajax readyState的五种状态详解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>http与ajax</p>
+            <section>
+            <p style="text-align:left">
+                HTTP通信机制是在一次完整的HTTP通信过程中，Web浏览器与Web服务器之间将完成下列7个步骤：
+                （1）建立TCP连接<br/>
+                （2）Web浏览器向Web服务器发送请求命<br/>
+                （3）Web浏览器发送请求头信息<br/>
+                （4）Web服务器应答<br/>
+                （5）Web服务器发送应答头信息<br/>
+                （6）Web服务器向浏览器发送数据<br/>
+                （7）Web服务器关闭TCP连接<br/>
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-05-ajax/pic04.png" alt="">
+        </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 左少华 | 汪开放</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+//    原始类型对象直接赋值不会相互影响
+//    var a = 1;
+//
+//    var b = a;
+//    b = 10;
+//    console.log(a); // 1
+////
+//    var a = 'hello';
+//    var b = a;
+//    b = 'world';
+//    console.log(a); // hello
+//
+//    var a = true;
+//    var b = a;
+//    b = false;
+//    console.log(a);
+
+    //数组浅复制
+//    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+//    ];
+//    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+//    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+//    console.log(a)//那么现在打印a 是什么结果呢
+//
+//    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+//    var arrtoo = arr.slice(1);
+//    arrtoo[2] = "set Map";
+//    console.log(arr);//One,Two,Three
+//    console.log(arrtoo);//One,set Map,Three
+
+//
+//    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+//    var arrtooo = arr1.concat(111111);
+//    arrtooo[1] = "set Map To";
+//    console.log(arr1);//One,Two,Three
+//    console.log(arrtooo);//One,set Map To,Three
+
+//
+//    var b=[1,2,3,4,5];   //concat的链接
+//    var c=[6,7,8,9];
+//    var d =[4,4,22]
+//    console.log(b.concat(c,d))
+
+    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    var b=new Object();
+    b.name=a.name;
+    b.age=a.age;
+    b.name='xx';
+    console.log(a);//Object { name="yy", age=26}
+    console.log(b);//Object { name="xx", age=26}
+
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+
+
+
+
+//    var person = {    //第二种深拷贝
+//        name: 'aa',
+//        friends: ['da', 'dsa', 'gf']
+//    };
+//
+//    var aPerson = Object.create(person, {
+////        name: {
+////            value: "gee"
+////        }
+//    });
+//
+//    console.log(person.name);
+//    console.log(aPerson.friends)
+
+    var Chinese = {
+        nation:'中国'
+
+    }
+    var Doctor = {
+        career:'医生'
+    }
+    function extendCopy(p) {
+        var c = {};
+        for (var i in p) {
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+    var Doctor = extendCopy(Chinese);
+    Doctor.career = '医生';
+    console.log(Doctor); // 中国
+    Chinese.birthPlaces = ['北京','上海','香港'];
+    var Doctor = extendCopy(Chinese);
+    Doctor.birthPlaces.push('厦门');
+
+</script>
+</body>
+</html>
