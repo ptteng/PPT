@@ -1,0 +1,154 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>外边距重叠知识介绍</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task8】什么是外边距重叠，重叠的结果是什么</h2>
+            <h3>小课堂【成都第98期】</h3>
+            <p>分享人：包鹏亮</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.什么是外边距重叠</p>
+            <p>2.外边距重叠的图示</p>
+            <p>3.外边距重叠的意义</p>
+            <p>4.外边距不重叠的情况</p>
+            <p>5.防止外边距重叠的方法</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.什么是外边距重叠</h3>
+        </section>
+        <section>
+            <p>外边距重叠是指两个或多个盒子(可能相邻也可能嵌套)的相邻边界重合在一起而形成一个单一边界,外边距的重叠只产生在普通流的垂直相邻边界间。</p>
+            <p>如果都是正边界，边界宽度是相邻边界宽度中最大的值。如果出现负边界，则在最大的正边界中减去绝对值最大的负边界。如果没有正边界，则从零中减去绝对值最大的负边界。</p>
+        </section>
+        <section>
+            <h3>2.外边距重叠的图示</h3>
+        </section>
+        <section>
+            <p>当一个元素出现在另一个元素上面时，第一个元素的底边界与第二个元素的顶边界发生叠加</p>
+            <img src="../img/css-08-margin overlap/css_margin_1.gif"/>
+        </section>
+        <section>
+            <p>当一个元素包含在另一个元素中时，它们的顶和底边界也发生叠加</p>
+            <img src="../img/css-08-margin overlap/css_margin_2.gif"/>
+        </section>
+        <section>
+            <p>假设有一个空元素，它有边界，但是没有边框或填充。在这种情况下，顶边界与底边界就碰到了一起，它们会发生叠加</p>
+            <img src="../img/css-08-margin overlap/css_margin_3.jpg"/>
+        </section>
+        <section>
+            <h3>3.外边距重叠的意义</h3>
+        </section>
+        <section>
+            <p>当我们上下排列一系列规则的块级元素时，那么块元素之间因为外边距重叠的存在，段落之间就不会产生双倍的距离，这样各处距离就一致了</p>
+            <img src="../img/css-08-margin overlap/css_margin_4.jpg"/>
+        </section>
+        <section>
+            <h3>4.外边距不重叠的情况</h3>
+        </section>
+        <section>
+            <ol>
+                <li>水平margin永远不会重合</li>
+                <li>设置了overflow属性(visible除外)的元素和它的子元素之间的margin不会重叠</li>
+                <li>设置了绝对定位（position:absolute）的盒模型，垂直margin不会被重叠，和子元素之间也不重叠</li>
+                <li>设置了display:inline-block的元素，垂直margin不会重叠，和子元素之间也不重叠</li>
+                <li>根元素(如html)与body的margin不会重叠</li>
+            </ol>
+        </section>
+        <section>
+            <h3>5.防止外边距重叠的方法</h3>
+        </section>
+        <section>
+            <ol>
+                <li>元素绝对定位postion:absolute;一般用在内层元素</li>
+                <li>内层元素 加float:left;或display:inline-block;</li>
+                <li>外层元素用padding增加边距</li>
+                <li>外层元素设置overflow:hidden;</li>
+                <li>内层元素透明边框 border:1px solid transparent;</li>
+            </ol>
+        </section>
+        <section>
+            <h3>6.参考文献 </h3>
+            <p><a href="http://www.hujuntao.com/web/css/css-margin-overlap.html">CSS 外边距(margin)重叠及防止方法</a></p>
+            <p><a href="http://developer.51cto.com/art/201008/221940_all.htm">CSS中margin边界叠加问题及解决方案</a></p>
+            <p><a href="http://www.jianshu.com/p/265fb9f0de97">CSS2 速查表 - BFC与边距重叠详解</a></p>
+        </section>
+        <section>
+            <h3>7.更多讨论：大家在写页面的过程中遇到过哪些边距重叠的现象？</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 包鹏亮 | 沁 修</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
