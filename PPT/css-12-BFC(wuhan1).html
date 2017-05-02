@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>BFC及其工作方式</h2>
+            <h3>小课堂【武汉 第一百四十九期】</h3>
+            <p>分享人：汤乾坤</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+            <h3>什么是BOX</h3>
+            <p style="text-align: center;">BOX（盒模型）:CSS布局的基本单位</p>
+            <p style="text-align: left;">Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和为其设置的display 属性，决定了这个 Box 的类型。不同类型的 Box， 会参与不同的
+                Formatting Context（一个决定如何渲染文档的容器），因此Box内的元素会以不同的方式渲染。</p>
+            </section>
+            <section>
+                <h3>什么是Formatting context</h3>
+                <p>　Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称BFC)和 Inline formatting context (简称IFC)。</p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>BFC 的定义</h3>
+                <p>BFC(Block formatting context)直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。</p>
+            </section>
+            <section>
+                <h3>BFC布局规则</h3>
+                <ol>
+                    <li>内部的Box会在垂直方向，一个接一个地放置。</li>
+                    <li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
+                    <li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，则相反)。即使存在浮动也是如此。</li>
+                    <li>BFC的区域不会与float box重叠。</li>
+                    <li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
+                    <li>计算BFC的高度时，浮动元素也参与计算</li>
+                </ol>
+            </section>
+            <section>
+                <h3>哪些元素会生成BFC</h3>
+                <ul>
+                    <li>根元素</li>
+                    <li>float属性不为none</li>
+                    <li>position为absolute或fixed</li>
+                    <li>display为inline-blcok、table-cell、table-caption、flex、inline-flex</li>
+                    <li>overflow不为visible</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题：</h3>
+        </section>
+        <section>
+            <p>BFC可以起到什么作用？其原理是什么</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1. 自适应两栏布局</p>
+            <p>2. 清除内部浮动</p>
+            <p>3. 防止垂直 margin 重叠</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+            <h4>自适应两栏布局</h4>
+            <pre>
+                <code>
+                    <style>
+                        body {
+                            width: 300px;
+                            position: relative;
+                        }
+
+                        .aside {
+                            width: 100px;
+                            height: 150px;
+                            float: left;
+                            background: #f66;
+                        }
+
+                        .main {
+                            height: 200px;
+                            background: #fcc;
+                        }
+                    </style>
+                    <body>
+                    <div class="aside"></div>
+                    <div class="main"></div>
+                    </body>
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>上面中的例子我们可以看出，每个元素的margin box的左边与包含块border box的左边相接触(对于从左往右的格式化，则相反)。即使存在浮动也是如此</p>
+                <p>因此，虽然存在浮动的元素，但main的左边依然会与包含块的左边相接触。</p>
+                <p>在生成BFC后，就用到了BFC的区域不会与float box重叠这个规则，实现了自适应两栏布局</p>
+            </section>
+            <section>
+                <p>清除内部浮动</p>
+                <pre>
+                <code>
+                    <style>
+                        .par {
+                            border: 5px solid #fcc;
+                            width: 300px;
+                        }
+
+                        .child {
+                            border: 5px solid #f66;
+                            width:100px;
+                            height: 100px;
+                            float: left;
+                        }
+                    </style>
+                    <body>
+                    <div class="par">
+                        <div class="child"></div>
+                        <div class="child"></div>
+                    </div>
+                    </body>
+                </code>
+                    </pre>
+                <p>利用BFC规则：计算BFC的高度时，浮动元素也参与计算</p>
+            </section>
+            <section>
+                <p>3. 防止垂直 margin 重叠</p>
+                <p>因为BFC规则规定：Box垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box的margin会发生重叠
+                因此总会发生margin重叠的事情，我们可以在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。</p>
+            </section>
+            <section>
+                 <pre>
+            <code>
+                <style>
+                    p {
+                        color: #f55;
+                        background: #fcc;
+                        width: 200px;
+                        line-height: 100px;
+                        text-align:center;
+                        margin: 100px;
+                    }
+                </style>
+                <body>
+                <p>Haha</p>
+                <p>Hehe</p>
+                </body>
+            </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>其实以上的几个例子都体现了BFC布局规则第五条：BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</p>
+            <p>因为BFC内部的元素和外部的元素绝对不会互相影响，因此，
+                当BFC外部存在浮动时，它不应该影响BFC内部Box的布局，BFC会通过变窄，而不与浮动有重叠。同样的，当BFC内部有浮动时，为了不影响外部元素的布局，BFC计算高度时会包括浮动的高度。
+                避免margin重叠也是这样的一个道理。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html" target="_blank">前端精选文章</a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/" target="_blank">张鑫旭博客</a></p>
+        </section>
+        <section>
+            <h3>8.课后讨论</h3>
+        </section>
+        <section>
+            <section>
+                <h3>还有那些清除浮动的方法</h3>
+            </section>
+            <section>
+                <p>父级div手动定义height，就解决了父级div无法自动获取到高度的问题</p>
+                <p>结尾处加空div标签 clear:both </p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 汤乾坤\刘思言</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
