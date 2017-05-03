@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>this指向</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <h1></h1>
+        <section>
+            <h2>(js-task4) js中的this指向</h2>
+            <h5>《武汉小课堂151期》</h5>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>this是什么？</p>
+            <section>
+                this最开始起源于C#,当做右指针来用的只能在class,struct,
+                和union类型中的非静态成员函数/函数模版class指针访问，
+                指向被调成员所属的对象。静态成员中无法使用this指针。在js中，同样也是关键字，它代表函数运行时，
+                自动生成的一个函数内部对象，只能在函数内部使用
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                this主要有4方面的应用
+            </section>
+            <section>
+                1.默认绑定到全局变量
+                <pre>
+                    <code>
+                        function demo1(){
+                            console.log(this.c);
+                        }
+                        var c=2;
+                        demo1();//2
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.隐式绑定(也称隐式调用)是指函数调用的时候属于某个对象，比如说
+                <pre>
+                    <code>
+                        function demo2(){
+                            console.log(this.a);
+                        }
+                        var obj={
+                            a:5,
+                            demo2:demo2
+                        }
+                        var a=15;
+                        obj.demo2();//5
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>如果在这过程中出现带有this的函数被引用，可能会是全局变量</p>
+                <pre>
+                    <code>
+                        function demo3(){
+                            console.log(this.a);
+                        }
+                        var obj={
+                            a:5,
+                            demo:demo3
+                        }
+                        var b=obj.demo;//函数引用传递
+                        var a="abc";
+                        b();//abc
+                    </code>
+                </pre>
+            </section>
+            <section>
+                3.显示绑定
+                学过bind()\apply()\call()函数的都应该知道，它接收的第一个参数就是将上下文的对象赋给this,看这个demo
+                <pre>
+                    <code>
+                        function demo4(){
+                            console.log(this.a);
+                        }
+                        var obj={
+                            a:2
+                        }
+                        demo4.call(obj);//2
+                    </code>
+                </pre>
+            </section>
+            <section>
+                如果我们传递的第一个值是简单值的话，那么后台会自动转化为对应的封装对象，如果传递为null,那么结果就默认绑定到全局变量
+                <pre>
+                    <code>
+                        function demo5(){
+                            console.log(this.a);
+                        }
+                        var obj={
+                            a:10
+                        }
+                        var a=2;
+                        demo5.call(null);//2
+                    </code>
+                </pre>
+            </section>
+            <section>
+                4.new新对象绑定
+                如果是一个构造函数，则需要使用new来调用，那么绑定的将是新创建的对象。
+                <pre>
+                    <code>
+                        function demo5(a){
+                            this.a=a;
+                        }
+                        var obj=new demo5(2);
+                        var a=10;
+                        console.log(obj.a);//2
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <p>关于很多人对于this使用的误解</p>
+                <p>相信有些人在其他语言中接触过this,会将this误解为引用function本身，下面我举个例子看看到底是不是这样</p>
+                <pre>
+                <code>
+                    function demo6(num){
+                        this.count++;
+                    }
+
+                    demo6.count=0;
+                    for(var i=0;i<10;i++){
+                        if(i>5){
+                            demo6(i);
+                        }
+                    }
+                    console.log(demo6.count);//结果是0，为什么不是4？
+                </code>
+              </pre>
+             </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            其实在上面这个demo6中的this指的是一个全局对象，所以this.count并没有定义，更别说赋值了，如果这时候要打印this.count的话，只能为NaN了。
+            但是如果给count定义并赋值为0，则this.count最终结果为4；
+        </section>
+        <section>
+           <pre>
+                <code>
+                    function demo6(num){
+                        this.count++;
+                        console.log(this.count);//1,2,3,4
+                    }
+                    demo6.count=0;var count=0;
+                    for(var i=0;i<10;i++){
+                        if(i>5){
+                            demo6(i);
+                        }
+                    }
+                    console.log(demo6.count);
+                </code>
+          </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>说了那么多this方面的知识，那么this到底有哪方面的应用？</p>
+            <p>随着代码的增加，函数嵌套、各级调用等变得越来越复杂，那么传递一个对象的引用将变得越来越不明智，它会把你的代码弄得非常乱，甚至你自己都无法理解清楚。而this机制提供了一个更加优雅而灵便的方案，传递一个隐式的对象引用让代码变得更加简洁和复用。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/front-Thinking/p/4364337.html" target="_blank">别再为this发愁了----js中的this机制</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>如果this应用在严格模式(use strict)中，上面提到的this指向哪些不能使用？</p>
+        </section>
+        <section>
+            如果在严格模式的情况下执行纯粹的函数调用，那么这里的的 `this` 并不会指向全局，而是 `undefined`，这样的做法是为了消除 js 中一些不严谨的行为
+            <pre>
+                <code>
+                    'use strict';
+                    function test() {
+                        console.log(this.a);
+                    };
+                    var a=2;
+                    test();//严格模式下会报错，正常模式下为2
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢:赵锐泉</p>
+            <p><small>王峰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
