@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+	<div ng-controller="personCtrl" style="margin-bottom: 20px;">
+
+		名: <input type="text" ng-model="firstName"><br>
+		姓: <input type="text" ng-model="lastName"><br>
+		<br>
+		姓名: {{fullName()}}
+
+	</div>
+	<div ng-controller="myCtrl">
+
+		运动: <input type="text" ng-model="power"><br>
+		<br>
+		信息: {{powerText()}}
+
+	</div>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('personCtrl', function($scope) {
+	    $scope.firstName = "John";
+	    $scope.lastName = "Doe";
+	    $scope.fullName = function () {
+	        return $scope.firstName + " " + $scope.lastName;
+	    };
+	});
+	app.controller('myCtrl', function($scope) {
+	    $scope.power = "足球";
+	    $scope.powerText = function() {
+	        return $scope.firstName + " " + $scope.lastName + "like" +$scope.power;
+	    };
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div ng-app="app" ng-controller="parentCtr">
+	    <div ng-controller="childCtr1">Ctr1 name :
+	        <input ng-model="name" type="text" ng-change="change(name);" />
+	    </div>
+	    <div ng-controller="childCtr2">Ctr2 name:
+	        <input ng-model="ctr1Name" />
+	    </div>
+	    <div ng-controller="childCtr3">Ctr3 name:
+	        <input ng-model="ctr1Name1" />
+	    </div>
+    </div>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script type="text/javascript">
+    	angular.module("app", []).controller("parentCtr",
+
+			function ($scope) {
+			    $scope.$on("Ctr1NameChange",
+
+			    function (event, msg) {
+			        console.log("parent", msg);
+			        $scope.$broadcast("Ctr1NameChangeFromParrent", msg);
+			    });
+			}).controller("childCtr1", function ($scope) {
+			    $scope.change = function (name) {
+			        console.log("childCtr1", name);
+			        $scope.$emit("Ctr1NameChange", name);
+			    };
+			}).controller("childCtr2", function ($scope) {
+			    $scope.$on("Ctr1NameChangeFromParrent",
+
+			    function (event, msg) {
+			        console.log("childCtr2", msg);
+			        $scope.ctr1Name = msg;
+			    });
+			}).controller("childCtr3", function ($scope) {
+			    $scope.$on("Ctr1NameChangeFromParrent",
+
+			    function (event, msg) {
+			        console.log("childCtr3", msg);
+			        if (msg){
+			        	$scope.ctr1Name1 = "第一个输入框数据变化了！";
+			        }
+			        
+			    });
+			});
+    </script>
+</body>
+</html>
