@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-04】对一个数组filter、some、map、foreach的操作分别有什么作用？</h2>
+
+            <h3>小课堂【成都】</h3>
+
+            <p style="text-align: center;">分享人：梁家健</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">在程序代码之中，数组变量，即Array类型，是非常常用的类型，数组中的每一项可以保存任何类型的数据，所以使用方便的同时，也意味着需要更多的方法来进行数据处理。</p>
+            <p style="text-align: left">在javascript高级程序设计中，对Array类型的方法介绍就有9种：“检测数组”、“转换方法”、“栈方法”、“队列方法”、“重排序方法”、“操作方法”、“位置方法”、“迭代方法”、“归并方法”。</p>
+            <p style="text-align: left">这次就针对“迭代方法”的内容进行介绍。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">在“迭代方法”中，有以下5种方法：</p>
+                <p style="text-align: left">every()：对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true。</p>
+                <p style="text-align: left">filter()：对数组中的每一项运行给定函数，返回该函数会返回true 的项组成的数组。</p>
+                <p style="text-align: left">forEach()：对数组中的每一项运行给定函数。这个方法没有返回值。</p>
+                <p style="text-align: left">map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</p>
+                <p style="text-align: left">some()：对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。</p>
+			</section>
+			<section>
+				<p style="text-align: left">在这些方法中，every()和some()使用方式最是相似，对every()来说，传入的函数必须对每一项都返回true，这个方法才返回true；否则，它就返回false。而some()方法则是只要传入的函数对数组中的某一项返回true，就会返回true。其中区别就像是逻辑运算符号的 && 和 || 一样。</p>
+<pre>
+	<code style="background-color: #1c1e20">
+var arr = [1,2,3,4,5,6,7,8];
+var aEvery = arr.every(function(item,index,array){
+  console.log(item,index,array);
+  return (item>4)
+})
+console.log('every',aEvery);//false
+var aSome = arr.some(function(item,index,array){
+  console.log(item,index,array);
+  return (item>4)
+})
+console.log('some',aSome);//true
+	</code>
+</pre>
+			</section>
+      <section>
+				<p style="text-align: left">filter()函数，它利用指定的函数确定是否在返回的数组中包含某一项。例如，要
+返回一个所有数值都大于2 的数组，可以使用以下代码。</p>
+<pre>
+	<code style="background-color: #1c1e20">
+var aFilter = arr.filter(function(item,index,array){
+  return item>4
+})
+console.log('filter',aFilter);
+	</code>
+</pre>
+			</section>
+            <section>
+				<p style="text-align: left">map()也返回一个数组，而这个数组的每一项都是在原始数组中的对应项上运行传入函数的结果。例如，可以给数组中的每一项乘以2，然后返回这些乘积组成的数组，如下所示。</p>
+<pre>
+	<code style="background-color: #1c1e20">
+var aMap = arr.map(function(item,index,array){
+  return item * 2
+})
+console.log('map',aMap);
+	</code>
+</pre>
+			</section>
+            <section>
+				<p style="text-align: left">最后一个方法是forEach()，它只是对数组中的每一项运行传入的函数。这个方法没有返回值，本质上与使用for 循环迭代数组一样。来看一个例子。</p>
+<pre>
+	<code style="background-color: #1c1e20">
+var aForeach = arr.forEach(function(item,index,array){
+  return item
+})
+console.log('forEach',aForeach);
+	</code>
+</pre>
+			</section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：javascript高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <!-- <section>
+            <p style="text-align: left">当我们需要设计更复杂的页面样式，例如导航条中，项目隐藏后的点击下拉显示功能，例如javascript插件中的模态框、轮播图等功能，就需要引用jquery.js和bootstrap.js文件。</p>
+            <p style="text-align: left">甚至需要调用bootstrap提供的方法接口，对目标进行适当的触发。</p>
+        </section> -->
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 梁家健 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
