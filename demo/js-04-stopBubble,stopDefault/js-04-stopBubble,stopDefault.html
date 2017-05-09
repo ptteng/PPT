@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>阻止事件冒泡和默认事件</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+        .one{
+            width:400px;
+            height:100px;
+            border:1px solid #333;
+        }
+        .two{
+            height:45px;
+            line-height:45px;
+            padding-left:15px;
+            border:1px solid red;
+        }
+        .three{
+            padding:9px;
+            background-color: green;
+            border:1px solid #999;
+            cursor:pointer;
+        }
+    </style>
+    <script src = "http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script>
+        $(function(){
+            $(".one").click(function(event) {
+                alert($(this).prop("className"));
+            });
+            $(".two").click(function(event) {
+                alert($(this).prop("className"));
+            });
+            $(".three").click(function(event) {
+                alert($(this).prop("className"));
+//                非ie阻止事件冒泡（高版本ie也有效）
+//                event.stopPropagation();
+//                ie的写法(chrome、ie中有效，firefox无效)
+//                  window.event.cancelBubble = true;
+//                兼容写法
+                stopBubble(event);
+//                阻止事件冒泡和默认事件
+//                return false;
+            });
+
+            function stopBubble(e) {
+                //如果提供了事件对象，则这是一个非IE浏览器
+                if ( e && e.stopPropagation ){
+                    e.stopPropagation();
+                }
+                //因此它支持W3C的stopPropagation()方法
+
+                else
+                //否则，我们需要使用IE的方式来取消事件冒泡
+                {
+                    console.log(e)
+                    window.event.cancelBubble = true;
+                }
+            }
+
+            $('#a1').click(function(e){
+////                非ie阻止默认行为（chrome、高版本ie也有效、firefox无效）
+//                event.preventDefault();
+//                ie阻止默认行为（高版本ie貌似无效，chrome倒是有效）
+//                window.event.returnValue = false;
+//                兼容写法
+                alert(12)
+//                兼容写法（chrome、ie有效、firefox无效）
+//                stopDefault(event)
+//                return false：chrome、firefox、ie均有效，但这个办法有弊端，不建议滥用
+//                  return false
+            })
+
+
+            function stopDefault(e){
+                if(e && e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    window.event.returnValue = false;
+                }
+                return false;
+            };
+
+
+            //禁用右键
+            document.oncontextmenu=function(){return false;}
+            //禁用滚轮
+            document.onmousewheel=function(){return false}
+        });
+    </script>
+</head>
+<body style='height:2000px;'>
+<!--事件冒泡-->
+<div class="one">
+    我是one(div)
+    <p class="two">
+        我是two（p）
+        <span class="three">我是three（span）</span>
+    </p>
+</div>
+<br/>
+<br/>
+<br/>
+<!--默认行为-->
+<a id="a1" href="http://www.jnshu.com/home" target="_blank">www.jnshu.com</a>
+</body>
+</html>

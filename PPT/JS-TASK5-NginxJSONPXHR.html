@@ -31,9 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task】</h2>
-            <h3>小课堂 nginx使用与跨域</h3>
-            <p>分享人：李绍博</p>
+            <h2>前端垮域问题有哪些常用的解决方式？</h2>
+            <h3>小课堂【成都第94期】 </h3>
+            <p>分享人：何华飒</p>
         </section>
         <section>
             <p>目录</p>
@@ -42,20 +42,18 @@
             <p>3.常见问题</p>
             <p>4.解决方案</p>
             <p>5.编码实战</p>
-            <p>6.扩展思考</p>
+            <p>6.更多讨论</p>
             <p>7.参考文献</p>
-            <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍</h3>
+            <h3>一.背景介绍</h3>
         </section>
         <section>
             <p>跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对javascript施加的安全限制。</p>
             <p>所谓同源是指，域名，协议，端口相同。浏览器执行javascript脚本时，会检查这个脚本属于那个页面，如果不是同源页面，就不会被执行</p>
-            <p>Nginx 是一个高性能的 HTTP 和反向代理服务器，是一款轻量级的 Web 服务器，可以实现负载均衡等功能，国内使用 Nginx 服务器的大型网站主要有新浪、网易、腾讯等。</p>
-        </section>
+                 </section>
         <section>
-            <h3>2.知识剖析</h3>
+            <h3>二.知识剖析</h3>
         </section>
         <section>
             <p>1、静态HTTP服务器：Nginx是一个HTTP服务器，可以将服务器上的静态文件（如HTML、图片）通过HTTP协议展现给客户端</p>
@@ -66,166 +64,140 @@
             <p>4、虚拟主机:例如将www.aaa.com和www.bbb.com两个网站部署在同一台服务器上，两个域名解析到同一个IP地址，但是用户通过两个域名却可以打开两个完全不同的网站，互相不影响，就像访问两个服务器一样，所以叫两个虚拟主机。</p>
         </section>
         <section>
-            <h3>3.常见问题</h3>
+            <h3>三.常见问题</h3>
+            <p>常见的几种跨域解决方案</p>
         </section>
         <section>
-            <p>1、如何配置Nginx通过域名访问本地网页</p>
-            <p>2、如何配置实现跨域</p>
-            <p>3、跨域几种解决方案</p>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
+            <h3>四.解决方案</h3>
         </section>
 
         <section>
-            <p>1、如何配置Nginx通过域名访问本地网页</p>
+            <section><h3>常见跨域方式</h3></section>
+            <section><p>1.使用iFrame访问另一个域。 然后再从另一个页面读取iFrame的内容。包含jquery在内的库都有一些封装。据说Firefox等可能不支持读取另一个iFrame的内容。</p> </section>
+            <section><p>2.window.name 和 postMessage</p>
+                <p> window.name 和 postMessage 主要都侧重于纯前端页面之间的数据通讯，前者利用了 “ 在同一浏览器窗口载入的不同页面（ 无论它们是否不同域 ），共享同一个window.name，并且都对 window.name 有读写的权限 ” 的这一特性来实现页面间的数据交换，后者则是HTML5的API，不同域下的页面在满足一定关系的条件下可以通过此API跨域传送数据。</p>
+               </section>
+            <section>
+                <p>3.通过jsonp跨域</p>
+                <p>动态script标签+回调函数</p>
+                <h6>script标签是不受同源策略限制的，可以直接通过动态构造script标签实现跨域。jsonp在此基础上增加了回调函数，功能更强大</h6>
+                <h6>首先在客户端注册一个callback, 然后把callback的名字传给服务器。此时，服务器先生成 json 数据。
+                然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 jsonp.最后将 json 数据直接以入参的方式，
+                放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。客户端浏览器，解析script标签，并执行返回的 javascript 文档，
+                此时数据作为参数，传入到了客户端预先定义好的 callback 函数里.（动态执行回调函数）</h6>
+            </section>
+            <section>
+                <p>4.Cors跨域资源共享。</p>
+                <p>Cors是jsonp方法的“改进版”，避免了jsonp的一些缺点。</p>
+                <p>具体的方法是在服务端设置Response Header响应头中的Access-Control-Allow-Origin为对应的域名，
+                    实现了CORS（跨域资源共享）。cors对于IE8以下的浏览器是不支持的。</p>
+            </section>
+        <section>
+            <p>5.服务器代理（服务端之间的资源请求不会有跨域限制）</p>
+        </section>
         </section>
         <section>
-            <p>Nginx很强大，通过nginx访问本地网页，只需修改nginx目录下conf/nginx.conf文件中以下代码</p>
+            <h3>五.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p>1、如何配置Nginx通过域名访问本地网页</p>
+            </section>
+            <section>
+                <p>Nginx很强大，通过nginx访问本地网页，只需修改nginx目录下conf/nginx.conf文件中以下代码</p>
               <pre>
             <code>
 
-                    server
-                        {
-                        listen 80;#监听端口
-                        server_name localhost;#域名
-                        index index.html index.htm index.php;
-                        root E/web;#站点目录（将html等文件放置在这个文件夹）
-                     } </code>
+                server
+                {
+                listen 80;#监听端口
+                server_name localhost;#域名
+                index index.html index.htm index.php;
+                root E/web;#站点目录（将html等文件放置在这个文件夹）
+                } </code>
                  </pre>
 
-        </section>
-        <section>
-            <p>经过以上修改，重启nginx后通过设置的域名localhost就可以访问本地网页了，如访问文件夹E/web下的tset.html文件，则在地址栏输入：localhost/test.html，或者通过本地ip访问：如：
-            192.168.1.103/test.html</p>
+            </section>
+            <section>
+                <p>经过以上修改，重启nginx后通过设置的域名localhost就可以访问本地网页了，如访问文件夹E/web下的tset.html文件，则在地址栏输入：localhost/test.html，或者通过本地ip访问：如：
+                    192.168.1.103/test.html</p>
 
-        </section>
-        <section>
-            <p>nginx也可以自己设置域名访问，修改配置中以下代码</p>
+            </section>
+            <section>
+                <p>nginx也可以自己设置域名访问，修改配置中以下代码</p>
 
                  <pre>  <code>
-                    server
-                        {
-                        listen 80;#监听端口
-                        server_name local.testpage.com;//修改这里的域名
-                        index index.html index.htm index.php;
-                        root E/web;#站点目录（将html等文件放置在这个文件夹）
+                     server
+                     {
+                     listen 80;#监听端口
+                     server_name local.testpage.com;//修改这里的域名
+                     index index.html index.htm index.php;
+                     root E/web;#站点目录（将html等文件放置在这个文件夹）
                      }
                  </code>  </pre>
 
-        </section>
-        <section>
-            <p>修改系统hosts文件，windows在C:\Windows\System32\drivers\etc下，文本编辑器打开，修改：</p>
+            </section>
+            <section>
+                <p>修改系统hosts文件，windows在C:\Windows\System32\drivers\etc下，文本编辑器打开，修改：</p>
           <pre>    <code>
 
-                   # Localhost (DO NOT REMOVE)
-                    127.0.0.1	localhost
-                    127.0.0.1	local.testpage.com//这里添加设置的域名
+              # Localhost (DO NOT REMOVE)
+              127.0.0.1	localhost
+              127.0.0.1	local.testpage.com//这里添加设置的域名
           </code>   </pre>
 
-            <p>重启nginx,访问local.testpage.com就可以访问到E:/web下的index.html</p>
-        </section>
-        <section>
-            <p>2、nginx跨域可以通过反向代理来实现：</p>
-        </section>
-        <section>
-            <p>如我想访问地址http://115.29.203.53:10013的数据，那么可以这么配置：在server里添加location</p>
+                <p>重启nginx,访问local.testpage.com就可以访问到E:/web下的index.html</p>
+            </section>
+            <section>
+                <p>2、nginx跨域可以通过反向代理来实现：</p>
+            </section>
+            <section>
+                <p>如我想访问地址http://115.29.203.53:10013的数据，那么可以这么配置：在server里添加location</p>
 
                <pre> <code>
                    server
-                        {
-                         location /student-ajax/ {
-                                    proxy_pass http://115.29.203.53:10013;}
-                     }
+                   {
+                   location /student-ajax/ {
+                   proxy_pass http://115.29.203.53:10013;}
+                   }
                </code> </pre>
 
-            <p>重启nginx，要跨域时，url参数填写/student-ajax/代替目标 http://115.29.203.53:10013;</p>
-        </section>
-
-        <section>
-            <h3>3、常见跨域方式</h3>
-            <p>1、使用iFrame访问另一个域。 然后再从另一个页面读取iFrame的内容。jquery等有一些封装。据说Firefox等可能不支持读取另一个iFrame的内容。</p>
-            <p>2、服务器代理</p>
-            <p>3、跨域 XMLHttpRequest 请求</p>
-        </section>
-        <section>
-            <p>4、通过jsonp跨域：Jsonp原理：首先在客户端注册一个callback, 然后把callback的名字传给服务器。此时，服务器先生成 json 数据。然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 jsonp.最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。客户端浏览器，解析script标签，并执行返回的 javascript 文档，此时数据作为参数，传入到了客户端预先定义好的 callback 函数里.（动态执行回调函数）</p>
+                <p>重启nginx，要跨域时，url参数填写/student-ajax/代替目标 http://115.29.203.53:10013;</p>
+            </section>
 
         </section>
         <section>
-            <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <p>1、xhr：XMLHttpRequest</p>
-            <pre>
-                <code>
-                    var xhr = new XMLHttpRequest();//建立xhr对象
-                    xhr.open("get", "example.php", false);//请求的类型、请求的URL和是否异步发送
-                    xhr.send(data);//参数
-                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {//等待回调
-                        alert(xhr.statusText);
-                    } else {
-                        alert("Request was unsuccessful: " + xhr.status);
-                }
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>2、JSONP</p>
-            <p>JSONP的最基本的原理是：动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来，这种跨域方式其实与ajax XmlHttpRequest协议无关了。我们在用其他关于src的标签的时候，都可以跨域。所以我们只要动态构造的src标签同样可以做到跨域。 </p>
-            <pre>
-                <code>
-                     $.getJSON("http://crossdomain.com/services.php?callback=?"，//方式1
-                        function(result) {
-                            for(var i in result) {
-                                alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
-                            }
-                        });
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>方式2</p>
-            <pre>
-                <code>
-                     $.ajax({
-                        url:"http://crossdomain.com/services.php",
-                        dataType:'jsonp',
-                        data:'',
-                        jsonp:'callback',
-                        success:function(result) {
-                            for(var i in result) {
-                                alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
-                            }
-                        },
-                        timeout:3000
-                    });
-                </code>
-            </pre>
-        </section>
-        <section>
-            <h3>6.扩展思考</h3>
+            <h3>六.更多讨论</h3>
         </section>
 
         <section>
-            <h3>哪种方式相对更好？</h3>
+            <section> <h3>哪种方式相对更好？</h3> </section>
+                <section><p>Jsonp</p>
+            <p>兼容性更好，在更加古老的浏览器中都可以运行，不需要XMLHttpRequest或ActiveX的支持；并且在请求完毕后可以通过调用callback的方式回传结果。<br>
+            只能GET；不能查错；不同域的两个页面不能进行进行JavaScript调用</p> </section>
+                    <section><p>CORS</p>
+            <p>解决了Jsonp，但是不兼容旧浏览器</p> </section>
+                        <section><p>window.name 和 postMessage </p>
+            <p>偏重前端通信</p> </section>
+                            <section><p>Nginx</p>
+            <p>没有限制，功能强大，甚至不需要目标服务器同意，侵略性很强</p>
+            <p>需要设置代理服务器</p> </section>
         </section>
 
         <section>
-            <h3>7.参考文献</h3>
+            <h3>七.参考文献</h3>
         </section>
         <section>
             <p>参考一：<a href="http://justcoding.iteye.com/blog/1366102" target="_blank">AJAX 跨域请求 - JSONP获取JSON数据</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
+            <p>参考二：<a href="http://blog.csdn.net/kongjiea/article/details/44201021" target="_blank">深入理解前端跨域方法和原理</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/tianheila/p/6139241.html" target="_blank">Nginx反向代理、CORS、JSONP等跨域请求解决方法总结</a></p>
         </section>
 
         <section>
-            <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 李绍博</small>
+                <small>BY : 何华飒</small>
+            <h4>鸣谢：李绍博</h4>
             </p>
         </section>
 

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【js-02】如何实现数组深拷贝与浅拷贝</h2>
+            <h3>小课堂【郑州第92期】</h3>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>在使用JavaScript对数组进行操作的时候，我们经常需要将数组进行备份，也就是复制、克隆或者说做拷贝<br><br><br>
+                要弄明白拷贝，首先要明白js中对象的组成。在js中一切实例皆是对象，具体分为原始类型和合成类型。原始类型对象指的是number、string、boolean等，合成类型对象指的是array、object以及function。
+                数组的拷贝有深有浅，下面具体分析！</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>浅拷贝</h4>
+                <p>浅拷贝可以理解为就是复制一份来引用，所有引用对象都指向一份数据，并且都可以修改这份数据。
+                    对于字符串类型，浅拷贝是对值的拷贝，对于对象来说，浅拷贝是对对象地址的拷贝，也就是复制
+                    的结果是两个对象指向同一个内存地址，修改其中一个对象的属性，则另一个对象的属性也会改变
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        var a = ['大娃','二娃', '三娃' //定义一个名为a的数组，里面有3个值，
+                        ];
+                        var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+                        b[2] = '开放'; //然后把b的第三个值等于开放
+                        console.log(a)//那么现在打印a 是什么结果呢
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>深拷贝</h4>
+                <p>深拷贝则是复制变量值，对于非基本类型的变量，则递归至基本类型变量后，再复制。
+                    深复制不同于浅复制，它会开辟新的内存地址，两个对象对应两个不同的地址，修改
+                    一个对象的属性，不会改变另一个对象的属性<br>实现数组深拷贝有两种方法</p>
+            </section>
+            <section>
+                <section>
+                    <br><br><br>
+                    <p>
+                        方法一： 用js的slice函数来实现
+                    </p>
+                    <br><br><br><br>
+                    <p>方法二：用js的concat方法</p>
+                </section>
+                <section>
+
+                </section>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p class="fragment">浅拷贝的缺点是如果你改变了对象B所指向的内存地址，你同时也改变了对象A指向这个地址的字段。</p>
+            <br><br>
+            <p class="fragment">深拷贝，这种方式会完全拷贝所有数据，优点是B与A不会相互依赖（A,B完全脱离关联），
+                缺点是拷贝的速度更慢，代价更大 （可理解为耗费了更多内存空间）</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这个就要看自己的用途了，视情况选择</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                slice方法
+                <p style="text-align: left">
+                    对于array对象的slice函数，<br>
+                    返回一个数组的一段。（仍为数组）<br>
+                    arrayObj.slice(start, [end])<br>
+                    <strong><i>参数:</i></strong><br>
+                    <strong><i>arrayObj</i></strong><br>
+                    必选项。一个 Array 对象。<br>
+                    <strong><i>start</i></strong><br>
+                    必选项。arrayObj 中所指定的部分的开始元素是从零开始计算的下标。<br>
+                    <strong><i>end</i></strong><br>
+                    可选项。arrayObj 中所指定的部分的结束元素是从零开始计算的下标。<br>
+                </p>
+
+            </section>
+            <section>
+            <pre>
+                <code>
+                    var arr = ["One","Two","Three"];
+                    var arrtoo = arr.slice(0);
+                    arrtoo[1] = "set Map";
+                    console.log(arr);//One,Two,Three
+                    console.log(arrtoo);//One,set Map,Three
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                concat方法
+                <p style="text-align: left">
+                    concat() 方法用于连接两个或多个数组。<br>
+                    该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。<br>
+                    <strong><i>语法</i></strong><br>
+                    arrayObject.concat(arrayX,arrayX,......,arrayX)<br>
+                    <strong><i>说明</i></strong><br>
+                    返回一个新的数组。该数组是通过把所有 arrayX 参数添加到 arrayObject 中生成的。如果要进行 concat() 操作的参数是数组，那么添加的是数组中的元素，而不是数组。
+                </p>
+            </section>
+            <section>
+                <pre>
+                <code>
+                    var arr1 = ["One","Two","Three"];
+                    var arrtooo = arr1.concat();
+                    arrtooo[1] = "set Map To";
+                    console.log(arr1);//One,Two,Three
+                    console.log(arrtooo);//One,set Map To,Three
+                </code>
+            </pre>
+            </section>
+        </section>
+
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>对象类型的深浅拷贝，这个以前没用过，真心没怎么理解，放个链接以示诚意</p>
+            <p  class="fragment">此处可点→→→<a href="https://www.zhihu.com/question/23031215" target="_blank">知乎上的深浅拷贝</a></p>
+            <p>脚本之家上的js对象浅拷贝和深拷贝详解 <a href="http://www.jb51.net/article/91906.htm" target="_blank">http://www.jb51.net/article/91906.htm</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.jb51.net/article/49065.htm" target="_blank">数组的拷贝</a></p>
+            <p>参考一：<a href="http://web.jobbole.com/82517/"  target="_blank">原始数据类型和对象类型的区别及深度拷贝解析</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>目前遇到哪些需要区别深层拷贝和浅层拷贝才能解决的问题</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 罗宇/董瑞</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

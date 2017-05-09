@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body ng-app="spicyApp1">
+	<div ng-controller="SpicyController">
+		 <button ng-click="chiliSpicy()">Chili</button>
+		 <button ng-click="jalapenoSpicy()">Jalapeño</button>
+		 <p>The food is {{spice}} spicy!</p>
+	</div>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+   <script type="text/javascript">
+   	var myApp = angular.module('spicyApp1', []);
+
+		myApp.controller('SpicyController', ['$scope', function($scope) {
+		    $scope.spice = 'very';
+
+		    $scope.chiliSpicy = function() {
+		        $scope.spice = 'chili';
+		    };
+
+		    $scope.jalapenoSpicy = function() {
+		        $scope.spice = 'jalapeño';
+		    };
+		}]);
+   </script>
+</body>
+</html>

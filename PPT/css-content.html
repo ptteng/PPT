@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>CSS之CONTENT</h2>
+            <h3>小课堂【郑州】</h3>
+            <p>分享人：韦胜云</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>content属性早在CSS2.1的时候就被引入了，可以使用:before以及:after伪元素生成内容。在CSS 3 Generated Content（生成内容）工作草案中，content属性添加了更多的特征，例如：插入以及移除文档内容的能力，以创建脚注，结语，及段落注释。
+            <br>
+            content的意思顾名思义，是“内容”，下面详细介绍它的相关知识。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>content取值<br/>
+            content需要配合 :before 和 :after这俩个 伪元素使用，来插入生成内容。
+            <a href="http://www.css88.com/book/css/properties/content/content.htm">css3手册链接</a>
+            </p>  
+            <pre><code>
+<div>
+取值：
+normal：
+默认值。表现与none值相同
+none：
+不生成任何值。
+<attr>：
+插入标签属性值
+<url>：
+使用指定的绝对或相对地址插入一个外部资源（图像，声频，视频或浏览器支持的其他任何资源）
+<string>：
+插入字符串
+counter(name)：
+使用已命名的计数器
+counter(name,list-style-type)：
+使用已命名的计数器并遵从指定的list-style-type属性
+counters(name,string)：
+使用所有已命名的计数器
+counters(name,string,list-style-type)：
+使用所有已命名的计数器并遵从指定的list-style-type属性
+no-close-quote：
+并不插入quotes属性的后标记。但增加其嵌套级别
+no-open-quote：
+并不插入quotes属性的前标记。但减少其嵌套级别
+close-quote：
+插入quotes属性的后标记
+open-quote：
+插入quotes属性的前标记
+说明：
+用来和:after及:before伪元素一起使用，在对象前或后显示内容。
+对应的脚本特性为content。
+</div>
+            </code></pre>             
+        </section>
+        <section>
+            <p>content最基本的——生成内容。<br/>
+            content:"插入的内容"，或者content:none不插入内容。
+            <a href="https://jsfiddle.net/dwqs/Lmm1r08x/">demo</a>
+            </p>
+            <pre><code>
+<div>
+html:代码                     css：代码
+<h1>这是h1</h1>               h1::after{
+<h2>这是h2</h2>                   content:"h1后插入内容"
+                               }      
+                               h2::after{
+                                   content:none
+                                }                                     
+</div>
+            </code></pre>              
+        </section>
+        <section>
+            <p>嵌入文字符号<br/>
+            可以使用content属性的open-quote属性值和close-quote属性值在字符串两边添加诸如括号、单引号、双引号之类的嵌套文字符号。open-quote用于添加开始的文字符号，close-quote用于添加结束的文字符号。
+            <a href="https://jsfiddle.net/dwqs/p8e3qvv4/">demo</a>
+            </p>
+            <pre><code>
+<div>
+h1{
+    quotes:"(" ")";  /*利用元素的quotes属性指定文字符号*/
+}
+h1::before{
+    content:open-quote;
+}
+h1::after{
+    content:close-quote;
+}
+h2{
+    quotes:"\"" "\"";  /*添加双引号要转义*/
+}
+h2::before{
+    content:open-quote;
+}
+h2::after{
+    content:close-quote;
+}
+</div>
+            </code></pre>             
+        </section>
+        <section>
+            <p>插入图片<br/>
+            content属性也可以直接在元素前/后插入图片.
+            <a href="https://jsfiddle.net/dwqs/c6qk6pkv/">demo</a>
+            </p>
+            <pre><code>
+<div>
+<h3>这是h3</h3>
+css:
+
+h3::after{
+    content:url(http://119.10.57.69:880/jnshu3933/baibaihe.jpg)
+}
+</div>
+            </code></pre>              
+        </section>
+        <section>
+            <p>插入元素的属性值<br/>
+            content属性可以直接利用attr获取元素的属性，将其插入到对应位置。
+            <a href="https://jsfiddle.net/dwqs/m220nzan/">demo</a>
+            </p>
+            <pre><code>
+<div>
+<a href="http:///www.ido321.com">这是链接&nbsp;&nbsp;</a>
+css:
+
+a:after{
+    content:attr(href);
+}
+</div>
+            </code></pre>              
+        </section>
+        <section>
+            <p>插入项目编号<br/>
+            利用content的counter属性针对多个项目追加连续编号.
+            <a href="https://jsfiddle.net/dwqs/2ueLg3uj/">demo</a>
+            </p>
+            <pre><code>
+<div>
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+css:
+
+h1:before{
+    content:counter(my)'.';
+}
+h1{
+    counter-increment:my;
+}
+</div>
+            </code></pre>              
+        </section>
+        <section>
+            <p>项目编号修饰<br/>
+            默认插入的项目编号是数字型的，1,2,3.。。。自动递增，也能给项目编号追加文字和样式.
+            <a href="https://jsfiddle.net/dwqs/17hqznca/">demo</a>
+            </p>
+            <pre><code>
+<div>
+h1:before{
+    content:'第'counter(my)'章';
+    color:red;
+    font-size:42px;
+}
+h1{
+    counter-increment:my;
+}
+</div>
+            </code></pre>             
+        </section>
+        <section>
+            <p>制定编号种类<br/>
+            利用content(计数器名，编号种类)格式的语法指定编号种类，编号种类的参考可以依据ul的list-style-type属性值。
+            <a href="https://jsfiddle.net/dwqs/4nsrtxup/">demo</a>
+            </p>
+            <pre><code>
+<div>
+h1:before{
+    content:counter(my,upper-alpha);
+    color:red;
+    font-size:42px;
+}
+h1{
+    counter-increment:my;
+}
+</div>
+            </code></pre>             
+        </section>
+        <section>
+            <p>编号嵌套<br/>
+            大编号中嵌套中编号，中编号中嵌套小编号。
+            <a href="https://jsfiddle.net/dwqs/2k5qbz51/">demo</a>
+            </p>
+            <pre><code>
+<div>
+<h1>大标题</h1>
+<p>文字1</p>
+<p>文字2</p>
+<p>文字3</p>
+<h1>大标题</h1>
+<p>文字1</p>
+<p>文字2</p>
+<p>文字3</p>
+<h1>大标题</h1>
+<p>文字1</p>
+<p>文字2</p>
+<p>文字3</p>
+css:
+
+h1::before{
+    content:counter(h)'.';
+}
+h1{
+    counter-increment:h;
+}
+p::before{
+    content:counter(p)'.';
+    margin-left:40px;
+}
+p{
+    counter-increment:p;
+}
+</div>
+            </code></pre>            
+        </section>
+        <section>
+            <p>编号嵌套<br/>
+            在示例的输出中可以发现，p的编号是连续的。如果对于每一个h1后的三个p重新编号的话，可以使用counter-reset属性重置，修改上述h1的css:h1{counter-increment:h;counter-reset:p;}这样，编号就重置了
+            <a href="https://jsfiddle.net/dwqs/hfutu4Lq/">demo</a>
+            </p>
+            <pre><code>
+<div>
+h1:before{
+    content:'第'counter(my)'章';
+    color:red;
+    font-size:42px;
+}
+h1{
+    counter-increment:my;
+}
+</div>
+            </code></pre>          
+        </section>
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+        <section>
+            <p>嵌入文字符号<br/>
+            可以使用content属性的open-quote属性值和close-quote属性值在字符串两边添加诸如括号、单引号、双引号之类的嵌套文字符号。open-quote用于添加开始的文字符号，close-quote用于添加结束的文字符号。
+            <a href="https://jsfiddle.net/dwqs/p8e3qvv4/">demo</a>
+            </p>
+            <pre><code>
+<div>
+h1{
+    quotes:"(" ")";  /*利用元素的quotes属性指定文字符号*/
+}
+h1::before{
+    content:open-quote;
+}
+h1::after{
+    content:close-quote;
+}
+h2{
+    quotes:"\"" "\"";  /*添加双引号要转义*/
+}
+h2::before{
+    content:open-quote;
+}
+h2::after{
+    content:close-quote;
+}
+</div>
+            </code></pre>            
+        </section>
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+        <section>
+            <p>嵌入文字符号<br/>
+            1、如果输入单引号，可以用双引号quotes:"'" "'";<br/>
+            2、如果输入双引号，可以用单引号quotes:'"' '"';
+            </p>               
+        </section>
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+        <section>
+            <h3>六.拓展思考</h3>
+        </section>
+        <section>
+            <p>课后思考——content真的那么实用吗<br/>
+            CSS3 Values and Units（数值和单位）草案扩展了attr()表达式的范围，除了返回字符串，还可以返回诸如CSS colors, CSS integer（整数）, length, angle, time, frequency（频率）以及其他一些单元。通过使用自定义的data属性，可以实现一些非常强大的效果，诸如简单图表图形的渲染，动画效果的实现。总之，attr()的潜力惊人。
+            </p>
+        </section>
+        <section>
+            <h3>七.更多讨论</h3>
+        </section>
+        <section>
+            <p>大家还知道哪些平时常用到content的地方<br>
+                为什么content属性很少用到（至少我目前很少用到）<br/>
+            </p>
+        </section>
+        <section>
+            <h3>八.参考文献</h3>
+            
+            <p><a href="http://www.zhangxinxu.com/wordpress/2010/04/css-content%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8/" target="_blank" >CSS content内容生成技术以及应用</a></p>
+            <p><a href="https://segmentfault.com/a/1190000002750033" target="_blank" >CSS3的content属性详解</a></p>
+            <p><a href="http://www.css88.com/book/css/properties/content/content.htm" target="_blank" >CSS参考手册</a></p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : ALL</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

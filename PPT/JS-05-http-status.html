@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>http状态码</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task5】HTTP状态码有那些？分别代表是什么意思？</h2>
+            <h3>小课堂【郑州第九十五期】</h3>
+            <p>分享人：王相博</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含HTTP状态码的信息头（server header）用以响应浏览器的请求。<br><br>
+
+                百度百科的介绍:<br><br>
+
+                HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。</p>
+            <p>RFC是记录网络标准的文档，通常后边会跟随四位数字表示身份。</p>
+        </section>
+        <!--<section>-->
+            <!--<img src="../img/css-12-ReserAndNormalize/Chrome2.png" style="margin: 0">-->
+            <!--<img src="../img/css-12-ReserAndNormalize/Chrome1.png" style="margin: 0">-->
+        <!--</section>-->
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>HTTP状态码的英文为HTTP Status Code。 下面是常见的HTTP状态码的概括：</p>
+            <p>1开头：（被接受，需要继续处理。）这一类型的状态码，代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。</p>
+            <p>2开头 （请求成功）这一类型的状态码，代表请求已成功被服务器接收、理解、并接受</p>
+
+            <p>3开头 （请求被重定向）这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。</p>
+        </section>
+        <section>
+            <p>4开头：（请求错误）这类的状态码代表了客户端看起来可能发生了错误，妨碍了服务器的处理。除非响应的是一个 HEAD 请求，否则服务器就应该返回一个解释当前错误状况的实体，以及这是临时的还是永久性的状况。这些状态码适用于任何请求方法。浏览器应当向用户显示任何包含在此类错误响应中的实体内容。</p>
+            <p>5开头：（服务器错误）这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。除非这是一个HEAD 请求，否则服务器应当包含一个解释当前错误状态以及这个状况是临时的还是永久的解释信息实体。浏览器应当向用户展示任何在当前响应中被包含的实体。</p>
+        </section>
+        <section>
+            <p>常见的状态码</p>
+            <p style="text-align:left">一般人只需要了解以下常见的状态码就够了</p>
+            <p style="text-align:left">200 OK 服务器成功处理了请求（这个是我们见到最多的）</p>
+            <p style="text-align:left">301/302 Moved Permanently（重定向）请求的URL已移走。Response中应该包含一个Location URL, 说明资源现在所处的位置</p>
+            <p style="text-align:left">404 Not Found(页面丢失)未找到资源</p>
+            <p style="text-align:left">501 Internal Server Error服务器遇到一个错误，使其无法对请求提供服务</p>
+        </section>
+        <section>
+            <p>我们作为程序猿，需要对这些状态码，尽可能了解的更多一些，下面，是从网上找来的关于状态码的解析。比较多，大伙儿大概过一遍，能记多少就记多少。</p>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>http状态码如何查看？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>F12调试，network查看Status。</p>
+            <p>各种在线输入网址查询HTTP状态的工具：</p>
+            <p>比如：站长工具，http状态查询：http://tool.chinaz.com/pagestatus/</p>
+            <p>其他的应该还有很多，可以自己去搜索一下。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>知道这个有什么用？</p>
+            <p>http状态码的核心作用是Web Server服务器用来告诉客户端，当前的网页请求发生了什么事，或者说当前Web服务器的响应状态。所以HTTP状态码常用来判断和分析当前Web服务器的运行状况。</p>
+            <p>将这些状态码一一弄清楚，工作中遇到的各种问题才能够处理的得心应手。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/it_man/article/details/50235315" target="_blank">CSDN博客：HTTP状态码</a></p>
+            <p>参考一：<a href="http://baike.baidu.com/link?url=djR1a8qTw3slQRLhArsZ41zApZKHoqs56LdRx9AnRyOPiVsBhO71S0ejuhqlRl_IarKDo13eM-MIsBNPVuofcpnHdtfB8fVN3zuLA1DorljDkkwMRRDXu6Aw4A8uCk_F" target="_blank">百度百科关于HTTP的详解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">大家自由讨论一下和http状态码相关的问题</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :王相博、黄国保</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

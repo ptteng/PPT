@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>position定位有几种，各有什么特点</h2>
-            <h3>小课堂【武汉第81期】</h3>
-            <p>分享人：邓杰仁</p>
+            <h3>小课堂【成都第100期】</h3>
+            <p>分享人：王帅</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -51,44 +51,57 @@
         <section>
 
             <p>
-                position 是CSS为HTML文档的一些元素，定位提供的属性。强大的功能，易用的特性为，让排版布局，有了
-                更多的选择。
-                我们来初步了解下
-                position 的几种属性：
-                1static(静态）：HTML元素的默认值，即没有定位，元素出现在正常的流中。
-                静态定位的元素不会受到top, bottom, left, right影响
-                2.Relative(相对）:相对定位。
-                特点：不脱离文档流的布局，只改变自身的位置，在文档流原先的位置遗留空白区域。定位的起始位置为此元素原先在文档流的位置。
-                、3.Absolute(绝对)：绝对定位
-                特点脱离文档流的布局，遗留下来的空间由后面的元素填充。定位的起始位置为最近的父元素(postion不为static)，否则为html文档本身。
-                4.fixed(固定)：固定定位
-                元素的位置相对于浏览器窗口是固定位置。
-                即使窗口是滚动的它也不会移动：
+                position 是CSS为HTML文档的一些元素，定位提供的属性。这个属性定义建立元素布局所用的定位机制。<br>
+                常规取值：&nbsp;&nbsp;
+                1.static(静态）&nbsp;&nbsp;
+                2.Absolute(绝对)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                3.Relative(相对）&nbsp;&nbsp;
+                4.fixed(固定)
             </p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>CSS 为定位提供了一些属性，利用这些属性，可以建立列式布局，
-                将布局的一部分与另一部分重叠，还可以完成多年来通常需要使用多个表格才能完成的任务
-                。它定位的基本思想很简单，它允许你定义元素框相对于其正常位置应该出现的位置，
-                或者相对于父元素、另一个元素甚至浏览器窗口本身的位置。
+            <p>
+                static(静态）：HTML元素的默认值，即没有定位，元素出现在正常的流中。
             </p>
 
+        </section>
+        <section>
+            <p>
+                Relative(相对）:相对定位。<br>
+                特点：不脱离文档流的布局，只改变自身的位置，在文档流原先的位置遗留空白区域。定位的起始位置为此元素原先在文档流的位置。
+            </p>
+            <img src="../img/css-4-position/relative.png" alt=""> 
+        </section>
+        <section>
+            <p>
+                Absolute(绝对)：绝对定位<br>
+                特点:脱离文档流的布局，遗留下来的空间由后面的元素填充。定位的起始位置为最近的父元素(postion不为static)，否则为html文档本身。
+            </p>
+            <img src="../img/css-4-position/absolute.png" alt="">
+        </section>
+        <section>
+            <p>
+                fixed(固定)：固定定位。<br>
+                特点：类似于absolute，但不随着滚动条的移动而改变位置。元素的位置相对于浏览器窗口是固定位置。
+
+            </p>
+            <img src="../img/css-4-position/fixed.png" alt="">
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>使用中各个属性所表现出来的样式到底是怎么样效果，有什么不同？</p>
+            <p>相对定位与绝对定位的搭配使用效果？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
 
-            <p>我们做几个小DEMO来看看，到底有什么差别，DEMO演示，请看下一节</p>
+            <p>父容器使用相对定位，子元素使用绝对定位后，这样子元素的位置不再相对于浏览器左上角，而是相对于父窗口左上角，若无非static祖先，以初始包含块定位，在浏览器里，根元素的包含块（HTML）为初始包含块，只是一般情况下看上去像是body区域。</p>
         </section>
 
         <section>
@@ -98,41 +111,32 @@
         <pre>
             <code>
 
-<p style="color: red;">使用relative的效果</p>
-<div class="box">
-    <div class="left-box">盒子一</div>
-    <div class="relative">
-        relative测试
-        盒子二
-    </div>
-    <div class="right-box">盒子三</div>
-</div>
-<p style="color: red;">使用Absilute的效果</p>
-<div class="Abox">
-    <div class="Aleft-box">盒子一</div>
-    <div class="Absolute">
-        Absilute测试
-        盒子二
-    </div>
-    <div class="Aright-box">盒子三</div>
+<div class="box1" style="background-color:blue;height: 200px;width: 200px">
+  <div class="box2" style="position:absolute;right: 0;background-color:red;height:50px;width:50px">
+   </div>
 </div>
 
-<img src="../img/css-4-position/mei1.jpg">
-<div class="Fbox">
-    <p style="color: red;">使用Fixed的效果</p>
-        fixed测试
+<div class="box3" style="position:relative;background-color:blue;height: 200px;width: 200px">
+  <div class="box4" style="position:absolute;right: 0;background-color:red;height: 50px;width: 50px">
+  </div>
 </div>
+
+
 
             </code>
         </pre>
-<p><a href="../demo/css-04-position-demo.html">demo</a></p>
+<p><a href="../demo/css-04-positon/css-4-position.html">demo</a></p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
 
         <section>
-            <p>我们一般在什么时候去应用它了？</p>
+            <p>fixed属性都有哪些应用？</p>
+
+        </section>
+        <section>
+            <a href="http://www.dytt8.net/">这里面有fixed的应用</a>
 
         </section>
 
@@ -142,12 +146,12 @@
         </section>
         <section>
             <h3>8.更多讨论</h3>
-            <p>现实中在什么应用场景中使用得最多？</p>
+            <p></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 邓杰仁</small></p>
+            <p><small>BY : 王帅</small></p>
         </section>
 
     </div>
