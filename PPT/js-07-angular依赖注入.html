@@ -107,7 +107,7 @@
     
             </section>
             <section>
-                值是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
+                值(value)是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
                 <pre>
                 <code>
 var mainApp = angular.module("mainApp", []);
@@ -127,7 +127,7 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
                 </pre>
             </section>
             <section>
-                工厂是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
+                工厂(factory)是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
                 <pre>
                 <code>
 var mainApp = angular.module("mainApp", []);
@@ -149,26 +149,8 @@ mainApp.service('CalcService', function(MathService){
                 </code>
                 </pre>
             </section>
-            <section>提供者所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间)。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及get()方法，用来返回值/服务/工厂。<pre>
-                <code>
-var mainApp = angular.module("mainApp", []);
-
-mainApp.config(function($provide) {
-   $provide.provider('MathService', function() {
-      this.$get = function() {
-         var factory = {};
-         factory.multiply = function(a, b) {
-            return a * b;
-         }
-         return factory;
-      };
-   });
-});
-                </code>
-                </pre>
-            </section>
             <section>
-                服务是一个单一的JavaScript包含了一组函数对象来执行某些任务。服务使用service()函数，然后注入到控制器的定义。
+                服务(service)是一个单一的JavaScript包含了一组函数对象来执行某些任务。服务使用service()函数，然后注入到控制器的定义。
                 <pre>
                 <code>
 
@@ -190,8 +172,27 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
                 </code>
                 </pre>
             </section>
+            <section>提供者(provider)所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间)。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及get()方法，用来返回值/服务/工厂。<pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.config(function($provide) {
+   $provide.provider('MathService', function() {
+      this.$get = function() {
+         var factory = {};
+         factory.multiply = function(a, b) {
+            return a * b;
+         }
+         return factory;
+      };
+   });
+});
+                </code>
+                </pre>
+            </section>
+            
             <section>
-                常量用于通过配置相位值考虑事实，值不能使用期间的配置阶段被传递。
+                常量(constant)用于通过配置相位值考虑事实，值不能使用期间的配置阶段被传递。
                 <pre>
                 <code>
 
