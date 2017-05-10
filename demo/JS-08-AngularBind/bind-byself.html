@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>two-way binding</title>
+    </head>
+    <body onload="init()">
+        <button ng-click="inc">
+            increase 1
+        </button>
+        <button ng-click="inc2">
+            increase 2
+        </button>
+        <span style="color:red" ng-bind="counter"></span>
+        <span style="color:blue" ng-bind="counter"></span>
+        <span style="color:green" ng-bind="counter"></span>
+
+        <script type="text/javascript">
+            /* 数据模型区开始 */
+            var counter = 0;
+
+            function inc() {
+                counter++;
+            }
+
+            function inc2() {
+                counter+=2;
+            }
+            /* 数据模型区结束 */
+
+            /* 绑定关系区开始 */
+            function init() {
+                bind();
+            }
+
+            function bind() {
+                var list = document.querySelectorAll("[ng-click]");
+                for (var i=0; i<list.length; i++) {
+                    list[i].onclick = (function(index) {
+                        return function() {
+                            window[list[index].getAttribute("ng-click")]();
+                            apply();
+                        };
+                    })(i);
+                }
+            }
+
+            function apply() {
+                var list = document.querySelectorAll("[ng-bind='counter']");
+                for (var i=0; i<list.length; i++) {
+                    list[i].innerHTML = counter;
+                }
+            }
+            /* 绑定关系区结束 */
+        </script>
+    </body>
+</html>
