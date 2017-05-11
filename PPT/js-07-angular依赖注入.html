@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>angularJS中的依赖注入</h2>
+            <h3>小课堂【成都第一百零五期】</h3>
+            <p>分享人：李婷</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>以前原始社会，我们需要斧子，然后由于还没有社会分工，只能自己打磨一把来使用，对应在程序上是我们需要一个功能的时候只能自己创建，然后使用new等关键字来调用方法。
+                    然后工业社会阶段，我们需要使用斧子的时候，只需要找到工厂，购买斧子就可以使用，共产主义社会，需要斧子的时候甚至不需要购买，直接坐等社会提供。
+                    依赖注入的意思就是我们需要的东西不是我们自己创建的，而是第三方提供的，我们只需要引用就可以使用了。
+                    不需要的时候就不引用它。</p>
+            </section>
+            <section>
+                依赖注入产生的背景：
+            </section>
+            <section>
+                传统应用程序通常是在类内部执行代码中主动创建这个类所依赖的其它对象，
+                从而导致类与类之间发生紧密耦合，使得类难于测试和隔离，最终导致系统的扩展和维护异常困难。
+            </section>
+            <section>
+                解决方案：
+            </section>
+            <section>
+                <p>依赖注入用来解决组件之间依赖关系、配置及生命周期管理，
+                    通过转移对象控制权，可以解决类之间的耦合问题，
+                    对象与对象之间是松散耦合关系，更重要的是使得应用程序体系结构变得非常灵活，
+                    很好的体现了面向对象的设计法则之一---依赖设计原则</p>
+            </section>
+            
+        </section>
+        
+        
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                依赖注入的原理：
+            </section>
+            <section>
+                程序运行过程中，如需另一个对象协作(调用它的方法、访问他的属性)时，无须在代码中创建被调用者，而是依赖于外部容器的注入，
+                调用者仅通过声明某个组件就可以获得组件的控制权，而对该组件的依赖关系管理、查找、加载由外部完成。
+            </section>
+            <section>
+                依赖注入有什么用
+            </section>
+            <section>
+                <p>作用一：可以使我们能够轻松对组件进行测试</p>
+                <p>作用二：降低代码的逻辑复杂度</p>
+            
+            </section>
+            <section>
+                <p>angular提供了几种很好的依赖注入机制，以下5个核心组件用来作为依赖注入
+                    value、factory、service、provider、constant、
+                    值  	工厂     服务 	  提供者     常值</p>
+    
+            </section>
+            <section>
+                值(value)是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
+                <pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+//create a value object as "defaultInput" and pass it a data.
+mainApp.value("defaultInput", 5);
+
+
+mainApp.controller('CalcController', function($scope, CalcService, defaultInput) {
+      $scope.number = defaultInput;
+      $scope.result = CalcService.square($scope.number);
+
+      $scope.square = function() {
+      $scope.result = CalcService.square($scope.number);
+   }
+});
+                </code>
+                </pre>
+            </section>
+            <section>
+                工厂(factory)是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
+                <pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.factory('MathService', function() {
+   var factory = {};
+   factory.multiply = function(a, b) {
+      return a * b
+   }
+   return factory;
+});
+
+
+mainApp.service('CalcService', function(MathService){
+      this.square = function(a) {
+      return MathService.multiply(a,a);
+   }
+});
+                </code>
+                </pre>
+            </section>
+            <section>
+                服务(service)是一个单一的JavaScript包含了一组函数对象来执行某些任务。服务使用service()函数，然后注入到控制器的定义。
+                <pre>
+                <code>
+
+var mainApp = angular.module("mainApp", []);
+
+mainApp.service('CalcService', function(MathService){
+      this.square = function(a) {
+      return MathService.multiply(a,a);
+   }
+});
+mainApp.controller('CalcController', function($scope, CalcService, defaultInput) {
+      $scope.number = defaultInput;
+      $scope.result = CalcService.square($scope.number);
+
+      $scope.square = function() {
+      $scope.result = CalcService.square($scope.number);
+   }
+});
+                </code>
+                </pre>
+            </section>
+            <section>提供者(provider)所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间)。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及get()方法，用来返回值/服务/工厂。<pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.config(function($provide) {
+   $provide.provider('MathService', function() {
+      this.$get = function() {
+         var factory = {};
+         factory.multiply = function(a, b) {
+            return a * b;
+         }
+         return factory;
+      };
+   });
+});
+                </code>
+                </pre>
+            </section>
+            
+            <section>
+                常量(constant)用于通过配置相位值考虑事实，值不能使用期间的配置阶段被传递。
+                <pre>
+                <code>
+
+mainApp.constant("configParam", "constant value");
+                </code>
+                </pre>
+            </section>
+        
+            
+            
+        </section>
+        
+        
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            
+            <section>
+                <p>1、依赖注入的几种方法如何使用</p>
+            </section>
+            <section>
+                <p>2、angular依赖注入的时候，controller里面注入的参数和function的参数列表顺序问题</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                1.推断式注入声明
+                如果没有明确的声明， AngularJS会假定参数名称就是依赖的名称。
+                请注意，这个过程只适用于未经过压缩和混淆的代码，因为AngularJS需要原始未经压缩的参数列表来进行解析
+                当AngularJS实例化这个模块时，会查找greeter并自然而然地把对它的引用传递进去
+            </section>
+            <section>
+                2、显式注入声明
+                AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。
+                通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。
+                我们给我们的函数设置的参数名称分别是renamed$scope和renamedGreeter，然后我们在后面使用
+    
+                MyController.$inject=['$scope','greeter'];
+    
+                显式的将我们需要的依赖注入到MyController函数中；
+    
+                所以在MyController函数中，renamedscope代表scope,MyController.inject=[′scope’, ‘greeter’];代表greeter
+            </section>
+            <section>
+                3 行内注入声明
+    
+                AngularJS提供的注入声明的最后一种方式，是可以随时使用的行内注入声明。
+    
+                允许我们在函数定义时从行内将参数传入。此外，它可以避免在定义过程中使用临时变量。
+    
+                这种方式其实是一个语法糖，它同前面提到的通过$inject属性进行注入声明的原理是完全一样的
+            </section>
+            
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                计算两个数乘积的小例子<br/>
+            </section>
+            <section>
+            <pre>
+                <code>
+
+    var mainApp = angular.module("mainApp", []);
+
+    mainApp.config(function($provide) {
+        $provide.provider('MathService', function() {
+            this.$get = function() {
+                var factory = {};
+                factory.multiply = function(a, b) {
+                    return a * b;
+                };
+                return factory;
+            };
+        });
+    });
+
+    mainApp.value("defaultInput", 5);
+
+    mainApp.factory('MathService', function() {
+        var factory = {};
+        factory.multiply = function(a, b) {
+            return a * b;
+        };
+        return factory;
+    });
+
+    mainApp.service('CalcService', function(MathService){
+        this.square = function(a) {
+            return MathService.multiply(a,a);
+        }
+    });
+
+    mainApp.controller('CalcController', function($scope,$injector, CalcService, defaultInput,MathService) {
+        $scope.number = defaultInput;
+        $scope.result = CalcService.square($scope.number);
+
+        $scope.square = function() {
+            $scope.result = CalcService.square($scope.number);
+        };
+        $scope.square2 = function() {
+            MathService= $injector.get("MathService");
+            $scope.result2=MathService.multiply($scope.number,$scope.number2);
+        };
+        $scope.square2 = function() {
+            $scope.result2=MathService.multiply($scope.number,$scope.number2);
+        }
+    });
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p class="fragment">这些依赖组件的本质是啥？</p>
+                <p class="fragment">factory，service以及value全部都是用来定义一个provider的简写，
+                    它们提供了一种方式来定义一个provider而无需输入所有的复杂的代码。</p>
+            </section>
+        
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考：<a href="http://www.yiibai.com/angularjs/angularjs_dependency_injection.html" target="_blank">详解依赖注入</a></p>
+                <p>参考：<a href="http://sentsin.com/web/663.html" target="_blank">理解依赖注入</a></p>
+                <p>参考：<a href="https://www.zhihu.com/question/28097646" target="_blank">深究依赖注入</a></p>
+                <p>参考：<a href="http://blog.csdn.net/luo_xinran/article/details/52153830" target="_blank">深究依赖注入</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>AngularJS中的依赖注入组件的应用场景？</p>
+                <p>AngularJS中的依赖注入与不用依赖注入的其他框架相比，有何优点？</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 汤金鑫</small>
+            </p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

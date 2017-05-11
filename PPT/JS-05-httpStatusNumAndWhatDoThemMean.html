@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task5】http状态码有那些？分别代表是什么意思？</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：吴昊</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含HTTP状态码的信息头（server header）用以响应浏览器的请求。</p>
+       <p>这里是百度百科的介绍:</p>
+            <p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>HTTP状态码的英文为HTTP Status Code。 下面是常见的HTTP状态码的概括：</p>
+            <p>1开头：（被接受，需要继续处理。）这一类型的状态码，代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。</p>
+            <p>2开头 （请求成功）这一类型的状态码，代表请求已成功被服务器接收、理解、并接受</p>
+
+            <p>3开头 （请求被重定向）这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。</p>
+        </section>
+        <section>
+            <p>4开头：（请求错误）这类的状态码代表了客户端看起来可能发生了错误，妨碍了服务器的处理。除非响应的是一个 HEAD 请求，否则服务器就应该返回一个解释当前错误状况的实体，以及这是临时的还是永久性的状况。这些状态码适用于任何请求方法。浏览器应当向用户显示任何包含在此类错误响应中的实体内容。</p>
+            <p>5开头：（服务器错误）这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。除非这是一个HEAD 请求，否则服务器应当包含一个解释当前错误状态以及这个状况是临时的还是永久的解释信息实体。浏览器应当向用户展示任何在当前响应中被包含的实体。</p>
+        </section>
+        <section>
+            <p>常见的状态码</p>
+            <p>一般人只需要了解以下常见的状态码就够了</p>
+            <p>200 OK 服务器成功处理了请求（这个是我们见到最多的）</p>
+            <p>301/302 Moved Permanently（重定向）请求的URL已移走。Response中应该包含一个Location URL, 说明资源现在所处的位置</p>
+            <p>404 Not Found(页面丢失)未找到资源</p>
+            <p>501 Internal Server Error服务器遇到一个错误，使其无法对请求提供服务</p>
+        </section>
+        <section>
+            <p>我们作为程序猿，需要对这些状态码，尽可能了解的更多一些，下面，是从网上找来的关于状态码的解析。比较多，大伙儿大概过一遍，能记多少就记多少。</p>
+
+        </section>
+        <section>
+            <p>100（客户端继续发送请求，这是临时响应）：</p>
+            <p>100 Continue
+                客户端应当继续发送请求。这个临时响应是用来通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端应当继续发送请求的剩余部分，或者如果请求已经完成，忽略这个响应。服务器必须在请求完成后向客户端发送一个最终响应。</p>
+        </section>
+        <section>
+            <p>101(服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到HTTP的新版本协议):</p>
+            <p>服务器已经理解了客户端的请求，并将通过Upgrade 消息头通知客户端采用不同的协议来完成这个请求。在发送完这个响应最后的空行后，服务器将会切换到在Upgrade 消息头中定义的那些协议。 　　只有在切换新的协议更有好处的时候才应该采取类似措施。例如，切换到新的HTTP 版本比旧版本更有优势，或者切换到一个实时且同步的协议以传送利用此类特性的资源。</p>
+        </section>
+        <section>
+            <p>102 Processing(代表处理将被继续执行)
+                由WebDAV（RFC 2518）扩展的状态码，代表处理将被继续执行。</p>
+        </section>
+        <section>
+        <h3>2开头 这一类型的状态码，代表请求已成功被服务器接收、理解、并接受。</h3>
+            <p>200 OK（通常，这表示服务器提供了请求的网页。）</p>
+            <p>请求已成功，请求所希望的响应头或数据体将随此响应返回。</p>
+        </section>
+        <section>
+            <p>201 Created（请求成功并且服务器创建了新的资源。 ）</p>
+            <p>请求已经被实现，而且有一个新的资源已经依据请求的需要而建立，且其 URI 已经随Location 头信息返回。假如需要的资源无法及时建立的话，应当返回 '202 Accepted'。</p>
+        </section>
+        <section>
+            <p>202 Accepted（已接受——服务器已接受请求，但尚未处理。 ）</p>
+            <p>服务器已接受请求，但尚未处理。正如它可能被拒绝一样，最终该请求可能会也可能不会被执行。在异步操作的场合下，没有比发送这个状态码更方便的做法了。</p>
+            <p>返回202状态码的响应的目的是允许服务器接受其他过程的请求（例如某个每天只执行一次的基于批处理的操作），而不必让客户端一直保持与服务器的连接直到批处理操作全部完成。在接受请求处理并返回202状态码的响应应当在返回的实体中包含一些指示处理当前状态的信息，以及指向处理状态监视器或状态预测的指针，以便用户能够估计操作是否已经完成。</p>
+        </section>
+        <section>
+            <p>203 Non-Authoritative Information(（非授权信息）  服务器已成功处理了请求，但返回的信息可能来自另一来源。 )</p>
+            <p>服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。当前的信息可能是原始版本的子集或者超集。例如，包含资源的元数据可能导致原始服务器知道元信息的超集。使用此状态码不是必须的，而且只有在响应不使用此状态码便会返回200 OK的情况下才是合适的。</p>
+        </section>
+        <section>
+            <p>204   （无内容）  服务器成功处理了请求，但没有返回任何内容。 </p>
+            <p>服务器成功处理了请求，但不需要返回任何实体内容，并且希望返回更新了的元信息。响应可能通过实体头部的形式，返回新的或更新后的元信息。如果存在这些头部信息，则应当与所请求的变量相呼应。
+                如果客户端是浏览器的话，那么用户浏览器应保留发送了该请求的页面，而不产生任何文档视图上的变化，即使按照规范新的或更新后的元信息应当被应用到用户浏览器活动视图中的文档。
+                由于204响应被禁止包含任何消息体，因此它始终以消息头后的第一个空行结尾。</p>
+        </section>
+        <section>
+            <p>205   （重置内容） 服务器成功处理了请求，但没有返回任何内容。</p>
+            <p>服务器成功处理了请求，且没有返回任何内容。但是与204响应不同，返回此状态码的响应要求请求者重置文档视图。该响应主要是被用于接受用户输入后，立即重置表单，以便用户能够轻松地开始另一次输入。
+                与204响应一样，该响应也被禁止包含任何消息体，且以消息头后的第一个空行结束。</p>
+        </section>
+        <section>
+            <h3>206   （部分内容）  服务器成功处理了部分 GET 请求。</h3>
+            <p>服务器已经成功处理了部分 GET 请求。类似于 FlashGet 或者迅雷这类的 HTTP下载工具都是使用此类响应实现断点续传或者将一个大文档分解为多个下载段同时下载。
+                该请求必须包含 Range 头信息来指示客户端希望得到的内容范围，并且可能包含 If-Range 来作为请求条件。</p>
+        </section>
+        <section>
+            <h3>207 Multi-Status</h3>
+            <p>由WebDAV(RFC 2518)扩展的状态码，代表之后的消息体将是一个XML消息，并且可能依照之前子请求数量的不同，包含一系列独立的响应代码。</p>
+        </section>
+        <section>
+            <h3>3开头 （请求被重定向）表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。</h3>
+            <p>当且仅当后续的请求所使用的方法是 GET 或者 HEAD 时，用户浏览器才可以在没有用户介入的情况下自动提交所需要的后续请求。客户端应当自动监测无限循环重定向（例如：A->A，或者A->B->C->A），因为这会导致服务器和客户端大量不必要的资源消耗。按照 HTTP/1.0 版规范的建议，浏览器不应自动访问超过5次的重定向。</p>
+        </section>
+        <section>
+            <p>300 Multiple Choices(（多种选择）针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。)</p>
+            <p>302 Move temporarily(302   （临时移动）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。)</p>
+        </section>
+        <section>
+            <p>303 See Other(（查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。)</p>
+            <p>304 Not Modified(（未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。)</p>
+        </section>
+        <section>
+            <p>305 Use Proxy( （使用代理） 请求者只能使用代理访问请求的网页。 如果服务器返回此响应，还表示请求者应使用代理。 )</p>
+            <p>306 Switch Proxy 废弃。在最新版的规范中，306状态码已经不再被使用。</p>
+        </section>
+        <section>
+            <p>307 Temporary Redirect (（临时重定向）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。)</p>
+        </section>
+        <section>
+            <h3>4开头 （请求错误）这些状态代码表示请求可能出错，妨碍了服务器的处理。</h3>
+            <p>400 Bad Request(（错误请求） 服务器不理解请求的语法。)</p>
+        </section>
+        <section>
+        <p>401 Unauthorized(（未授权） 请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。)</p>
+        <p>402 Payment Required(该状态码是为了将来可能的需求而预留的。)</p>
+        <p>403 Forbidden (（禁止） 服务器拒绝请求。)</p>
+        </section>
+        <section>
+         <p>404 Not Found(（未找到） 服务器找不到请求的网页。)</p>
+            <p>405 Method Not Allowed(（方法禁用）请求行中指定的请求方法不能被用于请求相应的资源。该响应必须返回一个Allow 头信息用以表示出当前资源能够接受的请求方法的列表。 )</p>
+            <p>406 Not Acceptable(（不接受） 无法使用请求的内容特性响应请求的网页。 )</p>
+        </section>
+        <section>
+            <p>407 Proxy Authentication Required(（需要代理授权） 此状态代码与 401（未授权）类似，但指定请求者应当授权使用代理)</p>
+            <p>408 Request Timeout(请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。)</p>
+            <p>409 Conflict(（冲突）  服务器在完成请求时发生冲突。 服务器必须在响应中包含有关冲突的信息。)</p>
+        </section>
+        <section>
+            <p>410 Gone(（已删除）  如果请求的资源已永久删除，服务器就会返回此响应。 )</p>
+            <p>411 Length Required(（需要有效长度） 服务器不接受不含有效内容长度标头字段的请求。 )</p>
+            <p>412 Precondition Failed( （未满足前提条件） 服务器未满足请求者在请求中设置的其中一个前提条件。)</p>
+        </section>
+        <section>
+            <p>413 Request Entity Too Large( （请求实体过大） 服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。)</p>
+            <p>414 Request-URI Too Long(（请求的 URI 过长） 请求的 URI（通常为网址）过长，服务器无法处理。)</p>
+            <p>415 Unsupported Media Type(（不支持的媒体类型） 请求的格式不受请求页面的支持。 )</p>
+        </section>
+        <section>
+            <p>416 Requested Range Not Satisfiable(（请求范围不符合要求） 如果页面无法提供请求的范围，则服务器会返回此状态代码。)</p>
+            <p>417   （未满足期望值） 服务器未满足"期望"请求标头字段的要求。</p>
+        </section>
+        <section>
+            <h3>5开头（服务器错误）这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。</h3>
+            <p>500   （服务器内部错误）  服务器遇到错误，无法完成请求。</p>
+            <p>501   （尚未实施） 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。 </p>
+        </section>
+
+        <section>
+            <p>502   （错误网关） 服务器作为网关或代理，从上游服务器收到无效响应。 </p>
+            <p>503   （服务不可用） 服务器目前无法使用（由于超载或停机维护）。 通常，这只是暂时状态。 </p>
+            <p>504   （网关超时）  服务器作为网关或代理，但是没有及时从上游服务器收到请求。 </p>
+            <p>505   （HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>http状态码如何查看？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>F12调试，network查看Status。</p>
+            <p>各种在线输入网址查询HTTP状态的工具：</p>
+            <p>比如：站长工具，http状态查询：http://tool.chinaz.com/pagestatus/</p>
+            <p>像这样的网站，也提供这个功能。。。。http://www.3464.com/Tools/PageStatus/</p>
+            <p>其他的应该还有很多，可以自己去搜索一下。</p>
+        </section>
+        <section>
+            <h3>5.扩展思考</h3>
+        </section>
+        <section>
+            <p>知道这个有什么用？</p>
+            <p>http状态码的核心作用是Web Server服务器用来告诉客户端，当前的网页请求发生了什么事，或者说当前Web服务器的响应状态。所以HTTP状态码常用来判断和分析当前Web服务器的运行状况。</p>
+            <p>将这些状态码一一弄清楚，工作中遇到的各种问题才能够处理的得心应手。</p>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/dufufd/article/details/53112184" target="_blank">CSDN博客：常见的HTTP状态码(HTTP Status Code)说明</a></p>
+            <p>参考一：<a href="http://baike.baidu.com/link?url=djR1a8qTw3slQRLhArsZ41zApZKHoqs56LdRx9AnRyOPiVsBhO71S0ejuhqlRl_IarKDo13eM-MIsBNPVuofcpnHdtfB8fVN3zuLA1DorljDkkwMRRDXu6Aw4A8uCk_F" target="_blank">百度百科关于HTTP的详解</a></p>
+
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄国保 & 吴昊 | somebody</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>继承有几种方式，分别是什么，想要实现继承可以使用哪些方法</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>继承有几种方式，分别是什么，想要实现继承可以使用哪些方法</h2>
+            <h3>武汉小课堂第158期</h3>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>简介</h4>
+            <p class="left" style="text-indent: 2em">
+                在JS中继承是一个非常复杂的话题，比其他任何面向对象语言中的继承都复杂得多。在大多数其他面向对象语言中，
+                继承一个类只需使用一个关键字即可。在JS中想要达到继承公用成员的目的，需要采取一系列措施。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>继承有哪些方法可以实现？</li>
+                </ol>
+            </section>
+            <section>
+                <p>1.原型链</p>
+                <p class="left" style="text-indent: 2em">原型链的基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。假如我们让原型对象等于另一个类型的实例，
+                    结果会怎么样呢？显然，此时的原型对象将包含一个指向另一个原型的指针，相应地，另一个原型中也包含着一个指向另一个构造函数的指针。
+                    假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓原型链的基本概念。
+                </p>
+                <p class="left" style="text-indent: 2em">实现原型链有一种基本模式，其代码大致如下</p>
+
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function Fn1() {
+                            this.property = true;//this绑定Fn1新对象
+                        }//构造函数模式,函数名需大写
+
+
+                        Fn1.prototype.getSuperValue = function () {
+
+                        return this.property;
+
+                        };
+                        function Fn2() {
+                            this.subproperty = false;
+                        }//继承了fn1
+                        Fn2.prototype = new Fn1();
+                        console.log(Fn2.prototype.property);//true
+                        Fn2.prototype.getSubValue = function () {
+                            return this.subproperty;
+                        };
+
+                        var instance = new Fn2();
+                        console.log(instance.getSuperValue());//true
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p> 2.借用构造函数 </p>
+                <p style="float: left">
+                    在解决原型中包含引用类型值所带来问题的过程中，开发人员开始使用一种叫做借用构造函数的技术。这种技术的
+                    基本思想非常简单，即在子类型构造函数的内部调用超类型构造函数。一般都是通过apply()和call()方法也可以在新创建的对象上执行构造函数。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function Fn1() {
+                            this.colors = ['red', 'blue', 'green'];
+                        }
+                        function  Fn2() {
+                            Fn1.call(this);//继承了Fn1对象
+                        }
+                        var instance1 = new Fn2();
+                        instance1.colors.push('black');
+                        console.log(instance1.colors);//'red','blue','green','black'
+
+                        var instance2 = new Fn2();
+                        console.log(instance2.colors);//'red','blue','green'*/
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>3.组合继承</p>
+
+                <p class="left">组合继承，有时候也叫做伪经典继承，指的是将原型链和借用构造函数的技术组合在一块，
+                    从而发挥二者之长的一种继承模式。其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用
+                    构造函数来实现对实例属性的继承。。这样，既通过在原型上定义方法实现了函数复用，又能够保证每个实
+                    例都有它自己的属性。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function Fn1(name) {
+                           this.name = name;
+                            this.colors = ['red','blue','green'];
+                        }
+                        Fn1.prototype.sayName = function () {
+                            console.log(this.name);
+                        };
+
+                        function  Fn2(name,age) {
+                           Fn1.call(this, name);//继承Fn1属性
+                           this.age = age;
+                        }
+                       //方法(函数)继承
+                        Fn2.prototype = new Fn1();//继承Fn1的原型prototype
+                        Fn2.prototype.constructor = Fn2;//构造函数指向F2对象
+                        Fn2.prototype.sayAge=function () {
+                             console.log(this.age);
+                        };
+
+                        var instance1 = new Fn2('Nicholas',29);
+                        instance1.colors.push('black');
+                        console.log(instance1.colors);//'red','blue','green','black'
+                        instance1.sayName();//'Nicholas'
+                        instance1.sayAge();//29
+
+                        var instance2 = new Fn2('Freg',27);
+                        console.log(instance2.colors);//'red','blue','green'
+                        instance2.sayName();//'Greg'
+                        instance2.sayAge();//27
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>4.原型式继承</p>
+                <p class="left">道格拉斯·克罗克福德在一篇文章中介绍一种实现继承的方法，这种方法并没有实现严格意义
+                    上的构造函数。通过借助原型可以给予已有的对象创建新对象，同时还不必因此创建自定义类型。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function object(o) {
+                        function F() {}
+                        F.prototype = o;
+                        return new F();
+                        }//借助原型可以基于已有的对象创建新对象
+                        var person = {
+                            name:"Nicholas",
+                            friends:["Shelby","Court","Van"]
+                        };
+
+                        var anotherPerson = object(person);//相当于var anotherPerson = Object.create(person);
+                        anotherPerson.name = "Greg";
+                        anotherPerson.friends.push("Rob");
+
+                        var yetAnotherPerson = object(person);//相当于var yetAnotherPerson = Object.create(person);
+                        yetAnotherPerson.name = "Linda";
+                        yetAnotherPerson.friends.push("Barbie");
+
+                        console.log(person.friends);//"Shelby","Court","Van","Rob","Barbie"*/
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>5.寄生式继承</p>
+                <p>
+                    寄生式继承是与原型式继承紧密关联的一种思路，即创建一个仅用于封装继承过程的函数，该函数在内部以
+                    某种方式来增强对象，最后再想真地是它做了所有工作一样返回对象
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function object(o) {
+                            function F() {}
+                            F.prototype = o;
+                            return new F();
+                        }//借助原型可以基于已有的对象创建新对象
+                        function createAnother(original) {
+                            var clone = object(original);//通过调用函数创建一个新对象
+                            clone.sayHi = function () { //以某种方式来增强这个对象
+                                console.log("hi");
+                            };
+                            return clone;//返回这个对象
+                        }
+
+                        var person = {
+                            name:"Nicholas",
+                            friends:["Shelby","Court","Van"]
+                        };
+                        var anotherPerson = createAnother(person);
+                        anotherPerson.sayHi();
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>6.寄生组合式继承</p>
+                <p class="left" style="text-indent: 2em">
+                    所谓寄生性继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function object(o) {
+                            function F() {}
+                            F.prototype = o;
+                            return new F();
+                        }
+                        function  inheritPrototype(subType,superType) {
+                            var prototype = object(superType.prototype);//创建对象
+                            prototype.constructor=subType;//增强对象
+                            subType.prototype=prototype;//指定对象
+                        }
+                        function Fn1(name) {
+                            this.name = name;
+                            this.colors=["red","blue","green"];
+                        }
+                        Fn1.prototype.sayName=function () {
+                            console.log(this.name);
+                        };
+                        function Fn2(name,age) {
+                            Fn1.call(this,name);//继承Fn1的对象属性
+                            this.age=age;
+                        }
+                        inheritPrototype(Fn1,Fn2);
+                        Fn2.prototype.sayAge = function () {
+                            console.log(this.age);
+                        };
+                        var instance=new Fn2("Nicholas",29);
+                        instance.sayAge();//29
+                        console.log(instance.colors);//["red","blue",""green]
+                        console.log(instance.name);//Nicholas
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在以上的继承方式中，哪些继承方式比较好？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">
+                现阶段中运用比较广泛的是组合式继承，因为原型链和构造函数继承方式都有相对应的缺点，比如说
+                原型链最主要的问题来自包含引用类型值的原型。而构造函数的缺点是不能很好地封装对象方法。
+                一般情况下只有对象没有方法的情况下才会使用构造函数。而组合式继承继承了原型链和构造函数的优点，
+                并完善了二者的不足。
+
+            </p>
+            <pre>
+                <code>
+                    function Fn1(){
+                        this.colors=["red","blue","green"];
+                    }
+                    function Fn2(){
+                    }
+                    Fn2.prototype=new Fn1();//继承了Fn1()对象
+
+                    var instance1 = new Fn2();
+                    instance1.colors.push("black");
+                    console.log(instance1.colors);//"red","blue","green","black"
+
+                    var instance2 = new Fn2();
+                    console.log(instance2.colors);//"red","blue","green","black"
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>前面讲过寄生组合式继承和组合式继承，这两者有什么区别？</p>
+
+            <p>前面说过，组合式继承是javascript最常用的继承模式；但是，它也有自己的不足。组合继承最大的问题就是
+                无论在什么情况下，都会调用2次超类型构造函数。而寄生组合式继承可以很好的解决这个问题。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>javascript高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>继承有哪些方面的应用？</p>
+        </section>
+        <section>
+            <p>通常在一般的项目里不需要，因为应用简单，但你要用纯js做一些复杂的工具或框架系统就要用到了，比如webgis、或者js框架如jquery、ext什么的，不然一个几千行代码的框架不用继承得写几万行，甚至还无法维护</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王峰</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

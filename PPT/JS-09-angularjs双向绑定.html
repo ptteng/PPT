@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<title>葡萄藤PPT</title>
+	
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+	
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	
+	<!-- 打印和PDF输出样式 -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>【CSS-js-9】</h2>
+			<h3>小课堂【武汉第148期】</h3>
+			<h4>angularjs双向绑定后，发生了什么事情？是什么可以让view层和Controller层进行绑定的？</h4>
+			<p>分享人：周霆伟</p>
+		</section>
+		<section>
+			<h3>目录</h3>
+			<h4>1.背景介绍</h4>
+			<h4>2.知识剖析</h4>
+			<h4>3.常见问题</h4>
+			<h4>4.解决方案</h4>
+			<h4>5.编码实战</h4>
+			<h4>6.扩展思考</h4>
+			<h4>7.参考文献</h4>
+			<h4>8.更多讨论</h4>
+		</section>
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<h4>1.背景介绍</h4>
+			<p>介绍双向绑定之前，我们先介绍一下单向绑定。</p>
+			<p>单向数据绑定：指的是我们先把模板写好，然后把模板和数据（数据可能来自后台）整合到一起形成HTML代码，然后把这段HTML代码插入到文档流里面,但是单向绑定有个缺点，就是如果有新的数据来了，那就必须把之前的HTML代码去掉，再重新把新的数据和模板一起整合后插入到文档流中。</p>
+		</section>
+		<section>
+			<p>双向绑定：数据模型和视图之间的双向绑定。意思就是当用户在视图上的修改会自动同步到数据中去，同样的，如果数据中的值发生了变化，也会立刻同步到视图中去。</p>
+			<p>双向数据绑定最经常的应用场景就是表单了，这样当用户在前端页面完成输入后，不用任何操作，我们就已经拿到了用户的数据存放到数据模型中了。</p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>
+			<h3>MVC的基本概念</h3>
+			<p>MVC模式的意思是，软件可以分成三个部分,angularjs也是基于MVC的概念</p>
+			<li>视图（View）：用户界面。</li>
+			<li>控制器（Controller）：业务逻辑。</li>
+			<li>模型（Model）：数据保存</li>
+		</section>
+		<section>
+			<p>使用MVC的目的是将M和V的实现代码分离，从而使同一个程序可以使用不同的表现形式。比如一批统计数据可以分别用柱状图、饼图来表示。C存在的目的则是确保M和V的同步，一旦M改变，V应该同步更新。</p>
+			<img src="http://119.10.57.69:880/jnshu269/PPTdemo.jpg">
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<h4>angularjs双向绑定后，发生了什么事情？</h4>
+		</section>
+		<section>
+			<h4>怎么让有数据和无数据的情况下，显示的内容不一样？</h4>
+		</section>
+		<section>
+			<h3>4.解决方案</h3>
+		</section>
+		<section>
+			<p>当你在使用ng-model时,AngularJS使用$scope.$watch（视图到模型）以及$scope.$apply（模型到视图）来实现这个功能。</p>
+		</section>
+		<section>
+			<p>angularjs的ng-show和ng-hide都接受一个参数，这个参数是一个表达式，当这个表达式用true的时候执行，这就相当于JS的if和else了，在angular里只需要一行HTML代码就可以执行，非常的简单粗暴</p>
+		</section>
+		<section>
+			<h3>5.编码实战</h3>
+		</section>
+		<section>
+			<h3>6.拓展思考</h3>
+		</section>
+		<section>
+			<p>今天我们的标题是什么可以让view层和Controller层进行绑定,可是在刚刚讲的知识剖析里，MVC是model层和view层进行绑定，Controller只是起到一个桥梁的作用。</p>
+			<p>事实上，这是最传统的MVC结构。在这种结构下，View和Model互相持有，甚至View和Controller以及Controller和Model的关系都是千丝万缕，非常不利于维护。所以，后来的MVC发展出了新的结构。</p>
+		</section>
+		<section>
+			<img src="http://119.10.57.69:880/jnshu269/pptdem.jpg">
+             <p>我们来看看新的关系链:</p>
+				 <li>View向Controller传递交互信息</li>
+				 <li>Controller通知Model改变数据</li>
+				 <li>Model更新数据后通知Controller改变数据</li>
+				 <li>Controller得知数据改变后通知View更新视图</li>
+		</section>
+		<section>
+			<p>可以看到，演变出来的新MVC去掉了View和Model之间的联系，让View只与Controller交流，而Model也只与Controller交流。而这样的结构也称之为重量级视图控制器结构，除了视图部分和数据部分，其余的都交给Controller</p>
+			<p>这样可以让View和Model之间的解耦（独立）有利于项目的开发，让负责不同模块的开发人员不用担心自己的改动影响到别人的代码</p>
+		</section>
+		<section>
+			<h3>7.参考文献</h3>
+		</section>
+		<section>
+			<p>参考一：<a href="http://sentsin.com/web/779.html">贤心博客</a></p>
+			<p>参考二：<a href="http://www.cnblogs.com/coltfoal/p/4713329.html?utm_source=tuicool&utm_medium=referral">说说视图层架构</a></p>
+		</section>
+		<section>
+			<h3>8.更多讨论</h3>
+		</section>
+		<section>
+			<p id="abb">单向绑定较于双向绑定有什么优点？</p>
+			<p style="visibility: hidden" id="add">单向绑定的优点是相应的可以带来单向数据流，这样做的好处是所有状态变化都可以被记录、跟踪，状态变化通过手动调用通知，源头易追溯，没有“暗箱操作”。同时组件数据只有唯一的入口和出口，使得程序更直观更容易理解，有利于应用的可维护性。</p>
+		</section>
+		<section>
+			<h4>鸣谢</h4>
+			<p>感谢大家观看</p>
+			<p><small>BY :周霆伟</small></p>
+		</section>
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+   $('#abb').click(function(){
+	   $('#add').css('visibility','visible');
+   })
+</script>
+</body>
+</html>

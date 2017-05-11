@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="formModule">
+
+<head>
+    <title>喝我水站台</title>
+    <!-- <link rel="stylesheet" href="login.css" type="text/css"> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0, user-scalable=no">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular-messages.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <meta charset="UTF-8">
+</head>
+    <style>
+        .sp{
+            color:#f00;
+        }
+    </style>
+
+<body>
+    JS表单验证
+    <p>是否填写以及长度限制</p>
+    <form name="a" onsubmit="return test()"> 
+        <!-- <textarea name="b" cols="40" rows="6" placeholder="不能超过50个字符！"></textarea> -->
+        <input type="text" name="b" placeholder="不超过6个字符">
+        <br /> 
+        <input type="submit" name="Submit" value="check"> 
+    </form>
+    <br>
+    <script language="javascript"> 
+        function test() 
+        { 
+        if(document.a.b.value==null || document.a.b.value==""){
+            alert("请输入用户名");           
+            return false;
+            }if(document.a.b.value.length>6) { 
+                    alert("不能超过6个字符！"); 
+                    // document.a.b.focus(); 
+                    return false; //阻止表单提交
+                    }
+        } 
+    </script>    
+</body>
+<br>
+<br>
+<body>
+    <div class="content">
+        <form name="exampleForm" class="elegant-aero">
+        <!-- <form name="user"> -->
+            <label>Email：</label>
+            <input type="email" name="email" ng-model="user.uname" required/>
+            <span class="sp" ng-show="user.email.$invalid">不符合邮箱格式</span>
+            <span ng-show="user.email.$valid">格式正确</span>
+            <br>
+            <br>
+            <label>长度 ：</label>
+            <input type="text" name="length" ng-model="user.ulength" ng-minlength="5" ng-maxlength="15" required/>
+            <span ng-show="user.length.$error.required">内容不能为空</span>
+            <span ng-show="user.length.$error.minlength">长度不能小于5</span>
+            <span ng-show="user.length.$error.maxlength">长度不能大于15</span>
+            <br><br>
+            <label>数字 ：</label>
+            <input type="number" name="num" ng-model="user.age" required />
+            <span ng-show="user.num.$invalid">请输入数字</span>
+            <span ng-show="user.num.$valid">格式正确</span>          
+            <br><br>
+            <label>用户姓名：</label>
+            <input type="text" name="userFirstName" ng-model="firstName" required />
+            <div ng-messages="exampleForm.userFirstName.$error">
+                <div ng-message="required">姓名不能为空！</div>
+            </div>
+            <br>
+            <br>
+            <label>Email地址：</label>
+            <input type="email" name="userEmail" ng-model="email" required />
+            <div ng-messages="exampleForm.userEmail.$error">
+                <div ng-message="required">地址不能为空</div>
+                <div ng-message="email">Email地址不合法</div>
+            </div>
+            <br>
+            <br>
+            <label>手机号：</label>
+            <input type="text" name="userPhoneNumber" ng-model="phoneNumber" ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/" required />
+            <div ng-messages="exampleForm.userPhoneNumber.$error">
+                <div ng-message="required">手机号不能为空</div>
+                <div ng-message="pattern">手机号不合法！</div>
+            </div>
+            <br>
+            <br>
+            <label>用户留言：</label>
+                <textarea type="text" name="userMessage" class="form-control" rows="4" ng-model="message" ng-minlength="10" ng-maxlength="100" required></textarea>
+                <div ng-messages="exampleForm.userMessage.$error">
+                    <div ng-message="required">用户留言不能为空</div>
+                    <div ng-message="minlength">留言信息长度不能少于10个字符！</div>
+                    <div ng-message="maxlength">留言信息长度不能多于100个字符！</div>
+                </div>
+            </form>
+    </div>
+    <script>
+        angular.module("formModule",["ngMessages"]);
+    </script>
+</body>
+
+<br>
+<br>
+</html>

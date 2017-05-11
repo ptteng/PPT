@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>什么是rest风格？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="width: 110%">【JS-task5】什么是rest风格？</h2>
+            <h3>小课堂【武汉第155期】</h3>
+            <p>分享人：万维娜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;letter-spacing: 1px;width: 120%;margin-left: -10%;margin-top: 5%"><strong>创建REST风格的动机？</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                作者开发 REST 的动机是为 Web 应该如何运转创建一种架构模型，使之成为 Web 协议标准的指导框架。REST 被用来描述想要得到的 Web
+                架构，帮助识别出现有的问题，对各种替代方案进行比较，并且保证协议的扩展不会违反使 Web 成功的那些核心约束。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                REST的第一版开发于 1994 年 10 月和 1995 年 8 月之间，起初是作为作者编写 HTTP/1.0规范和最初的HTTP/1.1 建议时，用来沟通各种 Web 概念的一种方法。它在随后的 5
+                年中以迭代的方式不断改进，并且被应用于各种 Web 协议标准的修订版和扩展之中。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left;margin-left: -10%;width: 120%;margin-top: 8% ">
+                1.<b>架构风格</b>：是一种研究和评价软件架构设计的方法，它是比架构更加抽象的概念。一种架构风格是由一组相互协作的架构约束来定义的。架构约束是指软件的运行环境施加在架构设计之上的约束。<br><br>
+                2.<b>REST风格</b>：REST是所有Web应用都应该遵守的架构设计指导原则。当然，REST并不是法律，违反了REST的指导原则，仍然能够实现应用的功能。但是违反了REST的指导原则，会付出很多代价，特别是对于大流量的网站而言。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST即表述性状态传递（Representational State Transfer，简称REST）是Roy
+                Fielding博士在2000年他的博士论文中提出来的一种软件架构风格。它是一种针对网络应用的设计和开发方式，可以降低开发的复杂性，提高系统的可伸缩性。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;margin-left: -15%;width: 135%;margin-top: 8% ">
+               作为一种架构，其提出了一系列架构级约束。这些约束有：<br><br>
+                1.使用客户/服务器模型。客户和服务器之间通过一个统一的接口来互相通讯。<br>
+                2.层次化的系统。在一个REST系统中，客户端并不会固定地与一个服务器打交道。<br>
+                3.无状态。在一个REST系统中，服务端并不会保存有关客户的任何状态。也就是说，客户端自身负责用户状态的维持，并在每次发送请求时都需要提供足够的信息。<br>
+                4.可缓存。REST系统需要能够恰当地缓存请求，以尽量减少服务端和客户端之间的信息传输，以提高性能。<br>
+                5.统一的接口。一个REST系统需要使用一个统一的接口来完成子系统之间以及服务与用户之间的交互。这使得REST系统中的各个子系统可以独自完成演化。<br>
+                如果一个系统满足了上面所列出的五条约束，那么该系统就被称为是RESTful的。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">REST的优势有哪些？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left;width: 150%;margin-left: -20%">
+                <strong>1.简单性</strong><br>
+                采用REST架构风格，对于开发、测试、运维人员来说，都会更简单。可以充分利用大量HTTP服务器端和客户端开发库、Web功能测试/性能测试工具、HTTP缓存、HTTP代理服务器、防火墙。这些开发库和基础设施早已成为了日常用品，不需要什么火箭科技（例如神奇昂贵的应用服务器、中间件）就能解决大多数可伸缩性方面的问题。<br>
+                <strong>2.可伸缩性</strong><br>
+                充分利用好通信链各个位置的HTTP缓存组件，可以带来更好的可伸缩性。其实很多时候，在Web前端做性能优化，产生的效果不亚于仅仅在服务器端做性能优化，但是HTTP协议层面的缓存常常被一些资深的架构师完全忽略掉。<br>
+                <strong>3.松耦合</strong><br>
+                统一接口+超文本驱动，带来了最大限度的松耦合。允许服务器端和客户端程序在很大范围内，相对独立地进化。对于设计面向企业内网的API来说，松耦合并不是一个很重要的设计关注点。但是对于设计面向互联网的API来说，松耦合变成了一个必选项，不仅在设计时应该关注，而且应该放在最优先位置。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>主要是概念性的，所以没有代码~</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3 style="width: 110%">深入理解REST，首先理解REST的五个关键词：</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>1.资源（Resource）</strong><br><br>
+                资源是一种看待服务器的方式，即，将服务器看作是由很多离散的资源组成。每个资源是服务器上一个可命名的抽象概念。因为资源是一个抽象的概念，所以它不仅仅能代表服务器文件系统中的一个文件、数据库中的一张表等等具体的东西，可以将资源设计的要多抽象有多抽象，只要想象力允许而且客户端应用开发者能够理解。与面向对象设计类似，资源是以名词为核心来组织的，首先关注的是名词。一个资源可以由一个或多个URI来标识。URI既是资源的名称，也是资源在Web上的地址。对某个资源感兴趣的客户端应用，可以通过资源的URI与其进行交互。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>2.资源的表述（Representation）：</strong><br><br>
+                资源的表述是一段对于资源在某个特定时刻的状态的描述。可以在客户端-服务器端之间转移（交换）。资源的表述可以有多种格式，例如HTML/XML/JSON/纯文本/图片/视频/音频等等。资源的表述格式可以通过协商机制来确定。请求-响应方向的表述通常使用不同的格式。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>3.状态转移（State Transfer）：</strong><br><br>
+                状态转移（state transfer）与状态机中的状态迁移（state
+                transition）的含义是不同的。状态转移说的是：在客户端和服务器端之间转移（transfer）代表资源状态的表述。通过转移和操作资源的表述，来间接实现操作资源的目的。</p>
+        </section>
+        <section style="width: 140%;margin-left: -20%">
+            <p style="text-align: left">
+                <strong>4.统一接口（Uniform Interface）：</strong><br><br>
+                REST要求，必须通过统一的接口来对资源执行各种操作。对于每个资源只能执行一组有限的操作。以HTTP/1.1协议为例，HTTP/1.1协议定义了一个操作资源的统一接口，主要包括以下内容：<br>
+            </p>
+            <ul>
+                <li>7个HTTP方法：GET/POST/PUT/DELETE/PATCH/HEAD/OPTIONS</li>
+                <li>HTTP头信息（可自定义）</li>
+                <li>HTTP响应状态代码（可自定义）</li>
+                <li>一套标准的内容协商机制</li>
+                <li>一套标准的缓存机制</li>
+                <li>一套标准的客户端身份认证机制</li>
+            </ul>
+            <p style="text-align: left">
+                REST还要求，对于资源执行的操作，其操作语义必须由HTTP消息体之前的部分完全表达，不能将操作语义封装在HTTP消息体内部。这样做是为了提高交互的可见性，以便于通信链的中间组件实现缓存、安全审计等等功能。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;width: 120%;margin-left: -10%">
+                <strong>5.超文本驱动（Hypertext Driven）：</strong><br><br>
+                “超文本驱动”又名“将超媒体作为应用状态的引擎”（Hypermedia As The Engine Of Application
+                State，来自Fielding博士论文中的一句话，缩写为HATEOAS）。将Web应用看作是一个由很多状态（应用状态）组成的有限状态机。资源之间通过超链接相互关联，超链接既代表资源之间的关系，也代表可执行的状态迁移。在超媒体之中不仅仅包含数据，还包含了状态迁移的语义。以超媒体作为引擎，驱动Web应用的状态迁移。通过超媒体暴露出服务器所提供的资源，服务器提供了哪些资源是在运行时通过解析超媒体发现的，而不是事先定义的。从面向服务的角度看，超媒体定义了服务器所提供服务的协议。客户端应该依赖的是超媒体的状态迁移语义，而不应该对于是否存在某个URI或URI的某种特殊构造方式作出假设。一切都有可能变化，只有超媒体的状态迁移语义能够长期保持稳定。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 10%">
+            <p>参考一：<a
+                    href="http://www.infoq.com/cn/articles/understanding-restful-style/"
+                    target="_blank">
+                理解本真的REST架构风格</a></p>
+            <p>参考二：<a
+                    href="https://www.zhihu.com/question/33959971"
+                    target="_blank">REST风格的优势是什么？</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/wlanye/article/details/51882847"
+                      target="_blank">REST架构风格简介</a></p>
+            <p>参考四：<a href="http://blog.csdn.net/cfl20121314/article/details/48982857"
+                      target="_blank">谈谈到底什么是rest风格架构设计？</a></p>
+            <p>参考五：<a href="http://www.infoq.com/cn/articles/rest-introduction"
+                      target="_blank">深入浅出REST</a></p>
+            <p>参考六：<a href="http://blog.jobbole.com/108595/"
+                      target="_blank">REST架构风格的由来</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3 style="width: 115%">
+                什么情况下适合用REST风格？
+            </h3><br>
+            <p style="text-align: left;width: 115%">
+                REST是一种为运行在互联网环境中的Web应用量身定制的架构风格。REST在互联网这个运行环境之中已经占据了统治地位，然而，在企业内网运行环境之中，REST还会面临DO、RPC的巨大挑战。特别是一些对实时性要求很高的应用，REST的表现不如DO和RPC。所以需要针对具体的运行环境来具体问题具体分析。
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 王峰|彭勇|万维娜</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

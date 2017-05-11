@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<title>Collaborative Development&Slides tutorial</title>
+	
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+	
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	<style>
+		.center{
+			text-align: justify;
+		}
+		.left{
+			text-align: left;
+		}
+	</style>
+	<!-- 打印和PDF输出样式 -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>【JS-task04】如何使用PhoneGap打包app？ </h2>
+			<h3>小课堂</h3>
+			<p>分享人：叶紫阳</p>
+		</section>
+		<section>
+			<p>目录</p>
+			<p>1.背景介绍</p>
+			<p>2.知识剖析</p>
+			<p>3.常见问题</p>
+			<p>4.解决方案</p>
+			<p>5.编码实战</p>
+			<p>6.扩展思考</p>
+			<p>7.参考文献</p>
+			<p>8.更多讨论</p>
+		</section>
+		
+			<section>
+				<h3>1.背景介绍</h3>
+			</section>
+			<section>
+				<p>
+					什么是PhoneGap？
+				</p>
+			</section>
+			<section>
+				<p class="center">
+					PhoneGap 是一款HTML5平台，通过它，开发商可以使用HTML、CSS及JavaScript来开发本地移动应用程序。因此，目前开发商可以只 编写一次应用程序，然后在7个主要的移动平台和应用程序商店(app store)里进行发布，这些移动平台和应用程序商店包括：iOS、Android、BlackBerry、webOS、bada、Winodws Phone以及Symbian。
+					它使开发者能够利用iPhone，Android，Palm，Symbian,WP,Bada和Blackberry智能手机的核心功能——包括地理定位，加速器，联系人，声音和振动等，此外PhoneGap拥有丰富的插件，可以以此扩展无限的功能。
+				</p>
+			</section>
+		
+		<section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+				<h4>phoneGap</h4>
+				<p class="center">
+					phoneGap工具用来开发比较合适，它除了可以使用html5和js外，还可以调用手机的摄像头或者其他硬件设备，下面介绍2款开发工具。
+				</p>
+			</section>
+			<section>
+				<p>PhoneGap  Desktop-App</p>
+				<p class="center">它是一个安装在 win 或者 mac 上的一款软件有了它可以在不搭建 andrid 环境 不配置 android sdk 或者不搭建 xcode 环境，或者不安装 node.js npm  的情况下就可以创建 phoengap应用</p>
+			</section>
+			<section>
+				<p >PhoneGap Developer App</p>
+				<p class="center">它是一款可以安装在android wp ios 上面的 app 应用,有了它我们可以在不连接数据线的情况下 通过 wify 在我们的手机上调试 app 应用，也可以开发一个应用在我们好几个终端调试，（比如在开发 android 应 用的时候可以直接在 iPhone 手机上看看显示效果以及兼容性）   它绕过了全部 SDK 和必需的编译或代码签名。它通过 WiFi 与一台移动设备上 的 PhoneGap 配对。这台服务器监控代码的变动，并把它们自动地发送到那台设 备上，而不用执行本地编译或代码签名。</p>
+			</section>
+		
+			<section>
+				<h3>3.常见问题</h3>
+			</section>
+			<section>
+				<p>如何使用phoneGap打包app</p>
+			</section>
+		
+		
+			<section>
+				<h3>4.解决方案</h3>
+			</section>
+			<section>
+				<p>打包的两种方式</p>
+				<ul class="left">
+					<li class="left">本地打包</li>
+					<li class="left">在线打包</li>
+				</ul>
+				<p class="center">
+					本地的打包方式适合在本地开发的phonegap应用，像我们这种普通的页面应用，并没有涉及到调用摄像头或者硬件设备的，更加适合使用在线打包。
+				</p>
+			</section>
+				
+			<section>
+				<h5>在线打包的步骤：</h5>
+				<ul>
+					<li>注册登录</li>
+					<li>准备安装包</li>
+					<li>设置与下载</li>
+				</ul>
+			</section>
+			<section>
+				<h5>注册登录</h5>
+				<ul>
+					<li> <a href="https://build.phonegap.com/">PhoneGap的网址</a></li>
+					<li>账户类型选择免费</li>
+					<li>免费的用户只允许保存一个私人的app，其他的要想上传必须在github上开源</li>
+				</ul>
+			</section>
+			<section>
+				<h5>准备安装包</h5>
+				<ul>
+					<li> 将自己的项目文件压缩，压缩格式为.zip</li>
+					<li>点击上传</li>
+				</ul>
+			</section>
+			<section>
+				<h5>设置与下载</h5>
+				<ul>
+					<li> 上传完成后点击 ready to build 。</li>
+					<li>点击install，下载apk文件</li>
+				</ul>
+			</section>
+			<section>
+				<h3>5.编码实战</h3>
+			</section>
+			<section>
+				<h3>6.扩展思考</h3>
+			</section>
+			<section>
+				如何在本地打包phonegap应用
+			</section>
+			<section>
+				<ul>
+					<li>安装java环境。</li>
+					<li>安装ant构建工具。</li>
+					<li>安装android的开发环境并配置环境变量。</li>
+					<li>安装Node.js环境并配置环境变量。</li>
+					<li>安装git</li>
+					<li>使用npm安装PhoneGap全局环境。</li>
+					<li>使用PhoneGap命令创建PhoneGap项目。</li>
+					<li>将PhoneGap编译为android项目。</li>
+					<li>将上述项目导入ADT进行后续开发。</li>
+					<li>安装.apk文件</li>
+				</ul>
+			</section>
+		
+			<section>
+				<h3>7.参考文献</h3>
+			</section>
+			<section>
+				<a href="https://my.oschina.net/mynote/blog/187323">PhoneGap在线打包Touch App程序</a>
+				<a href="http://www.ituring.com.cn/article/116701">如何使用PhoneGap本地打包Web App</a>
+			</section>
+			<section>
+				<h3>8.更多讨论</h3>
+			</section>
+			<section>
+				<p>phonegap相对hbuilder有什么有点</p>
+			</section>
+		
+		<section>
+			<h4>鸣谢</h4>
+			<p>感谢大家观看</p>
+			<p>by：叶紫阳</p>
+		</section>
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+	
+	// 以下为常见配置属性的默认值
+	// {
+	// 	controls: true, // 是否在右下角展示控制条
+	// 	progress: true, // 是否显示演示的进度条
+	// 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数
+	// 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+	// 	keyboard: true, // 是否启用键盘快捷键来导航
+	// 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+	// 	center: true, // 是否将幻灯片垂直居中
+	// 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+	// 	loop: false, // 是否循环演示
+	// 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+	// 	fragments: true, // 全局开启和关闭碎片。
+	// 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+	// 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+	// 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+	// 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+	// }
+	
+	// 初始化幻灯片
+	Reveal.initialize({
+		history: true,
+		transition: 'convex',
+		
+		
+		dependencies: [
+			{ src: '../plugin/markdown/marked.js' },
+			{ src: '../plugin/markdown/markdown.js' },
+			{ src: '../plugin/notes/notes.js', async: true },
+			{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
+</script>
+</body>
+</html>

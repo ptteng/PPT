@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.0/angular.js"></script>
+
+</head>
+<body ng-app="myApp" ng-controller='demoCtrl'  >
+    {{a}}
+    <div >
+       <div class="demo-one"></div>
+<!--        <demo-One a="a"></demo-One> -->
+       <span>{{a}}</span>
+    </div>
+<!--     <input type="text" ng-model="data">
+     <div ng-hide="true">
+        <input type="text" ng-model="data">
+    </div>   -->
+</body>
+<script>
+angular.module("myApp", [])
+    .controller('demoCtrl',function ($scope) {
+      $scope.a='abc'
+    })
+    .directive('demoOne',function () {
+        return{
+            restrict:"AEC",
+            template:'<input type="text" ng-model="a">',
+            replace: true,
+            // scope:{},
+            // scope:{a : '@'},
+            // scope:{a : '='},
+            // scope:true,
+            scope:false,
+            controller:['$scope',function ($scope) {
+                $scope.a='123'
+            }]
+        }
+    })
+
+</script>
+</html>

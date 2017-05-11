@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task03】</h2>
+            <h3>小课堂【郑州第96期】</h3>
+            <h4>Jquery中的bind(),live(),delegate(),on()有什么区别？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在学习和实践jquery框架的过程中，由于开始，只是使用的《锋利的Jquery》中绑定事件的方法，只认识到了bind()的方法。而该书是基于jquery1.7.1编写的，目前最新的版本已经到了3.2。对于绑定事件的方法做了调整。后来发现还有live()、delegate()、on()的方法，它们之间有什么样的区别呢？我们来学习讨论一下。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1 bind()方法
+            </section>
+            <section>
+                <p>bind()方法用于对匹配的元素进行特定事件的绑定。它直接绑定在<span style="color: red">现有的</span>元素节点上，也很好的解决了浏览器在事件处理中的兼容问题。</p>
+                <p>例如，它的调用格式如下：</p>
+                <pre>
+                    <code>
+                        bind(type, [data], fn) // 事件类型(必选)，传递的参数(可选)，相关的函数
+                        $('a').bind('click',function(){alert('that tickles!')}) 
+                    </code>
+                </pre>
+                <p>JQuery扫描文档找出所有的$(‘a’)元素，并把alert函数绑定到每个元素的click事件上。</p>
+                <p>在jquery中事件进行绑定时比原生javascript的绑定少了“on”。</p>
+            </section>
+            <section>
+                2.2 live()方法
+            </section>
+            <section>
+                <p>live()是事件委托的概念来执行，把节点的处理委托给了document，向<span style="color: red">当前或未来的</span>匹配元素添加一个或多个事件处理器。</p>
+                <pre>
+                    <code>
+                       live(type, [data], fn) // 事件类型(必选)，传递的参数(可选)，相关的函数
+                       $('a').live('click',function(){alert('That tickles!')})
+                    </code>
+                </pre>
+                <p>它是将函数绑定到$(document)元素上，并使用'click'和'a'作为参数。只要有事件冒泡到document节点上，它就查看该事件是否是一个click事件，以及该事件的目标元素与'a'这一CSS选择器是否匹配，如果都是的话，则执行函数。</p>
+            </section>
+            <section>
+                2.3 delegate()方法
+            </section>
+            <section>
+                <p>delegate()方法的行为有点类似live()。但是不是把选择器和事件的信息附加到了document上，而是可以自行选择它要附加的DOM元素，这个技术可以让事件的委托正常工作。我们的选择又多了一些灵活性，不单可以利用事件委托，还可以选择委托的对象。它适用于当前或未来的元素（比如由脚本创建的新元素）。</p>
+                    <pre>
+                        <code>
+                        delegate(selector,[type],[data],fn) //元素节点(字符串形式，一般是子级元素childselector)，事件类型，传递的参数(可选)，相关的函数
+                        $('#container').delegate('a', 'click', function() { alert("That tickles!") }); 
+                        </code>
+                    </pre>
+                    
+            </section>
+            <section>
+                <p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。</p>
+            </section>
+            <section>
+                2.4 on()方法
+            </section>
+            <section>
+                <p>on()方法绑定事件处理程序到当前选定的jQuery对象中的元素。它是在1.7版本中被提出来的，提供绑定事件处理程序所需的所有功能。用于替换 bind()、delegate()和 live()。</p>
+                    <pre>
+                        <code>
+                        on(events,[selector],[data],fn) // 事件类型，元素节点(可选)，传递的参数(可选)，相关的函数
+
+                        </code>
+                    </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: bind(),live(),delegate(),on()的特点及区别？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>bind()的特点：直接绑定在已经存在的元素上，但是对在它执行完后动态添加的那些元素上不起作用。因为直接绑定在具体的元素上，响应事件及时，它是出现最早的一种绑定事件的方法。这种方法很浪费资源，引起性能问题，因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序。如果在页面加载前要处理添加事件的话，会影响加载效率的。在jquery1.7版本以前比较受推崇。在jquery1.7版本之后，官方推荐使用on()方法代替。在jquery3.0版本之后，已经删除该方法。</p>
+        </section>
+        <section>
+            <p>live()的特点：与bind()的实现原理却不同。live()方法附加事件处理程序在document上通过冒泡来关联匹配到相应的元素和事件信息。对新添加的元素依然有效。不需要在每个元素上去绑定事件，而只在document上绑定一次就可以了。可以在document ready之前就可以绑定那些需要的事件。但是jquery1.9版本之后，已经被弃用了。</p>
+        </section>
+        <section>
+            <p>delegate()方法的特点：更精确的小范围使用事件代理，性能优于live()。它可以自由选择附加的选择器和事件信息的位置，把事件绑定到具体元素的上一级较稳定（不会动态地添加或者删除、变化）的元素上，缩短了事件冒泡的路径。同样对新添加的元素依然有效。在jquery3.0版本之后，已经删除该方法。</p>
+            <p>on()的特点：是以上三种方法的统一。可以使用一个方法，设置不同参数值来实现上述三种方法的功能。简化了jQuery代码库，并删除一个界别的重定向。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p><a href="../demo/js-03-event binding/demo1.html">demo1 将bind方法转换为on方法</a></p>
+            <p><a href="../demo/js-03-event binding/demo2.html">demo2 将live方法转换为on方法</a></p>
+            <p><a href="../demo/js-03-event binding/demo3.html">demo3 将delegate方法转换为on方法</a></p>
+            <p><a href="../demo/js-03-event binding/demo4.html">demo4 多事件处理</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >问题: 如何删除一个事件？</p> 
+            <p><a href="../demo/js-03-event binding/demo5.html">demo5 删除事件</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.jb51.net/article/78298.htm" target="_blank">jQuery中bind(),live(),delegate(),on()绑定事件方法实例详解</a></p>
+            <p>参考二：<a href="http://kb.cnblogs.com/page/94469/" target="_blank">jQuery的.bind()、.live()和.delegate()之间区别</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/TroubleMan/p/5548624.html" target="_blank">jQuery中bind，live，delegate，on绑定事件的方式与区别 </a></p>
+            <p>参考四：<a href="http://blog.csdn.net/hi_kevin/article/details/37757657" target="_blank">详解jQuery中 .bind() vs .live() vs .delegate() vs .on() 的区别</a></p> 
+            <p>参考五：<a href="http://www.runoob.com/jquery/jquery-ref-events.html" target="_blank">jQuery 事件 方法</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：以上介绍到的jQuery事件方法的知识点中在使用过程中有所发见的，讨论一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

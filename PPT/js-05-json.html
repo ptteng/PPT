@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>json是什么，如何处理转义</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>json用法，如何处理转义</h2>
+            <h3>小课堂【郑州 】</h3>
+            <p>分享人：汪开放</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <h3>J O S N是什么？</h3>
+                <p>
+                    JSON 是一种轻量级的数据交换格式。 是适用于 Ajax 应用程序的一种有效格式，它使 js 对象和字符串值之间得以快速转换
+                    JSON 同时也是一种传递对象的语法，对象可以是name/value对，数组和其他对象。</p>
+                <p style="color:red">JSON传递的对象为函数时候必须是在js中进行传递，非js语言是没有办法辨别它的语法的。</p>
+            </section>
+            <section>
+                <p>JSON特性及用途</p>
+                <ul>
+                <p>JSON是一种格式，基于文本，优于轻量，用于交换数据</p>
+                    <li>一种数据格式</li>
+                    <li>基于文本的数据格式</li>
+                    <li>轻量级的数据格式</li>
+                    <li>被广泛地用于数据交换</li>
+                </ul>
+            </section>
+                <section>
+                    <h3>一种数据格式</h3>
+<pre>
+ <code>
+      姓名“金刚小葫芦”，身高“160cm”，体重“60kg”
+      name="金刚小葫芦" height="160cm" weight="60kg"
+      <person><name>金刚小葫芦</name><height>160</height><weight>60</weight></person>
+      {"name":"金刚小葫芦","height":160,"weight":60}
+    </code>
+</pre>
+                </section>
+                <section>
+                    <h3>基于文本的数据格式</h3>
+                    <p><h5>JSON是基于文本的数据格式，相对于基于二进制的数据，所以JSON在传递的时候是传递符合JSON这种格式的字符串，而不是一个对象。</h5></p>
+                </section>
+                 <section>
+                    <h3>轻量级的数据格式</h3>
+                    <p>像上面的例子中的格式的数据中标签本身就占据了很多空间，而JSON比较轻量，即相同数据，以JSON的格式占据的带宽更小，这在有大量数据请求和传递的情况下是有明显优势的。</p>
+                </section>
+                 <section>
+                    <h3>被广泛地用于数据交换</h3>
+                    <p>举个最简单的例子，页面之间数据的交换（页面传参）。除了页面之间可以进行数据的交换，还有前后端之间的数据交换。</p>
+                </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+              <p style="float:left;">  JSON转义数据的书写格式是：名称/值对。</p>
+<p style="float:left;">名称/值对组合中的名称写在前面（在双引号中），值对写在后面，中间用冒号隔开，2个组合之间用逗号隔开,其中值可以是：数字整数或浮点数、字符串（在双引号中）、逻辑值（true或false）、数组（在方括号中）、对象（在花括号中）、null</p>
+<p style="float:left;">使用方式：</p>
+<pre>
+    <code>
+        var json = {"name":"myname","password":123456}
+    </code>
+</pre>
+            </section>
+            <section><p>JSON传参的使用方法</p>
+                <p ><a href="https://fan911025.github.io/ptteng-task/js-2/mate.html">JS任务2-4</a></p>
+            </section>
+            <section><h3>3.常见问题</h3>
+            </section>
+            <section>   
+                    <p>JSON.parse的参数包含转移字符的时候会遇到两次转义的问题，其实第一次是字符串本身的转义，第二次是将真正转为js对象的转义。</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+            <section>
+                <p>将字符串'{"a":"b","b":"\\\\"}'传递给JSON.parse，首先解析器提取单引号括起来的字符串时认为第一个\转义第二个\ 第三个\转义第四个\， 也就是说实际可输出字符串是{"a":"b","b":"\\"}</p>
+                <p>之后正式转为js对象的时候还有一次转义， 也就是实际输出字符转中的第一个\转义第二个\（此时只有两个\）。 所以console.log(JSON.parse('{"a":"b","b":"\\\\"}') );输出结果为Object {a: "b", b: "\"}， 也就是说实际显示的数据为一个\（实际可输出一个\说明在此之前还有一个\）。</p>
+<pre>
+    <code>
+        '{"a":"b","b":"\\\\"}'
+        JSON.parse('{"a":"b","b":"\\\\"}')
+    </code>
+</pre>
+            </section>
+            <section>
+<pre>
+ <code>
+   var obj = {a : "b",b : "\\",c : {b : "\\",a : {b : "\\"}}};
+   var json_str = JSON.stringify(obj);
+   console.log( JSON.stringify(obj) );
+   console.dir(JSON.parse(json_str));
+   console.dir(JSON.parse('{"a":"b","b":"\\\\","c":{"b":"\\\\","a":{"b":"\\\\"}}}'));
+  </code>
+</pre> 
+    <p>根据转义规则，实际输出一个\在这个\之前必定有一个\。所以如上第一行输出按照书写来说为'{"a":"b","b":"\\\\","c":{"b":"\\\\","a":{"b":"\\\\"}}}'，可通过第三条输出来验证。</p>
+    <p>总结，如果想在js对象中出现一个\，需要在json字符串中出现四个\ </p>
+
+    </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    "\\\'\'\\"
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>7.参考文献</p>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/robotech_er/article/details/40260377" target="_blank">ROBOTECH_ER博客</a></p>
+            <p>参考二：<a href="http://www.jb51.net/article/29893.htm" target="_blank">脚本之家</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>json格式与js对象语法的区别？</h4>
+            <p style="text-align: justify">没有json对象，只有符合json格式的对象，所以问题应该换成普通的对象和json格式的对象有什么区别？</p>
+            <table style="font-size: 18px">
+                <thead>
+                <tr>
+                    <th id="对比内容" style="text-align:left;"> 对比内容 </th>
+                    <th id="json" style="text-align:left;"> JSON </th>
+                    <th id="js对象" style="text-align:left;"> JS对象 </th>
+                </tr>
+                </thead>
+            
+                <tbody>
+                <tr>
+                    <td style="text-align:left;"><p>键名 </p></td>
+                    <td style="text-align:left;"><p>必须是加双引号 </p></td>
+                    <td style="text-align:left;"><p>可允许不加、加单引号、加双引号 </p></td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;"><p>属性值 </p></td>
+                    <td style="text-align:left;"><p>只能是数值（10进制）、字符串（双引号）、布尔值和null，<br>也可以是数组或者符合JSON要求的对象，<br>不能是函数、NaN, Infinity, -Infinity和undefined </p></td>
+                    <td style="text-align:left;"><p>爱啥啥 </p></td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;"><p>逗号问题 </p></td>
+                    <td style="text-align:left;"><p>最后一个属性后面不能有逗号 </p></td>
+                    <td style="text-align:left;"><p>可以 </p></td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;"><p>数值 </p></td>
+                    <td style="text-align:left;"><p>前导0不能用，小数点后必须有数字 </p></td>
+                    <td style="text-align:left;"><p>没限制  </p></td>
+                </tr>
+            
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 汪开放</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

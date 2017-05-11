@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>CSS之microformat</h2>
+            <h3>小课堂【郑州】</h3>
+            <p>分享人：韦胜云</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-indent: 4.4rem">由于HTML中缺少相应的元素，很难突出显示人、地点或日期等类型的信息。为了解决这个问题，有一组开发人员决定开发一套标准的命名约定盒标记模式来表示这些数据。这些命名约定基于vCard（电子名片）和iCalendar（日历数据交换）等现有的数据格式，现在称为微格式（microformat)。
+            <br>
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>microformat定义<br/>
+            建立在已有的、被广泛采用的标准基础之上的一组简单的、开放的数据格式（microformats.org官方定义）。是把语义嵌入到HTML以便有助于分离式开发而制定的一些简单约定，是兼顾人机可读性设计的数据表达方式，对Web网页进行语义注解的方法。
+            </p>              
+        </section>
+        <section>
+            <p>微格式在实际应用中的意义和作用又是什么呢？<br/>
+            微格式按照某种已有的被广泛应用的标准，通过对内容块的语义标记，可以让外部应用程序、聚合程序和搜索引擎能够做以下事情：<br/>
+            1、在捉取Web内容时，能够更为准确地识别内容块的语义；<br/>
+            2、对内容进行操作，包括提供访问、校对，还可以将其转化成其他的相关格式，提供给外部程序和Web服务使用。
+            </p>             
+        </section>
+        <section>
+            <p>简单的微格式<br/>
+            我们从上面的描述知道，微格式实际就是为现有的(X)HTML元素添加元数据和其他属性，增强语义。那么我们就来看一个简单的微格式应用吧。
+            </p>             
+        </section>
+        <section>
+            <p>以前我们是这样写一个链接到首页的<a></a>代码的：<br/></p>
+            <pre>
+                <code>
+                    <a href=”http://www.5icool.org” >Web Design Blog</a>
+                </code>
+            </pre>
+            <p>而现在我们要为这个代码元素a加上rel属性。</p>
+            <pre>
+                <code>
+                    <a href=”http://www.5icool.org“ rel=”homepage”>Web Design Blog</a>
+                </code>
+            </pre>
+            <p>上面的链接标记a包括rel=”homepage”属性，该属性显示链接的目标页面是该网站的首页。通过为已有的链接元素添加语义化属性，就为这个链接添加了具体的结构和意义。</p>       
+        </section>
+        <section>
+            <p>hCard 微格式<br/>
+            hCard是一种微格式，用来发布个人，公司，组织，地点等详细的联系信息。
+            它可以使分析器（比如其他网站，Firefox的Operator插件）获得详细的信息，并通过别的网站或者地图工具进行显示，或者载入到地址簿等其他程序。
+            </p>            
+        </section>
+        <section>
+            <p>示例一<br/>
+            </p>
+            <pre>
+                <code>
+                    <div>
+                         <div>Joe Doe</div>
+                         <div>The Example Company</div>
+                         <div>604-555-1234</div>
+                         <a href="http://example.com/">http://example.com/</a>
+                     </div>
+                </code>
+            </pre>
+            <p>加入微格式后，成为：</p>  
+            <pre>
+                <code>
+                    <div class="vcard">
+                         <div class="fn">Joe Doe</div>
+                         <div class="org">The Example Company</div>
+                         <div class="tel">604-555-1234</div>
+                         <a class="url" href="http://example.com/">http://example.com/</a>
+                     </div>
+                </code>
+            </pre>          
+        </section>
+        <section>
+            <p>这里，正式名称（class=”fn”），组织（class=”org”），电话号码（class=”tel”）和url（class=”url”）分别用相应的class标示；同时，所有内容都包含在class="vcard"里。</p>
+        </section>
+        <section>
+            <p>示例二<br/>
+            这里是维基媒体基金会的联系方式，可以作为hCard的一个真实示例：
+            </p>
+            <pre>
+                <code>
+                    Wikimedia Foundation Inc.
+                    200 2nd Ave. South #358
+                    St. Petersburg, FL 33701-4313
+                    USA
+                    Phone: +1-727-231-0101
+                    Email: info@wikimedia.org
+                    Fax: +1-727-258-0207
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>加入微格式后，成为：<br/>
+            </p>
+            <pre>
+                <code>
+    <div class="vcard">
+        <div class="fn org">Wikimedia Foundation Inc.</div>
+        <div class="adr">
+            <div class="street-address">200 2nd Ave. South #358</div>
+            <div>
+                <span class="locality">St. Petersburg</span>,
+                <span class="region">FL</span> <span class="postal-code">33701-4313</span>
+            </div>
+            <div class="country-name">USA</div>
+        </div>
+        <div>Phone: <span class="tel">+1-727-231-0101</span></div>
+        <div>Email: <span class="email">info@wikimedia.org</span></div>
+        <div>
+            <span class="tel"><span class="type">Fax</span>:
+            <span class="value">+1-727-258-0207</span></span>
+        </div>
+    </div>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>其他常用的hCard属性包括：<br/>
+            </p>
+            <pre>
+                <code>
+bday – 生日
+email
+honorific-prefix -（西式）名字前的尊称，例如：博士（Dr.）、牧师（Rev.）等，在东方会放在名字的后方。
+honorific-suffix -（西式）名字后的尊称，一般都是封衔，例如：太平绅士（JP）、大紫荆勋章（GBM），一般详列在名字的最后方。
+logo
+nickname – 昵称、爱称或外号。西方人的名字一般都有简写，有时这些昵称或外号就用来分辨同名的人。例如：William “Bill” Gates 中间的”Bill”。
+note
+                </code>
+            </pre>
+            <p>目前已具备完整规范的微格式还包括：hCard、hCalendar、XOXO、XFN、VoteLinks和3个“rel-”微格式：rel- license、rel-nofollow和rel-tag。</p>
+        </section>
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+        <section>
+            <p>你可能会问，既然 hCard 对网页的浏览者是完全透明的，那我们为什么又要费神费力地在网页中添加 hCard 呢？<br/>
+            目前看来，这似乎是一件费力不讨好的事情，因为 hCard 等微格式尚未得到浏览器和终端设备的良好支持。但是一旦这些不足得到了改善，hCard 就会为我们的数字生活带来很大的便利。
+            </p>          
+        </section>
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+        <section>
+            <p>来看几个例子：<br/>
+            •当我用手机浏览某公司的网站时，手机浏览器识别出了网页中的 hCard 信息。这个 hCard 标记了该公司的多种联络方式，手机浏览器很聪明地提示我“是否保存到通讯录”，于是我很经松地保存了我所需要的信息。 <br/>
+            •手机浏览器还可以将页面中的 hCard 导出为 VCF 文件，我将 VCF 文件用蓝牙传输到同事的手机上，他们也轻松保存了这些联系信息，同时也可以方便地同步到电脑上的通讯录软件中。<br/>
+            此外，Firefox 的 Operator 扩展还提供了一些针对微格式的在线应用，比如“使用 Google 地图查找”、“添加至雅虎通讯录”等等，有效地丰富了 hCard 的应用范围。
+            </p>               
+        </section>
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+        <section>
+            <h3>六.拓展思考</h3>
+        </section>
+        <section>
+            <p>大家知道的微格式或者用过的微格式有哪些？<br/>
+            </p>
+        </section>
+        <section>
+            <h3>七.更多讨论</h3>
+        </section>
+        <section>
+            <p>说到“微格式”，有人力捧，有人质疑。尽管如此，而作为网站开发者和个人站长，你对“微格式”的应用仍在观望之中吗？
+            </p>
+        </section>
+        <section>
+            <h3>八.参考文献</h3>
+            
+            <p><a href="http://www.ixueyi.com/jingyan/2232931.html" target="_blank" >什么是微格式及经典实例演示_网页设计</a></p>
+            <p><a href="http://baike.baidu.com/link?url=O4QxBhLfvCKnBrTYjBUUlxuk3yO1nN-KqOlWGQL5Qh8as7EbBwMK_7iJG1cyI7gcvi1KQkZ-0riXgwGoo-1f62_YWb7ssdfMBFtekWl7aIW" target="_blank" >百度百科</a></p>
+            <p><a href="http://www.jb51.net/css/23558.html" target="_blank" >为网页添加hCard微格式</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : ALL</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

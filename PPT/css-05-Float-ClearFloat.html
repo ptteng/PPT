@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        section p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>CSS之float&nbsp;&nbsp;and&nbsp;&nbsp;clear&nbsp;&nbsp;float</h2>
+            <h3>浮动和清除浮动</h3>
+            <h4>分享人：韦胜云</h4>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在那个“蛮荒”的年代，Float的设计初衷不是为了什么高大上的布局，而仅仅是文字环绕效果。</p>
+            <p><a href="http://www.imooc.com/code/2775">美女！慎入</a></p>
+            <p>
+                那为什么要知道这个呢？明白了float的设计初衷，就可以明白float特有的行为表现了。
+            </p>
+
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>浮动模型也是一种可视化格式模型，浮动的框可以左右移动（根据float属性值而定），直到它的外边缘碰到包含框或者另一个浮动元素的框的边缘。浮动元素不在文档的普通流中，文档的普通流中的元素表现的就像浮动元素不存在一样。</p>
+        </section>
+        <section>
+            <section>
+                2.1 文档流&nbsp;&nbsp;——&nbsp;&nbsp;一个简单的例子
+            </section>
+            <section>
+                <p>将窗体自上而下分成一行行, 并在每行中按从左至右的顺序排放元素。</p>
+                <p>从头到尾按照文档的顺序，该在什么位置就在什么位置。</p>
+                <div style="background: #272822">
+                    不浮动
+                    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+                        <div style="height: 100px; width: 100px; background-color: Red;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Green; ">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Yellow;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                2.2 浮动，脱离文档流
+            </section>
+            <section>
+                <p>通过使用浮动属性，可以使元素脱离文档流，上浮到文档流之上，随后可以改变其位置的现象。参看下边的图片,浮动的红色块已经上天了，跟黄绿
+                    两个块已经不再一个层面上了。</p>
+                <pre><code>
+<div style="background: #272822">
+    红色向右浮动
+    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+        <div style="height: 100px; width: 100px; background-color: Red;float:right;">
+        </div>
+        <div style="height: 100px; width: 100px; background-color: Green; ">
+        </div>
+        <div style="height: 100px; width: 100px; background-color: Yellow;">
+        </div>
+    </div>
+</div>
+                </code></pre>
+                <div style="background: #272822">
+                    红色向右浮动
+                    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+                        <div style="height: 100px; width: 100px; background-color: Red;float:right;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Green; ">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Yellow;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <p>通过使用浮动属性，可以使元素脱离文档流，上浮到文档流之上，随后可以改变其位置的现象。参看下边的图片,浮动的红色块已经强上了绿色块。</p>
+                <pre><code>
+<div style="background: #272822">
+    红色向左浮动
+    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+        <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+        </div>
+        <div style="height: 100px; width: 100px; background-color: Green; ">
+        </div>
+        <div style="height: 100px; width: 100px; background-color: Yellow;">
+        </div>
+    </div>
+</div>
+                </code></pre>
+                <div style="background: #272822">
+                    红色向左浮动
+                    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+                        <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Green; ">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Yellow;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div style="background: #272822">
+                    都向左浮动，父元素高度塌陷
+                    <div style="border: solid 5px #0e0; width:300px;margin: auto">
+                        <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Green; float:left;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Yellow;float:left;">
+                        </div>
+                    </div>
+                </div>
+                <div style="background: #272822;margin-top: 10rem;">
+                    如果包含块儿太窄无法容纳水平排列的三个浮动元素,那么其它浮动块儿向下移动,直到有足够的扣减,如果浮动元素的高度不同,那么下下移动的时候可能被卡住
+                    <div style="border: solid 5px #0e0; width:250px;margin: auto">
+                        <div style="height: 120px; width: 100px; background-color: Red;float:left;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Green; float:left;">
+                        </div>
+                        <div style="height: 100px; width: 100px; background-color: Yellow;float:left;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                2.3 浮动的属性值
+            </section>
+            <section>
+                <p>浮动的属性值有三个：float：none；float：left；float：right；</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题及为什么要清除浮动</h3>
+        </section>
+        <section>
+            <p>（1）内容被覆盖 </p>
+            <p>（2）边框不能撑开</p>
+            <p>（3）高度塌陷</p>
+            <p>（4）如果浮动元素的高度不同,那么向下移动的时候可能被卡住等等。。。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>方法1：父级div定义 height</p>
+            <div style="background: #272822">
+                父级div手动定义height
+                <div style="border: solid 5px #0e0; width:300px;height:100px;margin: auto">
+                    <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Green; float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Yellow;float:left;">
+                    </div>
+                </div>
+            </div>
+            <p><a href="../demo/css-05-Float-ClearFloat/xiaoketang.html">设置父元素高度</a></p>
+            <p>缺点：只适合高度固定的布局，要给出精确的高度，如果高度和父级div不一样时，会产生问题</p>
+        </section>
+        <section>
+            <p>方法2：</p>
+            <p>使用clear属性：在相同的父元素中，浮动的子元素之后添加一个空标签，设置样式为："clear：both;"标签可以是div，也可以是p等块元素。</p>
+            <div style="background: #272822">
+                <div style="border: solid 5px #0e0; width:300px;height:100px;margin: auto">
+                    <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Green; float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Yellow;float:left;">
+                    </div>
+                </div>
+            </div>
+            <a href="../demo/css-05-Float-ClearFloat/xiaoketang.html" >使用clear属性</a>
+            <p>缺点：可以想象通过此方法，会添加多少无意义的空标签，在后期维护中比较麻烦。</p>
+        </section>
+        <section>
+            <p>方法3：对父元素设置overflow的样式，即overflow: auto/hidden;</p>
+            <div style="background: #272822">
+                <div style="border: solid 5px #0e0; width:300px;height:100px;margin: auto">
+                    <div style="height: 100px; width: 100px; background-color: Red;float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Green; float:left;">
+                    </div>
+                    <div style="height: 100px; width: 100px; background-color: Yellow;float:left;">
+                    </div>
+                </div>
+            </div>
+            <a href="../demo/css-05-Float-ClearFloat/xiaoketang.html">设置overflow</a>
+            <p>缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，不能和position配合使用，无法显示需要溢出的元素；</p>
+        </section>
+        <section>
+            <p>方法四：我也没接触过的方法:after（注意：作用于浮动元素的父亲）</p>
+            <p>它就是利用:after和:before来在元素内部插入两个元素块，从面达到清除浮动的效果。
+                其实现原理类似于clear:both方法，只是区别在于:clear在html插入一个div.clear标签，
+                而after利用其伪类clear:after在元素内部增加一个类似于div.clear的效果(clearfix用在父元素上面)。下面来看看其具体的使用方法：
+                <a href="../demo/css-05-Float-ClearFloat/xiaoketang1.html">使用clearfix</a>
+            </p>
+            <pre><code>
+<div style="background: #272822">
+    <style type="text/css"> 
+    .div1{background:#000080;border:1px solid red;} 
+    .div2{background:#800080;border:1px solid red;height:100px;margin-top:10px} 
+    .left{float:left;width:20%;height:200px;background:#DDD} 
+    .right{float:right;width:30%;height:80px;background:#DDD} 
+    .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+    .clearfloat{zoom:1} 
+</style>   
+    <div class="div1 clearfloat"> 
+        <div class="left">Left</div> 
+        <div class="right">Right</div> 
+    </div> 
+    <div class="div2"> 
+        div2
+    </div> 
+    </div>
+            </code></pre>
+        </section>
+          <section>
+              <p>缺点：使用方式不当会造成代码量增加，初学者不理解原理，要两句代码结合使用才能让主流浏览器都支持。</p>
+          </section>
+      </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">还有没有更实用的方法清除浮动？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/qq_31121871/article/details/54563980" target="_blank">清除浮动的几种方式</a></p>
+            <p>参考二：<a href="http://www.imooc.com/video/2761" target="_blank">深入理解之float浮动</a></p>
+             <p>参考三：<a href="http://www.myexception.cn/HTML-CSS/2000779.html" target="_blank">css 明白浮动的几种方式</a></p>
+        </section>
+        <section>
+            <h3>谢谢！</h3>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
