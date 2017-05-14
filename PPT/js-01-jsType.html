@@ -1,0 +1,374 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>JS 数据类型</h2>
+                <h3>小课堂【郑州第110期】</h3>
+                <p>分享人：韦胜云</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <!-- <section>
+                <p>先了解一下 JavaScript 是什么</p>
+               <p>通俗地说，JavaScript 就是一段可以运行的代码，或者嵌入在 HTML 中，或者作为单独的文件被 HTML 引用，用以实现某种动态的功能。</p>
+                </p>
+            </section> -->
+            <section>
+                <p>JavaScript数据类型</p>
+                <p>“数据类型”在数据结构中的定义“一个值的集合以及定义在这个值集上的一组操作”。在编程语言中，能够表示并操作的值的类型称做数据类型。</p><p>简单的说就是物以类聚。</p>
+                <p>最新的 ECMAScript 标准定义了 7 种数据类型分别为:字符串、数字、布尔值、对象、Null、Undefined、Symbol。</p>
+            </section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h4>JavaScript 常见的数据类型</h4>
+                <h5>1. 数值（number）</h5>
+                <p>有两种形式，第一种是整数，第二种为浮点数（数值中必须含小数点，且小数点后至少有一位数字）。</p>
+                <pre>
+                   <code>
+                       var x=34.00; //使用小数点来写
+                        var x=34; //不使用小数点来写
+                   </code>
+                   </pre>
+                <p>极大或极小的数字可以通过科学（指数）计数法来书写：</p>
+                <pre>
+                    <code>
+                        var y=123e5; // 12300000
+                        var z=123e-5; // 0.00123
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>在JavaScript内部，所有数字都是以64位浮点数形式储存，即使整数也是如此。所以，1与1.0是相同的，是同一个数。
+                容易造成混淆的是，某些运算只有整数才能完成，此时JavaScript会自动把64位浮点数，转成32位整数，然后再进行运算，参见《运算符》一节的”位运算“部分。
+                注意：由于浮点数不是精确的值，所以涉及小数的比较和运算要特别小心。
+                实例： (0.3 - 0.2) === (0.2 - 0.1)//false
+                </p>
+            </section>
+            <section>
+                <h5>字符串（string）</h5>
+                <p>字符组成的文本（比如”Hello World”），0或多个16位Unicode字符组成的字符序列。字符串常量首尾由单引号或双引号括起。
+                字符串默认只能写在一行内，分成多行将会报错。若长字符串要分成多行，可以在每一行的尾部使用反斜杠.</p>
+            <pre>
+            <code>
+                var answer="Nice to meet you!";
+                var answer="He is called 'Bill'"; //双引号包含单引号
+                var answer='He is called "Bill"'; //单引号包含双引号
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h5>布尔值（boolean）</h5>
+                <p>布尔值代表“真”和“假”两个状态。“真”用关键字true表示，“假”用关键字false表示。布尔值只有这两个值。转换规则是除了下面六个值被转为false，其他值都视为true。<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page11.png" alt=""></p>
+            </section>
+            <section>
+                 <h5>undefined：</h5><p>Undefined类型只有一个值，即特殊的undefined。使用var声明变量但未对其初始化时，这个变量的值就是undefined.</p>
+                <p>一个没有被赋值的变量会有个默认值 undefined。</p>
+                <pre>
+            <code>
+                var q;
+                alert(q == undefined); //true
+            </code>
+            </pre>
+           
+            </section>
+            <section>
+                 <h5>null 表示空缺</h5>
+                <p>null 数据类型在 JavaScript 中仅具有一个值：null。null 关键字不能用作函数或变量的名称。null用来表示空值，即没有对象被呈现，可以通过将变量的值设置为 null 来清空变量：</p>
+            <pre>
+            <code>
+                var car="Volvo"; //把字符串Volvo赋值给变量car
+                document.write(car + "<br/>"); //输出变量car，应该显示Volvo
+                var car=null; //把null赋值给变量car
+                document.write(car + "<br/>"); //输出变量car，应该显示null
+            </code>
+            </pre>
+            </section>
+            <section>
+                <h5>对象（object）：各种值组成的集合</h5>
+                <p>对象是合成类型（complex type）的值，因为一个对象往往是多个原始类型的值的合成，可以看作是一个存放各种值的容器。对象又可以分成三个子类型。
+                    狭义的对象（object）；
+                    数组（array）；
+                    函数（function）；</p>
+                <p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义。属性由逗号分隔：</p>
+                <pre>
+            <code>
+                var person={firstname:"John",lastname:"Doe",age:56,eyecolor:"blue"};
+            </code>
+            </pre>
+            </section>
+            <section>
+            <p>
+                创建对象
+            </p>
+                <pre>
+            <code>
+                person=new Object(); //定义一个名为person的对象
+                person.firstname="Bill"; //对象firstname属性值为Bill
+                person.lastname="Gates"; //对象lastname属性值为Gates
+                person.age=56; //对象age属性值为56
+                person.eyecolor="blue"; //对象eyecolor属性值为blue
+            </code>
+            </pre>
+                <h5 style="font-family: 'Times New Roman';text-transform:none;">访问对象的属性: objectName.propertyName</h5>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page19.png" alt="">
+                <h5 style="font-family: 'Times New Roman';text-transform:none;">访问对象的方法: objectName.methodName()</h5>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page20.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">数组</h4>
+                <p>数组用来在单独的变量名中存储一系列的值。</p>
+                <p>我们使用关键词 new 来创建数组对象或字面量语法来创建数组。下面的代码定义了一个名为 mycars 的数组对象：</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page22.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">数组的读写</h4>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page23.png" alt="">
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">函数</h4>
+                <div style="text-align: left">
+                    <p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。</p>
+                    <p>JavaScript 函数语法</p>
+                    函数是由这样的方式进行声明的：关键字 function、函数名、一组参数，以及置于括号中的待执行代码。<br>
+                    <img src="../img/js-01-Javascript-datatype-and-methods/page24.png" alt="">
+                </div>
+
+            </section>
+            <section>
+                <h5>Symbol </h5>
+                <p>Symbol 是一种特殊的、不可变的数据类型。</p>
+                <p>Symbol值通过Symbol函数生成。</p>
+                <img src="../img/js-01-Javascript-datatype-and-methods/page15.png" alt="">
+            </section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h5>如何判断数据类型</h5>
+            </section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>typeof可以解决大部分的数据类型判断，typeof运算符可以返回一个值的数据类型，。</p>
+         <pre>
+            <code>
+                var a="string"; console.log(typeof a); //string
+                var a=1; console.log(typeof a); //number
+                var a=false; console.log(typeof a); //boolean
+                var a; console.log(typeof a); //undfined
+
+                var a = null; console.log(typeof a); //object
+                var a = document; console.log(typeof a); //object
+                var a = []; console.log(a); //object
+
+                var a = function(){}; console.log(typeof a) //function 除了可以判断数据类型还可以判断函数类型
+            </code>
+            </pre>
+            </section>
+            <section>
+            <p>那如何判断数据是个数组类型？</p>
+
+            <p>js判断数组类型的方法(这里只说一种最简单的方法)：</p>
+
+            <p>instanceof 用于判断一个变量是否是某个对象的实例。
+
+                比如Array：</p>
+            <pre>
+            <code>
+                var a=[];
+                console.log(a instanceof Array) //返回true
+            </code>
+            </pre>
+        </section>
+            <section>
+                <h3>5.实战</h3>
+            </section>
+             <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">javascript数据类型转换</h4>
+            <p>
+                JavaScript是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。 <br>
+                虽然变量没有类型，但是数据本身和各种运算符是有类型的。如果运算符发现，数据的类型与预期不符，就会自动转换类型。<br>
+                详细参考：<a href="http://javascript.ruanyifeng.com/grammar/conversion.html">数据类型转换详解</a>
+                
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>《JavaScript高级程序设计》</p>
+            <p><a href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程(阮一峰著)</a></p>
+            <p><a href="http://www.w3school.com.cn/js/index.asp">W3School JavaScript 教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>大家课后有兴趣就自己查看<a href="http://www.cnblogs.com/diligenceday/p/5462733.html">ES6新增类型Symbol的使用</a></p>
+        </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p><small>BY：all</small></p>
+            </section>
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+    <script>
+        //过滤掉小于 10 的数组元素：
+
+        //代码：
+        document.getElementById("a").onclick = isBigEnough();
+
+        function isBigEnough(element, index, array) {
+            return (element >= 10);
+        }
+        var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+        // 12, 130, 44
+        //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+        console.log(filtered);
+        ///11111111111
+        //检查是否有数组元素大于等于10：
+        document.getElementById("b").onclick = isBigEnoug();
+
+        function isBigEnoug(element, index, array) {
+            return (element >= 10);
+        }
+        var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+        // passed is false
+        passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+        // passed is true
+        //结果：
+        //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+        //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+        console.log(passed);
+        console.log(passed2);
+        ////2222222222222222222222
+        //将所有的数组元素转换为大写：
+        document.getElementById("c").onclick = makeUpperCase();
+        var strings = ["hello", "Array", "WORLD"];
+
+        function makeUpperCase(v) {
+            return v.toUpperCase();
+        }
+        var uppers = strings.map(makeUpperCase);
+        // uppers is now ["HELLO", "ARRAY", "WORLD"]
+        // strings is unchanged
+        //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+        console.log(uppers);
+        /////333333333333333333
+        document.getElementById("d").onclick = printElt();
+        //打印数组内容：
+
+        function printElt(element, index, array) {
+            document.writeln("[" + index + "] is " + element + "<br />");
+        }
+        [2, 5, 9].forEach(printElt);
+        // Prints:
+        // [0] is 2
+        // [1] is 5
+        // [2] is 9
+        //结果：
+        //[0] is 2
+        //[1] is 5
+        //[2] is 9
+        /////////44444444444444
+    </script>
+</body>
+
+</html>
