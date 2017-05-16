@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HTML文件里开头的Doctype有什么作用？</h2>
+            <h3>小课堂【成都小课堂】</h3>
+            <p>分享人：吴彦澄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">故事要从互联网发展的初期讲起：互联网发展最初的时候，浏览器厂家方兴未艾，其中以网景和微软两家公司最为强大。两家公司为了抢占市场份额，展开了一系列商业竞争，史称。。。</p>
+            </section>
+            <section>
+                <h3>第一次浏览器大战</h3>
+           <img src="../img/css-01-Use of doctype in HTML/ievsnc.jpg">
+            </section>
+            <section>
+                <p>然而当年Netscape4和IE4实现CSS机制时，并没有遵循W3C提出的标准。为了保障自己的网站在各个浏览器上显示正确，网页开发者们不得不依据各个浏览器自身的规范来使用css，因此大部分网站的css实现并不符合W3C规范的标准。然而随着标准一致性越来越重要，浏览器开发商不得不面临一个艰难的抉择：逐渐遵循W3C的标准是前进的方向。但是改变现有的 css，完全去遵循标准，会使许多旧网站或多或少受到破坏，如果浏览器突然以正确的方式解析现存的css，陈旧的网站的显示必然会受到影响。所以，所有的浏览器都需要提供两种模式：混杂模式服务与旧式规则，而严格模式服务于标准规则。</p></section>
+            <section><p>doctype就担当了告诉浏览器工作于哪种模式的任务</p>
+            <img src="../img/css-01-Use of doctype in HTML/lookblackboard.jpg">
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+                <h3>从SGML说起</h3>
+                <section>
+                    <ul>
+                        <li>标准通用标记语言,是一种定义电子文档结构和描述其内容的国际标准语言.</li>
+                        <li>标记分为两种：一种称为“程序性的标记”，用来描述文档显示的样式；</li>
+                        <li>另一种称为“描述性标记”，用来描述文档中的文字的用途。</li>
+                        <li>制定“通用标言”的基本思想是把文档的内容与样式分开。</li>
+                    </ul>
+                </section>
+            </section>
+        <section>
+            <h3>Doctype是什么</h3>
+                <section>
+                    <p style="text-align: left;">Doctype(document type)即文档类型,是一组机器可读的规则，它们指示(X)HTML文档中允许有什么，不允许有什么，Doctype正是用来告诉浏览器使用哪种DTD,一般放在(X)HTML文档开头声明）用以告诉其他人这个文档的类型风格。</p>
+                </section>
+                <section><P>那么问题来了。。。</P>
+                <img src="../img/css-01-Use of doctype in HTML/nextquestion.jpg">
+                 </section>
+                </section>
+
+        <section>
+                <h3>DTD是什么</h3>
+            <section>
+               <p>文档类型定义(Document Type Definition)是一套为了进行程序间的数据交换而建立的关于标记符的语法规则。</p>
+            </section>
+            <section>
+                <ul>
+                    <li>是SGML的一部分</li>
+                    <li>它使用一系列合法的元素来定义文档的结构。</li>
+                    <li>它可被成行地声明于 XML 文档中，也可作为一个外部引用。</li>
+                    <li>通过它，独立的团体可一致地使用某个标准的文档类型定义来交换数据。</li>
+                    <li>而您的应用程序也可使用某个标准的文档类型定义来验证从外部接收到的数据。</li>
+                    <li>Doctype可声明三种DTD类型，分别表示严格版本、过渡版本以及基于框架的 HTML 文档。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>标准模式和混杂模式</h3>
+                <section>
+                    <ul>
+                    <li>在标准模式中，浏览器以其支持的最高标准呈现页面.</li>
+                    <li>在混杂模式中，页面以一种比较宽松的向后兼容的方式显示。</li>
+                    <li>混杂模式通常模拟老式浏览器的行为以防止老站点无法工作。</li>
+                    </ul>
+                </section>
+        </section>
+        <section>
+            <h3>模式触发</h3>
+                <section>
+                    <ul>
+                        <li>如果XHTML、HTML 4.01文档包含形式完整的DOCTYPE，那么它一般以标准模式呈现。</li>
+                        <li>包含过渡DTD和URI的DOCTYPE也导致页面以标准模式呈现，但是有过渡DTD而没有URI会导致页面以混杂模式呈现。</li>
+                        <li>DOCTYPE不存在或形式不正确会导致HTML和XHTML文档以混杂模式呈现。</li>
+                    </ul>
+                </section>
+            </section>
+        <section>
+            <h3>现今情况</h3>
+                <section>
+                   <h3>html5协议下</h3>
+                    <h3>统一写<code style="text-transform:none">&lt;!DOCTYPE html&gt;</code></h3>
+                </section>
+        </section>
+                <section>
+                    <h3>浏览器战争远未停止。。。</h3>
+                    <img src="../img/css-01-Use of doctype in HTML/iewar.jpg">
+                </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题1:如果不声明doctype会发生什么？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+            <h3>实际上。。。</h3>
+            <img src="../img/css-01-Use of doctype in HTML/eatshit.jpg">
+            </section>
+            <section>
+                <h3>仍然跟各大互联网厂商有关</h3>
+                <img src="../img/css-01-Use of doctype in HTML/iewar2.jpg">
+            </section>
+            <section>
+                <h3>写代码要养成好习惯</h3>
+                <img src="../img/css-01-Use of doctype in HTML/goodhabit.jpg">
+            </section>
+            <section>
+                <h3>解决方式就是每次都记得写上啊魂淡！</h3>
+                <img src="../img/css-01-Use of doctype in HTML/habit.jpg">
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题一:有没有其他进入混杂模式的方法</p>
+            <p class="fragment">除了不写DOCTYPE声明外，最常见的就是在DOCTYPE声明前面出现了这些内容：普通文本、HTML 标签、HTML 注释、XML 声明、IE条件注释。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;">
+            <p>参考一：<a href="https://www.zhihu.com/question/20249139" target="_blank">为何说 HTML5「no longer based on SGML」？</a></p>
+            <p>参考二：<a href="http://www.jianshu.com/p/2c381cd4fcf9" target="_blank">HTML_严格模式与混杂模式</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/binglingnew/article/details/17301433">严格模式与混杂模式-如何触发这两种模式，区分它们有何意义</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一:取代html5的协议将会是谁？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 吴彦澄</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
