@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>bind-test</title>
+    <meta charset="UTF-8">
+<script src="http://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+
+</head>
+<body>
+    <div ng-app="test" ng-controller="MainCtrl">
+        <clickable></clickable>
+    </div> 
+    <script>
+    var app = angular.module("test", []);
+        app.directive('clickable', function() {
+
+        return {
+          restrict: "E",
+          scope: false,
+          template: '<ul style="background-color: lightblue"><li>{{foo}}</ul>',
+          link: function(scope, element, attrs) {
+            element.bind('click', function() {
+              scope.foo++;
+              scope.$apply();
+              // 这里digest也可以，为什么不直接执行digest循环呢？
+              // scope.$digest();
+            });
+          }
+        }
+
+        });
+
+        app.controller('MainCtrl', function($scope) {
+          $scope.foo = 0;
+        });
+    </script>
+</body>
+</html>

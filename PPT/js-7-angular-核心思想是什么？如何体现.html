@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>葡萄藤PPT</title>
+  
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+  
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+  
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+  
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+  <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h3>小课堂【武汉线下】</h3>
+      <h4>angualr的核心思想是什么？如何在代码中体现？</h4>
+      <p>分享人：赵灵杰</p>
+    </section>
+    <section>
+      <p>目录</p>
+      <p>1.背景介绍</p>
+      <p>2.知识剖析</p>
+      <p>3.常见问题</p>
+      <p>4.解决方案</p>
+      <p>5.编码实战</p>
+      <p>6.扩展思考</p>
+      <p>7.参考文献</p>
+      <p>8.更多讨论</p>
+    </section>
+    <section>
+      <section>
+        <h3>1.背景介绍</h3>
+      </section>
+      <section>
+        <p>angular的简介</p>
+        <div style="text-align: left; padding: 0 5%;">
+          <p>以前开发（web或者移动端）前端主要使用jQuery+原生js,如果使用某些前端UI框架的话，它自己还可能提供一些API可以使用。而且目前很多UI框架都是基于jQuery的，所以说一下由jQuery跨到angularjs跨度较大，研究了一段时间的angularjs ,下面从整体上说说感受吧:
+          </p>
+          </div>
+      </section>
+      <section>
+        <div style="text-align: left; padding: 0 5%;">
+          <p style="text-align: center;">关于和jquery的比较</p>
+          <p>首先angular是一个mvc框架，它与jquery不同之处在于，前者致力于mvc代码解耦，采用model,controller以及view方式去组织代码，而后者提供给你了很多APi函数，你可以不用写很多原生js去实现比较复杂的效果，比如说动画，$.animate,这样的效果如果需要原生js来写的话，代码量将会比较庞大;
+          </p>
+        </div>
+      </section>
+      <section>
+        <div style="text-align: left;padding:0 5%">
+          <p>
+            其次，jQuery没有定义你的代码如何组织，你可以将它放在一个单独的js文件中进行引用，也可以直接写在页面中采用script标签进行包裹，甚至可以直接以内联的方式写在html标签中，但是angularjs会将一个HTML页面分成若干个模块，每个模块都可以自己的scope，service以及directive，各个模块之间也可以进行通信，但是整体上结构是比较清晰的，就是说其代码组织方式是模块化的。
+          </p>
+        </div>
+      </section>
+        <section>
+          <div style="text-align: left;">
+            <p>
+              最后，jQuery的思想是先设计好页面，然后在已有页面的基础上进行dom操作后展示页面，但是angular的view可能仅仅是一个框架，对view的dom操作或者时间监听都是在directive中实现的，而且一般情况下很少自己直接去写Dom操作代码，只要你监听model。model发生变化后view也会发生变化。
+            </p>
+          </div>
+        </section>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h3>2.知识剖析</h3>
+      </section>
+      <section>
+        <p>angular JS的核心特征：</p>
+      </section>
+      <section>
+      <p>1.MVC(模型 视图 控制器)</p>
+      <p>MVC的核心概念是，在代码之间明确分离管理数据（模型），应程序逻辑（控制器），并将数据呈现给用户（视图）。在Angular应用中，视图就是DOM，控制器就是Javascript类，模型数据存储在对象属性中。
+      </p>
+      </section>
+      <section>
+        <P>2.数据绑定</P>
+        <p style="text-align: left;"> 典型的DOM操作，都是先将数据处理完毕之后，再通过元素上设置innerHTML将结果插入到所要的DOM中;这样的工作重复性很高，还要确保界面和javascript属性中获取到数据时正确的状态。  而在angular中一但建立双向绑定，使用者输入，会由Angular自动传到一个变量中，再自动读到所有绑到它的内容，更新它，效果上就是立即的资料同步， 在程式码中修改变量，也会直接反应到呈现的试图上。</p>
+        <p style="text-align: left;">如：</p>
+      </section>
+      <section>
+        <pre>
+          <code>
+          html
+            <div ng-controller='HelloController'>  
+            <input ng-model='greeting.text'>  
+            <p>{{greeting.text}}, World</p>  
+            </div>
+          js
+          function HelloController($scope) {  
+             $scope.greeting = { text: 'Hello' };  
+          }  
+          </code>
+        </pre>
+        <p style="text-align: left;">input的值（用户的输入）与greeting.text绑定在一起，并及时呈现在中。绑定是双向的，也可用通过设置$scope.greeting.text的值，并自动同步到输入框和双大括号（{{}}）中</p>
+      </section>
+      <section>
+        <p>3.依赖注入</p>
+        <p style="text-align: left;">依赖注入)是一种软件设计模式,用于处理如何让程序获得其依赖(对象的)引用,提高代码的重用性和灵活性</p>
+        <p style="text-align: left;">如:</p>
+      </section>
+      <section>
+      <p style="text-align: left;"> $scope对象吧数据绑定自动通过HelloController构造函数传递给开发者，$scope并不是我们唯一需要的，还可以添加一个$location对象，</p>
+        <pre>
+          <code>
+            function HelloController($scope, $location) {  
+                $scope.greeting = { text: 'Hello' };  
+              // use $location for something good here...  
+            }  
+          </code>
+        </pre>
+        <p style="text-align: left;">小知识：通过Angular的依赖注入系统，我们能够遵循迪米特法则（最少知识原则），只关注我们最需要的部分。</p>
+      </section>
+      <section>
+        <p>4.模块化</p>
+        <p style="text-align: left;">代码模块化，每个模块的代码独立拥有自己的作用域，model，controller等。</p>
+      </section>
+      <section>
+        <p>5.指令</p>
+        <p style="text-align: left;">Angular包括一个强大的DOM转换引擎，使得开发者有能力扩展HTML语法。在之前的实例中我们看到{{}}是用绑定数据的，ng-controller是用来指定哪个控制器来服务哪个视图，ng-model将一个输入框绑定到模型部分。我们称之为HTML扩展指令。</p>
+      </section>
+    </section>
+    <section>
+      <h3>3.常见问题</h3>
+      <p>如何在代码中体现？</p>
+    </section>
+    <section>
+      <section>
+        <h3>4.解决方案</h3>
+      
+        <p>下面我们就通过编码实战的方式来书写一个购物车示例</p>
+      </section>
+    </section>
+    <section>
+      <h3>5.编码实战</h3>
+    </section>
+    <section>
+      <section>
+        <pre>
+          <code>
+            <!DOCTYPE html>  
+<div ng-app>  
+<head>  
+    <title>Your Shopping Cart</title>  
+</head>  
+<div ng-controller='CartController'>  
+<h1>Your Order</h1>  
+  
+<div ng-repeat='item in items'>  
+    <span ng-bind="item.title"></span>  
+    <input ng-model='item.quantity'/>  
+    <span ng-bind="item.price | currency"></span>  
+    <span ng-bind="item.price * item.quantity | currency"></span>  
+    <button ng-click="remove($index)">Remove</button>  
+</div>  
+<script src="../js/angular-1.2.2/angular.js"></script>  
+<script>  
+    function CartController($scope) {  
+        $scope.items = [  
+            {title: 'Paint pots', quantity: 8, price: 3.95},  
+            {title: 'Polka dots', quantity: 17, price: 12.95},  
+            {title: 'Pebbles', quantity: 5, price: 6.95}  
+        ];  
+        $scope.remove = function (index) {  
+            $scope.items.splice(index, 1);  
+        }  
+    }  
+</script>  
+</div>  
+</div>  
+          </code>
+        </pre>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h3>6.扩展思考</h3>
+      </section>
+      <section>
+      <p style="text-align: left;">示例代码中，angular是如何运行的？每个指令的都做了些什么？</p></section>
+      <section>
+      <div style="text-align: left;">
+    <p>div ng-app</p>
+    <p>ng-app告诉Angular管理页面的那一部分。根据需要ng-app也可以放在上</p>
+
+    div ng-controller="CartController"</br>
+   Javascript类叫做控制器，它可以管理相应页面区域中的任何东西。</br>
+    div ng-repeat="item in items"</br>
+   ng-repeat代表为items数组中每个元素拷贝一次该DIV中的DOM，同时设置item作为当前元素，并可在模板中使用它。</br>
+  span{{item.title}}/span</br>
+   表达式{{item.title}}检索迭代中的当前项，并将当前项的title属性值插入到DOM中</br>
+   </div>
+   </section>
+   <section>
+     <div style="text-align: left;">
+     input ng-model="item.quantity"</br>
+      ng-model定义输入字段和item.quantity之间的数据绑定</br>
+      span>{{item.price | currency}}/span</br>
+       单价和总价格式化成美元形式。通过Angular的currency过滤器进行美元形式的格式化。</br>
+       button ng-click="remove($index)"> Remove /button</br>
+      通过ng-repeat的迭代顺序$index，移除数据和相应的DOM（双向绑定特性）</br>
+      function CartController($scope) {
+     CartController 管理这购物车的逻辑，$scope 就是用来把数据绑定到界面上的元素</br>
+     </div>
+    </section>
+    <section>
+    <div style="text-align: left;">
+    $scope.items = [ {title: 'Paint pots', quantity: 8, price: 3.95}, {title: 'Polka dots', quantity: 17, price: 12.95}, {title: 'Pebbles', quantity: 5, price: 6.95} ];</br>
+   通过定义$scope.items，我们已经创建一个虚拟数据代表了用户购物车中物品集合，购物车是不能仅工作在内存中，也需要通知服务器端持久化数据。</br>
+    $scope.remove = function(index) {$scope.items.splice(index, 1);};</br>
+   remove()函数能够绑定到界面上，因此我们也把它增加到$scope 中</br>
+     </div>
+   </section>
+  </section>
+  </section>
+    <section>
+      <h3>7.参考文献</h3>
+    </section>
+    <section>
+      <p>参考一：<a href="http://blog.csdn.net/mytream/article/details/38855231">博客</a></p>
+      <p>参考一：<a href="http://www.jb51.net/article/68271.htm">Jb51</a></p>
+    </section>
+    <section>
+      <section>
+        <h3>8.更多讨论</h3>
+      </section>
+      <section>
+        <p>自由讨论</p>
+      </section>
+    </section>
+    <section>
+      <h4>鸣谢</h4>
+      <p>感谢大家观看</p>
+      <p><small>BY : 小九</p>
+    </section>
+  
+  </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+  // 	loop: false, // 是否循环演示
+  // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+  // 	fragments: true, // 全局开启和关闭碎片。
+  // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+  // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+  // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+  // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+  // }
+  // 初始化幻灯片
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      { src: '../plugin/markdown/marked.js' },
+      { src: '../plugin/markdown/markdown.js' },
+      { src: '../plugin/notes/notes.js', async: true },
+      { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+  });
+</script>
+</body>
+</html>

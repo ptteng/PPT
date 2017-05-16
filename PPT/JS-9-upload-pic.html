@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+    <title>将图片上传封装成指令</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -31,9 +31,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task1】定时器该如何使用</h2>
-            <h3>小课堂【武汉第168期】</h3>
-            <p>分享人：张宇鹏</p>
+            <h2>【JS-task-09】怎么将图片上传封装成指令？</h2>
+            <p>分享人：刘思言</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,91 +49,72 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>我们在JS中一般会使用到这样两种定时器，第一种是setTimeOut()
-                ,第二种是setInterval()
-            </p>
-
-
-
+            <p>在js-task-9内，我们需要实现一个将本地图片上传的功能，并且能够进行预览并且将图片的一些属性展示出来。
+            为了实现这个功能，我们利用所学的angular知识来做一个功能比较简单的图片上传组件。</p>
         </section>
-        <section>
-            <p>1、setTimeout允许设置一个延时对象，<br>
-                一定时间之后执行这个对象，但是只执行一次，不会循环
-            </p>
-        </section>
-        <section>
-            <p>2、setInternval允许设置一个延时对象，<br>
-                每隔一定时间之后重复执行这个对象，无限循环
-            </p>
-        </section>
-
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>setTimeout</p>
-            <img src="../img/JS-02-setTimeout/time1.png">
+            <h3>基础知识</h3>
+            <p style="font-size: 1.8rem;text-align:left;">关于指令，因为我们是有直接讲指令的小课堂的，所以这里就简单说一下。</br>
+                1.angular指令本质上就是AngularJs扩展具有自定义功能的html元素的途径。</br>
+                2.内置指令，打包在AngularJs内部的指令，所有内部指令的命名空间 都使用ng作为前缀，所以在写自定义指令的时候，避免用ng作为指令命名的前缀。</br>
+                3.创建指令的方式有四种，在指令里用 restrict属性控制</br>
+                E:元素
+                A:属性(这个是比较推荐的方式)
+                C:css类
+                M:注释</br>
+                4.向指令中传递数据，用template属性</br>
+            </p>  
         </section>
         <section>
-            <p>setInterval</p>
-            <img src="../img/JS-02-setTimeout/time2.png">
+            <h3>组件功能</h3>
+            <p style="font-size: 1.8rem;text-align:left;">
+                功能：
+                1.点击按钮上传图片 
+                2.图片能在本地预览  
+                3.显示图片信息，显示上传进度  
+                4.点击上传按钮上传到服务器
+                5.点击删除按钮，弹框
+                6.上传按钮只能按一次
+            </p>  
         </section>
         <section>
-            <p>利用setTimeout进行循环</p>
-            <img src="../img/JS-02-setTimeout/time3.png">
+              <h3>3.常见问题</h3>
         </section>
         <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-            <p>
-               为什么任务1变色九宫格会越变越快
-            </p>
-
+            <p>如何实现组件</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>我们需要清除定时器</p>
-            <P>
-                window.clearTimeout(int);<br>
-                window.clearInterval(int)<br>
-                这两种定时器，设置方法有区别，但是清除方法是等效的，就是无论你设置的定时器是哪一种
-                都可以使用上边任意一种清除代码清除掉
-
-            </P>
-        </section>
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <p>见任务1代码</p>
+        <h3>5.编码实战</h3>
         </section>
         <section>
             <h3>6.扩展思考</h3>
-        </section>
-        <section>
-            <p>能不能通过定时器的返回值来清除定时器</p>
+            <p>还应该添加一些什么功能</p>
+            <p></p>
         </section>
         <section>
             <h3>7.参考文献</h3>
-        </section>
-        <section>
-            <p>参考：<a href="http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html" target="_blank">http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html</a></p>
+            <p><a href="https://www.oschina.net/translate/angularjs-factory-vs-service-vs-provider?lang=chs&page=2#" target="_blank">AngularJS 之 Factory vs Service vs Provider</a></p>
+            <p><a href="http://www.jianshu.com/p/0d3652a5db21">angular上传获取图片的directive指令</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p>在我们日常工作中，有哪些地方会用到定时器</p>
+            <p>
+               怎样优化这个组件，增强组件的复用性，使之可以应用到项目中。
+               有什么疑问。
+            </p>
+
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY :武汉分院-张宇鹏</small></p>
+            <p><small>BY : 刘思言</small></p>
         </section>
-
     </div>
 </div>
 
@@ -173,5 +153,3 @@
 </script>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>IT修真院</title>
+    <title>葡萄藤PPT</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -16,11 +16,11 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement('link');
+        var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
@@ -31,12 +31,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task2】</h2>
-            <h3>常见的DOM操作有哪些？</h3>
-            <h3>小课堂【郑州第七十期】</h3>
-            <p>分享人：王相博</p>
+            <h2>【js-task02】</h2>
+            <h3>小课堂【成都第138期】常见Dom操作有哪些？</h3>
+            <p>分享人：曹樾</p>
         </section>
-
         <section>
             <p>目录</p>
             <p>1.背景介绍</p>
@@ -49,89 +47,183 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>一.背景介绍</h3>
+            <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p style="text-align:left">文档对象模型（Document Object Model，简称DOM），是W3C组织推荐的处理可扩展标志语言的标准编程接口。在网页上，组织页面（或文档）的对象被组织在一个树形结构中，用来表示文档中对象的标准模型就称为DOM。Document Object Model的历史可以追溯至1990年代后期微软与Netscape的“浏览器大战”，双方为了在JavaScript与JScript一决生死，于是大规模的赋予浏览器强大的功能。微软在网页技术上加入了不少专属事物，既有VBScript、ActiveX、以及微软自家的DHTML格式等，使不少网页使用非微软平台及浏览器无法正常显示。DOM即是当时蕴酿出来的杰作。</p>
+            <p>DOM（文档对象模型）是针对HTML 和XML 文档的一个API（应用程序编程接口）。DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
         </section>
         <section>
-            <h3>二.知识剖析</h3>
-        </section>
-
-        <section>
-            <p>什么是DOM？</p>
-
+            <p>1998 年10 月DOM１级规范成为W3C 的推荐标准，为基本的文档结构及查询提供了接口。本章主
+                要讨论与浏览器中的HTML页面相关的DOM1级的特性和应用，以及JavaScript 对DOM1级的实现。
+                IE、Firefox、Safari、Chrome 和Opera 都非常完善地实现了DOM。</p>
         </section>
         <section>
-            <p style="text-align:left">　　文档对象模型( DOM, Document Object Model )主要用于对HTML和XML文档的内容进行操作。DOM描绘了一个层次化的节点树，通过对节点进行操作，实现对文档内容的添加、删除、修改、查找等功能。</p>
+            <h3>2.知识剖析</h3>
         </section>
         <section>
-            <h3>三.常见问题</h3>
+            <p>什么是DOM</p>
+            <p>DOM 是 Document Object Model（文档对象模型）的缩写。
+                DOM是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。
+                在 HTML DOM中，所有事物都是节点。DOM 是被视为节点树的 HTML。</p>
         </section>
         <section>
-            <p>常用的DOM操作有哪些？</p>
+            <p>DOM节点</p>
+            <p>HTML 文档中的所有内容都是节点。整个文档是一个文档节点,每个 HTML 元素是元素节点，
+            HTML 元素内的文本是文本节点，每个 HTML 属性是属性节点，注释是注释节点。</p>
         </section>
         <section>
-            <h3>四.解决方案</h3>
+            <p>DOM常用操作</p>
+            <p>查找节点</p>
+            <p>新建节点</p>
+            <p>添加节点</p>
+            <p>删除节点</p>
+            <p>修改节点</p>
+            我们用到最多的是element类型，用于表现HTML元素，提供了对元素标签名、子节点及特性的访问。
         </section>
         <section>
-            <p>
-                常用的DOM操作包括获取属性修改属性和获取节点并修改节点内容。
-            </p>
+            <p>DOM常用操作举例</p>
+            <p>查找节点</p>
+            <p>document.getElementById('id属性值');</p>
+            返回拥有指定id的第一个对象的引用            <p>document/element.getElementsByClassName('class属性值');</p>
+            返回拥有指定class的对象集合
         </section>
         <section>
-            <h3>五.代码实战</h3>
+            <p>新建节点</p>
+            <p>document.createElement('元素名');</p>
+            创建新的元素节点
+            <p>document.createAttribute('属性名');</p>
+            创建新的属性节点
+            <p>document.createTextNode('文本内容');</p>
+            创建新的文本节点
+            <p>document.createComment('注释节点');</p>
+            创建新的注释节点
+            <p>document.createDocumentFragment( );</p>
+            创建文档片段节点
+        </section>
+         <section>
+            <p>DOM常用操作</p>
+            <p>添加节点</p>
+            <p>常用来添加文本节点element.innerHTML='新增文本内容'</p>
+            <pre>
+            <code>
+            <h2>创建文本节点</h2>
+            <button onclick="addText()">创建文本节点</button>
+            <p></p>
+                <script>
+                    function addText(){
+                        var element = document.getElementsByTagName('p')[0];
+                        element.innerHTML='新增文本内容'; //插入文本内容
+                    }
+                </script>
+            </code>
+            </pre>
+        </section>
+         <section>
+            <p>DOM常用操作</p>
+            <p>删除节点</p>
+            <p>parentNode.removeChild( existingChild );</p>
+            删除已有的子节点，返回值为删除节点
+            <p>element.removeAttribute('属性名');</p>
+            删除具有指定属性名称的属性，无返回值
+            <p>element.removeAttributeNode( attrNode );</p>
+            删除指定属性，返回值为删除的属性
+        </section>
+         <section>
+            <p>DOM常用操作</p>
+            <p>修改节点</p>
+            <p>添加属性节点，修改属性值：</p>
+            element.setAttribute( attributeName, attributeValue );
+            <pre><code>
+            <h2>属性节点</h2>
+            <p class="classValue">增添id属性，并修改class属性值</p>
+            <script>
+                var element = document.getElementsByTagName('p')[0];
+        // 添加属性节点
+                var attr = document.createAttribute('id');
+                attr.value = 'idValue';
+                element.setAttributeNode(attr);
+        // 修改属性值
+                var attr = document.createAttribute('class');
+                attr.value = 'classNewValue';
+                element.setAttributeNode(attr);
+            </script>
+            </code></pre>
         </section>
         <section>
+            DOM事件
+            <p>允许 JavaScript 对 HTML 事件作出反应</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>onload 事件——用户进入</p>
+            <p>onunload 事件——用户离开</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何通过class和tag调用元素?如何对其设置属性？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下</p>
             <pre>
                 <code>
-                    var num = document.getElementsByTagName("div");
-                    alert(num[1].getAttribute("title"));
-                    num[1].setAttribute("title","我现在是二娃");
-                    body[0].style.width = "900px";
+                    <div>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                    </div>
+                    <div>
+                        <p>div2</p>
+                    </div>
+                    document.getElementsByClassName("time")[0].innerHTML = "16:43";
+                    document.getElementsByClassName("time")[1].innerHTML = "16:44";
+                    document.getElementsByTagName("div")[0].className = "text-time";
                 </code>
             </pre>
         </section>
         <section>
-            <h3>六.拓展思考</h3>
-
+            <h3>5.编码实战</h3>
         </section>
         <section>
-            <p>setAttribute和.value都可以改变元素的值，他们有什么区别？
-            </p>
+            <p>我们运行一下上一页给出的代码，来用DOM改变一下HTML的内容和样式。</p>
         </section>
         <section>
-            <p>如果对象有默认值，则attribute将始终返回默认值，而property则会实时更新。如果设置了一个默认的value值，则getAttribute将始终返回这个默认值，el.value则会随着用户的输入而更新。但是，herf属性的值也不是完全一样，即以一个完整的网址出现时是一样的，简写网址的话是不一样的。
-            </p>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Html5添加了辅助管理DOM焦点的功能。首先就是document.activeElement属性，
+                这个属性始终会引用DOM中当前获得了焦点的元素。
+                另外就是新增了document.hasFocus()方法，这个方法用于确定文档是否获得了焦点。
+                我们可以去学习HTML5中的一些新内容。</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：
-                <a href="http://www.w3cplus.com/css3/pseudo-class-selector" target="_blank">百度百科</a>
-            </p>
-            <p>参考二：
-                <a href="http://www.cnblogs.com/yinshuige/p/5812095.html" target="_blank">GraceZy's blog</a>
-            </p>
-            <p>参考三：
-                <a href="http://www.jianshu.com/p/bbff1203ebf4" target="_blank">el.value与el.getAttribute("value")的区别</a>
-            </p>
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二：<a href="http://blog.csdn.net/ouyangyanlan/article/details/50217065" target="_blank">DOM树知识点梳理</a></p>
         </section>
         <section>
-            <h3>八.更多讨论</h3>
+            <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>document和element有什么区别?</p>
+            <p>如何合理的写HTML内容和用DOM对其进行操作？</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p>
-                <small>BY : 王相博</small>
-            </p>
+            <p><small>BY : 沁修 | 寇晨迪|曹樾</small></p>
         </section>
-
     </div>
 </div>
 
@@ -139,7 +231,6 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -158,21 +249,18 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
-        history : true,
-        dependencies : [
-            {src : '../plugin/markdown/marked.js'},
-            {src : '../plugin/markdown/markdown.js'},
-            {src : '../plugin/notes/notes.js', async : true},
-            {
-                src : '../plugin/highlight/highlight.js',
-                async : true,
-                callback : function(){ hljs.initHighlightingOnLoad(); }
-            }
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
 </body>
 </html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

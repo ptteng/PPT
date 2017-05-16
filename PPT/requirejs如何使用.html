@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+    <title>如何使用RequireJS？</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -31,9 +31,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task1】定时器该如何使用</h2>
-            <h3>小课堂【武汉第168期】</h3>
-            <p>分享人：张宇鹏</p>
+            <h2>如何使用RequireJS？</h2>
+            <p>分享人：汤金鑫</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,89 +49,77 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>我们在JS中一般会使用到这样两种定时器，第一种是setTimeOut()
-                ,第二种是setInterval()
-            </p>
-
-
-
+            <p>RequireJS 是一个JavaScript模块加载器。它非常适合在浏览器中使用, 它非常适合在浏览器中使用，但它
+                也可以用在其他脚本环境, 就像 Rhino and Node. 使用RequireJS加载模块化脚本将提高代码的加载速度和质量。</p>
         </section>
-        <section>
-            <p>1、setTimeout允许设置一个延时对象，<br>
-                一定时间之后执行这个对象，但是只执行一次，不会循环
-            </p>
-        </section>
-        <section>
-            <p>2、setInternval允许设置一个延时对象，<br>
-                每隔一定时间之后重复执行这个对象，无限循环
-            </p>
-        </section>
-
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>setTimeout</p>
-            <img src="../img/JS-02-setTimeout/time1.png">
-        </section>
-        <section>
-            <p>setInterval</p>
-            <img src="../img/JS-02-setTimeout/time2.png">
-        </section>
-        <section>
-            <p>利用setTimeout进行循环</p>
-            <img src="../img/JS-02-setTimeout/time3.png">
+            <p>RequireJS的目标是鼓励代码的模块化，它使用了不同于传统script标签的脚本加载步骤,可以用它来加速、优化代码，但其主
+            要目的还是为了代码的模块化.它鼓励在使用脚本时以module\ID替代URL地址,</p>
+            <p> RequireJS以一个相对于baseUrl的地址来加载所有的代码。 页面顶层script标签含有一个特殊的属性data-main，require.js使用它来启动脚本加载过程，而baseUrl一
+        般设置到与该属性相一致的目录。下列示例中展示了baseUrl的设置：</p>
+            <!--This sets the baseUrl to the "scripts" directory, and
+    loads a script that will have a module ID of 'main'-->
+            "script data-main="scripts/main.js" src="scripts/require.js"/script"
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>
-               为什么任务1变色九宫格会越变越快
-            </p>
-
+            <p>为什么使用RequireJS</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>我们需要清除定时器</p>
-            <P>
-                window.clearTimeout(int);<br>
-                window.clearInterval(int)<br>
-                这两种定时器，设置方法有区别，但是清除方法是等效的，就是无论你设置的定时器是哪一种
-                都可以使用上边任意一种清除代码清除掉
-
-            </P>
+            <p>有效的防止命名冲突</p>
+            <p>声明不同js之间的依赖</p>
+            <p>可以让我们的代码已模块化的方式组织</p>
+        </section>
+        <section>
+            <p>requirejs常用的方法</p>
+            <p>requirejs.config:为模块指点下别名，方便我们模块的引入</p>
+            <p>requirejs：将我们写好的模块进行引入根据我们编写的模块编写我们的主代码</p>
+            <p>define：利用来编写我们的模块然后引入他就可以了</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <p>见任务1代码</p>
+            <pre>
+                <code>
+                   <!--<script src="scripts/require.js " data-main="scripts/main"></script>-->
+                    requirejs.config({
+                          paths:{
+                                 jquery:'jquery-3.1.1',
+                                 }
+                            })
+                    requirejs(['jquery','util'],function ($,util) {
+                         $('body').css('background-color','red')
+                        console.log(util.start3(1,1))
+                    })
+
+                </code>
+            </pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p>能不能通过定时器的返回值来清除定时器</p>
+            css能不能用requirejs  加载呢？
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考：<a href="http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html" target="_blank">http://www.cnblogs.com/shawn-xie/archive/2012/07/03/2574666.html</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p>在我们日常工作中，有哪些地方会用到定时器</p>
+            <p>参考一：慕课网</p>
         </section>
         <section>
             <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY :武汉分院-张宇鹏</small></p>
+            <p>感谢小伙伴们观看</p>
+            <p><small>汤金鑫</small></p>
         </section>
 
     </div>
@@ -142,6 +129,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -160,6 +148,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -173,5 +162,3 @@
 </script>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He
