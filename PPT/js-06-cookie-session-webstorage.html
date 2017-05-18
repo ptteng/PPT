@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-06】其他页面如何判断是否已登录</h2>
+            <h3>郑州小课堂第112期</h3>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>当我们在网页中向服务器请求信息时，一般发送http请求，
+                但是HTTP协议是无状态协议，无状态是指协议对于事务处理没有记忆能力，
+                一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。<br>
+                这就意味着服务器无法从连接上跟踪会话。那当我们在一个网站登录之后，
+                在网站其他页面怎么判断是否已经登录？
+                要跟踪该会话，必须引入一种机制。
+            </p>
+            <a href="http://blog.csdn.net/yzl21061/article/details/17399157">无状态</a>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>cookie</p>
+            <p>cookie指的是储存在用户本地终端上的数据，它是由Web服务器创建的，
+                当客户端第一次请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。<br>
+                客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。
+                服务器检查该Cookie，以此来辨认用户状态。服务器还可以根据需要修改Cookie的内容。</p>
+        </section>
+        <section>
+            <p>Cookie在生成时就会被指定一个Expire值，这就是Cookie的生存周期，在这个周期内Cookie有效，
+                超出周期Cookie就会被清除。有些页面将Cookie的生存周期设置为“0”或负值，这样在关闭浏览器时,
+                就马上清除Cookie，不会记录用户信息，更加安全。</p>
+        </section>
+        <section>
+            <p>用户也可以在浏览器端进行设置，禁止服务器向客户端浏览器颁发一个Cookie。</p>
+        </section>
+        <section>
+            <P>我们可以在脚本中读取，创建和存储 cookie;
+                例如下面的代码会输出本页面所有的Cookie。
+                document.write(document.cookie)
+            </P>
+        </section>
+        <section>
+            <p>Session</p>
+            <p>Session是服务器端技术，利用这个技术，服务器在运行时可以为每一个用户的浏览器创建一个其独享的session对象.</p>
+            <p> 由于session为用户浏览器独享，所以用户在访问服务器的web资源时，
+                可以把各自的数据放在各自的session中，当用户再去访问服务器中的其它web资源时，
+                其它web资源再从用户各自的session中取出数据为用户服务。</p>
+        </section>
+        <section>
+            <p>Session的使用比Cookie方便，但是过多的Session存储在服务器内存中，会对服务器造成压力。
+                虽然Session保存在服务器，对客户端是透明的，它的正常运行仍然需要客户端浏览器的支持。
+                这是因为Session需要使用Cookie作为识别标志。</p>
+            <p> HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，
+                因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，
+                它的值为该Session的id（也就是HttpSession.getId()的返回值）。
+                Session依据该Cookie来识别是否为同一用户。</p>
+        </section>
+        <section>
+            <a href="http://sizhefang.iteye.com/blog/25294">jsessionid</a>
+        </section>
+        <section>
+            <p>Web Storage</p>
+            <p>WebStorage是HTML5中本地存储的解决方案之一</p>
+            <p>Web Storage实际上由两部分组成:sessionStorage与localStorage。</p>
+        </section>
+        <section>
+            <p>localStorage和sessionStorage</p>
+            <p>localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</p>
+            <p>sessionStorage存储的数据只在会话期间有效，关闭浏览器则自动删除。</p>
+        </section>
+        <section>
+            <p>所以，在其它页面保持登录，可以在登录后往本地storage中存储一个关键字段（存储用户信息）,如 :login：true</p>
+            <p>在路由变化的时候，或者在页面跳转的时候，检测是该字段值是否正确，不正确则跳转登录页；</p>
+            <p>点击注销可以执行删除</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <p>Cookies包含了一些敏感信息：用户名，计算机名，使用的浏览器和曾经访问的网站,
+                    在某种程度上说已经严重危及用户的隐私和安全。</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>下面方法能增加安全性：</p>
+            <ul>
+                <li>设置该 Cookie 不能被脚本读取</li>
+                <li>对 Cookie 内容进行加密，在加密前嵌入时间戳，保证每次加密后的密文都不一样（并且可以防止消息重放）</li>
+                <li>客户端请求时，每次或定时更新 Cookie 内容</li>
+                <li>每次向 Cookie 写入时间戳，数据库需要记录最后一次时间戳</li>
+                <li>客户端提交 Cookie 时，先解密然后校验时间戳，时间戳若小于数据数据库中记录，即意味发生攻击</li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="https://ptteng.github.io/PPT/demo/js-6-cookie/index.html">demo</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>Web Storage相对于cookie的优势</h4>
+            <p style="font-size: 35px;text-align: left">1.从容量上讲WebStorage一般浏览器提供5M的存储空间，用来存储视频、图片神马的不够，但对于绝大部分操作足矣</p>
+            <p style="font-size: 35px;text-align: left">2.安全性上WebStorage并不作为HTTP header发送的浏览器，所以相对安全。</p>
+            <p style="font-size: 35px;text-align: left">3.从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="margin-left: 18rem">
+            <p style="font-size: 35px;text-align: left">参考一：<a href="http://www.cnblogs.com/dolphinX/p/3348469.html">HTML5 WebStorage</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a href="http://baike.so.com/doc/4477793-4686855.html">360百科</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a href="http://blog.csdn.net/xtzz92/article/details/51668644">Nancy的专栏</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>存储方案各自的性能如何，他们的区别？</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 张增峰 | 董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

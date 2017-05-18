@@ -1,0 +1,194 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-Task05】</h2>
+            <h3>小课堂【武汉第一百七十一期】get 与 post的区别?application json 与form表单的区别?</h3>
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+    <section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: left">
+            <p>首先我们要了解HTTP协议，这是一种通信协议，不同的联机方式与所使用的网络服务而定，会有不同的通信协议，发送邮件的时候要使用SMTP，传输文件会使用FTP,下载信件时会使用POP3等，而浏览器跟WEB服务器之间的沟通方式则是HTTP。</p>
+            <p>HTTP是一种基于请求响应的通信协议，客户端对服务器发出一个取得资源的请求，服务器将要求的资源响应给客户端，每次的联结只作一次请求/响应，是一种很简单的通信协议，没有请求就没有响应</p>
+        </section>
+        <section>
+            <p>HTTP协议之下，服务器是个健忘的家伙，服务器响应客户端之后，就不会记得客户端的信息，更不会去维护与客户端有关的状态，因此http又称为无状态的通信协议</p>
+            <p>URL全称是资源描述符，我们可以这样认为：一个URL地址，它用于描述一个网络上的资源，而HTTP中的GET，POST，PUT，DELETE就对应着对这个资源的查 ，改 ，增 ，删 4个操作。到这里，大家应该有个大概的了解了，GET一般用于获取/查询 资源信息，而POST一般用于更新 资源信息</p>
+        </section>
+    </section>
+        <section>
+            <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+            <p style="text-align: center">rest风格</p>
+            <p>REST通常基于使用HTTP，URI，和XML以及HTML这些现有的广泛流行的协议和标准。 资源是由URI来指定。
+                对资源的操作包括获取创建、修改和删除资源，这些操作正好对应HTTP协议提供的GET、POST、PUT和DELETE方法
+                通过操作资源的表现形式来操作资源。
+                资源的表现形式则是XML或者HTML，取决于读者是机器还是人，是消费web服务的客户软件还是web浏览器。当然也可以是任何其他的格式。</p>
+        </section>
+        <section style="text-align: left">
+            <p> 使用客户/服务器模型。客户和服务器之间通过一个统一的接口来互相通讯。</p>
+            <p>层次化的系统。在一个REST系统中，客户端并不会固定地与一个服务器打交道。</p>
+            <p>无状态。在一个REST系统中，服务端并不会保存有关客户的任何状态。也就是说，客户端自身负责用户状态的维持，并在每次发送请求时都需要提供足够的信息。</p>
+            <p>可缓存。REST系统需要能够恰当地缓存请求，以尽量减少服务端和客户端之间的信息传输，以提高性能。</p>
+            <p>统一的接口。一个REST系统需要使用一个统一的接口来完成子系统之间以及服务与用户之间的交互。这使得REST系统中的各个子系统可以独自完成演化。</p>
+
+        </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>get 与 post的区别?</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1.get请求</p>
+          <p>
+              get请求，顾名思义，就是向服务器取得指定的资源，在发出get请求时必须一并告诉服务器所请求资源的URL，以及一些标头信息
+          </p>
+        </section>
+            <section>
+                <p>2.post请求</p>
+                <p>POST请求，顾名思义，就是在请求的时候发布信息给服务器，对于大量或复杂的信息发送，基本都会采用POST来进行发送</p>
+            </section>
+        <section style="text-align: left">
+            <p>post和get之间的差别？</p>
+            1. get是从服务器上获取数据，post是向服务器传送数据。<br>
+            get 和 post只是一种传递数据的方式，get也可以把数据传到服务器，他们的本质都是发送请求和接收结果。只是组织格式和数据量上面有差别，http协议里面有介绍<br>
+            2. get是把参数数据队列加到提交表单的ACTION属性所指的URL中，值和表单内各个字段一一对应，在URL中可以看到。post是通过HTTP post机制，将表单内各个字段与其内容放置在HTML HEADER内一起传送到ACTION属性所指的URL地址。用户看不到这个过程。<br>
+            因为get设计成传输小数据，而且最好是不修改服务器的数据，所以浏览器一般都在地址栏里面可以看到，但post一般都用来传递大数据，或比较隐私的数据，所以在地址栏看不到，能不能看到不是协议规定，是浏览器规定的。<br>
+        </section>
+            <section style="text-align: left">
+            3. 对于get方式，服务器端用Request.QueryString获取变量的值，对于post方式，服务器端用Request.Form获取提交的数据。<br>
+            怎么获得变量和你的服务器有关，和get或post无关，服务器都对这些请求做了封装
+            4. get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。<br>
+            post基本没有限制，我想大家都上传过文件，都是用post方式的。只不过要修改form里面的那个type参数<br>
+            5. get安全性非常低，post安全性较高。<br>
+            如果没有加密，他们安全级别都是一样的，随便一个监听器都可以把所有的数据监听到，不信你自己下一个监听网络资源的软件，<br>
+
+        </section>
+   <section>
+            <h3>5.编码实战</h3>
+   </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>application json 与form表单的区别?</p>
+        </section>
+        <section>
+            application/json 这个 Content-Type 作为响应头大家肯定不陌生。实际上， 现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。 由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 JSON.stringify， 服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。angular中默认的就是这个格式
+        </section>
+        <section>
+            application/x-www-form-urlencoded 这应该是最常见的 POST 提交数据的方式了。浏览器的原生 form 表单，如果不设置 enctype 属性， 那么最终就会以 application/x-www-form-urlencoded 方式提交数据。请求类似于下面这样（ 无关的请求头在本文中都省略掉了）： POST http://www.example.com HTTP/1.1 Content-Type: application/x-www-form-urlencoded;charset=utf-8 title=test&sub%5B%5D=1&sub%5B%5D=2&sub%5B%5D=3 首先，Content-Type 被指定为 application/x-www-form-urlencoded； 其次，提交的数据按照 key1=val1&key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。 大部分服务端语言都对这种方式有很好的支持。例如 PHP 中，$_POST['title'] 可以获取到 title 的值，$_POST['sub'] 可以得到 sub 数组。</section>
+        <section>
+            这两种方式也是经常被互相转换的使用的，一般情况从json转换成form的情况会相对多一些。
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>HTTP深入浅出 http请求</p>
+            <p>get和post的区别</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>到底该如何选用post和get</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王力</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>技术分享小课堂</h2>
+
+            <p>（武汉线下162期）</p>
+
+            <h3>常见的表单元素及其属性</h3>
+
+            <p>分享人：冯强</p>
+        </section>
+        <section>
+            <p>目录</p>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>表单在网页中主要负责数据采集功能。一个表单有三个基本组成部分：<br>
+                表单标签：这里面包含了处理表单数据所用CGI程序的URL以及数据提交到服务器的方法。<br>
+                表单域：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。<br>
+                表单按钮：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。</p>
+        </section>
+
+        <section>
+            <h3>
+                2.知识剖析<br>
+                常用表单元素
+            </h3>
+        </section>
+        <section>
+
+            form 表示 HTML 表单<br>
+            input 表示用来收集用户输入数据的控件<br>
+            textarea 表示可以输入多行文本的控件<br>
+
+            <p>select:定义一个选择列表，即下拉列表。</p>
+
+            <p>option:定义下拉列表中的选项。</p>
+
+
+        </section>
+        <section>
+
+            <p>optgroup:定义选项组。选项组内需要放选项option。下拉列表select通常对应一个选项组，故此标签不常用。</p>
+            button 表示可用来提交或重置的表单按钮(或一般按钮)<br>
+            label 表示表单元素的说明标签<br>
+
+
+        </section>
+
+        <section>
+            <h3>3.常用表单元素详解</h3>
+        </section>
+        <section>
+            <p>
+                1.form 表单解析<br>
+
+                action 表单需要提交的页面<br>
+                method 表单需要提交的方式 get/post<br>
+                name 表单名称，建议书写，用于程序识别表单<br>
+
+            </p>
+        </section>
+        <section>
+            TARGET="..."指定提交的结果文档显示的位置：<br>
+            _blank ：在一个新的、无名浏览器窗口调入指定的文档；<br>
+            _self ：在指向这个目标的元素的相同的框架中调入文档；<br>
+            _parent ：把文档调入当前框的直接的父FRAMESET框中；这个值在当前框没有父框时等价于_self；<br>
+            _top ：把文档调入原来的最顶部的浏览器窗口中(因此取消所有其它框架)；这个值等价于当前框没有你框时的_self.<br>
+        </section>
+        <section>
+            2.input 表单的属性<br>
+            autofocues 让光标聚焦在input上，可以让用户直接输入<br>
+            disable 禁用input,(禁止用户输入)<br>
+        </section>
+        <section>
+            3.button添加按钮<br>
+            button 按钮的type 属性有如下几个值:<br>
+            submit 表示按钮的作用是提交表单,默认<br>
+            reset 表示按钮的作用是重置表单<br>
+            button 表示按钮为一般性按钮,没有任何作用<br>
+
+        </section>
+        <section>
+            4.Type 表单元素(主要为 Input)的类型<br>
+            input 表单的属性用于 限制表单的内容 + 表单的样式<br>
+            text 简单的文本框，input的默认行为<br>
+            (password 密码框输入的所有字符都会显示星号)<br>
+            search 搜索框（search表单会显示一个叉来取消搜索内容）<br>
+            number range 只能输入数字的按钮，range 用于设置数字范围<br>
+            checkbox 、radio 复选框，单选框<br>
+            image 生成一个图片按钮<br>
+            type="file"定义文件上传框input type="file" name="myfile" size="15" maxlength="100"<br>
+        </section>
+        <section>
+            <h3>4.编码实战</h3>
+            要提交数据的控件可以布局在form标签之外，看下面的代码，表单元素可以写到form元素之外，只需在元素中加入form="form1"属性，也可提交到form元素指定的服务器地址<br>
+            <pre><code>
+                <body>
+                <form action="upload.php" method="post" accept-charset="utf-8" id="form1">
+                </form>
+                <input type="text" name="username" value="" form="form1">
+                <input type="submit" name="sub" value="提交" form="form1">
+                </body>
+            </code>
+                </pre>
+        </section>
+
+        <section>
+            <h3>5.拓展思考</h3>
+        </section>
+        <section>
+            还有哪些HTML5新增的表单元素<br>
+
+        </section>
+        <section>
+            email 类型用于验证email的格式，当提交表单时会自动验证email域的值<br>
+            url 类型用于验证 URL 地址的格式，当提交表单时会自动验证url域的值<br>
+            number 类型会根据你的设置提供选择数字的功能，min属性设置最小值、max属性设置最大值，value属性设置当前值，step属性设定每次增长的值，某些浏览器还不支持<br>
+            range 类型用于应该包含一定范围内数字值的输入域，其会以一个滑块的形式展现，min属性设置最小值、max属性设置最大值，value属性设置当前值，如果没有设置，则其默认值的范围是1-100<br>
+            search 类型用于搜索域，比如站点搜索或 Google 搜索，为其加上results="s"属性，则会在搜索框前面加上一个搜索图标<br>
+            color类型会提供一个颜色拾取器，供用户选择颜色，并将用户选择的颜色填充到此元素<br>
+        </section>
+        <section>
+            日期和时间类型：HTML5 拥有多个可供选取日期和时间的新输入类型：<br>
+            date - 选取日、月、年<br>
+            month - 选取月、年<br>
+            week - 选取周和年<br>
+            time - 选取时间（小时和分钟）<br>
+            datetime - 选取时间、日、月、年（UTC 时间）<br>
+            datetime-local - 选取时间、日、月、年（本地时间）<br>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+
+            <p>参考一：<a href="http://www.jianshu.com/p/1be42a9dda69" target="_blank">HTML5中的表单元素</a></p>
+
+            <p>参考二：<a href="http://baike.baidu.com/item/%E8%A1%A8%E5%8D%95#1_1" target="_blank">表单</a></p>
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p>
+                <small>BY : 冯强</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

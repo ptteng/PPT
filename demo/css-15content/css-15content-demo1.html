@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加引号</title>
+    <style>
+         /*为不同语言指定引号的表现 */
+         :lang(en)  {quotes:'~' '~';}
+         :lang(zh) {quotes:"“" "”";}
+
+         /*在q标签的前后插入引号 */
+        p:before {content:open-quote;}
+        p:after  {content:close-quote;}
+    </style>
+</head>
+<body>
+    <p lang="en"> <!--lang属性规定元素内容的语言。根据ISO 639-1语言代码 en指英语,zh指简体中文-->
+       Just do it
+    </p>
+    <p lang="zh">
+       想做就做
+    </p>
+</body>
+</html>
