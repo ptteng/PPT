@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计数器demo</title>
+    <style type="text/css">
+        /*section是计数器的名字，counter-reset在指定位置重置计数器*/
+     #demo ol { counter-reset: section ;
+         list-style-type: none;}
+        /*当计数器section遇到li的时候开始自增*/
+     #demo   ol li { counter-increment: section ; }
+        /*在li的前面显示计数器  */
+     /*#demo   ol li:before { content: counter(section,upper-roman ) ". ";}*/
+     #demo ol li:before { content: counters(section,".") ". "; }
+
+    </style>
+
+</head>
+
+<body>
+<div id="demo">
+<ol>
+    <li>国产汽车</li>
+    <li>进口汽车
+        <ol>
+            <li>奔驰</li>
+        </ol>
+    </li>
+</ol>
+</div>
+
+</body>
+</html>
