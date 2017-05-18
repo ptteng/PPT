@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task15】css中content属性，有什么作用？有什么应用？</h2>
+            <h3>小课堂【成都第141期】</h3>
+            <p>分享人：王帅</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p> Content属性最早在CSS2.1中引用，在W3C的中解释content属性与 :before 及 :after 伪元素配合使用，
+                来插入生成内容。所有浏览器都支持 content 属性。（对于IE8+以上的版本，需要规定 !DOCTYPE，
+                才可以支持这个属性）
+                另外，目前大多数的浏览器已经支持所有元素的content属性，而不仅仅是:before和:after伪元素。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>content属性的取值<br>
+                <img src="../img/css-15-content/normal.png">
+            </p>
+        </section>
+        <section>
+            <p>content属性与 :before 及 :after 伪元素配合使用</p>
+        </section>
+        <section>
+            <p>1.生成文本内容</p>
+            <pre>
+                <code>
+                  h1:before {
+                    content: "添加额外的内容！";
+                  }
+
+                  <h1>我是标题h1</h1>
+                </code>
+              添加额外的内容！我是标题h1
+            </pre>
+        </section>
+        <section>
+            <p>2.通过attr()将选择器对象的属性作为字符串进行显示</p>
+          <pre>
+            <code>
+              a:after {
+                 content: attr(href);//当使用attr()获取标签属性名的时候，千万不要添加引号!
+              }
+              <a href="http://www.jnshu.com">此标签的href值是：</a>
+            </code>
+            此标签的href值是：http://www.jnshu.com
+          </pre>
+        </section>
+        <section>
+            <p>3.用计数器添加序号</p>
+            <pre>
+            <code>
+              <ol>
+                 <li>国产汽车</li>
+                 <li>进口汽车
+                     <ol>
+                       <li>奔驰</li>
+                     </ol>
+                 </li>
+              </ol>
+            </code>
+            <code>
+              <style type="text/css">
+                  /*section是计数器的名字，counter-reset在指定位置重置计数器*/
+                 ol { counter-reset: section; list-style-type: none; }
+                  /*当计数器section遇到li的时候开始自增*/
+                 ol li { counter-increment: section; }
+                 /*在li的前面显示计数器*/
+                 ol li:before { content: counters(section，".") ". "; }
+              </style>
+            </code>
+            <a href="../demo/css-15content/css-15content-demo.html">demo</a>
+          </pre>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何为不同的语言使用不同的引号字符？比如英文的引号就是""，而中文引号就是“”。
+            </p>
+        </section>
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+      <p>使用content可以使得不同的语言使用对应的一些字符。</p>
+      <pre>
+          <code>
+            <p lang="en"> <!--lang属性规定元素内容的语言。根据ISO 639-1语言代码 en指英语,zh指简体中文-->
+                Just do it.
+            </p>
+            <p lang="zh">
+                想做就做
+            </p>
+          </code>
+          <code>
+            /* 为不同语言指定引号的表现 */
+            :lang(en)  {quotes:"~"" "~"";}
+            :lang(ch)  {quotes:"“" "”";}
+
+            /* 在q标签的前后插入引号 */
+            p:before {content:open-quote;}
+            p:after  {content:close-quote;}
+          </code>
+           <a href="../demo/css-15content/css-15content-demo1.html">demo1</a>
+      </pre>
+      </section>
+      <section>
+          <h3>5.编码实战</h3>
+      </section>
+      <section>
+          <section>
+          <pre>
+              <code>
+                  <style>
+                      .one:after {content: url("../../img/css-15-content/girl.jpg")}
+                      .two       {content: url("../../img/css-15-content/girl.jpg")}
+                  </style>
+                  <body>
+                  <p class="one"></p>
+                  <p class="two"></p>
+                  </body>
+              </code>
+              <a href="../demo/css-15content/css-15contemt-demo2.html">demo2</a>
+          </pre>
+          </section>
+          <!--<section>
+          <pre>
+              <code>
+
+              </code>
+          </pre>
+      </section>-->
+       </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>content实际上很少的使用，它不可通过DOM使用，它只是纯粹的表象。 </p>
+          <!--<pre>
+
+          </pre>-->
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://segmentfault.com/a/1190000002750033" target="_blank">segmentfault上的css3 content详解</a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2010/04/css-content%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8/" target="_blank">张鑫旭 CSS content内容生成技术以及应用</a></p>
+            <p>参考三：<a href="http://www.zhangxinxu.com/wordpress/2014/08/css-counters-automatic-number-content/" target="_blank">CSS counter计数器</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王帅</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
