@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<title>jquery2</title> 
+
+
+<script type="text/javascript"> 
+//创建节点 
+var addItems = function() { 
+    // 清空div
+document.getElementById("div1").innerHTML = ""; 
+   // 获取value
+var value = document.getElementById('itemsNumber').value; 
+for (var i = 0; i < value; i++) { 
+    // 新建input
+var input = document.createElement("input"); 
+// 给input赋属性和值
+input.createAttribute("type", "text"); 
+// 新建换行符
+var br = document.createElement("br"); 
+// 输出新建的input和br
+document.getElementById("div1").appendChild(input); 
+document.getElementById("div1").appendChild(br); 
+
+} 
+} 
+</script> 
+</head>
+<body> 
+<input type="text" id="itemsNumber"> 
+<input type="button" id="btn" value="click" onclick="addItems();" > 
+<div id="div1"></div> 
+</body> 
+</html> 
