@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【Quirks模式和Standards模式的区别】</h3>
+            <h4>小课堂【第115期】</h4>
+            <p>分享人：张宇鹏</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>quirks模式是浏览器的怪异模式，该模式下浏览器对页面的渲染会比较怪异<br>
+                我们平时使用的都是standards模式，又称strict模式</p>
+        </section>
+        <section>
+            <h3>Quirks来历</h3>
+            <p>
+                在W3C标准出台以前，
+                浏览器在对页面的渲染上没有统一规范，产生了差异
+                (Quirks mode或者称为Compatibility Mode)；由于W3C标准的推出，
+                浏览器渲染页面有了统一的标准(CSScompat或称为Strict mode也有叫做Standars mode)，
+                这就是二者最简单的区别。
+            </p>
+        </section>
+        <section>
+            <p>
+                W3C标准推出以后，浏览器都开始采纳新标准，
+                在标准出来以前，很多页面都是根据旧的渲染方法编写的，<br>
+                如果使用新的标准来渲染，将导致页面显示异常。<br>
+                使以前的页面能够正常浏览，浏览器都保留了旧的渲染方法
+                这样浏览器渲染上就产生了Quircks mode和Standars mode，
+                两种渲染方法共存在一个浏览器上。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>如何开启浏览器的quirks模式呢</h3>
+            <p>关键在于html文件第一行的声明，!doctype html
+            如果我们把这一行删除掉，或者在这一行随意加上几个字母，
+                使浏览器无法识别，那么就开启了浏览器的quirks模式</p>
+        </section>
+        <section>
+            <p>
+                如何确认是不是开启了quirks模式
+            </p>
+        </section>
+        <section>
+            <code>
+               document.compatMode
+            </code>
+        </section>
+        <section>
+            那么quirks模式到底和我们日常使用的strict模式有什么区别呢
+        </section>
+        <section>
+            据本人在网上搜索的资料，最大的区别在于盒模型<br>
+            在我们学习盒模型中<br>
+            元素实际宽度=margin*2+border*2+padding*2+width<br>
+            但是据资料显示，在quirks模式中，<br>
+            元素内容宽度=width-margin*2-border*2-padding*2
+        </section>
+        <section>
+            但是经过demo，我们发现，在quirks模式下，有些特性和资料显示不符，
+            搜索相关资料发现，盒模型的差异，很有可能只存在于ie6中，
+        </section>
+        <section>
+            <p>关于两者的区别，网上有很多描述，但是经过本人亲测，
+            </p>                好多区别都不存在了，只找到了一个区别
+
+        </section>
+        <section>
+            <p>quriks已经是上个时代的产物，我们对他有简单的了解就好，
+                毕竟这个东西，现在已经不再使用了，我们基本上是用不到的
+            </p>
+        </section>
+
+
+
+        <section>
+            <h3>3.更多讨论</h3>
+        </section>
+        <section>
+            <p>在今天之前，有没有遇到过quirks模式</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :武汉分院-张宇鹏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
