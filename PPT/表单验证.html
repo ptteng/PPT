@@ -1,0 +1,250 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>验证表单</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <style>
+        p {
+            text-align: left;
+            /*text-indent:1em;*/
+            /*word-break: break-all;*/
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>有哪些常见的验证表单方式（即时输入验证，失去焦点验证等），他们各自的优缺点是什么？</h2>
+            <p style="text-align: center">分享人：汤金鑫</p>
+        </section>
+        <section>
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>表单验证是javascript中的高级选项之一。JavaScript 可用来在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                我们任务里面的表单验证和用JQ插件的表单验证都可以节省我们很多的时间
+            </p>
+        </section>
+        <section>
+            <h4>angular 表单验证</h4>
+            <p>
+            <pre>
+                <code>
+            <form class="form-horizontal " novalidate name="data123" role="form" id="blur" ng-submit="submit()">
+                <div class="form-group ">
+                    <div class="col-md-6 ">
+                        <label class="control-label col-md-4">*公司名称</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control"
+                                   ng-model="data.company.name"
+                                   required
+                                   name="name"
+                                   ng-maxlength="50"
+                                   ng-minlength="1"
+                                   ng-class="{'error':data123.name.$invalid&&
+                               data123.name.$touched}"
+                            >
+                            <div class="res" ng-if="data123.name.$invalid&&data123.name.$touched">公司内容不可为空</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+                        </code>
+            </pre>
+            </p>
+
+        </section>
+        <section>
+            <P>
+                validate的jq插件
+            </P>
+            <pre>
+                <code>
+                   $( "form" ).validate({
+		debug:true,  //submit  不会刷新页面  表单不会提交只是检查
+		rules: {
+			email: {
+                email:'true',//可以这样定义email
+				required: true,
+//				remote:''//比较json   或者url  可以想后、端发起请求，
+				remote:{
+				    url:'remote.json',
+					type:'post',
+					data:{
+				        loginTime:function () {
+							return  +new Date;
+                        }
+					}
+				}
+			},
+			password: {
+//			    email:'email格式不对',
+                number:'true',
+				required: true,
+//				maxlength:10,
+//				minlength:2,
+				rangelength:[2,10] , //定义2-10之间的规则   定义了这个上面的 最大最小可以不用
+//				max:200,
+//				min:10,
+				range:[10,200],
+				digits:'true'//正整数
+			},
+            password2:{
+			    equalTo:'#password'
+			}
+		},
+		messages:{
+		    email:{
+		        required:'必须填写email',
+//				remote:'已经有这个email了'
+                email: "请输入一个正确的邮箱",
+			},
+			password:{
+		        required:'必须填写密码',
+//                maxlength:'密码最大为10位',
+//                minlength:'密码最小为2位',
+				rangelength:'用户名应该在2-10位',
+				range:'请输入10-200之前的数字'
+			},
+            password2:{
+                equalTo:'两次密码不一致'
+            },
+            remote:"已经有人用过了"
+		},
+		errorPlacement: function( error, element ) {
+			error.insertAfter( element.parent() );
+		},
+
+	});
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>validate的jq插件可以给disabled吗</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这个因为validate有一个提示语句就不支持这个了</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>我们不用这些插件效率就会很低，angular里面也是封装这自己的插件的</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://javascript.ruanyifeng.com/oop/basic.html">阮一峰</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>还有其他的插件也比较好用的吗？通常是否稳定，是否经常更新？</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center">
+                <small>BY : 汤金鑫</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task15】常用的hack技巧</h2>
+            <h3>小课堂【武汉第175期】</h3>
+            <p>分享人：景鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.方法比较</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <section>
+                <p>由于各浏览器对页面的解析不同，会导致页面在不同浏览器中显示的样式不一致，
+                    为了保持页面的统一，经常需要对浏览器进行兼容性问题的调试。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <section><p style="font-size: 40px">CSS Hack的概念</p></section>
+            <section>
+                <p style="text-indent: 90px;text-align: start"> 面对浏览器诸多的兼容性问题，经常需要通过修改CSS样式来调试，
+                    其中用的最多的就是CSS Hack。所谓CSS Hack就是针对不同的
+                    浏览器书写不同的CSS样式，通过使用某个浏览器单独识别的样
+                    式代码，控制该浏览器的显示效果
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <section>
+                <h3>3.1 浏览器默认边距不同</h3>
+                <p>由于不同浏览器的很多标签的默认间距是有差别的，所以样式重置就显得尤为重要，
+                    否则网页很容易在不同浏览器上出现较大差异甚至是不能使用</p>
+                <p>快速解决方法: 直接使用通配符来将自带的margin和padding初始值设为0
+                    *{margin:0;padding:0;}</p>
+            </section>
+            <section>
+            <h3>3.2 cursor</h3>
+            <p>cursor:hand   VS   cursor:pointer </p>
+            <p>firefox不支持hand，但ie支持</p>
+            <p>快速解决方法:   统一使用pointer</p>
+        </section>
+            <section>
+                <h3>3.3 opacity</h3>
+                <p>一般主流浏览器用 opacity:0.6，但是IE不识别这个属性</p>
+                <p>快速解决方法: ie的透明性需要用filter:Alpha(Opacity=60)，
+                    而且，还需要设置一个宽度或者给子元素定义position：relative才会生效
+                </p>
+            </section>
+            <section>
+                <h3>3.4 width和padding</h3>
+                <p>在IE7和FF中width宽度不包括padding，在IE6中包括padding.</p>
+                <p>解决方法: 在此基础上进行针对性设置</p>
+            </section>
+            <section>
+                <h3>3.5 margin加倍问题</h3>
+                <p>设置为float的div在ie下设置的margin会加倍。这是一个ie6都存在的bug</p>
+                <p>快速解决方法: 在这个div里面加上display:inline</p>
+            </section>
+            <section>
+                <h3>3.6 图片间隙</h3>
+                <p>IE6下图片下有空隙产生</p>
+                <p>快速解决方法: 解决这个BUG的技巧有很多,可以是改变html的排版,
+                    或者设置img为display:block或者设置vertical-align属性为vertical-align:top/bottom/middle/text-bottom
+                    都可以解决.</p>
+            </section>
+            <section>
+                <p>
+                    上面问题中给出的快速解决方法不具备普遍性，使用了可能会导致其他问题，有没有更加普遍性的方法呢？
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <section>
+                <p style="font-size: 50px">4.1 使用CSS选择器Hack</p>
+                <p > CSS选择器Hack是指通过在CSS选择器的前面，
+                    加上一些只有特定浏览器才能识别的Hack前缀，来控制不同的CSS样式
+                </p>
+            </section>
+            <section>
+                <p style="font-size: 45px">IE6及IE6以下版本识别的选择器Hack</p>
+                <p>书写CSS样式时，如果希望此样式只对IE6及IE6以下版本的浏览器生效，可以使用IE6及以下版本的选择器Hack，其基本语法如下：
+                    </p>
+                <p>* html 选择器{样式代码}</p>
+            </section>
+            <section>
+                <p style="font-size: 45px">IE7版本识别的选择器Hack</p>
+                <p>书写CSS样式时，如果希望此样式只对IE7版本的浏览器生效，可以使用IE7版本的选择器Hack，其基本语法如下：
+                </p>
+                <p>*+html 选择器{样式代码}</p>
+            </section>
+            <section>
+                <p style="font-size: 30px;margin-top: 60px">4.2 使用CSS属性Hack</p>
+                <p >
+                    <img src="../img/css-15-hack-method/tas1.png"  >
+                </p>
+            </section>
+            <section>
+                <p>其他浏览器的识别符</p>
+                <p>Firefox: -moz-</p>
+                <p>Safari: -webkit-</p>
+                <p>Opera: -o-</p>
+                <p>IE: -ms-</p>
+            </section>
+        </section>
+        <section>
+            <h3>5.方法比较</h3>
+            <section>
+                <p style="text-indent: 70px">除了上面列举的例子，浏览器兼容问题还有很多很多，不同的情况适合使用不同的方法，
+                    对于一些具体问题的快速解决办法，适合于代码量较小的情况。而对于代码量比较大，那么如果依旧使用改变某个
+                    属性值来解决兼容性问题，则很容易牵一发而动全身，影响周边元素的属性设置，或者改好了这个浏览器的问题，又引起其他浏览器的问题，这种情况
+                    下就比较适合使用Hack方法
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <h3>6.拓展思考</h3>
+            <section>
+                <p>Hack技巧有它的局限性，那么除了Hack技巧还有哪些方法来解决浏览器兼容问题？</p>
+                <p>遇到js兼容问题该如何解决？</p>
+            </section>
+            <section>
+                <p>引用js兼容文件，强制浏览器按照某种模式来解析</p>
+            </section>
+            <section>
+                <p>
+                    <img src="../img/css-15-hack-method/tas2.png"  class="">
+                </p>
+                <p>使IE5,IE6兼容到IE7模式</p>
+                <p>
+                    <img src="../img/css-15-hack-method/tas3.png"  class="">
+                </p>
+                <p>使IE5,IE6,IE7兼容到IE8模式</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.qdfuns.com/notes/18090/961a36d50f2efa676061b5a02c374f75.html">前端网</a></p>
+            <p><a href="http://www.jb51.net/css/469020.html">脚本之家</a></p>
+            <p><a href="http://blog.csdn.net/u012950186/article/details/38537303">C博客</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>大家遇到过哪些兼容性问题，以及是如何解决的？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :景鑫</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+     	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

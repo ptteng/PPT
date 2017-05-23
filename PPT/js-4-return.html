@@ -31,9 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>return的用法是什么？</h2>
-            <h3>小课堂【郑州第八十八期】</h3>
-            <p>分享人：汪开放</p>
+            <h2>return的用法？</h2>
+            <h3>小课堂【成都第145期】</h3>
+            <p>分享人：何华飒</p>
         </section>
         <section>
             <p>目录</p>
@@ -51,45 +51,49 @@
         </section>
         <section>
             <p>return顾名思义，英文翻译含义就是回转，返回。</p>
-            <p>在javaScript函数中，return表示被调函数返回到主调函数继续执行，返回时可附带一个返回值，由return后面的参数指定。</p> 
-            <p>return通常是必要的，因为函数调用的时候计算结果通常是通过返回值带出的。 如果函数执行不需要返回计算结果，也经常需要返回一个状态码来表示函数执行的顺利与否（-1和0就是最常用的状态码）， 主调函数可以通过返回值判断被调函数的执行情况。</p>
+            <p>在javaScript函数中，return表示被调函数返回到主调函数或者说上一级继续执行，返回时可附带一个返回值，这个值将作为函数的结果。</p>
+            <p>return通常是必要的，因为函数调用的时候计算结果通常是通过返回值带出的。 如果函数执行不需要返回计算结果，也经常需要返回一个状态码来表示函数执行的顺利与否， 主调函数可以通过返回值判断被调函数的执行情况。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p>返回值是必须有的，作用就是把固定不变的。常用的代码封装起来 写在类里 每次用到的时候就调用就行了 如果需要这个共能返回一个值， 甚至一个对象 就需要用返回值了就是用return来把把值返回给调用的者</p>
-            <p>如果你说非要不给return设置返回值，那么可以，这是很OK的！但是它也就只剩一个中断代码的作用了。</p>
+            <p>关于return的返回值</p>
+            <p style="text-align: left">返回值通常是变量、表达式、对象、布尔值等等，也可以不设返回值。通常有四种情况：</p>
+            <p style="text-align: left">retrun true； 返回正确的处理结果。</p>
+            <p style="text-align: left">return false；分会错误的处理结果，终止处理。</p>
+            <p style="text-align: left">return；把控制权返回给上级。</p>
+            <p style="text-align: left">retrun 变量、表达式、对象;  将返回值作为函数结果，并返回上一级。</p>
+        </section>
+        <section>
             <pre>
-     <code>
-        function a(){
-           return 10;//这个时候，函数a的值会等于10，并且函数中下面的内容不再执行
-           document.write(50);//由于上面已经return了，这条代码不会执行
-        }
-            </code>
+                <code>
+                    function a(){
+                    return 10;//这个时候，函数a的值会等于10，并且函数中下面的内容不再执行
+                    document.write(50);//由于上面已经return了，这条代码不会执行
+                    }
+                </code>
             </pre>
         </section>
         <section>
-            <p>至于什么时候会用到，那看你用的是什么函数了，如果需要返回值就返回，不需要他就不返回。比如，用函数来做一个加法运算。</p>
     <pre>
         <code>
     function  a( b, c ) {
         return b  + c;
     }
     //那么调用：
-    var abc = a(5, 80);
-    //这个时候，abc这个变量的值会是85
+    var abc = a(5, 80);    //这个时候，abc这个变量的值会是85
 
-    //如果想直接输出结果，不要返回值那就
-    function a( b, c ) {
+    function a( b, c ) {   //那么页面会输出85，但abc是没有值的;
     document.write( b + c );
     }
-
-    //这个时候调用， var abc = a(5, 80);
-    //那么页面会输出85，但abc是没有值的;
         </code>
     </pre>
-    <p>默认函数是没有返回值的。 通常函数经过一系列处理后需要给外部返回一个值或者对象</p>
+        </section>
+        <section>
+            <p>return  true/false ：同意或阻止默认行为</p>
+            如果想要取消默认的事件行为，可以使用return false；
+            <a href="../demo/js-task4-return/js-04-return.html">demo</a>
         </section>
         <section>
             <h3>3.常见问题</h3>
@@ -99,88 +103,63 @@
         </section>
         <section>
             <h3>4.解决方案</h3>
+            <a href="../demo/js-task4-return/js-04-return.html">demo</a>
         </section>
 
-        <section>
-        <pre>
-            <code>
-            function btn(){
-                for (var i =0;i<8;i++){
-                console.log(i+"大娃");
-                    if(i==4){
-                    return;
-                    }
-                console.info(i+"二娃");
-                }
-            console.info(i+"三娃");
-            }
-            btn();
-             </code>
-        </pre>
-        </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <code>
-                    function abc(a,b) {
-                    var c = 8 + a;
-                    return c;
-                    }
-                    var d=abc(5,9);
-                    alert(d);
-                </code>
-            </pre>
+            <a>demo</a>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p >除了return，还有没有别的可以是for循环中断？</p>
+            <p >除了return，还有没有别的方式中断for循环？</p>
             <p class="fragment">break和continue也是可以中断for循环的</p>
         </section>
         <section>
-            <p>break(布瑞克)</p>
+            <p>break</p>
             <p>break语句会使运行的程序立刻退出包含在最内层的循环或者退出一个switch语句。 由于它是用来退出循环或者switch语句，所以只有当它出现在这些语句时，这种形式的break语句才是合法的。 如果一个循环的终止条件非常复杂，那么使用break语句来实现某些条件比用一个循环表达式来表达所有的条件容易得多。</p>
-            <p><a href="https://fan911025.github.io/ptteng-task/js-2/mate.html">JS-2</a></p>
+            <a href="../demo/js-task4-return/js-04-return.html">demo</a>
         </section>
         <section>   
-            <p>continue(肯蹄牛)</p>
+            <p>continue</p>
             <p>continue语句和break语句相似。所不同的是，它不是退出一个循环，而是开始循环的一次新迭代。 continue语句只能用在while语句、do/while语句、for语句、或者for/in语句的循环体内，在其它地方使用都会引起错误！</p>
+            <a href="../demo/js-task4-return/js-04-return.html">demo</a>
         </section>
         <section>
-            <p>迭代[dié dài]</p>
-            <p>迭代是重复反馈过程的活动，其目的通常是为了逼近所需目标或结果。 每一次对过程的重复称为一次“迭代”，而每一次迭代得到的结果会作为下一次迭代的初始值</p>
-            <p>在数学中，迭代函数是在碎形和动力系统中深入研究的对象。迭代函数是重复的与自身复合的函数，这个过程叫做迭代。</p>
-            <pre>
-                <code>
-                    f(x)=|2x-1|,x∈[0,1]，则f(f(f(x)))=x/2的解的个数是？
-                </code>
-            </pre>
+            <p>迭代</p>
+            <p style="text-align: left">迭代是重复反馈过程的活动，其目的通常是为了逼近所需目标或结果。 每一次对过程的重复称为一次“迭代”，而每一次迭代得到的结果会作为下一次迭代的初始值</p>
+            <p style="text-align: left">Js中的迭代语句又叫循环语句，声明一组要反复执行的命令，直到满足某些条件为止。</p>
+            <p style="text-align: left">ECMAScript 中提供了4种迭代语句：</p>
+            <p style="text-align: left">do-while 语句</p>
+            <p style="text-align: left">while 语句</p>
+            <p style="text-align: left">for-in 语句</p>
+            <p style="text-align: left">for 语句</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="https://ptteng.github.io/PPT/PPT/js-01-What%20is%20the%20use%20of%20return.html#/7/4" >明月师姐小课堂</a>
-            </p>
-            <p>参考二：<a href="http://www.jianshu.com/p/4c5d0f9e74f4http://www.jb51.net/article/24101.htm" >脚本之家</a></p>
-            <p>《Javascript DOM 编程艺术》
-            </p>
+            <p>参考1：<a href="http://www.w3school.com.cn/js/pro_js_statements_break_continue.asp"> ECMAScript break 和 continue 语句</a></p>
+            <p>参考2：<a href="http://www.cnblogs.com/weiwang/archive/2013/08/19/3268374.html">js中return；、return true、return false;区别</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>由迭代你可以会想到递归？那么什么是递归呢？</p>
+            <p>由迭代你可以会想到递归？两者的区别？</p>
             <p><a href="http://www.guokr.com/question/528682/">果壳问答</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY :郑明月|汪开放</small>
+                <small>BY :何华飒</small>
+            </p>
+            <p>   <small>感谢：郑明月|汪开放</small>
             </p>
         </section>
 

@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Javascript-task10】</h2>
+            <h3>小课堂【郑州第114期】</h3>
+            <h4>如何进行网站性能优化？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>大概从2000年以来，互联网在中国发展越来越快，随着高层提出“互联网+”的概念以后，互联网的发展更是迎来了一个很大的发展契机。随之而来的，是网名数量的增加，网站日访问量的提升。这些繁荣的背后，需要的是良好的网站性能的提高，以满足较好的用户体验和降低日常维护的成本。如何做到呢？今天同大家分享、讨论一下前端这方面值得注意的地方！</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1什么是网站的性能？
+            </section>
+            <section>
+                <p>用户访问网站的整个流程中：用户输入网站域名，通过DNS解析，找到目标服务器IP，请求数据经互联网达到目标服务器，目标服务器收到请求数据，进行处理（执行程序、访问数据库、文件服务器等）。处理完成，将响应数据又经互联网返回给用户浏览器，浏览器得到结果进行计算渲染显示给用户。这个整个过程就时刻就体现着网站的性能。更直观地讲，访问一个网页的快慢，与之交互得到的回馈的快慢，就是网站的性能好坏的体现。</p>
+            </section>
+            <section>
+                <p>一般把整个过程，分为三段路径：</p>
+                <p>1、第一段在用户和浏览器端，主要负责发出用户请求，以及接受响应数据进行计算渲染显示给用户；</p>
+                <p>2、第二段在网络上，负责对请求数据、响应数据的传输；</p>
+                <p>3、第三段在网站服务器端，负责对请求数据进行处理（执行程序、访问数据库、文件等），并将结果返回；</p>               
+            </section>
+            <section>
+                2.2 前端有哪些可以进行优化的地方
+            </section>
+            <section>
+                <p>从上边的分析中我们可以看出，如果要优化一个网站的性能，它将是一个综合性的处理过程，涉及到前端，后端，网络等各种因素。对于我们前端而言，可以做些什么呢？</p>
+                <p>一、 我们可以想办法减少一个页面访问所产生的http连接次数。一个完整的请求需要经过 DNS寻址、与服务器建立连接、发送数据、等待服务器响应、接收数据这样一个 “漫长” 而复杂的过程。每一次的请求，都意味着时间上和资源上的一次整体消耗。减少请求，对于提升性能，是个不错的出发点。</p>
+            </section>
+            <section>
+                <p>减少HTTP请求的途径：</p>
+                <p>1. 简化页面：保持页面简洁、减少资源的使用是最直接的办法。不过追求华丽的当下，做到这一点似乎有些为难。</p>
+                <p>2. 合理设置 HTTP缓存：尽可能的让资源能够在缓存中待得更久，越多的缓存，意味着越少的向后端发送的请求数量。</p>
+                <p>3. 图片的压缩：我们做任务时遇到用到过的CSS Sprites。将网站的图片，尤其一些小图标合并为一张图片，通过背景图片和背景定位的方法渲染到页面。还有<a href="http://www.iconfont.cn">iconfont阿里矢量图标库</a>，将图片转化成样式，或者字体等方法，也是个不错的实现方法。</p>
+            </section>
+            <section>
+                <p>4. 资源合并与压缩：在引入外部js、css文件时，想办法减少js、css文件的数量，将多个js或者css文件可能地进行合并。使用框架的js时，选择min版来引入，不使用完整版。提高css代码的复用性等。使用一些压缩工具对其大小进行压缩。</p>
+            </section>
+            <section>
+                <p>二、 使用外部CSS样式，并将外部CSS样式的放在HEAD中。不使用内联样式。减少使用内部样式。</p>
+                <p>三、 可以将外部脚本js文件置底。在body结束标签之前加载，比影响整个静态页面的渲染工作。</p>
+                <p>使用CDN加载一些框架中的js或者css文件，CDN（content distribute network）的本质仍然是一个缓存</p>
+                <p>四、 Lazy Load懒加载的方法，用在对图片和js文件的加载处理上。</p>
+                <p>五、 使用异步请求，在幕后进行数据的传输，不影响页面的加载渲染过程。</p>
+            </section>
+            <section>
+                <p>六、 在js文件中减少使用“+”进行字符串的拼接。因为每次运行都会开辟新的内存并生成新的字符串变量，然后将拼接结果赋值给新变量。如果字符串不多的情况下可以使用“+”进行拼接。但是内容过多时，相比更为高效的做法是使用数组的 join方法，即将需要拼接的字符串放在数组中最后调用其 join方法得到结果。</p>
+                <p>七、 减少作用域链查找，将全局作用域中的变量通过在局部作用域中赋值给局部变量的方法，来减少变量向上查找的次数。</p>
+            </section>
+            <section>
+                2.3 控制器的作用
+            </section>
+            <section>
+                <p>控制器的作用主要有两个：第一个，scope作用域对象初始化 ；第二个，给scope作用域对象通过一些方法或者函数增加行为 。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 网页中影响性能的地方在哪里？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>网页的生成过程，大致可以分成五步：</p>
+            <p>1. HTML代码转化成DOM</p>
+            <p>2. CSS代码转化成CSSOM（CSS Object Model）</p>
+            <p>3. 结合DOM和CSSOM，生成一棵渲染树（包含每个节点的视觉信息）</p>
+            <p>4. 生成布局（layout），即将所有渲染树的所有节点进行平面合成</p>
+            <p>5. 将布局绘制（paint）在屏幕上</p>
+        </section>
+         <section>
+            <img src="../img/js-10-Website performance optimization/1.png">
+        </section>
+        <section>
+        <p>以上这五步里面，第一步到第三步都非常快，耗时的是第四步和第五步。
+"生成布局"（flow）和"绘制"（paint）这两步，合称为"渲染"（render）。重新渲染，就需要重新生成布局和重新绘制。前者叫做"重排"（reflow），后者叫做"重绘"（repaint）。重排和重绘会不断触发，这是不可避免的。但是，它们非常耗费资源，是导致网页性能低下的根本原因。
+提高网页性能，就是要降低"重排"和"重绘"的频率和成本，尽量少触发重新渲染。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>本次小课堂理论讲解较多，暂无demo！</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题: 在网站的性能中，前端网页性能所占的比重？</p> 
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/mahoking/article/details/51472697">web前端性能优化总结</a></p>
+            <p>参考二: <a href="http://www.ruanyifeng.com/blog/2015/09/web-page-performance-in-depth.html" target="_blank">网页性能管理详解</a></p>
+            <p>参考三：<a href="https://www.zhihu.com/question/21658448">知乎：Web前端应该从哪些方面来优化网站?</a></p>
+            <p>参考四：<a href="http://baike.baidu.com/link?url=cU_Z5IzyQjSJMO9QmYR9WxNpo_brxRhhQ1NG08JPjNfhUwwVuEfa2rF5620Cihl1e41RWBUuZyZBc0GwO34_ateV2FMCcIBCidq8fxSqkTByXn-66kXzhSdeZAaHYzvg" target="_blank">百度百科</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家对于网站性能的优化还有哪些认识，分享一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
