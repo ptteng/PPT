@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>【JS-01】JS中作用域以及作用域链</h2>
-            <h3>小课堂【北京第63期】</h3>
-            <p>分享人：徐浩程</p>
+            <h3>小课堂【成都分院】</h3>
+            <p>分享人：刘思言</p>
         </section>
         <section>
             <p>目录</p>
@@ -51,127 +51,65 @@
         </section>
         <section>
             <p>作用域与作用域链是JS中非常重要的概念之一</p>
-            <p>学习作用域与作用域链对于深入了解JS的运行机制是一个很大的帮助。</p>
+            <p>学习作用域与作用域链对于深入了解JS的运行机制有很大的帮助。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
             <section>
-                <h3>执行环境</h3>
-                <p>执行环境决定了变量对象的行为。</p>
+                <h3>变量作用域</h3>
             </section>
             <section>
-                <h3>全局执行环境</h3>
-                <p>全局执行环境被认为是window对象</p>
+                <h3>全局作用域</h3>
+                <p>全局变量拥有全局作用域</p>
             </section>
             <section>
-                <h3>函数执行环境</h3>
-                <p>每个函数都有自己的执行环境</p>
-                <p>执行流=>函数=>(函数的环境)=>环境栈=>环境栈将函数环境弹出=>函数</p>
+               <h3>局部作用域</h3>
+               <p>局部变量只有在定义他的函数体内有定义，他的作用域是局部性的，函数的参数也是局部变量
+                在函数体内，局部变量的优先级高于全局变量，同名的局部变量和全局变量，在函数体内，全局变量会被局部变量覆盖掉</p>
+                <p>ps.在函数体内不使用var声明变量，js会自动把这个变量识别为全局变量</p>
             </section>
             <section>
-                <p>当执行环境的所有代码执行完毕，该环境被销毁。</p>
-                <p>全局执行环境只有关闭网页或浏览器时才会被销毁。</p>
+                <h3>函数作用域</h3>
+                <p>区别于c语言及一些其他语言，js是没有块级作用域的，取而代之的是js自己的函数作用域
+                变量在声明他们的函数体内，及这个函数体嵌套的任意函数体内都是有定义的</p>
             </section>
         </section>
         <section>
             <section>
                 <h3>作用域链</h3>
-                <p>代码在环境中执行，会创建变量对象的一个作用域链。</p>
-                <p>它的存在是为了让变量对象中的所有变量和函数有序的执行</p>
-            </section>
-        </section>
-        <section>
-            <section>
-                <h3>标识符解析</h3>
-                <p>沿着作用域链一级一级的搜索标识符的过程。</p>
+                <p>如果将一个局部变量看作是自定义实现的对象的属性的话，那么我们可以换一个角度来理解变量作用域。每一段js代码都有一个与之关联的作用域链，这个作用域链可以看作是一个对象列表或者是一个链表，其中定义了这段代码作用域内的变量。</p>
             </section>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>让我们用代码来形象演示一下上述的过程</p>
+            <p>如何理解作用域和作用域链</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <pre>
-                var color = "blue";
-                function changeColor(){
-                    if(color === "blue"){
-                        color = "red";
-                }else{
-                    color = "blue";
-                }
-                }
-                changeColor();
-                alert("Colors is now" + color);
-            </pre>
+            <p>一些小demon</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <pre>
-                var color = "blue";
-                function changColor(){
-                    var anotherColor = "red";
-                    function swapColor(){
-                        var template = anotherColor;
-                        anotherColor = color;
-                        color = template;
-                }
-                swapColor()
-                }
-                changColor()
-            </pre>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
             <section>
-                <h3>延长作用域链</h3>
-                <p>某些语句可以在作用域前端临时增加一个变量对象，在代码执行后会被移除</p>
+                <h3>声明提前</h3>
             </section>
             <section>
-                <p>with语句</p>
-                <p>将指定的对象添加到作用域中</p>
-                <p>try-catch语句中的catch块</p>
-                <p>会创建一个新的变量对象</p>
+                <h3>闭包</h3>
+                <p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包最简单的方式就是在一个函数内创建另一个函数，并在这个函数内部</p>
             </section>
             <section>
-                <h3>没有块级作用域</h3>
-                <pre>
-                    for(var i = 0; i < 10; i++){
-                        daSomething(i);
-                    }
-                    alert(i);  //10
-                </pre>
-            </section>
-            <section>
-                <h3>1.声明变量</h3>
-                <p>var 声明的变量会自动被添加到最接近的环境中</p>
-                <pre>
-                    function add(){
-                        var sun = 10;
-                        return sun;
-                    }
-                    alert(sun)
-                </pre>
-            </section>
-            <section>
-                <h3>2.查询标识符</h3>
-                <pre>
-                    var color = "blue";
-                    function getColor(){
-                        return color;
-                    }
-                    alert(getColor());
-                </pre>
+                <h3>循环中的闭包</h3>
             </section>
         </section>
         <section>
@@ -179,24 +117,22 @@
         </section>
         <section>
             <p>javaScript高级程序设计</p>
+            <p>你不知道的JS</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>了解闭包的机制</p>
-        </section>
-        <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 徐浩程 </small></p>
+            <p><small>BY : 刘思言 </small></p>
+            <p><small>感谢 : 徐浩程 </small></p>
         </section>
     </div>
 </div>
 <script src="../lib/reveal/js/head.min.js"></script>
 <script src="../lib/reveal/reveal.js"></script>
 <script>
-
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -215,7 +151,6 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
-
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
