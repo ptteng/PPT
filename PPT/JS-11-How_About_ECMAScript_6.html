@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>es6有哪些新特性？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>修真院小课堂【JS-11】</h2>
+            <h3>成都小课堂【es6有哪些新特性？】</h3>
+            <p>分享人:吴彦澄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。</p>
+            <p>2016年6月，小幅修订的《ECMAScript 2016 标准》（简称 ES2016）如期发布。由于变动非常小（只新增了数组实例的includes方法和指数运算符），因此 ES2016 与 ES2015 基本上是同一个标准，都被看作是 ES6。根据计划，2017年6月将发布 ES2017。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>特性一：箭头函数</p>
+            <pre>
+                <h3 style="text-align:center">ES6写法</h3>
+                <code>
+                    var array = [1, 2, 3];
+                    array.forEach( arr=> console.log(arr));
+                </code>
+                <h3 style="text-align:center">传统写法</h3>
+                <code>
+                    var array = [1, 2, 3];
+                    array.forEach(function(arr) {
+                        console.log(arr);
+                    });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>特性二：类(Class)</p>
+            <p>使用类来作为对象的模板,通过构造函数constructor()生成的对象可以更加直观</p>
+            <pre>
+                <code>
+                    class myObject {
+                        constructor(x, y) {
+                            this.x = x;
+                            this.y = y;
+                        }
+                        // 在这里调用其方法就可以了
+                    }
+                </code>
+            </pre>
+            <p>继承可以通过 extends 关键字产生父类模板</p>
+        </section>
+        <section>
+            <p>特性三：字符串模板</p>
+            <pre>
+                <h3 style="text-align:center">直接使用变量名而不使用+号</h3>
+                <code>
+                    console.log("小明的：生日是" + birthday + "日" + "今年他已经" + currentAge + "岁了")
+                </code>
+                <code>
+                    console.log(`小明的：生日是${birthday}日,今年他已经${currentAge}岁了`)
+                </code>
+            </pre>
+            <p>使用这种方法你可以无需担心在同一段内容里使用引号或者是双引号造成的冲突</p>
+        </section>
+        <section>
+            <p>特性四：let与const 关键字</p>
+            <p>可以把let看成var，只是它定义的变量被限定在了特定范围内才能使用，而离开这个范围则无效。const则很直观，用来定义常量，即无法被更改值的变量。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3><img src="../img/How-About-ECMAScript-6/bg.png" alt=""></h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>可以使用typescript转换成ECMAScript5,所以你无需担心他的兼容性</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3><a href="../demo/How-about-ECMAscript6/demo9-class/index.html" target="_blank">传送门</a></h3>
+            <a href="../demo/How-about-ECMAscript6/demo9-class/index.compiled.js" target="_blank">ECMAScript5源码</a>
+            <br>
+            <a href="../demo/How-about-ECMAscript6/demo9-class/index.js" target="_blank">ECMAScript6源码</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>那么既然ECMAScript6可以转换成ECMAScript5那么ECMAScript5可以转成ECMAScript6吗?</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/Wayou/p/es6_new_features.html" target="_blank">ES6新特性概览</a></p>
+            <p>参考二：<a href="https://www.gitbook.com/book/likebeta/es6tutorial" target="_blank">ECMAScript 6入门-阮一峰</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3><a href="https://github.com/benjamn/xto6" target="_blank">答案揭秘</a></h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 吴彦澄</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
