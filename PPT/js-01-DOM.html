@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task】</h2>
+            <h3>小课堂【郑州第一一六期】DOM常用操作</h3>
+            <p>分享人：韦胜云</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>DOM即（文档对象模型），DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>认知DOM</p>
+            <p>DOM可以将任何HTML描绘成一个由多层节点构成的结构。<img src="../img/js-01-DOM/DOM.jpg"></p>
+        </section>
+        <section>
+            <p>认知DOM</p>
+            <p>HTML文档可以说由节点构成的集合，DOM节点有:
+
+1、元素节点：下图中html、body、p等都是元素节点，即标签。2、文本节点:向用户展示的内容，如li.../li中的"JavaScript、DOM、CSS"等文本。
+3、属性节点:元素属性，如a标签的链接属性href=""。</p>
+            <pre>
+                <code>
+<!-- <!DOCTYPE html>
+  <html>
+  <head>
+     <meta charset="utf-8">
+      <title>DOM</title>
+  </head>
+  <body>
+      <h2><a href="http://www.baidu.com">javascript DOM</a></h2>
+      <p>对HTML元素进行操作，可添加、改变或移除css样式等</p>
+      <ul>
+          <li>Javascript</li>
+          <li>DOM</li>
+          <li>CSS</li>
+      </ul>
+  </body>
+  </html> -->
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>DOM常用操作之查找节点</p>
+            <p><a href="http://www.cnblogs.com/xiaohuochai/p/5785189.html">DOM节点类型</a>&nbsp;&nbsp;&nbsp;我们用到最多的是element类型，用于表现HTML元素，提供了对元素标签名、子节点及特性的访问。<a href="http://www.runoob.com/try/try.php?filename=try_getelementbyid">demo</a></p>
+            <pre><code>
+document.getElementById('id属性值');返回带有指定 ID 的元素
+
+document.getElementsByClassName('class属性值');返回拥有指定class的对象集合
+
+document.getElementsByTagName('标签名');返回拥有指定标签名的对象集合
+
+document.getElementsByName('name属性值');返回拥有指定名称的对象集合
+
+            </code></pre>
+        </section>
+       <section>
+            <p>DOM常用操作之新建节点</p><p>
+            <a href="../demo/js-01-DOM/demo2.html">createElement</a>、<a href="../demo/js-01-DOM/demo3.html">createTextNode</a></p>
+            <pre><code>
+document.createElement('元素名');创建新的元素节点
+
+document.createAttribute('属性名');创建新的属性节点
+
+document.createTextNode('文本内容');创建新的文本节点
+
+document.createComment('注释节点');创建新的注释节点
+
+document.createDocumentFragment( );创建文档片段节点
+
+            </code></pre>
+        </section>
+        <section>
+            <p>DOM常用操作之<a href="../demo/js-01-DOM/demo4.html">删除节点</a></p>
+            <pre>
+                <code>
+parentNode.removeChild( existingChild );删除已有的子节点，返回值为删除节点
+
+element.removeAttribute('属性名');删除具有指定属性名称的属性，无返回值
+
+element.removeAttributeNode( attrNode );删除指定属性，返回值为删除的属性
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>DOM常用操作之修改节点</p>
+            <p><a href="../demo/js-01-DOM/demo5.html">例子：</a>添加属性节点，修改属性值element.setAttributeNode( attributeName ); </p>
+            <pre>
+                <code>
+parentNode.replaceChild( newChild, existingChild );用新节点替换父节点中已有的子节点
+
+element.setAttributeNode( attributeName ); 若原元素已有该节点，此操作能达到修改该属性值的目的
+
+element.setAttribute( attributeName, attributeValue );若原元素已有该节点，此操作能达到修改该属性值的目的
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何通过class和tag调用元素?如何对其设置属性？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下<a href="../demo/js-01-DOM/demo6.html">示例</a></p>
+            <pre>
+                <code>
+                    <div>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                        <span class="time"></span>
+                    </div>
+                    <div>
+                        <p>div2</p>
+                    </div>
+                    document.getElementsByClassName("time")[0].innerHTML = "16:43";
+                    document.getElementsByClassName("time")[1].innerHTML = "16:44";
+                    document.getElementsByTagName("div")[0].className = "text-time";
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>略</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Html5添加了辅助管理DOM焦点的功能。首先就是document.activeElement属性，
+                这个属性始终会引用DOM中当前获得了焦点的元素。
+                另外就是新增了document.hasFocus()方法，这个方法用于确定文档是否获得了焦点。
+                我们可以去学习HTML5中的一些新内容。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二：<a href="https://juejin.im/entry/58314efd8ac2470061bb30fd">掌握dom操作</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/yinshuige/p/5812095.html">DOM常用操作</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/lenjent/article/details/8482404">js之删除节点、替换节点、插入节点</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>DOM的优缺点有哪些？</p>
+            <p>DOM的优势主要表现在：易用性强，使用DOM时，将把所有的XML文档信息都存于内存中，并且遍历简单，支持XPath，增强了易用性。</p>
+            <p>DOM的缺点主要表现在：效率低，解析速度慢，内存占用量过高，对于大文件来说几乎不可能使用。另外效率低还表现在大量的消耗时间，因为使用DOM进行解析时，将为文档的每个element、attribute、processing-instrUCtion和comment都创建一个对象，这样在DOM机制中所运用的大量对象的创建和销毁无疑会影响其效率。</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : all</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

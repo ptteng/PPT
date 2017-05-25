@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>JS中this的指向</h2>
+                <h3>小课堂【成都第144期】</h3>
+                <p>分享人：王帅</p>
+            </section>
+            <section>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>JavaScript 中的 this 含义十分丰富，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。JavaScript 中函数的调用有以下几种方式：作为对象方法调用，作为函数调用，作为构造函数调用，和使用 apply 或 call 调用。下面我们将按照调用方式的不同，分别讨论 this 的含义。</p>
+            </section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+           <section>
+                <p>全局环境中的this</p>
+                <pre>
+                <code>
+                    this.a2 = 20;
+                    console.log(this);
+                </code>
+                </pre>
+                <p>总结：在全局作用域中它的 this 执行当前的全局对象（浏览器端是 Window）</p>
+            </section>
+            <section>
+                <p>严格模式与非严格模式下的this</p>
+                <pre>
+                <code>
+                    function fn() {
+                    'use strict';   //严格模式
+                    console.log(this);
+                    }
+                    fn();  //  undefined
+                    window.fn();  // Window
+                </code>
+                <code>
+                    function fn() {
+                    console.log(this);
+                    }
+                    fn();  // Window
+                    window.fn();  // Window
+                </code>
+                </pre>
+                <p>原因：在非严格模式中，当this指向undefined时，它会被自动指向全局对象。</p>
+            </section>
+            <section>
+                <p>this由调用者提供，由调用函数的方式来决定。如果调用者函数，被某一个对象所拥有，那么该函数在调用时，内部的this指向该对象。如果函数独立调用，那么该函数内部的this，则指向undefined。但是在非严格模式中，当this指向undefined时，它会被自动指向全局对象。</p>
+            </section>
+            <section>
+                <p>普通的例子</p>
+                <pre>
+                <code>
+                    var a = 20;
+                    var foo = {
+                        a: 10,
+                        getA: function () {
+                        return this.a;
+                        }
+                    }
+                    console.log(foo.getA()); // 10
+                    var test = foo.getA;
+                    console.log(test());  // 20
+                </code>
+            </pre>
+                <p>foo.getA()中，getA是调用者，他不是独立调用，被对象foo所拥有，因此它的this指向了foo。而test()作为调用者，尽管他与foo.getA的引用相同，但是它是独立调用的，因此this指向undefined，在非严格模式，自动转向全局window。</p>
+            </section>
+
+            <section>
+                <p>使用call，apply显示指定this</p>
+                <pre>
+                <code>
+                    var a = 4;
+                    function fn() {
+                    console.log(this.a);
+                    }
+                    var obj = {
+                    a: 20
+                    };
+                    fn();
+                    fn.call(obj);
+                </code>
+                </pre>
+                <p>call：调用一个对象的一个方法用另一个对象替换当前对象。<br>
+                   apply：应用某一对象的一个方法用另一个对象替换当前对象。
+                </p>
+            </section>
+            <section>
+                <p>构造函数与原型方法上的this</p>
+                <pre>
+                <code>
+                    //构造函数
+                    function Person(name, age) {
+                        this.name = name;
+                        this.age = age;
+                    }
+                    //原型方法
+                    Person.prototype.getName = function() {
+                        return this.name;
+                    }
+                    var p1 = new Person('Nick', 20);
+                    console.log(p1.getName());
+                </code>
+                </pre>
+                <p >当new操作符调用构造函数时，this其实指向的是这个新创建的对象，最后又将新的对象返回出来，被实例对象p1接收。而原型方法上的this，p1.getName()中的getName为调用者，他被p1所拥有，因此getName中的this，也是指向了p1。</p>
+            </section>
+            <section>
+                <h3>3、常见问题</h3>
+            </section>
+            <section>
+                <p>特殊的例子</p>
+                <pre>
+                <code>
+                    var a = 20;
+                    var obj = {
+                    a: 10,
+                    c: this.a + 20,
+                    fn: function () {
+                    return this.a;
+                    }
+                    }
+                    console.log(obj.c);  //40
+                    console.log(obj.fn()); //10
+                </code>
+                </pre>
+            </section>
+            <section>
+                <h3>4、解决方案</h3>
+            </section>
+            <section>
+                <pre>
+                <code>
+                    var a = 20;
+                    var obj = {
+                    a: 10,
+                    c: this.a + 20,
+                    fn: function () {
+                    return this.a;
+                    }
+                    }
+                    console.log(obj.c);  //40
+                    console.log(obj.fn()); //20
+                </code>
+                </pre>
+                 <p>对象obj中的c属性使用this.a + 20来计算，而他的调用者obj.c并非是一个函数。因此他不适用调用者的规则。当obj在全局声明时，无论obj.c在什么地方调用，这里的this都指向全局对象，而当obj在函数环境中声明时，这个this指向undefined，在非严格模式下，会自动转向全局对象。</p>
+            </section>
+            <section>
+                <h3>5、编码实战</h3>
+            </section>
+            <!--<section>
+                <p>
+                 请确定输出的四个值
+                </p>
+                    <pre>
+                        <code>
+                            var myObject = {
+                                foo:"bar",
+                                func: function() {
+                                    var self = this;
+                                    console.log("outer func: this.foo = " + this.foo);
+                                    console.log("outer func: self.foo = " + self.foo);
+
+                                    (function (){
+                                        console.log("inner func: this.foo = " + this.foo);
+                                        console.log("inner func: self.foo = " + self.foo);
+                                    }());
+                                }
+                            }
+                            myObject.func();
+                        </code>
+                    </pre>
+            </section>-->
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>如何理解this？</p>
+                <p class="fragment">当一个函数被调用时，拥有它的object会作为this传入。在全局下，就是window，其他时候就是相应的object。总结来说，谁使用函数，this就是谁的，没人使用函数时，严格模式下，this指向undefined，非严格模式下this指向Window。</p>
+            </section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://www.jianshu.com/p/d647aa6d1ae6">全方位解读this</a></p>
+                <p>参考二：<a href="http://caibaojian.com/toutiao/6859">JavaScript中的this用法与指向</a></p>
+            </section>
+            <section>
+                <h3>8、更多讨论</h3>
+
+
+
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p><small>BY : 王帅</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

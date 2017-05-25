@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: center;">【css-11】如何使用less</h2>
+            <h3>小课堂【武汉第171期】</h3>
+            <p style="text-align: center;">分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;text-indent: 2em">
+                CSS（层叠样式表）是一门历史悠久的标记性语言，同 HTML 一道，被广泛应用于万维网（World Wide Web）中。HTML 主要负责文档结构的定义，CSS 负责文档表现形式或样式的定义。
+            </p>
+        </section>
+        <section>
+                <p style="text-align: left;text-indent: 2em">作为一门标记性语言，CSS 的语法相对简单，对使用者的要求较低，但同时也带来一些问题：CSS 需要书写大量看似没有逻辑的代码，不方便维护及扩展，不利于复用，尤其对于非前端开发工程师来讲，往往会因为缺少 CSS 编写经验而很难写出组织良好且易于维护的 CSS 代码，造成这些困难的很大原因源于 CSS 是一门非程序式语言，没有变量、函数、SCOPE（作用域）等概念。LESS 为 Web 开发者带来了福音，它在 CSS 的语法基础之上，引入了变量，Mixin（混入），运算以及函数等功能，大大简化了 CSS 的编写，并且降低了 CSS 的维护成本，就像它的名称所说的那样，LESS 可以让我们用更少的代码做更多的事情。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>LESS是什么？</h3>
+        </section>
+        <section>
+            <p style="text-align: left;text-indent : 2em">
+                根据维基百科上的介绍，其实 LESS 是 Alexis Sellier 受 SASS 的影响创建的开源项目。
+                当时 SASS 采用了缩进作为分隔符来区分代码块，而不是 CSS 中广为使用的括号。
+                为了让 CSS 现有用户使用起来更为方便，Alexis 开发了 LESS 并提供了类似的功能。
+                在一开始，LESS 的解释器也同样是由 Ruby 编写，
+                后来才转而采用了 JavaScript. LESS 代码既可以运行在客户端，也可以运行在服务器端。
+                在客户端只要把 LESS 代码和相应的 JavaScript 解释器在同一页面引用即可；
+                而在服务器端，LESS 可以运行在 Node.js 上，也可以运行在 Rhino 这样的
+                JavaScript 引擎上。
+            </p>
+        </section>
+        <section style="text-align: left;">
+            <p>LESS 还拥有一些很有趣的特性有助于我们的开发，例如模式匹配、条件表达式、命名空间和作用域，以及 JavaScript 赋值等等。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">如何使用less</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+            <p>页面引入js代码文件解析</p>
+            <p>我们可以直接在客户端使用 .less（LESS 源文件），只需要从 http://lesscss.org下载 less.js 文件，然后在我们需要引入 LESS 源文件的 HTML 中加入如下代码,也可以直接引入cdn.</p>
+            <p>首先引入less代码</p><pre> link rel="stylesheet/less" href="example.less" </pre>
+           <pre>script src="http://cdn.bootcss.com/less.js/2.7.0/less.js"</pre>
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+
+            <p>服务器端编译less</p>
+            <p>安装完node.js之后，打开Node.js command prompt,通过npm install -d less命令安装LESS包,然后新建一个demo.less文件，输入lessc demo.less > test.css之后以后即可编译CSS文件。</p>
+
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+            <p>使用工具进行编译</p>
+            <p>监测指定的less文件的变化，如果检测到变化，则自动将less文件输出成相应的css文件。并且大多数工具都提供一定的debug功能。</p>
+           <p> 例如使用koala对less文件进行编译</p>
+        </section>
+<section>
+            <h3>5.编码实战</h3>
+</section>
+        <section>
+            见demo
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                less的三种引入方式有什么优缺点？
+            </p>
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+            <p>页面引入js代码文件解析</p>
+            <p>优点：不必安装less编译环境，同样可以使用less文件</p>
+            <p>缺点：在页面上解析代码，效率较低，受机器、网络影响较大 ，影响了页面加载速度</p>
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+        <p>服务器端预编译</p>
+        <p>优点：服务器端预编译，效率高，避免客户端解析延时</p>
+        <p>消耗服务器资源,编译出错的话，你可能要自己写一个处理error的函数,何时编译less文件成为一个问题，每次有客户请求就编译一次less文件显然效率比较低，但是根据less文件的变化来编译又好像没有放在服务器上编译的必要</p>
+        </section>
+        <section style="text-align: left;text-indent : 2em">
+
+                <p>使用工具进行编译</p>
+                <p>优点：编译过程中，能提供一定debug功能，写错代码是常有的事，关键要知道哪里写错了。其次由于是自动编译，所以最后的成品是css文件，客户端不用因为见到不认识的less文件而大声惊呼不认识</p>
+                <p>如果要在多个地点进行开发，那么在每个地点都要花个10分钟~15分钟下载、安装软件，并进行配置，前端人员工作量会比较大，同时维护less文件和css文件，多人编辑同一个文件时很容易出错，并且多版本并行时合并代码不方便，一点点细微的改动都要重新编译文件</p>
+        </section>
+
+        <section style="text-align: left;margin-left: 30%">
+            <a href="http://www.cnblogs.com/gewei/p/3242558.html">less的几种编译方式</a>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="letter-spacing: 5px">LESS与SASS的优缺点</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 王力</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

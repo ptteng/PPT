@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="demoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>小课堂demo</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.min.js"></script>
+    <style>
+        div{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="show-scope-demo">
+    <div ng-controller="GreetController">
+        Hello {{name}}!
+    </div>
+    <div ng-controller="ListController">
+        <ol>
+            <li ng-repeat="name in names">{{name}} from {{department}}</li>
+        </ol>
+    </div>
+    <!--watch的用法-->
+    <div data-ng-controller="watch1" style="margin-top: 50px">
+            <input ng-model='name' type='text'/>
+            <div>change count: {{count}}</div>
+    </div>
+    <div data-ng-controller="watch2" style="margin-top: 50px">
+        <div ng-repeat='item in items'>
+            <input ng-model='item.a'/>
+            <span>{{item.a}}</span>
+        </div>
+        <div>counts改变: {{counts}}</div>
+    </div>
+</div>
+<script>
+    angular.module('demoApp', [])
+//        $scope,$rootScope
+        .controller('GreetController', ['$scope', '$rootScope', function($scope, $rootScope) {
+            $scope.name = 'World';
+            $rootScope.department = 'rootScopeString';
+        }])
+        .controller('ListController', ['$scope', function($scope) {
+            $scope.names = ['Igor', 'Misko', 'Vojta'];
+        }])
+        //watch的普通用法
+        .controller('watch1',['$scope', function ($scope) {
+            $scope.count = 0;
+            $scope.name = 'Alfred';
+            $scope.$watch('name',function(){
+                $scope.count++;
+            })
+
+        }])
+//        watch深入理解
+        .controller('watch2',['$scope', function ($scope) {
+            $scope.counts = 0;
+            $scope.items = [
+                { "a": 1 },
+                { "a": 2 },
+                { "a": 3 },
+                { "a": 4 }
+            ];
+            $scope.$watch('items',function(){
+                $scope.counts++;
+            },true)
+//                },true)
+        }])
+
+
+</script>
+</body>
+</html>

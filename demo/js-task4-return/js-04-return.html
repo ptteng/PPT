@@ -1,0 +1,45 @@
+<!docType html>
+<html>
+<head>
+  <meta charset="UTF-8u">
+  <title>js-04-return/demo</title>
+  <style>
+	.demo1{
+	  margin-top: 100px;
+	  margin-left: 20px;
+	}
+	.demo2{
+	  margin-top: 100px;
+	  margin-left: 20px;
+	}
+  </style>
+</head>
+<body>
+<div class="demo1" >
+  <a href="http://www.baidu.com" onclick=" return fun()">demo1</a>
+  <script type="text/javascript">
+	function fun(){
+	  location.href="http://www.sina.com.cn";
+	  return true;
+	}
+  </script>
+</div>
+<div class="demo1">
+  <div>demo2</div>
+  <br>  <br>
+  <script>
+	function counter() {
+	  for (var count = 1;count<10; count++) {
+		document.write( " &nbsp;"+count + "Animal" +" &nbsp;"); // until 5
+		if (count === 5) {
+		  return;
+		}
+		document.write(" &nbsp;"+count + "Boy"+" &nbsp;");  // until 4 （因为在5的时候，就已经return了）
+	  }
+	  document.write(count + "Cat");  // never appears （因为这个c写在了for循环的外面）
+	}
+	counter();
+  </script>
+</div>
+</body>
+</html>

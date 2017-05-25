@@ -1,0 +1,114 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+  <!--<meta charset="utf-8">-->
+  <!--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--​-->
+<!--<div ng-app="myApp" ng-controller="myCtrl">-->
+  <!--<input ng-model="name">-->
+  <!--<h1>{{greeting}}</h1>-->
+  <!--<button ng-click='sayHello()'>点我</button>-->
+<!--</div>-->
+<!--​-->
+<!--<script>-->
+    <!--var app = angular.module('myApp', []);-->
+    <!--app.controller('myCtrl', function($scope) {-->
+        <!--$scope.name = "Runoob";-->
+        <!--$scope.sayHello = function() {-->
+            <!--$scope.greeting = 'Hello ' + $scope.name + '!';-->
+        <!--};-->
+    <!--});-->
+<!--</script>-->
+<!--​-->
+<!--<p>当你修改输入框中的值时，会影响到模型(model),当然也会影响到控制器对应的属性值。</p>-->
+<!--​-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+<span ng-app="myApp">
+  <style>
+    div{margin-top: 15px;border: 2px solid rebeccapurple;width: 400px;}
+  </style>
+  <div>
+    <h3>我是全局变量language: {{ language}}</h3>
+  </div>
+  <div ng-controller="oneController">
+    <h3>我是one_language局部变量: {{ one_language}}</h3>
+  </div>
+  <div ng-controller="twoController">
+    <h1>twoController</h1>
+    <h3>我是two_language局部变量: {{ two_language }}</h3>
+    <h3>我是one_language局部变量: {{ one_language}}</h3>
+    <h3>我是全局变量language: {{ language }}</h3>
+  </div>
+</span>
+<script>
+    var   myApp = angular.module('myApp', []);
+    myApp.controller('oneController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+        // 局部的变量，只有在oneController中才会显示
+        $scope.one_language = 'Python';
+        // 全局的变量，都可以调用
+        $rootScope.language = 'Go';
+    }]);
+
+    myApp.controller('twoController', ['$scope','$rootScope', function ($scope,$rootScope) {
+        // 局部的变量，只有在twoController中才会显示
+        $scope.two_language = 'Java';
+        $rootScope.language = 'sssss';
+    }]);
+</script>
+
+
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div ng-app="myApp" ng-controller="myCtrl">-->
+    <!--<input ng-model="name">-->
+    <!--<h1>{{greeting}}</h1>-->
+    <!--<button ng-click='sayHello()'>点我</button>-->
+<!--</div>-->
+
+<!--<script>-->
+    <!--var app = angular.module('myApp', []);-->
+    <!--app.controller('myCtrl', function($scope) {-->
+        <!--$scope.name = "Runoob";-->
+        <!--var watch = $scope.$watch('name',function(newValue,oldValue,scope){-->
+            <!--console.log(newValue);-->
+            <!--console.log(oldValue);-->
+
+        <!--});-->
+
+        <!--$scope.sayHello = function() {-->
+            <!--$scope.greeting = 'Hello ' + $scope.name + '!';-->
+        <!--};-->
+    <!--});-->
+<!--</script>-->
+
+<!--<p>当你修改输入框中的值时，会影响到模型(model),当然也会影响到控制器对应的属性值。</p>-->
+
+<!--</body>-->
+<!--</html>&lt;!&ndash;->-->
+
+
+

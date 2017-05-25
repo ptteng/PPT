@@ -1,0 +1,108 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div ng-app="myApp" ng-controller="myCtrl">-->
+    <!--<input ng-model="name">-->
+    <!--<h1>{{greeting}}</h1>-->
+    <!--<button ng-click='sayHello()'>点我</button>-->
+<!--</div>-->
+
+<!--<script>-->
+    <!--var app = angular.module('myApp', []);-->
+    <!--app.controller('myCtrl', function($scope) {-->
+        <!--$scope.name = "皮皮";-->
+        <!--$scope.sayHello = function() {-->
+            <!--$scope.greeting = 'Hello ' + $scope.name + '!';-->
+        <!--};-->
+    <!--});-->
+<!--</script>-->
+
+<!--<p>当你修改输入框中的值时，会影响到模型(model),当然也会影响到控制器对应的属性值。</p>-->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div ng-app="myApp" ng-controller="myCtrl">-->
+
+    <!--<h1>姓氏为 {{lastname}} 家族成员:</h1>-->
+
+    <!--<ul>-->
+        <!--<li ng-repeat="x in names">{{x}} {{lastname}}</li>-->
+    <!--</ul>-->
+
+<!--</div>-->
+
+<!--<script>-->
+    <!--var app = angular.module('myApp', []);-->
+
+    <!--app.controller('myCtrl', function($scope, $rootScope) {-->
+        <!--$scope.names = ["润发", "星驰", "恩来","启明"];-->
+        <!--$rootScope.lastname = "chow";-->
+    <!--});-->
+<!--</script>-->
+
+<!--<p>注意 $rootScope 在循环对象内外都可以访问。</p>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="MyApp">
+    <div class="container" ng-controller="MyController">
+        <div class="my-info">我的名字是：<span ng-bind="name"></span>
+
+            <br/>我的年龄是：<span ng-bind="age"></span>
+            <br />
+        </div>
+        <div class="my-directive" my-directive my-name="{{name}}" age="age"  change-my-age="changeAge()"></div>
+    </div>
+</div>
+
+<script>
+    angular.module("MyApp", [])
+        .controller("MyController", function ($scope) {
+            $scope.name = "皮皮";
+            $scope.age = 18;
+            $scope.changeAge = function(){
+                $scope.age = 0;
+            }
+        })
+        .directive("myDirective", function () {
+            var obj = {
+                restrict: "AE",
+//                scope: {
+//                    name: '@myName',
+//                    age: '=',
+//                    changeAge: '&changeMyAge'
+//                },
+                scope:false,
+                replace: true,
+                template: "<div class='my-directive'>" +
+                "<h3>下面部分是我们创建的指令生成的</h3>" +
+                "我的名字是：<span ng-bind='name'></span><br/>" +
+                "我的年龄是：<span ng-bind='age'></span><br/>" +
+                "在这里修改名字：<input type='text' ng-model='name'><br/>" +
+                "<button ng-click='changeAge()'>修改年龄</button>" +
+                " </div>"
+            };
+            return obj;
+        });
+
+</script>
+
+</body>
+</html>

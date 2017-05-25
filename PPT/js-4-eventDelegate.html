@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>简述JS中的event delegate(事件委托)</h2>
+            <h3> </h3>
+            <p>分享人：刘其勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <p style="text-align: center">浏览器获取事件的两种方式：事件冒泡和事件捕获</p>
+                <p style="text-align: left">事件冒泡：先触发子元素的事件，再触发父元素的事件</p>
+                <p style="text-align: left">事件捕获：先触发父元素的事件，再触发子元素的事件</p>
+                <p style="text-align: left">主流浏览器均支持且优先使用事件冒泡机制</p>
+            </section>
+            <section>
+                <p style="text-align: center">
+                    事件委托：当给节点注册事件时，不用为每个子节点(例如li节点)添加相同的事件，
+                    而是借助事件冒泡机制，
+                    将这些事件统统委托给他们的父节点(ul)，进行捕获处理<br>
+                    (把事件绑定到ul上，而不是li上)
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+                <h5>Jquery .deligate方法</h5>
+                <p>功能：delegate() 为指定的元素（被选元素的子元素）添加一个或多个事件处理程序，并规定当这些事件发生时运行的函数。
+                    使用 delegate() 方法的事件处理程序适用于当前或未来的元素（比如由脚本创建的新元素）。</p>
+                <p>语法：$(父元素).delegate(子元素,事件,函数)</p>
+            </section>
+            <section>
+                <pre><code>
+                      $("div").delegate("button","click",function(){
+                          $("p").slideToggle();
+                      });
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>事件委托解决了什么问题，与其它事件绑定的异同</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>时间委托解决的问题：<br>
+                (1-可以绑定文档完成后新出现的子元素) <br>
+                （2-指定绑定事件的范围（父元素）） <br>
+                3-不需要为每个元素设置绑定
+            </p>
+            <p>与其它事件绑定的异同</p>
+            <table style="font-size: 16px;">
+                <tr>
+                    <td>.on()</td>
+                    <td>可多个事件</td>
+                    <td>绑定新元素</td>
+                    <td>冒泡</td>
+                    <td>不能绑定子元素</td>
+                </tr>
+                <tr>
+                    <td>.bind()</td>
+                    <td>可多个事件</td>
+                    <td>绑定新元素</td>
+                    <td>冒泡</td>
+                    <td>不能绑定子元素</td>
+                </tr>
+                <tr>
+                    <td>.delegate()</td>
+                    <td>可多个事件</td>
+                    <td>绑定新元素</td>
+                    <td>冒泡</td>
+                    <td>绑定子元素</td>
+                </tr>
+                <tr>
+                    <td>.click()</td>
+                    <td>单个事件</td>
+                    <td>不可绑定新元素</td>
+                    <td>冒泡</td>
+                    <td>绑定子元素</td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <h3>5.编码实战：</h3>
+        </section>
+        <section>
+                <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.cnblogs.com/qq9694526/p/5653728.html">事件冒泡与事件捕获</a></p>
+            <p><a href="http://www.cnblogs.com/xilipu31/p/4105794.html">4种事件绑定</a></p>
+            <p><a href="http://www.w3school.com.cn/jquery/jquery_ref_events.asp">jQuery事件参考手册</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

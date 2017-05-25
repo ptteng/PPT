@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>sass、less是什么？如何使用？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .tl{
+            text-align: left;
+        }
+        .fl{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-TASK11】less和sass有什么区别？</h2>
+            <p>分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left"><strong>预处理器：</strong>
+                CSS 预处理器是一种语言，用来为 CSS 增加一些编程的的特性，无需考虑浏览器的兼容性问题，例如你可以在 CSS 中使用变量、简单的程序逻辑、函数等等在编程语言中的一些基本技巧，可以让你的 CSS 更见简洁，适应性更强，代码更直观等诸多好处。
+            </p>
+            <p class="tl">我们最常用的预处理器有scss和less</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>sass背景</h3>
+        </section>
+        <section>
+            <p class="tl">
+                sass诞生于2007年，最早也是最成熟的一款CSS预处理器语言。
+            </p>
+            <p class="tl">
+                现在的sass已经有了两套语法规则：一个依旧是用缩进作为分隔符来区分代码块的；另一套规则和CSS一样采用了大括号（｛｝）作为分隔符。后一种语法规则又名SCSS，在sass3之后的版本都支持这种语法规则。目前我们所称的sass一般指语法更为严格和友好的scss。
+            </p>
+        </section>
+        <section>
+            <h3>less背景</h3>
+        </section>
+        <section>
+            <p class="tl">
+                2009年开源的一个项目，受sass的影响较大，使用CSS的语法,在很多流行的框架和工具中已经能经常看到less的身影了（例如Twitter的Bootstrap框架就使用了less）。
+            </p>
+            <div class="tl">
+                当时sass和现在的scss不同，采用了缩进作为分隔符来区分代码块，而不是CSS中广为使用的大括号（｛｝）。为了让CSS现有的用户使用起来更加方便，Alexis开发了less并提供了类似CSS的书写功能。
+            </div>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">scss和less有什么不同</h3>
+            <p class="tl">
+                我们知道scss和less相似，它们都可以使用变量、常量、嵌套、混入、继承等功能，可以更有效有弹性的写出CSS，下面我们看看它们之间的差异。
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>a,安装</h3>
+            <h4 class="tl">sass</h4>
+            <p style="width: 105%">
+                sass基于Ruby语言开发而成，
+                因此安装sass前需要安装Ruby。<br><br>
+            </p>
+            <h4 class="tl">less</h4>
+            <p class="tl">
+                less安装直接引入“.less”文件即可：
+            <pre>
+                <code><link rel="stylesheet/less" type="text/css" href="文件路径/styles.less"></code>
+            </pre>
+
+            </p>
+
+        </section>
+        <section>
+            <h3>b,变量</h3>
+            <p>
+                sass 是以$开头定义的变量，如：$mainColor: #963;<br><br>
+                less 是以@开头定义的变量，如 @mainColor: #963;
+            </p>
+        </section>
+        <section>
+            <h3>c,作用域</h3>
+            <p class="tl">
+                sass 没有局部变量，满足就近原则。<br>
+            </p>
+            <p class="tl">
+                less 中{}内定义的变量为局部变量。
+                作用域和其他程序语言中的作用域非常的相同，
+                他首先会查找局部定义的变量，如果没有找到，
+                会像冒泡一样，一级一级往下查找，直到根为止，
+            </p>
+        </section>
+        <section>
+            <section>
+                <h3>d,混合（Mixins）</h3>
+                <p class="tl">
+                    <strong>sass的混合：</strong>sass样式中声明Mixins时需要使用“@mixin”命令，
+                    在选择器调用定义好的Mixins需要使用“@include”。
+                </p>
+            </section>
+            <section>
+            <pre>
+                <code>
+                    /*声明一个Mixin叫作“abc”*/
+                    @mixin abc($bg-c:red){
+                           width: 100px;
+                        height:100px;
+                        background-color: $bg-c;
+                    }
+
+                    /*调用abc Mixins*/
+                    .a{
+                        @include abc();
+                    }
+
+                    .b{
+                        /*将参数$bg-c的值重定义为blue*/
+                      @include abc(blue);
+                    }
+
+                </code>
+            </pre>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <p class="tl">
+                    <strong>less 的混合：</strong>在less中，混合是指将定义好的“ClassA”中引入另一个已经定义的“Class”，就像在当前的“Class”中增加一个属性一样。
+                </p>
+            </section>
+            <section>
+            <pre>
+                <code>
+                    /*声明一个Mixin叫作“abc”*/
+                    .abc($bg-c:red){
+                         width: 100px;
+                        height:100px;
+                        background-color: $bg-c;
+                    }
+
+                    /*调用abc Mixins*/
+                    .a{
+                        .abc();
+                    }
+
+                    .b{
+                        /*将参数$bg-c的值重定义为blue*/
+                      .abc(blue);
+                    }
+
+                </code>
+            </pre>
+            </section>
+
+        </section>
+        <section>
+            <p class="tl">两者编译出的值相同</p>
+            <pre>
+                <code>
+                    .a{
+                        width: 100px;
+                        height:100px;
+                        background-color: red;
+                    }
+
+                    .b{
+                        width: 100px;
+                        height: 100px;
+                        background-color: blue;
+                    }
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>e,嵌套</h3>
+            <p class="tl">两者写法相同</p>
+            <pre>
+                <code>
+                    section {
+                      margin:10px;
+                      nav {
+                        height:25px;
+                        a {
+                          color:#0982c1;
+                          &:hover {
+                            text-decoration:underline;
+                          }
+                        }
+                      }
+                    }
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>f,继承</h3>
+            <pre>
+                <code>
+                    /*sass的继承：@extend*/
+                    .block {
+                      margin: 10px 5px;
+                      padding: 2px;
+                    }
+                    p {
+                      @extend .block;/*继承.block选择器下所有样式*/
+                      border: 1px solid #eee;
+                    }
+                    ul,ol {
+                      @extend .block; /*继承.block选择器下所有样式*/
+                      color: #333;
+                      text-transform: uppercase;
+                    }
+                    /*less的继承：类似于mixins*/
+                    .block {
+                      margin: 10px 5px;
+                      padding: 2px;
+                    }
+                    p {
+                      .block;/*继承.block选择器下所有样式*/
+                      border: 1px solid #eee;
+                    }
+                    ul,ol {
+                      .block; /*继承.block选择器下所有样式*/
+                      color: #333;
+                      text-transform: uppercase;
+                    }
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <p class="tl">编译后</p>
+
+            <section>
+            <pre>
+                <code>
+//sass
+
+.block,p,ul,ol {
+  margin: 10px 5px;
+  padding:2px;
+}
+p {
+  border: 1px solid #eee
+}
+ul,ol {
+  color:#333;
+  text-transform:uppercase;
+}
+
+
+                </code>
+            </pre>
+            </section>
+
+        <section>
+            <pre>
+                <code>
+               //less
+
+                .block {
+                margin: 10px 5px;
+                padding:2px;
+                }
+                p {
+                margin: 10px 5px;
+                padding:2px;
+                border: 1px solid #eee
+                }
+                ul,ol {
+                margin: 10px 5px;
+                padding:2px;
+                color:#333;
+                text-transform:uppercase;
+                }
+                </code>
+            </pre>
+        </section>
+
+        </section>
+        <section>
+            <h4>g,高级语言</h4>
+            <p class="tl">
+                sass对条件语句和循环语句的处理要比less语言强大。具有真正的语言处理能力。
+            </p>
+        </section>        <section>
+
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4 class="tl">
+                还有什么好的预处理器语言？
+            </h4>
+            <p class="tl">
+                stylus，2010年产生于Node.js社区,可同时使用缩进和括号写法，写法非常灵活，扩展性与scss相当，高于less，但由于规定过少，可能容易让人混乱。
+            </p>
+
+        </section>
+        <section>
+            <h4 class="tl">我该如何选择css预处理器</h4>
+            <ol>
+                <li>
+                    sass诞生是最早也是最成熟的CSS预处理器，有Ruby社区和Compass支持；Stylus早期服务于Node JS项目，在该社区得到一定支持者；less出现于2009年，支持者远超于Ruby和Node JS社区；
+                </li>
+                <li>
+                    sass和stylus扩展性更强，sass广泛使用于国外，less在国内受众最多。stylus是后起之秀。
+                </li>
+                <li>
+                    sass和less语法较为严谨、严密，而Stylus语法相对散漫，其中less学习起来更快一些，因为他更像CSS的标准；
+                </li>
+                <li>
+                    sass和less相互影响较大，其中sass受less影响，已经进化到了全面兼容CSS的SCSS；
+                </li>
+                <li>
+                    sass和less都有第三方工具提供转译，特别是sass和Compass是绝配；
+                </li>
+            </ol>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section class="tl">
+            <p>参考一：<a href="http://www.w3cplus.com/css/css-preprocessor-sass-vs-less-stylus-2.html">
+                CSS预处理器——sass、less和Stylus实践
+            </a></p>
+            <p>参考二：<a href="http://www.ruanyifeng.com/blog/2012/06/sass.html">
+            sass用法指南
+            </a></p>
+            <p>参考三：<a href="http://www.oschina.net/question/12_44255?sort=default&p=4">
+            为您详细比较三个 CSS 预处理器（框架）：sass、less 和 Stylus
+            </a></p>
+            <p>参考四：<a href="http://lesscss.cn/">
+            less 中文网
+            </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>
+                1，sass如何安装？
+            </h4>
+
+            <p class="tl">
+                先安装Ruby，接着在命令行输入下面的命令：
+            <pre>
+                <code>
+                    gem install sass
+                </code>
+        </pre>
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
