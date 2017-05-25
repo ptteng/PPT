@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,305 +17,413 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+    <style>
+        div {
+            text-align: left;
+        }
+    </style>
 </head>
+
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
-<map name="pttmap">
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
-<div class="reveal">
-    <div class="slides">
-        <section>
-            <h2>【CSS-task3】那种规范才是最好的规范？</h2>
-            <h3>小课堂【郑州第51期】</h3>
-            <p>分享人：王相博</p>
-        </section>
-        <section>
-            <p>目录</p>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.常见问题</p>
-            <p>4.解决方案</p>
-            <p>5.编码实战</p>
-            <p>6.扩展思考</p>
-            <p>7.参考文献</p>
-            <p>8.更多讨论</p>
-        </section>
-        <section>
-            <h3>1.背景介绍</h3>
-        </section>
-        <section>
-           <p style="text-align: left;">规范，一个优秀的公司必然有一个优秀的团队，一个优秀的团队必然要有一个好的规范来 约束和执行。国内基本各大互联网公司的前端都有自己的开发规范，但总的宗旨基本都是：代码简、易维护、性能高。对于一个大型项目经常会多人协作，这时必须要有一个好的规范才能顺利便捷地进行下去。</p>
-        <p style="text-align:left;">总而言之：<br>&emsp;&emsp;不管有多少人共同参与同一项目，一定要确保每一行代码都像是同一个人编写的。</p>
-        </section>
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-        <section>
+    <div class="reveal">
+        <div class="slides">
             <section>
-                <h3>基本准则</h3>
-                <p style="text-align: left;">符合web标准, 语义化html, 结构表现行为分离, 兼容性优良. 页面性能方面, 代码要求简洁明了有序, 尽可能的减小服务器负载, 保证最快的解析速度.</p>
+                <h2>【CSS-task3】那种规范才是最好的规范？</h2>
+                <h3>小课堂【武汉第177期】</h3>
+                <p>分享人：庄引</p>
             </section>
             <section>
-                <h3>html规范</h3>
-            </section>
-            <section>
-                <ul>
-                    <li>页面的第一行添加标准模式声明&lt!DOCTYPE html&gt</li>
-                    <li>代码缩进：tab键设置四个空格（通常在软件右下角设置相应空格大小）</li>
-                    <li>html中除了开头的DOC和 'UTF-8'或者head里特殊情况可以大写外，其他都为小写，css类都为小写</li>
-                    <li>建议为 html 根元素指定 lang 属性，从而为文档设置正确的语言 <span style="text-decoration:line-through"> lang="zh-CN"</span>&emsp;lang="cmn-Hans-CN"</li>
-                    <li>不同doctype在不同浏览器下会触发不同的渲染模式&lt meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt</li>
-                    <li>非特殊情况下样式文件必须外链至&lthead&gt...&lt/head&gt 之间;非特殊情况下JavaScript文件必须外链至页面底部</li>
-                    <li>尽可能减少div嵌套</li>
-                </ul>
-            </section>
-            <section>
-                <ul>
-                    <li>在页面中尽量避免使用style属性,即style="…"; 写在相应的样式文件中</li>
-                    <li>对于属性的定义，确保全部使用双引号，绝不要使用单引号</li>
-                    <li>背景图片请尽可能使用sprite技术, 减小http请求</li>
-                    <li>给区块代码及重要功能(比如循环)加上注释, 方便后台添加功能</li>
-                    <li>不要使用 @import,与 &ltlink&gt 标签相比,@import 指令要慢很多,不光增加了额外的请求次数,还会导致不可预料的问题。</li>
-                </ul>
-            </section>
-            <section>
-                <h2 style="text-transform:none; ">HTML Style Guide</h2>
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-语法</h3>
-                <img src="../img/css-03-standard/page1.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML5  Doctype</h3>
-                <img src="../img/css-03-standard/page2.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-语言属性</h3>
-                <img src="../img/css-03-standard/page3.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-IE 兼容模式</h3>
-                <img src="../img/css-03-standard/page4.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-字符编码</h3>
-                <img src="../img/css-03-standard/page5.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-引入 CSS 和 JavaScript 文件</h3>
-                <img src="../img/css-03-standard/page6.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-属性顺序</h3>
-                <img src="../img/css-03-standard/page7.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">布尔（Boolean）型属性</h3>
-                <img src="../img/css-03-standard/page8.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">HTML-减少标签的数量</h3>
-                <img src="../img/css-03-standard/page9.png" alt="">
-            </section>
-            <section>
-                <h3>css规范</h3>
-            </section>
-            <section>
-                <h4>CSS书写顺序</h4>
-                <ul>
-                    <li>显示属性：display/list-style/position/float/clear …</li>
-                    <li>自身属性（盒模型)：width/height/margin/padding/border</li>
-                    <li>行高：line-height</li>
-                    <li> 文本属性：color/font/text-decoration/text-align/text-indent/vertical-align/white-space/content…</li>
-                    <li>其他：cursor/z-index/zoom/overflow</li>
-                    <li> CSS3属性：transform/transition/animation/box-shadow/border-radius</li>
-                    <li> 如果使用CSS3的属性，如果有必要加入浏览器前缀，则按照 -webkit- / -moz- / -ms- / -o- / std的顺序进行添加，标准属性写在最后</li>
-                </ul>
-            </section>
-            <section>
-                <h4>排版规范</h4>
-                <ul>
-                    <li>如果是在html中写内联的css，则必须写成单行</li>
-                    <li>每一条规则的大括号 { 前后加空格</li>
-                    <li>属性名冒号之前不加空格，冒号之后加空格</li>
-                    <li>每一个属性值后必须添加分号; 并且分号后空格</li>
-                    <li>多个selector共用一个样式集，则多个selector必须写成多行形式</li>
-                </ul>
-            </section>
-            <section>
-                <h4>规则书写规范</h4>
-                <ul>
-                    <li>使用单引号，不允许使用双引号</li>
-                    <li>每个声明结束都应该带一个分号，不管是不是最后一个声明</li>
-                    <li>除16进制颜色和字体设置外，CSS文件中的所有的代码都应该小写</li>
-                    <li>除了重置浏览器默认样式外，禁止直接为html tag添加css样式设置</li>
-                    <li>每一条规则应该确保选择器唯一，禁止直接为全局.nav/.header/.body等类设置属性</li>
-                </ul>
-            </section>
-            <section>
-                <h2 style="text-transform:none; ">CSS Style Guide</h2>
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-语法-1</h3>
-                <img src="../img/css-03-standard/page10.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-语法-2</h3>
-                <img src="../img/css-03-standard/page11.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-声明顺序-1</h3>
-                <img src="../img/css-03-standard/page12.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-声明顺序-2</h3>
-                <img src="../img/css-03-standard/page13.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-媒体查询（Media query）的位置</h3>
-                <img src="../img/css-03-standard/page14.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-带前缀的属性</h3>
-                <img src="../img/css-03-standard/page15.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-单行规则声明</h3>
-                <img src="../img/css-03-standard/page16.png" alt="">
-            </section>
-            <section>
-                <h3 style="text-transform:none; ">CSS-简写形式的属性声明</h3>
-                <img src="../img/css-03-standard/page17.png" alt="">
-            </section>
-            <section>
-                <h3>class命名</h3>
-            </section>
-            <section>
-                <ul>
-                    <li>规则命名中，一律采用小写加中划线的方式，不允许使用大写字母或 _</li>
-                    <li>命名避免使用中文拼音，应该采用更简明有语义的英文单词进行组合</li>
-                    <li>不允许通过1、2、3等序号进行命名；避免class与id重名</li>
-                    <li> class用于标识某一个类型的对象，命名必须言简意赅</li>
-                    <li>尽可能提高代码模块的复用，样式尽量用组合的方式</li>
-                    <li>规则名称中不应该包含颜色（red/blue）、定位（left/right）等与具体显示效果相关的信息。应该用意义命名，而不是样式显示结果命名</li>
-                </ul>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
             </section>
 
-        </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-            <p>问题1:class命名有什么常用方式？</p>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
-        <section>
-            <p>在实际编程中，命名问题一直是很麻烦的问题，要想代码可读性高，维护方便，就必须规范命名。这里介绍几种命名方法</p>
-        </section>
-          <section>
-                <h4>原子类命名规则</h4>
-                <p>将复用性高的单条属性直接命名成类</p>
-                <pre>
-                <code>
-                    .ml5{margin-left: 5px;}
-                </code>
-                </pre>
-            </section>
             <section>
-                <h4>模块命名规则</h4>
-                <p>按照职能划分命名规则</p>
-                <p>例如，模块是nav，便可以命名nav-tittle、nav-left</p>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div>前端开发web应用的规范的作用两方面： 1) 代码一致性 2) 最佳实践。 通过保持代码风格一致，容易被理解和被维护。我们可以减少遗留系统维护的负担，并降低未来系统崩溃的风险。而通过遵照最佳实践，我们能确保优化的页面加载、性能以及可维护的代码。</div>
+                </section>
             </section>
+
+
             <section>
-                <h4>BEM</h4>
-                <p style="text-align: left;">BEM思想是由于项目开发中，每个组件都是唯一无二的，其名字也是独一无二的，组件内部元素的名字都加上组件名，并用元素的名字作为选择器，自然组件内的样式就不会与组件外的样式冲突了。这是通过组件名的唯一性来保证选择器的唯一性，从而保证样式不会污染到组件外。</p>
-                <p>BEM的命名规矩很容易记：block-name__element-name–modifier-name，也就是模块名 + 元素名 + 修饰器名</p>
-                <pre>
-                    <code>
-                        <div class="page-btn">
-                            <button type="button" class="page-btn__prev">上一页</button>
-                            <!-- ... -->
-                            <button type="button" class="page-btn__next">下一页</button>
-                        </div>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <h3>基本准则</h3>
+                    <div>
+                        代码规范体现了一个coder和团队的专业程度 团队的愿景：成为业界卓越的Web团队！坚持制定好的代码规范。 无论团队人数多少，代码应该同 一人。
+                    </div>
+                </section>
+                <section>
+                    <h3>代码风格</h3>
+                </section>
+                <section>
+                    <h3>2.1 文件</h3>
+                    <div> [建议] CSS 文件使用无 BOM 的 UTF-8 编码。 解释： UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文件时可能造成不必要的干扰。</div>
+                </section>
+                <section>
+                    <h3>2.2 缩进</h3>
+                    <div>2.2 缩进 [强制] 使用 4 个空格做为一个缩进层级，不允许使用 2 个空格 或 tab 字符。 示例：
+                        <pre><code>
+                    .selector {
+                        margin: 0; padding: 0;
+                    }
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>2.3 空格</h3>
+                    <div>
+                        [强制] 选择器 与 { 之间必须包含空格。 示例：
+                        <pre><code>
+                            .selector { }
+                        </code></pre> [强制] 属性名 与之后的 : 之间不允许包含空格， : 与 属性值 之间必须包含空格。 示例：
+                        <pre>
+                            <code>
+                                margin: 0;
+                            </code>
+                        </pre> [强制] 列表型属性值 书写在单行时，, 后必须跟一个空格。 示例：
+                        <pre>
+                        <code>
+                            font-family: Arial, sans-serif;
+                        </code>
+                    </pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>2.4 行长度</h3>
+                    <div>
+                        [强制] 每行不得超过 120 个字符，除非单行不可分割。 解释： 常见不可分割的场景为URL超长。 [建议] 对于超长的样式，在样式值的 空格 处或 , 后换行，建议按逻辑分组。 示例：
+                    </div>
+                </section>
+                <section>
+                    <pre>
+                        <code>
+/* 不同属性值按逻辑分组 */
+background:
+    transparent url(aVeryVeryVeryLongUrlIsPlacedHere)
+    no-repeat 0 0;
+
+/* 可重复多次的属性，每次重复一行 */
+background-image:
+    url(aVeryVeryVeryLongUrlIsPlacedHere)
+    url(anotherVeryVeryVeryLongUrlIsPlacedHere);
+
+/* 类似函数的属性值可以根据函数调用的缩进进行 */
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.04, rgb(88,94,124)),
+    color-stop(0.52, rgb(115,123,162))
+);
                     </code>
-                </pre>
+                    </pre>
+                </section>
+                <section>
+                    <h3>2.5 选择器</h3>
+                    <div>
+                        [强制] 当一个 rule 包含多个 selector 时，每个选择器声明必须独占一行。 示例：
+                        <pre><code>
+        /* good */
+        .post,
+        .page,
+        .comment {
+            line-height: 1.5;
+        }
+
+        /* bad */
+        .post, .page, .comment {
+            line-height: 1.5;
+        }
+    </code></pre>
+                    </div>
+
+                </section>
+                <section>
+                    <h3>2.6 属性</h3>
+                    <div>
+
+
+                        [强制] 属性定义必须另起一行。 示例：
+                        <pre><code>
+    /* good */
+    .selector {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* bad */
+    .selector { margin: 0; padding: 0; }
+</code></pre> [强制] 属性定义后必须以分号结尾。 示例：
+                        <pre><code>
+    /* good */
+    .selector {
+        margin: 0;
+    }
+
+    /* bad */
+    .selector {
+        margin: 0
+    }
+</code></pre>
+
+                    </div>
+                </section>
+                <section>
+                    <h2>通用</h2>
+                </section>
+                <section>
+                    <h3>3.1 选择器</h3>
+                    <div>
+
+
+                        [强制] 如无必要，不得为 id、class 选择器添加类型选择器进行限定。 解释： 在性能和维护性上，都有一定的影响。 示例：
+                        <pre><code>
+    /* good */
+    #error,
+    .danger-message {
+        font-color: #c00;
+    }
+
+    /* bad */
+    dialog#error,
+    p.danger-message {
+        font-color: #c00;
+    }
+</code></pre>
+
+                    </div>
+                </section>
+                <section>
+                    <h3>3.2 属性缩写</h3>
+                    <div>
+
+
+                        [建议] 在可以使用缩写的情况下，尽量使用属性缩写。 示例：
+                        <pre><code>
+    /* good */
+    .post {
+        font: 12px/1.5 arial, sans-serif;
+    }
+
+    /* bad */
+    .post {
+        font-family: arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+</code></pre>
+
+                    </div>
+                </section>
+                <section>
+                    <h3>3.3 属性书写顺序</h3>
+                    <div>
+                        [建议] 同一 rule set 下的属性在书写时，应按功能进行分组，并以 Formatting Model（布局方式、位置） > Box Model（尺寸） > Typographic（文本相关） > Visual（视觉效果） 的顺序书写，以提高代码的可读性。 解释： Formatting Model 相关属性包括：position / top / right / bottom / left / float / display / overflow 等 Box Model 相关属性包括：border
+                        / margin / padding / width / height 等 Typographic 相关属性包括：font / line-height / text-align / word-wrap 等 Visual 相关属性包括：background / color / transition / list-style 等 另外，如果包含 content 属性，应放在最前面。 示例：
+
+
+                    </div>
+                </section>
+                <section>
+                    <pre><code>
+    .sidebar {
+        /* formatting model: positioning schemes / offsets / z-indexes / display / ...  */
+        position: absolute;
+        top: 50px;
+        left: 0;
+        overflow-x: hidden;
+
+        /* box model: sizes / margins / paddings / borders / ...  */
+        width: 200px;
+        padding: 5px;
+        border: 1px solid #ddd;
+
+        /* typographic: font / aligns / text styles / ... */
+        font-size: 14px;
+        line-height: 20px;
+
+        /* visual: colors / shadows / gradients / ... */
+        background: #f5f5f5;
+        color: #333;
+        -webkit-transition: color 1s;
+           -moz-transition: color 1s;
+                transition: color 1s;
+    }
+</code></pre>
+                </section>
+                <section>
+                    <h3>3.4 清除浮动</h3>
+                    <div>
+                        [建议] 当元素需要撑起高度以包含内部的浮动元素时，通过对伪类设置 clear 或触发 BFC 的方式进行 clearfix。尽量不使用增加空标签的方式。 解释： 触发 BFC 的方式很多，常见的有：
+                        <p>
+                            <ol>
+                                <li>float 非 none</li>
+                                <li>position 非 static</li>
+                                <li>overflow 非 visible</li>
+                            </ol>
+                        </p>
+                        注意，对已经触发 BFC 的元素不需要再进行 clearfix。
+                    </div>
+                </section>
+                <section>
+                    <h4>3.5 !important</h4>
+                    <div>
+                        [建议] 尽量不使用 !important 声明。 [建议] 当需要强制指定样式且不允许任何场景覆盖时，通过标签内联和 !important 定义样式。 解释： 必须注意的是，仅在设计上 确实不允许任何其它场景覆盖样式 时，才使用内联的 !important 样式。通常在第三方环境的应用中使用这种方案。下面的 z-index 章节是其中一个特殊场景的典型样例。
+                    </div>
+                </section>
             </section>
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <h3>6.扩展思考</h3>
-        </section>
-        <section>
-            <p>问题一:原子类的优劣？</p>
-            <p class="fragment">原子类在网上争议非常大，原子类简单方便，但是不宜维护，控制困难。原子类其实不是一种工具，而是一种编写 CSS 的思想，即：抽出高度复用的样式模块，独立成一个原子类，为对应的模块添加。但是不宜过度使用，负责就和直接添加style没有区别了，在涉及数值方面我的建议时不要使用原子类，否则修改起来超级麻烦，可以使用less、sass等代替</p>
-        </section>
-        <section>
-            <h3>7.参考文献</h3>
-        </section>
-        <section style="text-align: left;">
-            <p>参考一：<a href="https://www.zhihu.com/question/19586885" target="_blank">如何规范 CSS 的命名和书写？</a></p>
-            <p>参考二：<a href="http://www.qdfuns.com/notes/18153/eee7e25d6ea33dfa94b778ac1c342d96.html" target="_blank">HTML+CSS日常编码规范</a></p>
-            <p>参考三：<a href="https://github.com/ecomfe/spec/blob/master/README.md">编码规范</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p>讨论点一:为什么要拆分样式表，怎么拆分样式表？</p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY : 王相博</small></p>
-        </section>
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <p>问题1:class命名有什么常用方式？</p>
+                </section>
+            </section>
+            <section>
+                <section>
 
+                    <h3>4.解决方案</h3>
+                </section>
+                <section>
+                    <p>在实际编程中，命名问题一直是很麻烦的问题，要想代码可读性高，维护方便，就必须规范命名。这里介绍几种命名方法</p>
+                </section>
+                <section>
+                    <h4>原子类命名规则</h4>
+                    <p>将复用性高的单条属性直接命名成类</p>
+                    <pre>
+                    <code>
+                        .ml5{margin-left: 5px;}
+                    </code>
+                    </pre>
+                </section>
+                <section>
+                    <h4>模块命名规则</h4>
+                    <p>按照职能划分命名规则</p>
+                    <p>例如，模块是nav，便可以命名nav-tittle、nav-left</p>
+                </section>
+                <section>
+                    <h4>BEM</h4>
+                    <p style="text-align: left;">BEM思想是由于项目开发中，每个组件都是唯一无二的，其名字也是独一无二的，组件内部元素的名字都加上组件名，并用元素的名字作为选择器，自然组件内的样式就不会与组件外的样式冲突了。这是通过组件名的唯一性来保证选择器的唯一性，从而保证样式不会污染到组件外。</p>
+                    <p>BEM的命名规矩很容易记：block-name__element-name–modifier-name，也就是模块名 + 元素名 + 修饰器名</p>
+                    <pre>
+                        <code>
+                            <div class="page-btn">
+                                <button type="button" class="page-btn__prev">上一页</button>
+                                <!-- ... -->
+                                <button type="button" class="page-btn__next">下一页</button>
+                            </div>
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    <p>问题一:原子类的优劣？</p>
+                    <p class="fragment">原子类在网上争议非常大，原子类简单方便，但是不宜维护，控制困难。原子类其实不是一种工具，而是一种编写 CSS 的思想，即：抽出高度复用的样式模块，独立成一个原子类，为对应的模块添加。但是不宜过度使用，负责就和直接添加style没有区别了，在涉及数值方面我的建议时不要使用原子类，否则修改起来超级麻烦，可以使用less、sass等代替</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section style="text-align: left;">
+                    <p>参考一：<a href="https://www.zhihu.com/question/19586885" target="_blank">如何规范 CSS 的命名和书写？</a></p>
+                    <p><a href="http://alloyteam.github.io/CodeGuide/">Code Guide by @AlloyTeam</a></p>
+                    <p>参考三：<a href="https://github.com/ecomfe/spec/blob/master/README.md">编码规范</a></p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8.更多讨论</h3>
+                </section>
+                <section>
+                    <p>讨论点一:什么代码规范是好的规范？</p>
+                </section>
+            </section>
+            <section>
+                <h4>鸣谢:</h4>
+                <p>感谢大家观看</p>
+                <p><small>BY : 庄引</small></p>
+            </section>
+
+        </div>
     </div>
-</div>
 
-<script src="../lib/reveal/js/head.min.js"></script>
-<script src="../lib/reveal/reveal.js"></script>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
 
-<script>
-    // 以下为常见配置属性的默认值
-    // {
-    // 	controls: true, // 是否在右下角展示控制条
-    // 	progress: true, // 是否显示演示的进度条
-    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-    // 	keyboard: true, // 是否启用键盘快捷键来导航
-    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-    // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
-    // 	loop: false, // 是否循环演示
-    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
-    // 	fragments: true, // 全局开启和关闭碎片。
-    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
-    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
-    // }
-    // 初始化幻灯片
-    Reveal.initialize({
-        history: true,
-        dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-        ]
-    });
-</script>
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
 </body>
+
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He
+ 
