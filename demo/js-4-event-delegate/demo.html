@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!--<head>
+    <meta charset="utf-8">
+    <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div").delegate("button","click",function(){
+                $("p").slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="background-color:#88f">
+    <p>这是一个段落。</p>
+    <button>请点击这里</button>
+</div>
+
+</body>-->
+
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div").delegate("p","click",function(){
+                $(this).slideToggle();
+            });
+            $("button").click(function(){
+                $("<p>点击出现一个新段落。</p>").insertAfter("button");
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="background-color:#99f">
+    <button>在本按钮后面插入一个新的 p 元素</button>
+    <button>在本按钮后面插入一个新的 p 元素</button>
+    <button>在本按钮后面插入一个新的 p 元素</button>
+</div>
+<p><b>注释：</b>通过使用 delegate() 方法，只有 div 元素中的 p 元素会受到影响。</p>
+</body>
+
+
+</html>

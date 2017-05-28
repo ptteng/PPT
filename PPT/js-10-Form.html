@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task10】常见表单验证的优缺点？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：王相博</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>JavaScript 可在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证。以减轻后台数据传送压力，提高数据传送的质量和效率。</p>
+            <!--<img src="../img/js-08-Html5Validator/effect.jpg" alt="">-->
+        </section>
+        
+        <section>
+            <h3>
+                二.知识剖析
+            </h3>
+        </section>
+        <section>
+            <h3>了解一下表单验证</h3>
+        </section>
+        <section>
+            <h3>H5自带的表单验证属性</h3>
+            <p>在点击提交时进行本地验证<a href="https://www.web-tinker.com/article/20781.html">demo</a></p>
+        </section>
+        <section>
+            <h3>利用手工js代码</h3>
+            <p>if/switch，或者正则表达式，+DOM操作</p>
+            <p>缺点：代码量大，耗时多<br>
+                优点：相比于第三方库，可以减少加载的js文件大小，样式灵活<br>
+                如果网站的表但很少，或者格式简单，或者对性能的要求高，可以手工写<a>demo2</a>
+            </p>
+        </section>
+        <section>
+            <h3>利用js第三方插件</h3>
+            <p>优点：全站适用，手工代码量少</p>
+            <p>缺点：有可能加重服务器负担，样式相对固定</p>
+            <p><a href="http://validform.rjboy.cn/demo.html">链接</a></p>
+        </section>
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+
+        <section>
+            <p>何时进行验证？</p>
+           
+        </section>
+
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+        <section>
+
+            <ul>
+                <li>输入时进行实时验证(.keydown)
+                    <a href="https://reg.jd.com/reg/person?ReturnUrl=http%3A%2F%2Fwww.jd.com">京东注册</a></li>
+                <li>退出焦点时验证(.onblur)
+                    <a href="http://jnshu.com/login/1">demo3</a> </li>
+                <li>提交表单时进行本地验证
+                    <a href="https://www.amazon.cn/ap/signin">亚马逊登录</a></li>
+            </ul>
+        </section>
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+        <section>
+        <pre>
+            <code>
+                var regP = /^\d{6,16}$/;
+                var regU = /^([A-Za-z0-9\S]){5,16}$/;
+
+                $("input:first").blur(function(){
+                   var user = $("input:first").val();
+                   if (regU.test(user) == true ){
+                    $("p:eq(1)").html("输入正确")
+                   }else{
+                    $("p:eq(1)").html("请输入正确的用户名")
+                   }
+                });
+            </code>
+        </pre>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+
+        <section>
+            <p>这些验证方法的优缺点是什么？</p>
+        </section>
+        <section>
+            <p>第一种京东的方法还是挺好的，毕竟大公司，获取焦点时显示提示，随着输入的过程，符合要求后给予用户通过验证的反馈，缺点是会影响一些性能，这个缺点也是很小的，一般情况下注册页都是单独出现的，所以只是执行几个keydown这种小函数应该也谈不上影响性能。第二种失去焦点验证，会导致用户输入完账号后发现上边不符合标准，还要点回去进行修改，也是会影响一些用户体验。第三种提交时才验证，这种就有些故意为了降低服务器而设置的表单验证了，考虑机器的成分大，对用户体验不够重视，是不被推荐的验证方式。</p>
+        </section>
+
+        <section>
+            <h3>7.参考资料</h3>
+        </section>
+
+        <section>
+
+            <p><a href="http://validform.rjboy.cn/demo.html" target="_blank">表单展示</a></p>
+            <p><a href="https://reg.jd.com/reg/person?ReturnUrl=http%3A%2F%2Fwww.jd.com" target="_blank" >狗东注册</a></p>
+            <p><a href="https://www.amazon.cn/" target="_blank" >亚马逊注册</a></p>
+            <!-- <p><a href="" target="_blank" ></a></p> -->
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>今天没讲到的验证方式与其优缺点</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王相博 | 刘其勇 | 冯馨雨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

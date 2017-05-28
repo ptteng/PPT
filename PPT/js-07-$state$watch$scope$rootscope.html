@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>angular之中，$state  $watch $scope $rootScope 分别是什么？</h2>
-            <h3>小课堂【郑州小课堂】</h3>
-            <p>分享人：胡嘉杰</p>
+            <h3>114期小课堂【武汉分院】</h3>
+            <p>分享人：汤特</p>
         </section>
         <section>
             <p>目录</p>
@@ -100,61 +100,41 @@
                     在ajax技术发展普及之后，因为其不会留下历史记录方便浏览器访问和对于seo不友好的特点，一个新技术应运而生：
                     路由，$state就是路由中的一项服务。
                 </p>
+                <p>路由的具体用法</p>
+                <p  class="fragment">此处可点→→→<a href="http://blog.csdn.net/fansongy/article/details/44162685" target="_blank">ui-rooter的使用方法</a></p>
+            </section>
+            <section>
+                <p>$stateParams 状态参数
+                    在上面提及使用$stateparams来提取在url中的不同参数。该服务的作用是处理url的不同部分。例如，当上述的inbox状态是这样时：
+                    url: '/inbox/:inboxId/messages/{sorted}?from&to'//当用户访问者链接时：'/inbox/123/messages/ascending?from=10&to=20'
+                    $stateParams对象的值为：
+                    {inboxId: '123', sorted: 'ascending', from: 10, to: 20}</p>
             </section>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>如何让相同的指令，具有不同的作用域</p>
+            <p>watch的深度监听是什么意思呢？有什么优缺点呢？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>只需要在指令中加上scope:{},就能把它的作用域独立出来啦！每用一次指令都会有一个不同的作用域哟</p>
+            <p>$watch在对待原始类型和引用类型会有不同的处理方式，这就要首先说一说$watch函数的第三个参数。在前面的例子中，我们知道，$watch函数有接收两个参数，第一个参数是需要监视的对象，第二个参数是在监视对象发生变化时需要调用的函数，实际上$watch还有第三个参数，它在默认情况下是false。在默认情况下，即不显式指明第三个参数或者将其指明为false时，我们进行的监视叫做“引用监视”。引用监视的原词的“reference watch”，它的意思是只要监视的对象引用没有发生变化，就不算它发生了变化。具体来说，在上面的例子中，只要是items的引用没有发生变化，就算items中的一些属性发生了变化，$watch也会当做没有看见。</p>
+        </section>
+        <section>
+            <p>如果我们将$watch的第三个变量设置为true，那么此时我们进行的监视叫做“全等监视”，原词是“equality watch”。此时，只要$watch的对象有一点风吹草动，它马上就跳出来</p>
+            <p>既然全等监视这么好，那么我们为什么不直接用全等监视呢？当然，任何事情都有好的坏的两个方面，全等监视固然是好，但是它在运行时需要先遍历整个监视对象，然后在每次$digest之前使用angular.copy()将整个对象深拷贝一遍然后在运行之后用angular.equal()将前后的对象进行对比，上面的例子中因为items比较简单，因此可能性能上不会有什么差别，但是到了实际生产时，我们要面对的数据千千万万，可能因为全等监视这一个设置就会消耗大量的资源，让应用停滞不前</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <section>
-                大家来看一下这一段代码
-            </section>
-            <section>
-                <img src="../img/js-07-$scope$watch/derective1.png" alt="机智1">
-                <img src="../img/js-07-$scope$watch/derective1.1.png" alt="机智2">
-            </section>
-            <section>
-                <p>它的效果是</p>
-                <img src="../img/js-07-$scope$watch/derective1.2.png" alt="机智2">
-                <p>我们可以看到，它全都具有相同的作用域</p>
-            </section>
-        </section>
-        <section>
-            <section>
-                <p>如果我们需要它有不同的作用域，如何实现呢？</p>
-                <img src="../img/js-07-$scope$watch/derective2.png" alt="机智2">
-            </section>
-            <section>
-               <p style="text-align: left">{ }：创建一个新的“隔离”scope，但仍可与父scope通信
-                   隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。然而虽然说是“隔离”，但通常我们还是需要让这个子scope跟父scope中的变量进行绑定。绑定的策略有3种：<br>
-                   @：单向绑定，外部scope能够影响内部scope，但反过来不成立<br>
-                   =：双向绑定，外部scope和内部scope的model能够相互改变<br>
-                   &：把内部scope的函数的返回值和外部scope的任何属性绑定起来<br>
-               </p>
-            </section>
-            <section>
-                <img src="../img/js-07-$scope$watch/derective2.1.png" alt="机智2">
-                <p>成功！！</p>
-            </section>
+            <a href="../demo/js-07-$state$scope/demo.html">查看深度监听以及$scope与$rootScope的demo</a>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p>路由的具体用法</p>
-            <p  class="fragment">此处可点→→→<a href="http://blog.csdn.net/fansongy/article/details/44162685" target="_blank">ui-rooter的使用方法</a></p>
         </section>
         <section>
             <h3>7.参考文献</h3>
@@ -169,8 +149,8 @@
         </section>
         <section>
             <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY : 郑明月|胡嘉杰</small></p>
+            <p>感谢大家观看,也感谢郑明月|胡嘉杰师兄</p>
+            <p><small>BY : 汤特</small></p>
         </section>
 
     </div>
