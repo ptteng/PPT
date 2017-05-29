@@ -1,0 +1,227 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>1.maven是什么，和Ant有什么区别？</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：魏杨</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+        <section>
+		
+		 <section>
+            <p>先介绍下背景</p>
+			<p>maven&ant </p>
+			<p>maven&ant同属apach是流行的构建工具。</p>
+			<p>Maven是一个强大的Java项目构建工具。</p>
+			</section>
+			
+			<section>
+            <p>构建一个软件项目通常包含以下一个或多个过程：</p>
+
+			<p>生成源码（如果项目使用自动生成源码）；</p>
+			<p>从源码生成项目文档；</p>
+			<p>编译源码；</p>
+			<p>将编译后的代码打包成JAR文件或者ZIP文件；</p>
+			<p>将打包好的代码安装到服务器、仓库或者其它的地方；</p>
+		</section>
+		
+		<section>
+            <p>构建一个软件项目通常包含以下一个或多个过程：</p>
+
+			<p>生成源码（如果项目使用自动生成源码）；</p>
+			<p>从源码生成项目文档；</p>
+			<p>编译源码；</p>
+			<p>将编译后的代码打包成JAR文件或者ZIP文件；</p>
+			<p>将打包好的代码安装到服务器、仓库或者其它的地方；</p>
+		</section>
+		
+		<section>
+            <p>Maven主要做了两件事：</p>
+
+			<p>统一开发规范与工具</p>
+			<p>统一管理jar包</p>
+		</section>
+		
+		<section>
+            <p>Ant使用命令式的方式，即你需要在Ant构建文件里指定Ant应该执行的操作。你可以指定低级别的操作，如复制文件、编译代码等。你指定操作，还需要执行这些操作执行的顺序。Ant没有默认的目录结构。</p>
+		</section>
+		
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+		 <p>maven和ant的区别</p>
+		
+            <p>Maven的定位是软件项目管理和理解工具。Maven除了具备Ant的功能外，还增加了以下主要的功能：</p>
+
+			 <p>1）使用Project Object Model来对软件项目管理；</p>
+
+			 <p>2）内置了更多的隐式规则，使得构建文件更加简单；</p>
+
+			 <p>3）内置依赖管理和Repository来实现依赖的管理和统一存储；</p>
+
+			 <p>4）内置了软件构建的生命周期；</p>
+        </section>
+		
+		<section>
+		 <p>maven和ant的区别</p>
+		
+            <p>Ant 没有正式的约定如一个一般项目的目录结构，你必须明确的告诉 Ant 哪里去找源代码，哪里放置输出。</p>
+
+			 <p>Ant 是程序化的，你必须明确的告诉 Ant 做什么，什么时候做。你必须告诉它去编译，然后复制，然后压缩。</p>
+
+			 <p>Ant 没有生命周期，你必须定义目标和目标之间的依赖。你必须手工为每个目标附上一个任务序列</p>
+        </section>
+		
+		<section>
+		 <p>maven和ant的区别</p>
+		
+            <p>Maven 拥有约定，因为你遵循了约定，它已经知道你的源代码在哪里。</p>
+
+			 <p>Maven 是声明式的。你需要做的只是创建一个 pom.xml 文件然后将源代码放到默认的目录。Maven 会帮你处理其它的事情。</p>
+
+			 <p>Maven 有一个生命周期，当你运行 mvn install 的时候被调用。这条命令告诉 Maven 执行一系列的有序的步骤，直到到达你指定的生命周期。</p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>maven和ant哪个更好用？</p>
+			<p></p>
+			<p></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3></h3>
+			 <p>最后总结</p>
+            <p>maven和ant虽然都是构建工具，但是两种的思维方式是不一样的，ant更像一种编程语言，自己去写代码让项目做你想要让它做的事情，删除，复制，编译，测试，打包等，而maven则是自己有生命周期去完成你想要的编译测试等工作，只要你懂它的约定，当然你得懂他的各种约定包括配置文件的各种配置。maven在于配置。</p>
+			 <p></p>
+			 <p></p>
+			 <p></p>
+             <p></p>
+			 <p></p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.cnblogs.com/itech/archive/2011/11/01/2231837.html</p>
+			<p>http://blog.csdn.net/b11040805/article/details/20724943</p>
+			<p>http://blog.csdn.net/zhousenshan/article/details/48291903</p>
+			<p>http://www.cnblogs.com/jeffen/p/6124830.html</p>
+			<p>http://miaowugui.iteye.com/blog/2207024</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 魏杨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

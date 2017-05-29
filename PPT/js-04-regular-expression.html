@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】如何使用正则表达式</h2>
+            <h3> </h3>
+            <p>分享人：刘其勇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <p>什么是正则表达式?</p>
+                <p style="text-align: left">一个正则表达式(规则表达式 regular expression)可以认为是一个集合，这个集合是用一些描述来定义的。
+                    比如“一个仅由数字组成的字符串，个数至少6个，最多24个”。<br>
+                这样的描述电脑不懂，外国人也不懂。因此需要用更简洁的描述来表达。现在用“/d”表示一个0-9之间的数字，用{5，24}表示个数5-24个，
+                描述就成了"\d{5,24}"，这就是一个正则表达式</p>
+            </section>
+            <section>
+                <p style="text-align: left">正则表达式可以用来做什么？</p>
+                <p style="text-align: left">几乎任何编程语言都支持正则表达式；<br>
+                1,搜索：把符合规则的内容，批量找出来，比如从一篇文章中搜索其中的数字</p>
+                2,验证：检查一串字符串是否符合特定规则，比如表单里的手机号，邮箱
+            </section>
+            <section>
+                <p>正则表达式的规则</p>
+                1 任何字符串都是一个天然的正则表达式，比如“mall”,它可以用来在一篇文章中，搜索出所有的“mall”。<br>
+                2 规则的描述的方式也可以用列举，比如：[1,2,5,8],数学上，它就表示这4个数字中的一个，在正则表达式中，可以用“1|2|5|8”来表示。<br>
+                3 这则表达式本身只是一个数据集合的描述，必须配合代码才能使用，js原生支持一些匹配正则表达式的方法。
+                4 正则表达式引擎，识别正则表达式时有一定的规则，但是现在不必在意。
+            </section>
+        </section>
+        <section>
+            <section><h3>2.知识剖析</h3></section>
+            <section>
+                <h3>正则表达式的语法</h3>
+                <ul>
+                    <li>元字符：用简单的字符代表一个集合：如“\w”代表单词，“^”代表一串字符的开始，“\b”代表单词两边的间隔，等</li>
+                    <li>转译“\”："d"是个字母，“\d”就表示任何数字，“\\d”被转译两次抵消了，表示“\d”这个两个字符串类型的字符</li>
+                    <li>范围和个数：[]表示范围，如[a-e]表示abcde五个字母中的一个，<br>
+                        {}表示范围，如{3}表示3个，{3，}表示3个及以上，{3,5}表示3个以上，5个及以下</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+               <h3>3.常见问题</h3>
+            <p>如何写一个正则表达式</p>
+            <p>如果用一个正则表达式</p>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+                <p>如何写一个正则表达式（6-18之间的一个数字）</p>
+                <ul>
+                    <li>1 开头和结尾：^$</li>
+                    <li>2 内容：^(\d)|(1\d)$</li>
+                    <li>3 限制：^(\d[6-9])|(1\d[0-8])&</li>
+                </ul>
+            </section>
+            <section>
+                <p>在js里的写法</p>
+                <p style="text-align: left">正则表达式也是一个字符串，知识有特定的格式；在js中，字符串的格式是：<br>
+                    /正则表达式正文/，也就是套在//之间。
+                <pre><code>
+                 window.RegExp("^\\b[6-9]$","g")
+                 /^\b[6-9]$/g
+                </code></pre>
+                </p>
+                <p>js的window.RegExp()方法，用于按照（）内的字符串，生成一个正则表达式 <br>
+                    实际上，不如直接手写：
+                    var reg="/^\b[6-9]$/g"
+                </p>
+            </section>
+            <section>
+                <p>如何用一个正则表达式</p>
+                <p style="text-align: left">js字符串的.search()方法</p>
+                <p style="text-align: left">其它框架和插件，有利用正则实现不允许输入/提示错误等功能。</p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://jnshu.com/daily/19671?dailyType=others&total=146&page=36&uid=6039&sort=0&orderBy=5">
+                一篇日报
+            </a></p>
+            <p><a href="http://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/1700215?fromtitle=%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F&fromid=6555484">
+                百度百科
+            </a></p>
+            <p>菜鸟教程</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+        </section>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
