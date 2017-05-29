@@ -36,8 +36,8 @@
     <div class="slides">
         <section>
             <h2>【JS-10】RequireJS</h2>
-            <h3>小课堂【成都第四十五期】</h3>
-            <p style="text-align: center">分享人：李绍博</p>
+            <h3>小课堂</h3>
+            <h4>分享人：王相博</h4>
         </section>
         <section class="a">
             <p>目录</p>
@@ -56,7 +56,14 @@
         <section>
             <p style="text-indent: 2em;text-align: justify">
                 最早的时候，所有Javascript代码都写在一个文件里面，只要加载这一个文件就够了。后来，代码越来越多，一个文件不够了，必须分成多个文件，依次加载。下面的网页代码，相信很多人都见过。</p>
-           <img src="../img/js-10-requireJS/0.png">
+    <pre><code>
+    <script src="1.js"></script>
+　　<script src="2.js"></script>
+　　<script src="3.js"></script>
+　　<script src="4.js"></script>
+　　<script src="5.js"></script>
+　　<script src="6.js"></script>
+    </code></pre>
         </section>
         <section>
             <p style="text-indent: 2em;text-align: justify">
@@ -88,7 +95,7 @@
         </section>
         <section>
             <p style="text-align: left;font-size: .8em">2、主模块的写法</p>
-            <p style="text-align: left;font-size: .8em">上一节的main.js，我把它称为"主模块"，意思是整个网页的入口代码。它有点像C语言的main()函数，所有代码都从这儿开始运行。下面就来看，怎么写main.js。如果我们的代码不依赖任何其他模块，那么可以直接写入javascript代码。</p>
+            <p style="text-align: left;font-size: .8em">上一节的main.js，我把它称为"主模块"，意思是整个网页的入口代码。所有代码都从这儿开始运行。下面就来看，怎么写main.js。如果我们的代码不依赖任何其他模块，那么可以直接写入javascript代码。</p>
             <pre><code>// main.js
 　　alert("加载成功！");</code></pre>
             <p>但这样的话，就没必要使用require.js了。真正常见的情况是，主模块依赖于其他模块，这时就要使用AMD规范定义的的require()函数。</p>
@@ -222,83 +229,17 @@
         <section>
             <h3>5.编码实战</h3>
         </section>
-        <section>
-            <pre><code>/public
 
-| ------ require.js、config.js、index.html
-
-|-------lib/
-
-|------- a.js、b.js
-
-|-------orthers/
-
-|------- c.js</code></pre>
-            <p style="font-size: .8em">
-                文件功能
-
-                require.js:
-
-                其中requirejs的核心代码就是require.js文件，可以从官方网站上下载：
-
-                config.js:
-
-                用于配置requirejs的相关内容，可以设置文件目录，加载模块命名匹配，以及一些依赖关系等等。
-
-                index.html：
-
-                我们的测试页面或者网址首页。
-
-                /lib/a.js和/lib/b.js 以及 /others/c.js
-
-                是测试的模块js文件。
-            </p>
-        </section>
-        <section>
-            <div style="height:500px;overflow: auto">
-                <p style="font-size: .8em">index.html</p>
-                <img src="../img/js-10-requireJS/QQ截图20170309171651.png">
-                <p style="font-size: .8em">其中，data-main指定主要的配置文件；src为requirejs的文件。</p>
-                <img src="../img/js-10-requireJS/2.png">
-                <p style="font-size: .8em">baseUrl指定所有文件的主要目录，paths配置模块名字以及其匹配的加载路径。
-
-                    当有需要使用某些模块时，就可以通过require([xxx],function(xxx){xxx});的方式使用。   </p>
-                <img src="../img/js-10-requireJS/3.png">
-                <p style="font-size: .8em">模块化文件，一般是一个功能是一个文件。文件的名字，就是上面requireconfig中配置的模块名字。require加载文件时，会自动加上.js后缀。
-
-                    当某些模块以来其他模块时，可以通过define([xxx],function(xxx){yyy});的方式添加依赖关系，require会在异步加载后，自动调整次序。
-
-                    当访问index.html时，会先加载require.js然后把需要加载的文件都通过appendChild的方式，添加到index.html的底部。
-
-                    因此会先弹出index对话框，当执行config.js的后半部分代码时，会依次使用a.js b.js c.js，因此也会依次弹出三个对话框。</p>
-            </div>
-
-
-        </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p >如何在requirejs中使用jquery插件?</p>
-            <p  style="font-size: .8em">对于jquery的插件，比较常见的做法都是传入一个jquery的对象，在这个jquery对象的基础上添加插件对应的方法。首先需要添加jquery插件的依赖，这里用两个插件举例子——jquery-ui和jquery-datatables</p>
-            <pre><code>requirejs.config({
-    baseUrl: './',
-    paths:{
-        'jquery':'lib/jquery',
-        'jquery-ui':'lib/jquery-ui',
-        'jquery-dataTables':'lib/jquery.dataTables'
-    },
-    shim:{
-        'jquery-ui':['jquery'],
-        'jquery-dataTables':['jquery']
-    }
-});
-
-requirejs(['jquery','jquery-ui','jquery-dataTables'],
-function ($){
-    ....
-});</code></pre>
-            <p>由于jquery插件都需要依赖于jquery，因此可以在shim中指定依赖关系。</p>
+            <p>除了模块化加载还有什么用处？</p>
+            <div class="fragment">
+                <p >实现大型项目脚本、样式表、图片按需加载</p>
+                <p>可参考</p>
+                <a href="http://www.cnblogs.com/chenxizhang/archive/2013/05/16/3081941.html">优化网站设计（十七）：延迟或按需加载内容</a>
+            </div>
         </section>
 
         <section>
@@ -313,19 +254,14 @@ function ($){
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>除了模块化加载还有什么用处？</p>
-            <div class="fragment">
-                <p >实现大型项目脚本、样式表、图片按需加载</p>
-                <p>可参考</p>
-                <a href="http://www.cnblogs.com/chenxizhang/archive/2013/05/16/3081941.html">优化网站设计（十七）：延迟或按需加载内容</a>
-            </div>
 
+            <p >requireJS和懒加载是什么关系?</p>
         </section >
         <section >
             <h4>鸣谢</h4>
             <p style="text-align:center;">感谢大家观看</p>
             <p style="text-align:center;">
-                <small>BY :李绍博</small>
+                <h4>BY :王相博 | 李绍博</h4>
             </p>
         </section>
     </div>
