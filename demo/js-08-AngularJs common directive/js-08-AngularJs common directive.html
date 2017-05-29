@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS常用指令</title>
+    <style>
+        .sky {
+            background-color:lightblue;
+        }
+        .tomato {
+            background-color:coral;
+        }
+        .color {
+            color: #ff0000;
+        }
+        .border {
+            border:2px solid #ffff00;
+        }
+    </style>
+</head>
+
+<body>
+<h2>AngularJS 常用指令演示</h2>
+<div ng-app = "mainApp" ng-controller = "commonCtrl">
+    <div>
+    <p>ng-if演示</p>
+    保留 HTML: <input type="checkbox" ng-model="myVar" ng-init="myVar = ture">
+
+    <h3 ng-if="myVar">ng-if</h3>
+    <h3 ng-hide="myVar">ng-hide</h3>
+    <h3 ng-show="myVar">ng-show</h3>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-class演示</p>
+        <div class="{{color}}">使用$scope在控制器中写类名双向绑定（不推荐使用）</div>
+        <p>------------------------------</p>
+        <p>使用字符串双向绑定</p>
+        <select ng-model="home">
+            <option value="">请选择</option>
+            <option value="sky">天蓝色</option>
+            <option value="tomato">橙红色</option>
+        </select>
+        <div ng-class="home">
+            <h1>ng-class（字符串双向绑定）</h1>
+        </div>
+        <p>------------------------------</p>
+        <div >
+            <p>使用对象数组实现</p>
+            选中为真(天蓝色)，取消为假(橙红色)<input type="checkbox" ng-model="obje" ng-init="obje = ture">
+            <div ng-class="{true:'sky',false:'tomato'}[obje]">
+                <h1>ng-class（对象数组）</h1>
+            </div>
+        </div>
+        <p>------------------------------</p>
+        <div >
+            <p>使用key/value实现</p>
+            <form>
+                <input type="checkbox"  ng-model="isA" ng-init="isA = ture">背景颜色<br>
+                <input type="checkbox"  ng-model="isB" ng-init="isB = ture">颜色<br>
+                <input type="checkbox"  ng-model="isC" ng-init="isC = ture">边框
+            </form>
+            <div ng-class="{'sky':isA,'color':isB,'border':isC}">
+                <h1>ng-class（ 使用key/value实现 ）</h1>
+            </div>
+        </div>
+
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-option演示（最简单的用法）</p>
+        <select ng-model="selectedName" ng-options="item for item in names">
+            <!--<option value="">请选择</option>-->//默认值
+        </select>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-value演示</p>
+        <input ng-value="myValue">
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-click演示</p>
+        <p>点击按钮:</p>
+        <button ng-click="count = count + 1" ng-init="count=0">add</button>
+        <p>按钮被点击了 {{count}} 次。</p>
+        <p>实例中，按钮每被点击一次变量 "count" 会自动加 1。</p>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-click演示(绑定多个事件)</p>
+        <p>点击按钮:</p>
+        <button ng-click="countnum = countnum + 1;aler(countnum)" ng-init="countnum=0">add</button>
+        <p>按钮被点击了 {{countnum}} 次。</p>
+        <p>实例中，按钮每被点击一次变量 "countnum" 会自动加 1。并且弹出弹窗当前数字，<br>
+            这个例子其实两个事件是相关联的，可以写在一个函数中，这里只是举个例子。
+        </p>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-class-even和ng-class-odd</p>
+        <table>
+            <tr ng-repeat="x in records" ng-class-odd="'sky'" ng-class-even="'tomato'">
+                <td>{{x.Name}}</td>
+                <td>{{x.Country}}</td>
+            </tr>
+        </table>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-options的写法</p>
+        <p>label for value in array（city for city in Cities）</p>
+        <select ng-model="mycity1" ng-options="city for city in Cities">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycity1}}</p>
+        <p>------------------------------</p>
+        <p>label for value in array（city.name for city in Cities）</p>
+        <select ng-model="mycity2" ng-options="city.name for city in Cities">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycity2}}</p>
+
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-options的写法（分组）</p>
+        <p>select as label group by group for value in array </p>
+        <select ng-model="mycities" ng-options="city.name as city.name group by city.group for city in Citie">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycities}}</p>
+    </div>
+    <!--//下面间距-->
+    <div style="margin-bottom: 30vh">
+
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+<script>
+    var commonApp= angular.module("mainApp",[]);
+    commonApp.controller("commonCtrl",function ($scope) {
+        $scope.color="sky";
+        $scope.names = ["Emil", "Tobias", "Linus"];
+        $scope.myValue = "这是input框的value";
+        $scope.aler =function (countnum) {
+            alert(countnum);
+        };
+//        ng-class-even/odd的数据
+        $scope.records = [
+            {
+                "Name" : "Alfreds Futterkiste",
+                "Country" : "Germany"
+            },
+            {
+                "Name" : "Berglunds snabbk",
+                "Country" : "Sweden"
+            },
+            {
+                "Name" : "Centro comercial Moctezuma",
+                "Country" : "Mexico"
+            },
+            {
+                "Name" : "Ernst Handel",
+                "Country" : "Austria"
+            }
+        ];
+//        ng-options的写法数据
+        $scope.mycity = '北京';
+        $scope.Cities = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
+        $scope.Citie = [{ id: 1, name: '北京', group: '中国' }, { id: 2, name: '上海', group: '中国' }, { id: 3, name: '广州',group:'中国' },
+            { id: 4, name: '纽约', group: '美国' },{ id: 5, name: '旧金山', group: '美国' },  { id: 6, name: '伦敦', group: '英国' } ];
+    })
+</script>
+</body>
+</html>
