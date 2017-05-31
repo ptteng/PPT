@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>JS中作用域以及作用域链</title>
+    <title>es6有哪些新特性？</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -31,9 +31,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-TASK4】如何理解JS和JS作用域链？</h2>
-            <h3>小课堂【成都分院】</h3>
-            <p>分享人：刘思言</p>
+            <h2>修真院小课堂【JS-11】</h2>
+            <h3>成都小课堂【es6有哪些新特性？】</h3>
+            <p>分享人:吴彦澄</p>
         </section>
         <section>
             <p>目录</p>
@@ -47,89 +47,118 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍</h3>
+        <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>作用域与作用域链是JS中非常重要的概念之一</p>
-            <p>学习作用域与作用域链对于深入了解JS的运行机制有很大的帮助。</p>
+            <p>ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。</p>
+            <p>2016年6月，小幅修订的《ECMAScript 2016 标准》（简称 ES2016）如期发布。由于变动非常小（只新增了数组实例的includes方法和指数运算符），因此 ES2016 与 ES2015 基本上是同一个标准，都被看作是 ES6。根据计划，2017年6月将发布 ES2017。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <section>
-                <h3>变量作用域</h3>
-            </section>
-            <section>
-                <h3>全局作用域</h3>
-                <p>全局变量拥有全局作用域</p>
-            </section>
-            <section>
-               <h3>局部作用域</h3>
-               <p>局部变量只有在定义他的函数体内有定义，他的作用域是局部性的，函数的参数也是局部变量
-                在函数体内，局部变量的优先级高于全局变量，同名的局部变量和全局变量，在函数体内，全局变量会被局部变量覆盖掉</p>
-                <p>ps.在函数体内不使用var声明变量，js会自动把这个变量识别为全局变量</p>
-            </section>
-            <section>
-                <h3>函数作用域</h3>
-                <p>区别于c语言及一些其他语言，js是没有块级作用域的，取而代之的是js自己的函数作用域
-                变量在声明他们的函数体内，及这个函数体嵌套的任意函数体内都是有定义的</p>
-            </section>
+            <p>特性一：箭头函数</p>
+            <pre>
+                <h3 style="text-align:center">ES6写法</h3>
+                <code>
+                    var array = [1, 2, 3];
+                    array.forEach( arr=> console.log(arr));
+                </code>
+                <h3 style="text-align:center">传统写法</h3>
+                <code>
+                    var array = [1, 2, 3];
+                    array.forEach(function(arr) {
+                        console.log(arr);
+                    });
+                </code>
+            </pre>
         </section>
         <section>
-            <section>
-                <h3>作用域链</h3>
-                <p>如果将一个局部变量看作是自定义实现的对象的属性的话，那么我们可以换一个角度来理解变量作用域。每一段js代码都有一个与之关联的作用域链，这个作用域链可以看作是一个对象列表或者是一个链表，其中定义了这段代码作用域内的变量。</p>
-            </section>
+            <p>特性二：类(Class)</p>
+            <p>使用类来作为对象的模板,通过构造函数constructor()生成的对象可以更加直观</p>
+            <pre>
+                <code>
+                    class myObject {
+                        constructor(x, y) {
+                            this.x = x;
+                            this.y = y;
+                        }
+                        // 在这里调用其方法就可以了
+                    }
+                </code>
+            </pre>
+            <p>继承可以通过 extends 关键字产生父类模板</p>
+        </section>
+        <section>
+            <p>特性三：字符串模板</p>
+            <pre>
+                <h3 style="text-align:center">直接使用变量名而不使用+号</h3>
+                <code>
+                    console.log("小明的：生日是" + birthday + "日" + "今年他已经" + currentAge + "岁了")
+                </code>
+                <code>
+                    console.log(`小明的：生日是${birthday}日,今年他已经${currentAge}岁了`)
+                </code>
+            </pre>
+            <p>使用这种方法你可以无需担心在同一段内容里使用引号或者是双引号造成的冲突</p>
+        </section>
+        <section>
+            <p>特性四：let与const 关键字</p>
+            <p>可以把let看成var，只是它定义的变量被限定在了特定范围内才能使用，而离开这个范围则无效。const则很直观，用来定义常量，即无法被更改值的变量。</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>如何理解作用域和作用域链</p>
+            <h3><img src="../img/How-About-ECMAScript-6/bg.png" alt=""></h3>
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>一些小demon</p>
+            <p>可以使用typescript转换成ECMAScript5,所以你无需担心他的兼容性</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
+            <h3><a href="../demo/How-about-ECMAscript6/demo9-class/index.html" target="_blank">传送门</a></h3>
+            <a href="../demo/How-about-ECMAscript6/demo9-class/index.compiled.js" target="_blank">ECMAScript5源码</a>
+            <br>
+            <a href="../demo/How-about-ECMAscript6/demo9-class/index.js" target="_blank">ECMAScript6源码</a>
+        </section>
+        <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <section>
-                <h3>声明提前</h3>
-            </section>
-            <section>
-                <h3>闭包</h3>
-                <p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包最简单的方式就是在一个函数内创建另一个函数</p>
-            </section>
+            <p>那么既然ECMAScript6可以转换成ECMAScript5那么ECMAScript5可以转成ECMAScript6吗?</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>javaScript高级程序设计</p>
-            <p>你不知道的JS</p>
+            <p>参考一：<a href="http://www.cnblogs.com/Wayou/p/es6_new_features.html" target="_blank">ES6新特性概览</a></p>
+            <p>参考二：<a href="https://www.gitbook.com/book/likebeta/es6tutorial" target="_blank">ECMAScript 6入门-阮一峰</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
+            <h3><a href="https://github.com/benjamn/xto6" target="_blank">答案揭秘</a></h3>
+        </section>
+        <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 刘思言 </small></p>
-            <p><small>感谢 : 徐浩程 </small></p>
+            <p><small>BY : 吴彦澄</small></p>
         </section>
     </div>
 </div>
+
 <script src="../lib/reveal/js/head.min.js"></script>
 <script src="../lib/reveal/reveal.js"></script>
+
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -148,6 +177,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,

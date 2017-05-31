@@ -36,9 +36,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>angularJS中的依赖注入</h2>
-            <h3>小课堂【武汉分部】</h3>
-            <p>分享人：王峰/方兵</p>
+            <h3>angular js中的依赖注入是什么？有什么作用？与不用依赖注入的其他框架相比，有何优点？ </h3>
+            <h4>小课堂【武汉第121期】</h4>
+            <p>分享人：朱芳山</p>
         </section>
         <section>
             <p>目录</p>
@@ -102,19 +102,21 @@
             </section>
             <section>
                 <p>angular提供了几种很好的依赖注入机制，以下5个核心组件用来作为依赖注入
-                    value、factory、service、provider、constant、
-                    值  	工厂     服务 	  提供者     常值</p>
+                    value、factory、service、provider、constant
+                </p>
     
             </section>
             <section>
-                值是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
+                Value 是一个简单的 javascript 对象，用于向控制器传递值（配置阶段）
                 <pre>
                 <code>
+<!--// 定义一个模块-->
 var mainApp = angular.module("mainApp", []);
-//create a value object as "defaultInput" and pass it a data.
+
+<!--// 创建 value 对象 "defaultInput" 并传递数据-->
 mainApp.value("defaultInput", 5);
 
-
+<!--将 "defaultInput" 注入到控制器-->
 mainApp.controller('CalcController', function($scope, CalcService, defaultInput) {
       $scope.number = defaultInput;
       $scope.result = CalcService.square($scope.number);
@@ -130,7 +132,10 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
                 工厂是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
                 <pre>
                 <code>
+// 定义一个模块
 var mainApp = angular.module("mainApp", []);
+
+// 创建 factory "MathService" 用于两数的乘积
 
 mainApp.factory('MathService', function() {
    var factory = {};
@@ -139,7 +144,7 @@ mainApp.factory('MathService', function() {
    }
    return factory;
 });
-
+// 在 service 中注入 factory "MathService"
 
 mainApp.service('CalcService', function(MathService){
       this.square = function(a) {
@@ -149,9 +154,10 @@ mainApp.service('CalcService', function(MathService){
                 </code>
                 </pre>
             </section>
-            <section>提供者所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间)。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及get()方法，用来返回值/服务/工厂。<pre>
+            <section>AngularJS中通过 provider创建一个service、factory等(配置阶段)。Provider 中提供了一个 factory 方法 get()，它用于返回 value/service/factory。<pre>
                 <code>
 var mainApp = angular.module("mainApp", []);
+<!--// 使用 provider 创建 service 定义一个方法用于计算两数乘积-->
 
 mainApp.config(function($provide) {
    $provide.provider('MathService', function() {
@@ -191,20 +197,21 @@ mainApp.controller('CalcController', function($scope, CalcService, defaultInput)
                 </pre>
             </section>
             <section>
-                常量用于通过配置相位值考虑事实，值不能使用期间的配置阶段被传递。
+                constant(常量)用来在配置阶段传递数值，注意这个常量在配置阶段是不可用的。
                 <pre>
                 <code>
-
 mainApp.constant("configParam", "constant value");
                 </code>
                 </pre>
+                <p style="text-align: left">
+                    当我们想要创建一个服务，并且这个服务只需要返回数据时，就可以使用constant(name,value)和value(name,value)，不过，它们有两个显著的区别：<br>
+                    1.value不可以在config里注入，但是constant可以<br>
+                    2.value可以修改，但是constant不可以修改，一般直接用constant配置一些需要经常使用的数据。<br>
+                    通常情况下，可以通过value()来注册服务对象或函数，用constant()来配置数据。
+                </p>
             </section>
-        
-            
-            
         </section>
-        
-        
+
         <section>
             <section>
                 <h3>3.常见问题</h3>
@@ -221,33 +228,61 @@ mainApp.constant("configParam", "constant value");
             <section>
                 <h3>4.解决方案</h3>
             </section>
-            <section>
-                1.推断式注入声明
+            <section style="text-align: left">
+                依赖注解有三种方式，（数组标注、添加$inject属性、隐式声明）。<br>
+
+                其中前两种在代码minify时不会被破坏，推荐使用第一种方式。<br>
+
+                第三种方式，书写最为简单明了，但是不能对它直接进行minify，需要改写为前两种。
+            </section>
+            <section style="text-align: left">
+                1、数组标注<br>
+                js压缩混淆不会有影响， 优先考虑用该方式为组件定义依赖。在代码中通过在第二个数组类型的参数中声明
+                了'$scope','greeter'等依赖，数组最后一个元素为实际的构造方法，注意在构造方法的参数列表与其面
+                的数组元素是一一对应的。
+
+                <pre>
+                    <code>
+someModule.controller('MyController', ['$scope', 'greeter', function($scope, greeter) {
+// ...
+}]);
+                    </code>
+                </pre>
+            </section>
+            <section style="text-align: left">
+                2、显式注入声明（$inject属性）<br>
+                AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。
+                通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。
+                我们给我们的函数设置的参数名称分别是$scope和greeter，然后我们在后面使用
+                MyController.$inject=['$scope','greeter'];
+                显式的将我们需要的依赖注入到MyController函数中；
+                <pre>
+                    <code>
+var MyController = function($scope, greeter) {
+  // ...
+}
+MyController.$inject = ['$scope', 'greeter'];
+someModule.controller('MyController', MyController);
+                    </code>
+                </pre>
+
+
+            </section>
+
+            <section style="text-align: left">
+                3.隐式声明依赖<br>
+                最简单的声明依赖的方式就是让设构造方法的参数与依赖的名字一样。
                 如果没有明确的声明， AngularJS会假定参数名称就是依赖的名称。
                 请注意，这个过程只适用于未经过压缩和混淆的代码，因为AngularJS需要原始未经压缩的参数列表来进行解析
                 当AngularJS实例化这个模块时，会查找greeter并自然而然地把对它的引用传递进去
                 这里我们先看一个简单的依赖注入的例子。
-            </section>
-            <section>
-                2、显式注入声明
-                AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。
-                通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。
-                我们给我们的函数设置的参数名称分别是renamed$scope和renamedGreeter，然后我们在后面使用
-    
-                MyController.$inject=['$scope','greeter'];
-    
-                显式的将我们需要的依赖注入到MyController函数中；
-    
-                所以在MyController函数中，renamedscope代表scope,MyController.inject=[′scope’, ‘greeter’];代表greeter
-            </section>
-            <section>
-                3 行内注入声明
-    
-                AngularJS提供的注入声明的最后一种方式，是可以随时使用的行内注入声明。
-    
-                允许我们在函数定义时从行内将参数传入。此外，它可以避免在定义过程中使用临时变量。
-    
-                这种方式其实是一个语法糖，它同前面提到的通过$inject属性进行注入声明的原理是完全一样的
+                <pre>
+                    <code>
+someModule.controller('MyController', function($scope, greeter) {
+  // ...
+});
+                    </code>
+                </pre>
             </section>
             
         </section>
@@ -338,15 +373,20 @@ mainApp.constant("configParam", "constant value");
                 <h3>8.更多讨论</h3>
             </section>
             <section>
-                <p>AngularJS中的依赖注入组件的应用场景？</p>
                 <p>AngularJS中的依赖注入与不用依赖注入的其他框架相比，有何优点？</p>
+            </section>
+            <section style="text-align: left">
+                    1. 模板功能强大丰富，并且是声明式的，自带了丰富的Angular指令； <br>
+                    2. 是一个比较完善的前端MVC框架，包含模板，数据双向绑定，路由，模块化，服务，过滤器，依赖注入等所有功能；<br>
+                    3. 依赖注入简化了组件之间处理依赖的过程（即解决依赖）。没有依赖注入，就不得不以某种方式自己查找$scope，很可能得使用全局变量。这虽然能够工作，但是不如AngularJS的依赖注入技术这么简单。<br>
+                    3. 在开发中使用依赖注入的主要好处是AngularJS负责管理组件并在需要的时候提供给相应函数。依赖注入还能够为测试带来好处，因为它允许你使用假的或者模拟的对象来代替真实的组件，从而让开发者专注于程序的特定部分。
             </section>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 王峰</small>
+                <small>BY : 王峰 | 朱芳山</small>
             </p>
         </section>
     

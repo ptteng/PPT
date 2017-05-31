@@ -1,0 +1,490 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>es6有哪些新特性？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task3】es6有哪些新特性？</h2>
+            <h3>小课堂【武汉第120期】</h3>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>有些人可能没有听说过es6,其实es6和我们之前所学的es5(也就是我们学的js)有点像。首先我来介绍一下ECMAScript和JavaScipt的区别</p>
+        </section>
+        <section>
+            1996年11月，JavaScript 的创造者 Netscape 公司，决定将 JavaScript 提交给国际标准化组织ECMA，希望这种语言能够成为国际标准。次年，ECMA 发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为 ECMAScript，这个版本就是1.0版。
+            该标准从一开始就是针对 JavaScript 语言制定的，但是之所以不叫 JavaScript，有两个原因。一是商标，Java 是 Sun 公司的商标，根据授权协议，只有 Netscape 公司可以合法地使用 JavaScript 这个名字，且 JavaScript 本身也已经被 Netscape 公司注册为商标。二是想体现这门语言的制定者是 ECMA，不是 Netscape，这样有利于保证这门语言的开放性和中立性。
+            因此，ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现（另外的 ECMAScript 方言还有 Jscript 和 ActionScript）。日常场合，这两个词是可以互换的。
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>由于时间的关系，es其它方面的东西就不讲了，下面重点来讲一下关于es6的部分新特性。</p>
+                <h3>1.let命令</h3>
+                <p>ES6新增了let命令，用来声明变量。它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。例如：</p>
+                <pre>
+                <code>
+                    {
+                        var a=10;
+                        let b=1;
+                    }
+                    console.log(a);//10
+                    console.log(b);//ReferenceError: a is not defined.
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>var命令会发生”变量提升“现象，即变量可以在声明之前使用，值为undefined。这种现象多多少少是有些奇怪的，按照一般的逻辑，变量应该在声明语句之后才可以使用。
+                    为了纠正这种现象，let命令改变了语法行为，它所声明的变量一定要在声明后使用，否则报错。</p>
+                <pre>
+                <code>
+                    // var 的情况
+                    console.log(foo); // 输出undefined
+                    var foo = 2;
+
+                    // let 的情况
+                    console.log(bar); // 报错ReferenceError
+                    let bar = 2;
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>let不允许在相同作用域内，重复声明同一个变量。</p>
+                <pre>
+                <code>
+                    function fn1(){
+                        var a = 1;
+                        var a = 10;
+                        console.log(a);//10
+                        return a;
+                    }
+                        fn1();
+
+                    function fn2() {
+                        let b = 10;
+                        var b = 1;
+                        console.log(b);
+                        return b;
+                    }
+                        fn2();// 报错
+
+                    function fn3() {
+                        let c = 10;
+                        let c = 1;
+                        console.log(c);
+                        return c;
+                    }
+                        fn3();// 报错
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>const命令</p>
+                const声明一个只读的常量。一旦声明，常量的值就不能改变。
+                <pre>
+                    <code>
+                        const PI = 3.1415;
+                        PI // 3.1415
+                        PI = 3;//报错
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>2.变量的解构赋值</h3>
+                <h4>2.1数组的解构赋值</h4>
+                <p>什么是解构？ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+            </section>
+            <section>
+                <p>以前，为变量赋值，只能直接指定值。</p>
+                <pre>
+                <code>
+                    let a = 1;
+                    let b = 2;
+                    let c = 3;
+                </code>
+                </pre>
+                <p>ES6允许写成下面这样。</p>
+                <pre>
+                <code>
+                    let [a, b, c] = [1, 2, 3];
+                </code>
+                </pre>
+                <p>上面代码表示，可以从数组中提取值，按照对应位置，对变量赋值。
+                    本质上，这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。下面是一些使用嵌套数组进行解构的例子。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        let [foo, [[bar], baz]] = [1, [[2], 3]];
+                        console.log(foo); // 1
+                        console.log(bar); // 2
+                        console.log(baz); // 3
+
+                        let [ , , third] = ["foo", "bar", "baz"];
+                        console.log(third); // "baz"
+
+                        let [x, , y] = [1, 2, 3];
+                        console.log(x); // 1
+                        console.log(y); // 3
+
+                        let [head, ...tail] = [1, 2, 3, 4];
+                        console.log(head); // 1
+                        console.log(tail);// [2, 3, 4]
+
+                        let [x, y, ...z] = ['a'];
+                        console.log(x); // "a"
+                        console.log(y); // undefined
+                        console.log(z); // []
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>另一种情况是不完全解构，即等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。</p>
+                <pre>
+                    <code>
+                        let [x, y] = [1, 2, 3];
+                        console.log(x); // 1
+                        console.log(y); // 2
+                        let [a, [b], d] = [1, [2, 3], 4];
+                        console.log(a); // 1
+                        console.log(b); // 2
+                        console.log(d); // 4
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>2.2对象的解析构值</h3>
+                <p>解构不仅可以用于数组，还可以用于对象</p>
+                <pre>
+                    <code>
+                        let { foo, bar } = { foo: "aaa", bar: "bbb" };
+                        foo // "aaa"
+                        bar // "bbb"
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</p>
+                <pre>
+                    <code>
+                        let { bar, foo } = { foo: "aaa", bar: "bbb" };
+                        foo // "aaa"
+                        bar // "bbb"
+                        let { baz } = { foo: "aaa", bar: "bbb" };
+                        baz // undefined
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于undefined。
+                    如果变量名与属性名不一致，必须写成下面这样。
+                </p>
+                <pre>
+                    <code>
+                        var { foo: baz } = { foo: 'aaa', bar: 'bbb' };
+                        baz // "aaa"
+                        let obj = { first: 'hello', last: 'world' };
+                        let { first: f, last: l } = obj;
+                        console.log(f); // 'hello'
+                        console.log(l); // 'world'
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。
+                </p>
+                <pre>
+                    <code>
+                        let { foo: foo, bar: bar } = { foo: "aaa", bar: "bbb" };
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。</p>
+                <pre>
+                    <code>
+                        let { foo: baz } = { foo: "aaa", bar: "bbb" };
+                        baz // "aaa"
+                        foo // error: foo is not defined
+                    </code>
+                </pre>
+                <p>上面代码中，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。</p>
+            </section>
+            <section>
+                <h3>2.3字符串的解析构值</h3>
+                <p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。</p>
+                <pre>
+                    <code>
+                        const [a, b, c, d, e] = 'hello';
+                        a // "h"
+                        b // "e"
+                        c // "l"
+                        d // "l"
+                        e // "o"
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>2.4数值和布尔值的解析构值</h3>
+                <p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。</p>
+                <pre>
+                    <code>
+                        let {toString: s} = 123;
+                        s === Number.prototype.toString // true
+
+                        let {toString: s} = true;
+                        s === Boolean.prototype.toString // true
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>2.5函数的解析构值</h3>
+                <p>函数的参数也可以使用解构赋值。</p>
+                <pre>
+                    <code>
+                        function add([x, y]){
+                            return x + y;
+                        }
+                        add([1, 2]); // 3
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>3.字符串的扩展</h3>
+                <h4>3.1字符的Unicode表示法</h4>
+                <p>JavaScript 允许采用\uxxxx形式表示一个字符，其中xxxx表示字符的 Unicode 码点。</p>
+                <pre>
+                    <code>
+                        "\u0061"
+//                      "a"
+                    </code>
+                </pre>
+
+            </section>
+            <section>
+                <p>
+                    ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。
+                </p>
+                <pre>
+                    <code>
+                        "\u{20BB7}"
+                         // "𠮷"
+
+                        "\u{41}\u{42}\u{43}"
+                        // "ABC"
+
+                        let hello = 123;
+                        hell\u{6F} // 123
+                        '\u{1F680}' === '\uD83D\uDE80'
+                        // true
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>codePointAt()</h3>
+                <p>ES6提供了codePointAt方法，能够正确处理4个字节储存的字符，返回一个字符的码点。</p>
+                <pre>
+                    <code>
+                        var s = '𠮷a';
+                       s.codePointAt(0) // 134071
+                       s.codePointAt(1) // 57271
+                       s.codePointAt(2) // 97
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>4.数值的扩展</h3>
+                <h4>4.1二进制和八进制表示法</h4>
+                <p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀0b（或0B）和0o（或0O）表示。</p>
+                <pre>
+                    <code>
+                        0b111110111 === 503 // true
+                        0o767 === 503 // true
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>从 ES5 开始，在严格模式之中，八进制就不再允许使用前缀0表示，ES6 进一步明确，要使用前缀0o表示。</p>
+                <pre>
+                    <code>
+                        // 非严格模式
+                        (function(){
+                           console.log(0o11 === 011);
+                        })() // true
+
+                        // 严格模式
+                        (function(){
+                        'use strict';
+                            console.log(0o11 === 011);
+                        })() // Uncaught SyntaxError: Octal literals are not allowed in strict mode.
+                    </code>
+                </pre>
+                <p>如果要将0b和0o前缀的字符串数值转为十进制，要使用Number方法。</p>
+            </section>
+            <section>
+                <h4>4.2Number.isFinite(),Number.isNaN</h4>
+                <p>ES6在Number对象上，新提供了Number.isFinite()和Number.isNaN()两个方法。
+                    Number.isFinite()用来检查一个数值是否为有限的（finite）。</p>
+                <pre>
+                    <code>
+                        Number.isFinite(15); // true
+                        Number.isFinite(0.8); // true
+                        Number.isFinite(NaN); // false
+                        Number.isFinite(Infinity); // false
+                        Number.isFinite(-Infinity); // false
+                        Number.isFinite('foo'); // false
+                        Number.isFinite('15'); // false
+                        Number.isFinite(true); // false
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>使用es6的兼容性问题，这该如何解决？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>首先，对于各个浏览器对于es6的兼容性,可参考这个图</p>
+            <img src="../img/js-03-new function of es6/es6.png">
+            <p>对于es6兼容性差的问题，我们可以使用Babel转码器，就可以将ES6转化为ES5代码，从而在现有的浏览器中运行。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <section>
+                <p>es6还得用Babel转码器才能够实现兼容性问题(转码之后也就只能兼容ie9),那么为什么我们还要使用es6呢？</p>
+            </section>
+            <section>
+                <p>首先说一下javascript语言的一些糟糕的实现</p>
+                <p>先不说JavaScript语言本身设计是否有问题，现有JavaScript语言的实现里有很多非常糟糕或者诡异的实现，就是你以为代码的结果是这样，但是他偏偏是那样，这给我们程序带了很多的意向不到的Bug和烦恼，如果你要是JavaScript大牛，你需要了解他内部的实现的Bug, 而且要知道哪些诡异的写法输出了什么诡异的结果，我个人对了解这种东西实在提不起太大的兴趣，因为我只想用“语言”来实现我的项目让人很好的使用我开发的软件，但是由于历史这样或那样的原因，导致JavaScript语言成为浏览器的霸主，我们不得不忍受这些糟糕的问题。下面我来展示一些让你觉得诡异的问题 （如果你不不觉得诡异，恭喜你，你已经是JavaScript的“高手”)</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        var a = [];
+                        for (var i = 0; i < 10; i++) {
+                            a[i] = function () {
+                                console.log(i);
+                            };
+                        }
+                        a[1]();
+                        a[2]();
+                        a[3]();
+                        输出: 10,10,10
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank">阮一峰ECMAScript6入门</a></p>
+            <p><a href="http://www.cnblogs.com/cnblogsfans/p/5146165.html" target="_blank">为什么要使用ES6+</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>es6还有哪些其它的特性？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>分享人：王峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

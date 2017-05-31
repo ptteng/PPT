@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【css-8】哪些css属性可以设置百分比，其计算原则是什么</h2>
+            <h3>小课堂【郑州第125期】</h3>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>CSS 的属性值中经常会出现百分比，并且百分比是实现页面自适应很重要的一种方法。但是有哪些属性可以用百分比来进行设置呢？设置的原则又是什么呢？</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>可以使用百分比的样式属性</h4>
+                <ul>
+                    <li>定位属性：top,right,bottom,left;</li>
+                    <li>盒模型属性：height,width,margin,padding;</li>
+                    <li>背景属性：background-position;</li>
+                    <li>文本属性：text-indent,line-height,vertical-align;</li>
+                    <li>字体属性：font-size.</li>
+                </ul>
+            </section>
+            <section>
+                <h4>2.1定位属性</h4>
+                <p>box为父元素，box1为子元素</p>
+                <pre>
+                body {width: 1000px;height:800px;}
+                .box {width: 500px;height: 300px;border: 2px solid yellow;position: relative;}
+                .box1 {width: 100px;height: 60px;border: 2px solid red;position: absolute;top:20%;right:20%;}
+                </pre>
+                <img src="../img/CSS-33-percentage and the principle/1.png">
+            </section>
+            <section>
+                <h4>2.2盒模型属性：height,width,margin,padding;</h4>
+                <p>box为父元素，box1为子元素</p>
+                <pre>
+                body {width: 1000px;height:800px;}
+                .box {width: 500px;height: 300px;border: 2px solid yellow;padding-top:10%;}
+                .box1 {width: 100px;height: 60px;border: 2px solid red;}
+                </pre>
+                <img src="../img/CSS-33-percentage and the principle/4.png">
+                <p style="text-align: left">height：基于包含它的块级对象的百分比高度。width：基于包含它的块级对象的百分比宽度。</p>
+                <p><strong> margin,padding：百分数是相对于父元素的 width 计算的。</strong></p>
+            </section>
+            <section>
+                <h4>2.3背景属性：background-position;</h4>
+                <ul>
+                    <li>图像中描述为 50% 50% 的点（中心点）;如果图像位于 0% 0%，其左上角将放在元素内边距区的左上角;如果图像位置是 100% 100%，会使图像的右下角放在右边距的右下角。</li>
+                    <li>如果只提供一个百分数值，所提供的这个值将用作水平值，垂直值将假设为 50%。</li>
+                    <li>background-position 的默认值是 0% 0%，在功能上相当于 top left。这就解释了背景图像为什么总是从元素内边距区的左上角开始平铺，除非您设置了不同的位置值。</li>
+                </ul>
+            </section>
+            <section>
+                <h4>2.4文本属性：text-indent,line-height,vertical-align;</h4>
+            <pre>
+            &lt;div&gt;
+                &lt;p&gt;text-indent 定义基于父元素宽度的百分比的缩进。当外层不指定宽度时，ie下会基于浏览器宽度。line-height 定义基于元素的字体大小。&lt;span&gt;vertical-align &lt;/span&gt;定义基于元素的行高。&lt;/p&gt;
+                &lt;/div&gt;
+            </pre>
+            <pre>
+                div {  width: 500px;  height: 300px;border: 2px solid yellow;}
+                p{text-indent: 20%;  font-size: 20px;  line-height:200%;}
+                span { vertical-align: 50%;}
+            </pre>
+                <img src="../img/CSS-33-percentage and the principle/5.png">
+                <section>
+                    <h4>2.4文本属性：text-indent,line-height,vertical-align;</h4>
+                    <ul>
+                        <li style="list-style: none">text-indent 定义基于父元素宽度的百分比的缩进。当外层不指定宽度时，ie下会基于浏览器宽度。</li>
+                        <li style="list-style: none">line-height 定义基于元素的字体大小。</li>
+                        <li style="list-style: none">vertical-align 定义基于元素的行高。</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <h4>2.5字体属性：font-size.</h4>
+                <p style="text-align: left">浏览器默认字体大小为16px,我们一般默认font-size=62.5%，但也可以根据浏览器窗口大小利用媒体查询进行适当调整。 </p>
+                <p style="text-align: left">em有继承特性，存在重复声明的情况，所以我们一般不建议采用。 </p>
+                <p style="text-align: left">rem根据html中font-size的声明进行使用，不存在重复声明，建议使用。 </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            怎么让字体设置进行自适应？
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>利用媒体查询和字体的百分比设置。</p>
+                <pre>
+                    @media screen and (max-width:1280px){   html{font-size:62.5%;}  }
+                    @media screen and (max-width:800px){    html{font-size:39%; }  }
+                    @media screen and (max-width:640px){    html{font-size:31.25%; }  }
+                </pre>
+        </section>
+        <section>
+            <h3>5.代码实战</h3>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h3>定位属性的包含块一定是父元素吗？</h3>
+        </section>
+        <section>
+            <section>
+                <p>绝对定位的包含块</p>
+                    <pre>
+                body {width: 1000px;height:800px;}
+                .box {width: 500px;height: 300px;border: 2px solid yellow;}
+                .box1 {width: 100px;height: 60px;border: 2px solid red;position: absolute;top:20%;right:20%;}
+                </pre>
+                <img src="../img/CSS-33-percentage and the principle/2.png">
+                <p><strong>定位属性的百分比的参考系是包含块。关于包含块（containing block）的概念，不能简单地理解成是父元素。如果是静态定位和相对定位，包含块一般就是其父元素。但是对于绝对定位的元素，包含块应该是离它最近的 position 为 absolute、relative、或者 fixed 的祖先元素。</strong></p>
+            </section>
+            <section>
+                <h4>固定定位的包含块</h4>
+                <p>box为父元素，box1为子元素，box2为子元素</p>
+                    <pre>
+                body {width: 1000px;height:800px;}
+                .box {width: 500px;height: 300px;border: 2px solid yellow;position: relative;}
+                .box1 {width: 100px;height: 60px;border: 2px solid red;position: absolute;top:20%;right:20%;}
+                 .box2 {width: 100px;height: 60px;border: 2px solid blue;position: fixed;top:20%;right:20%;}
+                </pre>
+                <img src="../img/CSS-33-percentage and the principle/3.png">
+                <p><strong>对固定定位的元素，它的包含块是视口（viewport）。</strong></p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/hanangjie/article/details/50351442" target="_blank">css样式的设置</a></p>
+            <p>参考二：<a href="http://www.mamicode.com/info-detail-1315056.html" target="_blank">CSS 属性之中经常出现的百分比</a></p>
+            <p>参考三：<a href="http://www.w3school.com.cn/cssref/pr_pos_vertical-align.asp" target="_blank">W3School </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section><h3>为什么margin和padding的包含块都是width呢？</h3></section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 邓杰仁/董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

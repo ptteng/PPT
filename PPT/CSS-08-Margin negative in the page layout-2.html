@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>margin负值在页面布局中有哪些应用？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【css-08】margin负值在页面布局中有哪些应用？</h3>
+            <h3>小课堂【成都-158期】</h3>
+            <p>分享人：先小波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p> CSS盒模型中，margin是我们老熟悉的一个属性了， 它的负值你用过吗？
+                	如何实现经典的圣杯布局？ 
+
+</p>
+                <div style="text-align:left">
+                    
+                </div>
+            </section>
+            <section>
+                <h4>2.知识剖析</h4>
+
+                <!--<div style="text-align:left;">-->
+
+                <p>1一个负margin应该是这样设置的：</p>
+                <pre>
+                        <code>#content {margin-left:-100px;}或者#content{margin-left:-100%;}</code>
+                    </pre>
+                <!--</div>-->
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
+                    <p>A、负margin是绝对标准的CSS
+                        W3C标准对于margin属性来说，负值是被允许的。
+                        B、不脱离文档流
+                        不使用float的话，负margin元素是不会破坏页面的文档流。所以如果你使用负margin上移一个元素，所有跟随的元素都会被上移。
+                        C、完全兼容
+                        所有现代浏览器都完全支持负margin（IE6在大多数情况下也支持）。
+                        D、浮动会影响负margin的使用
+                        负margin不是你每天都用的CSS属性，应用时应小心谨慎。
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
+                    <p>如果使用得当，负margin是非常强大的属性，以下是2种可以使用margin的场景。 </p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
+                    <p>1. 使用margin水平垂直居中</p>
+                    <p>
+                    	<pre>
+                    		<code>
+                    			body{margin:0;padding:0;}
+                    			#test{
+                    			    width:200px;
+                    			    height:200px;
+                    			    background:#F60;
+                    			    position:absolute;
+                    			    left:50%;
+                    			    top:50%;
+                    			    margin-left:-100px;
+                    			    margin-top:-100px;
+                    			}
+                    		</code>
+                    	</pre>
+                    </p>
+                  
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
+                    <p>2. 实现圣杯布局 </p>
+                   
+                </div>
+            </section>
+           
+        </section>
+        <section>
+            <section>
+                <div style="text-align:left">
+                    <h3>3.常见问题</h3>
+
+                    <p>margin和padding百分比的问题？</p>
+                    <p>假设一个块级包含容器，宽1000px，高600px，块级子元素定义 margin:10% 5%; 大家说说 margin 的 top, right, bottom, left 计算值最终是多少？</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>4.解决办法</h3>
+                    
+                    <p>事实告诉我们结果是 100px 50px 100px 50px，不论结果是否符合你的预期</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>5、编码实战</h3>
+
+                    <p>曾经有这样一个经典的需求：
+                        1）两栏抑或三栏布局，主体自适应宽度；
+                        2）一个或两个侧边栏固定宽度；
+                        3）主体部分xhtml结构在最前面（网速慢时可以优先显示，对SEO有利）
+                        4）自适应高度，且不影响等高；
+                        5）兼容IE6+，firefox，chrome，opera。
+                        于是乎margin负值便大放光彩，首先是国外出现的圣杯布局，掀起一股margin负值热潮</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>（1）、基本布局</h3>
+                    <img src="http://upload-images.jianshu.io/upload_images/1747023-4cc87f17580719ef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                         alt="多栏等高">
+  <pre>
+  	<code>
+  	<header><h4>Header内容区</h4></header>
+  	<div class="container">
+  	<div class="middle"><h4>中间弹性区</h4></div>
+  	<div class="left"><h4>左边栏</h4></div>
+  	<div class="right"><h4>右边栏</h4></div>
+  	</div>	
+  	</code>
+  </pre>
+
+
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>(2)、利用负边距让左右两个盒子浮动上去</h3>
+                    <img src="http://upload-images.jianshu.io/upload_images/1747023-030eb42e36e70d12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                         alt="产品列表">
+                    <p><pre>
+                    	<code>
+                    		.left {margin-left:-100%;}
+                    		.right {margin-left：-200px;}
+                    	</code>
+                    </pre></p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>（2.5）遇到的问题</h3>
+                    <img src="http://upload-images.jianshu.io/upload_images/1747023-8975c3d6a1a764a6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                         alt="产品列表">
+                   
+            
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>(3)、让中间自适应的盒子安全显示</h3>
+                    <img src="http://upload-images.jianshu.io/upload_images/1747023-cd2ffa0adf92a35d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                         alt="产品列表">
+                    <p><pre>
+                    	<code>
+                    		.container{ padding: 0  200px;}
+                    		.left{ position: relative; left: -200px;}
+                    		.right{position: relative;right: -200px;
+                    	</code>
+                    </pre></p>
+ 
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left">
+                    <h3>(4)、完成图</h3>
+                    <img src="http://upload-images.jianshu.io/upload_images/1747023-3b9fd9e26a247c87.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                         alt="产品列表">
+                </div>
+            </section>
+            <section>
+                <p>扩展思考</p>
+                <p>margin负值还能运用到哪些地方？</p>
+                <p>去除列表右边框和下边框</p>
+            </section>
+			<section>
+				<p>参考文献：</p>
+				<p>[1]http://blog.csdn.net/zhousning/article/details/40930097</p>
+				<p>[2]http://www.jianshu.com/p/f9bcddb0e8b4</p>
+				<p>[3]http://www.cnblogs.com/jscode/archive/2012/08/28/2660078.html</p>
+			</section>
+			<section>更多讨论</section>
+			<section>
+				<p>谢谢大家</p>
+				<p>制作人：庄引/先小波</p>
+			</section>
+           
+        
+</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        transition: 'convex',
+
+
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

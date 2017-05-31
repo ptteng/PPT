@@ -1,10 +1,10 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>什么是强制缓存和协商缓存？</title>
+    <title>葡萄藤PPT</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -16,26 +16,23 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement('link');
+        var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 </head>
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【js-11】什么是强制缓存和协商缓存？</h2>
-
-            <h3>小课堂【武汉第141期】</h3>
-
-            <p style="text-align: center;">分享人：李玺</p>
+            <h2 style="text-align: left;">【js-11】强制缓存和协商缓存</h2>
+            <p style="text-align: center;">分享人：董瑞</p>
         </section>
         <section>
             <p>目录</p>
@@ -53,7 +50,7 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
-                <p style="text-align: left">做前端有两个比较令人头痛的事，一个是命名，另一个就是缓存了。HTTP协议提供了非常强大的缓存机制， 了解这些缓存机制，对提高网站的性能非常有帮助。</p>
+                <p style="text-align: left">HTTP协议提供了非常强大的缓存机制， 了解这些缓存机制，对提高网站的性能非常有帮助。</p>
             </section>
         </section>
         <section>
@@ -99,7 +96,7 @@
             </section>
             <section>
                 <p style="text-align:left">ETag和Last-Modified的作用和用法，他们的区别：</p>
-                <p style="text-align:left">1.Etag要优于Last-Modified。Last-Modified的时间单位是秒，如果某个文件在1秒内改变了多次，那么他们的Last-Modified其实并没有体现出来修改，但是Etag每次都会改变确保了精度；</p>
+                <p style="text-align:left">1.在时间上，Etag要优于Last-Modified。Last-Modified的时间单位是秒，如果某个文件在1秒内改变了多次，那么他们的Last-Modified其实并没有体现出来修改，但是Etag每次都会改变确保了精度；</p>
                 <p style="text-align:left">2.在性能上，Etag要逊于Last-Modified，毕竟Last-Modified只需要记录时间，而Etag需要服务器通过算法来计算出一个hash值；</p>
                 <p style="text-align:left">3.在优先级上，服务器校验优先考虑Etag。</p>
             </section>
@@ -140,11 +137,11 @@
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p>修真院官网请求文件后面加上?ver=49</p>
+            <p>修真院官网请求文件后面加上?ver=53</p>
         </section>
         <section>
             <p style="text-align:left">
-                客户端会缓存这些css或js文件，因此每次升级了js或css文件后，改变版本号，客户端浏览器就会重新下载新的js或css文件 ，刷性缓存的作用。大家可能有时候发现修改了样式或者js，刷新的时候不变，就是客户端缓存了css或者js文件
+                客户端会缓存这些css或js文件，因此每次升级了js或css文件后，改变版本号，客户端浏览器就会重新下载新的js或css文件 。大家可能有时候发现修改了样式或者js，刷新的时候不变，就是客户端缓存了css或者js文件
             </p>
         </section>
         <section>
@@ -173,7 +170,7 @@
         <section>
             <h4>感谢观看</h4>
             <p>
-                <small>BY :李玺</small>
+                <small>BY :李玺 | 董瑞</small>
             </p>
         </section>
     </div>
@@ -183,9 +180,9 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
-
     // 以下为常见配置属性的默认值
     // {
+
     // 	controls: true, // 是否在右下角展示控制条
     // 	progress: true, // 是否显示演示的进度条
     // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
@@ -193,18 +190,23 @@
     // 	keyboard: true, // 是否启用键盘快捷键来导航
     // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
     // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            {src: '../plugin/markdown/marked.js'},
-            {src: '../plugin/markdown/markdown.js'},
-            {src: '../plugin/notes/notes.js', async: true},
-            {
-                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
         ]
     });
 </script>
