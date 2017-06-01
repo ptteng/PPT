@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>cookies，sessionStorage和localStorage的区别</h2>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：李仁</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <h3>Cookie</h3>
+            <p>Cookie 是小甜饼的意思。顾名思义，cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的。</p>
+        </section>
+        <section>
+            <h3>localStorage</h3>
+            <p>localStorage 是 HTML5 标准中新加入的技术，它并不是什么划时代的新东西。早在 IE 6 时代，就有一个叫 userData 的东西用于本地存储，而当时考虑到浏览器兼容性，更通用的方案是使用 Flash。而如今，localStorage 被大多数浏览器所支持</p>
+        </section>
+        <section>
+            <h3>sessionStorage</h3>
+            <p>sessionStorage 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。它只是可以将一部分数据在当前会话中保存下来，刷新页面数据依旧存在。但当页面关闭后，sessionStorage 中的数据就会被清空。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>三者有什么区别?</p>
+            <img src="aaa.png" alt="图呢？">
+        </section>
+        <section>
+            <h3>常见问题</h3>
+        <p>如何使用本地储存？</p>
+         </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等</p>
+        </section>
+        <section>
+            <p>setItem存储value</p>
+            <p>用途：将value存储到key字段</p>
+            <p>用法：.setItem( key, value)</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.setItem("key", "value"); 	localStorage.setItem("site", "js8.in");</p>
+        </section>
+        <section>
+            <p>getItem获取value</p>
+            <p>用途：获取指定key本地存储的值</p>
+            <p>用法：.getItem(key)</p>
+            <p>代码示例：</p>
+            <p>var value = sessionStorage.getItem("key"); 	 var site = localStorage.getItem("site");</p>
+        </section>
+        <section>
+            <p>removeItem删除key</p>
+            <p>用途：删除指定key本地存储的值</p>
+            <p>用法：.removeItem(key)</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.removeItem("key"); 	localStorage.removeItem("site");</p>
+        </section>
+        <section>
+            <p>clear清除所有的key/value</p>
+            <p>用途：清除所有的key/value</p>
+            <p>用法：.clear()</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.clear(); 	localStorage.clear();</p>
+        </section>
+        <section>
+            <h3>5.更多讨论</h3>
+            <p>localStorage和sessionStorage还有其他操作方法吗？</p>
+        </section>
+        <section>
+            <p>web Storage不但可以用自身的setItem,getItem等方便存取，也可以像普通对象一样用点(.)操作符，及[]的方式进行数据存储</p>
+            <p>储存数据</p>
+            <p>sessionStorage.day = days;</p>
+            <p>localStorage.day = days;</p>
+        </section>
+        <section>
+            <p>获取数据</p>
+            <p>var days = sessionStorage.day;</p>
+            <p>var days = localStorage.day;</p>
+        </section>
+        <section>
+            <p>还有一点需要注意的是：他们均只能存储字符串类型的对象</p>
+            <p>所以我们通常配合JSON使用</p>
+            <p>JSON.stringify();</p>
+            <p>JSON.parse();</p>
+        </section>
+         <section>
+             <h3>6.编码实战</h3>
+         </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>博客园中HTMl5的sessionStorage和localStorage<a href="http://www.cnblogs.com/yuzhongwusan/archive/2011/12/19/2293347.html">链接</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :|李仁 </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
