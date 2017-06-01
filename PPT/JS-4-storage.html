@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -31,8 +32,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>如何使用gulp</h2>
-            <p>分享人：李博宇</p>
+            <h2>cookies，sessionStorage和localStorage的区别</h2>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：李仁</p>
         </section>
         <section>
             <p>目录</p>
@@ -47,141 +49,90 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
+            <h3>Cookie</h3>
+            <p>Cookie 是小甜饼的意思。顾名思义，cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的。</p>
         </section>
         <section>
-            <p>
-                基于‘流’的自动化构建工具
-            </p>
-            <p>
-                1 易于使用
-            </p>
-            <p>
-                2 构建快速
-            </p>
-            <p>
-                3 插件高质
-            </p>
-            <p>
-                4 易于学习
-            </p>
+            <h3>localStorage</h3>
+            <p>localStorage 是 HTML5 标准中新加入的技术，它并不是什么划时代的新东西。早在 IE 6 时代，就有一个叫 userData 的东西用于本地存储，而当时考虑到浏览器兼容性，更通用的方案是使用 Flash。而如今，localStorage 被大多数浏览器所支持</p>
+        </section>
+        <section>
+            <h3>sessionStorage</h3>
+            <p>sessionStorage 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。它只是可以将一部分数据在当前会话中保存下来，刷新页面数据依旧存在。但当页面关闭后，sessionStorage 中的数据就会被清空。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
-        </section>
-        <section style="text-align: left;margin-left: 8em" >
-            <p>易于使用</p>
-            <p>1 代码优于配置</p>
-            <p>构建快速</p>
-            <p>2 减少频繁的 IO 操作</p>
-        </section>
-        <section style="text-align: left;margin-left: 8em">
-            <p>插件高质</p>
-            <p>3  严格的插件指南</p>
-            <p>易于学习</p>
-            <p>4 最少的 API</p>
-        </section>
-
-        <section>
-            <h3>3.常见问题</h3>
+            <p>三者有什么区别?</p>
+            <img src="aaa.png" alt="图呢？">
         </section>
         <section>
-            <p>什么是流？</p>
-            <p>为什么要使用gulp?</p>
-            <p>如何使用gulp</p>
-        </section>
+            <h3>常见问题</h3>
+        <p>如何使用本地储存？</p>
+         </section>
         <section>
             <h3>4.解决方案</h3>
+            <p>localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等</p>
         </section>
         <section>
-            <p>gulp的JS文件压缩</p>
+            <p>setItem存储value</p>
+            <p>用途：将value存储到key字段</p>
+            <p>用法：.setItem( key, value)</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.setItem("key", "value"); 	localStorage.setItem("site", "js8.in");</p>
         </section>
         <section>
-            <h3>5.编码实战</h3>
+            <p>getItem获取value</p>
+            <p>用途：获取指定key本地存储的值</p>
+            <p>用法：.getItem(key)</p>
+            <p>代码示例：</p>
+            <p>var value = sessionStorage.getItem("key"); 	 var site = localStorage.getItem("site");</p>
         </section>
         <section>
-            <pre>
-                <code>
-                 node -v
-                //查看node版本
-                 npm -v
-                //查看npm版本
-                 </code>
-            </pre>
+            <p>removeItem删除key</p>
+            <p>用途：删除指定key本地存储的值</p>
+            <p>用法：.removeItem(key)</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.removeItem("key"); 	localStorage.removeItem("site");</p>
         </section>
         <section>
-             <pre>
-                <code>
-                    npm install -g gulp
-                    //使用npm下载gulp
-                    gulp -v
-                    //查看gulp版本
-                    进入项目跟目录建立一个package.json
-                    //说明：package.json是基于nodejs项目必不可少的配置文件，
-                    它是存放在项目根目录的普通json文件；
-                </code>
-               </pre>
+            <p>clear清除所有的key/value</p>
+            <p>用途：清除所有的key/value</p>
+            <p>用法：.clear()</p>
+            <p>代码示例：</p>
+            <p>sessionStorage.clear(); 	localStorage.clear();</p>
         </section>
         <section>
-             <pre>
-            <code>
-                cnpm init -y
-                //自动设置配置文件
-
-                插件安装
-                //压缩代码   （gulp-uglify）
-                //npm install gulp-uglify --save-dev
-            </code>
-            </pre>
+            <h3>5.更多讨论</h3>
+            <p>localStorage和sessionStorage还有其他操作方法吗？</p>
         </section>
         <section>
-             <pre>
-            <code>
-                新建gulpfile.js
-                /**
-                * Created by Administrator on 17.2.15.
-                */
-                //引入组件
-                var gulp = require('gulp'),
-                uglify = require('gulp-uglify');//压缩文件插件
-
-                //创建任务
-                //gulp.task(name[, deps], fn)
-                //name 为任务名
-                //deps 是当前定义的任务需要依赖的其他任务
-                //fn 为任务函数
-                gulp.task('jsmin', function () {
-                gulp.src('*demo/js-10-gulp/demo2.js')
-                .pipe(uglify())
-                .pipe(gulp.dest('PPT/mo.js'));
-                });
-            </code>
-            </pre>
+            <p>web Storage不但可以用自身的setItem,getItem等方便存取，也可以像普通对象一样用点(.)操作符，及[]的方式进行数据存储</p>
+            <p>储存数据</p>
+            <p>sessionStorage.day = days;</p>
+            <p>localStorage.day = days;</p>
         </section>
         <section>
-            <h3>6.扩展思考</h3>
+            <p>获取数据</p>
+            <p>var days = sessionStorage.day;</p>
+            <p>var days = localStorage.day;</p>
         </section>
         <section>
-            <p >无</p>
+            <p>还有一点需要注意的是：他们均只能存储字符串类型的对象</p>
+            <p>所以我们通常配合JSON使用</p>
+            <p>JSON.stringify();</p>
+            <p>JSON.parse();</p>
         </section>
+         <section>
+             <h3>6.编码实战</h3>
+         </section>
         <section>
             <h3>7.参考文献</h3>
-        </section>
-        <section>
-            <p>参考一：<a href="http://www.gulpjs.com.cn/docs/api/" target="_blank">gulp API 文档</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/rion1234567/p/5556891.html" target="_blank">Gulp的安装配置过程和一些小坑</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/2050/p/4198792.html" target="_blank">前端构建工具gulpjs的使用介绍及技巧</a></p>
-            <p>参考一：<a href="http://www.ydcss.com/archives/18" target="_blank">gulp详细入门教程</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p>gulp和grunt的区别</p>
+            <p>博客园中HTMl5的sessionStorage和localStorage<a href="http://www.cnblogs.com/yuzhongwusan/archive/2011/12/19/2293347.html">链接</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 刘洪运 |李博宇</small></p>
+            <p><small>BY :|李仁 </small></p>
         </section>
 
     </div>
@@ -191,6 +142,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -209,6 +161,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -222,5 +175,3 @@
 </script>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He
