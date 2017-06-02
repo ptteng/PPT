@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        h3 {
+            font-family:'Microsoft Yahei';
+        }
+        p{
+            font-size: 30px!important;
+            letter-spacing: 2px;
+            line-height: 50px!important;
+            text-align: left;
+        }
+        B {
+            color: rgb(195,255,219);
+            font-size: 40px !important;
+            font-weight: 500 !important;
+        }
+        a {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-01】</h2>
+
+            <h3>主题：JS有哪些数据类型和常用方法？</h3>
+
+            <h3>小课堂【深圳01期】</h3>
+
+            分享人：陈中彬
+        </section>
+        <section>
+            目录
+
+            1.背景介绍
+
+            2.知识剖析
+
+            3.常见问题
+
+            4.解决方案
+
+            5.编码实战
+
+            6.扩展思考
+
+            7.参考文献
+
+            8.更多讨论
+        </section>
+        <!--1.背景介绍-->
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <div style="text-indent:2em">
+                    JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。
+                </div>
+            </section>
+        </section>
+        <!--2.知识剖析-->
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <!--2.1 JS有哪些数据类型？-->
+        <section>
+            <section><B>2.1 JS有哪些数据类型？</B></section>
+            <section>
+                <div style="text-indent:2em">
+                    JavaScript 语言的每一个值，都属于某一种数据类型。JavaScript 的数据类型，共有六种。分别是undefined、null、boolean、number、string、object（ES6新增第七种 Symbol 一种数据类型，它的实例是唯一且不可改变的。类型的值）
+                </div>
+            </section>
+            <section>
+                <div style="text-indent:2em">
+                    1）Undefined：Undefined类型只有一个值，即特殊值undefined。在使用var声明变量，但未对其加以初始化时，这个变量值就是undefined。
+                    2）Null：Null类型是第二个只有一个值的数据类型。其特殊值就是Null。从逻辑角度上看，null是一个空的对象指针。而这也正是使用typeof操作符检测null值，会返回“object”的原因
+                    3）Boolean：即布尔类型，该类型有两个值：true false。需要注意的是，Boolean类型的字面值true和false是区分大小写的。也就是说，True和False(以及其它的混合大小形式)都不是Boolean值，只是标识符。
+                </div>
+            </section>
+            <section>
+                <div style="text-indent:2em">
+                    4）Number：该类型的表示方法有两种形式，第一种是整数，第二种为浮点数。整数：可以通过十进制，八进制，十六进制的字面值来表示。浮点数：就是该数值中必须包含一个小数点，且小数点后必须有一位数字。
+                    5）String：String类型用于表示由零或多个16位的Unicode字符组成的字符序列，即字符串。至于用单引号，还是双引号，在js中还是没有差别的。记得成对出现。
+                    6）Object：Object数据类型，称为对象，是一组数据和功能（函数）的集合。可以用new操作符后跟要创建的对象类型的名称来创建。也可以用字面量表示法创建。在其中添加不同名（包含空字符串在内的任意字符串）的属性。
+                </div>
+            </section>
+            <section><B>2.2 JS数据类型的常用方法</B></section>
+            <section>
+                <div style="text-indent:2em">
+                    这里介绍6种：Boolean()、toString()、String()、isNaN()、Number()、parseInt()。
+                </div>
+            </section>
+            <section>
+                    <pre>
+    <code style="height: 400px;">
+    //Boolean() 用于将非逻辑值转换为逻辑值（true 或者 false）。
+    //检查逻辑对象是 true 还是 false。
+    var b1=new Boolean(0);
+    var b2=new Boolean(1);
+    var b3=new Boolean("");
+    var b4=new Boolean(null);
+    var b5=new Boolean(NaN);
+    var b6=new Boolean("false");
+
+    document.write("0 是逻辑的 "+ b1 +"<br />");//0 是逻辑的 false
+    document.write("1 是逻辑的 "+ b2 +"<br />");//1 是逻辑的 true
+    document.write("空字符串是逻辑的 "+ b3 + "<br />");//空字符串是逻辑的 false
+    document.write("null 是逻辑的 "+ b4+ "<br />");//null 是逻辑的 false
+    document.write("NaN 是逻辑的 "+ b5 +"<br />");//NaN 是逻辑的 false
+    document.write("字符串 'false' 是逻辑的 "+ b6 +"<br />");//字符串 'false' 是逻辑的 true
+
+    //toString() 可把一个逻辑值转换为字符串。
+    //把一个布尔值转换成字符串
+    var boo = new Boolean(true)
+    document.write(boo.toString()) //输出true
+
+    //String() 把对象的值转换为字符串。
+    var test1= new Boolean(1);
+    var test2= new Boolean(0);
+    var test3= new Boolean(true);
+    var test4= new Boolean(false);
+    var test5= new Date();
+    var test6= new String("999 888");
+    var test7=12345;
+
+    document.write(String(test1)+ "<br />");//true
+    document.write(String(test2)+ "<br />");//false
+    document.write(String(test3)+ "<br />");//true
+    document.write(String(test4)+ "<br />");//false
+    document.write(String(test5)+ "<br />");//Wed Oct 28 00:17:40 UTC+0800 2009
+    document.write(String(test6)+ "<br />");//999 888
+    document.write(String(test7)+ "<br />");//12345
+
+    //isNaN() 用于检查其参数是否是非数字值。
+    //检查数字是否非法：
+    document.write(isNaN(123));//false
+    document.write(isNaN(-1.23));//false
+    document.write(isNaN(5-2));//false
+    document.write(isNaN(0));//false
+    document.write(isNaN("Hello"));//true
+    document.write(isNaN("2005/12/12"));//true
+
+    //Number() 把对象的值转换为数字。
+    //我们将尝试把不同的对象转换为数字
+    var test1= new Boolean(true);
+    var test2= new Boolean(false);
+    var test3= new Date();
+    var test4= new String("999");
+    var test5= new String("999 888");
+
+    document.write(Number(test1)+ "<br />");//1
+    document.write(Number(test2)+ "<br />");//0
+    document.write(Number(test3)+ "<br />");//1256657776588
+    document.write(Number(test4)+ "<br />");//999
+    document.write(Number(test5)+ "<br />");//NaN
+
+    //parseInt() 可解析一个字符串，并返回一个整数。
+    //我们将使用 parseInt() 来解析不同的字符串：
+    parseInt("10");//返回 10
+    parseInt("19",10);//返回 19 (10+9)
+    parseInt("11",2);//返回 3 (2+1)
+    parseInt("17",8);//返回 15 (8+7)
+    parseInt("1f",16);//返回 31 (16+15)
+    parseInt("010");//未定：返回 10 或 8
+
+
+</code>
+                    </pre>
+            </section>
+        </section>
+        <!--3.常见问题-->
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <B>怎么样判断各种数据类型？</B>
+        </section>
+        <!--4.解决方案-->
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <div style="text-indent:2em">
+                    这里介绍2种方法：typeof、Object.prototype.toString
+                </div>
+            </section>
+            <section>
+                <section>
+                    <div style="text-indent:2em">
+                        1）typeof：用来判断各种数据类型,有两种写法：typeof   xxx   ,typeof(xxx)
+                        实例：<a href="../demo/JS-01-data types and common methods/demo2.html"  target="_blank">demo2</a>
+                    </div>
+                    <pre>
+                        <code>
+            var a = 100; console.log(typeof a); //输出 number
+            var a = 'hello'; console.log(typeof a); //输出 string
+            var a = true; console.log(typeof a); //输出 boolean
+            var a = undefined; console.log(typeof a); //输出 undefined
+
+            var a = null; console.log(typeof a); //输出 object
+            var a = new Object(); console.log(typeof a); //输出 object
+
+            var a = Object; console.log(typeof a) //输出 function
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <div style="text-indent:2em">
+                    总结：如果右边的是基本类型，则typeof会尝试得到最基本的类型，比如number,string等等，如果是函数名，那么则返回function，这里Object，Number，String，等等都可以看成函数名，如果右边是一个基本的对象，则返回object(返回的都是小写哦）。
+                    注：我们发现typeof null，结果返回了object，这是一个很早之前的BUG，一直沿用至今。
+                    试用范围：如果通过typeof来判断类型，适用于判定基本类型，或者判断是否为函数（function)。
+                </div>
+            </section>
+            <section>
+                <div style="text-indent:2em">
+                    2）Object.prototype.toString 
+                    实例：<a href="../demo/JS-01-data types and common methods/demo3.html"  target="_blank">demo3</a>
+                </div>
+                <pre>
+                        <code>
+            var getType=Object.prototype.toString;
+            getType.call('aaa');//输出 [object String]
+            getType.call(2222);//输出 [object Number]
+            getType.call(true);//输出 [object Boolean]
+            getType.call(undefined);//输出 [object Undefined]
+            getType.call(null);//输出 [object Null]
+            getType.call({});//输出 [object Object]
+            getType.call([]);//输出 [object Array]
+            getType.call(function(){});//输出 [object Function]
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <div style="text-indent:2em">
+                    需要注意的是，必须通过Object.prototype.toString.call来获取，而不能直接 new Date().toString(), 从原型链的角度讲，所有对象的原型链最终都指向了Object, 按照JS变量查找规则，其他对象应该也可以直接访问到Object的toString方法，而事实上，大部分的对象都实现了自身的toString方法，这样就可能会导致Object的toString被终止查找，因此要用call来强制执行Object的toString方法。
+                </div>
+            </section>
+        </section>
+        <!--5.编码实战-->
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <!--6.拓展思考-->
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+
+            <B>JavaScript 类型转换有哪些？以及如何转换？</B>
+
+            更多请参考：<a href="http://www.runoob.com/js/js-type-conversion.html"  target="_blank">http://www.runoob.com/js/js-type-conversion.html</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: center">w3c：<a href="http://www.w3school.com.cn/js/js_datatypes.asp"  target="_blank">JavaScript 数据类型</a>
+            <p style="text-align: center">脚本之家：<a href="http://www.jb51.net/article/91477.htm"  target="_blank">js 判断各种数据类型的方法</a>
+            <p style="text-align: center">阮一峰：<a href="http://javascript.ruanyifeng.com/#introduction"  target="_blank">Javascript标准参考</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <B>判断数据类型还有没有更多方法？</B>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看
+            <p style="text-align: center"><small>BY : 陈中彬</small>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

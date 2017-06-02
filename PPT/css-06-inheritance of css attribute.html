@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task1】</h2>
+            <h3>小课堂【郑州125期】</h3>
+            <h4>CSS中的关键字inherit、initial、unset？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在做任务的过程中，假如我们要在一个父级元素中的多个子集元素设置一些相同的属性，这些属性恰好也是父级也使用到的，那么我们就可以使用继承的方法来实现。有时候，我们并不想使用继承，那就重新设置，或者还原到其默认状态。这时候就用到了标题中提到的三个关键字。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>CSS关键字：inherit、initial、unset。</p>
+        </section>
+        <section>
+            <section>
+                2.1 inherit
+            </section>
+            <section>
+                <p>inherit 关键字指定一个属性应从父元素继承它的值。</p>
+                <p>inherit 关键字可用于任何 HTML 元素上的任何 CSS 属性</p>
+                <p>该属性值支持IE8及以上。</p>
+                <a href="http://www.runoob.com/cssref/css-inherit.html">demo</a>
+            </section>
+            <section>
+                2.2 initial
+            </section>
+            <section>
+                <p>initial 关键字用于设置 CSS 属性为它的默认值。</p>
+                <p>initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。</p>
+                <p>该属性值支持IE不支持。</p>
+                <a href="http://www.runoob.com/cssref/css-initial.html">demo</a>
+            </section>
+             <section>
+                2.3 unset
+            </section>
+            <section>
+                <p>unset 关键字，可以简单按其字面意思，理解为不设置。</p>
+                <p>unset 关键字既然是不设置，那属性值应该如何取值呢？</p>
+                <p>unset 是关键字 initial 和 inherit 的组合。也就是说，如果该属性是默认继承属性，该值等同于 inherit
+如果该属性是非继承属性，该值等同于 initial。</p>
+                <a href="https://codepen.io/Chokcoco/pen/eWJOqB">demo</a>
+            </section>
+            <section>
+                2.4 inherit、initial、unset 的区别
+            </section>
+            <section>
+                <p>这里我们引入一个张鑫旭大神的demo来直观地区分一下其中的区别。</p>
+                <a href="http://www.zhangxinxu.com/study/201603/css3-all.html">demo</a>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 哪些属性可以继承？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p所有元素可继承：visibility 和 cursor。</p>
+            <p>内联元素可继承：letter-spacing、word-spacing、<a href="http://www.w3school.com.cn/cssref/pr_text_white-space.asp">white-space</a>、line-height、color、font、 font-family、font-size、<a href="http://www.w3school.com.cn/cssref/pr_font_font-style.asp">font-style</a>、<a href="http://www.w3school.com.cn/cssref/pr_font_font-variant.asp">font-variant</a>、font-weight、<a href="http://www.w3school.com.cn/cssref/pr_text_text-decoration.asp">text-decoration</a>、<a href="http://www.w3school.com.cn/jsref/prop_style_texttransform.asp">text-transform</a>、<a href="http://www.w3school.com.cn/cssref/pr_text_direction.asp">direction</a>。</p>
+            <p>块状元素可继承：<a href="http://www.w3school.com.cn/cssref/pr_text_text-indent.asp">text-indent</a>和text-align。</p>
+            <p>列表元素可继承：list-style、list-style-type、list-style-position、list-style-image</p>
+            <p>表格元素可继承：<a href="http://www.w3school.com.cn/cssref/pr_tab_border-collapse.asp">border-collapse</a></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>参看前边引用的demo演示。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题:标题标签H系列和段落标签的initial效果？</p> 
+            <a href="demo/css-06-inheritance of css attributess/css-06-inheritance of css attribute.html">demo</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/coco1s/p/6733022.html" target="_blank">谈谈一些有趣的CSS题目（十五）-- 谈谈 CSS 关键字 initial、inherit 和 unset </a></p>
+            <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2016/03/know-about-css3-all/" target="_blank">张鑫旭大神的博客：简单了解CSS3的all属性</a></p>
+            <p>参考三：<a href="http://www.jianshu.com/p/e8e6f251aeee" target="_blank">【CSS】initial、inherit、unset、revert</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家有没有使用到过以上的关键字，遇到过哪些有意思的问题？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

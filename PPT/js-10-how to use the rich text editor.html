@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Javascript-task10】</h2>
+            <h3>小课堂 郑州</h3>
+            <h4>如何使用富文本编辑器？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>印象里最早接触富文本编辑器，是在高中，那时候QQ很火，经常发表一些日志，转发一些日志。那时候进行页面文章编辑的就是富文本编辑器。再后来逛贴吧，逛人人，也有用到了。但是当时不知道什么是富文本编辑器，也是接触前端以后，才把这个名词和以前的记忆联系起来，认识这个工具。接了下来，介绍一下富文本编辑器的使用。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1什么是富文本编辑器？
+            </section>
+            <section>
+                <p>富文本编辑器，Rich Text Editor, 简称 RTE, 是一种可内嵌于浏览器，所见即所得的文本编辑器。它提供类似于 Microsoft Word 的编辑功能，用于网站用户编辑文章或信息进行发表和展示。可以实现网页中文本的基本编辑功能，诸如：字体的大小，样式，颜色；文字对齐方式，创建表格数据，上传图片，视频，添加表情等需求。</p>
+                <img src="../img/js-10-how to use the rich text editor/2.png">
+            </section>
+            <section>
+                2.2 富文本编辑器的使用
+            </section>
+            <section>
+                <p>首先，我们要下载一个富文本编辑器，目前网上免费的编辑器很多，也有付费的，相对的功能也更多，更强大。我们以wangeditor为例进行介绍。<a href="http://www.wangeditor.com">wangEditor下载地址</a></p>
+                <p>
+                   下载完成以后，解压缩，找到该编辑器的demo，进行演示，看看所具有的功能是否符合自己的需求。
+                </p>
+                <p>
+                   然后，学习富文本编辑器的文档，自己按照文档编写demo，进行演示，检查是否正常运行。
+                </p>
+                <p>自己的demo没有问题后，再在任务或者项目中引入，调试，检查是否正常运行。</p>
+            </section>
+            <section>
+                2.3 对富文本编辑器的内容操作
+            </section>
+            <section>
+                <p>这里展示一个demo，需要在服务器中运行。本次在nginx环境下进行演示。</p>
+                <p>该富文本编辑器中的editor.$txt 是一个 jquery 封装的div元素，这个div元素就是编辑器的可编辑区域。因此，想要设置、获取、处理编辑器区域的内容，操作这个 editor.$txt 即可。由于它本身就是 jquery 封装的，因此支持 jquery 所有API。（以上内容摘自wangeditor文档）</p>
+                <p>如果要实时监控编辑器内容的变化，可通过 editor.onchange 来处理。注意，该操作必须在执行 editor.create() 方法之前。（以上内容摘自wangeditor文档）</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何获取内容并上传？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>步骤如下：</p>
+            <p>1. 使用刚刚介绍的内容操作的方法获取内容。</p>
+            <p>2. 将该值通过变量的方法传递给$http(angularJs)的data、$.ajax中的data或者原生js的xhr.send()的数据中。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>可以回顾前边演示的内容！</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题: 在寻找富文本编辑器的过程中，经常会遇到iframe和textarea这两个标签，这两个标签的区别？</p> 
+            <a href="http://www.runoob.com/tags/tag-textarea.html">菜鸟demo1</a>
+            <a href="http://www.runoob.com/tags/tag-iframe.html">菜鸟demo2</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.kancloud.cn/wangfupeng/wangeditor2/113961">wangEditor文档</a></p>
+            <p>参考二: 菜鸟教程</p>
+            <p>参考三：<a href="http://baike.baidu.com/link?url=KYRkoCwDXWp6xh43UjJLhmrTOOco9bjou4FvbGntT1Kt1DjdNuYoPwWg_duzyQ0Sy7zJcI8GpvUdN6PJRkiMAkglXXqUo_7I0qwgwoCayhmuoH6gcExliinKJO7UTymZwvCnMJHMAqEPmpyvcYQplq" target="_blank">百度百科</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家用过哪些富文本编辑器，遇到过什么坑，分享一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

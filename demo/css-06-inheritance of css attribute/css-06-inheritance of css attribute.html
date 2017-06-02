@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>demo</title>
+    <style type="text/css">
+        .initial > * {
+            all: initial;
+        }
+        .inherit > * {
+            all: inherit;
+        }
+        .unset > * {
+            all: unset;
+        }
+    </style>
+</head>
+<body>
+<article>
+  <h1>这是个demo</h1>
+  <h2>这是个demo</h2> 
+  <h3>这是个demo</h3>
+  <h4>这是个demo</h4>
+  <h5>这是个demo</h5>
+  <p>作为中国领先的综合性旅行服务公司，携程成功整合了高科技产业与传统旅行业，向超过1.4亿会员提供集无线应用、酒店预订、机票预订、旅游度假、商旅管理及旅游资讯在内的全方位旅行服务，被誉为互联网和传统旅游无缝结合的典范。</p>
+</article>
+all: <select id="select">
+    <option value="">请选择</option>
+    <option value="initial">initial</option>
+    <option value="inherit">inherit</option>
+    <option value="unset">unset</option>
+</select>
+<script type="text/javascript">
+    var article = document.querySelector('article');
+    if (article) {
+        document.querySelector('#select').addEventListener('change', function() {
+            article.className = this.value;    
+        });
+    }
+</script>
+</body>
+</html>    
