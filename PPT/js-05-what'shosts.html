@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>小课堂【郑州第128期】</h2>
+            <h3>为什么有时我们需要配置hosts来本地测试？和什么有关？若不配置hosts会影响什么？</h3>
+            <p>分享人：王相博</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="text-justify">最开始我们访问网站的时候，都是通过ip地址和端口号的方式来访问，但是ip地址是一串数字，记忆起来比较繁琐</p>
+            <p class="text-justify">所以，计算机协会推出了dns服务，dns可以根据我们输入的域名来去寻找对应的ip地址。</p>
+            <p class="text-justify">而hosts则相当于是我们本地的一个dns服务，在我们输入域名访问的时候，计算机会先到hosts文件夹里面去找，看有没有这个域名，如果没有，再去dns服务器上去找。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>地址各段内容的解析</h4>
+            <code>
+                http://localhost:1023
+            </code>
+            <ul>
+                <li>http:超文本传输协议</li>
+                <li>localhost：主机名，会通过hosts转换为127.0.0.1</li>
+                <li>1023：端口号</li>
+            </ul>
+        </section>
+        <section>
+            <h4>过程详解</h4>
+            <img src="../img/js-05-hosts/host图片.png" alt="#">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>配置hosts的好处</p>
+        </section>
+        <section>
+            <ul>
+                <li>加快域名解析</li>
+                <li>方便本地测试</li>
+                <li>方便局域网之间的访问</li>
+                <li>可以屏蔽特定的网站</li>
+            </ul>
+        </section>
+        <section>
+            <p>如何查找并修改hosts文件？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>hosts文件的路径：C:\Windows\System32\Drivers\Etc</p>
+            <p>可以直接用文本编辑器打开并修改</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>为什么我们访问网站的时候不需要指定端口号？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="http://baike.baidu.com/link?url=yVzT3nRzbWk8ifInFtD0qOOdS7_q7HpDbfqQVQVck5zgN3ymzNIrf_e4mg-pTrrZMi9UQ0pMzLPVdMZXFKneWq">百度百科：hosts</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="text-align: left">hosts还有什么作用？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY : 王相博|杨超|叶紫阳</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

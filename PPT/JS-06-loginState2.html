@@ -31,8 +31,8 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task10之gulp的基础使用方法】</h2>
-            <p>分享人：赵锐泉</p>
+            <h2>【js-06】登录之后，在其他页面怎么判断是否已经登录？</h2>
+            <p>分享人：杨超</p>
         </section>
         <section>
             <p>目录</p>
@@ -45,143 +45,88 @@
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
         </section>
+
         <section>
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>
-                基于‘流’的自动化构建工具
-            </p>
-            <p>
-               1 易于使用
-            </p>
-            <p>
-               2 构建快速
-            </p>
-            <p>
-               3 插件高质
-            </p>
-            <p>
-                4 易于学习
-            </p>
+            <p>登录功能，是前端经常要完成的需求之一。</p>
+            <p>但是如何进行登录判断？</p>
+            <p>需要用到什么样的属性或者方法？</p>
+            <p>有什么地方的细节需要注意？</p>
+            <p>以上这些，都是本次小课堂要讲解的重点！</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section style="text-align: left;margin-left: 8em" >
-            <p>易于使用</p>
-            <p>1 代码优于配置</p>
-            <p>构建快速</p>
-            <p>2 减少频繁的 IO 操作</p>
+        <section>
+            <p>Web Storage</p>
+            <p>WebStorage是HTML5中本地存储的解决方案之一</p>
+            <p>Web Storage实际上由两部分组成:sessionStorage与localStorage。</p>
         </section>
-        <section style="text-align: left;margin-left: 8em">
-            <p>插件高质</p>
-            <p>3  严格的插件指南</p>
-            <p>易于学习</p>
-            <p>4 最少的 API</p>
+        <section>
+            <p>localStorage和sessionStorage</p>
+            <p>localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</p>
+            <p>sessionStorage存储的数据只在会话期间有效，关闭浏览器则自动删除。</p>
+        </section>
+        <section>
+            <p>所以，在其它页面保持登录，可以在登录后往本地storage中存储一个关键字段（存储用户信息）,如 :login：true</p>
+            <p>在路由变化的时候，或者在页面跳转的时候，检测是该字段值是否正确，不正确则跳转登录页；</p>
+            <p>点击注销可以执行删除</p>
         </section>
 
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>什么是流？</p>
-            <p>为什么要使用gulp?</p>
-            <p>如何使用gulp</p>
+            <p>为什么不用cookie？</p>
         </section>
         <section>
-            <h3>4.解决方案</h3>
+            <h3>解决方案</h3>
         </section>
         <section>
-            <p>gulp的JS文件压缩</p>
+            <h3>cookie怎么了？</h3>
+            <p style="font-size: 35px;text-align: left">1. 数据大小：作为存储容器，cookie的大小限制在4KB左右。</p>
+            <p style="font-size: 35px;text-align: left">2. 安全性问题：由于在HTTP请求中的cookie是明文传递的（HTTPS不是），带来的安全性问题还是很大的。</p>
+            <p style="font-size: 35px;text-align: left">3. 网络负担：我们知道cookie会被附加在每个HTTP请求中，在HttpRequest和HttpResponse的header中都是要被传输的，
+                所以无形中增加了一些不必要的流量损失。</p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <code>
-                 node -v
-                //查看node版本
-                 npm -v
-                //查看npm版本
-                 </code>
-            </pre>
-        </section>
-        <section>
-             <pre>
-                <code>
-                    npm install -g gulp
-                    //使用npm下载gulp
-                    gulp -v
-                    //查看gulp版本
-                    进入项目跟目录建立一个package.json
-                    //说明：package.json是基于nodejs项目必不可少的配置文件，
-                    它是存放在项目根目录的普通json文件；
-                </code>
-               </pre>
-        </section>
-        <section>
-             <pre>
-            <code>
-                cnpm init -y
-                //自动设置配置文件
-
-                插件安装
-                //压缩代码   （gulp-uglify）
-                //npm install gulp-uglify --save-dev
-            </code>
-            </pre>
-        </section>
-        <section>
-             <pre>
-            <code>
-                新建gulpfile.js
-                /**
-                * Created by Administrator on 17.2.15.
-                */
-                //引入组件
-                var gulp = require('gulp'),
-                uglify = require('gulp-uglify');//压缩文件插件
-
-                //创建任务
-                //gulp.task(name[, deps], fn)
-                //name 为任务名
-                //deps 是当前定义的任务需要依赖的其他任务
-                //fn 为任务函数
-                gulp.task('jsmin', function () {
-                gulp.src('*demo/js-10-gulp/demo2.js')
-                .pipe(uglify())
-                .pipe(gulp.dest('PPT/mo.js'));
-                });
-            </code>
-            </pre>
+            <p style="font-size: 35px;text-align: left">storage、cookie的设置与获取</p>
+            <p>getItem(key):获取指定key本地存储的值</p>
+            <p>setItem(key,value)：将value存储到key字段</p>
+            <p>removeItem(key):删除指定key本地存储的值</p>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p >无</p>
+            <h4>Web Storage相对于cookie的优势</h4>
+            <p style="font-size: 35px;text-align: left">1.从容量上讲WebStorage一般浏览器提供5M的存储空间，用来存储视频、图片神马的不够，但对于绝大部分操作足矣</p>
+            <p style="font-size: 35px;text-align: left">2.安全性上WebStorage并不作为HTTP header发送的浏览器，所以相对安全。</p>
+            <p style="font-size: 35px;text-align: left">3.从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
-        <section>
-            <p>参考一：<a href="http://www.gulpjs.com.cn/docs/api/" target="_blank">gulp API 文档</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/rion1234567/p/5556891.html" target="_blank">Gulp的安装配置过程和一些小坑</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/2050/p/4198792.html" target="_blank">前端构建工具gulpjs的使用介绍及技巧</a></p>
-            <p>参考一：<a href="http://www.ydcss.com/archives/18" target="_blank">gulp详细入门教程</a></p>
+        <section style="margin-left: 18rem">
+            <p style="font-size: 35px;text-align: left">参考一：<a href="http://www.cnblogs.com/dolphinX/p/3348469.html">HTML5 WebStorage</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a href="http://baike.so.com/doc/4477793-4686855.html">360百科</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a href="http://blog.csdn.net/xtzz92/article/details/51668644">Nancy的专栏</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>gulp和grunt的区别</p>
+            <h3>还有其他的本地存储方案吗？各自的性能如何？</h3>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 赵锐泉</small></p>
+            <p><small>BY : 杨超|徐浩程|李绍博</small></p>
         </section>
 
     </div>
@@ -211,7 +156,9 @@
     // }
     // 初始化幻灯片
     Reveal.initialize({
-        history: true,
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
         dependencies: [
             { src: '../plugin/markdown/marked.js' },
             { src: '../plugin/markdown/markdown.js' },
@@ -220,7 +167,3 @@
         ]
     });
 </script>
-</body>
-</html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -31,8 +32,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>如何使用gulp</h2>
-            <p>分享人：李博宇</p>
+            <h2>【CSS-task5】	HTML中dl、ul、ol用哪个比较好？</h2>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：王振</p>
         </section>
         <section>
             <p>目录</p>
@@ -47,141 +49,83 @@
         </section>
         <section>
             <h3>1.背景介绍</h3>
-        </section>
-        <section>
-            <p>
-                基于‘流’的自动化构建工具
-            </p>
-            <p>
-                1 易于使用
-            </p>
-            <p>
-                2 构建快速
-            </p>
-            <p>
-                3 插件高质
-            </p>
-            <p>
-                4 易于学习
-            </p>
+            <p>ul，ol，dl标签是CSS网页布局中常用的列表元素。</p>
+            <p> 列表将具有相似特征或先后顺序的内容按照从上到下的顺序排列起来</p>
+
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section style="text-align: left;margin-left: 8em" >
-            <p>易于使用</p>
-            <p>1 代码优于配置</p>
-            <p>构建快速</p>
-            <p>2 减少频繁的 IO 操作</p>
-        </section>
-        <section style="text-align: left;margin-left: 8em">
-            <p>插件高质</p>
-            <p>3  严格的插件指南</p>
-            <p>易于学习</p>
-            <p>4 最少的 API</p>
-        </section>
-
         <section>
-            <h3>3.常见问题</h3>
+            <p>1.ul标签：无序列表始于 u l 标签。每个列表项始于l i标签，此列项目默认使用粗体圆点（典型的小黑圆圈）进行标记。 </p>
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
         </section>
         <section>
-            <p>什么是流？</p>
-            <p>为什么要使用gulp?</p>
-            <p>如何使用gulp</p>
+            <p>2.ol标签：有序列表始于ol标签，每个列表项始于li标签，列表项目使用数字进行标记。</p>
+            <ol>
+                <li>有序列表</li>
+                <li>有序列表</li>
+                <li>有序列表</li>
+                <li>有序列表</li>
+            </ol>
+        </section>
+            <section>
+            <p>3.dl标签：dl标签是定义列表，自定义列表不仅仅是一列项目，而是项目及其注释的组合。自定义列表以 dl 标签开始。每个自定义列表项以 dt 开始。每个自定义列表项的定义以 dd 开始。 </p>
+            <dl>
+                <dt>自定义列表</dt>
+                <dd>自定义列表项</dd>
+                <dd>自定义列表项</dd>
+                <dd>自定义列表项</dd>
+            </dl>
+        </section>
+        <section>
+            <p>注：以上所有的列表项内部都可以使用段落、换行符、图片、链接以及其他列表等。</p>
+        </section>
+        <section>
+            <h3>常见问题</h3>
+            <p>3.如何定义ul，ol，dl的样式？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
+             <p>在样式表中用list-style定义</p>
         </section>
         <section>
-            <p>gulp的JS文件压缩</p>
+            <p style="text-align: left;padding-top: 10%"> disc实心圆，默认值<br>
+                circle空心圆<br>
+                square实心方块<br>
+                decimal阿拉伯数字<br>
+                lower-roman小写罗马数字<br>
+                upper-roman大写罗马数字<br>
+                lower-alpha小写英文字母<br>
+                upper-alpha大写英文字母<br>
+                注：也可以去掉默认样式，设置list-style：none，然后根据自己需要添加不同的样式，比如添加特殊背景图片，使列表显示不一样的风格。
+            </p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <pre>
-                <code>
-                 node -v
-                //查看node版本
-                 npm -v
-                //查看npm版本
-                 </code>
-            </pre>
-        </section>
-        <section>
-             <pre>
-                <code>
-                    npm install -g gulp
-                    //使用npm下载gulp
-                    gulp -v
-                    //查看gulp版本
-                    进入项目跟目录建立一个package.json
-                    //说明：package.json是基于nodejs项目必不可少的配置文件，
-                    它是存放在项目根目录的普通json文件；
-                </code>
-               </pre>
-        </section>
-        <section>
-             <pre>
-            <code>
-                cnpm init -y
-                //自动设置配置文件
-
-                插件安装
-                //压缩代码   （gulp-uglify）
-                //npm install gulp-uglify --save-dev
-            </code>
-            </pre>
-        </section>
-        <section>
-             <pre>
-            <code>
-                新建gulpfile.js
-                /**
-                * Created by Administrator on 17.2.15.
-                */
-                //引入组件
-                var gulp = require('gulp'),
-                uglify = require('gulp-uglify');//压缩文件插件
-
-                //创建任务
-                //gulp.task(name[, deps], fn)
-                //name 为任务名
-                //deps 是当前定义的任务需要依赖的其他任务
-                //fn 为任务函数
-                gulp.task('jsmin', function () {
-                gulp.src('*demo/js-10-gulp/demo2.js')
-                .pipe(uglify())
-                .pipe(gulp.dest('PPT/mo.js'));
-                });
-            </code>
-            </pre>
-        </section>
-        <section>
-            <h3>6.扩展思考</h3>
-        </section>
-        <section>
-            <p >无</p>
+            <h3>6.更多讨论</h3>
+            <p>什么情况下用ul，什么情况下用ol？</p>
+            <p>ul经常用来实现轮播的小按钮，下拉菜单的各种要用来排列的列表，多个a标签排列等，实用范围非常广。
+                而ol因为它的有序属性，用的范围就比较小了，不是一定要用有序来排列的情况下，一般都是用ul</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.gulpjs.com.cn/docs/api/" target="_blank">gulp API 文档</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/rion1234567/p/5556891.html" target="_blank">Gulp的安装配置过程和一些小坑</a></p>
-            <p>参考一：<a href="http://www.cnblogs.com/2050/p/4198792.html" target="_blank">前端构建工具gulpjs的使用介绍及技巧</a></p>
-            <p>参考一：<a href="http://www.ydcss.com/archives/18" target="_blank">gulp详细入门教程</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p>gulp和grunt的区别</p>
+            <p>w3school</p>
+            <p>http://www.w3school.com.cn/tags/tag_ul.asp</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 刘洪运 |李博宇</small></p>
+            <p><small>BY : 王振 | somebody</small></p>
         </section>
 
     </div>
@@ -191,6 +135,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -209,6 +154,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -222,5 +168,3 @@
 </script>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He
