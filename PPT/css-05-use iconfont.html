@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task15】</h2>
+            <h3>小课堂【郑州第130期】</h3>
+            <h4>如何使用IconFont？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>最近在做的事情中，由于小图标比较多，查看了一下ui图，发现大部分也是用的矢量图，但是切出来添加到页面之后，发现显示效果并不理想，在正常的pc端还会有锯齿，图片有些失真。又因为小图标比较多，起初打算使用雪碧图进行处理，后来换了想法，找到了iconfont这样的一个图标库。也就是今天要跟大家分享的小课堂的内容。接下来详细介绍一下。</p>
+            <p><img src="../img/css-05-use iconfont/2.png"></p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1什么是iconfont？
+            </section>
+            <section>
+                <p>iconfont，字体图标。通过使用字体格式的矢量图标来代替以往的图片格式的小图标。字体是矢量化图形，它天生具有「分辨率无关」的特性，在任何分辨率下面，都可以做到完美缩放和扩大，不会像传统图片一样，增大到一定程度就会出现明显的锯齿或者变得模糊，影响展示效果。</p>
+                <p><img src="../img/css-05-use iconfont/1.png"></p>
+            </section>
+            <section>
+                2.2 如何使用icon font？
+            </section>
+            <section>
+                <p>提供icon font的网站有很多，例如<a href="http://www.iconfont.cn/">阿里巴巴矢量图标库</a>、<a href="http://fontello.com/">fontello</a><a href="http://icomoon.io/app/#/select">icomoon</a><a href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a><a href="http://glyphicons.com/">Glyphicon Halflings</a><a href="https://icons8.com/">Icons8</a></p>
+                <p>我们今天主要就国内使用最多的阿里巴巴矢量图标库进行介绍。</p>
+            </section>
+            <section>
+                <p>在阿里巴巴矢量图标库中，在web端有四种主要的引用方式，分别是icon单个使用、unicode引用、font-class引用、symbol引用。</p>
+                <p>icon单个使用，特点是适合用在图标引用特别少，以后也不需要特别维护的场景。可以自行选择下载不同的格式使用，包括png,ai,svg。</p>
+                <p>unicode引用，批量引用的方法之一，在网页端最原始的应用方式。兼容性最好，支持ie6+，及所有现代浏览器。支持按字体的方式去动态调整图标大小，颜色等等，由于是字体，所以不支持多色。只能使用平台里单色的图标，就算项目里有多色图标也会自动去色。</p>
+            </section>
+            <section>
+                <p>font-class引用，是unicode使用方式的一种变种，主要是解决unicode书写不直观，语意不明确的问题。支持ie8+，及所有现代浏览器。相比于unicode语意明确，书写更直观。可以很容易分辨这个icon是什么。使用class来定义图标，当要替换图标时，只需要修改class里面的unicode引用就可以，比较方便。多色图标还是不支持的。</p>
+                <p>symbol引用，是一种全新的使用方式，应该说这才是未来的主流，也是平台目前推荐的用法。支持多色图标了，不再受单色限制。支持 ie9+,及现代浏览器。浏览器渲染svg的性能一般，不如png。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何在项目中修改图标的大小和颜色？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>使用一个demo进行演示讲解：</p>
+            <p><a href="../demo/css-05-use iconfont/iconfontdemo.html">demo</a></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>参看以上demo中的演示，这里不再赘述！</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题: iconfont相比于各种图片格式的小图标的优点和弊端？</p> 
+            <p>优点：</p>
+            <p>1、由于是字体形式的，不是图片，减少了http的请求；</p>
+            <p>2、颜色可以修改，大小也可以设置；</p>
+            <p>3、可以像图片一样，进行一些视觉上的效果设置：阴影、旋转、透明度；</p>
+        </section>
+        <section>
+            <p>弊端：</p>
+            <p>1、Icon Font 作为一种字体，Icon 显示的大小和位置可能要受到font-size、line-height、word-spacing等等 CSS 属性的影响。 Icon 所在容器的 CSS 样式可能对 Icon 的位置产生影响，调整起来很不方便。</p>
+            <p>2、浏览器将其视为文字进行抗锯齿优化，有时得到的效果并没有想象中那么锐利。</p>
+            <p>3、为了实现最大程度的浏览器支持，可能要提供至少四种不同类型的字体文件。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.sucaijishi.com/2015/articles_1205/106.html" target="_blank">分享国内外免费开源的iconfont图标字库</a></p>
+            <p>参考二: <a href="http://www.cnblogs.com/zzuIvy/p/iconfont.html" target="_blank">iconfont-矢量图标字体的运用</a></p>
+            <p>参考三：<a href="http://www.jb51.net/css/365057.html" target="_blank">详解CSS中iconfont的使用</a></p>
+            <p>参考四：<a href="http://www.iconfont.cn" target="_blank">阿里巴巴矢量图标库</a></p> 
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家对iconfont还有哪些认识和体会？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
