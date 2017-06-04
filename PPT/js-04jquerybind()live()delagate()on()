@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>移动端有哪些常见的布局方式？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-4】</h2>
+            <h3>小课堂</h3>
+            <h6>jquery中的bind(),live(),delegate(),on()有什么区别？</h6>
+            <p>分享人：汤金鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            我见过很多开发者很困惑关于jQuery中的.bind(), .live(), .delegate() 和 .on() 的使用以及它们的不同。<br>
+
+            如果你没有耐心或者只想看到总结的话，请直接跳转到结尾。<br>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">.bind()</h3>
+        </section>
+        <section>
+            .bind()注册的事件直接指向相对应的DOM元素。这个方法从jQuery 1.0都有了，并且这个方法能<br>
+            够很酷的处理跨浏览器的事件绑定问题。对，这个方法用起来很<br>
+            方便。但是问题来了，就是各种各样的性能问题，如下：<br>
+        </section>
+        <section>
+            优点<br>
+            跨浏览器<br>
+            非常方便和快捷地绑定事件<br>
+            简单的实现方法（.click() .hover() ,etc…）让它用起来很方便<br>
+            对于简单的ID选择器来说，使用.bind()不仅方便，而且当触发这个事件的时候能够即时响应。<br>
+
+        </section>
+        <section>
+            缺点<br>
+            这个方法会附加相同的处理程序到每一个匹配到的元素上<br>
+            对于动态添加的属于匹配到的元素，不会被触发事件的<br>
+            性能问题，对于处理大量的匹配元素的时候<br>
+            如果在页面加载前要处理添加事件的话，会影响加载效率的<br>
+        </section>
+
+        <section>
+            .live()
+
+        </section>
+        <section>
+            .live()方法使用的是事件委托的概念来执行所谓的“神奇方法”。调用.live()方法看起来和调用.bind()方法一样，非常方便<br>
+            。但是他们下面的实现原理却不同。.live()方法附加事件处理程序到根一级的document上来关联匹配到的元素和事件信息。通<br>
+            过注册事件处理程序到document上来允许事件处理程序通过冒泡来绑定事件和匹配的元素（译者：注意，事件其实在document<br>
+            上的）。一旦事件冒泡到document的时候，jQuery判断选择器和事件处理程序是否有匹配到的，如果有的话，则<br>
+            调用对应的事件处理程序。很明显的会在用户使用的过程中有性能问题，但是在绑定注册的时候是非常的迅速的。<br>
+            因为更高版本的jQuery提供了更好的方法，没有.live()方法的缺点，所以.live()方法不再推荐使用
+            <a href="http://www.jquery123.com/live/">官网</a>
+        </section>
+        <section>
+            优点<br>
+
+            相对于.bind()的循环注册很多次事件处理程序来说，.live()只注册一次事件处理程序<br>
+            从.bind()更新到.live()的方法对程序更改很少，只需要替换“bind”为”live”<br>
+            对于动态添加的属于匹配到的元素，也能够“神奇”的执行处理程序<br>
+            在document元素没有全部加载完之前都能够几乎不花时间地绑定并触发事件<br>
+        </section>
+        <section>
+            缺点<br>
+
+            此方法在jQuery1.7的时候已经废除，你应该逐步从你的代码中替换掉该方法<br>
+            链接不能够正常的支持这个方法<br>
+            这个方法被抛弃是因为它只能够绑定事件处理程序到document上<br>
+            event.stopPropagation()不再有效了，因为事件已经委托到了document上了<br>
+            由于所有的选择器和事件信息都是附加到了document上的，所以一个确定的事件要触发，必须通过大量的存储信息来匹配到<br>
+            由于事件都是委托到了document上的，所以如果DOM太深的话，会影响到性能的<br>
+        </section>
+        <section>
+            .delegate()
+        </section>
+        <section>
+            .delegate()方法的行为有点类似.live()。但是不是把选择器和事件的信息附加到了document上，而是可以自行选择它要附加的DOM元素，<br>
+            这个技术可以让事件的委托正常工作。 如果你跳过了.live()的介绍和分析，请先跳回去读一下，接着我才能向你表述清楚下面的逻辑<br>
+            delegate()方法是非常强大的。上面的代码会将事件处理程序以及选择器和事件信息附加到”#members”上。这个当然要比.live()将这些<br>
+            内容附加到document上有效的多了。另外有很多其他的一年问题也通过.delegate()这个方法解决了。请参阅下列大纲的详细列表。<br>
+            <a href="http://www.jquery123.com/delegate/">官网</a>
+        </section>
+        <section>
+            优点<br>
+
+            可以自由选择附加的选择器和事件信息的位置<br>
+            链接也可以有效的支持了<br>
+            jQuery仍然需要循环访问选择器和事件数据来确定匹配，但是因为能够选择这些信息附加的位置，所以通过匹配的量小很多了<br>
+            由于这种技术使用了事件委托，所以它能很好的动态处理添加到DOM元素<br>
+            如果你委托事件到了document上，你也可以在document全部准备完之前绑定和调用<br>
+        </section>
+        <section>
+            缺点<br>
+
+            方法从.bind()更改到.delegate()比较麻烦<br>
+            如果把选择器和事件数据附加到了document上，仍然需要很多的匹配信息，但是相对于.live()的存储量要小很多了<br>
+        </section>
+        <section>
+            .on()
+        </section>
+        <section>
+            你知道jQuery中的.bind() .live 和 .delegate()方法都是通过同一个新方法实现的–.on() （在jQuery1.7后），
+        </section>
+        <section>
+            你会注意到，具体取决于我如何调用.on()方法来更改它的执行过程。你可以考虑“重载”.on()方法来具有不同的效果
+            。<br>这个方法给API带来了很多的一致性，并希望减少那些方法的混淆。
+        </section>
+        <section>
+            优点<br>
+
+            为各种事件绑定方法带来了统一性<br>
+            简化了jQuery代码库，并删除一个界别的重定向，因为通过调用这个方法实现了 .bind() .live() 和 .delegate()<br>
+            仍然提供了好用的.delegate()方法，但是也仍然对.bind()方法提供了支持<br>
+            缺点<br>
+
+            因为调用这个方法的各个形式，会带来一些混乱<br>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            使用.bind()方法是很浪费资源的
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            使用.bind()方法是很浪费资源的，因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序<br>
+            .delegate()方法“很划算”用来处理性能和响应动态添加元素的时候<br>
+            新的.on()方法主要是可以实现.bind() .live() 甚至 .delegate()的功能<br>
+            建议使用.on()方法，如果你的项目使用了1.7+的jQuery的话<br>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a
+                    href="http://blog.csdn.net/hi_kevin/article/details/37757657"
+                    target="_blank">
+                详解JQ的bind...</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            建议停止使用.live()方法，因为它已经被弃用了，由于他有很多的问题（？）<br>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :汤金鑫</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
