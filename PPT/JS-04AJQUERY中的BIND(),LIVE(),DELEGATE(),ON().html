@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>移动端有哪些常见的布局方式？</title>
+    <title>jquery中的bind(),live(),delegate(),on()有什么区别？</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -33,8 +33,8 @@
         <section>
             <h2>【js-4】</h2>
             <h3>小课堂</h3>
-            <h6>jquery中的bind(),live(),delegate(),on()有什么区别？</h6>
-            <p>分享人：汤金鑫</p>
+            <h4>jquery中的bind(),live(),delegate(),on()有什么区别？</h4>
+            <p>分享人：覃腾波</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,160 +50,138 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
-        <section>
-            我见过很多开发者很困惑关于jQuery中的.bind(), .live(), .delegate() 和 .on() 的使用以及它们的不同。<br>
-
-            如果你没有耐心或者只想看到总结的话，请直接跳转到结尾。<br>
+        <section style="text-align: justify">
+            jQuery是一个快速、简洁的JavaScript框架，是继Prototype之后又一个优秀的JavaScript代码库（或JavaScript框架）。因为任务中或者以后的项目中经常会有利用jquery操作dom元素的增删操作，所以会涉及到dom元素的绑定事件方式，简单的归纳一下bind()、live()、delegate()、on()的区别，以便以后查阅，也希望能帮到大家。<br>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <h3 style="letter-spacing: 5px">.bind()</h3>
+        <h3 style="letter-spacing: 5px">a.四种函数介绍</h3>
         </section>
         <section>
-            .bind()注册的事件直接指向相对应的DOM元素。这个方法从jQuery 1.0都有了，并且这个方法能<br>
-            够很酷的处理跨浏览器的事件绑定问题。对，这个方法用起来很<br>
-            方便。但是问题来了，就是各种各样的性能问题，如下：<br>
+        <h3>.bind()</h3>
+        <p style="text-align: justify">bind()函数用于为每个匹配元素的一个或多个事件绑定事件处理函数。执行bind()时，事件处理函数会绑定到每个匹配元素上。因此你使用bind()所有button元素绑定了click事件，是为当时文档中存在的每个button元素绑定click事件。如果之后你向文档中添加了新的button元素，绑定事件不会对其生效。如果你希望绑定事件对未来新添加的元素也生效，请使用on()、delegate()、live()等事件函数(尽量优先使用靠前的事件函数)。</p>
         </section>
         <section>
-            优点<br>
-            跨浏览器<br>
-            非常方便和快捷地绑定事件<br>
-            简单的实现方法（.click() .hover() ,etc…）让它用起来很方便<br>
-            对于简单的ID选择器来说，使用.bind()不仅方便，而且当触发这个事件的时候能够即时响应。<br>
+        <h3>.live()</h3>
+        <p style="text-align: justify">live()函数用于为指定元素的一个或多个事件绑定事件处理函数。此外，你还可以额外传递给事件处理函数一些所需的数据。即使是执行live()函数之后新添加的元素，只要它匹配当前jQuery对象的选择器，绑定的事件处理函数仍然对其有效。此外，可以为同一元素、同一事件类型绑定多个事件处理函数。触发事件时，jQuery会按照绑定的先后顺序依次执行绑定的事件处理函数。</p>
+        </section>
+        <section>
+        <h3>.delegate()</h3>
+        <p style="text-align: justify">delegate()函数用于为指定元素的一个或多个事件绑定事件处理函数。此外，你还可以额外传递给事件处理函数一些所需的数据。即使是执行delegate()函数之后新添加的元素，只要它符合条件，绑定的事件处理函数仍然对其有效。此外，该函数可以为同一元素、同一事件类型绑定多个事件处理函数。触发事件时，jQuery会按照绑定的先后顺序依次执行绑定的事件处理函数。</p>
+        </section>
+        <section>
+        <h3>.on()</h3>
+        <p style="text-align: justify">on()函数用于为指定元素的一个或多个事件绑定事件处理函数。此外，你还可以额外传递给事件处理函数一些所需的数据。从jQuery 1.7开始，on()函数提供了绑定事件处理程序所需的所有功能，用于统一取代以前的bind()、 delegate()、 live()等事件函数。on()支持直接在目标元素上绑定事件，也支持在目标元素的祖辈元素上委托绑定。在事件委托绑定模式下，即使是执行on()函数之后新添加的元素，只要它符合条件，绑定的事件处理函数也对其有效。此外，该函数可以为同一元素、同一事件类型绑定多个事件处理函数。触发事件时，jQuery会按照绑定的先后顺序依次执行绑定的事件处理函数。</p>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">b.归纳区别</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">1）用法不同</h3>
+        </section>
+        <section style="text-align: justify">
+            $(selector).bind(event, data, function)<br/>
+            <br/>
+            $(selector).live(event, data, function)<br/>//jquery1.9版本以下支持，jquery1.9及其以上版本删除了此方法，jquery1.9以上版本用on()方法来代替<br/><br/>
+            $(selector).delegate(childSelector, event, data, function)<br/>//jquery1.4.2及其以上版本；<br/><br/>
+            $(selector).on(event, childselector, data, function)<br/>//jquery1.7及其以上版本；jquery1.7版本出现之后用于替代bind()，live()绑定事件方式；
+        </section>
+        <section style="text-align: left">
+            event：必需项；添加到元素的一个或多个事件，例如 click,change等；<br/>
+            单事件处理：例如 $(selector).bind("click",data,function)；<br/>
+            多事件处理：1.利用空格分隔多事件，例如 $(selector).bind("click change mouseout",data,function);<br/>
+            2.利用大括号灵活定义多事件，例如 $(selector).bind({event1:function, event2:function, ...})　<br/>
+            3.空格相隔方式：绑定较为死板，不能给事件单独绑定函数,适合处理多个事件调用同一函数情况；<br/>
+              大括号替代方式：绑定较为灵活，可以给事件单独绑定函数；<br/>
+              data：可选；需要传递的参数；<br/>
+            function：必需；当绑定事件发生时，需要执行的函数；适用所有版本，但是根据官网解释，自从jquery1.7版本以后bind()函数推荐用on()来代替。
 
         </section>
         <section>
-            缺点<br>
-            这个方法会附加相同的处理程序到每一个匹配到的元素上<br>
-            对于动态添加的属于匹配到的元素，不会被触发事件的<br>
-            性能问题，对于处理大量的匹配元素的时候<br>
-            如果在页面加载前要处理添加事件的话，会影响加载效率的<br>
+           <h3 style="letter-spacing: 5px">2）绑定方式不同</h3>
         </section>
 
-        <section>
-            .live()
+        <section style="text-align: left">
+            .bind()是直接绑定在元素上；<br/><br/>
+            .live()则是通过冒泡的方式来绑定到元素上的；<br/><br/>
+            .delegate()则是更精确的小范围使用事件代理，性能优于.live()；<br/><br/>
+            .on()则是最新的1.7版本整合了之前的三种方式的新事件绑定机制；
 
         </section>
         <section>
-            .live()方法使用的是事件委托的概念来执行所谓的“神奇方法”。调用.live()方法看起来和调用.bind()方法一样，非常方便<br>
-            。但是他们下面的实现原理却不同。.live()方法附加事件处理程序到根一级的document上来关联匹配到的元素和事件信息。通<br>
-            过注册事件处理程序到document上来允许事件处理程序通过冒泡来绑定事件和匹配的元素（译者：注意，事件其实在document<br>
-            上的）。一旦事件冒泡到document的时候，jQuery判断选择器和事件处理程序是否有匹配到的，如果有的话，则<br>
-            调用对应的事件处理程序。很明显的会在用户使用的过程中有性能问题，但是在绑定注册的时候是非常的迅速的。<br>
-            因为更高版本的jQuery提供了更好的方法，没有.live()方法的缺点，所以.live()方法不再推荐使用
-            <a href="http://www.jquery123.com/live/">官网</a>
+            <h3 style="letter-spacing: 5px">3）对元素的支持度不同</h3>
+        </section>
+        <section style="text-align: left">
+        bind()函数只能针对已经存在的元素进行事件的设置；<br/>live(),on(),delegate()均支持未来新添加元素的事件设置。
         </section>
         <section>
-            优点<br>
+            <h3 style="letter-spacing: 5px">4）删除方法不同</h3>
+        </section>
+        <section style="text-align: left">
+            要删除通过bind()绑定的事件，请使用unbind()函数。<br/>
+            要删除通过live()绑定的事件，请使用die()函数。<br/>
+            要删除通过delegate()绑定的事件，请使用undelegate()函数。<br/>
+            要删除通过on()绑定的事件，请使用off()函数。如果要附加一个事件，只执行一次，然后删除自己，请使用one()函数。
 
-            相对于.bind()的循环注册很多次事件处理程序来说，.live()只注册一次事件处理程序<br>
-            从.bind()更新到.live()的方法对程序更改很少，只需要替换“bind”为”live”<br>
-            对于动态添加的属于匹配到的元素，也能够“神奇”的执行处理程序<br>
-            在document元素没有全部加载完之前都能够几乎不花时间地绑定并触发事件<br>
-        </section>
-        <section>
-            缺点<br>
-
-            此方法在jQuery1.7的时候已经废除，你应该逐步从你的代码中替换掉该方法<br>
-            链接不能够正常的支持这个方法<br>
-            这个方法被抛弃是因为它只能够绑定事件处理程序到document上<br>
-            event.stopPropagation()不再有效了，因为事件已经委托到了document上了<br>
-            由于所有的选择器和事件信息都是附加到了document上的，所以一个确定的事件要触发，必须通过大量的存储信息来匹配到<br>
-            由于事件都是委托到了document上的，所以如果DOM太深的话，会影响到性能的<br>
-        </section>
-        <section>
-            .delegate()
-        </section>
-        <section>
-            .delegate()方法的行为有点类似.live()。但是不是把选择器和事件的信息附加到了document上，而是可以自行选择它要附加的DOM元素，<br>
-            这个技术可以让事件的委托正常工作。 如果你跳过了.live()的介绍和分析，请先跳回去读一下，接着我才能向你表述清楚下面的逻辑<br>
-            delegate()方法是非常强大的。上面的代码会将事件处理程序以及选择器和事件信息附加到”#members”上。这个当然要比.live()将这些<br>
-            内容附加到document上有效的多了。另外有很多其他的一年问题也通过.delegate()这个方法解决了。请参阅下列大纲的详细列表。<br>
-            <a href="http://www.jquery123.com/delegate/">官网</a>
-        </section>
-        <section>
-            优点<br>
-
-            可以自由选择附加的选择器和事件信息的位置<br>
-            链接也可以有效的支持了<br>
-            jQuery仍然需要循环访问选择器和事件数据来确定匹配，但是因为能够选择这些信息附加的位置，所以通过匹配的量小很多了<br>
-            由于这种技术使用了事件委托，所以它能很好的动态处理添加到DOM元素<br>
-            如果你委托事件到了document上，你也可以在document全部准备完之前绑定和调用<br>
-        </section>
-        <section>
-            缺点<br>
-
-            方法从.bind()更改到.delegate()比较麻烦<br>
-            如果把选择器和事件数据附加到了document上，仍然需要很多的匹配信息，但是相对于.live()的存储量要小很多了<br>
-        </section>
-        <section>
-            .on()
-        </section>
-        <section>
-            你知道jQuery中的.bind() .live 和 .delegate()方法都是通过同一个新方法实现的–.on() （在jQuery1.7后），
-        </section>
-        <section>
-            你会注意到，具体取决于我如何调用.on()方法来更改它的执行过程。你可以考虑“重载”.on()方法来具有不同的效果
-            。<br>这个方法给API带来了很多的一致性，并希望减少那些方法的混淆。
-        </section>
-        <section>
-            优点<br>
-
-            为各种事件绑定方法带来了统一性<br>
-            简化了jQuery代码库，并删除一个界别的重定向，因为通过调用这个方法实现了 .bind() .live() 和 .delegate()<br>
-            仍然提供了好用的.delegate()方法，但是也仍然对.bind()方法提供了支持<br>
-            缺点<br>
-
-            因为调用这个方法的各个形式，会带来一些混乱<br>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            使用.bind()方法是很浪费资源的
+            如何去选择使用这四种函数？
 
         </section>
         <section>
             <h3>4.解决方案</h3>
         </section>
-        <section>
-            因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序
+        <section style="text-align: left">
+            使用.bind()方法是很浪费资源的，因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序。<br>
+            .delegate()方法“很划算”用来处理性能和响应动态添加元素的时候。<br>
+            新的.on()方法主要是可以实现.bind() .live() 甚至 .delegate()的功能，<br>
+            建议使用.on()方法，如果你的项目使用了1.7+的jQuery的话，因为它是整合前三种方法的新事件绑定机制。
         </section>
 
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <h3>6.扩展思考</h3>
+           <p><a href="http://runjs.cn/code/eza7hrou" style="color: #fff">四种函数Demo</a></p>
         </section>
         <section>
-            使用.bind()方法是很浪费资源的，因为它要匹配选择器中的每一项并且挨个设置相同的事件处理程序<br>
-            .delegate()方法“很划算”用来处理性能和响应动态添加元素的时候<br>
-            新的.on()方法主要是可以实现.bind() .live() 甚至 .delegate()的功能<br>
-            建议使用.on()方法，如果你的项目使用了1.7+的jQuery的话<br>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section style="text-align: justify">
+        <h4>什么是事件冒泡？</h4>
+        事件冒泡：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发，即子级元素先触发，父级元素后触发。假设一个元素div，它有一个下级元素p。
+        <code style="font-size: 50px"><pre>
+        &#60div&#62
+　　       &#60p&#62元素&#60/p&#62
+        &#60/div&#62</pre>
+        </code>
+        这两个元素都绑定了click事件，如果用户点击了p，它在div和p上都触发了click事件。p先触发，div后触发。这就叫做事件冒泡。
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a
-                    href="http://blog.csdn.net/hi_kevin/article/details/37757657"
-                    target="_blank">
-                详解JQ的bind...</a></p>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp参考一：<a
+                    href="http://www.365mini.com/page/jquery-delegate.htm" style="color: #fff">
+                CodePlayer</a></p>
+                <p>参考二：<a href="zhidao.baidu.com" style="color: #fff">百度知道</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            建议停止使用.live()方法，因为它已经被弃用了，由于他有很多的问题（？）<br>
+            这四个函数还有哪些用法？或者说还可以传入哪些参数？
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY :汤金鑫</small>
+                <small>BY :覃腾波 and 汤金鑫</small>
             </p>
         </section>
 
