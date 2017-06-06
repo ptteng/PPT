@@ -1,0 +1,217 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JavaScript对一个数组 filter、some、map、foreach的操作分别有什么作用？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JavaScript对一个数组 filter、some、map、foreach的操作分别有什么作用？</h2>
+
+            <h3>小课堂【深圳第4期】</h3>
+
+            <p style="text-align: center;">分享人：郭俊伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">使用JavaScript数组常常需要对数组进行遍历、迭代操作。而我们常用的就是for语句对数组进行迭代。然而在ECMAscript5已经为数组定义了5个迭代的方法，分别是：filter、some、map、foreach、every，下面我们讲讲它们的具体作用。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">
+                2.1、every()： 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true ;<br>
+                &nbsp;some()： 对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true;
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/some+every.png" alt="">
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/some+everyconsole.png" alt="">
+            <p style="text-align:left">
+                通过 demo，可以看出 every() ，在遍历数组项的时候，第一项的值就已经为false了，所以直接返回false不再继续执行后面的迭代；<br>
+                第二个，some() ，在遍历数组项的时候，当第一个满足函数体的项出现，就直接返回true，并且不再执行后面的迭代；
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                2.2、filter()： 对数组中的每一项运行给定函数，返回该函数会返回true 的项 组成的数组。
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/filter.png" alt="">
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/filterconsole.png" alt="">
+            <p style="text-align:left">
+                通过demo，可以看出 filter() 把原数组arr每一项返回为true的项，重新组成数组，并打印出该数组每个索引的值和数组长度；
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                map()：对数组中的每一项运行给定函数，返回 每次函数调用的结果 组成的数组 ;
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/map.png" alt="">
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/mapconsole.png" alt="">
+            <p style="text-align:left">
+                通过demo可以看出 map() 把原数组arr的每一项迭代返回的结果，重新组成数组，并打印出该数组每个索引的值和数组长度；
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                forEach()：对数组中的每一项运行给定函数，这个方法并没有返回值 ;
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/forEach.png" alt="">
+            <img src="../img/js-04-What%20role%20does%20JavaScript%20play%20in%20the%20operations%20of%20a%20group%20filter%20some%20map%20and%20foreach/forEachconsole.png" alt="">
+            <p style="text-align:left">
+                通过demo可以看出 forEach() ，只是对每个数组项运行指定的函数体，这个迭代方式并没有返回值；
+            </p>
+        </section>
+
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何判断两个数组中相同的项，然后将相同的部分或者不同的部分生成新的数组？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                举个例子 <br>
+                var num1 = [1,2,3,4,5,7];<br>
+
+                var num2 = [2,3,5];<br>
+
+                var nums = num1.filter(function(aaa){<br>
+
+                return num2.indexOf(aaa) >= 0;<br>
+
+                });<br>
+
+                console.log(nums);</p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>相对于for()，JS数组自定义的数组迭代方式有哪些好处？<br>
+                这里面参数item、index和array代表的是什么？</p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                答：在实现相同功能的前提下，后者除了能够节省代码量外，在实现某些功能上的流程中存在很多有意思的优势，比如forEach相比普通的for循环的优势在于对稀疏数组的处理，会跳过数组中的空位。for+i在性能测试上是优越于后者，但是前提是，array的length要事先计算出来，而在处理非常大量的数据时候，后者的优势就显而易见了。
+            </p>
+            <p style="text-align: left">
+                答：传入这些方法中的函数会接收三个参数，item表示遍历后的当前对象，里面的index代表当前循环到第几个索引，array代表数组对象本身；
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                JavaScript高级程序设计第三版 <br>
+
+                W3Cschool JavaScript教程 <br>
+
+                网络搜索引擎 <br>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>你还能想到几种办法来应用以上几个数组迭代方式？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>感谢大家的观看</small>
+                <small>BY : 郭俊伟</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
