@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>原型链和访问对象原型的方法</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        pre {
+            margin: 0 auto !important;
+        }
+
+        p {
+            text-align: left !important;
+            white-space: pre-line !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+    </style>
+
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】原型链和访问对象原型的方法</h2>
+            <h3>小课堂</h3>
+            <p class="text-center">分享人：王蒙</p>
+        </section>
+        <section>
+            <p class="text-center">目录</p>
+            <p class="text-center">1.背景介绍</p>
+            <p class="text-center">2.知识剖析</p>
+            <p class="text-center">3.常见问题</p>
+            <p class="text-center">4.解决方案</p>
+            <p class="text-center">5.编码实战</p>
+            <p class="text-center">6.扩展思考</p>
+            <p class="text-center">7.参考文献</p>
+            <p class="text-center">8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    JavaScript 中，万物皆对象。
+                    JavaScript根据"原型链"（prototype chain）模式，来实现继承。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>2.1 对象
+                    JavaScript中，对象是有区别的，分为普通对象和函数对象，Object ，Function 是JS自带的函数对象，function定义方式本质上还是new Function方式。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px"><code style="height: 100%">
+function  f1(){};
+var f2 = function(){};
+var f3 = new Function('str','console.log(str)');
+var o3 = new f1();
+var o1 = {};
+var o2 =new Object();
+
+console.log(typeof  Object);  //function
+console.log(typeof  Function);  //function
+console.log(typeof o1);   //object
+console.log(typeof o2);   //object
+console.log(typeof o3);   //object
+console.log(typeof  f1);   //function
+console.log(typeof  f2);   //function
+console.log(typeof  f3);   //function
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>2.2 对象继承
+                    Brendan Eich参考C++和Java，做了简化设计，将new命令引入JavaScript中，new后面跟对象的构造函数，用来创建对象。这样做有个缺点：无法共享方法和属性。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px"><code style="height: 100%">
+比如，在DOG对象的构造函数中，设置一个实例对象的共有属性species。
+　　function DOG(name){
+　　　　this.name = name;
+　　　　this.species = '犬科';
+　　}
+
+然后，生成两个实例对象：
+　　var dogA = new DOG('大毛');
+　　var dogB = new DOG('二毛');
+
+这两个对象的species属性是独立的，修改其中一个，不会影响到另一个。
+　　dogA.species = '猫科';
+　　alert(dogB.species); // 显示"犬科"，不受dogA的影响
+
+每一个实例对象，都有自己的属性和方法的副本。这不仅无法做到数据共享，也是极大的资源浪费。
+                    </code>
+            </pre>
+            </section>
+            <section>
+                <p>
+                    Brendan Eich决定为构造函数设置一个prototype属性。这个属性包含一个对象，所有实例对象需要共享的属性和方法，都放在这个对象里面；那些不需要共享的属性和方法，就放在构造函数里面。实例对象一旦创建，将自动引用prototype对象的属性和方法。也就是说，实例对象的属性和方法，分成两种，一种是本地的，另一种是引用的。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px"><code style="height: 100%">
+    function DOG(name){
+　　　　this.name = name;
+　　}
+　　DOG.prototype = { species : '犬科' };
+
+　　var dogA = new DOG('大毛');
+　　var dogB = new DOG('二毛');
+
+　　alert(dogA.species); // 犬科
+　　alert(dogB.species); // 犬科
+</code>
+            </pre>
+            </section>
+            <section>
+                <p>
+species属性放在prototype对象里，是两个实例对象共享的。只要修改了prototype对象，就会同时影响到两个实例对象。
+
+DOG.prototype.species = '猫科';
+
+alert(dogA.species); // 猫科
+alert(dogB.species); // 猫科
+
+由于所有的实例对象共享同一个prototype对象，那么从外界看起来，prototype对象就好像是实例对象的原型，而实例对象则好像"继承"了prototype对象一样。
+                </p>
+            </section>
+            <section>
+                <p>2.3原型prototype
+                    在JavaScript 中，每当定义一个对象（函数）时候，对象中都会包含一些预定义的属性。其中函数对象的一个属性就是原型对象 prototype。普通对象没有prototype,但有__proto__属性。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 200px"><code style="height: 100%">
+  function  f1(){};
+  console.log(f1. prototype) //f1 {}
+  console.log(typeof  f1. prototype) //object
+  console.log(typeof  Function. prototype) // function
+  console.log(typeof  Object. prototype) // object
+  console.log(typeof  Function. prototype. prototype) //undefined
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>2.4 原型链
+                    JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__的内置属性，用于指向创建它的函数对象的原型对象prototype。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px"><code style="height: 100%">
+  var person = function(name){
+   this.name = name
+  };
+  person.prototype.getName = function(){
+     return this.name; 
+  }
+  var zjh = new person(‘zhangjiahao’);
+  zjh.getName(); //zhangjiahao
+                    </code>
+            </pre>
+            </section>
+            <section>
+                <pre style="height: 400px"><code style="height: 100%">
+以上面的例子为例：
+
+  console.log(zjh.__proto__ === person.prototype) //true
+
+同样，person.prototype对象也有__proto__属性，它指向创建它的函数对象（Object）的prototype
+
+  console.log(person.prototype.__proto__ === Object.prototype) //true
+
+继续，Object.prototype对象也有__proto__属性，但它比较特殊，为null
+
+  console.log(Object.prototype.__proto__) //null
+
+我们把这个有__proto__串起来的直到Object.prototype.__proto__为null的链叫做原型链。
+            </code>
+            </pre>
+            </section>
+            <section>
+                <img src="../img/JS-04-About%20Prototype%20Chain/PrototypeChain.jpg" >
+            </section>
+            <section>
+                <p>2.5 constructor属性
+                    prototype对象有一个constructor属性，默认指向prototype对象所在的构造函数。
+                    由于constructor属性定义在prototype对象上面，意味着可以被所有实例对象继承。
+                    constructor属性的作用，是分辨原型对象到底属于哪个构造函数。</p>
+            </section>
+            <section>
+                <p>2.6 总结
+                    1.原型和原型链是JS实现继承的一种模型。
+                    2.原型链的形成是真正是靠__proto__ 而非prototype。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>访问对象原型的方法有哪些？</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方法</h3>
+            </section>
+            <section>
+                <p>获取实例对象obj的原型对象，有三种方法
+                    1. obj.__proto__
+                    2. obj.constructor.prototype
+                    3. Object.getPrototypeOf(obj)
+                    上面三种方法之中，前两种都不是很可靠。最新的ES6标准规定，__proto__属性只有浏览器才需要部署，其他环境可以不部署。而obj.constructor.prototype在手动改变原型对象时，可能会失效。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>
+                    1.Object.__proto__ === Function.prototype // true
+
+                    2.Function.__proto__ === Function.prototype // true
+
+                    3.Function.prototype.__proto__ === Object.prototype //true
+                </p>
+            </section>
+            <section>
+                <p>
+                    1.Object是函数对象，是通过new Function()创建，所以Object.__proto__指向Function.prototype。
+
+                    2.Function 也是对象函数，也是通过new Function()创建，所以Function.__proto__指向Function.prototype。
+
+                    3.Function.prototype是个函数对象，理论上其__proto__应该指向 Function.prototype，就是它自己，自己指向自己，没有意义。函数对象也是对象，给它设定根指向Object.prototype，Object.prototype.__proto__ === null，保证原型链能够正常结束。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html">阮一峰：Javascript继承机制的设计思想</a></p>
+            <p>参考二：<a href="http://zhangjiahao8961.iteye.com/blog/2070650">zhangjiahao8961：JavaScript原型及原型链详解 </a></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>javascript 对象的继承机制</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p class="text-center">感谢大家观看</p>
+            <p class="text-center">
+                <small>BY : 王蒙</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
