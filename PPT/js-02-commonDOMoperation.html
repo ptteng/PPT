@@ -1,0 +1,191 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-task02】</h2>
+            <h3>小课堂【深圳第6期】常见Dom操作有哪些？</h3>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>DOM（文档对象模型）是针对HTML 和XML 文档的一个API（应用程序编程接口）。DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>DOM是什么？</p>
+            <p>DOM 是 Document Object Model（文档对象模型）的缩写。DOM就是一个编程接口，就是一套API，是针对HTML文档、XML等文档的一套API。</p>
+            <p>DOM用来访问或操作HTML文档、XHTML文档、XML文档中的节点元素。JavaScript 可以通过 DOM 来访问和操作HTML文档所有的元素。JavaScript是一种脚本语言，DOM是用来获得和操作HTML文档的节点属性。JavaScript通常是通过DOM来获得和操作HTML属性的。</p>
+        </section>
+        <section>
+            <p>什么是DOM节点？</p>
+            <p>HTML 文档中的所有内容都是节点</p>
+            <p>整个文档是一个文档节点</p>
+            <p>每个 HTML 元素是元素节点</p>
+            <p>HTML 元素内的文本是文本节点</p>
+            <p>每个 HTML 属性是属性节点</p>
+            <p>注释是注释节点</p>
+        </section>
+
+         <section>
+            <h3>3.常见问题</h3>
+        <p>常见的DOM操作有哪些？</p>
+         </section>
+        <section>
+            <p>1.查找节点</p>
+            <p>2.新建节点</p>
+            <p>3.添加新节点</p>
+            <p>4.删除节点</p>
+            <p>5.修改节点</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>常用的查找节点的方法有：</p>
+            <p>document.getElementById('id属性值');返回拥有指定id的对象的引用</p>
+            <p>document.getElementsByClassName('class属性值');返回拥有指定class的对象集合</p>
+            <p>document.getElementsByTagName('标签名');返回拥有指定标签名的对象集合</p>
+        </section>
+        <section>
+            <p>常用的新建节点的方法有：</p>
+            <p>document.createElement('元素名');创建新的元素节点</p>
+            <p>document.createAttribute('属性名');创建新的属性节点</p>
+            <p>document.createTextNode('文本内容');创建新的文本节点</p>
+        </section>
+        <section>
+            <p>常用的添加新节点的方法有：</p>
+            <p>1.element.setAttribute( attributeName, attributeValue );给元素增加指定属性，并设定属性值</p>
+            <p>2.element.setAttributeNode( attributeName );给元素增加属性节点</p>
+            <p>3.如需向 HTML DOM 添加新元素，您必须首先创建该元素（元素节点），然后向一个已存在的元素追加该元素。</p>
+            <p>1)document.createTextNode('新增文本内容');创建新的文本节点</p>
+            <p>2)parent.appendChild( 创建的新节点 );向父节点的最后一个子节点后追加新节点 或 parent.insertBefore( newChild, existingChild );向父节点的某个特定子节点之前插入新节点</p>
+        </section>
+        <section>
+            <p>常用的删除节点的方法有：</p>
+            <p>parentNode.removeChild( existingChild );删除已有的子节点，返回值为删除节点</p>
+            <p>DOM 需要清楚你需要删除的元素，以及它的父元素。常用的解决方案：找到你希望删除的子元素，然后使用其 parentNode 属性来找到父元素：
+                var child=document.getElementById("p1");
+                child.parentNode.removeChild(child);
+            </p>
+        </section>
+        <section>
+            <p>常用的修改节点的方法有：</p>
+            <p>parentNode.replaceChild( newChild, existingChild );用新节点替换父节点中已有的子节点</p>
+            <p>element.setAttribute( attributeName, attributeValue );给元素增加指定属性，并设定属性值(若原元素已有该节点，此操作能达到修改该属性值的目的)</p>
+            <p>element.setAttributeNode( attributeName );给元素增加属性节点(若原元素已有该节点，此操作能达到修改该属性值的目的)</p>
+        </section>
+
+         <section>
+             <h3>5.编码实战</h3>
+         </section>
+        <section>
+            <h3>6.更多讨论</h3>
+            <p>常见的DOM - 事件又哪些？</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>onload 事件——用户进入</p>
+            <p>onunload 事件——用户离开</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
+            <p><a href="http://www.runoob.com/jsref/dom-obj-event.html">HTML DOM 事件</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.runoob.com/htmldom/htmldom-tutorial.html">菜鸟教程-HTML DOM 教程</a></p>
+            <p><a href="http://www.cnblogs.com/yinshuige/p/5812095.html">DOM常用操作 - GraceZy - 博客园</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :|黄源志 </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

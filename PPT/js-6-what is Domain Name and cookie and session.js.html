@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <style>
+        .a{
+            text-align: left;
+            text-indent: 2em;
+        }
+    </style>
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【js-6】域名，cookie是什么？有什么用处？cookie session的区别?cookie的失效期？</h3>
+            </br>
+            <h4>小课堂【武汉小课堂】</h4>
+            <p>分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <h3>1.什么是IP地址</h3>
+                <p class="a">互联网协议地址（英语：Internet Protocol Address，又译为网际协议地址），缩写为IP地址（英语：IP Address），是分配给网络上使用网际协议（英语：Internet Protocol, IP）的设备的数字标签。IP地址是唯一的。常见的IP地址分为IPv4与IPv6两大类。可以把IP地址类比为一个电话号码，180.149.132.47即是一个IP地址。</p>
+            </section>
+            <section>
+                <h3>2.什么是域名</h3>
+                <p class="a">网域名称（英语：Domain Name），简称域名、网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位（有时也指地理位置）。可以理解为联系人名称，如www.baidu.com就是一个域名。
+                </p>
+            </section>
+            <section>
+                <h3>3.什么是DNS</h3>
+                <p class="a">
+                    网域名称系统（DNS，Domain Name System）是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个
+                    布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP地址数串。DNS将域名转换为IP地址的过程叫解析，
+                    域名必须对应一个IP地址，而IP地址不一定只对应一个域名。可以把DNS理解为一个通讯录。
+                </p>
+            </section>
+            <section>
+                <h3>4.什么是cookie</h3>
+                <p class="a">Cookie 是一小段文本信息，以键值对的形式存储在客户端，伴随着用户请求和页面在 Web 服务器和浏览器之间传递。用户每次访问站点时，Web 应用程序都可以读取 Cookie 包含的信息。</p>
+            </section>
+            <section>
+                <h3>5.什么是session</h3>
+                <p class="a">
+                    Session指的是服务器端为客户端所开辟的存储空间，在其中保存的信息就是用于保持状态。<br>
+                    用户打开浏览器访问一起网站，浏览器的COOKIE中会生成sessionID，在每次请求时都会自动带上sessionID，然后服务器端根据sessionID找到对应的session值。<br>
+                    sessionID就相当于是一个钥匙，服务器上存session的地方相当于一个柜子，只能拿自己的钥匙开自己的柜子取自己的东西。<br>
+                </p>
+                <p class="a">  session一般存储用户相关的的信息，如用户登录状态、权限控制等，其他的信息也可存。另外就是无论你站点上的用户是否登录都会生成sessionID。</p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3 style="color: white">1.域名的用处</h3>
+                <ul>
+                    <li>比IP地址更容易记忆</li>
+                    <li>有利于SEO(搜索引擎优化)</li>
+                </ul>
+                </p>
+            </section>
+        </section>
+        <section>
+            <h4 >2.Cookie的用处</h4>
+            <p class="a">
+                Web应用程序是使用HTTP协议传输数据的。HTTP协议是无状态的协议。一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。即用户A购买了一件商品放入购物车内，当再次购买商品时服务器已经无法判断该购买行为是属于用户A的会话还是用户B的会话了。cookie可以解决此问题。
+            <p>
+            <ul>
+                <li>cookie可以跟踪会话，确认访问者的身份。</li>
+                <li>cookie可以将用户登录凭据保存在本地，cookie到期之前再访问该服务器就不必再登录了。</li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4 >1.cookie和session的的区别</h4>
+            <ul>
+                <li>cookie数据存放在客户的浏览器上，session数据放在服务器上。</li>
+                <li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session</li>
+                <li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE。</li>
+                <li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
+            </ul>
+            <p class="a">所以个人建议：将登陆信息等重要信息存放为SESSION其他信息如果需要保留，可以放在COOKIE中</p>
+
+        </section>
+        <section>
+            <h4 >2.cookie的有效期</h4>
+            <h5>分为会话cookie和持久cookie</h5>
+            <p class="a">
+                如果不设置过期时间，则表示这个cookie生命周期为浏览器会话期间，只要关闭浏览器窗口，cookie就消失了。这种生命期为浏览会话期的cookie被称为会话cookie。会话cookie一般不保存在硬盘上而是保存在内存里。
+                如果设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再次打开浏览器，这些cookie依然有效直到超过设定的过期时间。
+                存储在硬盘上的cookie可以在不同的浏览器进程间共享，比如两个IE窗口。而对于保存在内存的cookie，不同的浏览器有不同的处理方式。
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p class="a">在使用JavaScript存取 cookie 时，必须要使用Document对象的 cookie 属性；一行代码介绍如何创建和修改一个 cookie ：</p>
+            <pre>
+                <code>
+            　　document.cookie  = 'username=Darren'
+                </code>
+            </pre>
+            <p class="a">以上代码中'username'表示 cookie 名称，'Darren'表示这个名称对应的值。假设 cookie 名称并不存在，那么就是创建一个新的 cookie；如果存在就是修改了这个 cookie 名称对应的值。如果要多次创建 cookie ，重复使用这个方法即可。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <section >
+                <h4>cookie与本地存储之间的区别</h4>
+                <p class="a">1. cookie在浏览器和服务器间来回传递。而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。</p>
+            </section>
+            <section>
+                <p class="a">2. cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下。存储大小限制也不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。</p>
+            </section>
+            <section>
+                <p class="a">3. 数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一：<a href="http://bbs.csdn.net/topics/392015942">session到底是什么？</a></p>
+            <p class="a">参考二：<a href="http://blog.csdn.net/fangaoxin/article/details/6952954/">Cookie/Session机制详解</a></p>
+            <p class="a">参考三：<a href="https://zh.wikipedia.org/wiki/Cookie">wiki-Cookie</a></p>
+            <p class="a">参考四：<a href="http://www.cnblogs.com/shiyangxt/archive/2008/10/07/1305506.html">cookie 和session 的区别详解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+       <section>
+           <h4>IPv4和IPv6的区别</h4>
+           <p class="a">IPv4，由四组数字组合而成，由句点隔开（如207.44.214.87）；IPv6，由8组4位16进制数表示，用冒号隔开（如2001:0db8:0000:0042:0000:8a2e:0370:7334）。</p>
+       </section>
+            <section>
+                <h4 class="a">IPv6的优点：</h4>
+                <ul>
+                    <li>更大的地址空间。IPv4中规定IP地址长度为32，即有2^32-1个地址；而IPv6中IP地址的长度为128，即有2^128-1个地址。 </li>
+                    <li>更小的路由表。IPv6能使得路由器能在路由表中用一条记录(Entry)表示一片子网，提高了路由器转发数据包的速度。 </li>
+                    <li>增强的组播(Multicast)支持以及对流的支持(Flow-control)。这使得网络上的多媒体应用有了长足发展的机会。 </li>
+                    <li>加入了对自动配置(Auto-configuration)的支持。使得网络(尤其是局域网)的管理更加方便和快捷. </li>
+                    <li>更高的安全性.在使用IPv6网络中用户可以对网络层的数据进行加密并对IP报文进行校验。</li>
+                </ul>
+            </section>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :  任昊 | 刘洪运| 肖浩宇 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>

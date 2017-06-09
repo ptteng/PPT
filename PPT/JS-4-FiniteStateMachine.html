@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Javascript Finite State Machine</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        pre {
+            margin: 0 auto !important;
+        }
+
+        p {
+            text-align: left !important;
+            white-space: pre-line !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+    </style>
+
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】Javascript Finite State Machine</h2>
+            <h3>小课堂</h3>
+            <p class="text-center">分享人：王蒙</p>
+        </section>
+        <section>
+            <p class="text-center">目录</p>
+            <p class="text-center">1.背景介绍</p>
+            <p class="text-center">2.知识剖析</p>
+            <p class="text-center">3.常见问题</p>
+            <p class="text-center">4.解决方案</p>
+            <p class="text-center">5.编码实战</p>
+            <p class="text-center">6.扩展思考</p>
+            <p class="text-center">7.参考文献</p>
+            <p class="text-center">8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    有限状态机是一种模型，用来模拟事物。事物一般有以下特点：
+                    1）可以用状态来描述事物，并且任一时刻，事物总是处于一种状态；
+                    2）事物拥有的状态总数是有限的；
+                    3）通过触发事物的某些行为，可以导致事物从一种状态过渡到另一种状态；
+                    4）事物状态变化是有规则的，A状态可以变换到B，B可以变换到C，A却不一定能变换到C；
+                    5）同一种行为，可以将事物从多种状态变成同种状态，但是不能从同种状态变成多种状态。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>重点：状态和回调函数</p>
+            </section>
+            <section>
+                <p>2.1回调函数callback
+
+                    A callback is a function that is passed as an argument to another function and is executed after its parent function has completed.</p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+//异步请求回调函数
+$.get('ajax/test.html',function(data){
+    $('.result').html(data);
+});
+
+//点击事件回调函数
+$('#target').click(function(){
+    alert('Handle for .click() called.');
+});
+
+//数组中遍历每一项调用的回调函数
+this.tabs.forEach(function(tab,index){
+    if(tab.selected){
+        this.forcustab = this.tabs[index];
+    }
+}.bind(this));
+
+//同步回调
+function getNodes(params,callback){
+    var list = JSON.stringfy(params);
+    typeof(callback)==='function' && callback(list)
+}
+getNodes('[1,2,3]',function(nodes)){
+    //operations;
+};
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>2.2 状态机写法
+
+                   用对象来表现状态机模型：有一个菜单元素，鼠标悬停时，菜单显示；鼠标移开时，菜单隐藏。</p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+var fsm={
+       // 当前状态
+　　　　currentState: 'hide',
+　　　　// 绑定事件
+　　　　initialize: function() {
+　　　　　　var self = this;
+　　　　　　self.on("hover", self.transition);
+　　　　},
+　　　　// 状态转换
+　　　　transition: function(event){
+　　　　　　switch(this.currentState) {
+　　　　　　　　case "hide":
+　　　　　　　　　　this.currentState = 'show';
+　　　　　　　　　　doSomething();//在此调用回调函数
+　　　　　　　　　　break;
+　　　　　　　　case "show":
+　　　　　　　　　　this.currentState = 'hide';
+　　　　　　　　　　doSomething();//在此调用回调函数
+　　　　　　　　　　break;
+　　　　　　　　default:
+　　　　　　　　　　console.log('Invalid State!');
+　　　　　　　　　　break;
+　　　　　　}
+　　　　},
+       //callback
+       callback1:function(){...},
+       callback2:function(){...},
+       ...
+};
+//执行
+fsm.initialize();
+...
+//fsm.transition();
+...
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>2.3 Javascript Finite State Machine 函数库</p>
+                <P><a href="https://github.com/jakesgordon/javascript-state-machine" target="_blank">javascript-state-machine插件</a></P>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+//交通信号灯的模型描述：
+var fsm = StateMachine.create({
+　　　　initial: 'green',
+　　　　events: [
+　　　　　　{ name: 'warn',  from: 'green',  to: 'yellow' },
+　　　　　　{ name: 'stop', from: 'yellow', to: 'red' },
+　　　　　　{ name: 'ready',  from: 'red',    to: 'yellow' },
+　　　　　　{ name: 'go', from: 'yellow', to: 'green' }
+　　　　]，
+        callbacks:{
+            callback1:function(){...},
+            callback2:function(){...},
+            ...
+        },
+        error: function(){...}
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    initial选项用来表示fsm对象的初始状态，events选项用来描述fsm对象所有状态的变化规则，每一种变化规则对应一种行为。create方法为实例的每一种行为都添加了一个方法，调用这个方法就相当于触发对象的某种行为，当对象行为发生时，对象的状态就可以发生变化。如以上例子创建的实例将拥有如下行为方法：
+
+                    fsm.warn() : 调用该方法，实例状态将从'green'变为'yellow'
+                    fsm.stop() : 调用该方法，实例状态将从'yellow'变为'red'
+                    fsm.ready() : 调用该方法，实例状态将从'red'变为'yellow'
+                    fsm.go() : 调用该方法，实例状态将从'yellow'变为'green'
+                </p>
+            </section>
+            <section>
+                <p>
+                    这些方法是StateMachine根据create时配置的events规则自动创建的，方法名跟events规则里面的name属性对应，events规则里面有几个不重复的name，就会添加几个行为方法。同时为了方便使用，它还添加了如下成员来判断和控制实例的状态和行为：
+                    fsm.current - 返回实例当前的状态
+                    fsm.is(state) - 如果传入的state是实例当前状态就返回true
+                    fsm.can(eventName) - 如果传入的eventName在实例当前状态能够被触发就返回true
+                    fsm.cannot(eventName) - 如果传入的eventName在实例当前状态不能被触发就返回true
+                    fsm.transitions() - 以数组的形式返回实例当前状态下能够被触发的行为列表
+                </p>
+            </section>
+            <section>
+                <p>
+                    Javascript Finite State Machine允许为每个事件指定两个回调函数，以warn事件为例:
+
+                    onbeforewarn：在warn事件发生之前触发
+                    onafterwarn（可简写成onwarn） ：在warn事件发生之后触发。
+
+                    同时，它也允许为每个状态指定两个回调函数，以green状态为例：
+
+                    onleavegreen ：在离开green状态时触发
+                    onentergreen（可简写成ongreen） ：在进入green状态时触发。
+                </p>
+            </section>
+            <section>
+                <p>
+                    假定warn事件使得状态从green变为yellow，上面四类回调函数的发生顺序为：
+                    onbeforewarn → onleavegreen → onenteryellow → onafterwarn。
+
+                    还为所有的事件和状态指定通用的回调函数:
+                    onbeforeevent ：任一事件发生之前触发
+                    onleavestate ：离开任一状态时触发
+                    onenterstate ：进入任一状态时触发
+                    onafterevent ：任一事件结束后触发
+                </p>
+            </section>
+            <section>
+                <p>
+                    以{ name: 'warn',  from: 'green',  to: 'yellow' }为例，这八个回调函数顺序为：
+                    onbeforewarn
+                    onbeforeevent
+                    onleavegreen
+                    onleavestate
+                    onenteryellow
+                    onenterstate
+                    onafterwarn
+                    onafterevent
+                </p>
+            </section>
+            <section>
+                <h3>开关组件实例</h3>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+var Switch = function ($elem) {
+    var log = function (from, to) {
+            console.log('currentState is : ' + to + ((from || '') && (' , and previous state is : ' + from)));
+        },
+        fsm = StateMachine.create({
+                initial: 'off',
+                events: [
+                    {name: 'turnOn', from: 'off', to: 'on'},
+                    {name: 'turnOff', from: 'on', to: 'off'}
+                ],
+                callbacks: {
+                    onafterturnOn: function(event, from ,to){
+                        $elem.addClass('on');
+                        log(from, to);
+                    },
+                    onafterturnOff: function(event, from, to) {
+                        $elem.removeClass('on');
+                        log(from, to);
+                    }
+                }
+            }
+        );
+    $elem.on('click', function(){
+        fsm[fsm.transitions()[0]]();
+    });
+
+    log(undefined, fsm.current);
+
+    return fsm;
+};
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <P><a href="../demo/JS-4-Javascript%20Finite%20Status%20Machine/demo1.html" target="_blank">代码演示：demo1</a></P>
+            </section>
+            <section>
+                <p>
+                    在实际应用中，可能会碰到在行为触发期间，因为某些条件不允许需要取消该行为的情况，以免对象状态被错误的更改，javascript-state-machine提供了3种方式来取消行为：
+                    在onbeforeEVENT_NAME回调中return false可以取消当前触发的行为；
+                    在onleaveSTATE回调中return false也可以取消当前触发的行为；
+                    在onleaveSTATE回调中return StateMachine.ASYNC来执行异步的行为。
+                </p>
+            </section>
+            <section>
+                <p>
+                    前两种方法，在指定的回调中return false即可取消行为，第三个方法返回的仅是一个异步标识，是否取消行为需要在
+                    异步任务的回调里面进一步指定。这个方法适用于那些带有异步任务的行为，就是说在这种行为触发的时候，并不是同时就
+                    触发对象状态的改变，而是要等到异步任务执行完成之后再改变状态，
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>如何使用？</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方法</h3>
+            </section>
+            <section>
+                <p>将需求模型化，划分状态和相应的触发事件与动作，利用这些构建类，控制执行。</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <h3>信号灯实例</h3>
+            </section>
+            <section>
+                <P><a href="../demo/JS-4-Javascript%20Finite%20Status%20Machine/demo2.html" target="_blank">代码演示：demo2</a></P>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                <p>Defered对象和Promise对象都是通过状态来控制回调</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.ruanyifeng.com/blog/2013/09/finite-state_machine_for_javascript.html">阮一峰：Javascript与有限状态机</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/lyzg/p/5058335.html">流云诸葛：用有限状态机的思路定义组件</a></p>
+            <p>参考三：<a href="http://www.jianshu.com/p/6bc353e5f7a3">Cayley的世界：关于回调函数callback</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>自行创建状态模型类</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p class="text-center">感谢大家观看</p>
+            <p class="text-center">
+                <small>BY : 王蒙</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

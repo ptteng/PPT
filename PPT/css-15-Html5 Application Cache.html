@@ -1,0 +1,164 @@
+<!doctype html>
+<html manifest="index.minfast">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>小课堂</h2>
+            <h3>HTML5的离线储存怎么使用？</h3>
+            <p>分享人：王野</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p> HTML5提供了很多新的功能以及相应的接口，离线存储就是其中的一个，离线存储可以将站点的一些文件存储在本地，在没有网络的时候还是可以访问到以缓存的对应的站点页面，其中这些文件可以包括html，js，css，img等等文件，但其实即使在有网络的时候，浏览器也会优先使用已离线存储的文件，返回一个200（from cache）头。这跟HTTP的缓存使用策略是不同的。<br>
+                它是浏览器自己的一种机制，随着移动互联网时代的到来，网络可靠性降低，如果我们已经将需要的文件缓存下下来，一旦网络无法访问，也能继续访问。<br>
+                而且做好相应资源的缓存可以带来更好的用户体验，当用户使用自己的流量上网时，本地缓存不仅可以提高用户访问速度，而且大大节约用户的使用流量。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么是Manifest：<br>
+                其实Manifest是一个简单的 文本文件，它的扩展名是任意的，定义需要缓存的文件、资源，当第一次打开时，浏览器会自动缓存相应的资源。</p>
+                <p>
+                    Manifest 的特点：<br>
+                    离线浏览：即当网络断开时，可以继续访问你的页面。<br>
+                    访问速度快：将文件缓存到本地，不需每次都从网络上请求。<br>
+                    稳定性：做了Manifest缓存，遇到突发网络故障或者服务器故障，继续访问本地缓存。<br>
+                </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何为网页添加离线存储功能</p>
+        </section>
+        <section>
+            <h3>4.解决方法</h3>
+        </section>
+        <section>
+          <section>
+              <p>创建一个和html同名的manifest文件，比如页面为index.html，那么可以建一个index.manifest的文件，注意，这里的扩展名是任意的。然后给index.html的html标签添加如下属性即可：</p>
+              <img src="../img/css-01-box/app1.png" alt="">
+          </section>
+           <section>
+               <p>manifest 标签应该包含到你需要缓存资源的页面，当第一次打开该页面时，浏览器会解析该页面中的mainfest，并缓存里面列举的资源，同时该页面也会自动会被浏览器缓存，即使该页面没有在Manifest中列出。</p>
+               <p>接下来详细说说manifest的细节，一个典型的manifest文件代码结构像下面这样：</p>
+               <img src="../img/css-01-box/appcache.png" alt="">
+           </section>
+            <section>
+                <p>以#号开头的是注释，可以是版本号，时间戳等等。一般会在这写个版本号，用来在缓存的文件更新时，更改manifest的作用：浏览器已经缓存下来的缓存，只有当manifest文件发生了改变才会更新本地缓存，即使你的代码发生了更新，本地浏览器也是不知道的，所以每次发布代码时你可以更改下#后面的信息比如版本号或者时间，告诉浏览器相应的更新本地缓存。</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>5.实例</h3>
+        </section>
+        <section>
+            <section>
+                <h3>6.拓展思考</h3>
+                <p>如何更新缓存</p>
+            </section>
+            <section>
+                <ul>
+                    <li>更新manifest文件</li>
+                    <li>通过javascript操作</li>
+                    <li>清除浏览器缓存</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/PeterSpeaking/p/5912221.html" >H5离线缓存技术</a></p>
+           <p>参考二：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">火狐开发者论坛</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>还有实现离线储存的方式吗</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王野</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Cookie是什么?</h2>
+            <h3>小课堂【成都第130期】</h3>
+            <p>分享人：包鹏亮</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4 >什么是cookie</h4>
+            <quote style="text-align: left">Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端
+                上的数据（通常经过加密）。定义于 RFC2109 和 2965 中的都已废弃，最新取代的规范是 RFC6265 。  ---- 百度百科</quote>
+            <p style="text-align: left">在现代浏览器中其它类型的cookie有重要的作用。可能最重要的就是权限认证cookie，通过这种最常用的方法web服务器可以知道用户登录登出，以及正在登录的账号。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>cookie有哪几种</h3>
+                <ol>
+                    <li style="font-family: monospace;">Session Cookie</li>
+                    <li style="font-family: monospace;">Persistent Cookie</li>
+                    <li style="font-family: monospace;">Secure cookie</li>
+                    <li style="font-family: monospace;">HttpOnly Cookie</li>
+                    <li style="font-family: monospace;">3rd-party cookie</li>
+                    <li style="font-family: monospace;">Super Cookie</li>
+                    <li style="font-family: monospace;">Zombie Cookie</li>
+                </ol>
+            </section>
+            <section>
+                <p style="text-align: left">1. Session Cookie</p>
+                <p style="text-align: left">这个类型的cookie只在会话期间内有效，即当关闭浏览器的时候，它会被浏览器删除。设置session cookie的办法是：在创建cookie不设置Expires即可。</p>
+                <p style="text-align: left">2. Persistent Cookie</p>
+                <p style="text-align: left">持久型cookie顾名思义就是会长期在用户会话中生效。当你设置cookie的属性Max-Age为1个月的话，那么在这个月里每个相关URL的http请求中都会带有这个cookie。所以它可以记录很多用户初始化或自定义化的信息，比如什么时候第一次登录及弱登录态等。</p>
+            </section>
+            <section>
+                <p style="text-align: left">3. Secure cookie</p>
+                <p style="text-align: left">安全cookie是在https访问下的cookie形态，以确保cookie在从客户端传递到Server的过程中始终加密的。这样做大大的降低的cookie内容直接暴露在黑客面前及被盗取的概率。</p>
+                <p style="text-align: left">4. HttpOnly Cookie</p>
+                <p style="text-align: left">HttpOnly属性指示浏览器除了HTTP/HTTPS请求之外不要显示cookie。这意味着这种cookie不能在客户端通过脚本获取，因此也不会轻易的被跨站脚本窃取。目前主流的浏览器已经都支持了httponly cookie。1.IE5+ 2.Firefox 1.0+ 3.Opera 8.0+    </p>
+            </section>
+            <section>
+                <p style="text-align: left">5. 3rd-party cookie</p>
+                <p style="text-align: left">第一方cookie是cookie种植在浏览器地址栏的域名或子域名下的。第三方cookie则是种植在不同于浏览器地址栏的域名下。例如：用户访问a.com时，在ad.google.com设置了个cookie，在访问b.com的时候，也在ad.google.com设置了一个cookie。这种场景经常出现在google adsense之类的广告服务商。广告商就可以采集用户的一些习惯和访问历史。</p>
+            </section>
+            <section>
+                <p style="text-align: left">6. Super Cookie</p>
+                <p style="text-align: left">超级cookie是设置公共域名前缀上的cookie。通常a.b.com的cookie可以设置在a.b.com和b.com，而不允许设置在.com上，但是很不幸的是历史上一些老版本的浏览器因为对新增后缀过滤不足导致过超级cookie的产生。</p>
+                <p style="text-align: left">7. Zombie Cookie</p>
+                <p style="text-align: left">僵尸cookie是指那些删不掉的，删掉会自动重建的cookie。僵尸cookie是依赖于其他的本地存储方法，例如flash的share object,html5的local storages等，当用户删除cookie后，自动从其他本地存储里读取出cookie的备份，并重新种植。</p>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <h3> 1. Cookie的用处</h3>
+                <p style="text-align: left">1. 保存用户的登陆状态，用户进行登陆，成功登陆后，服务器生成特定的cookie返回给客户端，客户端下次访问该域名下的任何页面，将该cookie的信息发送给服务器，服务器经过检验，来判断用户是否登陆。</p>
+                <p style="text-align: left">2. 记录用户的行为，例如，我们在某宝上搜索商品之后，下次再进入某宝的时候就会发现一堆推荐的商品。</p>
+            </section>
+            <section>
+                <p style="text-align: left">3. 电商购物车的处理，因为在不同页面，点击添加到购物车，这个信息也是记到了cookie里面。结账的时候统一提交。现在不易都记录在服务器的session，不会存储在本地cookie。</p>
+                <p style="text-align: left">4. 定制页面。如果网站提供了换肤的功能，我们这个时候也是将他记录到cookie里面，以便下次访问还是保持原来的风格页面。</p>
+            </section>
+            <section>
+                <h3>2. cookie和session的的区别</h3>
+                <p style="text-align: left;font-size: 30px">具体来说cookie机制采用的是在客户端保持状态的方案，而session机制采用的是在服务器端保持状态的方案。同时我们也看到，由于才服务器端保持状态的方案在客户端也需要保存一个标识，所以session机制可能需要借助于cookie机制来达到保存标识的目的，但实际上还有其他选择。<br><br>HTML5标准（绝大多数现代浏览器在某种程度上都支持）包含了一个Javascript API叫做Web storage:local storage和session storage。local storage的行为和持久化cookie类似，而session storage的行为和session cookie的行为类似，也就是session storage是绑定在一个单独的tab或者窗口的生命周期中的（也就是页面session），而session cookie是针对整个浏览器的。</p>
+            </section>
+            <section>
+                <h3>3. 如何利用实现自动登录</h3>
+                <p style="text-align: left">当用户在某个网站注册后，就会收到一个惟一用户ID的cookie。客户后来重新连接时，这个用户ID会自动返回，服务器对它进行检查，确定它是否为注册用户且选择了自动登录，从而使用户务需给出明确的用户名和密码，就可以访问服务器上的资源。
+            </section>
+        </section>   
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <h3>js中cookie操作</h3>
+            </section>
+            <section>
+                <pre><code>
+    function saveCookie(){
+        var userName = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        console.log(userName+password);
+        var date = new Date();
+        //  date.setDate(date.getDate()+1);
+        date.setTime(date.getTime()+5000);
+        //将cookie保存5秒钟 
+        setCookie("userName",userName,date.toGMTString(),"","","");
+        setCookie("password",password,date.toGMTString(),"","","");
+        showCookie()
+    }
+            </code></pre>
+            </section>
+            <section>
+                <p>cookie保存格式和参数说明</p>
+                <pre><code>
+    //设置Cookie
+    /*
+     在cookie的名或值中不能使用分号（;）、逗号（,）、等号（=）以及空格。在cookie
+     的名中做到这点很容易，但要保存的值是不确定的。如何来存储这些值呢？方法是用
+     encodeURI()函数进行编码，它能将一些特殊符号使用十六进制表示，例如空格将会编码
+     为“20%”，从而可以存储于cookie值中，而且使用此种方案还可以避免中文乱码的出现。
+     在获取cookie时可以通过decodeURI()方法对cookie进行解码。
+
+     Cookie的保存格式为："name=value; expires=evalue; path=pvalue;"
+     每个属性之间通过：'分号+空格'(; )隔开;
+
+     参数值的意思:
+     name:表示要存入对象的名称，唯一必须设置（通常使用：user@domain格式命名，
+     user为本地用户，domain为所访问网站的域名）。value：表示要存入的值。
+     expires：该对象的有效时间（可选）（默认为当前浏览器会话有用，关闭浏览器就消失）;
+     path:指定该Cookie作用范围（可选）(即：在那些网页上可用)；
+     domain:设置web服务器的Cookie共享域（可选）(如：test*.com)表示域名为test*.com
+     的服务器共享该Cookie
+     secure：设置Cookie的传输过程是否加密（可选）（一般为SSH加密）
+     */
+            </code></pre>
+        </section>
+        <section>
+        <p>cookie操作：设置、读取、删除</p>
+            <pre><code>
+    function setCookie(name,value,expires,path,domain,secure){
+        document.cookie=name+"="+encodeURI(value)+
+            ((expires) ? "; expires=" + expires : "")+
+            ((path) ? "; path=" + path : "")+
+            ((domain) ? "; domain=" + domain : "")+
+            ((secure) ? "; secure=" + secure : "");
+    }
+    /**
+     获取浏览器中的Cookie时，只能够一次获取所有的cookie值，而不能指定cookie名称来获得
+     指定的值，这正是处理cookie值最麻 烦的一部分。
+     用户必须自己分析这个字符串，来获取指定的cookie值
+     **/
+    //获取浏览器中的Cookie
+    function getCookie(cName){
+        var cookieString = decodeURI(document.cookie);
+        var cookieArray = cookieString.split("; ");
+        console.log(cookieArray.length);
+        for(var i = 0; i < cookieArray.length; i++){
+            var cookieNum = cookieArray[i].split("=");
+            console.log(cookieNum.toString());
+            var cookieName = cookieNum[0];
+            var cookieValue = cookieNum[1];
+
+            if(cookieName == cName){
+                return cookieValue;
+            }
+        }
+        return false;
+    }
+    function showCookie(){
+        var txt =  document.getElementById("txt_showCookie");
+        txt.value = "用户名："+getCookie("userName")+"\n密码："+getCookie("password");
+    }
+
+    //删除Cookie就是简单的将cookie的expires属性设置为一个过去的时间即可。
+    function deleteCookie(){
+        var date = new Date();
+        date.setTime(date.getTime()-1000);
+        setCookie("userName",password,date.toGMTString(),"","","");
+        setCookie("password",password,date.toGMTString(),"","","");
+        showCookie();
+    }
+            </code></pre>
+        </section>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <section>
+                <h4>cookies的缺点有哪些</h4>
+                <p style="text-align: left">除了隐私问题，cookie还有其他的技术缺陷。特别是它不能总是精确的标识用户，它可以被用来进行安全攻击，而且还与REST软件设计风格相悖。</p>
+            </section>
+            <section>
+                <p style="text-align: left">1. 错误识别</p>
+                <p style="text-align: left">如果一台电脑上使用多了浏览器，那么每个浏览器都会给cookie一个单独的存储空间。因此cookie不是标识一个人，而是作为一个用户账号，一台电脑，一个浏览器之间的连接。因此任何使用多个账号多台电脑以及多个浏览器的用户都会有多个cookie。同样的，cookie不能区分共享一个账号一台电脑一个浏览器的多个用户。
+                </p>
+
+            </section>
+            <section>
+                <p style="text-align: left">2. 客户端和服务端不一致的状态</p>
+                <p style="text-align: left;font-size: 30px">使用cookie可能在客户端状态和存储在cookie中的状态之间产生不一致性。如果用户取得了一个cookie，然后点击了浏览器的返回按钮，然后浏览器的状态通常不会和之前获取的状态一样了。例如，如果一个网上商城的购物车用cookie来实现的，在用户回退浏览器历史时，购物车里面的内容可能不会改变，如果用户按了一个按钮往购物车里面添加了一个物品，然后点击了浏览器的返回按钮，这个新增的物品还会保留在购物车中。这可能不是用户的意图，用户可能只想撤销之前选择新物品的操作。这可能导致不可靠、混乱和错误。所以web开发者应该注意这个问题，想到方法处理类似的问题。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="https://www.zhihu.com/question/31079651">cookie和session的区别和各自的应用场景</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.jianshu.com/p/1e28fe8125dc">全面解读HTTP Cookie</a></p>
+            <p style="text-align: left">参考三：<a href="http://www.jianshu.com/p/2ceeaef92f20">前端必备HTTP技能之cookie技术详解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+        <section>
+            <p>cookie与本地存储之间的区别
+            </p>
+            <p style="text-align: left">1. cookie在浏览器和服务器间来回传递。而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。</p>
+        </section>
+            <section>
+                <p style="text-align: left">2. cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下。存储大小限制也不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。</p>
+            </section>
+            <section>
+                <p style="text-align: left">3. 数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。</p>
+            </section>
+            <section>
+                <p style="text-align: left">4. 作用域不同，sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。Web Storage 的 api 接口使用更方便。</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 包鹏亮 | 任昊 </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'fast',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+
+
+</script>
+
