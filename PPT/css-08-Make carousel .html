@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+
+    <!--<link rel="stylesheet" href="../css/reveal/reveal.css">-->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-task8】如何实现轮播图？</h2>
+            <h3>小课堂【北京第134期】</h3>
+            <p>分享人:王振</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>轮播图，是由网页banner进化而来，通常放在屏幕最显眼的位置，以大图显示。随着网页中需要推广的信息越来越多，为了相互妥协，轮播图应运而生。简而言之，轮播图就是可以滚动播放的文字和图片。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>示例：<a href="http://www.jnshu.com/home" target="_blank">葡萄藤官网首页</a></p>
+            <p>由例可见，轮播图一般由logo图片，底部指示器和左右切换按键组成。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何制作轮播图</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>css阶段所需要理解的两种实现方法：css实现轮播图和bootstrap轮播图插件</p>
+        </section>
+        <section>
+            <h3>css轮播</h3>
+            <p>轮播图主要思路：将n张图片左浮动横向并排放入一个div容器（#photos）内，图片设置统一尺寸，div宽度设置n个图片的总尺寸，然后放入相框容器div（#frame），相框设置1个图片的大小并设置溢出隐藏，以保证正确显示一个照片。然后使用CSS3动画，通过对photos进行位移，从而达到显示不同的图片，每次偏移一个图片的宽度，即可显示下一张图片。</p>
+            <a href="../img/css-08-make carousel/demo.html" target="_blank">简单轮播图demo</a>
+        </section>
+        <section>
+            <h3></h3>
+            <a href="http://www.runoob.com/try/try.php?filename=bootstrap3-plugin-carousal-method" target="_blank">bootstrap插件轮播</a>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">一.css如何实现单击切换图片</p>
+            <a class="fragment" href="http://59.110.174.154/task/task15/html/components/carousel.html" class="fragment" target="_blank">大神的css轮播图demo</a>
+            <p class="fragment">二.两种实现方式的优缺点</p>
+            <p class="fragment">css轮播，适应性更广，可以在用户禁用js后仍然轮播，平稳退化，但实现完整效果时代码较为复杂。</p>
+            <p class="fragment">bootstrap轮播，代码简洁，复用性高。</p>
+        </section>
+        <section>
+            <p>三.如何设计轮播图才能吸引到用户</p>
+            <p>1.让轮播图看起来像是站点的一部分</p>
+            <p>2.自动轮播缺点:切换频繁，切换等待时间过长。在手机上不要用自动轮播，通过良好的设计让用户手动切换。</p>
+            <p>3.给予清晰的操作反馈和内容预期</p>
+            <p>4.用轻量的图片，复杂的大图导致网站性能低，加载速度慢</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section >
+            <p>参考一：<a href="http://www.cnblogs.com/amy-1205/p/5796446.html" target="_blank">css3实现简单轮播图</a></p>
+            <p>参考二：<a href="http://www.runoob.com/try/try.php?filename=bootstrap3-plugin-carousal-method" target="_blank">bootstrap组件-carousel</a></p>
+            <p>参考三：<a href="https://isux.tencent.com/carousels.html" target="_blank">你还在用轮播图吗</a></p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王振|肖浩宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

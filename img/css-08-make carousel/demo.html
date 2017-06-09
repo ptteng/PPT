@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>demo</title>
+	<style type="text/css">
+		#frame {/*----------图片轮播相框容器----------*/
+			position: relative; /*--绝对定位，方便子元素的定位*/
+			width: 100%;
+			height: 30vw;
+			overflow: hidden;/*--相框作用，只显示一个图片---*/
+		}
+		#photos img {
+			float: left;
+			width: 25%;
+			/*四张图片，每张25%*/
+		    height: 100%;
+		}
+		#photos {/*---设置总的图片宽度--通过位移来达到轮播效果----*/
+			position: absolute;
+			width: calc(100% * 4);/*---修改图片数量的话需要修改下面的动画参数*/
+			overflow: hidden;
+		}
+		.play{
+			animation: ma 10s ease-out infinite alternate;/*1.选择器的 keyframe 名称2.完成动画的时间3.动画的速度曲线：动画以低速结束。4.播放次数：无限播放5.是否反向播放：动画轮流反向播放。*/
+		}
+		@keyframes ma {
+			0%,25% { margin-left: 0;}
+			30%,50% { margin-left: -100%;}
+			55%,75% { margin-left: -200%;}
+			80%,100% { margin-left: -300%;}
+		}
+		/*通过 @keyframes 规则，您能够创建动画。
+		创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。
+		在动画过程中，您能够多次改变这套 CSS 样式。
+		以百分比来规定改变发生的时间,0% 是动画的开始时间，100% 动画的结束时间。
+		注释：请使用动画属性来控制动画的外观，同时将动画与选择器绑定。*/
+	</style>
+</head>
+<body>
+	<div id="frame" >
+		<div id="photos" class="play">
+			<img src="bg1.png" >
+			<img src="bg2.png" >
+			<img src="bg3.png" >
+			<img src="bg4.png" >
+		</div>
+	</div>
+</body>
+</html>
