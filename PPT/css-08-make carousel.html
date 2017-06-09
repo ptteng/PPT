@@ -18,12 +18,17 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+    <style>
+        .a {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
@@ -52,7 +57,7 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>轮播图，是由网页banner进化而来，通常放在屏幕最显眼的位置，以大图显示。随着网页中需要推广的信息越来越多，为了相互妥协，轮播图应运而生。总而言之，轮播图就是可以切换的一块信息。</p>
+            <p class="a">轮播图，是由网页banner进化而来，通常放在屏幕最显眼的位置，以大图显示。随着网页中需要推广的信息越来越多，为了相互妥协，轮播图应运而生。总而言之，轮播图就是可以切换的一块信息。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
@@ -63,7 +68,7 @@
             <p><a href="http://www.jianshu.com/">简书</a></p>
         </section>
         <section>
-            <p>由例可见，轮播图一般由logo，底部指示器和左右切换按键组成。</p>
+            <p class="a">由例可见，轮播图一般由logo，底部指示器和左右切换按键组成。</p>
         </section>
         <section>
             <h3>3.常见问题</h3>
@@ -79,6 +84,7 @@
         </section>
         <section>
             <h3>css轮播</h3>
+            <p class="a">点击轮播流程示意图：</p>
             <img src="../img/css-08-make carousel/img1.png" alt="">
         </section>
         <section>
@@ -91,13 +97,224 @@
             <h3>5.编码实战</h3>
         </section>
         <section>
+            <section>
+                <h4>css点击轮播</h4>
+                <p class="a">html部分</p>
+                <pre>
+                <code>
+ <div class="carousel">
+    <!--radio控件-->
+    <input type="radio" name="only" id="a1" checked="checked">
+    <input type="radio" name="only" id="a2">
+    <input type="radio" name="only" id="a3">
+    <input type="radio" name="only" id="a4">
+
+     <!--图片区-->
+    <ul>
+        <li class="img img1">11111111111111111</li>
+        <li class="img img2">22222222222222222</li>
+        <li class="img img3">33333333333333333</li>
+        <li class="img img4">44444444444444444</li>
+    </ul>
+
+     <!--底部指示器-->
+    <div class="dots">
+        <label for="a1"></label>
+        <label for="a2"></label>
+        <label for="a3"></label>
+        <label for="a4"></label>
+    </div>
+
+     <!--两边箭头-->
+    <div class="arrows">
+        <!--左箭头-->
+        <label for="a1"></label>
+        <label for="a2"></label>
+        <label for="a3"></label>
+        <label for="a4"></label>
+
+        <!--右箭头-->
+        <label for="a1"></label>
+        <label for="a2"></label>
+        <label for="a3"></label>
+        <label for="a4"></label>
+    </div>
+</div>
+
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p class="a">css部分</p>
+                <pre>
+                    <code>
+
+    <style>
+
+        /*reset*/
+        div, input, html, body, ul, li, label {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /*layout*/
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        /*隐藏input控件*/
+        input {
+            display: none;
+        }
+
+        /*图片容器*/
+        ul {
+            width: 400%;
+            transition: all .5s;
+        }
+
+        /*图片左浮动*/
+        .img {
+            width: 25%;
+            height: 200px;
+            float: left;
+            transition: all .5s;
+        }
+
+        .img1 {
+            background-color: #29b078;
+        }
+
+        .img2 {
+            background-color: #9a9a9a;
+        }
+
+        .img3 {
+            background-color: #3a3a3a;
+        }
+
+        .img4 {
+            background-color: #fea500;
+        }
+
+        .dots {
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 5%;
+            z-index: 10;
+            margin: auto;
+            text-align: center;
+        }
+
+        .dots label {
+            display: inline-block;
+            background-color: #ccc;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: all .5s;
+        }
+
+        .arrows {
+            height: 100%;
+        }
+
+        .arrows label {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-right: 5px solid #000000;
+            border-bottom: 5px solid #000000;
+            cursor: pointer;
+            display: none;
+        }
+
+        .arrows label:hover {
+            width: 18px;
+            height: 18px;
+            border-color: #71ad37;
+            transition: all .5s;
+        }
+
+        /*radio选中后，底部指示器相应的label标签背景颜色发生变化*/
+        input:nth-of-type(1):checked ~ .dots label:nth-of-type(1),
+        input:nth-of-type(2):checked ~ .dots label:nth-of-type(2),
+        input:nth-of-type(3):checked ~ .dots label:nth-of-type(3),
+        input:nth-of-type(4):checked ~ .dots label:nth-of-type(4),
+        .dots label:hover {
+            background-color: #e26163;
+            cursor: pointer;
+        }
+
+        /*radio选中后，兄弟元素ul左移*/
+        input:nth-of-type(1):checked ~ ul {
+            margin-left: 0%;
+        }
+
+        input:nth-of-type(2):checked ~ ul {
+            margin-left: -100%;
+        }
+
+        input:nth-of-type(3):checked ~ ul {
+            margin-left: -200%;
+        }
+
+        input:nth-of-type(4):checked ~ ul {
+            margin-left: -300%;
+        }
+
+        /*当radio选中后，相应的下一个左箭头移动到图片的上层以供点击*/
+        input:nth-of-type(2):checked ~ .arrows label:nth-of-type(1),
+        input:nth-of-type(3):checked ~ .arrows label:nth-of-type(2),
+        input:nth-of-type(4):checked ~ .arrows label:nth-of-type(3),
+        input:nth-of-type(1):checked ~ .arrows label:nth-of-type(4) {
+            transform: rotateZ(135deg);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 10%;
+            z-index: 10; /*放在最前方*/
+            margin: auto;
+            display: block;
+        }
+
+        /*当radio选中后，相应的下一个右箭头移动到图片的上层以供点击*/
+        input:nth-of-type(1):checked ~ .arrows label:nth-of-type(6),
+        input:nth-of-type(2):checked ~ .arrows label:nth-of-type(7),
+        input:nth-of-type(3):checked ~ .arrows label:nth-of-type(8),
+        input:nth-of-type(4):checked ~ .arrows label:nth-of-type(5) {
+            transform: rotateZ(-45deg);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 10%;
+            z-index: 10; /*放在最前方*/
+            margin: auto;
+            display: block;
+        }
+
+    </style>
+                    </code>
+                </pre>
+                <P class="a"><a href="../demo/css-08-make%20carousel/css轮播图.html">Demo演示</a></P>
+            </section>
         </section>
         <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">一，如何实现轮播图的淡入淡出切换</p>
-            <pre class="fragment">
+            <h4>一，如何实现轮播图的淡入淡出切换</h4>
+            <pre>
+                <code>
                 img{
                     position:reletive;
                     z-index: 1;
@@ -106,36 +323,44 @@
                 input:nth-of-type(n):checked ~ img:nth-of-type(n){
                     z-index:2;
                 }
+                </code>
             </pre>
         </section>
         <section>
-            <p class="fragment">二.如何实现自动轮播</p>
-            <p class="fragment">@keyframes动画实现定时循环切换</p>
-            <a class="fragment" href="http://59.110.174.154/task/task15/html/components/carousel.html" class="fragment">css的demo</a>
-            <p class="fragment">三.两种实现方式的优缺点</p>
-            <p class="fragment">css轮播，适应性更广，可以在用户禁用js后仍然轮播，平稳退化，但不能自动轮播时点击切换。</p>
-            <p class="fragment">js轮播，主流轮播方法。</p>
+            <h4>二.如何实现自动轮播</h4>
+            <p class="">@keyframes动画实现定时循环切换</p>
+
+            <a href="../demo/css-08-make%20carousel/carousel-sass.html">点击切换与循环切换结合的demo</a>
         </section>
         <section>
-            <p>四.如何设计轮播图才能吸引到用户</p>
-            <p>1.让轮播图看起来像是站点的一部分</p>
-            <p>2.自动轮播缺点:切换频繁，切换等待时间过长。在手机上不要用自动轮播，通过良好的设计让用户手动切换。</p>
-            <p>3.给予清晰的操作反馈和内容预期</p>
-            <p>4.用轻量的图片，复杂的大图导致网站性能低，加载速度慢</p>
+            <h4>三.两种实现方式的优缺点</h4>
+            <p class=" a">css轮播，适应性更广，可以在用户禁用js后仍然轮播，平稳退化，但不能自动轮播时点击切换。</p>
+            <p class="a">js轮播，主流轮播方法。</p>
+        </section>
+        <section>
+            <h4>四.如何设计轮播图才能吸引到用户</h4>
+            <p class="a">1.让轮播图看起来像是站点的一部分</p>
+            <p class="a">2.自动轮播缺点:切换频繁，切换等待时间过长。在手机上不要用自动轮播，通过良好的设计让用户手动切换。</p>
+            <p class="a">3.给予清晰的操作反馈和内容预期</p>
+            <p class="a">4.用轻量的图片，复杂的大图导致网站性能低，加载速度慢</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section class="present">
-            <p>参考一：<a href="https://github.com/you-dont-need/You-Dont-Need-JavaScript" target="_blank">You-Dont-Need-JavaScript</a></p>
-            <p>参考二：<a href="http://www.runoob.com/try/try.php?filename=bootstrap3-plugin-carousal-method" target="_blank">bootstrap组件-carousel</a></p>
-            <p>参考三：<a href="https://isux.tencent.com/carousels.html" target="_blank">你还在用轮播图吗</a></p>
+            <p class="a">参考一：<a href="https://github.com/you-dont-need/You-Dont-Need-JavaScript" target="_blank">You-Dont-Need-JavaScript</a>
+            </p>
+            <p class="a">参考二：<a href="http://www.runoob.com/try/try.php?filename=bootstrap3-plugin-carousal-method"
+                      target="_blank">bootstrap组件-carousel</a></p>
+            <p class="a">参考三：<a href="https://isux.tencent.com/carousels.html" target="_blank">你还在用轮播图吗</a></p>
 
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 肖浩宇</small></p>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
         </section>
 
     </div>
@@ -167,10 +392,14 @@
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
-            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
