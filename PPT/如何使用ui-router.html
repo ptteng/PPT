@@ -1,0 +1,769 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用ui.router？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-6】</h2>
+            <h3>如何使用ui-router？</h3>
+            <h3>小课堂【武汉分院第137期】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+
+ 
+<section>
+    <p>angular路由</p>
+
+    <p style="text-align:left">路由(route)，几乎所有的MVC(VM)框架都应该具有的特性，因为它是前端构建单页面应用(SPA)必不可少的组成部分。</p>
+
+<p style="text-align:left">那么，对于angular而言，它自然也有内置的路由模块：叫做ngRoute。</p>
+
+<p style="text-align:left">不过，大家很少用它，因为它的功能太有限，往往不能满足开发需求！！</p>
+
+<p style="text-align:left">于是，一个基于ngRoute开发的第三方路由模块，叫做ui.router，受到了大家的“追捧”。
+ngRoute vs ui.router</p>
+
+</section>
+<section>
+<p style="text-align:left">首先，无论是使用哪种路由，作为框架额外的附加功能，它们都将以模块依赖的形式被引入，简而言之就是：在引入路由源文件之后，你的代码应该这样写(以ui.router为例)：</p>
+<pre>
+    <code>
+angular.module("myApp", ["ui.router"]); // myApp为自定义模块，依赖第三方路由模块ui.router
+        
+    </code>
+</pre>
+
+<p style="text-align:left">这样做的目的是：在程序启动(bootstrap)的时候，加载依赖模块(如：ui.router)，将所有挂载在该模块的服务(provider)，指令(directive)，过滤器(filter)等都进行注册，那么在后面的程序中便可以调用了。</p>
+
+<p style="text-align:left">说到这里，就得看看ngRoute模块和ui.router模块各自都提供了哪些服务，哪些指令？        
+    </p>
+</section>
+
+<section>
+  <pre>
+      <code>
+    ngRoute
+        $routeProvider(服务提供者) ——— 对应于下面的urlRouterProvider和stateProvider
+        $route(服务) ——— 对应于下面的urlRouter和state
+        $routeParams(服务) ——— 对应于下面的stateParams
+        ng-view(指令) ——— 对应于下面的ui-view
+
+    ui.router
+        $urlRouterProvider(服务提供者) ——— 用来配置路由重定向
+        $urlRouter(服务)
+        $stateProvider(服务提供者) ——— 用来配置路由
+        $state(服务) ——— 用来显示当前路由状态信息，以及一些路由方法（如：跳转）
+        $stateParams(服务) ——— 用来存储路由匹配时的参数
+        ui-view(指令) ——— 路由模板渲染，对应的dom相关联
+        ui-sref(指令)          
+      </code>
+  </pre>
+
+<p style="text-align:left">(注：服务提供者：用来提供服务实例和配置服务。)</p>
+</section>
+
+<section>
+<p style="text-align:left">这样一看，其实ui.router和ngRoute大体的设计思路，对应的模块划分都是一致的(毕竟是同一个团队开发)，不同的地方在于功能点的实现和增强。</p>
+
+<p style="text-align:left">那么问题来了：ngRoute弱在哪些方面，ui.router怎么弥补了这些方面?
+    </p>
+
+    <p style="text-align:left">这里，列举两个最重要的方面来说(其他细节，后面再说)：</p>
+
+    <p style="text-align:left">多视图</p>
+    <p style="text-align:left">嵌套视图</p>
+</section>
+
+<section>
+<p style="text-align:left">多视图</p>
+
+    <p style="text-align:left">多视图：页面可以显示多个动态变化的不同区块。</p>
+
+<p style="text-align:left">这样的业务场景是有的：</p>
+
+<p style="text-align:left">比如：页面一个区块用来显示页面状态，另一个区块用来显示页面主内容，当路由切换时，页面状态跟着变化，对应的页面主内容也跟着变化。</p>
+</section>
+
+<section>
+<p style="text-align:left">首先，我们尝试着用ngRoute来做：</p>
+<pre>
+    <code>
+html
+
+<div ng-view>区块1</div>
+<div ng-view>区块2</div>
+
+js
+
+$routeProvider
+    .when('/', {
+        template: 'hello world'
+    });        
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">我们在html中利用ng-view指令定义了两个区块，于是两个div中显示了相同的内容，这很合乎情理，但却不是我们想要的，但是又不能为力，因为，在ngRoute中：</p>
+
+    <p style="text-align:left">视图没有名字进行唯一标志，所以它们被同等的处理。</p>
+    <p style="text-align:left">路由配置只有一个模板，无法配置多个。</p>
+</section>
+
+<section>
+<p style="text-align:left">ok，针对上述两个问题，我们尝试用ui.router来做：</p>
+<pre>
+    <code>
+html
+
+  <div ui-view></div>
+  <div ui-view="status"></div>
+
+js
+
+$stateProvider
+    .state('home', {
+        url: '/',
+        views: {
+            '': {
+                template: 'hello world'
+            },
+            'status': {
+                template: 'home page'
+            }
+        }
+    });        
+    </code>
+</pre>
+</section>
+
+<section>
+
+<p style="text-align:left">这次，结果是我们想要的，两个区块，分别显示了不同的内容，原因在于，在ui.router中：</p>
+
+    <p style="text-align:left">可以给视图命名，如：ui-view=”status”。</p>
+    <p style="text-align:left">可以在路由配置中根据视图名字(如：status)，配置不同的模板（其实还有controller等）。</p>
+
+<p style="text-align:left">注：视图名是一个字符串，不可以包含@（原因后面会说）。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">嵌套视图</p>
+
+    <p style="text-align:left">嵌套视图：页面某个动态变化区块中，嵌套着另一个可以动态变化的区块。</p>
+
+<p style="text-align:left">这样的业务场景也是有的：</p>
+
+<p style="text-align:left">比如：页面一个主区块显示主内容，主内容中的部分内容要求根据路由变化而变化，这时就需要另一个动态变化的区块嵌套在主区块中。</p>
+</section>
+
+<section>
+<p style="text-align:left">其实，嵌套视图，在html中的最终表现就像这样：</p>
+<pre>
+    <code>
+<div ng-view>
+    I am parent
+    <div ng-view>I am child</div>
+</div>
+
+转成javascript，我们会在程序里这样写：
+
+$routeProvider
+    .when('/', {
+        template: 'I am parent <div ng-view>I am child</div>'
+    });        
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">倘若，你真的用ngRoute这样写，你会发现浏览器崩溃了，因为在ng-view指令link的过程中，代码会无限递归下去。</p>
+
+<p style="text-align:left">那么造成这种现象的最根本原因：路由没有明确的父子层级关系！</p>
+
+<p style="text-align:left">看看ui.router是如何解决这一问题的？</p>
+<pre>
+    <code>
+$stateProvider
+    .state('parent', {
+        abstract: true,
+        url: '/',
+        template: 'I am parent <div ui-view></div>'
+    })
+    .state('parent.child', {
+        url: '',
+        template: 'I am child'
+    });        
+    </code>
+</pre>
+
+</section>
+
+<section>
+   <p style="text-align:left"> 巧妙地，通过parent与parent.child来确定路由的父子关系，从而解决无限递归问题。</p>
+    <p style="text-align:left">另外子路由的模板最终也将被插入到父路由模板的div[ui-view]中去，从而达到视图嵌套的效果。</p>
+
+<p style="text-align:left">记住下面是ui.router用到的所有指令</p>
+<pre>
+    <code>
+    ui.router
+        $urlRouterProvider(服务提供者) ——— 用来配置路由重定向
+        $urlRouter(服务)
+        $stateProvider(服务提供者) ——— 用来配置路由
+        $state(服务) ——— 用来显示当前路由状态信息，以及一些路由方法（如：跳转）
+        $stateParams(服务) ——— 用来存储路由匹配时的参数
+        ui-view(指令) ——— 路由模板渲染，对应的dom相关联
+        ui-sref(指令)        
+    </code>
+</pre>
+
+</section>
+
+
+<section>
+    <p>初级应用（会用就行）</p>
+
+<p style="text-align:left">介绍用这个例子（$urlRouter和$stateParams没用到，其他都用到：$urlRouterProvider，$stateProvider，$state，ui-view,ui-sref）</p>
+<pre>
+    <code>
+var photoGallery = angular.module('photoGallery',["ui.router"]);
+photoGallery.config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise('/home');
+  
+  $stateProvider
+  .state('home',{
+          url: '/home',
+          templateUrl: 'partials/home.html'
+  })
+  .state('photos',{
+          url: '/photos',
+          templateUrl: 'partials/photos.html'
+  })
+  .state('about',{
+          url: '/about',
+          templateUrl: 'partials/about.html'
+  })
+})
+        
+    </code>
+</pre>
+
+</section>
+
+<section>
+
+<p style="text-align:left">首先给大家介绍angular-ui-router的基本用法。</p>
+
+<p style="text-align:left">如何引用依赖angular-ui-router就是</p>
+<pre>
+    <code>
+<script src="http://cdn.bootcss.com/angular-ui-router/0.4.2/angular-ui-router.js"></script>        
+    </code>
+</pre>
+
+<p style="text-align:left">再从简单的开始（其实这几个服务也都是有依赖的，例如$urlRouterProvider依赖$urlMatcherFactoryProvider   $locationProvider。$urlRouterProvider依赖$urlRouterProvider $urlMatcherFactoryProvider。但初级应用这不展开，只讲要用到某几个方法（不是全部））</p>
+</section>
+<section>
+    
+<p style="text-align:left">$urlRouteProvider（总共3个when，otherwise和rule）这里懂when和otherwise就行。</p>
+
+<p style="text-align:left">$urlRouteProvider.when(whenPath, toPath)</p>
+<p style="text-align:left">为给定的URL匹配注册一个处理程序。</p>
+<p style="text-align:left">$urlRouterProvider.otherwise(path)</p>
+<p style="text-align:left">定义一个当请求的路径是无效路径时跳转的路径。</p>
+<p style="text-align:left">例子：就用到一种情况（当请求的路径是无效路径时跳转的路径）</p>
+<pre>
+    <code>
+    $urlRouterProvider
+        .otherwise('/login');
+        // .when("","/login");
+        
+    </code>
+</pre>
+
+</section>
+
+<section>
+
+<p style="text-align:left">$stateProvider（总共2个方法：decorator和state。但这里只讲state（state这个里面的配置也不讲全的，只讲几个暂时用到的））</p>
+<p style="text-align:left">处理路由状态的服务，路由的状态反映了该项在应用程序中的位置，描述了在当前状态下UI是应该怎么样的，并且该做什么。</p>
+</section>
+
+<section>
+<p style="text-align:left">方法：</p>
+<p style="text-align:left">state(name,stateConfig);</p>
+<p style="text-align:left">注册一个状态，并给定其配置。</p>
+<pre>
+    <code>
+//state可以有子父级
+$stateProvider.state("home",{});
+$stateProvider.state("home.child",{})
+//state可以是链式的
+$stateProvider.state("home",{}).state("about",{}).state("photos",{});
+        
+    </code>
+</pre>
+</section>
+<section>
+    
+<pre>
+    <code>
+参数：
+name：状态的名称。
+stateConfig：状态配置对象。配置具有以下各项属性（全部属性，看一下好了）：
+template： string/function，html模板字符串，或者一个返回html模板字符串的函数。
+templateUrl：string/function，模板路径的字符串，或者返回模板路径字符串的函数。
+templateProvider：function，返回html模板字符串或模板路径的服务。
+controller：string/function，新注册一个控制器函数或者一个已注册的控制器的名称字符串。
+controllerProvider：function，返回控制器或者控制器名称的服务
+controllerAs：string，控制器别名。
+parent：string/object，手动指定该状态的父级。
+resolve：object，将会被注入controller去执行的函数，string,function>形式。
+url：string，当前状态的对应url。
+views：object，视图展示的配置。string,object>形式。
+abstract：boolean，一个永远不会被激活的抽象的状态，但可以给其子级提供特性的继承。默认是true。
+onEnter：function，当进入一个状态后的回调函数。
+onExit：function，当退出一个状态后的回调函数。
+reloadOnSearch：boolean，如果为false，那么当一个search/query参数改变时不会触发相同的状态，用于当你修改$location.search()的时候不想重新加载页面。默认为true。
+data：object，任意对象数据，用于自定义配置。继承父级状态的data属性。换句话说，通过原型继承可以达到添加一个data数据从而整个树结构都能获取到。
+params：url里的参数值，通过它可以实现页面间的参数传递。
+        
+    </code>
+</pre>
+</section>
+<section>
+    
+
+<p >这里用到了</p>
+<pre>
+    <code>
+url：string，当前状态的对应url。
+params：url里的参数值，通过它可以实现页面间的参数传递。
+template： string/function，html模板字符串，或者一个返回html模板字符串的函数。
+templateUrl：string/function，模板路径的字符串，或者返回模板路径字符串的函数。
+resolve：object，将会被注入controller去执行的函数，string,function形式。
+        
+    </code>
+</pre>
+</section>
+<section>
+    
+<p>例子：</p>
+<pre>
+    <code>
+    $stateProvider
+        .state("login",{
+            url: "/login",
+            templateUrl: "tpls/login.html",
+            resolve:{
+                load:['$ocLazyLoad',function($ocLazyLoad){
+                    return $ocLazyLoad.load([
+                        'css/login.css',
+                        'js/login.js'
+                        ]);
+                }]
+            }
+        })
+进一步
+        .state("main.article-list",{
+            url: "/article-list/:page/:size/:startAt/:endAt/:type/:status",
+            params:{'page':"1",'size':"10"},
+            templateUrl: "tpls/article-list.html",
+            resolve:{
+                load:['$ocLazyLoad',function($ocLazyLoad){
+                    return $ocLazyLoad.load([
+                        'css/article-list.css',
+                        'js/article-list.js'
+                        ]);
+                }]
+            }
+        })
+        
+    </code>
+</pre>
+
+
+</section>
+<section>
+    
+
+<p style="text-align:left">再说下</p>
+<p style="text-align:left">$state（总共6个方法和1个事件：go，href，include，is，reload，transitionTo和事件：$stateChangeError，$stateChangeStart，$stateChangeSuccess和$stateNotFound。这里只要会go就行）</p>
+<p style="text-align:left">$state服务负责代表状态及提供状态之间的转换。它还提供你当前的状态及上一个状态。</p>
+</section>
+<section>
+    
+<p style="text-align:left">方法：</p>
+<p style="text-align:left">go(to,params,options);</p>
+<p style="text-align:left">参数：</p>
+<p style="text-align:left">to：string，即将跳转的状态。</p>
+<p style="text-align:left">params:object，跳转所带的参数。</p>
+<p style="text-align:left">options：object，可选配置对象。有 location(是否更新地址栏的url，或以什么字符串替换url)，inherit(是否继承当前url的参数)，relative(当变化相对路径：如"^,定义的状态是相对的)，notify(是否广播$stateChangeStart和$stateChangeSuccess事件)，reload(是否重新载入)。</p>
+</section>
+<section>
+    
+<p style="text-align:left">实例：</p>
+<p style="text-align:left">$state.go("login");</p>
+<p style="text-align:left">跳转到在前面中定义的状态那里</p>
+<pre>
+    <code>
+    $stateProvider
+        .state("login",{})
+
+然后就是^和.的用法区别，一个是向上一级，一个向下一级
+$state.go('photos.detail')
+$state.go('^')到上一级,比如从photo.detail到photo
+$state.go('^.list')到相邻state,比如从photo.detail到photo.list
+$state.go('^.detail.comment')到孙子级state，比如从photo.detail到photo.detial.comment
+        
+    </code>
+</pre>
+
+</section>
+<section>
+    
+
+<p style="text-align:left">ui-sref（2种，一种不带参数，一种带）</p>
+<p style="text-align:left">一种将链接（a标签）绑定到一个状态的指令。点击该链接将触发一个可以带有可选参数的状态转换。</a>
+<pre>
+    <code>
+ui-sref="stateName"
+ui-sref="stateName({param:value,param:value})"
+
+代码：
+
+  <a ui-sref="app.index">首页</a>
+  <!-- 这里是正常的跳转 -->
+  <a ui-sref="app.index({id:yourId})">你的主页</a>
+  <!-- 这里是带参数对象的跳转，名称是id，值是yourId -->
+        
+    </code>
+</pre>
+</section>
+<section>
+    
+<p style="text-align:left">ui-view</p>
+<pre>
+    <code>
+一种是没有名字的
+<div ui-view></div>
+一种是有名字的
+<div ui-view="main"></div>
+        
+    </code>
+</pre>
+</section>
+<section>
+    
+
+<p>来一个demo1</p>
+
+<pre>
+    <code>
+项目文件结构
+
+node_modules/ //这里放各种依赖
+partials/     //这里放跳的页面
+.....about.html
+.....home.html
+.....photos.html
+app.js      //写router
+index.html
+
+        
+    </code>
+</pre>
+
+</section>
+<section>
+    
+
+
+<p style="text-align:left">index.html文件  就是一个导航栏（注意这里有ui-sref的跳转）+一个ui-view（当然是跳转后的各个页面的东西）+依赖</p>
+<pre>
+    <code>
+<!DOCTYPE html>
+<html lang="en" ng-app="photoGallery">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="node_modules/bootstrap.css"/>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a ui-sref="home" class="navbar-brand">Home</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a ui-sref="photos">Photos</a></li>
+          <li><a ui-sref="about">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div ui-view></div>
+
+<script src="node_modules/jquery.js"></script>
+<script src="node_modules/angular.js"></script>
+<script src="http://cdn.bootcss.com/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+<script src="node_modules/bootstrap.js"></script>
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular-animate.min.js"></script>
+<script src="https://cdn.bootcss.com/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+<script src="app.js"></script>
+</body>
+</html>        
+    </code>
+</pre>
+
+</section>
+<section>
+    
+
+<p style="text-align:left"> app.js  写的ui.router</p>
+<pre>
+    <code>
+var photoGallery = angular.module('photoGallery',["ui.router"]);
+photoGallery.config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise('/home');
+  
+  $stateProvider
+  .state('home',{
+          url: '/home',
+          templateUrl: 'partials/home.html'
+  })
+  .state('photos',{
+          url: '/photos',
+          templateUrl: 'partials/photos.html'
+  })
+  .state('about',{
+          url: '/about',
+          templateUrl: 'partials/about.html'
+  })
+})        
+    </code>
+</pre>
+</section>
+<section>
+    
+
+<p style="text-align:left">更进一步就是task6-10（低版本）</p>
+
+<p style="text-align:left">router.js</p>
+<pre>
+    <code>
+var myApp = angular.module("myApp",['ui.router','oc.lazyLoad','ngMessages','tm.pagination']);
+myApp.config(function ($stateProvider,$urlRouterProvider) {
+    $urlRouterProvider
+        .otherwise('/login');
+        // .when("","/login");
+    $stateProvider
+        .state("main.article-list",{
+            url: "/article-list/:page/:size/:startAt/:endAt/:type/:status",
+            params:{'page':"1",'size':"10"},
+            templateUrl: "tpls/article-list.html",
+            resolve:{
+                load:['$ocLazyLoad',function($ocLazyLoad){
+                    return $ocLazyLoad.load([
+                        'css/article-list.css',
+                        'js/article-list.js'
+                        ]);
+                }]
+            }
+        })
+});        
+    </code>
+</pre>
+
+</section>
+<section>
+    
+<p style="text-align:left">上面用到了url的参数，params的参数，以及resolve。当然后面会用到$stateParams。
+url中的/:page/:size/在params中初始化，然后传参数过去。resolve中的是懒加载。</p>
+<p style="text-align:left">上面URL传过来的参数在article-list.js中用到（分页插件用的），通过$stateParams获取。</p>
+</section>
+<section>
+    
+
+<p style="text-align:left">article-list.js</p>
+<pre>
+    <code>
+var listApp = angular.module("myApp",[]);
+listApp.controller("listCtrl",['$scope','$http','$state','$stateParams',function ($scope,$http,$state,$stateParams) {
+    // 分页部分      
+    $scope.paginationConf = {
+        showFlag:0,
+        // 当前页
+        currentPage: 1,
+        // 每页默认
+        itemsPerPage: 10,
+        // 点击每个分页按钮都会触发这个函数，然后刷新加载
+        onChange:function () {            
+            console.log('$scope.paginationConf.currentPage=' );
+            console.log($scope.paginationConf.currentPage );
+            console.log('$scope.paginationConf.itemsPerPage=');
+            console.log($scope.paginationConf.itemsPerPage);
+            $state.go('main.article-list', {
+                page: $scope.paginationConf.currentPage ,
+                size: $scope.paginationConf.itemsPerPage
+                }, {reload: true});
+    }};
+
+    console.log('$stateParams=' );
+    console.log($stateParams );
+    $scope.paginationConf.currentPage = $stateParams.page ;
+    $scope.paginationConf.itemsPerPage = $stateParams.size ;         
+    </code>
+</pre>
+
+
+</section>
+
+
+
+
+
+
+
+
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        
+
+        <section>       
+            <h3>三.常见问题</h3>
+        </section>
+        <section>       
+            <h3>四.解决方案</h3>
+        </section>        
+        <section>       
+            <h3>五.代码实战</h3>
+        </section>
+
+
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+
+        <section>
+            <h3>七.参考文献</h3>
+        </section>
+        <section>
+
+            <p><a href="http://www.html-js.com/article/Front-end-source-code-analysis-original-uirouter-source-code-analysis"> ui.router源码解析</a></p>
+            <p><a href="http://www.open-open.com/lib/view/open1416878937309.html">AngularJS ui-router (嵌套路由)</a></p>
+            <p><a href="http://www.cnblogs.com/liulangmao/p/4155015.html">angular的uiRouter服务学习</a></p>
+            <p><a href="http://blog.csdn.net/qian_xiaona/article/details/50888212"> $stateParams服务 </a></p>
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 徐恒</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

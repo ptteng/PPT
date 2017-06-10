@@ -1,0 +1,375 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>自适应小屏幕设备时，该如何布局？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-10】</h2>
+            <h3>自适应小屏幕设备时，该如何布局？</h3>
+            <h3>小课堂【武汉分院】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">随着网络的发展，越来越多的人使用手机上网。移动设备正超过桌面设备，成为访问互联网的最常见终端。于是，网页设计师不得不面对一个难题：如何才能在不同大小的设备上呈现同样的网页？</p>
+            <p style="text-align:left">手机的屏幕比较小，宽度通常在600像素以下；PC的屏幕宽度，一般都在1000像素以上，如2000像素，有的还达到了4K的。同样的内容，要在大小迥异的屏幕上，都呈现出满意的效果，并不是一件容易的事。</p>
+            
+        </section>
+        <section>
+            <p style="text-align:left">很多网站的解决方法，是为不同的设备提供不同的网页，比如专门提供一个mobile版本，或者iPhone / iPad版本。这样做固然保证了效果，但是比较麻烦，同时要维护好几个版本，而且如果一个网站有多个入口，会大大增加架构设计的复杂度。</p>
+            <p style="text-align:left">于是，很早就有人设想，能不能"一次设计，普遍适用"，让同一张网页自动适应不同大小的屏幕，根据屏幕宽度，自动调整布局（layout）？</p>            
+        </section>        
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>一、"自适应网页设计"的概念</p>
+        </section>
+        <section>
+            <p style="text-align:left">2010年，Ethan Marcotte提出了"自适应网页设计"（Responsive Web Design）这个名词，指可以自动识别屏幕宽度、并做出相应调整的网页设计。他制作了一个范例，里面是《福尔摩斯历险记》六个主人公的头像。如果屏幕宽度大于1300像素，则6张图片并排在一行。</p>
+
+<p style="text-align:left">如果屏幕宽度在600像素到1300像素之间，则6张图片分成两行。</p> 
+
+<p style="text-align:left">如果屏幕宽度在400像素到600像素之间，则导航栏移到网页头部。</p> 
+
+<p style="text-align:left">如果屏幕宽度在400像素以下，则6张图片分成三行。</p> 
+
+<p> <a href="https://mediaqueri.es/">mediaqueri.es</a>  上面有更多这样的例子。</p>            
+        </section>
+
+        <section>
+            <p>二、允许网页宽度自动调整</p>
+        </section>
+        <section>
+            <p>"自适应网页设计"到底是怎么做到的？其实并不难。</p>
+            <p>首先，在网页代码的头部，加入一行viewport元标签。</p> 
+        <pre>
+            <code>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+            </code>
+        </pre>
+    　　
+<p>viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。</p> 
+
+        </section>
+        <section>
+<p>所有主流浏览器都支持这个设置，包括IE9。对于那些老式浏览器（主要是IE6、7、8），需要使用css3-mediaqueries.js。</p> 
+<pre>
+    <code>
+<!--[if lt IE 9]>
+　<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->        
+    </code>
+</pre>
+        </section>
+        <section>
+            <p>三、不使用绝对宽度</p>
+        </section>
+        <section>
+            <p>由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。这一条非常重要</p>
+
+<p>具体说，CSS代码不能指定像素宽度：</p><p>width:xxx px;</p><p>只能指定百分比宽度：</p> <p>width: xx%; 或者 width:auto;</p>
+        </section>
+
+
+        <section>
+            <h3>四、相对大小的字体</h3>
+        </section>
+        <section>
+<p>字体也不能使用绝对大小（px），而只能使用相对大小（em）。</p>
+<pre>
+    <code>
+body {
+　　font: normal 100% Helvetica, Arial, sans-serif;
+}        
+    </code>
+</pre>
+<p>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
+<pre>
+    <code>
+h1 {
+　　font-size: 1.5em;
+}        
+    </code>
+</pre>
+        </section>
+        <section>
+
+<p>设置1rem为10px</p>
+<pre>
+    <code>
+html {
+　　font-size: 62.5%;
+} 
+
+h1 {
+　　font-size: 1rem;
+}    
+
+    </code>
+</pre>
+<p>若不对可以再放大10倍改为625%或者直接去chrome的设置中修改自定义字体大小。</p>
+<a href="https://my.oschina.net/mayxu/blog/856367">为什么即使设置html为font-size:62.5%，有时候1rem != 10px </a>
+
+        </section>
+        <section>
+            <h3>五、流动布局（fluid grid）</h3>
+        </section>
+        <section>
+            <p>"流动布局"的含义是，各个区块的位置都是浮动的，不是固定不变的。</p>
+<pre>
+    <code>
+　　.main {
+　　　　float: right;
+　　　　width: 70%;
+　　}
+
+　　.leftBar {
+　　　　float: left;
+　　　　width: 25%;
+　　}        
+    </code>
+</pre>
+
+
+<p>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。
+
+另外，绝对定位（position: absolute）的使用，也要非常小心。</p>
+
+        </section>
+        <section>
+            <h3>六、选择加载CSS</h3>
+        </section>
+        <section>
+            <p>"自适应网页设计"的核心，就是CSS3引入的Media Query模块。它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</p>
+
+<pre>
+    <code>
+　　<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 400px)" href="tinyScreen.css" />        
+    </code>
+</pre>            
+            <p>上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。</p>
+        </section>
+        <section>            
+<pre>
+    <code>
+　　<link rel="stylesheet" type="text/css" media="screen and (min-width: 400px) and (max-device-width: 600px)" href="smallScreen.css" />
+        
+    </code>
+</pre>            
+            <p>如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。</p>
+
+            <p>除了用html标签加载CSS文件，还可以在现有CSS文件中加载。</p>
+<pre>
+    <code>
+　　@import url("tinyScreen.css") screen and (max-device-width: 400px);        
+    </code>
+</pre>
+
+
+        </section>
+
+        <section>
+            <h3>七、CSS的@media规则</h3>
+        </section>    
+        <section>
+            <p>同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。</p>
+<pre>
+    <code>
+　　@media screen and (max-device-width: 400px) {
+
+　　　　.column {
+　　　　　　float: none;
+　　　　　　width:auto;
+　　　　}
+
+　　　　#sidebar {
+　　　　　　display:none;
+　　　　}
+
+　　}        
+    </code>
+</pre>            
+            <p>上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。  </p>
+  
+        </section>
+        <section>
+            <h3>八、图片的自适应（fluid image）</h3>
+        </section>
+        <section>
+            <p>除了布局和文本，"自适应网页设计"还必须实现图片的自动缩放。</p>                    
+            <p>这只要一行CSS代码：</p> 
+<pre>
+    <code>
+    img { max-width: 100%;}    
+    </code>
+</pre>                               
+            <p>这行代码对于大多数嵌入网页的视频也有效，所以可以写成：</p>     
+<pre>
+    <code>
+    img, object { max-width: 100%;}    
+    </code>
+</pre>  
+
+        </section>        
+        <section>                         
+            <p>老版本的IE不支持max-width，所以只好写成：</p>   
+<pre>
+    <code>
+    img { width: 100%; }    
+    </code>
+</pre>                             
+            <p>此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令：</p> 
+<pre>
+    <code>
+    img { -ms-interpolation-mode: bicubic; }    
+    </code>
+</pre>
+    　 　
+        </section>        
+        <section>    　　
+  <p>或者，</p>
+<pre>
+    <code>
+Ethan Marcotte的imgSizer.js。
+
+　　addLoadEvent(function() {
+
+　　　　var imgs = document.getElementById("content").getElementsByTagName("img");
+
+　　　　imgSizer.collate(imgs);
+
+　　});        
+    </code>
+</pre>  
+
+
+<p>不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。</p>
+
+
+                              
+        </section> 
+
+        <section>       
+            <h3>三.常见问题</h3>
+        </section>
+        <section>       
+            <h3>四.解决方案</h3>
+        </section>        
+        <section>       
+            <h3>五.代码实战</h3>
+        </section>
+
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+        <section>
+            <p>
+            </p>
+        </section>
+
+        <section>
+            <h3>七.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="http://blog.csdn.net/zxl1033394132/article/details/50574382 ">响应式和自适应区别 </a></p>
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 徐恒</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
