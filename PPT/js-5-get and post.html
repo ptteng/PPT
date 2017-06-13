@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<title>葡萄藤PPT</title>
+	
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+	
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	
+	<!-- 打印和PDF输出样式 -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h3>get 与 post的区别?application json 与form表单的区别?</h3>
+			<h4>小课堂【北京第141期】</h4>
+			<p>分享人：王野</p>
+		</section>
+		<section>
+			<p>目录</p>
+			<p>1.背景介绍</p>
+			<p>2.知识剖析</p>
+			<p>3.常见问题</p>
+			<p>4.解决方案</p>
+			<p>5.编码实战</p>
+			<p>6.扩展思考</p>
+			<p>7.参考文献</p>
+			<p>8.更多讨论</p>
+		</section>
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<section>
+				<p>get 和 post是HTTP中请求数据的方法；application json 与form表单是HTTP中传输文件的类型，所以要了解其中的区别，要先了解HTTP 协议格式 和 HTTP Header
+				</p>
+			</section>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>
+			<section>
+				<p>
+					HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.1，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。
+				</p>
+			</section>
+			<section>
+				<p>HTTP请求数据:</p>
+				<img src="../img/css-01-box/22172741_qj7p.jpg" alt="">
+			</section>
+			<section>
+				<p>HTTP响应数据:</p>
+				<img src="../img/css-01-box/xiangying.png" alt="">
+			</section>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<section>
+				<h3>get 与 post的区别?</h3>
+				<p>1.GET请求的数据会附在URL之后，以?分割URL和传输数据，参数之间以&相连，<br>
+					      POST把提交的数据则放置在是HTTP包的包体中。</p>
+				<p>2.GET的长度受限于url的长度，而url的长度限制是特定的浏览器和服务器设置的，理论上GET的长度可以无限长。</p>
+				<p>3.POST是没有大小限制的，HTTP协议规范也没有进行大小限制，起限制作用的是服务器的处理程序的处理能力</p>
+				<p>4.在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。</p>
+				<p>5.POST的安全性要比GET的安全性高</p>
+			</section>
+			<section>
+				<h3>application json 与form表单的区别?</h3>
+				<p>瀏覽器默認的提交方式就是表單。首先，Content-Type 被指定为 application/x-www-form-urlencoded，jQuery的Ajax请求默认方式，其次，数据以键值对形式？key1=value1&key2=value2的方式发送到服务器</p>
+				<img src="../img/css-01-box/form.png" alt="">
+			</section>
+			<section>
+				<p>application/json用来告诉服务端消息主体是序列化后的 JSON 字符串。由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 JSON.stringify，服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。angular默認的就是json格式。</p>
+				<p>JSON 格式支持比键值对复杂得多的结构化数据，可以提交层次非常深的数据。</p>
+				<img src="../img/css-01-box/json.png" alt="">
+			</section>
+		</section>
+		<section>
+			<h3>4.解决方案&nbsp;&nbsp;编码实战</h3>
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+		</section>
+		<section>
+			<section>
+				<p>post和get的选择？</p>
+				<p>application json 和form表单的选择·</p>
+			</section>
+			<section>
+				1.私密性的信息请求使用post。<br>
+				2.查询信息和可以想要通过url分享的信息使用get。<br>
+				3.json和表单可以根据具体的情况选择，也可以自己设置。
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+		</section>
+		<section>
+			<p>参考一：<a href="http://www.cnblogs.com/li0803/archive/2008/11/03/1324746.html" >HTTP协议详解（真的很经典）</a></p>
+			<p>参考一：<a href="http://www.cnblogs.com/softidea/p/5745369.html" >四种常见的 POST 提交数据方式 专题</a></p>
+		</section>
+		<section>
+			<h3>7.更多讨论</h3>
+		</section>
+		<section>
+			<p>如何手动设置数据的格式</p>
+		</section>
+		<section>
+			<p>感谢大家观看</p>
+			<p><small>BY : 王野</small></p>
+		</section>
+	
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

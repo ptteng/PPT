@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ngRoute</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <style>
+        .a {
+            text-indent: 2em;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-task6】angular路由</h2>
+            <h3>小课堂【武汉第135期】</h3>
+            <p>分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>angular路由</h4>
+            <p style="text-align: left" class="a">
+                angular路由可以实现多视图的单页Web应用。
+                当请求一个url时，根据路由配置匹配这个url，然后请求模板片段，并插入到ng-view中去。这种做法使网页局部刷新，减少了切换网页时带来的突兀感，
+                也减少了项目的代码量。
+
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px">ngRoute实现原理</h3>
+        </section>
+        <section>
+            <p class="a">我们知道，设置</p>
+            <pre><code><a href="#a">锚点a</a></code></pre>
+
+            <p class="a"> 这样的锚点，a链接会在同一页面中跳转。ngRoute利用了这一特性将锚点出的文件设置为模板，在锚点被链接时，监听到url的变化，加载相应的模板文件。
+            </p>
+            <img src="http://files.jb51.net/file_images/article/201612/20161213100816370.png?2016111310930" alt="">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 class="a">ngRoute的使用方法</h3>
+            <h3 class="a">ngRoute的组成</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <h4>ngRoute的使用</h4>
+                <p class="a">
+                    a.引入两个文件，angular和angular-route：
+                </p>
+                <pre>
+                    <code>
+                        <script src="angular.min.js"></script>
+                        <script src="angular-route.min.js"></script>
+                    </code>
+            </pre>
+                <p class="a">b.主页面中设置容器ng-view</p>
+
+                <p class="a">
+                    c.然后在ng-app中注入ngRoute
+                </p>
+                <p class="a">d.最后配置路由表</p>
+            </section>
+
+            <section>
+                <p class="a">一个简单的ngRoute结构示例</p>
+                <pre>
+                    <code>
+        <script>
+            angular.module('indexApp', [ngRoute])
+                .config(function ($routeProvider) {
+                    $routeProvider
+                        .when('/a', {
+                            template: '<p>你好</p>',
+                            controller: 'aCtrl'
+                        })
+
+                        .when('/b', {
+                            templateUrl: 'tem/b.html',
+                            controller: 'bCtrl'
+                        })
+
+                        .otherwise({
+                            redirectTo: '/a'
+                        });
+
+                });
+
+        </script>
+
+                    </code>
+                </pre>
+
+            </section>
+        </section>
+        <section>
+            <h4>ngRoute包含以下部分：</h4>
+            <ul>
+                <li>服务$routeProvider用来定义一个路由表，即地址栏与视图模板的映射</li>
+                <li>服务$routeParams保存了地址栏中的参数</li>
+                <li>服务$location用来实现用于获取当前url以及改变当前的url,并且存入历史记录</li>
+                <li>服务$route完成路由匹配，并且提供路由相关的属性访问及事件，如访问当前路由对应的controller</li>
+                <li>指令ngView用来在主视图中指定加载子视图的区域</li>
+            </ul>
+            <p class="a">$routeProvider提供了定义路由表的服务，它有两个核心方法，when(path,route)和otherwise(params)。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p class="a">demo:&emsp;<a href="../demo/js-06-angular-route/ngRouteTest/index.html">ngRouteTest</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>ngRoute的缺点？</h4>
+            <ul class="a">
+                <li>页面中只能有一个ng-view视图</li>
+                <li>不支持嵌套，子模板中不能设置ng-view</li>
+            </ul>
+        </section>
+        <section>
+            <h4>其它实现angular路由的方式？</h4>
+            <p class="a">一般我们都用ui-router，作为angular的第三方插件，弥补了ngRoute上述的两个缺陷，其结构和ngRoute相识，但也有很多细节上的不同：</p>
+            <ul>
+                <li>$when—>$state   路由状态配置的时候</li>
+                <li>$routeParams      —>  $stateParams        带参数的时候的配置</li>
+                <li>$routeProvider      —>  $stateProvider           依赖注入的模块</li>
+                <li>'ng-view'      —>  'ui-view'         页面中绑定的指令</li>
+                <li>href="#/a" —> ui-sref="a"</li>
+            </ul>
+            <p class="a">ui-router根据状态(state)配置模板，逻辑更清晰。</p>
+            <p class="a">demo:&nbsp;<a href="../demo/js-06-angular-route/ui.routerTest/main.html">ui.routerTest</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一：<a
+                    href="http://blog.csdn.net/hao134838/article/details/51244347"
+                    target="_blank">angularJS学习小结——ngRoute（路由机制）</a></p>
+            <p class="a">参考二：<a href="http://www.runoob.com/angularjs/angularjs-routing.html">菜鸟教程-AngularJS 路由</a>
+            </p>
+            <p class="a">参考三：<a href="http://blog.csdn.net/xiaozhi_2016/article/details/62887989"
+                      target="_blank">Angular 1.6版本路由中/#!/的解决方法</a></p>
+            <p class="a">参考四：<a href="http://blog.gejiawen.com/2015/12/15/routes-solution-on-angular-ng-route/"
+                      target="_blank">AngularJS路由二三事（一）：ngRoute</a></p>
+            <p class="a">参考五：<a href="http://bubkoo.com/2014/01/01/angular/ui-router/guide/state-manager/"
+                      target="_blank">系列文章--学习 ui-router - 管理状态</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>在模板中controller的用法？</h4>
+            <p class="a">模板中Controller的值有两种：字符串和函数。</p>
+            <p class="a">字符串代表为此模板设置一个controller，名为字符串。</p>
+            <p class="a">函数代表为此模板定义controller的功能，可以设置$scope的属性等，和外部控制器功能一样。</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

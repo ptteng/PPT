@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>return的用法是什么？若用在for循环中，还会执行下一次循环吗？</h2>
+            <p>【IT修真院——深圳分院】</p>
+            <p>分享人：郭俊伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+            <h3>1.背景介绍</h3>
+                </section>
+        <section>
+                return
+        </section>
+            <section>
+               <p>表示从被调函数返回到主调函数继续执行，返回时可附带一个返回值，由return后面的参数指定。
+                return的返回值通常是必要的，因为函数调用的时候计算结果通常是通过返回值带出的。
+                如果函数执行不需要返回计算结果，也经常需要返回一个状态码来表示函数执行的顺利与否（-1和0就是最常用的状态码），
+                主调函数可以通过返回值判断被调函数的执行情况。</p>
+            </section>
+        </section>
+
+
+        <section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+                在使用return的时候，返回值是必须有的，作用就是把固定不变的、常用的代码封装起来，
+                写在类里，每次用到的时候就调用就行了，如果需要这个功能返回一个值，
+                甚至一个对象，那么就需要用到返回值了，就是用 return 把值返回给调用的目标
+        </section>
+            <section>
+                return 语句会终止函数的执行，并返回函数的值。<br/>
+               <pre>
+                <code>
+                    比如：
+                    function a(){
+                    return 10;//这个时候，函数a的值会等于10，并且函数中下面的内容不再执行
+                    document.write(50);//由于上面已经return了，这条代码不会执行
+                    }
+                </code>
+                </pre>
+            </section>
+            <section>
+                至于什么时候会用到，那看你要函数来做什么，是否有必要需要返回值；
+                比如，用函数来做一个加法运算，需要它返回值，demo如下：
+                <pre>
+                <code>
+                    function  a( b, c ) {
+                    return b  + c;
+                    }
+                    那么调用：
+                    var b = a(5, 80);
+                    这个时候，abc这个变量的值会是85
+                    如果想直接输出结果，不要返回值那就
+                    function a( b, c ) {
+                    document.write( b + c );
+                    }
+
+                    这个时候调用， var b = a(5, 80);
+                    那么页面会输出85，但b是没有值的;
+                </code>
+                </pre>
+            </section>
+            <section>
+                也可以说默认函数是没有返回值的。
+                通常函数经过一系列处理后需要给外部返回一个值或者对象
+                <pre><code>
+                比如function ba(a,b){
+                    return a+b;
+                    documet.write(a+b);
+                    };
+                alert(ba(1,2));
+                        </code></pre>
+                如果没有return将会弹出undefined
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>若用在for循环中用到了return，还会执行下一次循环吗？</p>
+        </section>
+            <section>
+                <pre>
+                <code>
+                    function counter() {
+                    for (var count = 1; count<10 ; count++) {  // infinite loop
+                    console.log(count + "A");
+
+                    return;                         //直接就返回了，下面的代码不会再执行
+
+                    console.log(count + "B");
+                    }
+                    console.log(count + "C");
+                    }
+
+                    counter();
+
+                    // Output:
+                    // 1A
+                </code>
+                </pre>
+            </section>
+        <section>
+            <p>中断功能，return被调用，函数立即停止在该点上。</p>
+             <pre>
+                <code>
+                    function counter() {
+                    for (var count = 1; conut<10 ; count++) {  // infinite loop
+                    console.log(count + "A"); // until 5
+                    if (count === 5) {
+                    return;
+                    }
+                    console.log(count + "B");  // until 4
+                    }
+                    console.log(count + "C");  // never appears
+                    }
+
+                    counter();
+                </code>
+                </pre>
+        </section>
+        </section>
+        <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>......</p>
+
+        </section>
+            </section>
+        <section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    function abc(a,b) {
+                    var c = a + b;
+                    return c;
+                    }
+                    var d=abc(5,9);
+                    alert(d);===>14;
+                </code>
+            </pre>
+        </section>
+        </section>
+        <section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">除了return，还有啥可以让for循环中断呢？</p>
+            <p class="fragment">就是break 跟 continue ；</p>
+            <p class="fragment">↓</p>
+        </section>
+            <section>
+                <h3>break</h3>
+                break 语句会使运行的程序，立刻退出包含在最内层的循环，或者退出一个 switch 语句。
+                由于它是用来退出循环，或者 switch 语句，所以只有当它出现在这些语句时，这种形式的 break 语句才是合法的。
+                如果一个循环的终止条件非常复杂，那么使用 break 语句来实现某些条件，比用一个循环表达式，来表达所有的条件容易得多。
+
+            </section>
+            <section>
+                <h3>continue</h3>
+                continue 语句和 break 语句相似。所不同的是，它不是退出一个循环，而是开始循环的一次新迭代。
+                continue 语句只能用在 while 语句、do/while 语句、for 语句、或者 for/in 语句的循环体内，在其它地方使用都会引起错误！
+            </section>
+            <section>
+                <p>[dié dài]</p>
+                <p>迭代 </p>
+                迭代是重复反馈过程的活动 ，其目的通常是，为了逼近所需目标或结果。
+                每一次对过程的重复称为一次“迭代”，而每一次迭代得到的结果，会作为下一次迭代的初始值。
+
+               <p>迭代函数</p>
+                在数学中，迭代函数是在碎形几何，和动力系统中深入研究的对象。迭代函数是重复的，与自身复合的函数，这个过程叫做迭代。
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.jb51.net/article/24101.htm" target="_blank">峰峰师兄</a></p>
+            <p>参考：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return" target="_blank">冲冲老师</a></p>
+            <p>《Javascript DOM 编程艺术》</p>
+        </section>
+        </section>
+        <section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>什么是迭代，或者你已经联想到了递归，想深入了解「递归」和「迭代」有哪些区别？</p>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.guokr.com/question/528682/" target="_blank">我是冲冲，我为疑难杂症代言！点我</a></p>
+        </section>
+            </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | somebody | 小明 | 郭俊伟 |</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

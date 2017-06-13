@@ -1,0 +1,231 @@
+@charset "UTF-8";
+/*reset*/
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+img,
+ol,
+ul,
+li,
+footer,
+header,
+menu,
+nav,
+audio,
+video,
+button,
+label,
+select,
+input,
+option,
+button {
+  margin: 0;
+  padding: 0; }
+
+html {
+  font-size: 625%; }
+  html body {
+    font: 14px/1.5 "Heiti SC", "Helvetica Neue", "Microsoft Yahei", Helvetica, Arial, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+    font: .14rem/1.5; }
+    html body h4 {
+      font-size: .16rem; }
+
+button {
+  border: 0;
+  outline: none;
+  background: transparent;
+  cursor: pointer; }
+
+ul {
+  list-style: none; }
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff; }
+  a:hover, a:focus {
+    text-decoration: none;
+    outline: none; }
+
+img {
+  display: block; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/*全局样式*/
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
+.rel {
+  position: relative; }
+
+.abs {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin: auto; }
+
+.absr {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  margin: auto; }
+
+.absl {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  margin: auto; }
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.flex-v {
+  display: flex;
+  align-items: center; }
+
+.clear {
+  overflow: hidden; }
+
+.clear:before,
+.clear:after {
+  display: block;
+  content: '';
+  clear: both; }
+
+/*common-verb*/
+.carousel {
+  position: relative;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);
+  overflow: hidden; }
+  .carousel:hover .auto-run {
+    opacity: 0;
+    transition: opacity .5s; }
+  .carousel .auto-run {
+    position: absolute;
+    z-index: 2;
+    width: 300%;
+    transition: opacity .5s;
+    animation: run infinite  10s; }
+    .carousel .auto-run img {
+      float: left; }
+  .carousel .carousel-inner {
+    position: relative;
+    overflow: hidden;
+    width: 100%; }
+    .carousel .carousel-inner .carousel-open:checked + .carousel-item {
+      position: static;
+      opacity: 100; }
+    .carousel .carousel-inner .carousel-item {
+      position: absolute;
+      opacity: 0;
+      -webkit-transition: opacity 0.6s ease-out;
+      transition: opacity 0.6s ease-out; }
+      .carousel .carousel-inner .carousel-item img {
+        display: block;
+        height: auto; }
+    .carousel .carousel-inner .carousel-control {
+      border-radius: 50%;
+      color: #ccc;
+      cursor: pointer;
+      display: none;
+      font-size: 40px;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translate(0, -50%);
+      cursor: pointer;
+      -ms-transform: translate(0, -50%);
+      transform: translate(0, -50%);
+      text-align: center;
+      z-index: 10; }
+      .carousel .carousel-inner .carousel-control img {
+        width: 20px; }
+      .carousel .carousel-inner .carousel-control:hover {
+        color: #aaaaaa; }
+      .carousel .carousel-inner .carousel-control.prev {
+        left: 2%; }
+      .carousel .carousel-inner .carousel-control.next {
+        right: 2%; }
+    .carousel .carousel-inner .carousel-indicators {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      bottom: 2%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 1s; }
+      .carousel .carousel-inner .carousel-indicators li {
+        display: inline-block;
+        margin: 0 5px; }
+        .carousel .carousel-inner .carousel-indicators li .carousel-bullet {
+          color: #fff;
+          cursor: pointer;
+          display: block;
+          text-indent: 999em;
+          width: 10px;
+          height: 10px;
+          box-sizing: border-box;
+          border: 1px solid #000;
+          border-radius: 50%; }
+          .carousel .carousel-inner .carousel-indicators li .carousel-bullet:hover {
+            color: #aaaaaa; }
+
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+  display: block; }
+
+#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #fff; }
+
+.carousel:hover .carousel-indicators {
+  opacity: 1;
+  transition: opacity 1s; }
+
+@keyframes run {
+  0% {
+    margin-left: 0; }
+  25% {
+    margin-left: 0; }
+  35% {
+    margin-left: -100%; }
+  60% {
+    margin-left: -100%; }
+  70% {
+    margin-left: -200%; }
+  95% {
+    margin-left: -200%; }
+  100% {
+    margin-left: 0%; } }
+
+/*# sourceMappingURL=carousel.css.map */
