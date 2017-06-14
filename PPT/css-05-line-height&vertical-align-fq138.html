@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<title>葡萄藤PPT</title>
+	
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+	
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	
+	<!-- 打印和PDF输出样式 -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>【CSS-task5】</h2>
+			<h3>小课堂【武汉第138期】
+			<h4>line-height与vertical-align</h4>
+			<p>分享人：冯强</p>
+		</section>
+		<section>
+			<h3>目录</h3>
+			<h4>1.背景介绍</h4>
+			<h4>2.知识剖析</h4>
+			<h4>3.常见问题</h4>
+			<h4>4.解决方案</h4>
+			<h4>5.编码实战</h4>
+			<h4>6.扩展思考</h4>
+			<h4>7.参考文献</h4>
+			<h4>8.更多讨论</h4>
+		</section>
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<h4>1.背景介绍</h4>
+			<p>随着互联网的快速发展，人们对网页美化的追求也达到了一个新的高度，为了使网页更好看，我们需要精确控制行内元素的的位置，如此，本节我们就来讨论一下文字的两个属性：line-height和vertical-align</p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>
+			<h3>1.line-height基本概念</h3>
+			<p>定义：行高是指文本行基线baseline之间的垂直距离，也可以是中线之间的距离，其实只要是两行文字中相同位置的距离都可以表示line-hieght</p>
+			<img src="../img/css-05-line-height-and-vertical-align/01.png">
+		</section>
+		<section>
+			<h4>1.1 line-height属性可赋值</h4>
+			<img src="../img/css-05-line-height-and-vertical-align/demo-1.png">
+			<p><strong>注意：</strong>1、行高是可以被继承的，数字可以直接被继承，然后在计算行高；而百分比是先计算出行高，在以px继承</p>
+			<p>2、行高line-height实际上只影响行内元素和其他行内内容，而不会直接影响块级元素，也可以为一个块级元素设置line-height，但这个值只是应用到块级元素的内联内容时才会有影响。在块级元素上声明line-height会为该块级元素的内容设置一个最小行框高度。line-height不可以设置负值。</p>
+		</section>
+		<section>
+			<h4>2.vertical-align基本概念与应用</h4>
+			<p>定义：使行内元素的基线相对于该元素所在行的基线的垂直对齐。</p>
+			<p>这个概念其实是相对vertical-align的默认值来说的，vertical-align其实定义的是行内元素垂直方向的对齐方式。</p>
+		</section>
+		<section>
+			<h4>2.1vertical-align的值</h4>
+			<img src="../img/css-05-line-height-and-vertical-align/demo-2.png">
+			<p>注意：vertical-align的百分比值不是相对于字体大小或者其他什么属性计算的，而是相对于line-height计算的。允许设置负值。</p>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<h4>图像元素在块级元素底部为什么留有空白？</h4>
+			<p><a href="http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/">进来玩玩</a></p>
+		</section>
+		<section>
+			<h3>4.解决方案</h3>
+		</section>
+		<section>
+			<p>vertical-align默认值是baseline, 也就是基线对齐。而基线是什么，基线就是字母X的下边缘。
+				所以，妹子图片的下边缘就和后面zxx中的字母x下边缘对齐（见下图）。而字符zxx本身是有高度的，对吧，于是，图片下面就留空了。</p>
+			<p>1、直接修改父级line-height值为0；</p>
+			<p>2、设置为display：block；</p>
+			<p>3、设置vertical-align：top/middle/bottom;</p>
+		</section>
+		<section>
+			<h3>5.编码实战</h3>
+		</section>
+		<section>
+			<h3>6.拓展思考</h3>
+		</section>
+		<section>
+			<h4>有哪些方法可以实现垂直居中？</h4>
+		</section>
+		<section>
+			<h4>1.单行文字垂直居中使用line-height属性</h4>
+		</section>
+		<section>
+			<h4>2.使用vertical-align属性实现居中</h4>
+		</section>
+		<section>
+			<h4>3.使用table布局</h4>
+		</section>
+		<section>
+			<h4>4.使用padding和margin</h4>
+		</section>
+
+		<section>
+			<h4>5.使用flex弹性布局</h4>
+			<p>设置父元素display:flex，使用align-items:center;</p>
+		</section>
+		<section>
+			<h4>6.使用绝对定位</h4>
+			<p>绝对定位后设置top和left为50%，然后设置负边距</p>
+		</section>
+<!-- 		<section>
+		     <h4>8.使用display:-webkit-box</h4>
+		     <p>在 content 元素外插入一个 div。设置此 div height:50%; margin-bottom:-contentheight;。content 清除浮动，并显示在中间。</p>
+		</section> -->
+		<section>
+			<h3>7.参考文献</h3>
+		</section>
+		<section>
+			<p>参考一：<a href="http://www.jb51.net/css/29328.html">line-height 和 vertical-align 行高与行对齐精解</a></p>
+			<p>参考二：<a href="http://www.cnblogs.com/keyi/p/5841222.html">深入理解line-height与vertical-align</a></p>
+			<p>参考三：<a href="http://www.cnblogs.com/hutuzhu/p/4450850.html">纯CSS实现垂直居中的几种方法</a></p>
+		</section>
+		<section>
+			<h3>8.更多讨论</h3>
+		</section>
+		<section>
+			<p>有没有其他的方法实现垂直居中？</p>
+			<a href="http://www.cnblogs.com/hutuzhu/p/4450850.html">垂直居中大全</a>
+		</section>
+		<section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 包鹏亮|冯强</small></p>
+        </section>
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
