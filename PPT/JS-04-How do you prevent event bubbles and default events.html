@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style type="text/css">
+        p{
+            font-size: 30px!important;
+            letter-spacing: 2px;
+            line-height: 50px!important;
+            text-align: left;
+            text-indent:2em;
+        }
+        a{
+            color: #fff!important;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-04】</h2>
+            <h3>主题：如何阻止事件冒泡和默认事件？</h3>
+            <h3>小课堂【深圳第139期】</h3>
+            分享人：陈中彬
+        </section>
+        <section style="line-height: 76px;">
+            目录<br>
+
+            1.背景介绍<br>
+
+            2.知识剖析<br>
+
+            3.常见问题<br>
+
+            4.解决方案<br>
+
+            5.编码实战<br>
+
+            6.扩展思考<br>
+
+            7.参考文献<br>
+
+            8.更多讨论<br>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <B>Event</B>
+            <p>在触发DOM上某个事件时，会产生一个事件对象event，这个对象包含着所有事件有关的信息（导致事件的元素、事件的类型、与特定事件相关的信息）</p>
+            <p>所有浏览器都支持Event对象，但支持方式不同</p>
+            <p>IE中的事件对象：window.event</p>
+            <pre>
+                <code>
+         /*
+            封装Event对象
+            IE：window.event
+         */
+        function getEvent(event){
+            return event?event:window.event;
+        }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <B>2.1 冒泡机制</B>
+            </section>
+            <section>
+                <p>下面这个图片大家应该心领神会吧，气泡从水底开始往上升，由深到浅，升到最上面。在上升的过程中，气泡会经过不同深度层次的水。</p>
+                <img  style="width: 350px" src="../img/JS-04-prevent event bubbles and default events/1.png" alt="">
+                <p>相对应地：这个气泡就相当于我们这里的事件，而水则相当于我们的整个dom树；事件从dom 树的底层 层层往上传递，直至传递到dom的根节点。</p>
+            </section>
+            <section>
+                <p>2.1.1 简单案例分析</p>
+                <p>下面通过一个简单的例案例来阐述冒泡原理:</p>
+                <p>定义一个html, 里面有三个简单的dom 元素：div1,div2, span，div2包含span，div1 包含div2；而它们都在body 下：</p>
+                <pre>
+                    <code>
+            <span style="font-family:Microsoft YaHei;font-size:10px;">
+            <body id="body">
+                <div id="box1" class="box1">
+                    <div id="box2" class="box2">
+                        <span id="span">This is a span.</span>
+                    </div>
+                </div>
+            </body>
+            </span>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>界面原型如下:</p>
+                <img style="width: 350px;" src="../img/JS-04-prevent event bubbles and default events/2.png" alt="">
+            </section>
+            <section>
+                <p>在这个基础上，我们实现下面的功能：</p>
+                <p>body添加 click 事件监听，当body捕获到event事件时，打印出事件发生的时间和触发事件的节点信息：</p>
+                <pre>
+                    <code>
+    <script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("body").addEventListener("click",eventHandler);
+    };
+    function eventHandler(event) {
+        console.log("时间："+new Date(event.timeStamp)+
+                    "产生事件的节点：" + event.target.id +
+                    "当前节点："+event.currentTarget.id);
+    }
+    </script>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>当我们依次点击"This is span"，div2，div1，body后，输出以下信息：</p>
+                <p><a href="../demo/JS-04-prevent event bubbles and default events/demo1.html">demo1</a></p>
+                <img src="../img/JS-04-prevent event bubbles and default events/3.png" alt="">
+                <p>分析以上的结果：无论是body，body 的子元素div1，还是 div的子元素div2，还有 span, 当这些元素被点击click时，都会产生click事件，并且body都会捕获到，然后调用相应的事件处理函数。就像水中的气泡从底往上冒一样，事件也会往上传递。</p>
+            </section>
+            <section>
+                <p>事件传递的示意图如下所示：</p>
+                <img src="../img/JS-04-prevent event bubbles and default events/4.png" alt="">
+                <p>一般地，事件在传递过程中会有一些信息，这些是事件的组成部分：事件发生的时间+事件发生的地点+ 事件的类型+事件的当前处理者+其他信息</p>
+            </section>
+            <section>
+                <p>2.2 默认事件</p>
+                <p>浏览器的一些默认的事件。例如：点击超链接跳转，点击右键会弹出菜单，滑动滚轮控制滚动条</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <B>如何阻止事件冒泡和默认事件?</B>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <B>4.1 如何阻止事件冒泡？</B>
+            </section>
+            <section>
+                <p>我们现在想实现这样的功能，在div1 点击的时候，弹出 "你好，我是最外层div。"，点击div2 的时候，弹出 "你好，我是第二层div"；点击span 的时候，弹出"您好，我是span。"。</p>
+                <p>由此我们会有下面的javascript片段：</p>
+                <pre>
+                    <code>
+    <span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+        window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            alert("您好，我是最外层div。");
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            alert("您好，我是第二层div。");
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            alert("您好，我是span。");
+        });
+    }
+    </script></span>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>预期上述代码会单击span 的时候，会出来一个弹出框 "您好，我是span。" 是的，确实弹出了这样的对话框：</p>
+                <img style="width: 200px;" src="../img/JS-04-prevent event bubbles and default events/4.1.png" alt="">
+                <p>然而，不仅仅会产生这个对话框，当点击确定后，会依次弹出下列对话框：</p>
+                <img style="width: 200px;" src="../img/JS-04-prevent event bubbles and default events/4.2.png" alt="">
+                <img style="width: 200px;" src="../img/JS-04-prevent event bubbles and default events/4.3.png" alt="">
+            </section>
+            <section>
+                <p>这显然不是我们想要的！ 我们希望的是点谁显示谁的信息而已。为什么会出现上述的情况呢？ 原因就在于事件的冒泡，点击span的时候，span 会把产生的事件往上冒泡，作为父节点的div2 和 祖父节点的div1也会收到此事件，于是会做出事件响应，执行响应函数。现在问题是发现了，但是怎么解决呢？</p>
+            </section>
+            <section>
+                <p>方法一：我们来考虑一个形象一点的情况：水中的一个气泡正在从底部往上冒，而你现在在水中，不想让这个气泡往上冒，怎么办呢？——把它扎破！没了气泡，自然不会往上冒了。类似地，对某一个节点而言，如果不想它现在处理的事件继续往上冒泡的话，我们可以终止冒泡：</p>
+                <p>在相应的处理函数内，加入  event.stopPropagation()   ,终止事件的广播分发，这样事件停留在本节点，不会再往外传播了。修改上述的script片段：</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+    <span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            alert("您好，我是最外层div。");
+            event.stopPropagation();
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            alert("您好，我是第二层div。");
+            event.stopPropagation();
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            alert("您好，我是span。");
+            event.stopPropagation();
+        });
+    }
+    </script></span>
+                    </code>
+                </pre>
+            <p>经过这样一段代码，点击不同元素会有不同的提示，不会出现弹出多个框的情况了。</p>
+            </section><section>
+            <p>方法二：事件包含最初触发事件的节点引用 和 当前处理事件节点的引用，那如果节点只处理自己触发的事件即可,不是自己产生的事件不处理。event.target 引用了产生此event对象的dom 节点，而event.currrentTarget 则引用了当前处理节点，我们可以通过这 两个target 是否相等。</p>
+            <p>比如span 点击事件，产生一个event 事件对象，event.target 指向了span元素，span处理此事件时，event.currentTarget 指向的也是span元素，这时判断两者相等，则执行相应的处理函数。而事件传递给 div2 的时候，event.currentTarget变成 div2，这时候判断二者不相等，即事件不是div2 本身产生的，就不作响应处理逻辑。 </p>
+        </section>
+            <section>
+                <pre>
+                    <code>
+    <span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是最外层div。");
+            }
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是第二层div。");
+            }
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是span。");
+
+            }
+        });
+    }
+    </script></span>
+                    </code>
+                </pre>
+                <p>比较：从事件传递上看：方法一在于取消事件冒泡，即当某些节点取消冒泡后，事件不会再传递；方法二在于不阻止冒泡，过滤需要处理的事件，事件处理后还会继续传递；</p>
+            </section>
+            <section>
+                <p> 优缺点：</p>
+                <p> 方法一缺点：为了实现点击特定的元素显示对应的信息，方法一要求每个元素的子元素也必须终止事件的冒泡传递，即跟别的元素功能上强关联，这样的方法会很脆弱。比如，如果span 元素的处理函数没有执行冒泡终止，则事件会传到div2 上，这样会造成div2 的提示信息；</p>
+                <p> 方法二缺点：方法二为每一个元素都增加了事件监听处理函数，事件的处理逻辑都很相似，即都有判断 if(event.target == event.currentTarget)，这样存在了很大的代码冗余，现在是三个元素还好，当有10几个，上百个又该怎么办呢？
+                    还有就是为每一个元素都有处理函数，在一定程度上增加逻辑和代码的复杂度。</p>
+            </section>
+            <section>
+                <p>我们再来分析一下方法二：方法二的原理是 元素收到事件后，判断事件是否符合要求，然后做相应的处理，然后事件继续冒泡往上传递；</p>
+                <p>既然事件是冒泡传递的，那可不可以让某个父节点统一处理事件，通过判断事件的发生地（即事件产生的节点），然后做出相应的处理呢？答案是可以的，下面通过给body 元素添加事件监听，然后通过判断event.target 然后对不同的target产生不同的行为。</p>
+            </section>
+            <section>
+                <p>将方法二的代码重构一下：</p>
+                <pre>
+                    <code>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("body").addEventListener("click",eventPerformed);
+        };
+        function eventPerformed(event) {
+            var target = event.target;
+            switch (target.id) {
+                case "span":
+                    alert("您好，我是span。");
+                    break;
+                case "div1":
+                    alert("您好，我是第二层div。");
+                    break;
+                case "div2":
+                    alert("您好，我是最外层div。");
+                    break;
+            }
+        }
+    </script>
+                    </code>
+                </pre>
+            <p>结果会是点击不同的元素，只弹出相符合的提示，不会有多余的提示。</p>
+            </section>
+            <section>
+                <B>4.2 阻止默认事件</B>
+                <p>1)DOM中提供preventDefault()方法来取消事件默认行为，但是只有当cancelable属性设置为true的事件，才可以使用preventDefault()来取消事件默认行为，使用event对象在事件函数中调用就行</p>
+                <p>2)IE中提供的是returnValue属性，默认为true，当它设置为false时，就是取消事件默认行为，也是用event对象在事件函数中调用</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+        /*
+            封装阻止元素的默认行为函数
+            IE：returnValue
+            DOM：preventDefault
+         */
+        function preventDefaultAction(event){
+            var event = window.event || event;
+            if(document.all){
+                //支持IE
+                event.returnValue = false;
+            }else{
+                //IE不支持
+                event.preventDefault();
+            }
+        }
+                    </code>
+                </pre>
+                <p>3)jQuery中提供了preventDefault()方法来阻止元素的默认行为，只需要用event对象来调用就好，即event.preventDefault()</p>
+            </section>
+            <section>
+                <p>同时阻止事件冒泡和默认行为</p>
+                <p>如果想同时对事件对象停止冒泡和默认行为，可以在事件处理函数中返回false。</p>
+                <p>这是对事件对象同时调用stopPropagation()方法和preventDefault()方法的一种简写方式。</p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <B>事件冒泡有什么作用</B>
+            <p>事件冒泡允许多个操作被集中处理（把事件处理器添加到一个父级元素上，避免把事件处理器添加到多个子级元素上），它还可以让你在对象层的不同级别捕获事件。让不同的对象同时捕获同一事件，并调用自己的专属处理程序做自己的事情</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+           <ol>
+               <li>
+                   <a href="http://www.cnblogs.com/Essence/p/4266618.html">博客园</a>
+               </li>
+               <li>
+                    <a href="http://www.jb51.net/article/69171.htm">脚本之家</a>
+               </li>
+           </ol>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            还有哪些其他的默认行为？<br>
+            return false;的机制与用法
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h4>感谢大家观看</h4>
+            <small>BY : 陈中彬</small>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v) {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>

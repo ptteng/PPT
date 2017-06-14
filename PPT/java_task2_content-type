@@ -1,0 +1,205 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>1.http请求content-Type有几种，有什么区别</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：魏杨</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>先介绍下背景</p>
+			<p> </p>
+			<p></p>
+			<p>在最早的HTTP协议中，并没有附加的数据类型信息，所有传送的数据都被客户程序解释为超文本标记语言HTML 文档。</p>
+			</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		<section>
+            <p>那么问题来了</p>
+			</section>
+	<section>
+             <p>如何解决多媒体传输，图片、视频……</p>
+        </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+		<section>
+		<p>加后缀</p>
+        </section>
+
+		 <section>
+		<p> Content-Type是HTTP协议header中一个重要的参数，它用于标识发送或接收到的数据的类型，浏览器根据该参数来决定数据的打开方式。</p>
+		<p>为了支持多媒体数据类型，HTTP协议中就使用了附加在文档之前的MIME数据类型信息来标识数据类型，它使得HTTP传输的不再是普通的文本，让网页内容变得丰富多彩。</p>
+        </section>
+			 </section>
+			 
+			  <section>
+		<p>Content-Type使用的是 “主类型/子类型; 额外参数” (  [type]/[subtype]; parameter )的数值格式。</p>
+        </section>
+		
+		<section>
+		<section>
+		<p>“主类型” （type）主要有以下几种：</p>
+
+<p>1. text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的； 默认是text/plain；</p>
+
+<p>2. multipart：用于连接消息体的多个部分构成一个消息，这些部分可以是不同类型的数据； 默认是multipart/mixed；</p>
+
+<p>3. application：用于传输应用程序数据或者二进制数据； 默认是application/octet-stream；</p>
+
+<p>4. message：用于包装一个E-mail消息；</p>
+</section>
+<section>
+<p>5. image：用于传输静态图片数据；</p>
+
+<p>6. audio：用于传输音频或者音声数据；</p>
+
+<p>7. video：用于传输动态影像数据，可以是与音频编辑在一起的视频数据格式。</p>
+
+<p>8. drawing：--未整理</p>
+
+<p>9. java：--未整理</p>
+
+<p>10 Model：--未整理</p>
+        </section>
+			</section>
+		<section>
+		<p>“子类型” （subtype）用于指定"主类型"的详细形式。 其中以x-开头表示该类别尚未标准化 。当客户端不能确定“子类型”时，会根据“主类型”来获取默认的子类型。</p>
+        </section>
+			
+			<section>
+		<p>"额外参数" （parameter）用于指定请求/响应内容的字符编码格式。例如text/html;charset=utf-8；</p>
+        </section>
+			
+			<section>
+		<p>MIME类型标准是通过Internet的IANA组织来制定的，但由于Internet发展的太快，很多应用程序等不及IANA来确认他们使用的MIME类型为标准类型，因此他们使用在类别中以x-开头的方法标识这个类别还没有成为标准，例如：x-gzip，x-tar等。</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.cnblogs.com/liulinjie/p/5545212.html</p>
+			<p>https://segmentfault.com/a/1190000003002851</p>
+			<p>http://www.jb51.net/web/85379.html</p>
+			<p>http://www.tuicool.com/articles/vYnuM3</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 魏杨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

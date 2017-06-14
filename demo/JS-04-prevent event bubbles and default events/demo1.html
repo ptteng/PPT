@@ -1,0 +1,125 @@
+<span style="font-family:Microsoft YaHei;font-size:10px;"><!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<title>demo1</title>
+<style type="text/css">
+.box1 {
+    border: green 40px solid;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+
+.box2 {
+    border: yellow 40px solid;
+    width: 220px;
+    height: 220px;
+    margin: auto;
+}
+
+span {
+    position: relative;
+    left: 50px;
+    top: 50px;
+    font-size: 20px;
+    background-color: rgba(128, 128, 128, 0.22);
+}
+</style>
+
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("body").addEventListener("click",eventHandler);
+    };
+    function eventHandler(event) {
+        console.log("时间："+new Date(event.timeStamp)+" 产生事件的节点：" + event.target.id +"  当前节点："+event.currentTarget.id);
+    }
+</script>
+
+<!--<span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("box1").addEventListener("click",function(event){
+                alert("您好，我是最外层div。");
+            });
+            document.getElementById("box2").addEventListener("click",function(event){
+                alert("您好，我是第二层div。");
+            });
+            document.getElementById("span").addEventListener("click",function(event){
+                alert("您好，我是span。");
+            });
+        }
+    </script></span>-->
+
+    <!--方法一
+    <span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            alert("您好，我是最外层div。");
+            event.stopPropagation();
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            alert("您好，我是第二层div。");
+            event.stopPropagation();
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            alert("您好，我是span。");
+            event.stopPropagation();
+        });
+    }
+    </script></span>-->
+
+   <!-- 方法二
+    <span style="font-family:Microsoft YaHei;font-size:10px;"><script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是最外层div。");
+            }
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是第二层div。");
+            }
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是span。");
+
+            }
+        });
+    }
+    </script></span>-->
+<!--
+    方法二重构
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("body").addEventListener("click",eventPerformed);
+        };
+        function eventPerformed(event) {
+            var target = event.target;
+            switch (target.id) {
+                case "span":
+                    alert("您好，我是span。");
+                    break;
+                case "box1":
+                    alert("您好，我是第二层div。");
+                    break;
+                case "box2":
+                    alert("您好，我是最外层div。");
+                    break;
+            }
+        }
+    </script>-->
+</head>
+<body id="body">
+    <div id="box1" class="box1">
+        <div id="box2" class="box2">
+            <span id="span">This is a span.</span>
+        </div>
+    </div>
+</body>
+</html></span>

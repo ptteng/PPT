@@ -1,0 +1,427 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angualr控制器是什么？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-10】</h2>
+            <h3>angualr控制器是什么？</h3>
+            <h3>小课堂【武汉分院第124期】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+        <p>理解控制器</p>
+            <p style="text-align:left">
+控制器在AngularJS中的作用是增强视图。
+AngularJS中的控制器是一个函数，用来向视图的作用域中添加额外的功能。我们用它来给
+作用域对象设置初始状态，并添加自定义行为。
+当我们在页面上创建一个新的控制器时，AngularJS会生成并传递一个新的 $scope 给这个控
+制器。可以在这个控制器里初始化 $scope 。由于AngularJS会负责处理控制器的实例化过程，我
+们只需编写构造函数即可。
+            </p>
+        </section>
+        <section>
+            <p >下面的例子展示了控制器初始化：</p>
+<pre>
+    <code>
+function FirstController($scope) {
+$scope.message = "hello";
+}          
+    </code>
+</pre>
+<p>提示：将控制器命名为 [Name]Controller 而不是 [Name]Ctrl 是一个最佳实践。</p>    
+        </section>
+
+
+<section>
+    <p style="text-align:left">正如我们看到的那样，AngularJS会在创建作用域时调用控制器方法。
+细心的读者会发现，我们是在全局作用域中创建的这个函数。这样做并不合适，因为会污染
+全局命名空间。更合理的方式是创建一个模块，然后在模块中创建控制器，如下所示：</p>
+<pre>
+    <code>
+var app = angular.module('app', []);
+app.controller('FirstController', function($scope) {
+$scope.message = "hello";
+});        
+    </code>
+</pre>
+
+<p style="text-align:left">只需创建控制器作用域中的函数，就能创建可以在视图中使用的自定义操作。很幸运，
+AngularJS允许我们在视图中像调用普通数据一样调用 $scope 上的函数。</p>
+</section>
+
+<section>
+    <p style="text-align:left">用内置指令 ng-click 可以将按钮、链接等其他任何DOM元素同点击事件进行绑定。 ng-click 指
+令将浏览器中的 mouseup 事件，同设置在DOM元素上的事件处理程序绑定在一起（例如，当浏览器
+在某个DOM元素上触发了点击事件，函数就会被调用）。和前面的例子类似，绑定看起来是这样的：</p>
+</section>
+
+<section>
+<pre>
+    <code>
+<body ng-app="app">    
+  <div ng-controller="FirstController">
+    <h4>The simplest adding machine ever</h4>
+    <button ng-click="add(1)" >Add</button>
+    <button ng-click="subtract(1)" >Subtract</button>
+    <h4>Current count: {{ counter }}</h4>
+  </div>  
+</body>        
+    </code>
+</pre>  
+
+<p style="text-align:left">按钮和链接都被绑定在了内部 $scope 的一个操作上，当点击任何一个元素时AngularJS都会
+调用相应的方法。注意，当设置调用哪个函数时，会同时用括号传递一个参数（ add(1) ）。</p>
+
+</section>
+<section>
+<p>下面给 FirstController 添加一个操作：</p>
+<pre>
+    <code>
+var app = angular.module('app',[]);
+app.controller('FirstController', function($scope) {
+  $scope.counter = 0;
+  $scope.add = function(amount) { $scope.counter += amount; };
+  $scope.subtract = function(amount) { $scope.counter -= amount; };
+});       
+    </code>
+</pre>   
+<p>用这种设置方式我们可以在视图中调用 add() 或 subtract() 方法，这两个方法可以定义在
+FirstController 的作用域中，或其父级的 $scope 中。</p> 
+</section>
+
+<section>
+    <P style="text-align:left">控制器可以将与一个独立视图相关的业务逻辑封装在一个独立的容器中。尽可能地精简控制
+器是很好的做法。作为AngularJS开发者，使用依赖注入来访问服务可以实现这个目的。</P>
+<p style="text-align:left">AngularJS同其他JavaScript框架最主要的一个区别就是，控制器并不适合用来执行DOM操
+作、格式化或数据操作，以及除存储数据模型之外的状态维护操作。它只是视图和 $scope 之间的
+桥梁。</p><p style="text-align:left"> 
+AngularJS允许在 $scope 上设置包括对象在内的任何类型的数据，并且在视图中还可以展示
+对象的属性。</P>
+</section>
+
+<section>
+    <p>例如，我们在 MyController 上创建一个 person 对象，这个对象只有 name 这一个属性：</p>
+<pre>
+    <code>
+app.controller('MyController', function($scope) {
+    $scope.person = {
+    name: 'Ari Lerner'
+    };
+});        
+    </code>
+</pre>   
+</section>
+
+<section>
+
+<p>在拥有 ng-controller='MyController' 这个属性的元素内部的任何子元素中，都可以访问
+person 对象，因为它是定义在 $scope 上的。</p>
+<P>例如，可以方便地在视图中引用 person 或 person.name ，效果如图所示。</p> 
+<pre>
+    <code>
+<div ng-app="myApp">
+    <div ng-controller="MyController">
+        <h1>{{ person }}</h1>
+        and their name:
+        <h2>{{ person.name }}</h2>
+    </div>
+</div>        
+    </code>
+</pre>
+</section>
+
+<section>
+    <p style="text-align:left">正如看到的这样， $scope 对象用来从数据模型向视图传递信息。同时，它也可以用来设置事
+件监听器，同应用的其他部分进行交互，以及创建与应用相关的特定业务逻辑。</p>
+<p style="text-align:left">
+AngularJS通过作用域将视图、控制器和指令（以后介绍）隔离开来，这样就很容易
+为功能的具体部分编写测试。</p>
+</section>
+
+<section>
+    <p>控制器嵌套（作用域包含作用域）</p>
+</section>
+
+<section>
+    <p>ngularJS应用的任何一个部分，无论它渲染在哪个上下文中，都有父级作用域存在。对于
+ng-app 所处的层级来讲，它的父级作用域就是 $rootScope 。</p>
+<p>有一个例外：在指令内部创建的作用域被称作孤立作用域。</p>
+<p>除了孤立作用域外，所有的作用域都通过原型继承而来，也就是说它们都可以访问父级作用
+域。如果熟悉面向对象编程，对这个机制应该不会陌生。</p>
+</section>
+
+<section>
+    <p>默认情况下，AngularJS在当前作用域中无法找到某个属性时，便会在父级作用域中进行查
+找。如果AngularJS找不到对应的属性，会顺着父级作用域一直向上寻找，直到抵达 $rootScope
+为止。如果在 $rootScope 中也找不到，程序会继续运行，但视图无法更新。</p>
+</section>
+
+<section>
+    <p>通过例子来看一下这个行为。</p>
+    <p>下面是一个拥有三层div结构，也就对应有三层 scope 继承关系的层级结构（不包括 rootScope 的话），demo中的蓝色边框很清晰的展现了 scope 的层级和DOM层级的对应关系。它还展示了“scope 是由 ng-controller 指令创建并由其对应的控制器所管理”这个概念。</p>
+<pre>
+    <code>
+<!doctype html>
+<html ng-app="scopeInheritance">
+  <head>
+    <script src="http://code.angularjs.org/1.2.25/angular.min.js"></script>
+    <script src="demo4.js"></script>
+    <style type="text/css">
+      div.spicy div {
+        padding: 10px;
+        border: solid 2px blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-app="scopeInheritance" class="spicy">
+      <div ng-controller="MainCtrl">
+        <p>Good {{timeOfDay}}, {{name}} !</p>
+    
+        <div ng-controller="ChildCtrl">
+          <p>Good {{timeOfDay}}, {{name}} !</p>
+    
+          <div ng-controller="GrandChildCtrl">
+            <p>Good {{timeOfDay}}, {{name}},!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>       
+    </code>
+</pre>
+</section>
+
+<section>
+
+<pre>
+    <code>
+var myApp = angular.module('scopeInheritance', []);
+
+myApp.controller('MainCtrl', ['$scope', function($scope){
+  $scope.timeOfDay = 'morning';
+  $scope.name = 'Nikki';
+}]);
+
+myApp.controller('ChildCtrl', ['$scope', function($scope){
+  $scope.name = 'Mattie';
+}]);
+
+myApp.controller('GrandChildCtrl', ['$scope', function($scope){
+  $scope.timeOfDay = 'evening';
+  $scope.name = 'Gingerbreak Baby';
+}]);       
+    </code>
+</pre>
+</section>
+
+<section>
+    <p style="text-align: left;">注意，上面例子中我们在HTML模板中嵌套了三个 ng-controller 指令，这导致我们的视图中有4个 scope：</p>
+
+<p style="text-align: left;">root scope，所有作用域的“根”</p>    
+ <p style="text-align: left;">MainCtrl 控制器管理的 scope （简称 MainCtrl scope），拥有 timeOfDay 和 name 两个属性</p>   
+<p style="text-align: left;">ChildCtrl 控制器管理的 scope （简称 ChildCtrl scope），继承了 MainCtrl scope 中的 timeOfDay 属性，但重写了它的 name 属性</p>    
+<p style="text-align: left;">GrandChildCtrl 控制器管理的 scope （简称 GrandChildCtrl scope），重写了 MainCtrl scope 中的 timeOfDay 属性和 ChildCtrl scope 中的 name 属性</p>    
+<p style="font-size: 30px;">
+控制器中，方法继承和属性继承的工作方式是一样的，所以，上面例子中的所有属性，我们也可以改写成能够返回字符串值的方法，同样有效。</p>
+</section>
+
+
+
+
+
+
+
+
+
+<section>
+    <p>控制器应该尽可能保持短小精悍，而在控制器中进行DOM操作和数据操作则是一个不好的
+实践。</p>
+<p>例如，下面这个例子中的控制器包含了过于臃肿的逻辑用于控制视图，并且还操作了DOM。
+臃肿的控制器：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .controller('MyController', function($scope) {
+        $scope.shouldShowLogin = true;
+        $scope.showLogin = function () {
+        $scope.shouldShowLogin = !$scope.shouldShowLogin;
+    };
+    $scope.clickButton = function() {
+        $('#btn span').html('Clicked');
+    };
+    $scope.onLogin = function(user) {
+        $http({
+        method: 'POST',
+        url: '/login',
+        data: {
+        user: user
+        }
+        }).success(function(data) {
+        // user
+        });
+    };
+});        
+    </code>
+</pre>
+
+
+</section>
+
+<section>
+    <p>设计良好的应用会将复杂的逻辑放到指令和服务中。通过使用指令和服务，我们可以将控制
+器重构成一个轻量且更易维护的形式：</p>
+<p>简洁的控制器：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .controller('MyController', function($scope,UserSrv) {
+        // 内容可以被指令控制
+        $scope.onLogin = function(user) {
+        UserSrv.runLogin(user);
+    };
+});        
+    </code>
+</pre>
+</section>
+
+
+
+
+
+
+
+
+
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        
+
+        <section>       
+            <h3>三.常见问题</h3>
+        </section>
+        <section>       
+            <h3>四.解决方案</h3>
+        </section>        
+        <section>       
+            <h3>五.代码实战</h3>
+        </section>
+
+
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+        <section>
+            <p>
+            </p>
+        </section>
+
+        <section>
+            <h3>七.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="http://docs.ngnice.com/guide/controller">理解控制器 </a></p>
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 徐恒</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

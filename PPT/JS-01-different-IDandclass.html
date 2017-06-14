@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>ID和CLASS有什么区别？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-01】</h2>
+            <h3>ID和Class有什么区别？</h3>
+            <h3>小课堂【武汉分院】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">我们平常在用DIV CSS制作html网页页面时，常会用到class 和id来选择调用CSS样式属性。对学习CSS的新手来说class和id可能比较模糊，同时不知道什么时候该用class，什么时候又用id，以及它们用法与限制是怎么样的。接下来我们就来讨论下CLASS与ID基本属性及用法。</p>
+        </section>
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>Class 在程序中称“类”，同时在CSS中书面语也叫“类”。他表示的是具有共同特点的东西，比如苹果香蕉梨可以归为水果一类。</p>
+            <p>在CSS样式中以小写的“点”及“.”来命名如： .css_demo{属性：属性值;} ,而在html页面里则以class="css_demo" 来选择调用,命名好的CSS又叫css选择器。</p>
+        </section>
+        <section>
+            <p>而且class(类)在同一个html网页页面中可以无数次的调用相同的class类，这也说明class一般是用来调用css中的预配制属性的，比如说有一个预配制属性为如这里的“.css_demo{属性：属性值;} ”，这样就可以像调用函数一样不用再一个网页页面里重复的配置一个“类”属性，而只需要写上一个class类选择，就可以在同一个页面里任何位置调用选择具有相同的CLASS类。</p>            
+        </section>
+        <section>
+            <p>ID是表示着标签的身份，在JS脚本中会用到id，当JS要修改一个标签的属性时，JS会将id名作为该标签的唯一标识进行操作。也就是说ID只是页面元素的标识，供其他元素脚本等引用。假如你的页面里出现了两个同名ID，那JS效果特性会出现逻辑错误而不知道依据哪个ID来改变其标签属性(一般选第一个，第二个不会选)。 在CSS里的ID不一定为JS而设置的，但是同样ID在页面里最好只能出现一次，保持唯一性。</p>
+        </section>
+        <section>
+            <p>在css 页面中的ID是怎么个用法呢？</p>
+            <p>通常我们在CSS样式定义的时候 以“#”来开头命名id名称如：#css5{属性:属性值;} 这个也有点像class的定义，只是class是以小写句号“.”开头命名，而ID是以“#”好开头定义。</p>
+        </section>
+        <section>
+            <p>特别注意：在命名id和class类的时候特别要注意大小写，ID和class是对大小写非常敏感的，最好以英文开头，不要用中文命名CSS类名。</p>
+        </section>
+
+        <section>
+            <h3>三.常见问题</h3>
+        </section>
+        <section>
+            <p>在css JS JQ中class和id用法</p>
+        </section>
+        <section>
+            <h3>四.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                CSS中
+                一个用.一个用#
+                用法如上，但要注意覆盖之外的权值问题.
+                class表示一类当然可以对多个元素设置，但ID表示唯一身份，虽然目前的浏览器还都允许用多个相同ID，一般情况下也能正常显示，不过当你需要用JavaScript通过id来控制div时就会出现错误
+
+            </p>
+        </section>
+        <section>
+            <p>在js中</p>
+            <p>ID通过document.getElementById(IDname),</p>
+            <pre>
+                <code>document.getElementById("id4").style.cssText="width: 200px;height: 200px;background-color:purple;";</code>
+            </pre>
+            <p>CLASS通过 document.getElementsByClassName(CLASSname)</p>
+            <pre>
+                <code>
+var js_css4 = document.getElementsByClassName("css4");
+js_css4[0].style.cssText = "width: 200px;height: 200px;background-color:purple;";
+js_css4[1].style.cssText = "width: 200px;height: 200px;background-color:red;";
+// 但是没有类似JQ的js_css4.style.cssText = "width: 200px;height: 200px;background-color:purple;";只能用循环for()
+
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>JQ中ID用$("IDname")</p>
+            <pre>
+                <code>
+$("#id5").css({"width": "200px", "height": "200px", "background-color": "red"});
+                </code>
+            </pre>
+            <p>CLASS用$("CLASSname")</p>
+            <pre>
+                <code>
+$(".css5").css({"width": "200px", "height": "200px", "background-color": "yellow"});
+//这里是按顺序选择css5类中第几个
+$(".css5").eq(0).css({"width": "200px", "height": "200px", "background-color": "orange"});
+$(".css5").eq(1).css({"width": "200px", "height": "200px", "background-color": "green"});
+                </code>
+            </pre>
+        </section>        
+        <section>
+            <h3>五.代码实战</h3>
+        </section>
+
+        <section>
+            <h4>总结</h4>
+            <p>class一般用来干什么</p>
+            <p>1.在css中，用class来指定标签的类名。多个标签可以写同一类名。多个类名也可以写在一个class中如：class="btn color box"</p>
+            <p>2.在JS中，获取到的class将是一个数组，在使用的时候要特别注意！也是对象。document.getElementsByClassName(CLASSname),用下标选中同一类中第几个。</p>
+            <p>3.在jQuery中，获取到的class将是一个对象，用$("CLASSname"):eq() 选择器选取带有指定 index 值的元素。</p>
+        </section> 
+
+        <section>
+            <p>ID一般用来干什么</p>
+            <p>1.在css中，用id为元素设置单独的，特殊的样式，虽然目前的浏览器还都允许用多个相同ID，一般情况下也能正常显示，不过当你需要用JavaScript通过id来控制div时就会出现错误(就只是选中第一个名为ID标签)</p>
+            <p>锚点结合a标签</p>
+            <p>用于充当label标签for属性的值</p>
+            <p>2.在JS中，使用id为特定的标签设置特定的行为document.getElementById(IDname),</p>
+            <p>3.在jQuery中，使用id为特定的标签设置特定的行为$("IDname")</p>
+        </section> 
+
+        <section>
+            <pre>
+                <code>
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+        <section>
+            <p>id和class还有什么别的用法
+            </p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：
+                <a href="http://www.jb51.net/web/84935.html" target="_blank">HTML name、id、class 的(格式/应用场景/特性)等区别介绍</a>
+            </p>
+
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 徐恒</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

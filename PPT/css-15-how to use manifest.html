@@ -15,12 +15,18 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+    <style>
+        .a {
+            text-indent: 2em;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
@@ -51,7 +57,7 @@
             <h4>
                 什么是应用程序缓存（Application Cache）？
             </h4>
-            <p>网页必须在有网时才能使用，HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。</p>
+            <p class="a">网页必须在有网时才能使用，HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。</p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
@@ -59,7 +65,7 @@
         <section>
             <section>
                 <h4>1，使用方法:</h4>
-                在html标签中引入manifest文件:
+                <p class="a">在html标签中引入manifest文件:</p>
                 <pre>
                 <code>
                 &lt;html manifest="test.appcache"&gt;
@@ -68,7 +74,7 @@
             </section>
 
             <section>
-                这个文件中存储了服务器希望缓存的文件列表:
+                <p class="a">这个文件中存储了服务器希望缓存的文件列表:</p>
                 <pre>
                 <code>
 CACHE MANIFEST
@@ -94,7 +100,7 @@ FALLBACK:
             </section>
             <section>
                 <h4>2.更新缓存:</h4>
-                <div>在有网时，以下条件触发缓存的更新</div>
+                <p class="">在有网时，以下条件触发缓存的更新</p>
                 <ul>
                     <li>用户清空浏览器缓存</li>
                     <li>manifest 文件被修改</li>
@@ -103,15 +109,16 @@ FALLBACK:
             </section>
             <section>
                 <h4>3.缓存流程:</h4>
-                <p>利用一个manifest清单文件告知服务器需要离线的网页文件。<br>
-                    在第一次访问网站时服务器响应manifest文件进行缓存。<br>
-                    在第二次访问该网址时，检测是否达到更新缓存的条件，否则直接使用缓存文件（即使你修改了服务器上的文件）。
-                </p>
-
+                <ul>
+                    <li>利用一个manifest清单文件告知服务器需要离线的网页文件。</li>
+                    <li>在第一次访问网站时服务器响应manifest文件进行缓存。</li>
+                    <li>在第二次访问该网址时，检测是否达到更新缓存的条件，否则直接使用缓存文件（即使你修改了服务器上的文件）。</li>
+                </ul>
             </section>
             <section>
-                <h3>注意</h3>
-                <p style="color: red">HTML5应用缓存特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。</p>
+                <h4 style="color: #7b1fa2;">注意!!!</h4>
+                <p class="a" style="color: red;">HTML5应用缓存特性已经从 Web
+                    标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。</p>
                 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">点击查看详情</a>
             </section>
         </section>
@@ -119,14 +126,14 @@ FALLBACK:
             <h3>常见问题</h3>
         </section>
         <section>
-           <section>
-
-               <h3>
-                   离线存储有什么优缺点？
-               </h3>
-           </section>
             <section>
-                <p>优点</p>
+
+                <h4>
+                    离线存储有什么优缺点？
+                </h4>
+            </section>
+            <section>
+                <h5>优点</h5>
                 <ul>
                     <li>离线浏览 - 用户可在应用离线时使用它们</li>
                     <li>速度 - 已缓存资源加载得更快</li>
@@ -134,7 +141,7 @@ FALLBACK:
                 </ul>
             </section>
             <section>
-                <p>缺点</p>
+                <h5>缺点</h5>
                 <ul>
                     <li>更新的资源，需要二次刷新才会被页面采用</li>
                     <li>不支持增量更新，只有manifest发生变化，所有资源全部重新下载一次</li>
@@ -147,7 +154,7 @@ FALLBACK:
         </section>
         <section>　
             <p>这里是一个离线存储的demo</p>
-            <a href="http://59.110.174.154/task/manifest/test.html">demo</a>
+            <a href="../demo/css-15-how%20to%20use%20manifest/manifest/test.html">demo</a>
         </section>
         <section>
             <h3>扩展思考</h3>
@@ -166,14 +173,17 @@ FALLBACK:
             <h3>6.参考文献</h3>
         </section>
         <section>
-            <p>参考一:<a href="http://www.w3school.com.cn/html5/html_5_app_cache.asp">慕课网-manifest</a></p>
-            <p>参考二:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">MDN-manifest</a></p>
-            <p>参考三:<a href="https://www.zhihu.com/question/35130316">知乎-关于前端缓存优化，为什么没人用manifest？</a></p>
+            <p class="a">参考一:<a href="http://www.w3school.com.cn/html5/html_5_app_cache.asp">慕课网-manifest</a></p>
+            <p class="a">参考二:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">MDN-manifest</a>
+            </p>
+            <p class="a">参考三:<a href="https://www.zhihu.com/question/35130316">知乎-关于前端缓存优化，为什么没人用manifest？</a></p>
         </section>
         <section>
             <h3>7.更多讨论</h3>
-            <p>浏览器对离线存储的大小有限制吗？</p>
-            浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。
+        </section>
+        <section>
+            <h4>浏览器对离线存储的大小有限制吗？</h4>
+            <p class="a">浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。</p>
         </section>
         <section>
             <h4>鸣谢</h4>
@@ -212,10 +222,14 @@ FALLBACK:
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
