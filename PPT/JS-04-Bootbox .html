@@ -1,0 +1,316 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用Bootbox</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-04】</h2>
+            <h3>小课堂【如何使用Bootbox?】</h3>
+            <p>分享人：王振</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Bootbox.js是一个小型的JavaScript库，基于 Twitter 的 Bootstrap 开发。它允许你创建使用编程对话框。方便用户快速创建模拟框。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p> 该库提供了三个旨在模仿其原生JavaScript等效项的函数。他们的确切的函数名是灵活的，
+                因此每个可以采取各种参数来定制标签和指定默认值，但它们最基本是这样：
+            </p>
+        </section>
+        <section>
+            <section>
+                <p>警告框</p>
+                <pre>
+                    <code>
+                        bootbox.alert(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>提示框</p>
+                <pre>
+                    <code>
+                        bootbox.prompt(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>确认框</p>
+                <pre>
+                    <code>
+    bootbox.confirm({
+            title: "提示",
+            message: "这是一个确认按钮的样式！",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                console.log('这是回调函数来确认最终结果: ' + result);
+            }
+        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>这三个函数中的每一个都可以调用第四个公共函数，你也可以使用它来创建自己的自定义对话框：</p>
+                <pre>
+                    <code>
+                        bootbox.dialog(options)
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>bootbox的所有版本都是在Bootstrap和jQuery的基础之上的，因此bootstrap，jQuery和bootbox的版本要对应</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section><img src="../img/JS-08-useBootbox/1.png"> </section>
+        <section>
+            <p>
+                注意脚本引用的顺序
+            </p>
+            <ul>
+                <li>jQuery</li>
+                <li>Bootstrap</li>
+                <li>Bootbox</li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p>警告框：基本用法</p>
+                <pre>
+                 <code>
+                     bootbox.alert("This is the default alert!");
+                 </code>
+             </pre>
+            </section>
+            <section>
+                <p>警告框：带回调</p>
+                <pre>
+                 <code>
+                    bootbox.alert("This is an alert with a callback!", function(){
+                     console.log('This was logged in the callback!');
+                     });
+                 </code>
+                 </pre>
+            </section>
+            <section>
+                <p>设置框大小</p>
+                <pre>
+                 <code>
+                     bootbox.alert({
+                              message: "This is the small alert!",
+                              size: 'small'
+                      });
+                 </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>确认框基本用法</p>
+                <pre>
+                    <code>
+bootbox.confirm("确认信息", function(result){
+  console.log('This was logged in the callback: ' + result);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>交替按钮</p>
+                <pre>
+                    <code>bootbox.confirm({
+            message: "这是一个确认按钮的样式！",
+            buttons: {
+            confirm: {
+                label: 'Yes',
+                className: 'btn-success'
+             },
+            cancel: {
+                label: 'No',
+                className: 'btn-danger'
+            }
+            },
+            callback: function (result) {
+                console.log('This was logged in the callback: ' + result);
+            }
+        });
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <p>提示框：基本用法</p>
+                <pre>
+                    <code>
+bootbox.prompt("提示信息", function(result){ console.log(result); });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>日期提示 </p>
+                <pre>
+                    <code>
+                       bootbox.prompt({
+    title: "这是一个带有日期输入的提示!",
+    inputType: 'date',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>提示输入密码</p>
+                <pre>
+                    <code>
+                        bootbox.prompt({
+    title: "这是一个带有密码输入的提示！",
+    inputType: 'password',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>电子邮件提示</p>
+                <pre>
+                    <code>
+ bootbox.prompt({
+    title: "这是一个带有电子邮件输入的提示!",
+    inputType: 'email',
+    callback: function (result) {
+        console.log(result);
+    }
+});
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">bootbox弹出框如何设置为中文提示</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://bootboxjs.com/" target="_blank">Bootbox.js</a></p>
+        </section>
+        <section>
+            <h2>鸣谢</h2>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 黄志波|王振</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
