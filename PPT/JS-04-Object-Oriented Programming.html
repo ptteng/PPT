@@ -1,0 +1,612 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS中的面向对象编程</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <style>
+        p {
+            text-align: left;
+            /*text-indent:1em;*/
+            /*word-break: break-all;*/
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】简述JS面向对象编程</h2>
+            <h3>小课堂</h3>
+            <p style="text-align: center;">分享人：王蒙</p>
+        </section>
+        <section>
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <h4>面向对象（Object-Oriented, OO）</h4>
+                <p>“面向对象编程”（Object-Oriented Programming，缩写为OOP）是目前主流的编程范式。它的核心思想是将真实世界中各种复杂的关系，抽象为一个个对象，然后由对象之间的分工与合作，完成对真实世界的模拟。</p>
+
+                <p>面向对象的语言有一个标志，就是类的概念，通过类可以创建任意多个具有相同属性和方法的对象。ECMAScript中没有类的概念，它的对象与基于类的语言中的对象有所不同。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                    <h4>2.1对象</h4>
+                    <p>
+                        ECMA-262 把对象定义为:无序属性的集合，其属性可以包含基本值、对象或者函数。严格来讲，这就相当于说对象是一组没有特定顺序的值。对象的每个属性或方法都有一个名字，而每个名字都映射到一个值。正因为这样(以及其他将要讨论的原因).我们可以把 ECMAScript 的对象想象成散列表:无非就是一组名值对，其中值可以是数据或函数。
+                    </p>
+                </section>
+            <section>
+                <p>1).Object构造对象</p>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+var person = new Object();
+person.name = "Nicholas";
+person.age = 29;
+person.job = "Software Engineer ";
+person.sayName = function() {
+alert (this.name) ;
+};
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>2).对象字面量创建对象</p>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+var person = {
+name: "Nicholas",
+age : 29 ,
+job: "Software Engineer",
+sayName: function () {
+alert(this.name) ;
+}
+}；
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+        <section>
+            <h4>2.2 对象属性类型</h4>
+            <p>
+                ECMA-262第5版定义了JS对象属性的特征（用于JS引擎，外部无法直接访问）。ECMAScript中有两种属性：数据属性和访问器属性.
+            </p>
+        </section>
+        <section>
+            <p>1).数据属性
+                数据属性指包含一个数据值的位置，可在该位置读取或写入值，有4个供述其行为的特性：
+                [[configurable]]:表示能否通过 delete 删除属性从而重新定义属性.能否修改属性的特性，或者能否把属性修改为访问器属性。默认为true;
+                [[Enumerable]]:表示能否通过 for-in 循环返回属性。默认为true;
+                [[Writable]]:表示能否修改属性的值。默认true;
+                [[Value]]:包含该属性的数据值。读取/写入都是该值。默认为undefined;
+            </p>
+        </section>
+        <section>
+            <p>如上面实例对象person中定义了name属性，其值为’Nicholas’,对该值的修改都反映在这个位置，要修改对象属性的默认特征（默认都为true)，必须使用用Object.defineProperty()方法，它接收三个参数：属性所在对象，属性名和一个描述符对象（必须是：configurable、enumberable、writable和value，可设置一个或多个值）。
+            </p>
+        </section>
+        <section>
+            <pre style="height: 400px">
+                <code style="height: 100%">
+var person = {};
+Object.defineProperty(person, 'name', {
+    configurable: false,
+    writable: false,
+    value: 'Nicholas'
+});
+alert(person.name);//"Nicholas"
+delete person.name;
+person.name = 'aaa';
+alert(person.name);//"Nicholas"
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>以上，delete及重置person.name的值都没有生效，这就是因为configurable: false和writable: false；值得注意的是一旦将configurable设置为false，则无法再使用defineProperty将其修改为true（执行会报错：can't redefine non-configurable property）;
+            </p>
+        </section>
+        <section>
+            <p>2).访问器属性
+                访问器属性不包含数据值。它包含一对 getter 和 setter 函数(这两个函数都不是必需的)。读取访问器属性时，调用 getter 函数，返回有效的值；写入访问器属性时，调用 setter 函数并传入新值并设置。该属性有以下4个特征：
+                  [[Configurable]]:是否可通过delete删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为数据属性，默认值为true。
+                  [[Enumerable]]:是否可通过for-in循环属性；
+                  [[Get]]:读取属性时调用，默认：undefined;
+                  [[Set]]:写入属性时调用，默认：undefined;
+                  访问器属性不能直接定义，必须使用defineProperty()来定义.如：
+            </p>
+        </section>
+        <section>
+            <pre style="height: 400px">
+                <code style="height: 100%">
+var book = {
+    _year: 2004,
+    edition: 1
+};
+Object.defineProperty(book, 'year', {
+    get: function () {
+        return this._year;
+    },
+    set: function (newValue) {
+        if (newValue > 2004) {
+            this._year=newValue;
+            this.edition += newValue-2004;
+        }
+    }
+});
+book.year=2005;
+alert(book.edition);//2
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>不一定非要同时指定 getter 和 setter，只指定 getter 意味着属性是不能写，尝试写入属性会被忽略。没有指定getter函数的属性也不能读,会返回undefined。
+               此外，ECMA-262（5）还提供了一个Object.defineProperties()方法，可以用来一次性定义多个属性的特性：
+            </p>
+        </section>
+        <section>
+            <pre style="height: 400px">
+                <code style="height: 100%">
+var book = {};
+Object.defineProperties(book,{
+    _year:{
+        value:2004
+    },
+    edition:{
+        value:1
+    },
+    year:{
+        get: function () {
+            return this._year;
+        },
+        set: function (newValue) {
+            if (newValue > 2004) {
+                this._year=newValue;
+                this.edition += newValue-2004;
+            }
+    }
+    }
+});
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>使用ECMAScript 5的Object.getOwnPropertyDescriptor()方法，可以取得给定属性的描述符。这个方法接收两个参数: 属性所在的对象和要读取其描述符的属性名称。返回值是一个对象，如果是访问器属性，这个对象的属性有configurable、enumerable、get和set; 如果是数据属性，这个对象的属性有configurable、enumerable、writable和value。
+            </p>
+        </section>
+        <section>
+            <pre style="height: 400px">
+                <code style="height: 100%">
+    var descriptor = Object.getOwnPropertyDescriptor(book ，"_year" ) ;
+
+    alert(descriptor.value); //2004
+    alert(descriptor.configurable); //false
+    alert(typeof descriptor.get); //undefined
+    var descriptor = Object.getOwnPropertyDescriptor(book. "year");
+    alert(descriptor.value); //undefined
+    alert(descriptor.enumerable); //false
+    alert(typeof descriptor.get); //function
+                </code>
+            </pre>
+        </section>
+        </section>
+        <section>
+            <section>
+                <h4>2.3 创建对象</h4>
+                <p>使用Object构造函数或对象字面量都可以创建对象，缺点是创建多个对象时，会产生大量的重复代码。因此使用用工厂模式的变体来解决问题。
+                </p>
+            </section>
+            <section>
+                <h4>1).工厂模式：用函数来封装以特定接口创建对象的细节</h4>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function createPerson(name, age, job) {
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.getName = function () {
+        return this.name;
+    }
+    return o;//使用return返回生成的对象实例
+}
+var person = createPerson('Nicholas',29,'Software Engineer');
+var person = createPerson('Greg',27,'Doctor');
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>创建对象交给一个工厂方法来实现，可以传递参数。缺点是无法识别对象类型，因为创建对象都是使用Object的原生构造函数来完成的。
+                </p>
+            </section>
+            <section>
+                <h4>2).构造函数模式：创建特定类型的对象</h4>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.getName = function () {
+        return this.name;
+    }
+}
+var person1 = new Person('Nicholas',29,'Software Engineer');
+var person2 = new Person('Greg',27,'Doctor');
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>使用自定义的构造函数来创建对象，它与工厂方法区别在于：
+                    1.没有显式地创建对象
+                    2.直接将属性和方法赋值给this对象；
+                    3.没有return语句；
+                </p>
+            </section>
+            <section>
+                <p>此外，要创建Person的实例，必须使用new关键字，以Person函数为构造函数，传递参数完成对象创建；实际创建经过以下4个过程：
+                    1.创建一个对象
+                    2.将函数的作用域赋给新对象（因此this指向这个新对象，如：person1）
+                    3.执行构造函数的代码
+                    4.返回该对象
+                </p>
+            </section>
+            <section>
+                <p>上面person1与person2都是Person的实例，可以使用instanceof判断，且都继承了Object。
+                </p>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+alert(person1 instanceof Person);//true;
+alert(person2 instanceof Person);//true;
+alert(person1 instanceof Object);//true;
+alert(person1.constructor === person2.constructor);//ture;
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>构造函数方式也存在缺点，那就是在创建对象时，特别针对对象的属性指向函数时，会重复的创建函数实例，以上述代码为基础，可以改写为：
+                </p>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = new Function ("alert(this.name)");//与声明函数在逻辑上是等价的
+}
+alert(person1.sayName == person2.sayName); //false
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>上述代码，创建多个实例时，会重复调用new Function()，创建多个函数实例，这些函数实例不在一个作用域中，造成内存浪费。
+                    可以在函数中定义一个this.sayName = sayName的引用，而sayName函数在Person外定义，这样可以解决重复创建函数实例问题，但在效果上并没有起到封装的效果，如下所示：
+                </p>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = sayName;
+}
+function sayName() {
+    alert(this.name);
+}
+var person1 = new Person('Nicholas',29,'Software Engineer');
+var person2 = new Person('Greg',27,'Doctor');
+                </code>
+            </pre>
+            </section>
+            <section>
+                <h4>3).原型模式</h4>
+                <p>
+                    JS每个函数都有一个prototype(原型)属性，这个属性是一个指针，指向一个对象，它是所有通过new操作符使用函数创建的实例的原型对象。原型对象最大特点是，所有对象实例共享它所包含的属性和方法，也就是说，所有在原型对象中创建的属性或方法都直接被所有对象实例共享。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(){
+}
+Person.prototype.name = 'Nicholas'; //使用原型来添加属性
+Person.prototype.age = 29;
+person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function(){
+    alert(this.name);
+}
+var person1 = new Person();
+person1.sayName(); //Nicholas
+var person2 = new Person();
+person2.sayName(); //Nicholas
+alert(person1.sayName === person2.sayName); //true;
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>原型模式的缺点，它省略了为构造函数传递初始化参数，结果所有实例在默认情况下都将取得相同的属性值。最主要是当对象的属性是引用类型时，它的值是不变的，总是引用同一个外部对象，所有实例对该对象的操作都会影响其它实例：
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person() {
+}
+Person.prototype ={
+    name:'Nicholas',
+    lessons = ['Math','Physics'];
+}
+var person1 = new Person();
+var person2 = new Person();
+person1.lessons.push('Biology');
+alert(person2.lessons);//Math,Physics,Biology，修改person1影响了person2
+                </code>
+            </pre>
+            </section>
+            <section>
+                <h4>3).组合构造函数及原型模式</h4>
+                <p>
+                    目前最为常用的定义类型方式，是组合使用构造函数模式与原型模式。构造函数模式用于定义实例的属性，而原型模式用于定义方法和共享的属性。结果，每个实例都会有自己的一份实例属性的副本，但同时又共享着对方方法的引用，最大限度的节约内存。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(name,age,job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = ['Shelby','Court'];
+}
+Person.prototype ={
+    constructor: Person,
+    this.sayName: function() {
+        alert(this.name);
+    }
+}
+var person1 = new Person('Nicholas',29,'Software Engineer');
+var person2 = new Person('Greg',27,'Doctor');
+person1.friends.push('Van');
+alert(person1.friends); //"Shelby,Court,Van"
+alert(person2.friends); //"Shelby,Court"
+alert(parson1.friends === parson2.friends); //false
+alert(parson1.sayName === parson2.sayName); //true
+                </code>
+            </pre>
+            </section>
+            <section>
+                <h4>4).动态原型模式</h4>
+                <p>将所有信息封装在构造函数中，而通过在构造函数中初始化原型(仅在必要的情况下)，又保持了同时使用构造函数和原型的优点。换句话说，可以通过检查某个应该存在的方法是否有效，来决定是否需要初始化原型。
+                </p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                <code style="height: 100%">
+function Person(name,age,job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+//方法
+if (typeof this.sayName != 'function'){
+    Person.prototype.sayName = function() {
+            alert(this.name);
+    };
+}
+}
+var person1 = new Person('Nicholas',29,'Software Engineer');
+person1.sayName();
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>方法代码：if语句在sayName()方法不存在的情况下，将它添加到原型中，只在初次调用构造函数时执行。对于采用这种模式创建的对象，可以使用instanceof操作符确定它的类型。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>2.4 继承</h4>
+                <p>ECMAScript 无法实现接口继承，只支持实现继承。</p>
+            </section>
+            <section>
+                <h4>1).原型链</h4>
+                <p>上一期讲过</p>
+            </section>
+            <section>
+                <h4>2).借用构造函数</h4>
+                <p>使用apply()和call()方法在子类型构造函数的内部调用超类型构造函数。</p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+function SuperType() {
+    this.colors = ['red', 'blue','green'];
+}
+function SubType() (
+    // 继承了SuperType
+    SuperType.call(this);
+}
+var instance1 = new SubType() ;
+instance1.colors.push("black");
+alert (instance1.colors); / /"red,blue,green,black"
+var instance2 = new SubType();
+alert(instance2.colors); //"red,blue,green"
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h4>3).组合继承</h4>
+                <p>使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。</p>
+            </section>
+            <section>
+                <pre style="height: 400px">
+                    <code style="height: 100%">
+function SuperType(name) {
+    this.name = name;
+    this.colors = ["red","blue","green"];
+}
+SuperType.prototype.sayName = function () (
+    alert(this.name);
+};
+function SubType(name,age) (
+    //继承属性
+    SuperType.call(this,name);
+    this.age = age;
+}
+
+/ /继承方法
+SubType.prototype = new SuperType();
+SubType.prototype.constructor=SubType;
+SubType.prototype.sayAge = function() (
+alert(this.age);
+};
+
+var instance1 = new SubType('Nicholas',29);
+instance1.colors.push('black');
+alert(instance1.colors); // "red,blue,green,black"
+instance1.sayName(); //'Nicholas';
+instance1.sayAge(); //29
+
+var instance2 = new SubType('Greg',27);
+alert(instance2.colors); //'red, blue, green'
+instance2.sayName(); //'Greg';
+instance2.sayAge(); //27
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>让两个不同的 SubType 实例既分别拥有自己属性————包括colors属性，又可以使用相同的方法。</p>
+                <p>此外，还存在下列可供选择的继承模式。
+                    1.原型式继承. 可以在不必预先定义构造函数的情况下实现继承，其本质是执行对给定对象的浅复制。而复制得到的副本还可以得到进一步改造。
+                    2.寄生式继承. 与原型式继承非常相似.也是基于某个对象或某些信息创建一个对象，然后增强对象，最后返回对象。为了解决组合继承模式由于多次调用超类型构造函数而导致的低效率问题，可以将这个模式与组合继承一起使用。
+                    3.寄生组合式继承. 集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>面向对象编程</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>以上</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>
+                面向对象与面向过程的区别？
+                传统的过程式编程（procedural programming）由一系列函数或一系列指令组成，使用时一步步调用；而面向对象编程的程序由一系列对象组成。
+                每一个对象都是功能中心，具有明确分工，可以完成接受信息、处理数据、发出信息等任务。因此，面向对象编程具有灵活性、代码的可重用性、模块性等特点，容易维护和开发，非常适合多人合作的大型应用型软件项目。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：《Javascript高级程序设计》chapter 6</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>状态机也是用对象实现的。</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center">
+                <small>BY : 王蒙</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

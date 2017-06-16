@@ -1,0 +1,1288 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular js自定义指令 directive 如何使用？为什么要使用封装的自定义指令？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-8】</h2>
+            <h3>angular js自定义指令 directive 如何使用？为什么要使用封装的自定义指令？</h3>
+            <h3>小课堂【武汉分院第130期】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+        <p>指令定义</p>
+            <p style="text-align:left">
+对于指令，可以把它简单的理解成在特定DOM元素上运行的函数，指令可以扩展这个元素
+的功能。</p>
+<p style="text-align:left">例如， ng-click 可以让一个元素能够监听 click 事件，并在接收到事件的时候执行AngularJS表
+达式。正是指令使得AngularJS这个框架变得强大，并且正如所见，我们可以自己创造新的指令。
+AngularJS应用的模块中有很多方法可以使用，其中 directive() 这个方法是用来定义指令的：
+            </p>
+
+<pre>
+    <code>
+angular.module('myApp', [])
+.directive('myDirective', function ($timeout, UserDefinedService) {
+// 指令定义放在这里
+});        
+    </code>
+</pre>
+
+        </section>
+ 
+<section>
+    <P >directive() 方法可以接受两个参数：</P>
+<p style="text-align:left">1.  name （字符串）</p>
+
+<p style="text-align:left">指令的名字，用来在视图中引用特定的指令。</p>
+<p style="text-align:left">2.  factory_function （函数）</p>
+<p style="text-align:left">这个函数返回一个对象，其中定义了指令的全部行为。 $compile 服务利用这个方法返回的对
+象，在DOM调用指令时来构造指令的行为。</p>
+
+<pre>
+    <code>
+angular.application('myApp', [])
+    .directive('myDirective', function() {
+    // 一个指令定义对象
+    return {
+    // 通过设置项来定义指令，在这里进行覆写
+    };
+});        
+    </code>
+</pre>
+
+
+</section>
+ 
+<section>
+<p style="text-align:left">我们也可以返回一个函数代替对象来定义指令，但是像上面的例子一样，通过对象来定义是
+最佳的方式。当返回一个函数时，这个函数通常被称作链接传递（postLink）函数，利用它我们
+可以定义指令的链接（link）功能。由于返回函数而不是对象会限制定义指令时的自由度，因此
+只在构造简单的指令时才比较有用。</P>
+</section>
+
+
+<section>
+    <p style="text-align:left">当AngularJS启动应用时，它会把第一个参数当作一个字符串，并以此字符串为名来注册第
+二个参数返回的对象。AngularJS编译器会解析主HTML的DOM中的元素、属性、注释和CSS类名
+中使用了这个名字的地方，并在这些地方引用对应的指令。当它找到某个已知的指令时，就会在
+页面中插入指令所对应的DOM元素。</p>
+<pre>
+    <code>
+ <div my-directive></div>       
+    </code>
+</pre>
+
+<p style="text-align:left">tip:为了避免与未来的HTML标准冲突，给自定义的指令加入前缀来代表自定义的
+命名空间。AngularJS本身已经使用了 ng- 前缀，所以可以选择除此以外的名字。
+在例子中我们使用 my- 前缀（比如 my-derictive ）。</p>
+</section>
+
+<section>
+    <p style="text-align:left">指令的工厂函数只会在编译器第一次匹配到这个指令时调用一次。和 controller 函数类似，
+我们通过 $injetor.invoke 来调用指令的工厂函数。
+当AngularJS在DOM中遇到具名的指令时，会去匹配已经注册过的指令，并通过名字在注册
+过的对象中查找。此时，就开始了一个指令的生命周期，指令的生命周期开始于 $compile 方法并
+结束于 link 方法，后面的内容中我们会介绍这个过程。</p>
+
+    <p style="text-align:left">下面，来看看定义一个指令时可以使用的全部设置选项。</p>
+
+<p style="text-align:left">tip:一个JavaScript对象由键和值组成。当一个给定键的值被设置为一个字符串、布
+尔值、数字、数组或对象时，我们把这个键称为属性。当把键设置为函数时，
+我们把它叫做方法。</p>
+</section>
+
+
+
+<section>
+<p style="text-align:left">可能的选项如下所示，每个键的值说明了可以将这个属性设置为何种类型或者什么样的
+函数：</p>
+
+<pre>
+    <code>
+angular.module('myApp', [])
+  .directive('myDirective', function() {
+    return {
+      restrict: String,
+      priority: Number,
+      terminal: Boolean,
+      template: String or Template Function:
+        function(tElement, tAttrs) (...},
+      templateUrl: String,
+      replace: Boolean or String,
+      scope: Boolean or Object,
+      transclude: Boolean,
+      controller: String or
+      function(scope, element, attrs, transclude, otherInjectables) { ... },
+      controllerAs: String,
+      require: String,
+      link: function(scope, iElement, iAttrs) { ... },
+      compile: // 返回一个对象或连接函数，如下所示：
+        function(tElement, tAttrs, transclude) {
+            return {
+                pre: function(scope, iElement, iAttrs, controller) { ... },
+                post: function(scope, iElement, iAttrs, controller) { ... }
+            }
+            // 或者
+            return function postLink(...) { ... }
+            }
+  };
+});        
+    </code>
+</pre>
+</section>
+
+
+<section>
+    <p>restrict （字符串）</p>
+<p style="text-align:left">restrict 是一个可选的参数。它告诉AngularJS这个指令在DOM中可以何种形式被声明。默
+认AngularJS认为 restrict 的值是 A ，即以属性的形式来进行声明。</p>
+<p style="text-align:left">可选值如下：</p>
+
+<pre>
+    <code>
+E（元素）
+<my-directive></my-directive>
+A（属性，默认值）
+<div my-directive="expression"></div>
+C（类名）
+<div class="my-directive:expression;"></div>
+M（注释）
+<--directive:my-directive expression-->
+这些选项可以单独使用，也可以混合在一起使用：
+angular.module('myDirective', function(){
+    return {
+    restrict: 'EA' // 输入元素或属性
+    };
+});
+上面的配置可以同时用属性或注释的方式来声明指令：
+<-- 作为一个属性 -->
+<div my-directive></div>
+<-- 或者作为一个元素 -->
+<my-directive></my-directive>        
+    </code>
+</pre>
+
+</section>
+
+<section>
+
+
+<p style="text-align:left">属性是用来声明指令最常用的方式，因为它能在包括老版本的IE浏览器在内的所有浏览器中
+正常工作，并且不需要在文档头部注册新的标签。</p>
+
+<p style="text-align:left">尽量避免用注释方式来声明属性。这种方式最初被用来声明由多个标签组成的
+指令。这种方法在某些情况下特别有用，比如在 table 元素内使用 ng-repeat
+指 令 ， 但 在 AngularJS 1.2 中 ng-repeat 可 以 通 过 ng-repeat-start 和
+ng-repeat-end 来更优雅地满足这个需求，注释模式就没有什么用武之地了。
+如果你对此很好奇，可以通过Chrome开发者工具的 element 标签观察一下使用
+ng-repeat 时被隐式添加的注释。</p>
+
+</section>
+
+<section>
+    <p>元素方式还是属性方式</p>
+<p style="text-align:left">在页面中通过元素方式创建新的指令可以将一些功能封装在元素内部。例如，如果我们想要
+做一个时钟（忽略对老版本IE浏览器的支持），可以创建一个 clock 指令，然后在DOM中用如下
+代码来声明：</p>
+<pre>
+    <code>
+<my-clock></my-clock>        
+    </code>
+</pre>
+
+<p style="text-align:left">这样做可以告诉指令的使用者，这里会完整包含应用的某一部分内容。这个时钟并不是对一
+个既有时钟的修饰或扩展，而是一个全新的单元。尽管这里也可以使用属性形式声明指令
+（AngularJS并不在意），但我们选择了元素形式，因为这样可以更明确地表达意图。</p>
+
+</section>
+
+<section>
+
+<p style="text-align:left">用属性形式来给一个已经存在的元素添加数据或行为。以时钟为例，假设我们更喜欢模拟时钟：</p>
+<pre>
+    <code>
+<my-clock clock-display="analog"></my-clock>        
+    </code>
+</pre>
+<p style="text-align:left">
+如何进行选择，通常取决于定义的指令是否包含某个组件的核心行为，或者用额外的行为、
+状态或者其他内容（比如模拟时钟）对某个核心组件进行修饰或扩展。
+使用何种指令声明格式的指导原则是能够准确表达每一段代码的意图，创造易于理解和分享
+的清晰代码。</p>
+<p style="text-align:left">另外一个重要的标准，是根据指令是否创建、继承或将自己从所属的环境中隔离出去进行判
+断。指令的父子关系对其组成和重用性起着至关重要的作用，会有额外的内容来更加深入地讨论
+指令的作用域。</p>
+</section>
+
+<section>
+    <p> priority优先级（数值型）</p>
+<p style="text-align:left">优先级参数可以被设置为一个数值。大多数指令会忽略这个参数，使用默认值0，但也有些
+场景设置高优先级是非常重要甚至是必须的。例如， ngRepeat 将这个参数设置为1000，这样就可
+以保证在同一元素上，它总是在其他指令之前被调用。</p>
+<p style="text-align:left">如果一个元素上具有两个优先级相同的指令，声明在前面的那个会被优先调用。如果其中一
+个的优先级更高，则不管声明的顺序如何都会被优先调用：具有更高优先级的指令总是优先运行。</p>
+<p style="text-align:left">ngRepeat 是所有内置指令中优先级最高的，它总是在其他指令之前运行。这样
+设置主要考虑的是性能。在讨论编译参数时会更详细介绍性能相关的内容。</p>
+</section>
+
+<section>
+    <p>terminal （布尔型）</p>
+<p style="text-align:left">terminal 是一个布尔型参数，可以被设置为 true 或 false 。</p>
+<p style="text-align:left">这个参数用来告诉AngularJS停止运行当前元素上比本指令优先级低的指令。但同当前指令
+优先级相同的指令还是会被执行。</p>
+<p style="text-align:left">如果元素上某个指令设置了 terminal 参数并具有较高的优先级，就不要再用其他低优先级的
+指令对其进行修饰了，因为不会被调用。但是具有相同优先级的指令还是会被继续调用。
+使用了 terminal 参数的例子是 ngView 和 ngIf 。 ngIf 的优先级略高于 ngView ，如果 ngIf 的表
+达式值为 true ， ngView 就可以被正常执行，但如果 ngIf 表达式的值为 false ，由于 ngView 的优先
+级较低就不会被执行。</p>
+</section>
+
+<section>
+    <p> template （字符串或函数）</p>
+<p style="text-align:left">template 参数是可选的，必须被设置为以下两种形式之一：</p>
+<p style="text-align:left">  一段HTML文本；</p>
+<p style="text-align:left">  一个可以接受两个参数的函数，参数为 tElement 和 tAttrs ，并返回一个代表模板的字符
+串。 tElement 和 tAttrs 中的 t 代表 template ，是相对于 instance 的。在讨论链接和编译
+设置时会详细介绍，模板元素或属性与实例元素或属性之间的区别。</p>
+<p style="text-align:left">AngularJS会同处理HTML一样处理模板字符串。模板中可以通过大括号标记来访问作用域，
+例如 {{ expression }} 。</p>
+</section>
+
+<section>
+
+<p style="text-align:left">如果模板字符串中含有多个DOM元素，或者只由一个单独的文本节点构成，那它必须被包
+含在一个父元素内。换句话说，必须存在一个根DOM元素：</p>
+<pre>
+    <code>
+template: '\
+<div> <-- single root element -->\
+<a href="http://google.com">Click me</a>\
+<h1>When using two elements, wrap them in a parent element</h1>\
+</div>\        
+    </code>
+</pre>
+
+<p style="text-align:left">另外，注意每一行末尾的反斜线，这样AngularJS才能正确解析多行字符串。在实际生产中，
+更好的选择是使用 templateUrl 参数引用外部模板，因为多行文本阅读和维护起来都是一场噩梦。
+模板字符串和 templateURL 中最需要了解的重要功能，是它们如何同作用域链接起来。</p>
+</section>
+
+<section>
+    <p>templateUrl （字符串或函数）</p>
+<p style="text-align:left">templateUrl 是可选的参数，可以是以下类型：</p>
+<p style="text-align:left">  一个代表外部HTML文件路径的字符串；</p>
+<p style="text-align:left">  一个可以接受两个参数的函数，参数为 tElement 和 tAttrs ，并返回一个外部HTML文件
+路径的字符串。</p>
+<p style="text-align:left">无论哪种方式，模板的URL都将通过AngularJS内置的安全层，特别是 $getTrusted
+ResourceUrl ，这样可以保护模板不会被不信任的源加载。</p>
+
+<p style="text-align:left">默认情况下，调用指令时会在后台通过Ajax来请求HTML模板文件。有两件事情需要知道。</p>
+</section>
+<section>
+<p style="text-align:left">  在本地开发时，需要在后台运行一个本地服务器，用以从文件系统加载HTML模板，否则
+会导致Cross Origin Request Script（CORS）错误。</p>
+<p style="text-align:left">  模板加载是异步的，意味着编译和链接要暂停，等待模板加载完成。</p>
+<p style="text-align:left">通过Ajax异步加载大量的模板将严重拖慢一个客户端应用的速度。为了避免延迟，可以在部
+署应用之前对HTML模板进行缓存。在大多数场景下缓存都是一个非常好的选择，因为AngularJS
+通过减少请求数量提升了性能。</p>
+<p style="text-align:left">模板加载后，AngularJS会将它默认缓存到 $templateCache 服务中。在实际生产中，可以提前将模板缓存到一个定义模板的JavaScript文件中，这样就不需要通过XHR来加载模板了。</p>
+</section>
+
+<section>
+    <p>replace （布尔型）</p>
+<p style="text-align:left">replace 是一个可选参数，如果设置了这个参数，值必须为 true ，因为默认值为 false 。默
+认值意味着模板会被当作子元素插入到调用此指令的元素内部：</p>
+<pre>
+    <code>
+<!-- <div some-directive></div>
+.directive('someDirective', function() {
+    return {
+      template: '<div>some stuff here<div>'
+    };
+}); -->        
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">调用指令之后的结果如下（这是默认 replace 为 false 时的情况）：</p>
+<pre>
+    <code>
+
+<!-- <div some-directive>
+   <div>some stuff here<div>
+</div>  -->         
+    </code>
+</pre>
+
+
+</section>
+
+<section>
+
+
+<p style="text-align:left">如果 replace 被设置为了 true ：</p>
+<pre>
+    <code>
+<!-- .directive('someDirective', function() {
+    return {
+        replace: true // 修饰过
+        template: '<div>some stuff here<div>'
+    };
+});
+指令调用后的结果将是：
+//<div>some stuff here<div>    -->     
+    </code>
+</pre>
+
+
+</section>
+
+
+<section>
+    <p>指令作用域</p>
+<p style="text-align:left">为了完全理解指令定义对象中剩下的参数，需要先介绍指令作用域是如何工作的。</p>
+<p style="text-align:left">$rootScope 这个特殊的对象会在DOM中声明 ng-app 时被创建：</p>
+<pre>
+    <code>
+<div ng-app="myApp"
+ng-init="someProperty = 'some data'"></div>
+<div ng-init="siblingProperty = 'more data'">
+Inside Div Two
+<div ng-init="aThirdProperty"></div>
+</div>        
+    </code>
+</pre>
+
+</section>
+<section>
+<p style="text-align:left">上面的代码中，我们在应用的根作用域中设置了三个属性： someProperty 、 siblingProperty
+和 aThirdProperty 。</p>
+<p style="text-align:left">从这里开始，DOM中每个指令调用时都可能会：</p>
+<p style="text-align:left">  直接调用相同的作用域对象；</p>
+<p style="text-align:left">  从当前作用域对象继承一个新的作用域对象；</p>
+<p style="text-align:left">  创建一个同当前作用域相隔离的作用域对象。</p>
+
+<p style="text-align:left">上面的列子展示的是第一种情况。前两个 div 是兄弟元素，可以通过 get 和 set 访问 $rootScope 。</p>
+
+</section>
+<section>
+<p style="text-align:left">第二个 div 内部的 div 同样可以通过 get 和 set 访问相同的根作用域。</p>
+<p style="text-align:left">指令嵌套并不一定意味着需要改变它的作用域。默认情况下，子指令会被付予访问父DOM
+元素对应的作用域的能力，这样做的原因可以通过介绍指令的 scope 参数来理解， scope 参数默
+认是 false 。</p>
+</section>
+
+<section>
+    <p>scope 参数（布尔型或对象）</p>
+<p style="text-align:left">scope 参数是可选的，可以被设置为 true 或一个对象。默认值是 false 。</p>
+<p style="text-align:left">当 scope 设置为 true 时，会从父作用域继承并创建一个新的作用域对象。</p>
+<p style="text-align:left">如果一个元素上有多个指令使用了隔离作用域，其中只有一个可以生效。只有指令模板中的
+根元素可以获得一个新的作用域。因此，对于这些对象来说 scope 默认被设置为 true 。</p>
+<p style="text-align:left">内置指令 ng-controller 的作用，就是从父级作用域继承并创建一个新的子作用域。它会创
+建一个新的从父作用域继承而来的子作用域。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">用这些新内容更新一下前面的例子：</p>
+<!-- <a href="http://jsbin.com/ITEBAF/1/edit">在线示例</a> -->
+<p>看例子scope1</p>
+<pre>
+    <code>
+<div ng-app="myApp" ng-init="someProperty = 'some data'">
+    <div ng-init="siblingProperty='moredata'">
+        Inside Div Two: {{ aThirdProperty }}
+        <div ng-init="aThirdProperty = 'data for 3rd property'" ng-controller="SomeController">
+            Inside Div Three: {{ aThirdProperty }}
+            <div ng-init="aFourthProperty">
+                Inside Div Four: {{ aThirdProperty }}
+            </div>
+        </div>
+    </div>
+</div>        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">如果直接运行这段代码会报错，因为没有在JavaScript中定义所需的控制器，下面就来定义这
+个控制器：</p>
+
+<pre>
+    <code>
+angular.module('myApp', [])
+    .controller('SomeController', function($scope) {
+    // 可以留空，但需要被定义
+})        
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">刷新页面，会发现第二个 div 中由于 {{ aTgirdProperty }} 未定义，因此什么都没有输出。
+第三个 div 显示了设置在继承来的作用域中的 data for a 3rd property ，如图所示。</p>
+<p style="text-align:left">为了进一步证明作用域的继承机制是向下而非向上进行的，下面再看另外一个例子，展示的
+是 {{ aThirdProperty }} 从父作用域继承而来：</p>
+<pre>
+    <code>
+<div ng-app="myApp" ng-init="someProperty = 'some data'"></div>
+    <div ng-init="siblingProperty='moredata'">
+        Inside Div Two: {{ aThirdProperty }}
+        <div ng-init="aThirdProperty = 'data for 3rd property'" ng-controller="SomeController">
+            Inside Div Three: {{ aThirdProperty }}
+            <div ng-controller="SecondController">
+                Inside Div Four: {{ aThirdProperty }}
+        </div>
+    </div>
+</div>        
+    </code>
+</pre>
+</section>
+
+<section>
+ 
+<p style="text-align:left">在JavaScript中加入 SecondController 的定义：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .controller('SomeController', function($scope) {
+    // 可以留空，但需要被定义
+    })
+    .controller('SecondController', function($scope) {
+    // 同样可以留空
+})        
+    </code>
+</pre>
+
+<p style="text-align:left">如果要创建一个能够从外部原型继承作用域的指令，将 scope 属性设置为 true ：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .directive('myDirective', function() {
+        return {
+            restrict: 'A',
+            scope: true
+    };
+});        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">下面用指令来改变DOM的作用域：</p>
+<pre>
+    <code>
+<div ng-app="myApp" ng-init="someProperty = 'some data'"></div>
+    <div ng-init="siblingProperty='moredata'">
+        Inside Div Two: {{ aThirdProperty }}
+        <div ng-init="aThirdProperty = 'data for 3rd property'" ng-controller="SomeController">
+            Inside Div Three: {{ aThirdProperty }}
+            <div ng-controller="SecondController">
+                Inside Div Four: {{ aThirdProperty }}
+                <br>
+                Outside myDirective: {{ myProperty }}
+                <div my-directive ng-init="myProperty = 'wow, this is cool'">
+                Inside myDirective: {{ myProperty }}
+            <div>
+        </div>
+    </div>
+</div>        
+    </code>
+</pre>
+
+
+<p style="text-align:left">下面介绍最后一个和作用域相关的难题：隔离作用域。</p>
+</section>
+
+<section>
+    <p>隔离作用域</p>
+<p style="text-align:left">隔离作用域可能是 scope 属性三个选项中最难理解的一个，但也是最强大的。隔离作用域的
+概念是以面向对象编程为基础的。AngularJS指令的作用域中可以看到如Small Talk语言和SOLID
+原则的影子。</p>
+<p style="text-align:left">具有隔离作用域的指令最主要的使用场景是创建可复用的组件，组件可以在未知上下文中使
+用，并且可以避免污染所处的外部作用域或不经意地污染内部作用域。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">创建具有隔离作用域的指令需要将 scope 属性设置为一个空对象 {} 。如果这样做了，指令的
+模板就无法访问外部作用域了：</p>
+<pre>
+    <code>
+<div ng-controller='MainController'>
+    Outside myDirective: {{ myProperty }}
+    <div my-directive ng-init="myProperty = 'wow, this is cool'">
+        Inside myDirective: {{ myProperty }}
+    </div>
+</div>
+angular.module('myApp', [])
+    .controller('MainController', function($scope) {
+    })
+    .directive('myDirective', function() {
+        return {
+            restrict: 'A',
+            scope: {},
+            priority: 100,
+            template: '<div>Inside myDirective {{ myProperty }}</div>'
+    };
+});        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">注意，这里为 myDirective 设置了一个高优先级。由于 ngInit 指令会以非零的优先
+级运行，这个例子将会优先运行 ngInit 指令，然后才是我们定义的指定，并且这个
+myProperty 在 $scope 对象中是有效的。</p>
+<p>看例子scope3.1</p>
+
+<p style="text-align:left">示例代码的效果与将 scope 设置为 true 几乎是相同的。下面看一下使用继承作用域的指令的
+例子，对比一下二者：</p>
+<pre>
+    <code>
+<div ng-init="myProperty='wow,thisiscool'">
+    Surrounding scope: {{ myProperty }}
+    <div my-directive></div>
+    <div my-inherit-scope-directive></div>
+</div>        
+    </code>
+</pre>
+</section>
+
+<section>
+
+<p>JavaScript代码：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .directive('myDirective', function() {
+        return {
+            restrict: 'A',
+            template: 'Inside myDirective, isolate scope: {{ myProperty }}',
+            scope: {}
+        };
+    })
+    .directive('myInheritScopeDirective', function() {
+        return {
+            restrict: 'A',
+            template: 'Inside myDirective, isolate scope: {{ myProperty }}',
+            scope: true
+    };
+});        
+    </code>
+</pre>
+
+<p>看例子scope3.2</p>
+</section>
+
+<section> 
+<p style="text-align:left">理解了最重要的关于作用域的概念后，就可以将隔离作用域中的属性同外部世界进行绑定，
+使得隔离作用域可以和外部进行交互。</p>
+</section>
+
+<section>
+    <p>绑定策略</p>
+<p style="text-align:left">使用无数据的隔离作用域并不常见。AngularJS提供了几种方法能够将指令内部的隔离作用
+域，同指令外部的作用域进行数据绑定。</p>
+<p style="text-align:left">为了让新的指令作用域可以访问当前本地作用域中的变量，需要使用下面三种别名中的一种。</p>
+<p style="text-align:left">本地作用域属性：使用 @ 符号将本地作用域同DOM属性的值进行绑定。指令内部作用域可以
+使用外部作用域的变量：</p>
+<p style="text-align:left">@ (or @attr)</p>
+<p style="text-align:left">现在，可以在指令中使用绑定的字符串了。</p>
+</section>
+
+<section>
+
+<p style="text-align:left">双向绑定：通过 = 可以将本地作用域上的属性同父级作用域上的属性进行双向的数据绑定。
+就像普通的数据绑定一样，本地属性会反映出父数据模型中所发生的改变。</p>
+<p style="text-align:left">= (or =attr)</p>
+<p style="text-align:left">父级作用域绑定 通过 & 符号可以对父级作用域进行绑定，以便在其中运行函数。意味着对这
+个值进行设置时会生成一个指向父级作用域的包装函数。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">要使调用带有一个参数的父方法，我们需要传递一个对象，这个对象的键是参数的名称，值
+是要传递给参数的内容。</p>
+<p style="text-align:left">& (or &attr)</p>
+<p style="text-align:left">例如，假设我们在开发一个电子邮件客户端，并且要创建一个电子邮件的文本输入框：</p>
+<pre>
+    <code>
+<!-- <input type="text" ng-model="to"/>
+调用指令 
+<div scope-example ng-model="to"
+on-send="sendMail(email)"
+from-name="ari@fullstack.io" />  -->       
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">这里有一个数据模型（ ng-model ），一个函数（ sendMail() ）和一个字符串（ from-name ）。
+在指令中做如下设置以访问这些内容：</p>
+<pre>
+    <code>
+scope: {
+    ngModel: '=', // 将ngModel同指定对象绑定
+    onSend: '&', // 将引用传递给这个方法
+    fromName: '@' // 储存与fromName相关联的字符串
+}        
+    </code>
+</pre>
+
+
+</section>
+
+<section>
+    <p>transclude</p>
+<p style="text-align:left">transclude 是一个可选的参数。如果设置了，其值必须为 true ，它的默认值是 false 。</p>
+<p style="text-align:left">嵌入有时被认为是一个高级主题，但某些情况下它与我们刚刚学习过的作用域之间会有非常
+好的配合。使用嵌入也会很好地扩充我们的工具集，特别是在创建可以在团队、项目、AngularJS
+社区之间共享的HTML代码片段时。</p>
+<p style="text-align:left">嵌入通常用来创建可复用的组件，典型的例子是模态对话框或导航栏。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">我们可以将整个模板，包括其中的指令通过嵌入全部传入一个指令中。这样做可以将任意内
+容和作用域传递给指令。 transclude 参数就是用来实现这个目的的，指令的内部可以访问外部
+指令的作用域，并且模板也可以访问外部的作用域对象。</p>
+<p style="text-align:left">为了将作用域传递进去， scope 参数的值必须通过 {} 或 true 设置成隔离作用域。如果没有设
+置 scope 参数，那么指令内部的作用域将被设置为传入模板的作用域。</p>
+<p style="text-align:left">只有当你希望创建一个可以包含任意内容的指令时，才使用 transclude: true 。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">嵌入允许指令的使用者方便地提供自己的HTML模板，其中可以包含独特的状态和行为，并
+对指令的各方面进行自定义。</p>
+<p style="text-align:left">下面一起来实现个小例子，创建一个可以被自定义的可复用指令。</p>
+<p style="text-align:left">我们来创建一个可以复用的侧边栏，同WordPress博客的侧边栏很相似。我们希望可以保持
+CSS样式的一致性，同时又希望可以在复用时尽量少写HTML代码。</p>
+
+</section>
+
+<section>
+<p style="text-align:left">如果不想让指令内部的内容被模板替换，可以设置这个值为true。一般情况下需要和ngTransclude指令一起使用。</p>
+<p>看例子scope4</p>
+<p style="text-align:left">例如，假设我们想创建一个包括标题和少量HTML内容的侧边栏，如下所示：</p>
+<pre>
+    <code>
+<div sidebox title="Links">
+    <ul>
+        <li>First link</li>
+        <li>Second link</li>
+    </ul>
+</div>        
+    </code>
+</pre>
+
+
+</section>
+
+<section>
+<p style="text-align:left">为这个侧边栏创建一个简单的指令，并将 transclude 参数设置为 true ：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+    .directive('sidebox', function() {
+        return {
+            restrict: 'EA',
+            scope: {
+                title: '@'
+            },
+            transclude: true,
+            template: '<div class="sidebox">\
+                <div class="content">\
+                <h2 class="header">{{ title }}</h2>\
+                <span class="content" ng-transclude>\
+                </span>\
+                </div>\
+                </div>'
+        };
+    });        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">这段代码告诉AngularJS编译器，将它从DOM元素中获取的内容放到它发现 ng-transclude
+指令的地方。</p>
+<p style="text-align:left">借助 transclusion ，我们可以将指令复用到第二个元素上，而无须担心样式和布局的一致
+性问题。</p>
+</section>
+
+<section>
+<p style="text-align:left">例如，下面的代码会产生两个样式完全一致的侧边栏，效果所示。</p>
+<pre>
+    <code>
+<div sidebox title="Links">
+    <ul>
+        <li>First link</li>
+        <li>Second link</li>
+    </ul>
+</div>
+<div sidebox title="TagCloud">
+    <div class="tagcloud">
+        <a href="">Graphics</a>
+        <a href="">AngularJS</a>
+        <a href="">D3</a>
+        <a href="">Front-end</a>
+        <a href="">Startup</a>
+    </div>
+</div>        
+    </code>
+</pre>
+
+</section>
+
+<section>
+<p style="text-align:left">如果指令使用了 transclude 参数，那么在控制器（下面马上会介绍）中就无法正常监听数
+据模型的变化了。这就是最佳实践总是建议在链接函数里使用 $watch 服务的原因。</p>
+</section>
+
+
+
+
+<section>
+    <p> controller （字符串或函数）</p>
+<p style="text-align:left">controller 参数可以是一个字符串或一个函数。当设置为字符串时，会以字符串的值为名字，
+来查找注册在应用中的控制器的构造函数：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+.directive('myDirective', function() {
+    restrict: 'A', // 始终需要
+    controller: 'SomeController'
+})
+// 应用中其他的地方，可以是同一个文件或被index.html包含的另一个文件
+angular.module('myApp')
+    .controller('SomeController', function($scope, $element, $attrs, $transclude) {
+    // 控制器逻辑放在这里
+});
+    </code>
+</pre>
+</section>
+<section>
+
+<p style="text-align:left">可以在指令内部通过匿名构造函数的方式来定义一个内联的控制器：</p>
+<pre>
+    <code>
+angular.module('myApp',[])
+.directive('myDirective', function() {
+    restrict: 'A',
+    controller:
+        function($scope, $element, $attrs, $transclude) {
+        // 控制器逻辑放在这里
+    }
+});        
+    </code>
+</pre>
+
+<p style="text-align:left">我们可以将任意可以被注入的AngularJS服务传递给控制器。例如，如果我们想要将 $log 服
+务传入控制器，只需简单地将它注入到控制器中，便可以在指令中使用它了。</p>
+</section>
+<section>
+<p style="text-align:left">控制器中也有一些特殊的服务可以被注入到指令当中。这些服务有：</p>
+<p style="text-align:left">1.  $scope</p>
+<p style="text-align:left">与指令元素相关联的当前作用域。</p>
+<p style="text-align:left">2.  $element</p>
+<p style="text-align:left">当前指令对应的元素。</p>
+<p style="text-align:left">3.  $attrs</p>
+</section>
+<section>
+<p style="text-align:left">由当前元素的属性组成的对象。例如，下面的元素：</p>
+<pre>
+    <code>
+<div id="aDiv"class="box"></div>
+具有如下的属性对象：
+{
+id: "aDiv",
+class: "box"
+}        
+    </code>
+</pre>
+</section>
+<section>
+<p style="text-align:left">4.  $transclude</p>
+<p style="text-align:left">嵌入链接函数会与对应的嵌入作用域进行预绑定。</p>
+<p style="text-align:left">transclude 链接函数是实际被执行用来克隆元素和操作DOM的函数。</p>
+<p style="text-align:left">在控制器内部操作DOM是和AngularJS风格相悖的做法，但通过链接函数就可以
+实现这个需求。仅在 compile 参数中使用 transcludeFn 是推荐的做法。</p>
+</section>
+
+
+
+<section>
+<p style="text-align:left">例如，我们想要通过指令来添加一个超链接标签。可以在控制器内的 $transclude 函数中实
+现，如下所示：</p>
+
+<pre>
+    <code>
+<!-- angular.module('myApp')
+.directive('link', function() {
+    return {
+        restrict: 'EA',
+        transclude: true,
+        controller:
+        function($scope, $element, $transclude, $log) {
+        $transclude(function(clone) {
+        var a = angular.element('<a>');
+        a.attr('href', clone.text());
+        a.text(clone.text());
+        $log.info("Created new a tag in link directive");
+        $element.append(a);
+        });
+        }
+    };
+}); -->        
+    </code>
+</pre>
+</section>
+<section>
+<p style="text-align:left">指令的控制器和 link 函数可以进行互换。控制器主要是用来提供可在指令间复用的行为，但链接函数只能在当前内部指令中定义行为，且无法在指令间复用。</p>
+<p style="text-align:left">link 函数可以将指令互相隔离开来，而 controller 则定义可复用的行为。</p>
+<p style="text-align:left">由于指令可以 require 其他指令所使用的控制器，因此控制器常被用来放置在多个指令间共享的动作。</p>
+<p style="text-align:left">如果我们希望将当前指令的API暴露给其他指令使用，可以使用 controller 参数，否则可以使用 link 来构造当前指令元素的功能性。如果我们使用了 scope.$watch() 或者想要与DOM元素
+做实时的交互，使用链接会是更好的选择。</p>
+</section>
+<section>
+<p style="text-align:left">技术上讲， $scope 会在DOM元素被实际渲染之前传入到控制器中。在某些情况下，例如使用了嵌入，控制器中的作用域所反映的作用域可能与我们所期望的不一样，这种情况下， $scope对象无法保证可以被正常更新。</p>
+<p style="text-align:left">当想要同当前屏幕上的作用域交互时，可以使用被传入到 link 函数中的 scope
+参数。</p>
+
+
+</section>
+
+<section>
+    <p>controllerAs （字符串）</p>
+<p style="text-align:left">controllerAs 参数用来设置控制器的别名，可以以此为名来发布控制器，并且作用域可以访
+问 controllerAs 。这样就可以在视图中引用控制器，甚至无需注入 $scope 。</p>
+<p style="text-align:left">例如，创建一个 MainController ，然后不要注入 $scope ，如下所示：</p>
+<pre>
+    <code>
+angular.module('myApp')
+.controller('MainController', function() {
+this.name = "Ari";
+});        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">现在，在HTML中无需引用作用域就可以使用 MainController 。</p>
+<pre>
+    <code>
+<!-- <div ng-appng-controller="MainController as main">
+<input type="text" ng-model="main.name" />
+<span>{{ main.name }}</span>
+</div>   -->      
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">这个参数看起来好像没什么大用，但它给了我们可以在路由和指令中创建匿名控制器的强大
+能力。这种能力可以将动态的对象创建成为控制器，并且这个对象是隔离的、易于测试的。</p>
+<p style="text-align:left">例如，可以在指令中创建匿名控制器，如下所示：</p>
+<pre>
+    <code>
+<!-- angular.module('myApp')
+.directive('myDirective', function() {
+    return {
+        restrict: 'A',
+        template: '<h4>{{ myController.msg }}</h4>',
+        controllerAs: 'myController',
+        controller: function() {
+        this.msg = "Hello World"
+        }
+    };
+});  -->       
+    </code>
+</pre>
+
+</section>
+
+<section>
+    <p>require （字符串或数组）</p>
+<p style="text-align:left">require 参数可以被设置为字符串或数组，字符串代表另外一个指令的名字。 require 会将控
+制器注入到其值所指定的指令中，并作为当前指令的链接函数的第四个参数。</p>
+<p style="text-align:left">字符串或数组元素的值是会在当前指令的作用域中使用的指令名称。</p>
+<p style="text-align:left">scope 会影响指令作用域的指向，是一个隔离作用域，一个有依赖的作用域或者完全没有作
+用域。在任何情况下，AngularJS编译器在查找子控制器时都会参考当前指令的模板。</p>
+</section>
+
+<section>
+<p style="text-align:left">如果不使用 ^ 前缀，指令只会在自身的元素上查找控制器。</p>
+<pre>
+    <code>
+//...
+restrict: 'EA',
+require: 'ngModel'
+//...        
+    </code>
+</pre>
+
+<p style="text-align:left">指令定义只会查找定义在指令作当前用域中的 ng-model="" 。</p>
+<pre>
+    <code>
+<!-- 指令会在本地作用域查找ng-model -->
+<div my-directive ng-model="object"></div>        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">require 参数的值可以用下面的前缀进行修饰，这会改变查找控制器时的行为：</p>
+<p style="text-align:left">?</p>
+<p style="text-align:left">如果在当前指令中没有找到所需要的控制器，会将 null 作为传给 link 函数的第四个参数。</p>
+<p style="text-align:left">^</p>
+<p style="text-align:left">如果添加了 ^ 前缀，指令会在上游的指令链中查找 require 参数所指定的控制器。</p>
+<p style="text-align:left">?^</p>
+<p style="text-align:left">将前面两个选项的行为组合起来，我们可选择地加载需要的指令并在父指令链中进行查找。</p>
+</section>
+
+<section>
+<p style="text-align:left">没有前缀</p>
+<p style="text-align:left">如果没有前缀，指令将会在自身所提供的控制器中进行查找，如果没有找到任何控制器（或
+具有指定名字的指令）就抛出一个错误。</p>
+</section>
+
+<section>
+    <p>AngularJS 的生命周期</p>
+<p style="text-align:left">在AngularJS应用起动前，它们以HTML文本的形式保存在文本编辑器中。应用启动后会进行
+编译和链接，作用域会同HTML进行绑定，应用可以对用户在HTML中进行的操作进行实时响应。</p>
+<p style="text-align:left">这个神奇的效果是如何发生的？创建高效率的应用需要了解什么？</p>
+<p style="text-align:left">在这个过程中总共有两个主要阶段。</p>
+</section>
+
+<section>
+<p> 编译阶段</p>
+<p style="text-align:left">第一个阶段是编译阶段。在编译阶段，AngularJS会遍历整个HTML文档并根据JavaScript中
+的指令定义来处理页面上声明的指令。</p>
+<p style="text-align:left">每一个指令的模板中都可能含有另外一个指令，另外一个指令也可能会有自己的模板。当
+AngularJS调用HTML文档根部的指令时，会遍历其中所有的模板，模板中也可能包含带有模板的
+指令。</p>
+</section>
+
+<section>
+<p style="text-align:left">模板树可能又大又深，但有一点需要注意，尽管元素可以被多个指令所支持或
+修饰，这些指令本身的模板中也可以包含其他指令，但只有属于最高优先级指
+令的模板会被解析并添加到模板树中。这里有一个建议，就是将包含模板的指
+令和添加行为的指令分离开来。如果一个元素已经有一个含有模板的指令了，
+永远不要对其用另一个指令进行修饰。只有具有最高优先级的指令中的模板会
+被编译。</p>
+<p style="text-align:left">一旦对指令和其中的子模板进行遍历或编译，编译后的模板会返回一个叫做模板函数的函
+数。我们有机会在指令的模板函数被返回前，对编译后的DOM树进行修改。</p>
+<p style="text-align:left">在这个时间点DOM树还没有进行数据绑定，意味着如果此时对DOM树进行操作只会有很少
+的性能开销。基于此点， ng-repeat 和 ng-transclude 等内置指令会在这个时候，也就是还未与
+任何作用域数据进行绑定时对DOM进行操作。</p>
+</section>
+
+<section>
+<p style="text-align:left">以 ng-repeat 为例，它会遍历指定的数组或对象，在数据绑定之前构建出对应的DOM结构。
+如果我们用 ng-repeat 来创建无序列表，其中的每一个 li 都会被 ng-click 指令所修饰，这
+个过程会使得性能比手动创建列表要快得多，尤其是列表中含有上百个元素时。</p>
+<p style="text-align:left">与克隆 li 元素，再将其与数据进行链接，然后对每个元素都循环进行此操作的过程不同，
+我们仅需要先将无需列表构造出来，然后将新的DOM（编译后的DOM）传递给指令生命周期中
+的下一个阶段，即链接阶段。</p>
+<p style="text-align:left">一个指令的表现一旦编译完成，马上就可以通过编译函数对其进行访问，编译函数的签名包
+含有访问指令声明所在的元素（ tElemente ）及该元素其他属性（ tAttrs ）的方法。这个编译函
+数返回前面提到的模板函数，其中含有完整的解析树。</p>
+</section>
+
+<section>
+<p style="text-align:left">这里的重点是，由于每个指令都可以有自己的模板和编译函数，每个模板返回的也都是自己
+的模板函数。链条顶部的指令会将内部子指令的模板合并在一起成为一个模板函数并返回，但在
+树的内部，只能通过模板函数访问其所处的分支。</p>
+<p style="text-align:left">最后，模板函数被传递给编译后的DOM树中每个指令定义规则中指定的链接函数，</p>
+</section>
+
+<section>
+    <p>compile （对象或函数）</p>
+<p style="text-align:left">compile 选项可以返回一个对象或函数。</p>
+<p style="text-align:left">理解 compile 和 link 选项是AngularJS中需要深入讨论的高级话题之一，对于了解AngularJS
+究竟是如何工作的至关重要。</p>
+<p style="text-align:left">compile 选项本身并不会被频繁使用，但是 link 函数则会被经常使用。本质上，当我们设置
+了 link 选项，实际上是创建了一个 postLink() 链接函数，以便 compile() 函数可以定义链接函数。</p>
+<p style="text-align:left">通常情况下，如果设置了 compile 函数，说明我们希望在指令和实时数据被放到DOM中之前
+进行DOM操作，在这个函数中进行诸如添加和删除节点等DOM操作是安全的。</p>
+</section>
+
+<section>
+
+<p style="text-align:left">compile 和 link 选项是互斥的。如果同时设置了这两个选项，那么会把 compile
+所返回的函数当作链接函数，而 link 选项本身则会被忽略。</p>
+<pre>
+    <code>
+// ...
+compile: function(tEle, tAttrs, transcludeFn) {
+var tplEl = angular.element('<div>' +
+'<h2></h2>' +
+'</div>');
+var h2 = tplEl.find('h2');
+h2.attr('type', tAttrs.type);
+h2.attr('ng-model', tAttrs.ngModel);
+h2.val("hello");
+tEle.replaceWith(tplEl);
+return function(scope, ele, attrs) {
+// 连接函数
+};
+}
+//...        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">如果模板被克隆过，那么模板实例和链接实例可能是不同的对象。因此在编译函数内部，我
+们只能转换那些可以被安全操作的克隆DOM节点。不要进行DOM事件监听器的注册：这个操作
+应该在链接函数中完成。</p>
+<p style="text-align:left">编译函数负责对模板DOM进行转换。</p>
+<p style="text-align:left">链接函数负责将作用域和DOM进行链接。在作用域同DOM链接之前可以手动操作DOM。在
+实践中，编写自定义指令时这种操作是非常罕见的，但有几个内置指令提供了这样的功能。了解
+这个流程对于理解AngularJS真正的工作方式很有帮助。</p>
+</section>
+
+<section>
+    <p>链接</p>
+<p style="text-align:left">用 link 函数创建可以操作DOM的指令。</p>
+<p style="text-align:left">链接函数是可选的。如果定义了编译函数，它会返回链接函数，因此当两个函数都定义了时，
+编译函数会重载链接函数。如果我们的指令很简单，并且不需要额外的设置，可以从工厂函数（回
+调函数）返回一个函数来代替对象。如果这样做了，这个函数就是链接函数。</p>
+</section>
+
+<section>
+<p style="text-align:left">下面两种定义指令的方式在功能上是完全一样的：</p>
+<pre>
+    <code>
+angular.module('myApp', [])
+.directive('myDirective', function() {
+    return {
+        pre: function(tElement, tAttrs, transclude) {
+        // 在子元素被链接之前执行
+        // 在这里进行Don转换不安全
+        // 之后调用'lihk'h函数将无法定位要链接的元素
+    },
+    post: function(scope, iElement, iAttrs, controller) {
+        // 在子元素被链接之后执行
+        // 如果在这里省略掉编译选项
+        //在这里执行DOM转换和链接函数一样安全吗
+        }
+    };
+});
+angular.module('myApp', [])
+.directive('myDirective', function() {
+    return {
+        link: function(scope, ele, attrs) {
+            return {
+                pre: function(tElement, tAttrs, transclude) {
+                // 在子元素被链接之前执行
+                // 在这里进行Don转换不安全
+                // 之后调用'lihk'h函数将无法定位要链接的元素
+            },
+        post: function(scope, iElement, iAttrs, controller) {
+            // 在子元素被链接之后执行
+            // 如果在这里省略掉编译选项
+            //在这里执行DOM转换和链接函数一样安全吗
+            }
+        }
+    }
+});        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">当定义了编译函数来取代链接函数时，链接函数是我们能提供给返回对象的第二个方法，也
+就是 postLink 函数。本质上讲，这个事实正说明了链接函数的作用。它会在模板编译并同作用域
+进行链接后被调用，因此它负责设置事件监听器，监视数据变化和实时的操作DOM。</p>
+<p style="text-align:left">link 函数对绑定了实时数据的DOM具有控制能力，因此需要考虑性能问题。在选择是用编译函数还是链接函数实现功能时，将性能影响考虑进去。</p>
+</section>
+
+<section>
+<p style="text-align:left">链接函数的签名如下：</p>
+<pre>
+    <code>
+link: function(scope, element, attrs) {
+// 在这里操作DOM
+}        
+    </code>
+</pre>
+
+<p style="text-align:left">如果指令定义中有 require 选项，函数签名中会有第四个参数，代表控制器或者所依赖的指
+令的控制器。</p>
+<pre>
+    <code>
+// require 'SomeController',
+link: function(scope, element, attrs, SomeController) {
+// 在这里操作DOM，可以访问required指定的控制器
+}        
+    </code>
+</pre>
+</section>
+
+<section>
+<p style="text-align:left">如果 require 选项提供了一个指令数组，第四个参数会是一个由每个指令所对应的控制器组
+成的数组。</p>
+<p style="text-align:left">下面看一下链接函数中的参数：</p>
+<p style="text-align:left">scope</p>
+<p style="text-align:left">指令用来在其内部注册监听器的作用域。</p>
+<p style="text-align:left">iElement</p>
+<p style="text-align:left">iElement 参数代表实例元素，指使用此指令的元素。在 postLink 函数中我们应该只操作此
+元素的子元素，因为子元素已经被链接过了。</p>
+</section>
+
+<section>
+<p style="text-align:left">iAttrs</p>
+<p style="text-align:left">iAttrs 参数代表实例属性，是一个由定义在元素上的属性组成的标准化列表，可以在所有指
+令的链接函数间共享。会以JavaScript对象的形式进行传递。</p>
+<p style="text-align:left">controller</p>
+<p style="text-align:left">controller 参数指向 require 选项定义的控制器。如果没有设置 require 选项，那么
+controller 参数的值为 undefined 。</p>
+<p style="text-align:left">控制器在所有的指令间共享，因此指令可以将控制器当作通信通道（公共API）。如果设置了
+多个 require ，那么这个参数会是一个由控制器实例组成的数组，而不只是一个单独的控制器。</p>
+</section>
+
+
+
+
+
+
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+        
+
+        <section>       
+            <h3>三.常见问题</h3>
+        </section>
+        <section>       
+            <h3>四.解决方案</h3>
+        </section>        
+        <section>       
+            <h3>五.代码实战</h3>
+        </section>
+
+
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+        <section>
+            <p>为什么要使用封装的自定义指令？</p>
+            <p>封装的意思是说对象数据和操作该数据的指令都是对象自身的一部分，封装能够实现尽可能对外部世界隐藏数据。封装简单的说能屏蔽方法的复杂性，比如只要知道方法的参数类型就可以使用方法，再说降低模块之间的耦合性，就是模块之间的联系，使之相互独立，能提高系统的健壮性</p>
+        </section>
+
+        <section>
+            <h3>七.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="http://www.cnblogs.com/webHero/p/5770703.html">angular 自定义指令详解 Directive </a></p>
+            <p><a href="http://www.jb51.net/article/83051.htm">学习AngularJs:Directive指令用法（完整版）</a></p>
+        </section>
+        <section>
+            <h3>八.更多讨论</h3>
+            <p>为什么要使用封装的自定义指令？</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 徐恒</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

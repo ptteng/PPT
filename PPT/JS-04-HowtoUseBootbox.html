@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用Bootbox</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-04】</h2>
+            <h3>138期 小课堂【如何使用Bootbox?】</h3>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>我们在写后台有很多的地方都有用到弹出模拟框的效果，而且一般的后台框架都是自己带有这样的效果的。但有一定的局限性：界面不美观，功能实现较复杂。</p>
+            <p>Bootbox.js是一个小型的JavaScript库，基于 Twitter 的 Bootstrap 开发。它允许你创建使用编程对话框。可以快速定制，创建自己所需的模态框，可以方便的更改它的样式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p> 该库提供了三个旨在模仿其原生JavaScript等效项的函数。他们确切的函数名是灵活的，因此每个可以采取各种参数来定制标签和指定默认值，但它们最基本是这样：
+            </p>
+        </section>
+        <section>
+            <section>
+                <p>警告</p>
+                <pre>
+                    <code>
+                        bootbox.alert(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>提示</p>
+                <pre>
+                    <code>
+                        bootbox.prompt(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>确认</p>
+                <pre>
+                    <code>
+                        bootbox.confirm(message, callback)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>Bootbox库还提供了一个自定义模态框的函数，你也可以使用它来创建自己的自定义对话框：</p>
+                <pre>
+                    <code>
+                        bootbox.dialog(options)
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>bootbox的所有版本都是在Bootstrap和jQuery的基础之上的，因此bootstrap，jQuery和bootbox的版本要对应</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section><img src="../img/JS-08-useBootbox/1.png"> </section>
+        <section>
+            <p>对话框代码不阻止代码执行</p>
+            <p>由于这个限制，在用户关闭对话框之前不应该运行的代码应该放置（或调用）在对话框的回调函数中。</p>
+        </section>
+        <section>
+            <p>
+                注意脚本引用的顺序
+            </p>
+            <ul>
+                <li>jQuery</li>
+                <li>Bootstrap</li>
+                <li>Bootbox</li>
+            </ul>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <a href="../demo/JS-04-HowtoUseBootbox/demo.html">实践demo</a>
+            <p>例子及部分代码在下面</p>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>模态框和非模态框有什么区别</p>
+            <p class="fragment">模态对话框：就是在其没有被关闭之前，用户不能与同一个应用程序的其他窗口进行交互，直到该对话框关闭。</p>
+            <p class="fragment">非模态对话框：当被打开时，用户既可选择和该对话框进行交互，也可以选择同应用程序的其他窗口交互。</p>
+            <!--<p class="fragment">如何将bootbox和对应的按钮绑定</p>-->
+            <!--<code>-->
+                <!--$(document).on("click", ".alert", function(e) {}-->
+            <!--</code>-->
+            <!--<p class="fragment">如何设置框的位置</p>-->
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://bootboxjs.com/" target="_blank">Bootbox.js</a></p>
+        </section>
+        <section>
+            <h2>鸣谢</h2>
+            <p>感谢大家观看</p>
+            <p>汤特|黄源志</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

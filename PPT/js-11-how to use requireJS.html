@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【武汉第141期】如何使用requireJS</h2>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>随着网站功能逐渐丰富，网页中的js也变得越来越复杂和臃肿，原有通过script标签来导入一个个的js文件这种方式已经不能满足现在互联网开发模式，我们需要团队协作、模块复用、单元测试等等一系列复杂的需求。</p>
+            <p> RequireJS是一个非常小巧的JavaScript模块载入框架，是AMD规范最好的实现者之一。最新版本的RequireJS压缩后只有14K，堪称非常轻量。它还同时可以和其他的框架协同工作，使用RequireJS必将使您的前端代码质量得以提升。</p>
+        </section>
+        <section>
+            <section><h3>2.知识剖析</h3></section>
+            <section>
+                <h3>什么是requireJS</h3>
+                <p>RequireJS 是一个JavaScript模块加载器。它非常适合在浏览器中使用，但它也可以用在其他脚本环境，就像 Rhino and Node。使用RequireJS加载模块化脚本将提高代码的加载速度和质量。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                首先我们来看看一下引入requireJS和不引入requireJS的区别
+                <a href="../demo/js-11-how%20to%20use%20requireJS/index.html">demo1</a><br/>
+                <a href="../demo/js-11-how%20to%20use%20requireJS/index1.html">demo2</a>
+            </section>
+
+        </section>
+        <section>
+            <section>
+            <h3>4.解决方案</h3>
+            <p>requireJS的基础知识</p>
+            <p>require会定义三个变量：define,require,requirejs，其中require === requirejs，一般使用require更简短</p>
+            <p>比如在上个demo中，就是通过define函数定义了一个模块</p>
+            <pre>
+                <code>
+                    define(function(){
+                        function fun1(){
+                            alert("it works");
+                        }
+                        fun1();
+                    });
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>然后通过require来加载依赖模块</p>
+                <pre>
+                <code>
+                    require(["a1"]);
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>如果我要加载一个jq的cdn路径，该怎么引入？</p>
+            <p>在这里需要用到require.config,require.config是用来配置模块加载位置，简单点说就是给模块起一个更短更好记的名字</p>
+            <pre>
+                <code>
+                    require.config({
+                        paths : {
+                            "jquery" : ["http://libs.baidu.com/jquery/2.0.3/jquery"]
+                        }
+                    })
+                    require(["jquery","a"],function($){
+                        $(function(){
+                            alert("load finished");
+                        })
+                    })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.runoob.com/w3cnote/requirejs-tutorial-2.html">
+                js模块化工具--requireJS教程</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>在用requireJS调用jquery的过程中，如何利用requireJS实现不让jquery污染全局$?</p>
+            
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+        </section>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
