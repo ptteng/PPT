@@ -1,0 +1,268 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jsp是什么？jsp的内置对象和其作用域。</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 童志荣</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>先介绍下背景</p>
+			<p> </p>
+			<p></p>
+			<p>JSP全名叫 Java 服务器页面，其根本为了是一个简化的 Servlet 设计，由Sun Microsystems 公司倡导、许多公司参与一起建立的一种动态网页技术标准。
+</p>
+			</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>从以上的介绍可以得出，jsp 技术后于 servlet 技术出现，是对 servlet 技术的一种改进。</p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		
+            <p>那么问题来了</p>
+		</section>
+	   <section>
+            <p>servlet 又是什么？如何编写一个servlet？</p>
+        </section>
+      
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+		 <section>
+		<p> servlet 是用Java编写的服务器端程序。
+            其主要功能在于交互式地浏览和修改数据，生成动态Web内容。</p>
+        <p>
+        狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，
+        一般情况下，人们将Servlet理解为后者。
+        Servlet运行于支持Java的应用服务器中。从原理上讲，Servlet可以响应任何类型的请求，但绝大多数情况下Servlet只用来扩展基于HTTP协议的Web服务器。[百度百科]
+
+        </p>
+		</section>
+
+        <section>
+            <p>
+                  1.编写一个继承于HttpServlet的java类 </p>
+            <p>2.重写doGet和doPost方法</p>
+            <p>3.配置web.xml文件,配置servlet节点</p>
+            
+        </section>	
+
+		<section>
+		<p>注意，只有jsp是新创建或是修改后第一次访问时，jsp parser才会将其编译成servlet程序。之后调用JSDK将对应的servlet程序编译成servlet字节码。
+而且，它并非是将页面本身发送给客户端，而是把页面执行的结果发送给客户端。
+客户端收到这个文件后，就可以正常显示在客户端了。</p>
+</section>
+<section>
+<p>比如我要要访问test.jsp，然后利用Tomcat的解析器，他会将jsp文件转化为java文件，这个java文件就是servlet，
+所以jsp本质上就是servlet。
+jsp能实现的，servlet也能实现。不管你最终写的是一个多么复杂的jsp文件，它最后总能转化为一个html文件。</p>
+</section>
+
+<section>
+<p>jsp的9个内置对象和4个作用域</p>
+
+        </section>
+
+	</section>
+	<section>
+		<p> request  请求对象　  javax.servlet.ServletRequest        作用域 Request</p>
+<p>response          响应对象              类型 javax.servlet.SrvletResponse        作用域 Page</p>
+<p>pageContext       页面上下文对象        类型 javax.servlet.jsp.PageContext       作用域 Page</p>
+<p>session           会话对象              类型 javax.servlet.http.HttpSession      作用域 Session</p>
+<p>application       应用程序对象          类型 javax.servlet.ServletContext        作用域 Application</p>
+<p>out               输出对象              类型 javax.servlet.jsp.JspWriter         作用域 Page</p>
+<p>config            配置对象              类型 javax.servlet.ServletConfig         作用域 Page</p>
+<p>page              页面对象              类型 javax.lang.Object                   作用域 Page</p>
+<p>exception         例外对象              类型 javax.lang.Throwable                作用域 page</p>  
+        </p>
+        
+    </section>
+			
+			<section>
+		<p>所谓“作用域”就是“信息共享的范围”，也就是说一个信息能够在多大的范围内有效。
+</p>
+        </section>
+			
+			<section>
+		<p>Web交互的最基本单位为HTTP请求。每个用户从进入网站到离开网站这段过程称为一个HTTP会话，一个服务器的运行过程中会有多个用户访问，就是多个HTTP会话。</p>
+        </section>
+        <section>
+            <p>application 作用域
+     如果把变量放到application里，就说明它的作用域是application，它的有效范围是整个应用。 整个应用是指从应用启动到结束。我们没有说“从服务器启动，到服务器关闭”，是因为一个服务器可能部署多个应用，当然你关闭了服务器，就会把上面所有的应用都关闭了。 application作用域里的变量，它们的存活时间是最长的，如果不进行手工删除，它们就一直可以使用。
+
+application 作用域上的信息传递是通过ServletContext实现的，它提供的主要方法如下所示：
+
+Object getAttribute（String name）  // 从application中获取信息；
+</p>
+        </section>
+        <section>
+            <p>
+                session作用域
+
+       session作用域比较容易理解，同一浏览器对服务器进行多次访问，在这多次访问之间传递信息，就是session作用域的体现。如果把变量放到session里，就说明它的作用域是session，它的有效范围是当前会话。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。这个过程可能包含多个请求响应。也就是说，只要用户不关浏览器，服务器就有办法知道这些请求是一个人发起的，整个过程被称为一个会话（session），而放到会话中的变量，就可以在当前会话的所有请求里使用。 
+
+            </p>
+
+        </section>
+        <section>
+            <p>
+                 session的开始时刻比较容易判断，它从浏览器发出第一个HTTP请求即可认为会话开始。但结束时刻就不好判断了，因为浏览器关闭时并不会通知服务器，所以只能通过如下这种方法判断：
+如果一定的时间内客户端没有反应，则认为会话结束。
+
+            </p>
+        </section>
+<section>
+            <p>
+                 request作用域
+
+     一个HTTP请求的处理可能需要多个Servlet合作，而这几个Servlet之间可以通过某种方式传递信息，但这个信息在请求结束后就无效了。request里的变量可以跨越forward前后的两页。但是只要刷新页面，它们就重新计算了。如果把变量放到request里，就说明它的作用域是request，它的有效范围是当前请求周期。 所谓请求周期，就是指从http请求发起，到服务器处理结束，返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以使用这个变量。
+
+Servlet之间的信息共享是通过HttpServletRequest接口的两个方法来实现的：
+
+void setAttribute（String name, Object value）  //将对象value以name为名称保存到request作用域中。
+
+Object getAttribute（String name） //从request作用域中取得指定名字的信息。
+
+            </p>
+        </section>
+        <section><p>
+              JSP中的doGet()、doPost()方法的第一个参数就是HttpServletRequest对象，使用这个对象的 setAttribute()方法即可传递信息。那么在设置好信息之后，要通过何种方式将信息传给其他的Servlet呢？这就要用到RequestDispatcher接口的forward()方法，通过它将请求转发给其他Servlet。
+
+ RequestDispatcher ServletContext.getRequestDispatcher(String path) //取得Dispatcher以便转发，path为转发的目的Servlet。
+
+ void RequestDispatcher.forward(ServletRequest request, ServletResponse response)//将request和response转发
+
+     因此，只需要在当前Servlet中先通过setAttribute()方法设置相应的属性，然后使用forward()方法进行跳转，最后在跳转到的Servlet中通过使用getAttribute()方法即可实现信息传递。
+
+        </p></section>
+        <section><p>
+            page作用域
+
+page对象的作用范围仅限于用户请求的当前页面，对于page对象的引用将在响应返回给客户端之后被释放，或者在请求被转发到其他地方后被释放。page里的变量只要页面跳转了，它们就不见了。如果把变量放到pageContext里，就说明它的作用域是page，它的有效范围只在当前jsp页面里。从把变量放到pageContext开始，到jsp页面结束，你都可以使用这个变量。
+
+以上介绍的作用范围越来越小，request和page的生命周期都是短暂的，它们之间的区别：一个request可以包含多个page页（include，forward及filter）。
+
+        </p></section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+         
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 童志荣</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

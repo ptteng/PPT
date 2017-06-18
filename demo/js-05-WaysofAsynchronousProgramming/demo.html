@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="test.css">-->
+    <style>
+        p { color:red; }
+        button { color:blue; }
+    </style>
+</head>
+<body>
+
+<p id="p">This is a paragraph.</p>
+<button id="myBtn">button</button>
+<p id="demo"></p>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+    (function($) {
+
+        var o = $({});
+
+        $.subscribe = function() {
+            o.on.apply(o, arguments);
+        };
+
+        $.unsubscribe = function() {
+            o.off.apply(o, arguments);
+        };
+
+        $.publish = function() {
+            o.trigger.apply(o, arguments);
+        };
+
+    }(jQuery));
+</script>
+<script>
+
+//    事件监听
+////    jQuery中
+//    $("#p").on("click",function(){
+//        alert("The paragraph was clicked.");
+//    });
+//
+////JavaScript中
+//    document.getElementById("myBtn").addEventListener("click", displayDate);
+//    function displayDate() {
+//        document.getElementById("demo").innerHTML = Date();
+//    }
+
+//订阅/发布
+//    jQuery.subscribe("done", f2);
+//    function f2(){
+//        console.log("函数2");
+//    }
+//    function f1(){
+//        console.log("函数1");
+//        setTimeout(function () {
+//            jQuery.publish("done");
+//        }, 1000);
+//    }
+////    jQuery.unsubscribe("done", f2);
+//    f1();
+
+
+</script>
+</html>

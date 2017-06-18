@@ -1,0 +1,366 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task11】sass、less是什么？如何使用？</h2>
+            <h3>小课堂【北京 第140期】</h3>
+            <p>分享人：张雪飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>CSS 是一门非程序式语言，没有变量、函数、SCOPE（作用域），需要书写大量看似没有逻辑的代码，不方便维护及扩
+                展，不利于复用，尤其对于非前端开发工程师来讲，往往会因为缺少 CSS 编写经验而很难写出组织良好且易于维护的
+                CSS 代码。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>知识点1：Sass背景介绍</p>
+            </section>
+            <section>
+                    <p>Sass是对CSS（层叠样式表）的语法的一种扩充，诞生于2007年，最早也是最成熟的一款CSS预处理器语言，它
+                        可以使用变量、常量、嵌套、混 入、函数等功能，可以更有效有弹性的写出CSS。Sass最后还是会编译出合法
+                        的CSS让浏览器使用，也就是说它本身的语法并不太容易让浏览器识别，因为 它不是标准的CSS格式，在它的
+                        语法内部可以使用动态变量等，所以它更像一种极简单的动态语言。
+                        其实现在的Sass已经有了两套语法规则：一个依旧是用缩进作为分隔符来区分代码块的；另一套规则和CSS一
+                        样采用了大括号（｛｝）作为分隔符。后一种语法规则又名SCSS，在Sass3之后的版本都支持这种语法规则。
+                    </p>
+            </section>
+            <section>
+                <h3>知识点2：Sass是什么？</h3>
+            </section>
+            <section>
+                <p>Sass（Syntactically Awesome Style Sheets）是一个相对新的编程语言，Sass为web前端开发而生，可以用它来定
+                    义一套新的语法规则和函数，以加强和提升CSS。通过这种新的编程语言，你可以使用最高效的方式，以少量的代
+                    码创建复杂的设计。它改进并增强了CSS的能力，增加了变量，局部和函数这些特性。而这只使Sass一部分利器！
+                </p>
+            </section>
+            <section>
+                <h3>Sass的安装</h3>
+            </section>
+            <section>
+                <p>SASS是Ruby语言写的，但是两者的语法没有关系。不懂Ruby，照样使用。只是必须先安装Ruby，然后再安装SASS。</p>
+            </section>
+            <section>
+                <h3>window下安装ruby</h3>
+            </section>
+            <section>
+                <h3>Sass的安装</h3>
+
+            </section>
+            <section>
+                <a href="http://rubyinstaller.org/downloads/">下载当前稳定版本的exe文件。</a><p>界面如下所示：</p>
+                <img src="../img/css-11/01.jpg" alt="" width="600" height="500">
+
+            </section>
+            <section>
+                <p>在系统上运行来安装Ruby。添加Ruby的bin文件夹到PATH用户变量和系统变量以使用 gem 命令工作。</p>
+                <img src="../img/css-11/02.jpg" alt="" width="600" height="500">
+
+            </section>
+            <section>
+                <p>在系统中打开命令提示符，然后输入以下命令行</p>
+                <pre>
+                <code>
+
+                   gem source -a http://rubygems.org/
+
+                   gem sources -a http://ruby.taobao.org/
+
+                   gem install sass
+
+                </code>
+
+            </pre>
+            </section>
+            <section>
+                <p>看到屏幕下方SASS 安装成功提示(国内线路不稳定，需要多试几次)。</p>
+                <img src="../img/css-11/11.jpg" alt="" width="800" height="400">
+            </section>
+            <section>
+                <h3>Sass使用-语法</h3>
+            </section>
+            <section>
+                <p>文件明后缀</p>
+                <p> sass有两种后缀名文件：一种后缀名为sass，不使用大括号和分号；另一种就是我们这里使用的scss文件，这种和
+                    我们平时写的css文件格式差不多，使用大括号和分号。而本教程中所说的所有sass文件都指后缀名为scss的文件。
+                    在此也建议使用后缀名为scss的文件，以避免sass后缀名的严格格式要求报错。</p>
+
+
+            </section>
+            <section>
+                <p>导入</p>
+                <p>sass的导入(@import)规则和CSS的有所不同，编译时会将@import的scss文件合并进来只生成一个CSS文件。但是如
+                    果你在sass文件中导入css文件如@import 'reset.css'，那效果跟普通CSS导入样式文件一样，导入的css文件不会
+                    合并到编译后的文件中，而是以@import方式存在。
+                    所有的sass导入文件都可以忽略后缀名.scss。一般来说基础的文件命名方法以_开头，如_mixin.scss。这种文件在
+                    导入的时候可以不写下划线，可写成@import "mixin"</p>
+
+            </section>
+            <section>
+                <img src="../img/css-11/52.jpg" alt="" width="900" height="600">
+
+            </section>
+            <section>
+                <img src="../img/css-11/53.jpg" alt="" width="900" height="600">
+
+            </section>
+
+            <section>
+            <h3>sass的基本用法与css的区别</h3>
+
+            </section>
+            <section>
+                <img src="../img/css-11/41.jpg" alt="" width="9080" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/42.jpg" alt="" width="900" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/43.jpg" alt="" width="900" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/44.jpg" alt="" width="900" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/45.jpg" alt="" width="900" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/46.jpg" alt="" width="900" height="500">
+            </section>
+            <section>
+                <img src="../img/css-11/47.jpg" alt="" width="900" height="500">
+            </section>
+
+
+
+        </section>
+        <section>
+            <section>
+                <p>知识点3：LESS的背景介绍</p>
+                <p>（2009年开源的一个项目，受Sass的影响较大，但又使用CSS的语法，让大部分开发者和设计师更容易上手。LESS提供了
+                    多种方式能平滑的将写好的代码转化成标准的CSS代码。</p>
+            </section>
+            <section>
+                <p>知识点3：LESS的介绍</p>
+                <p>第一个，less是单独的一种文件，可以理解为css的升级版，完全按照css写也没问题，不过它提供了很多便利的东
+                    西，可以省好多代码量。第二个，html只认css,所以需要配套一些软件将less解析成css,引用时候，直接引用css
+                    就好。gulp,koala 都是常用的，Koala好像简单且方便一点。
+                    多种方式能平滑的将写好的代码转化成标准的CSS代码。</p>
+
+            </section>
+            <section>
+            <p>LESS的安装</p>
+            <p>LESS的安装和Sass安装有所不同，他不需要依赖于Ruby环境，就能直接安装使用。不过LESS安装分为两种：客户端和
+                服务器端安装</p>
+            </section>
+            <section>
+            <p>less客户端安装</p>
+            <p>我们可以直接在客户端使用“.less”（LESS源文件），只需要在官网载一个Javascript脚本文件主“less.js”，然后
+                在我们需要引入LESS源文件的HTML的<head>中加入如下代码</p>
+            <img src="../img/css-11/61.jpg" alt="" width="800" height="200">
+            </section>
+            <section>
+                <p>需要注意的是：在引入“.less”文件中，“link”的“rel”属性要设置为“stylesheet/less”。还有更重要的一
+                    点需要注意的是：LESS源文件一定要在“less.js”引入之前引入，这样才能保证LESS源文件正确编译解析。</p>
+            </section>
+            <section>
+                <p>less的使用</p>
+                <p>使用less，css文件的后缀名需要改为.less</p>
+                <p>在html页面中加入下面代码</p>
+                <img src="../img/css-11/71.jpg" alt="" width="900" height="200">
+            </section>
+            <section>
+                <img src="../img/css-11/72.jpg" alt="" width="900" height="400">
+            </section>
+            <section>
+                <img src="../img/css-11/73.jpg" alt="" width="900" height="400"></section>
+            <section>
+                <p>3.嵌套规则</p>
+                <img src="../img/css-11/74.jpg" alt="" width="900" height="500">
+                <p>这样样式的名称更为的简短，并且修改的时候好找一些</p>
+            </section>
+            <section>
+                <p>4.样式的运算</p>
+                <p>代码见嵌套规则代码中的最后一个span标签的font-size属性。
+                    好处类似于定义变量的好处。</p>
+            </section>
+            <section>
+                <p>5.样式传参</p>
+                <img src="../img/css-11/75.jpg" alt="" width="900" height="500">
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h3>4.常见问题</h3>
+            </section>
+            <section>
+                <h3>Sass/Scss、Less有什么区别?</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+            <h4>1.编译环境不一样</h4>
+
+            <p>Sass的安装需要Ruby环境，是在服务端处理的，而Less是需要引入less.js来处理Less代码输出css到浏览器，也可
+                以在开发环节使用Less，然后编译成css文件，直接放到项目中，也有 Less.app、SimpleLess、CodeKit.app这样
+                的工具，也有在线编译地址。</h4>
+            </section>
+            <section>
+                <h4>2.变量符不一样，Less是@，而Scss是$，而且变量的作用域也不一样。</h4>
+            </section>
+            <section>
+                <h4>3.输出设置，Less没有输出设置，Sass提供4中输出选项：nested, compact, compressed 和 expanded。</h4>
+
+                <p>输出样式的风格可以有四种选择，默认为nested</p>
+                <p>nested：嵌套缩进的css代码</p>
+                <p>expanded：展开的多行css代码</p>
+                <p>compact：简洁格式的css代码</p>
+                <p>compressed：压缩后的css代码</p>
+            </section>
+            <section>
+            <h4>4.Sass支持条件语句，可以使用if{}else{},for{}循环等等。而Less不支持。</h4>
+
+            </section>
+            <section>
+                <h4>5.引用外部CSS文件。</h4>
+
+                <p>scss引用的外部文件命名必须以_开头, 如下例所示:其中_test1.scss、_test2.scss、_test3.scss文件分别设置
+                    的h1 h2 h3。文件名如果以下划线_开头的话，Sass会认为该文件是一个引用文件，不会将其编译为css文件.</h4>
+            </section>
+            <section>
+                <h4>6.Sass和Less的工具库不同。</h4>
+                <p>Sass有工具库Compass, 简单说，Sass和Compass的关系有点像Javascript和jQuery的关系,Compass是Sass的工具库。
+                    在它的基础上，封装了一系列有用的模块和模板，补充强化了Sass的功能。
+                    Less有UI组件库Bootstrap,Bootstrap是web前端开发中一个比较有名的前端UI组件库，Bootstrap的样式文件部分
+                    源码就是采用Less语法编写。</p>
+
+            </section>
+        </section>
+
+         <section>
+
+
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一：你 使用的是sass还是less？</p>
+            <p class="fragment">问题二：为什么使用sass或者less>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p></p>
+            <p>参考一：<a href="http://www.haorooms.com/post/sass_css" target="_blank">SASS入门教程及用法指南</a></p>
+            <p>参考二：<a href="http://www.51xuediannao.com/html+css/htmlcssjq/ccc-block-inline.html" target="_blank">深入理解CSS块级(block)元素和内联(inline)元素</a>
+            </p>
+            <p>参考三：<a href="https://www.ibm.com/developerworks/cn/web/1207_shenyi_lesscss/" target="_blank">初步认识 LESS</a></p>
+            <p>参考四：<a href="http://caibaojian.com/sass-less-stylus.html" target="_blank">sass、less和stylus的安装使用和入门实践</a></p>
+            <p>参考五：<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank">sass语法</a></p>
+            <p>参考六：<a href="http://www.cnblogs.com/grey-zhou/p/5796496.html" target="_blank">less的一些用法整理</a></p>
+            <p>参考七：<a href="http://www.jsann.com/post/less_introduction.html" target="_blank">LESS使用简介</a></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :张雪飞</small>
+                <small>师兄 :刘齐勇</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

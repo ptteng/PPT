@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-04】如何实现数组的浅拷贝和深拷贝</h2>
+            <h3>深圳分院小课堂【第141期】</h3>
+            <p>分享人：覃腾波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+            <section>
+                <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                <p style="text-align: justify">在使用JavaScript对数组进行操作的时候，我们经常需要将数组进行备份，事实证明如果只是简单的将它赋予其他变量，那么我们只要更改其中的任何一个，然后其它的也会跟着改变，这就导致了问题的发生。原因是内存中仅保留一份数据。这时候需要制作一份数据的副本。<br>
+                只有复杂类型变量（引用类型）存在深拷贝与浅拷贝的问题，而基本类型没有深拷贝的概念。
+                </p>
+                <pre>
+                <code>
+                var a = [1, 2, 3];
+                var b = a;
+                delete a[1];
+                console.log(a, b);
+                delete b[2];
+                console.log(a, b);
+                </code>
+                </pre>
+            </section>
+            <section><h3>2.知识剖析</h3></section>
+            <section>
+                <p>“堆内存”和“栈内存”</p>
+                <p style="text-align: justify">首先JavaScript中的变量分为基本类型和引用类型。基本类型就是保存在栈内存中的简单数据段，而引用类型指的是那些保存在堆内存中的对象。</p>
+                <p style="text-align: justify">
+                1、基本类型<br>
+                基本类型有Undefined、Null、Boolean、Number 和String。这些类型在内存中分别占有固定大小的空间，他们的值保存在栈空间，我们通过按值来访问的。<br>
+            </section>
+            <section>
+            2、引用类型<br>
+                <p style="text-align: justify">引用类型，值大小不固定，栈内存中存放地址指向堆内存中的对象。是按引用访问的。栈内存中存放的只是该对象的访问地址，在堆内存中为这个值分配空间。由于这种值的大小不固定，因此不能把它们保存到栈内存中。但内存地址大小的固定的，因此可以将内存地址保存在栈内存中。这样，当查询引用类型的变量时，先从栈中读取内存地址， 然后再通过地址找到堆中的值。对于这种，我们把它叫做按引用访问。
+                </p>
+            </section>
+            <section>
+            <img src="20141212220233511.png">
+            </section>
+            <section>
+            <p style="text-align: justify">当我们看到一个变量类型是已知的，就分配在栈里面，比如INT,Double等。其他未知的类型，比如自定义的类型，因为系统不知道需要多大，所以程序自己申请，这样就分配在堆里面。</p>
+            <img src="20141213140950906.png">
+            </section>
+            <section>
+            <p>JS数组的浅拷贝</p>
+            简单的赋值就是浅拷贝。因为对象和数组在赋值的时候都是引用传递。赋值的时候只是传递一个指针。
+            <pre>
+            <code>
+            var a = [1,2,3];
+            var b =a ;
+            var test = {name:'xiaohong', age:15};
+            var c = test;
+            console.log(a,b);
+            console.log(test);
+            console.log('-------------------');
+            b[0] =5;
+            c.age = 16;
+            console.log(a,b);
+            console.log(test);
+            console.log(c);
+            </code>
+            </pre>
+            浅拷贝很容易，但是很多时候我们需要原样的把数组或者对象复制一份，在修改值的时候，不改变初始对象的值。这个时候就需要使用深拷贝。
+            </section>
+            <section>
+            <p>JS数组的深拷贝</p>
+            <h3>方法一：js的slice函数</h3>
+            </section>
+            <section style="text-align: justify">
+            slice() 方法可从已有的数组中返回选定的元素。<br>
+            【语法】arrayObject.slice(start,end)<br>
+            【参数】arrayObj--必选项：一个Array对象。start--必选项：arrayObj中所指定的部分的开始元素是从零开始计算的下标。end--可选项：arrayObj中所指定的部分的结束元素是从零开始计算的下标。<br>
+            【说明】<br>
+            slice 方法返回一个Array对象，其中包含了arrayObj的指定部分。slice方法一直复制到end所指定的元素，但是不包括该元素。如果start为负，将它作为length + start处理，此处length为数组的长度。如果end为负，就将它作为length + end处理，此处length为数组的长度。如果省略end ，那么slice方法将一直复制到 arrayObj 的结尾。如果end出现在start之前，不复制任何元素到新数组中。
+            </section>
+            <section>
+            实例：
+            <pre>
+            <code>
+            var a = [1,2,3,4,5];
+            var b = a.slice(0,2);
+            var c = a.slice(-3,-1);
+            var d = a.slice(-1,-3);
+            console.log(b,c,d);
+            </code>
+            </pre>
+            </section>
+            <section>
+            <h3>方法二：js的concat函数</h3>
+            </section>
+            <section style="text-align: justify">
+            concat() 方法用于连接两个或多个数组。该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。<br>
+            【语法】arrayObject.concat(arrayX,arrayX,......,arrayX)<br>
+            【参数】arrayX--必需：该参数可以是具体的值，也可以是数组对象。可以是任意多个。<br>
+            【说明】<br>
+            返回一个新的数组。该数组是通过把所有 arrayX 参数添加到 arrayObject 中生成的。如果要进行 concat()操作的参数是数组，那么添加的是数组中的元素，而不是数组。
+            </section>
+            <section>
+            实例：
+            <pre>
+            <code>
+            var a = [1,2,3];
+            var b = a.concat(4,5);
+            console.log(b);
+            var c = [6,7];
+            var d = a.concat(c);
+            console.log(d);
+            </code>
+            </pre>
+            </section>
+        <section>
+               <h3>3.常见问题</h3>
+        </section>
+        <section>
+        除了上述两个方法外，还有没有其他的深拷贝方法？
+        </section>
+        <section>
+        <h3>4.解决方案</h3>
+        </section>
+        <section>
+            js遍历数组的方法：
+            <pre>
+            <code>
+           var a = [1,2,3];
+           var b = [];
+           function deepCopy(arry1,arry2) {
+              for(i=0;i < arry1.length;i++) {
+                 arry2[i] = arry1[i];
+              }
+           }
+           deepCopy(a,b);
+           a[0] = "A";
+           console.log(a,b);
+            </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            slice()、concat()的局限性在哪里？
+            <pre>
+               <code>
+                var a = [1,2,{"name":"张三"},{"name":"李四"},[4,5]];
+                var b = a.slice(0);
+                var c = [].concat(a);
+                a[2].name="王五";
+                a[4][0] = "A";
+                console.log(a);
+                console.log(b);
+                console.log(c);
+               </code>
+               </pre>
+               <p style="text-align: justify">由上面的例子可以看出，由于数组内部存在对象和数组，当改变对象属性和内部数组的元素后，深拷贝的b和c同样也发生了改变。因此，slice和concat这两个方法，仅适用于对不包含引用对象的一维数组的深拷贝</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+             对象的深拷贝和浅拷贝又是怎样的？
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+            <p>BY 覃腾波
+        </section>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

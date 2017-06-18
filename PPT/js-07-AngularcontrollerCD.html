@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【JS-07】什么是angualr的控制器？</h3>
+            <h4>小课堂【成都分院】</h4>
+            <p>分享人：张珺琢</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>一、什么是controller</p>
+                <div style="text-align: left; padding: 0 5%;">
+                    <p>AngularJS 控制器是常规的 JavaScript 对象,由标准的JavaScript对象的构造函数创建。</p>
+                    <p>AngularJS 控制器 控制 AngularJS 应用程序的数据。</p>
+                    <br>
+                    <p>简单的说：</p>
+                    <p>在angularJS中，controller是一个javascript函数，用于操作作用域中，各个对象的初始状态以及相应的行为。</p>
+                </div>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+              <p>一.angular controller初始化对象状态</p>
+              <img src="../img/js-07-Angular-Controller/7.png" alt="">
+              <p>在控制器中初始化name属性的值，值为haha &emsp;<a href="../demo/con作用于.html">初始化</a></p>
+
+            </section>
+            <section>
+                <p>二、controller的作用域</p>
+                <img src="../img/js-07-Angular-Controller/8.png" alt="">
+            </section>
+            <section>
+                <img src="../img/js-07-Angular-Controller/9.png" alt="">
+            </section>
+            <section>
+                <div style="text-align: left; padding: 0 5%">
+                    <p>也就是说，在HTML中，绑定ng-controller的那个DOM节点内的所有子标签，将会是当前controller的作用域。</p>
+                    <p>在大型项目中,如果HTML DOM 中有多个作用域，这时你就需要知道你使用的 scope 对应的作用域是哪一个。</p>
+                </div>
+            </section>
+            <section>
+                <p>三、多controller的实现</p>
+                <div style="text-align: left; padding: 0 5%">
+                    <p>根据上面的例子，我们知道，angularJS中view层解析是通过controller的作用域来将$scope对象解析成相应的内容，因此我们可以在同一个界面上划分不同的模块，通过不同的控制器控制不同的模块来进行开发，这样通过划分模块的开发方式，对今后维护代码带来了便利。</p>
+                    <p>我们会发现，不同的controller他们scope对象是不一样的,即使都是用了name这个变量，可以看出controller之间是封闭的，可是有时候我们面对两个模块之间进行数据交互，必然在两个controller之间进行通信，这就涉及到angular中的service操作</p>
+                </div>
+            </section>
+        </section>
+        <section>
+                <h3>3.常见问题</h3>
+                <p>controller之间的数据该如何传输？</p>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>使用service,实现controller之间的数据传输</p>
+                <div style="text-align: left; padding: 0 5%;">
+                    <p>在之前的例子我们提到，controller是相对独立的，两个controller之间，内存是不共享的，同级DOM下，两个controller是无法互相访问其中的属性或者方法的。</p>
+                    <p>官方建议页面之间通过service互相访问。</p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p>问题1.在controller中嵌套controller会出现什么样的问题？</p>
+            </section>
+            <section>
+                <div style="text-align: left; padding: 0 5%;">
+                    <p>首先，我将原来页面中的body标签上绑定了一个名为rootController的一个控制器，命名了2个变量，并将其余两个控制器中的同名变量删除。如下图</p>
+                </div>
+            </section>
+            <section>
+                <img src="../img/js-07-Angular-Controller/10.png" alt="">
+            </section>
+            <section>
+                <img src="../img/js-07-Angular-Controller/11.png" alt="">
+            </section>
+            <section>
+                <p>由此可见，controller的作用域跟js作用域相似。</p>
+
+            </section>
+            <section>
+                <p style="color:red">
+                    注意：在大型项目中，为了代码规范，很少会使用这种方法，同时这种行为很危险！
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section><p> 如何使用angular中的Service服务在多个controller之间的进行数据传输？</p></section>
+            <section>
+                <img src="../img/js-07-Angular-Controller/12.png" alt="" style="width:550px;height:600px;">
+            </section> <section>
+                <img src="../img/js-07-Angular-Controller/13.png" alt="">
+                <p>service的作用就是用于数据共享，将同一个service中的内容分给不同的controller</p>
+            </section>
+            <section>
+                <div style='text-align: left;padding: 0 5%;'>
+                    <p>以上只是简单的使用了service，在Angular中Controller通信的方式有三种，上述提到的为注入服务的方法，另外还有作用域继承和基于事件的方法。</p>
+                    <p>作用域继承。利用子 Controller 控制父 Controller 上的数据,仅限于上下级之间的通信。</p>
+                    <p>基于事件。利用 Angular 的事件机制，使用 $on、$emit 和 $boardcast</p>
+                    <a href="https://github.com/huangtengfei/blog/issues/8">参考</a>
+                </div>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/ft6302244/article/details/42387839" target="_blank">博客园</a></p>
+            <p>参考一：<a href="http://www.runoob.com/angularjs/angularjs-tutorial.html" target="_blank">菜鸟教程</a></p>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :张珺琢</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
