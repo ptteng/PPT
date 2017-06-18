@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Javascript-task10】</h2>
+            <h3>小课堂【郑州第145期】</h3>
+            <h4>什么是BOM？—— 第二次分享</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Browser Object Model，浏览器对象模型，简称BOM，是JavaScript在使用过程中极其重要的组成部分，也是在浏览器实现JavaScript的核心。多年来，BOM缺少一个比较统一的标准，基本上都是各大浏览器提供商各自为政，对其进行扩展补充。W3C为了把浏览器中的JavaScript最基本部分标准化，已经将BOM的主要方面纳入到了HTML5标准中。接下啦，我们接着上一次多的内容，来认识一下它。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1什么是间歇调用和超时调用？
+            </section>
+            <section>
+                <p>Javascript是单线程语言，但允许通过设置超时值和间歇时间值调度代码在特定的时刻执行。</p>
+                <p>超时调用，在指定时间过后执行代码。需要通过window对象的setTimeout()方法，它接受两个参数：要执行的代码，和以毫秒表示的时间。第一个参数可以是一个包含js代码的字符串，也可以是一个函数。第二个参数是等待多长时间的毫秒数。这里需要注意的是，由于js是单线程语言，因此，当时间到了之后，代码也许并不会如想象的一般，立即执行，它只是表示时间到了以后将要执行的代码放到了js的处理任务的队列中，还要老老实实地排队等候进一步的处理。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        //不建议传递字符串！
+                        setTimeout("alert('Hello Da Wa!')", 1000);
+                        //推荐以下写法
+                        setTimeout(function(){
+                            alert('Hello World!')
+                        }, 2000);
+                        //使用清除方法在代码未调用前清除该项
+                        clearTimeout();
+                    </code>
+                </pre>
+            </section>
+            <section>
+                 <p>间隔调用，在每隔指定时间就执行执行代码，直到间歇调用被取消或者页面被卸载。它需要通过window对象的setInterval()方法，它接受两个参数：要执行的代码，和以毫秒表示的时间。第一个参数可以是一个包含js代码的字符串，也可以是一个函数。第二个参数是间隔多长时间的毫秒数。取消间歇调用的重要性远远大于取消超时调用，防止间歇调用的循环执行。在项目开发中，最好不要使用间歇调用。</p>
+                <pre>
+                    <code>
+                        //不建议传递字符串！
+                        setInterval("alert('Hello Da Wa!')", 1000);
+                        //推荐以下写法
+                        setInterval(function(){
+                            alert('Hello World!')
+                        }, 2000);
+                        //使用清除方法在代码未调用前清除该项
+                        clearInterval();
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.2 location对象
+            </section>
+            <section>
+                <p>location对象是BOM对象中有一个极为重要的对象，它也是一个特别的对象。它既是window对象的属性，又是document对象的属性，也就是说，window.location和document.location引用的是同一个对象。<a href="http://www.w3school.com.cn/jsref/dom_obj_location.asp">w3school</a></p>
+                <img src="../img/js-04-bom/3.png">
+            </section>
+             <section>
+                <p>location对象可以通过多种方式改变浏览器的位置。最常用的方式是assign()，（assign翻译为分配，选派，归属）。它可以打开一个新的url并在浏览器的历史记录中生成一条记录。使用window.location或者location.href设置一个url值，也会以该值调用assign()方法。</p>
+                <pre>
+                    <code>
+                        location.assign('http://www.baidu.com');
+                        //以下方法等价于上边的写法
+                        window.location = 'http://www.baidu.com';
+                        location.href = 'http://www.baidu.com';
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <img src="../img/js-04-bom/4.png">
+            </section>
+             <section>
+                <p>location对象的其他属性也可以修改url地址，同样会在浏览器的历史记录中生成一条新的记录。用户通过单击“后退”就可以返回前一个页面的地址。如果我们不希望用户再返回去，我们就使用到了replace()这个方法，它接受一个参数——要跳转的url，浏览器位置发生变化，同时，不会和刚刚提到的那几个方法一样，会在历史记录中生成新纪录，因此也就不会返回原有的位置了。</p>
+                <p>于位置有关的，还有一个方法——reload()，作用是重新加载当前的页面。如果不加任何参数，它就会以最有效的方式进行重新加载，也就是用浏览器缓存进行加载。我们如果想强制网页从服务器端重新加载数据过来，可以提供一个true值。例如：location.reload(true)。</p>
+            </section>
+            <section>
+                2.3 navigator对象
+            </section>
+            <section>
+                <p>navigator对象，用于识别客户端浏览器信息，最早由<a href="http://baike.baidu.com/link?url=egO2AlXWYet-bV_wseoP6RET8N09VSFYKDjR6WKQGXIXnfs7XUdWtCBMMBdY-I7_v1HSA_o9V5geSRArIyYp744HDJhrMwyk_Biiq9v4ernQYzGkG09RtumLnRv6qOit0sLSrw9K78yuTvCzyaPqPKj1wonFCZCystemEAU9M6ZWytomMgz03XAIIen5o8N8kcnyQ1XloYTwePAd5bLhrK">Netscape Navigation 2.0</a>引入。浏览器各自可能也有自有的识别客户端信息的对象或者方法，但是navigator对象是所有支持js的浏览器所共有的。</p>
+         
+                <p>除了识别显示客户端的信息之外，navigator对象也提供了一个检测插件的方法，使用plugins数组。该数组包括以下内容：name（插件的名字）、description（插件的描述）、filename（插件的文件名）、length（插件所处理的MIME类型数量）。</p>
+            </section>
+            <section>
+                2.4 screen对象
+            </section>
+            <section>
+                <p>screen对象，在编程过程中使用的频次并不高，是一个比较低调的存在。它用来表述客户端的能力，包括浏览器窗口外部的显示器信息，像素高度和宽度，DPI值，颜色的位数（多为32位）、屏幕的位深等信息。</p>
+            </section>
+            <section>
+                2.5 history对象
+            </section>
+            <section>
+                <p>history对象，用于保存用户自打开浏览器时以后的历史记录，是window对象的属性。可以使用go()的方法在历史记录中任意跳转，可以向后也可以向前。这个方法可以接受一个向后或者向前的页面数（整数值）。负值表示向后跳转，正值表示向前跳转。也可以传递一个字符串参数，该字符串必须是浏览器历史记录中存在的，否则无效。</p>
+                <pre>
+                    <code>
+                        history.go(-1);
+                        history.go(1);
+                        history.go(2);
+                    </code>
+                </pre>
+            </section>
+        </section>   
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何使用超时调用的方法，避免间隔调用的问题？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>这里引入《JavaScript高级程序设计》中的一段代码进行解决方案的介绍。</p>
+            <pre>
+                <code>
+                    var num = 0;
+                    var max = 10;
+                    var a = null;
+                    function old(){
+                        num++;
+                        //如果执行次数达到了max设定的值，则取消后续尚未执行的调用
+                        if(num == max){
+                            clearInterval(a);
+                            alert("Done");
+                        }
+                    }
+                    a = setInterval(old, 1000);
+                    //使用超时调用规避间隔调用的循环执行问题
+                    function b(){
+                        num++;
+                        //如果执行次数未达到max设定的值，则设置另一次超时调用
+                        if(num < max){
+                            setTimeout(b, 1000);
+                        } else {
+                            alert("Done");
+                        }
+                    }
+                    setTimeout(b, 1000);
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>参看上边各知识点简单的demo演示，暂无更多demo！</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题: 如何在列表网页，点击页码等条件重新加载数据后，从顶部显示？</p> 
+            <p>这里使用到了location.hash的方法进行处理。</p>
+            <pre>
+                <code>
+            //页面跳转置顶显示，使用以下两行代码
+            $location.hash(''); 
+            $anchorScroll();
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二: <a href="http://www.w3school.com.cn/index.html" target="_blank">w3school</a></p>
+            
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家对于window对象还有哪些认识，分享一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤JS-01-PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- css-28-sassinsublime主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task1】<span style="text-transform:lowercase">如何理解JS中作用域和作用域链</span></h2>
+            <h3>小课堂【深圳第143期】</h3>
+            <p>分享人：隋鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>任何程序设计语言都有作用域的概念，简单的说，作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。在JavaScript中，变量的作用域有全局作用域和局部作用域两种。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1.全局作用域(Global Scope)<p>
+            <p style="text-align: left;"> 在代码中任何地方都能访问到的对象拥有全局作用域，一般来说一下几种情形拥有全局作用域：</p>
+        </section>
+        <section>
+            <p style="text-align: left;">(1)最外层函数和在最外层函数外面定义的变量拥有全局作用域，例如：</p>
+            <pre>
+            <code>
+var aName="泷泽萝拉";
+function doSomething(){
+    var bName="吉泽明步";
+    function innerSay(){
+        alert(bName);
+    }
+    innerSay();
+}
+alert(aName); //泷泽萝拉
+alert(bName); //脚本错误
+doSomething(); //吉泽明步
+innerSay() //脚本错误
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align: left;">(2)所有末定义直接赋值的变量自动声明为拥有全局作用域，例如：</p>
+            <pre>
+            <code>
+function doSomething(){
+    bName="加藤鹰";
+    alert(bName)
+}
+alert(bName); //加藤鹰
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p>(3)所有window对象的属性拥有全局作用域</p>
+            <p style="text-align: left;">一般情况下，window对象的内置属性都都拥有全局作用域，例如window.name、window.top等等。</p>
+        </section>
+        <section>
+            <p>1. 局部作用域(Local Scope)</p>
+            <p style="text-align: left;">和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所有在一些地方也会看到有人把这种作用域成为函数作用域</p>
+        </section>
+        <section>
+            <p style="text-align: left;">例如下列代码中的bName和函数innerSay都只拥有局部作用域：</p>
+            <pre>
+            <code>
+function doSomething(){
+    var bName="杨泽平";
+    function innerSay(){
+        alert(bName);
+    }
+    innerSay();
+}
+alert(bName); //脚本错误
+innerSay(); //脚本错误
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p>作用域链(Scope Chain)</p>
+            <p style="text-align: left;">
+                有了JavaScript的作用域的划分，那么可以将JavaScript的访问作用域连成一个链式树状结构.<br>
+                JavaScript的作用域链一旦能清晰的了解，那么对于JavaScript的变量与闭包就是非常清晰的了.<br>
+                下面采用绘图的办法，绘制作用域链.<br>
+                3.1 绘制规则：<br>
+                1) 作用域链就是对象的数组<br>
+                2) 全部script是0级链，每个对象占一个位置<br>
+                3) 凡是看到函数延伸一个链出来，一级级展开<br>
+                4) 访问首先看当前函数，如果没有定义往上一级链检查<br>
+                5) 如此往复，直到0级链</p>
+        </section>
+        <section>
+            <p style="text-align: left;">先看一段代码
+            <pre>
+                <code>
+                   var num = 10;
+
+                   var func1 = function() {
+                    var num = 20;
+                    var func2 = function() {
+                    var num = 30;
+                    alert(num);
+                    };
+                    func2();
+                    };
+
+                    var func2 = function() {
+                    var num = 20;
+                    var func3 = function() {
+                    alert(num);
+                    };
+                    func3();
+                    };
+                    func1();
+                    func2();
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align: left;"> 下面分析一下这段代码：<br>
+                -> 首先整段代码是一个全局作用域，可以标记为0级作用域链，那么久有一个数组<br>
+                var link_0 = [ num, func1, func2 ];// 这里用伪代码描述<br>
+                -> 在这里func1和func2都是函数，因此引出两条1级作用域链，分别为<br>
+                var link_1 = { func1: [ num, func2 ] };// 这里用伪代码描述<br>
+                var link_1 = { func2: [ num, func3 ] };// 这里用伪代码描述<br>
+                -> 第一条1级链衍生出2级链<br>
+                var link_2 = { func2: [ num ] };// 这里用伪代码描述<br>
+                -> 第二条1级链中没有定义变量，是一个空链，就表示为<br>
+                var link_2 = { func3: [ ] };</p>
+        </section>
+        <section>
+            <h3>-> 将上面代码整合一下，就可以将作用域链表示为</h3>
+            <pre>
+               <code>
+                   // 这里用伪代码描述
+                   var link = [ // 0级链
+                   num,
+                   { func1 : [ // 第一条1级链
+                   num,
+                   { func2 : [ // 2级链
+                   num
+                   ] }
+                   ]},
+                   { func2 : [ // 第二条1级链
+                   num,
+                   { func3 : [] }
+                   ]}
+                   ];
+               </code>
+           </pre>
+        </section>
+        <section>
+            <h3>4.常见问题</h3>
+            如何更加直观的体现作用域链
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <a href="http://www.jb51.net/article/44307.htm">脚本之家</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >如何运用作用域链的知识进行闭包优化优化</p>
+            <a href="http://www.jb51.net/article/30706.htm">脚本之家</a>
+            <p style="text-align: left;">其实作用域链就是JS引擎查询数据的一个链表，后定义的覆盖先定义的，查询不到定义的数据就往深一层查询，一直到全局作用域为止</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+function changeColor(){
+    document.getElementById("btnChange").onclick=function(){
+        document.getElementById("targetCanvas").style.backgroundColor="red";
+    };
+}
+                </code>
+            </pre>
+            <p>这段代码可以重写如下：</p>
+            <pre>
+                <code>
+function changeColor(){
+    var doc=document;
+    doc.getElementById("btnChange").onclick=function(){
+        doc.getElementById("targetCanvas").style.backgroundColor="red";
+    };
+}
+                </code>
+            </pre>
+            <p>这段代码比较简单，但是如果程序中有大量的全局变量被从反复访问，那么重写后的代码性能会有显著改善。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一<a href="http://developer.51cto.com/art/201109/289286.htm">51cto</a></p>
+            <p>参考二<a href="http://blog.csdn.net/yueguanghaidao/article/details/9568071">博客</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论</p>
+        </section>
+        <section>
+            <h4 >鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 隋鑫 </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
