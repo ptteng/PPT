@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+
+    <!--<link rel="stylesheet" href="../css/reveal/reveal.css">-->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-align: left;
+            text-indent: 2em;
+        }
+
+        .b{
+            overflow: scroll;
+            height: 100vh!important;
+        }
+    </style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-task10】如何进行网站性能优化？</h2>
+            <h3>小课堂【武汉第145期】</h3>
+            <p>分享人:肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4 class="a">网站性能优化主要是针对两个方面：</h4>
+            <ul>
+                <li> 从用户角度而言，优化就是让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。</li>
+                <li>从服务器角度而言，优化是减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4>优化网站性能需要先了解网站的运行步骤：</h4>
+        </section>
+        <section>
+
+            <section>
+
+                <h4>1.网络请求</h4>
+                <ul>
+                    <li>在浏览器中输入url地址，客户端检查url中的域名是否存在于本地host文件中</li>
+                    <li>未在host中找到ip地址，则访问本地DNS服务器中查询域名。</li>
+                    <li>未在本地DNS中找到域名，则访问DNS根服务器，然后向下级DNS服务器一级一级查找域名。</li>
+                    <li>DNS服务器找到域名后，返回ip地址，浏览器收到ip地址</li>
+                    <li>浏览器通过ip地址向服务器发起TCP连接，进行3次握手。</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>握手完成后，浏览器生成http请求，发送给服务器</li>
+                    <li>服务器收到http请求，根据请求处理所需文件，然后生成http响应报头</li>
+                    <li>http响应报头与所需文件合并成http响应数据包，发送给客户端，若文件太大，可能会有分包过程</li>
+                    <li>客户端收到http响应数据包，提取出文件，进行加载。一次http请求完成。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>2.文件加载</h4>
+                <ul>
+                    <li>客户端浏览器加载了html文件后，由上到下解析html为DOM树（DOM Tree）</li>
+                    <li>遇到css文件，css中的url发起http请求。</li>
+                    <li>这是第二次http请求，由于http1.1协议增加了Connection: keep-alive声明，故tcp连接不会关闭，可以服用。</li>
+                    <li>http连接是无状态连接，客户端与服务器端需要重新发起请求--响应</li>
+                    <li>在请求css的过程中，解析器继续解析html，然后到了script标签。</li>
+                    <li>由于script可能会改变DOM结构，故解析器停止生成DOM树，解析器被js阻塞，等待js文件发起http请求，然后加载。这是第三次http请求。js执行完成后解析器继续解析。</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>由于css文件可能会影响js文件的执行结果，因此需等css文件加载完成后再执行。</li>
+                    <li>浏览器收到css文件后，开始解析css文件为CSSOM树（CSS Rule Tree）。</li>
+                    <li>CSSOM树生成后，DOM Tree与CSS Rule Tree结合生成渲染树（Render Tree），</li>
+                    <li>Render Tree会被css文件阻塞，渲染树生成后，先布局然后渲染，页面就会呈现信息。</li>
+                    <li>继续边解析边渲染，遇到了另一个js文件，js文件执行后改变了DOM树，渲染树重新渲染此部分。</li>
+                    <li>继续向下渲染，碰到一个img标签，浏览器发起http请求，不会等待img加载完成，继续向下渲染，之后再重新渲染此部分。</li>
+                    <li>DOM树遇到html结束标签，停止解析，进而渲染结束</li>
+
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>网站性能如何优化</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <ul>
+                <li>减少DNS查询:将服务器域名的ip信息加入本地host文件，这也是常见的翻墙方法</li>
+                <li>减少DNS查询:使用优质的本地DNS服务器，在系统中设置</li>
+                <li>减少tcp连接，开启KeepAlive声明</li>
+                <li>减少http请求数量，可减少多余的请求头与响应头：
+                    <ol>
+                        <li>对于图片使用雪碧图</li>
+                        <li>对于html文件和css文件，js文件分别进行合并操作。</li>
+                    </ol>
+                </li>
+                <li>减少下载时间：为文件减负，压缩图片，使用压缩应用压缩文档中的空格，删除文件多余的语句和注释，创造自己的js精简库和精简框架</li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li>减少下载时间：html中引用各种框架和库时，使用CDN链接，CDN会自动寻找网络响应的最优解</li>
+                <li>减少下载时间：使用本地浏览器缓存。</li>
+                <li>减轻html文件解析阻塞与渲染阻塞：使用浏览器预加载功能</li>
+                <li>提前渲染开始时间：将css链接放在html头部</li>
+                <li>减轻解析器的阻塞：将js链接放在body尾部</li>
+                <li>按需加载：如在angular路由中使用懒加载，减轻首页负担。</li>
+                <li>异步加载：减轻网页阻塞</li>
+                <li>减少网页刷新：部分加载页面，如使用ajax或angular路由</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>如何快速优化代码</h3>
+            <p class="a">
+                可使用chrome开发者选项audits功能。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section class="present">
+            <section>
+                <p class="a">参考一：<a href="https://www.zhihu.com/question/40505685" target="_blank">知乎-常见的前端性能优化手段都有哪些？都有多大收益？</a>
+                </p>
+                <p class="a">参考二：<a href="http://www.cnblogs.com/dojo-lzz/p/3983335.html"
+                                    target="_blank">HTML渲染过程详解</a></p>
+                <p class="a">参考三：<a href="http://www.jianshu.com/p/57c35067c8dd" target="_blank">浏览器加载和渲染html的顺序-结论篇</a></p>
+                <p class="a">参考四：<a href="http://ued.ctrip.com/blog/how-browsers-work-rendering-engine-html-parsing-series-ii.html" target="_blank">浏览器是怎样工作的：渲染引擎，HTML解析（连载二）</a></p>
+                <p class="a">参考五：<a href="http://www.cnblogs.com/yuezk/archive/2013/01/11/2855698.html" target="_blank">了解html页面的渲染过程</a></p>
+                <p class="a">参考六：<a href="https://segmentfault.com/a/1190000002611809" target="_blank">从输入 URL 到页面加载完成发生了什么事</a></p>
+
+            </section>
+            <section>
+                <p class="a">参考七：<a href="https://segmentfault.com/a/1190000006921322" target="_blank">探网络系列（1）-TCP三次握手&Render Tree页面渲染=>从输入URL到页面显示的过程？</a></p>
+                <p class="a">参考八：<a href="http://www.cnblogs.com/it-cen/p/4899692.html" target="_blank">IP、TCP和DNS与HTTP的密切关系</a></p>
+                <p class="a">参考九：<a href="http://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html" target="_blank">TCP 协议简介</a></p>
+                <p class="a">参考十：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank">互联网协议入门（一）</a></p>
+                <p class="a">参考十一：<a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html" target="_blank">互联网协议入门（二）</a></p>
+                <p class="a">参考十二：<a href="http://blog.csdn.net/hguisu/article/details/8680808" target="_blank">HTTP详解(1)-工作原理</a></p>
+
+
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
