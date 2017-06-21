@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-05】为什么有时我们需要配置hosts来本地测试？和什么有关？若不配置hosts会影响什么？</h2>
+            <h3>深圳分院小课堂第147期
+            <p>分享人：覃腾波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="text-justify">最开始我们访问网站的时候，都是通过ip地址和端口号的方式来访问，但是ip地址是一串数字，记忆起来比较繁琐</p>
+            <p class="text-justify">所以，计算机协会推出了dns服务，dns可以根据我们输入的域名来去寻找对应的ip地址。</p>
+            <p class="text-justify">而hosts则相当于是我们本地的一个dns服务，在我们输入域名访问的时候，计算机会先到hosts文件夹里面去找，看有没有这个域名，如果没有，再去dns服务器上去找。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        
+            <p>在进行web开发的时候，通常需要以http://localhost或者127.0.0.1之类的访问本地环境的网站。但是，如果本地放的网站多了，不得不做别的操作，比如端口设置。结果不容易记住啦。
+            因此我们可以配置本地hosts文件来直接进行自己设置的域名进行访问。
+            如果是静态页面，最简单的方法就是把这个单一页面下载（复制）到本地，然后本地运行调试代码或者看效果。
+
+但是如果是动态页面，如 最终预发布生成的地址为 www.xxx.com/y.html。 当页面内包含数据请求接口时，该接口域名应与www.xxx.com一致。
+
+由于本地测试模拟的环境域名与线上并不一致，所以会导致接口请求变成跨域请求导致请求失败。所以需要映射本地host为请求接口的域。其具体方法如下：
+
+首先需具备一个服务器环境用于模拟真实的服务器，即apache、nginx等。
+将本地的host（127.0.0.1或本地IP）指向接口所在域，这里的域为www.xxx.com。
+</p>
+        </section>
+        <section>
+            <h4>地址各段内容的解析</h4>
+            <code>
+                http://localhost:1023
+            </code>
+            <ul>
+                <li>http:超文本传输协议</li>
+                <li>localhost：主机名，会通过hosts转换为127.0.0.1</li>
+                <li>1023：端口号</li>
+            </ul>
+        </section>
+        <section>
+            <h4>过程详解</h4>
+            <img src="../img/js-05-hosts/host图片.png" alt="#">
+        </section>
+        <section>
+            <p>配置hosts的好处</p>
+        </section>
+        <section style="text-align: justify;">
+            1.加快域名解析:对于要经常访问的网站，我们可以通过在Hosts中配置域名和IP的映射关系，这样当我们输入域名计算机就能很快解析出IP，而不用请求网络上的DNS服务器。 <br>
+            2.方便本地测试<br>
+            3.方便局域网之间的访问:在很多单位的局域网中，会有服务器提供给用户使用。但由于局域网中一般很少架设DNS服务器，访问这些服务要输入难记的IP地址，对不少人来说相当麻烦。现在可以分别给这些服务器取个容易记住的名字，然后在Hosts中建立IP映射，这样以后访问的时候我们输入这个服务器的名字就行了。 <br>
+            4.可以屏蔽特定的网站:现在有很多网站不经过用户同意就将各种各样的插件安装到你的计算机中，有些说不定就是木马或病毒。对于这些网站我们可以利用Hosts把该网站的域名映射到错误的IP或自己计算机的IP，这样就不用访问了。
+</section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        </section>
+        <section>
+            <p>如何查找并修改hosts文件？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>hosts文件的路径：C:\Windows\System32\Drivers\Etc</p>
+            <p>可以直接用文本编辑器打开并修改</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>为什么我们访问网站的时候不需要指定端口号？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="http://baike.baidu.com/link?url=yVzT3nRzbWk8ifInFtD0qOOdS7_q7HpDbfqQVQVck5zgN3ymzNIrf_e4mg-pTrrZMi9UQ0pMzLPVdMZXFKneWq">百度百科：hosts</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="text-align: left">hosts还有什么作用？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY覃腾波</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
