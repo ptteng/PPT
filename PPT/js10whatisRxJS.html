@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<title>葡萄藤PPT</title>
+	
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+	
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+	
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	
+	<!-- 打印和PDF输出样式 -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h3>如何理解RxJS</h3>
+			<h4>小课堂【北京第148期】</h4>
+			<p>分享人：王野</p>
+		</section>
+		<section>
+			<p>目录</p>
+			<p>1.背景介绍</p>
+			<p>2.知识剖析</p>
+			<p>3.常见问题</p>
+			<p>4.解决方案</p>
+			<p>5.编码实战</p>
+			<p>6.扩展思考</p>
+			<p>7.参考文献</p>
+			<p>8.更多讨论</p>
+		</section>
+		<section>
+			<section>
+				<h3>1.背景介绍</h3>
+			</section>
+			<section>
+					<p>rxjs全名Reactive Extensions for JavaScript，Javascript的响应式扩展, 响应式的思路是把随时间不断变化的数据、状态、事件等等转成可被观察的序列(Observable Sequence)，然后订阅序列中那些Observable对象的变化，一旦变化，就会执行事先安排好的各种转换和操作 **rxjs适用于异步场景，即前端
+					</p>
+		</section>
+		</section>
+		<section>
+			<section>
+				<h3>2.知识剖析</h3>
+			</section>
+			<section>
+				<h3>RxJS · 流 Stream</h3>
+				<p>
+					RxJS 是 Reactive Extensions for JavaScript 的缩写，起源于 Reactive Extensions，是一个基于可观测数据流在异步编程应用中的库。RxJS 是 Reactive Extensions 在 javascript 上的实现，而其他语言也有相应的实现，如 RxJava、RxAndroid、RxSwift 等。学习 RxJS，我们需要从可观测数据流(Streams)说起，它是 Rx 中一个重要的数据类型。
+				</p>
+				<p>下雨天时，雨滴随时间推移逐渐产生，下落时对水面产生了水波纹的影响，这跟 Rx 中的流是很类似的。而在 Web 中，雨滴可能就是一系列的鼠标点击、键盘点击产生的事件或数据集合等等。</p>
+			</section>
+			<section>
+				<img src="../img/css-01-box/liu.png" alt="">
+			</section>
+			<section>
+				<h3>RxJS 基础实现原理简析:</h3>
+				<h4>观察者模式</h4>
+			</section>
+			<section>
+				<p>观察者模式在 Web 中最常见的应该是 DOM 事件的监听和触发。<br>
+					订阅：通过 addEventListener 订阅 document.body 的 click 事件。<br>
+					发布：当 body 节点被点击时，body 节点便会向订阅者发布这个消息。</p>
+			</section>
+			<section>
+				<code>
+					document.body.addEventListener('click', function listener(e) {<br>
+					console.log(e);<br>
+					},false);<br>
+					document.body.click(); // 模拟用户点击
+				</code>
+			</section>
+			<section>
+				<img src="../img/css-01-box/rxjs1.png" alt="">
+			</section>
+			<section>
+				<h4>迭代器模式</h4>
+				<p>迭代器模式可以用 JavaScript 提供了 Iterable Protocol 可迭代协议来表示。Iterable Protocol 不是具体的变量类型，而是一种可实现协议。JavaScript 中像 Array、Set 等都属于内置的可迭代类型，可以通过 iterator 方法来获取一个迭代对象，调用迭代对象的 next 方法将获取一个元素对象。</p>
+			</section>
+			<section>
+				<h4>RxJS 的观察者 + 迭代器模式</h4>
+				<p>
+					RxJS 中含有两个基本概念：Observables 与 Observer。Observables 作为被观察者，是一个值或事件的流集合；而 Observer 则作为观察者，根据 Observables 进行处理。<br>
+					Observables 与 Observer 之间的订阅发布关系(观察者模式) 如下：<br>
+
+					订阅：Observer(对象) 通过 Observable 提供的 subscribe() 方法订阅 Observable。<br>
+					发布：Observable（函数） 通过回调 onNext 方法向 Observer 发布事件。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+			<h4>RxJS 基础实现</h4>
+		</section>
+		<section>
+			<section>
+				<h3>4.解决方案&nbsp;&nbsp;编码实战</h3>
+			</section>
+			<section>
+				<h4>创建 Observable</h4>
+				<p>RxJS 提供 create 的方法来自定义创建一个 Observable，可以使用 onNext 来发出流。</p>
+			</section>
+			<section>
+				<code>
+					var Observable = Rx.Observable.create(observer => {<br>
+					observer.onNext(2);<br>
+					observer.onCompleted();<br>
+					return  () => console.log('disposed');<br>
+					});
+				</code>
+			</section>
+			<section>
+				<h4>创建 Observer</h4>
+				<p>Observer 可以声明 next、err、complete 方法来处理流的不同状态。</p>
+			</section>
+			<section>
+				<code>
+					var Observer = Rx.Observer.create(<br>
+					x => console.log('Next:', x),<br>
+					err => console.log('Error:', err),<br>
+					() => console.log('Completed')<br>
+					);
+				</code>
+			</section>
+			<section>
+				最后将 Observable 与 Observer 通过 subscribe 订阅结合起来。<br>
+
+				var subscription = Observable.subscribe(Observer);
+			</section>
+		</section>
+		<section>
+			<h3>5.扩展思考</h3>
+		</section>
+		<section>
+			<section>
+				<p>什么情况下考录使用RxJS</p>
+				<p>信息量较大，导致查询较复杂，其中有部分数据是可复用的，比如说，这么一大片面板，可能几百条任务，但是其中人员可能就20个，所有参与者都在这20个人里面。</p>
+				<p>如果要做一些比较实时的交互，会比较麻烦，比如说，某个用户修改了头像，某个标签定义修改了文字，都会需要去立刻更新当前界面所有的引用部分。</p>
+			</section>
+		</section>
+		<section>
+			<h3>6.参考文献</h3>
+		</section>
+		<section>
+			<p>参考一：<a href="https://github.com/xufei/blog/issues/38" >流动的数据——使用 RxJS 构造复杂单页应用的数据逻辑</a></p>
+			<p>参考一：<a href="http://blog.csdn.net/zhoulu001/article/details/53072604" >构建流式应用—RxJS详解</a></p>
+		</section>
+		<section>
+			<h3>7.更多讨论</h3>
+		</section>
+		<section>
+			<p>如何准确的理解流？</p>
+		</section>
+		<section>
+			<p>感谢大家观看</p>
+			<p><small>BY : 王野</small></p>
+		</section>
+	
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
