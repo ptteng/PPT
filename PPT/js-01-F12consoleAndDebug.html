@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>F12 Console的用法，以及Debug技巧</h3>
+            <h3>小课堂【武汉第148期】</h3>
+            <p>分享人：冯强</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是console？</p>
+            <p style="text-align: left;">Chrome 中 Console 是用于显示 JS和 DOM 对象信息的单独窗口。并且向 JS 中注入1个 console 对象，使用该对象 可以输出信息到
+                Console 窗口中。在具备调试功能的浏览器上，window 对象中会注册一个名为 console 的成员变量，指代调试工具中的控制台，console 有很多方法，比如我们最常用的log()</p>
+        </section>
+        <section>
+            <h3>二.知识剖析:常用console方法</h3>
+
+        </section>
+        <section>
+            <h3>1. console.log( )</h3>
+            <p>普通输出方法，参数可以为任何对象。</p>
+            <pre class="code">
+            <code>
+        常亮            console.log("常量");
+        变量            console.log(name);
+        表达式          console.log("名字：" + name);
+        方法            console.log(document.getElementsByTagName("code"));
+            </code>
+        </pre>
+        </section>
+        <section>
+            <p>2. console.table()</p>
+            <p>可将传入的对象，或数组以表格形式输出，相比传统树形输出，这种输出方案更适合内部元素排列整齐的对象或数组，不然可能会出现很多的 undefined。</p>
+            <p>
+            <pre>
+                <code>
+                        var obj = {
+                            fun: {
+                                name: 'foo',
+                                age: '18'
+                          },
+                            bar: {
+                                name: 'bar',
+                                age: '19'
+                          }
+                        };
+
+                        var arr = [
+                            ['fun', '18'],
+                            ['bar', '19']
+                        ];
+
+                        console.log(obj);
+                        console.table(obj);
+
+                        console.log(arr);
+                        console.table(arr);
+
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>3.console.count([label])</p>
+
+            <p>输出执行到该行的次数例如：</p>
+
+            <p>
+            <pre>
+                <code>
+                        (function() {
+  for (var i = 0; i < 5; i++) {
+    console.count('count');
+  }
+})();
+// count: 1
+// count: 2
+// count: 3
+// count: 4
+// count: 5
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>4.console.time(name)</p>
+            <p>计时器，可以将成对的console.time()和console.timeEnd()之间代码的运行时间输出到控制台上，name参数可作为标签名。</p>
+            <pre>
+            <code>
+console.time('计时器');
+for (var i = 0; i < 1000; i++) {
+  for (var j = 0; j < 1000; j++) {}
+}
+console.timeEnd('计时器');
+            </code>
+        </pre>
+        </section>
+        <section>
+            <p>5.console.profile([profileLabel])</p>
+            <p>这是个挺高大上的东西，可用于性能分析。在 JS
+                开发中，我们常常要评估段代码或是某个函数的性能。在函数中手动打印时间固然可以，但显得不够灵活而且有误差。借助控制台以及console.profile()方法我们可以很方便地监控运行性能。</p>
+        </section>
+        <section>
+            <p>例如下面这段代码：</p>
+            <pre>
+                <code>
+                    function parent() {
+  for (var i = 0; i < 10000; i++) {
+    childA()
+  }
+}
+
+function childA(j) {
+  for (var i = 0; i < j; i++) {}
+}
+
+console.profile('性能分析');
+parent();
+console.profileEnd();
+                </code>
+            </pre>
+            <p style="font-size: 1.5rem;">然后我们可以在 Profiles 面板下看到上述代码运行过程中的消耗时间。</p>
+            <p style="font-size: 1.5rem;">页面加载过程的性能优化是前端开发的一个重要部分，使用控制台的 profiles 面板可以监控所有 JS 的运行情况使用方法就像录像机一样，控制台会把运行过程录制下来。如图，工具栏上有录制和停止按钮。</p>
+        </section>
+
+        <section>
+            <p>6. 其他方法</p>
+            <p>. 清除控制台 clear()</p>
+            <p>. 将对象及子元素以目录树列出来 console.dir()</p>
+            <p>. 条件打印（断言）console.assert()</p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3> 常用调试方法</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1. 断点调试</p>
+            <p style="text-align:left">断点调试是最基础的一个调试方法，在调试的过程中查看变量和函数的变化状态，这使得不可见的程序运行过程变得可视化。
+                断点调试都在source选项卡中进行，所以放在下面一起来讨论。</p>
+            <!--<pre>-->
+                <!--<code>-->
+
+                <!--function fun4() {-->
+                    <!--for (var i = 0; i < 100; i++) {-->
+                        <!--console.log(i);-->
+                    <!--}-->
+
+                    <!--var code = document.getElementsByTagName("code");-->
+                    <!--console.log(code);-->
+
+                    <!--for (var i = 0; i < code.length; i++) {-->
+                        <!--code[i].style.color = "red";-->
+                    <!--}-->
+                <!--}-->
+                <!--</code>-->
+              <!--</pre>-->
+
+        </section>
+        <section>
+            <p>2. sources 选项卡</p>
+            <img src="http://ac-hsnl7zbi.clouddn.com/jypfz8vOgBHJv5YBt74zpFwzTmy1Ypnoudk9uDUF.jpg">
+        </section>
+        <section>
+            a.
+            上图source选项代码序列上的蓝色标签即为断点的标识，断点也显示在Breakpoint选项中，可以在Breakpoint选项卡中勾掉暂时不用的断点，后面再使用的时候可以再勾选，这样就不用再代码中翻来翻去迷失方向了。
+            <br/>
+            b.
+
+            这几个小图标前两个和调试时页面的两个按钮相同，
+            分别是暂停/开始和单步；往右边两个向上向下的箭头意思是进入函数，和（执行完）跳出函数；后面的一个是忽略所有断点运行，这样被避免更改完之后，点掉所有断点执行一遍在挨个加断点的尴尬。
+            <br/>
+        </section>
+        <section>
+            c. watch窗口：
+            点击“+”添加一个想要监视的变量，在整个调试过程中，这个变量会一直显示在这里，就不用在函数之间苦苦寻找，然后再“hover”上去显示它的值，非常适合全局变量的监视。
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>为什么不提倡用alert进行调试？</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                一方面，传统的alert调试方式已经渐渐不能满足前端开发的种种场景。而且alert调试方式弹出的调试信息，那个窗口着实不太美观，而且会遮挡部分页面内容，着实有些不太友好。</p>
+            <p style="text-align:left"> 另一方面，alert的调试信息会中断代码，阻碍页面的继续渲染。这就意味着开发人员调试完成后，必须手动清除这些调试代码，实在有些麻烦。</p>
+            <p style="text-align:left"> 另外，如果在循环中使用alert，光关闭弹出的窗口就够自己累的了，哈哈！</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://segmentfault.com/a/1190000000481884">你真的了解console吗</a></p>
+            <p>参考二：<a href="http://web.jobbole.com/82562/">Chrome开发者工具不完全指南</a></p>
+            <p>参考三：<a
+                    href="https://developers.google.com/web/tools/chrome-devtools/console/?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3">Google
+                Developers官网</a></p>
+            <p>参考三：<a href="http://ms.csdn.net/geek/67969?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io">CSDN中文IT网</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>大家在调试程序中有什么比较好的方法分享一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 包鹏亮|冯强</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

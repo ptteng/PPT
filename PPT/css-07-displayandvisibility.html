@@ -33,8 +33,8 @@
         <section>
             <h2>【CSS-task7】</h2>
             <h3>rgba和opacity的透明效果有什么不同？display和visiblity有什么区别？</h3>
-            <h3>小课堂【郑州第38期】</h3>
-            <p>分享人：王相博</p>
+            <h3>小课堂【郑州第149期】</h3>
+            <p>分享人：王姝丽</p>
         </section>
 
         <section>
@@ -52,144 +52,82 @@
             <h3>一.背景介绍</h3>
         </section>
         <section>
-            <p>1.大家在写页面时，
-                会用到各种元素，比如div,  img等等。有时候一张页面会放好几张图片，图片如果显示效果都一样，看起来很单调，</p>
-            <p> 整个页面给人的感觉会很硬。那么，怎么能让页面的元素有一种多样化，甚至有一种朦胧美呢？于是，有了opacity和rgba()这两个属性。
-                其中，opacity属性是css3新提的属性。</p>
+            
+            <h2>1.什么是rgba？</h2>
+            <p style="font-size: 24px;">rgb大家都熟悉，红red，绿green，蓝blue，三原色。那现在我们所说的grba又是什么呢？说得简单一点就是在grb的基础上加进了一个通道alpha。
+            <img src="img/alpha.png">
+            其实他就是来定义透明度的。a的取值范围是0-1之间，不可以是负值，r、g、b三个参数，正整数值的取值范围为：0 - 255。百分数值的取值范围为：0.0% - 100.0%。超出范围的数值将被截至其最接近的取值极限。并非所有浏览器都支持使用百分数值。
+            </p>
         </section>
         <section>
-            <p>2.另外，在看一下display和visibility背景介绍，故名思意，display和visibility是与元素显示有关系的，这两个属性都可以控制元素的
-                显示与隐藏。</p>
-            <p>究其作用，我们可以知道，为了提高用户的体验，实现更好的页面甚至元素与用户的互动，当用户开始某个操作时，可以通过display和visibility
-
-                这两个属性让元素显示或者隐藏, 或者以哪种方式显示。</p>
+           <p style="font-size: 18px;">我们平时用的较多的是16进制颜色，例如黑色#000000;白色#FFFFFF，这些是16进制表示的颜色，如果使用RGB颜色表示就是 rgb(0, 0, 0)与rgb(255,255,255)，其实本质上是一样的，只是一个是16进制表示的，一个是二进制表示的(RGB颜色)。 </p>
+           <img src="img/green.png">
         </section>
         <section>
-            <p> 3.综上所述；其实某个元素产生的背景和原因，就是为了满足日益增长的用户体验要求。</p>
+        <h2>2.什么是opacity？</h2>
+        <p>也是一个css3属性，该属性用于设置元素的不透明度级别，所有的浏览器都支持这个属性。</p>
+        <p>opacity 中文翻译为：不透明度。语法：opacity：value | inherit ;</p>
+            <p>取值说明: value 不透明度，从0.0(完全透明)到1.0（完全不透明）。</p>
         </section>
-
+        <section>
+        <h2>3.什么是display：none</h2>
+            <p>将元素与其子元素从普通文档流中移除。这时文档的渲染就像元素从来没有存在过一样，也就是说它所占据的空间被折叠了。元素的内容也会被屏幕阅读所忽略。隐藏起来。
+           </p>
+           <h2>4.什么是visiblity</h2>
+           <p>
+           w3school上给的定义
+           定义和用法
+           visibility 属性规定元素是否可见。
+           提示：即使不可见的元素也会占据页面上的空间。请使用 "display" 属性来创建不占据页面空间的不可见元素。</p>
+        </section>
         <section>
             <h3>二.知识剖析</h3>
         </section>
         <section>
-            <p>1.Opacity和rgba()的用法以及二者的区别：</p>
-            <p>首先，opacity 中文翻译为：不透明度。语法：opacity：value | inherit ;</p>
-            <p>取值说明: value 不透明度，从0.0(完全透明)到1.0（完全不透明）。</p>
-            <p>注意：IE8以及更早版本支持替代的filter属性。例如：filter: Alpha（opacity=50）;</p>
+            <h2>1.rgba与opacity的区别</h2>
+            <p>opacity会继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。简单来说就是opacity作用于元素和元素所有内容的透明</p>
+            <p>rgba相对于opacity还是技高一筹的，当然只要是涉及颜色的，都可以用rgba来设置。</p>
         </section>
-        <section>
-            <p>其次，看一下rgba(),</p>
-            <p>语法：rgba(r,g,b,a)   </p>
-            <p>取值说明：</p>
-            <p>R：红色值。正整数 | 百分数</p>
-            <p>G：绿色值。正整数 | 百分数</p>
-            <p>B：蓝色值。正整数 | 百分数</p>
-            <p>A：Alpha透明度。取值0~1之间。</p>
-        </section>
-        <section>
-            <p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
-            <p>RGBA是在R（Red）G（Green）B（Blue）模式上增加了alpha通道，alpha通道是不透明度，即，如果一个元素的alpha通道数值为 0 ，
-                那该元素就是完全</p>
-            <p>透明的（也就是看不见的，但是可以透过该元素看到该元素下的元素），数值为 1 时则意味着该元素完全不透明。</p>
-        </section>
-
-        <section>
-            <p>opacity会继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。</p>
-        </section>
-        <section>
-            <p>简单来说就是opacity作用于元素和元素所有内容的透明,看一下例子，</p>
-        </section>
+       
         <section>
             <h3>三.常见问题</h3>
         </section>
         <section>
-            <p>rgba和opacity的都是用来设置不透明度的，有什么区别?<br/>如何设置背景透明
-            </p>
+        <h2>display 和visibility有什么区别?</h2>  
         </section>
         <section>
             <h3>四.解决方案</h3>
+            <p style="font-size: 24px">1.主要在于visibility:hidden占据空间，无法点击，另一个display:none;不占据空间，无法点击。有一句话是这么说的，display：none会真的把你弄没，而visibility：hidden则仅仅是为你披上一件隐身衣而已，你还在原来的地方呆着。设置透明值(opcity)，占据空间，可以点击。 该方法并非真正意义上的隐藏，只是将元素设为透明，但是只适用于文字类的元素，不适用于input，因为即使看不到，可以点击相应input。</p>
+            <p style="font-size: 24px">2.就是displayde回流与渲染visibility没有这个影响前端性能的问题。回流则是重新使该页面渲染一次，从而影响性能。</p>
+            <p style="font-size: 24px">3.株连性,所谓“株连性”，就是如果祖先元素遭遇某祸害，则其子子孙孙无一例外也要遭殃。display:none就是“株连性”明显的声明：一旦父节点元素应用了display:none，父节点及其子孙节点元素全部不可见，而且无论其子孙元素如何不屈地挣扎都无济于事.我们给一个父元素应用visibility:hidden，则其子孙后代也都会全部不可见。如果子孙元素应用了visibility:visible，那么这个子孙元素又会刘谦般地显现出来。</p>
+        </section>
+        <section>
+        对比总结： 
+         display:none是个相当惨无人道的声明，子孙后代全部搞死（株连性），而且连块安葬的地方都不留（不留空间），导致全体民众哗然（渲染与回流）。 
+        visibility:hidden则具有人道主义关怀，虽然不得已搞死子孙，但是子孙可以通过一定手段避免（伪株连性），而且死后全尸，墓地俱全（占据空间），国内民众比较淡然（无渲染与回流）。
         </section>
         <section>
             <h3>五.代码实战</h3>
         </section>
 
-        <section>
-            <pre>
-                <code>
-                    .rgba {
-	                    background: rgba(255,255,0,0.5);
-                    }
-
-                    .opacity {
-                        background : yellow ; opacity: 0.5;
-                    }
-
-                </code>
-            </pre>
-        </section>
-        <section>
-            <p>所以，rgba相对于opacity还是技高一筹的，当然只要是涉及颜色的，都可以用rgba来设置。比如background-color,text-shadow, box-shadow。</p>
-        </section>
-
-
-        <section>
-            <h3>关于CSS 中display 和visibility的用法和区别？</h3>
-        </section>
-        <section>
-            <h3>
-                知识剖析
-            </h3>
-        </section>
-        <section>
-            <p>Display : 指定一个元素如何显示，visibility指定一个元素应该显示还是隐藏。Display属性可以改变一个元素的显示状态。</p>
-            <p>主要结合元素自身默认的display属性，来控制元素的显示状态,比如可以让inline元素，显示为inline-block或者block元素。反之亦然。</p>
-        </section>
-        <section>
-            <p>Visibility属性如上所述，表示元素是否可见。其可能的值有默认值：visible、hidden和collapse、Inherit从父元素继承其属性值。</p>
-        </section>
-        <section>
-            <p>重点是他们的区别：当display值为none时，visibility值为hidden时的区别。</p>
-            <p>当元素设置display属性值为none时，元素会消失不可见，同时，元素原所在的位置会让其后面的元素占据，说白了，就是元素就不存在了。</p>
-        </section>
-        <section>
-            <p>而，visibility：hidden；表现上也是元素不见了，但是依然占有位置空间，仅仅是在视觉上“消失了”，hidden 也就是隐藏。</p>
-            <p>而对使用display：none；浏览器不会解析，搜索引擎可能会认为被隐藏的元素属于垃圾信息，会忽视。而且，屏幕阅读器会会忽略被隐藏的文字。</p>
-        </section>
-        <section>
-            <h3>实例详解</h3>
-        </section>
-        <section>
-            <h3>网易首页</h3>
-            <p><img src="../img/css-07-displayandvisibility/wangyi.jpg"></p>
-        </section>
-        <section>
-            <p>搜索引擎对H标签极为敏感，用的好搜索引擎会给与非常高的权重，可提升整个网站的关键字权重，甚至带来大量的长尾词。但是现在一般情况h1标签都是图片，所以会用visibility来写h1标签，然后用绝对定位或相对定位将其放到用户看不到的位置。</p>
-        </section>
-        <section>
-            <p>最后，对使用visibility：hidden；虽然隐藏了，但位置仍然在给人的感觉就是“占着茅坑不拉屎”要配合position：relative；和position：absolute;
-                来用，没有display：none；那么简单，灵活。
-            </p>
-        </section>
-        <section>
-            <p>还有一点是，visibility：hidden；转换为visibility：visible;时，跟display：none转换为display：block;性能要好，
-                因为display在切换可见性时，会产生reflow,他要重新构建frame,当然要比visibility：visible；慢。</p>
-        </section>
-
+        
         <section>
             <h3>六.拓展思考</h3>
-
+            <p>什么是渐变</p>
+            <p>CSS3 Gradient分为linear-gradient(线性渐变)和radial-gradient(径向渐变)。</p>
+            <a href="dome.html">dome</a>
         </section>
         <section>
-            <p>opacity和visibility隐藏有什么区别？
+            <p>
             </p>
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="#" target="_blank">myvim's Blogs</a></p>
-            <p>参考二：<a href="#" target="_blank">学习也休闲</a></p>
-            <p>参考三：<a href="#" target="_blank">zerofine的博客</a></p>
+            <p>参考一：<a href="http://blog.csdn.net/handongopqwe/article/details/52004815?locationNum=7&fps=1">handongopqwe的专栏</a></p>
+            <p>参考二：<a href="http://www.w3cplus.com/content/css3-gradient">CSS3 Gradient</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/xiaomozhang/p/6592262.html">张云的博客</a></p>
         </section>
         <section>
             更多讨论：大家有没有其他实现透明或隐藏的方法?
@@ -197,7 +135,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 沁修 | 王相博</small></p>
+            <p><small>BY : 王相博 | 王姝丽</small></p>
         </section>
 
     </div>

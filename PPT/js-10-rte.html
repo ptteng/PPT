@@ -24,16 +24,16 @@
     </script>
 </head>
 <body>
-<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2 style="text-align: left;">【js-01】随机的出现一种颜色</h2>
-            <h3>小课堂【成都第142期】</h3>
-            <p style="text-align: center;">分享人：先小波</p>
+            <h2>【JS-task10】如何使用富文本编辑器?</h2>
+            <h3>小课堂【第146期】</h3>
+            <p>分享人：景鑫</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,127 +50,94 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>在页面上很多时候需要我们给出随机的数字或颜色来表明身份或各种其他用途，是一种比较常见的js技巧</p>
+            <p>
+                在做Web应用时，经常会进行富文本编辑，常用的富文本编辑器有很多，
+                比如CuteEditor、CKEditor、NicEditor、KindEditor、UEditor等等。
+                好的富文本编辑器可以让我们用户有更好的体验效果，带来更多的用户好评。
+            </p>
+
+        </section>
+        <section>
+            <p>
+                今天给大家介绍一款轻量级的文本编辑器，实际上是markdown编辑器，即把文本的格式用
+                markdown语法表示出来，进行网络传输。这个编辑器的有点是引用非常简单，轻量级，转化为
+                的markdown格式可以把文本格式占用的存储空间降低很多，非常易于网络传输，后面会简单介绍
+                一下markdown语法
+            </p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
-            <p style="text-align: left">
-                第一，颜色代码的组成
+            <section>
+            <p>步骤一：引入 Mditor 样式文件<br>
+               <img src="../img/js-10-rte/rte1.png">
             </p>
-            <p style="text-align: left">
-                第二，怎么实现随机的颜色代码
+            </section>
+            <section>
+                <p>
+                    步骤二：引用 Mditor 脚本文件<br>
+                    <img src="../img/js-10-rte/rte2.png">
+                </p>
+            </section>
+            <section>
+                步骤三：添加 textarea 元素<br>
+                <img src="../img/js-10-rte/rte3.png">
+            </section>
+            <section>
+                步骤四：创建 Mditor 实例<br>
+                <img src="../img/js-10-rte/rte4.png">
+            </section>
+        </section>
+        <section>
+            <h3>3.本编辑器的局限性</h3>
+        </section>
+        <section>
+            <p>只适合简单的文本排版，不支持复杂的表情输入、图片排版、格式刷等等功能，
+            如果需要使用复杂功能，最好还是使用UEditor、wangEditor等富文本编辑器</p>
+        </section>
+        <section>
+            <h3>4.markdown语法的简单介绍</h3>
+        </section>
+        <section>
+            <p> Markdown语法最大的优点是「易读易写」。
+                可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，
+                并且看起来不会像是由许多标签或是格式指令所构成。Markdown 语法的目标是：成为一种适用于网络的书写语言。
             </p>
         </section>
         <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-            <h3 style="letter-spacing: 2px">位数不足怎么办</h3>
-            <h3 style="letter-spacing: 2px"></h3>
-            <h3 style="letter-spacing: 2px"></h3>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
+            <p>
+                通俗点的说法即是Markdown语法通过使用一些简单的符号来将文本的排版表现出来，实现了
+                对文本格式存储数据量的简化，它和html有很好的兼容性可以相互转化，比如markdown中使用
+                #符号来表示html中的&lth1&gt&lt/h1&gt标签，用一对*围在内容两边来表示&ltstrong&gt&lt/strong&gt
+            </p>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <h3></h3>
-        </section>
-        <section>
-            <h4>16进制</h4>
-            <code>
-                function change_color(){
-                return"#"+(00000+(Math.floor(Math.random()*16777216)).toString(16).slice(-6));
-                }
-            </code>
-        </section>
-        <section>
-            <h4>RGB法</h4>
-            <code>
-                function randomRgbColor() {
-                var r = Math.floor(Math.random() * 256);
-                var g = Math.floor(Math.random() * 256);
-                var b = Math.floor(Math.random() * 256);
-                return `rgb(${r},${g},${b})`;
-                }
-            </code>
-        </section>
-        <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p>
-                如何转化颜色格式？
-            </p>
-        </section>
-        <section>
-            <p>RGB转换为16进制</p>
-            <code>
-                function rgb2Hex(rgb) {
-                if (/^rgb\((\d{1,3}\,){2}\d{1,3}\)$/i.test(rgb)) { //test RGB
-                var hex = '#'; //定义十六进制颜色变量
-                rgb.replace(/\d{1,3}/g, function(kw) { //提取rgb数字
-                kw = parseInt(kw).toString(16); //转为十六进制
-                kw = kw.length < 2 ? 0 + kw : kw; //判断位数，保证两位
-                hex += kw; //拼接
-                });
-                return hex; //返回十六进制
-                } else {
-                console.log(`Input ${rgb} is wrong!`);
-                return '#000'; //输入格式错误,返回#000
-                }
-                }
-            </code>
-        </section>
-        <section>
-            <p>16进制转化为RGB</p>
-            <code>
-                function hex2Rgb(hex) { //十六进制转为RGB
-                var rgb = []; // 定义rgb数组
-                if (/^\#[0-9A-F]{3}$/i.test(hex)) { //判断传入是否为#三位十六进制数
-                let sixHex = '#';
-                hex.replace(/[0-9A-F]/ig, function(kw) {
-                sixHex += kw + kw; //把三位16进制数转化为六位
-                });
-                hex = sixHex; //保存回hex
-                }
-                if (/^#[0-9A-F]{6}$/i.test(hex)) { //判断传入是否为#六位十六进制数
-                hex.replace(/[0-9A-F]{2}/ig, function(kw) {
-                rgb.push(eval('0x' + kw)); //十六进制转化为十进制并存如数组
-                });
-                return `rgb(${rgb.join(',')})`; //输出RGB格式颜色
-                } else {
-                console.log(`Input ${hex} is wrong!`);
-                return 'rgb(0,0,0)';
-                }
-                }
-            </code>
+            不同的富文本编辑器是通过什么方式把文本的格式保存下来的
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
-        <section style="text-align: left;margin-left: 30%">
-            <p>参考一：《JS编程艺术》</p>
-            <p>参考二：<a
-                    href="http://www.docin.com/p-908956141.html">
-                豆丁网</a></p>
-            <p>参考三：<a href="http://www.jb51.net/article/102109.htm">脚本之家</a></p>
+        <section>
+            <p>参考一：<a href="https://segmentfault.com/a/1190000003835441" target="_blank">meditor的github主页</a></p>
+            <p>参考二：<a href="https://www.zhihu.com/question/19963642" target="_blank">知乎--markdown是什么</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p style="letter-spacing: 5px">大家知道RGBA属性是有透明度属性的，那么通过哪种方法可以直接把透明度也转化过来呢</p>
+            <p>大家还用过那些好用的富文本编辑器</p>
         </section>
         <section>
-            <h4>感谢观看</h4>
-            <p>
-                <small>BY :董瑞/先小波</small>
-            </p>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 景鑫</small></p>
         </section>
     </div>
 </div>
@@ -179,9 +146,9 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
-
     // 	controls: true, // 是否在右下角展示控制条
     // 	progress: true, // 是否显示演示的进度条
     // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
@@ -198,6 +165,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,

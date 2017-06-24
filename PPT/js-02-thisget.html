@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>关于this的指向</h2>
+                <h3></h3>
+                <p>分享人：王立志</p>
+            </section>
+            <section>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <section>
+                <h3>1.背景介绍</h3>
+                <p>this是javascript的关键字的一种，它指向的是一个对象。
+                    而他表示哪个对象，则取决于引用环境。<br>
+                    规则：“函数在被调用时，其活动对象都会自动取得两个特殊变量 this 和 arguments。
+                    内部函数在搜索这两个变量时，只会搜索到其活动对象为止。”<small>《javascript高级程序设计》7.2</small>
+                </p>
+                </section>
+                <section>
+                    <h3>在不同环境下的this的指向</h3>
+                    <pre>
+                    <code>
+                        var gaObj={
+                        name:"名字"，
+                        what:function(return(this))};
+                        gaObj.what();                   //返回gaObj
+
+                        function gfa(){return(this);};
+                        gfa();                          //返回window
+                    </code>
+                    </pre>
+                </section>
+                <section>
+                        当一个函数被调用时，拥有它的object会作为this传入。在全局下，就是window or global，其他时候就是相应的object。
+                </section>
+            </section>
+            <section><!---->
+                <section>
+                    <h3>知识剖析</h3>
+                    <p>
+                        1.几种不同的引用环境<br>
+                        2.几种不同的引用方式
+                    </p>
+                </section>
+                <section>
+                    <p>全局环境中的this</p>
+                    <pre>
+                <code>
+                  console.log(this);
+                </code>
+                </pre>
+                    <p>总结：在全局作用域中它的 this 执行当前的全局对象（浏览器端是 Window，node 中是 global）</p>
+                </section>
+
+            </section>
+            <section>
+                在javascritp中，不一定只有对象方法的上下文中才有this， 全局函数调用和其他的几种不同的上下文中
+                也有this指代。 它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。JavaScript
+                中函数的调用有以下几种方式：作为对象方法调用，作为函数调用，作为构造函数调用，和使用 apply 或
+                call 调用。
+            </section>
+            <section>
+                <p>作为函数调用:this被绑定到全局对象</p>
+                <pre>
+                <code>
+                  function makeNoSense(x) {
+                  this.x = x;
+                  }
+                  makeNoSense(5);
+                  x;// x 已经成为一个值为 5 的全局变量
+                </code>
+                </pre>
+            </section>
+            <section>
+                <p>作为构造函数调用:this 绑定到新创建的对象上</p>
+                <pre>
+                <code>
+                function Point(x, y){
+                   this.x = x;
+                   this.y = y;
+                }
+                </code>
+                </pre>
+                <p>注：构造函数不使用new调用，则和普通函数一样。一般地，构造函数首字母大写</p>
+            </section>
+            <section>
+                <p>严格模式 ‘use strict’下的this</p>
+                <pre>
+                <code>
+                'use strict';
+                function test() {
+                console.log(this);
+                };
+
+                test();
+
+                // undefined
+  </code>
+                </pre>
+                <p>原因：this 并不会指向全局，而是 undefined，这样的做法是为了消除 js 中一些不严谨的行为</p>
+            </section>
+            <section>
+                <h3>常见问题</h3>
+                <p>.call, .apply, .bind中this的指向</p>
+            </section>
+            <section><!------>
+                <section><h3>解决方案</h3></section>
+                <section>
+                    <p>指定了函数的上下文，改变了this的指向,在 JavaScript 中函数也是对象，对象则有方法，apply 和 call就是函数对象的方法。</p>
+                    <pre><code>
+                        var obj = {
+                            name: "name1",
+                            foo: function () {console.log(this);return(this);}
+                        };
+                        var obj2 = {
+                            name: "name2"
+                        };
+                        obj.foo.call(obj2);//obj.foo方法，作为参数传递给obj2,obj中的this指向了obj2
+                        ga=obj.foo.call(obj2).name;//name2
+                    </code></pre>
+                    <p>obj.foo方法，作为参数传递给obj2,obj中的this指向了obj2</p>
+                </section>
+                <section>
+                    <p>使用 apply调用</p>
+                    <pre>
+                <code>
+                   function Point(x, y){
+                      this.x = x;
+                      this.y = y;
+                      this.moveTo = function(x, y){
+                          this.x = x;
+                          this.y = y;
+                      }
+                   }
+
+                   var p1 = new Point(0, 0);
+                   var p2 = {x: 0, y: 0};
+                   p1.moveTo(1, 1);
+                   p1.moveTo.apply(p2, [10, 10]);
+                </code>
+                </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <p>
+                        对于内部函数，即声明在另外一个函数体内的函数，这种绑定到全局对象的方式会产生另外一个问题。我们仍然以前面提到
+                        的 point 对象为例，这次我们希望在 moveTo 方法内定义两个函数，分别将 x，y 坐标进行平移。结果可能出乎大家意
+                        料，不仅 point 对象没有移动，反而多出两个全局变量 x，y
+                    </p>
+                    <pre>
+                        <code>
+                        var point = {
+                        x : 0,
+                        y : 0,
+                        moveTo : function(x, y) {
+                        // 内部函数
+                        var moveX = function(x) {
+                        this.x = x;//this 绑定到了哪里？
+                        };
+                        // 内部函数
+                        var moveY = function(y) {
+                        this.y = y;//this 绑定到了哪里？
+                        };
+
+                        moveX(x);
+                        moveY(y);
+                        }
+                        };
+                        point.moveTo(1, 1);
+                        point.x; //==>0
+                        point.y; //==>0
+                        x; //==>1
+                        y; //==>1
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <p>
+                        这属于 JavaScript 的设计缺陷，正确的设计方式是内部函数的 this 应该绑定到其外层函数对应的对象上，为了规避这一设
+                        计缺陷，聪明的 JavaScript 程序员想出了变量替代的方法，约定俗成，该变量一般被命名为 that。
+                    </p>
+                    <pre>
+                       <code>
+                        var point = {
+                        x : 0,
+                        y : 0,
+                        moveTo : function(x, y) {
+                             var that = this;
+                            // 内部函数
+                            var moveX = function(x) {
+                            that.x = x;
+                            };
+                            // 内部函数
+                            var moveY = function(y) {
+                            that.y = y;
+                            }
+                            moveX(x);
+                            moveY(y);
+                            }
+                        };
+                        point.moveTo(1, 1);
+                        point.x; //==>1
+                        point.y; //==>1
+                       </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <h3>扩展思考</h3>
+                <p>this有哪些优缺点</p>
+                <p>如何利用this的特性达到代码的复用</p>
+            </section>
+            <section>
+                <h3>参考文献</h3>
+                <p>https://qiutc.me/post/this-this-this-in-javascript.html</p>
+                <p>http://www.ruanyifeng.com/blog/2013/09/finite-state_machine_for_javascript.html</p>
+                <p>《javascript高级程序设计》</p>
+            </section>
+            <section>
+                <h3>更多讨论</h3>
+                <p></p>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <section>
+                <h4>谢谢</h4>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    <!--// 以下为常见配置属性的默认值-->
+//    <!--// {-->
+//    <!--//  controls: true, // 是否在右下角展示控制条-->
+//    <!--//  progress: true, // 是否显示演示的进度条-->
+//    <!--//  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。-->
+//    <!--//  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去-->
+//    <!--//  keyboard: true, // 是否启用键盘快捷键来导航-->
+//    <!--//  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式-->
+//    <!--//  center: true, // 是否将幻灯片垂直居中-->
+//    <!--//  touch: true, // 是否在触屏设备上启用触摸滑动切换-->
+//    <!--//  loop: false, // 是否循环演示-->
+//    <!--//  rtl: false, // 是否将演示的方向变成RTL，即从右往左-->
+//    <!--//  fragments: true, // 全局开启和关闭碎片。-->
+//    <!--//  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖-->
+//    <!--//  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom-->
+//    <!--//  transitionSpeed: 'default', // 过渡速度，default/fast/slow-->
+//    <!--//  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片-->
+//    <!--// }-->
+//
+//    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+//    </script>
+</body>
+
+</html>
