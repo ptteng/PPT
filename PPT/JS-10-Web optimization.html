@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>如何进行web前端性能优化？</h3>
+            </br>
+            <h4>小课堂</h4>
+            <p>分享人：王蒙</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">用户访问网页的等待时间，有80%是发生在浏览器前端，特别是页面和页面中各种元素（图片、CSS、JavaScript、 flash…）的下载之上，因此进行前端优化很有必要。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h3>2.1 初次访问</h3>
+            </section>
+            <section>
+                <p style="text-align: left">1）减少一个页面访问所产生的http连接次数</p>
+                <p style="text-align: left">尽量简洁的页面设计，最大程度减少图片的使用，通过放弃一些不必要的页面特效来减少javascript的使用。</p>
+                <p style="text-align: left">使用一些优化技巧，比如利用图片的背景位移减少图片的个数；image map技术；Sprites图；使用Inline images将css图片捆绑到网页中。</p>
+                <p style="text-align: left">尽量合并js和css文件，减少独立文件个数。</p>
+            </section>
+            <section>
+                <p style="text-align: left">2）使用gzip压缩网页内容</p>
+                <p style="text-align: left">使用gzip来压缩网页中的静态内容，能够显著减少用户访问网页时的等待时间。主流的web服务器都支持或提供gzip压缩，如果使用apache服务器，只需要在配置文件中开启 mod_gzip（apache1.x）或mod_deflate(apache2.x)即可。</p>
+                <p style="text-align: left">使用gzip压缩都能够显著提高服务器效率并减少带宽支出，注意图片内容本身已经是压缩格式了，务必不要再进行压缩。</p>
+            </section>
+            <section>
+                <p style="text-align: left">3）将CSS放在页面顶端，JS文件放在页面底端</p>
+                <p style="text-align: left">CSS的引用要放在html的头部header中，JS文件引用尽量放在页面底端标签的后面，主要的思路是让核心的页面内容尽早显示出来</p>
+            </section>
+            <section>
+                <p style="text-align: left">4）使JS文件内容最小化</p>
+                <p style="text-align: left">使用一些javascript压缩工具对js脚本进行压缩，去除其中的空白字符、注释，最小化变量名等。</p>
+            </section>
+            <section>
+                <p style="text-align: left">5）尽量减少外部脚本的使用，减少DNS查询时间</p>
+                <p style="text-align: left">不要在网页中引用太多的外部脚本，首先，一次dns的解析过程会消耗20-120毫秒的时间；其次，如果在页面中引用太多的外部文件（如各种广告、联盟等代码），可能会因为外部文件的响应速度而将你的网站拖得很慢。浏览器一般只能并行处理同一域名下的两个请求，而对于不同子的域名则不受此限制，因此适当将本站静态内容（css,js）放在其他的子域名下（如 static.xxx.com）会有利于提高浏览器并行下载网页内容的能力。</p>
+                <p style="text-align: left">如果必须引用外部文件，尽量将这些脚本放在页脚，可以使用CDN加速和DNS域名解析加速。</p>
+            </section>
+            <section>
+                <h3>2.2 经常访问</h3>
+            </section>
+            <section>
+                <p style="text-align: left">1）在header中添加过期时间(Expires Header)</p>
+                <p style="text-align: left">在header中给静态内容添加一个较长的过期时间，这样可以使用户今后访问只读取缓存中的文件，而不会与服务器产生任何的交互。</p>
+                <p style="text-align: left">这样做存在一些问题，当图片、CSS和js文件更新时，用户如果不刷新浏览器，就无法获得此更新。这样，我们在对图片、css和js文件修改时，必须要进行重命名，才能保证用户访问到最新的内容。这可能会给开发造成不小的麻烦，因为这些文件可能被站点中的许多文件所引用。</p>
+                <p style="text-align: left">flickr提出的解决办法是通过url rewrite使不同版本号的URL，事实上指向同一个文件，因为url级别的操作效率是很高的，可以给开发过程提供不少便利。</p>
+            </section>
+            <section>
+                <p style="text-align: left">浏览器访问url时的工作机制：</p>
+                <p style="text-align: left">第一次访问url时，用户从服务器段获取页面内容，并把相关的文件（images,css,js…）放在高速缓存中，也会把文件头中的expired time,last modified, ETags等相关信息也一同保留下来。</p>
+                <p style="text-align: left">用户重复访问url时，浏览器首先看高速缓存中是否有本站同名的文件，如果有，则检查文件的过期时间；如果尚未过期，则直接从缓存中读取文件，不再访问服务器。</p>
+                <p style="text-align: left">如果缓存中文件的过期时间不存在或已超出，则浏览器会访问服务器获取文件的头信息，检查last modifed和ETags等信息，如果发现本地缓存中的文件在上次访问后没被修改，则使用本地缓存中的文件；如果修改过，则从服务器上获取最新版本。</p>
+            </section>
+            <section>
+                <p style="text-align: left">2）将css和js文件放在独立外部文件中引用</p>
+                <p style="text-align: left">将css和js文件放在独立文件中，这样它们会被单独缓存起来，在访问其他页面时可以从浏览器的高速缓存中直接读取。</p>
+            </section>
+            <section>
+                <p style="text-align: left">3）去掉重复的脚本</p>
+                <p style="text-align: left">在IE中，包含重复的js脚本会导致浏览器的缓存不被使用。</p>
+            </section>
+            <section>
+                <p style="text-align: left">4）避免重定向的发生</p>
+                <p style="text-align: left">除了在header中人为的重定向之外，网页重定向常在不经意间发生，被重定向的内容将不会使用浏览器的缓存。比如用户在访问www.xxx.com，服务器会通过301转向到www.xxx.com/，在后面加了一个“/”。如果服务器的配置不好，这也会给服务器带来额外的负担。通过配置apache的 alias或使用mod_rewrite模块等方法，可以避免不必要的重定向。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p style="text-align: left">以上</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p style="text-align: left">以上</p>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+                <a href="../demo/JS-10-Web%20optimization/temp.html">Image Map</a>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>几种不常用的方式：使用CDN分发机制、避免CSS表达式、避免使用ETags</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://blog.csdn.net/u011728161/article/details/44837021">如何优化Web网站性能？</a></p>
+            </section>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王蒙 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
