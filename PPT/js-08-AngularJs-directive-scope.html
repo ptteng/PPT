@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p style="font-size: 50px">如何理解Angular自定义指令directive的scope属性？</p>
+            <h4>小课堂【武汉第153期】</h4>
+            <p>分享人：朱芳山</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    在AngularJS中，除了内置指令如ng-click等，我们还可以自定义指令。自定义指令，是为了扩展DOM元素的功能。代码中，通过指定directive中的restrict属性，来决定这个指令是作为标签（E）、属性（A）、属性值（C）、还是注释（M）。
+                    指令的定义过程就不详述了，可以参考其余小课堂。今天主要讲一下自定义指令中scope属性取值的区别。
+
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>
+                    scope这个属性用来修饰指令的作用域。
+                    每次在注册一个指令的时候，这个指令都会考虑一个问题，我们用我自己所在作用域呢，还是创建一个从父作用域继承的子作用域呢，
+                    还是创建一个隔离的作用域呢（不依赖外部的作用域）
+                </p>
+            </section>
+            <section>
+                <p>scope属性的3种取值</p>
+                <p style="text-align: left">
+                    1、false（默认值）：直接使用父scope。<br>
+                    2、true：继承父scope<br>
+                    3、对象{ }：创建一个新的“隔离”scope，但仍可与父scope通信<br>
+                    隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。然而虽然说是“隔离”，但通常我们还是需要让这个子scope跟父scope中的变量进行绑定。绑定的策略有3种：<br>
+                    @：单向绑定，外部scope能够影响内部scope，但反过来不成立<br>
+                    =：双向绑定，外部scope和内部scope的model能够相互改变<br>
+                    &：把内部scope的函数的返回值和外部scope的任何属性绑定起来
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>scope属性的3种取值的具体影响</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>
+                    1、false（默认值）：直接使用父scope。比较“危险”。
+                </p>
+                <p>
+                    可以理解成指令内部并没有一个新的scope，它和指令以外的代码共享同一个scope。
+                    我们创建的指令继承了父作用域的一切属性和方法，这也
+                    使得在指令的模板中我们可以使用这些属性和方法。<br>
+                </p>
+            </section>
+            <section>
+                <p>
+                    <a href="../demo/js-08-AngularJs-directive-scope/demo.html">demo</a><br>
+                    因为我们将scope的属性设置为false所以，我们创建的指令继承了父作用域的一切属性和方法，这也使得在指令的模板中我们可以使用这些属性和方法。
+                    注意：此时我们在输入框里改变名字，会发现上面的两个名字都发生了变化，你肯定会说，这肯定是这样啊，数据绑定嘛，好，我们接着往下走。
+                </p>
+            </section>
+            <section>
+                <p>
+                    2、true：继承父scope
+                </p>
+                <p>
+                    当把scope属性设置为true时，这表明我们创建的指令要创建一个新的作用域，这个作用域继承自我们的父作用域。
+                    等等，刚才我们不是说了，当把scope属性值设置为false时，不也是继承我们的父作用域吗？不要急，我们先看下demo。
+                </p>
+                <p>
+                    <a href="../demo/js-08-AngularJs-directive-scope/demo.html">demo</a>
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 30px">
+                    然后我们再试着在我们的input输入框中写一些字符串，会发现，指令中的那个name发生了变化，但是指令外的那个name却没有发生变化，这说明了一个问题。<br>
+                    1、当我们将scope设置为false的时候,我们创建的指令和父作用域（其实是同
+                    一个作用域）共享同一个model模型，所以在指令中修改模型数据
+                    ，它会反映到父作用域的模型中。<br>
+                    2、当我们将scope设置为true的时候，我们就新创建了一个作用域，
+                    只不过这个作用域是继承了我们的父作用域；我觉得可以这样理解，
+                    我们新创建的作用域是一个新的作用域，只不过在初始化的时候，
+                    用了父作用域的属性和方法去填充我们这个新的作用域。它和父作用域不是同一个作用域。
+                </p>
+            </section>
+            <section style="text-align: left">
+                <p>
+                    3、{ }：创建一个新的“隔离”scope，当我们将scope的属性设置为{}时，我们可以做更多的事情。
+                </p>
+                <p>
+                    AngularJS最强的大的地方之一就是它可以构建组件，无论放在哪里都是可以使用的；
+                    这所以可以做到这些，不得不归功于指令的这个属性；当我们将scope设置为{}时，意味着我们
+                    创建的一个新的与父作用域隔离的新的作用域，这使我们在不知道外部环境的情况下，
+                    就可以正常工作，不依赖外部环境。<br>
+                    所以隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。
+                </p>
+            </section>
+            <section>
+                <p  style="text-align: left">
+                    我们使用了隔离的作用域，不代表我们不可以使用父作用域的属性和方法。
+                    我们可以通过向scope的{}中传入特殊的前缀标识符（即prefix），来进行数据的绑定。
+                    在创建了隔离的作用域，我们可以通过@,&,=引用应用指令的元素的属性。<br>
+                    绑定的策略有3种：@、=、&
+                </p>
+            </section>
+            <section style="text-align: left">
+                <p >
+                    1、@
+                </p>
+                <p>
+                    单项绑定的前缀标识符
+                    使用方法：在元素中使用属性，好比这样&ltdiv my-directive my-name="{{name}}">&lt/div&gt，
+                    注意，属性的名字要用-将两个单词连接，因为是数据的单项绑定所以要通过使用{{}}来绑定数据。
+                </p>
+            </section>
+            <section  style="text-align: left">
+                <p>
+                    2、=
+                </p>
+                <p>
+                    双向数据绑定前缀标识符
+                    使用方法：在元素中使用属性，好比这样&ltdiv my-directive age="age">&lt/div&gt
+                    ,注意，数据的双向绑定要通过=前缀标识符实现，所以不可以使用{{}}。
+                </p>
+            </section>
+            <section  style="text-align: left">
+                <p>
+                    3、&
+                </p>
+                <p>
+                    绑定函数方法的前缀标识符
+                    使用方法：在元素中使用属性，好比这样&ltdiv my-directive change-my-age="changeAge()">&lt/div&gt，
+                注意，属性的名字要用-将多个个单词连接。
+                </p>
+            </section>
+            <section>
+                注意：在新创建指令的作用域对象中，使用属性的名字进行绑定时，要使用驼峰命名标准，比如下面的代码。
+                <pre>
+                    <code>
+    scope: {
+        // `myName` 就是原来元素中的`my-name`属性
+        name: '@myName',
+        age: '=',
+        // `changeMyAge`就是原来元素中的`change-my-age`属性
+        changeAge: '&changeMyAge'
+    }
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>
+                    <a href="../demo/js-08-AngularJs-directive-scope/demo.html">demo1</a>
+                </p>
+                <p style="text-align: center">
+                    <a href="../demo/js-08-AngularJs-directive-scope/demo2.html">demo2</a>
+                </p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>我们的指令是如何利用这些前缀标识符来寻找我们想要的属性或者函数的？</p>
+            </section>
+            <section>
+                @ 当指令编译到模板的name时，就会到scope中寻找是否含有name的键值对，如果存在，就像上面那样，看到@就知道
+                这是一个单向的数据绑定，然后寻找原来的那个使用指令的元素上（或者是指令元素本身）含有这个值的属性即my-name={{name}}，
+                然后在父作用域查找{{name}}的值，得到之后传递给模板中的name。<br>
+                =和&与@差不多，只不过=进行的是双向的数据绑定，不论模板还是父作用域上的属性的值发生改变都会使另一个值发生改变，而&是绑定函数而已。
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://blog.csdn.net/VitaLemon__/article/details/52213103" target="_blank">AngularJS自定义指令directive：scope属性</a></p>
+                <p>参考二：<a href="https://segmentfault.com/a/1190000002773689" target="_blank">一招制敌 - 玩转 AngularJS 指令的 Scope (作用域)</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 朱芳山</small>
+            </p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
