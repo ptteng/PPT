@@ -1,0 +1,931 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何理解RxJS?</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何理解RxJS?</h2>
+            <h3>小课堂【武汉第149期】</h3>
+            <p>分享人：徐恒</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+
+<section>
+    <p style="text-align: left">Rx（Reactive Extension -- 响应式扩展 http://reactivex.io ）最近在各个领域都非常火。其实Rx这个货是微软在好多年前针对C#写的一个开源类库，但好多年都不温不火，一直到Netflix针对Java平台做出了RxJava版本后才在开源社区热度飞速蹿升。</p>
+</section>
+
+        <section>
+            <h3>二.知识剖析</h3>
+        </section>
+
+
+<section>
+<p style="text-align: left">我们从最基础的异步回调讲起，然后再从  Promise过渡到 RXJS。</p>
+<p style="text-align: left">    异步回调：</p>
+<p style="text-align: left">在我们平时编程中，当需要解决异步操作时，用得最多的应该就是把回调函数当做参数传递给异步函数了吧</p>
+<pre>
+    <code>
+function print_msg(msg) {  
+    //Do something with msg  
+    console.log(msg);  
+}  
+  
+function async_read(callback) {  
+    // Some async_work start  
+    // Async get data from a PORT into msg  
+    // Some async_work end  
+    callback(msg);  
+}  
+  
+async_read(print_msg);         
+    </code>
+</pre>
+</section>
+
+<section>
+   <p style="text-align: left"> 在例1中，我们通过传递 print_msg 这个回调函数给异步操作 async_read 以达到当异步操作完成时输出从端口读到的 msg 这个目的。</p>
+<p style="text-align: left">这样看起来，这种方式简单易懂，但是，真的很好用吗？想象一下，我们所传递的回调函数也是一个异步操作，也需要传入一个回调函数来处理异步结果，如例子2：</p>
+</section>
+<section>
+    <pre>
+        <code>
+function my_console(value2) {  
+    //Do something with value2  
+    console.log(value2);  
+}  
+  
+function async_work1(callback1, callback2) {  
+    // some async_work start  
+    //......get value1  
+    // some async_work end  
+    callback1(value1, callback2);  
+}  
+  
+function async_work2(value1, callback2) {  
+    // some async_work start and do something with value1  
+    //......get value2  
+    // some async_work end  
+    callback2(value2);  
+}  
+  
+async_work1(async_work2, my_console);             
+        </code>
+    </pre>
+</section>
+
+<section>
+    <p style="text-align: left">在例2中，我们将回调函数1和回调函数2传给了异步操作1，以便在异步操作1完成时调用回调函数1，再将异步操作1得到的 value1 与回调函数2传给回调函数1，最终当回调函数1完成后将调用回调函数2输出异步操作2得到的 value2 。当回调函数2也是异步操作的时候怎么办？难道真的这样一层套一层？这样的代码读起来晦涩易懂，我们要通过某种方式将其变得更简单，于是 Promise 出现了！</p>
+</section>
+
+
+<section>
+<p>    Promise：</p>
+<P>Promise 很好的将这种嵌套式调用转变成了链式调用，使得代码的可读性维护性都更高。对于例1，我们可以这样：</P>
+<pre>
+    <code>
+var promise = new Promise(function(resolve, reject) {  
+    // Some async_work start  
+    // Async get data from a PORT into msg  
+    // Some async_work end  
+    if (/* Async_work successed */) {  
+        resolve(msg);  
+    }   
+    else {  
+        reject(error);  
+    }  
+    });  
+  
+promise.then(function(msg) {  
+        //Do something with msg  
+        console.log(msg)  
+    }, function(error) {  
+        // Failure, do something here  
+        console.log(error);  
+    });         
+    </code>
+</pre>
+</section>
+
+<section>
+    <p style="text-align: left">在上例中，我们创建了一个 Promise 对象，并且传入了一个函数对象，注意这个函数并不是异步操作结束后将被调用的函数，而是用来初始化 Promise 的。这个函数接受2个参数 resolve 和 reject （后者可选），并且我们将异步操作全部移植入到这个函数中，当异步操作执行成功之后，调用了 resolve(msg)，这是什么意思？很简单，如果我们用第一种方法，resolve 这一行肯定是 callback(msg)，也就是调用回调函数并将异步得到的 msg 传给其。所以这里  resolve(msg) 的意思就是通知注册号的回调函数异步操作已经完成了，并且产出了可用的 msg 参数。那么回调函数是在哪里注册的呢？可用看到，之后我们又调用了 promise 的 then 方法，它接收一个函数对象，不错这个函数对象就是我们的回调函数。但是我们的 then 居然接收了2个回调函数， 很显然，第二个函数是用来处理 reject 通知过来的 error 的。</p>
+</section>
+
+<section>
+    <p style="text-align: left">既然有了 Promise，那么何必再加入 RXJS 这个玩意呢？</p>
+<P style="text-align: left">Promise 有一个缺点，那便是一旦调用了 resolve 或者 reject 之后便返回了，不能再次 resolve 或者 reject，想象一下，若是从端口源源不断地发来消息，每次收到消息就要通知回调函数来处理，那该怎么办呢？</p>
+<p style="text-align: left">于是，伟大的 RXJS 又出现了！！</p>
+</section>
+
+<section>
+    <p style="text-align: left">
+RXJS：
+我们已经知道了 Promise 的作用和用法，通过 Promise 对象，我们可以在完成异步工作之后调用 resolve(X) 通知回调函数异步操作已经完成了，并且生产了可使用的 X 对象。既然 RXJS 比 Promise 更厉害，那么它当然也可以完成这个任务，并且可以做得更好。</p>
+</section>
+
+<section>
+    <p style="text-align: left">先从官网搬来rxjs的几个实例概念</p>
+
+<p style="text-align: left">    Observable: 可观察的数据序列.</p>
+<p style="text-align: left">    Observer: 观察者实例，用来决定何时观察指定数据.</p>
+<p style="text-align: left">    Subscription: 观察数据序列返回订阅实例.</p>
+<p style="text-align: left">    Operators: Observable的操作方法，包括转换数据序列，过滤等，所有的Operators方法接受的参数是上一次发送的数据变更的值，而方法返回值我们称之为发射新数据变更.</p>
+<p style="text-align: left">    Subject: 被观察对象.</p>
+<p style="text-align: left">    Schedulers: 控制调度并发，即当Observable接受Subject的变更响应时，可以通过scheduler设置响应方式，目前内置的响应可以调用Object.keys(Rx.Subject)查看。</p>
+</section>
+
+<section>
+    <a href="http://jsbin.com/?html,output">JSBin这个在线Javascript IDE</a> 
+    <P style="text-align: left">记得要添加库</P>
+    <img src="../img/JS-10-How-to-understand-RxJS/addku.png">
+</section>
+
+        <section>       
+            <h3>三.常见问题</h3>
+        </section>
+
+
+<section>
+    <p>Observable到底是什么</p>
+
+<p>先上代码:</p>
+<pre>
+    <code>
+let foo = Rx.Observable.create(observer => {
+  console.log('Hello');
+  observer.next(42);
+});
+
+foo.subscribe(x => console.log(x));
+foo.subscribe(y => console.log(y));
+
+     
+    </code>
+</pre>
+
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/hello42.png">
+</section>
+
+
+<section>
+    <p style="text-align: left">这里可以把foo想象成一个函数，这意味着你每次调用foo都会导致传入Rx.Observable.create里的回调函数重新执行一次, 调用的方式为foo.subscribe(callback), 相当于foo()。 接收函数返回值的方式也从var a = foo()改为通过传入回调函数的方式获取。第三行的observer.next表示返回一个值, 你可以调用多次，每次调用observer.next后， 会先将next里的值返回给foo.subcribe里的回调函数, 执行完后再返回。observer.complete, observer.error来控制流程。 具体看代码:</p>
+</section>
+
+
+<section>
+<pre>
+    <code>
+var observable = Rx.Observable.create(observer => {
+  try {
+    observer.next(1);
+    console.log('hello');
+    observer.next(2);
+    observer.next(3);
+    observer.complete();
+    observer.next(4);
+  } catch (err) {
+    observer.error(err); 
+  }
+});
+
+let subcription = observable.subscribe(value => {
+  console.log(value)
+})
+
+      
+    </code>
+</pre>
+
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/1hello23.png">
+</section>
+
+<section>
+    <p style="text-align: left">如上的第一个回调函数里的结构是推荐的结构。 当observable的执行出现异常的时候，通过observer.error将错误返回, 然而observable.subscribe的回调函数无法接收到.因为observer.complete已经调用, 因此observer.next(4)的返回是无效的. Observable不是可以返回多个值的Promise。 虽然获得Promise的值的方式也是通过then函数这种类似的方式, 但是new Promise(callback)里的callback回调永远只会执行一次！因为Promise的状态是不可逆的。</p>
+</section>
+
+<section>
+    <p>Observer是什么</p>
+
+<p>先看代码：</p>
+<pre>
+    <code>
+let foo = Rx.Observable.create(observer => {
+  console.log('Hello');
+  observer.next(42);
+});
+
+let observer = x => console.log(x);
+foo.subscribe(observer);        
+    </code>
+</pre>
+
+
+<p style="text-align: left">代码中的第二个变量就是observer. 没错， observer就是当Observable"返回"值的时候接受那个值的函数!第五行中的observer其实就是通过foo.subscribe传入的callback. 只不过稍加封装了。 怎么封装的？ 看代码：</p>
+</section>
+
+
+<section>
+    <pre>
+        <code>
+var observable = Rx.Observable.create(observer => {
+  try {
+    observer.next(1);
+    console.log('hello');
+    observer.next(2);
+    observer.next(3);
+    observer.complete();
+    observer.next(4);
+  } catch(err) { 
+    observer.error(err);
+  }
+});
+
+var observer = {
+  next(value) { console.log(value) ;},
+  complete() { console.log('completed');},
+  error(err) { console.error(err); }
+}
+let subcription = observable.subscribe(observer);          
+        </code>
+    </pre>
+    <p style="text-align: left">你看到observer被定义成了一个对象， 其实这才是完整的observer. 传入一个callback到observable.subcribe相当于传入了 { next: callback }。</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/observer2.png">
+</section>
+
+<section>
+    <p>Subcription里的陷阱</p>
+
+<p>Subscription是什么， 先上代码：</p>
+<pre>
+    <code>
+var observable = Rx.Observable.interval(1000);
+var subscription = observable.subscribe(x => console.log(x));
+
+setTimeout(() => {
+  subscription.unsubscribe();
+}, 3100)
+
+   
+    </code>
+</pre>
+
+
+<p style="text-align: left">Rx.Observable.interval可以返回一个能够发射(返回)0， 1， 2， 3...， n数字的Observable， 返回的时间间隔这里是1000ms。 第二行中的变量就是subscription。 subscription有一个unsubscribe方法, 这个方法可以让subscription订阅的observable发射的数据被observer忽略掉。 通俗点说就是取消订阅。</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/Subscription1.png">
+</section>
+
+<section>
+    <p>unsubscribe存在一个陷阱。 先看代码：</p>
+<pre>
+    <code>
+var foo = Rx.Observable.create((observer) => {
+  var i = 0
+  setInterval(() => {
+    observer.next(i++)
+    console.log('hello')
+  }, 1000)
+})
+
+const subcription = foo.subscribe((i) => console.log(i))
+subcription.unsubscribe()        
+    </code>
+</pre>
+
+<p style="text-align: left">刚才说了， unsubscribe只会让observer忽略掉observable发射的数据，但是setInterval依然会继续执行。 这看起来似乎是一个愚蠢的设计。 所以不建议这样写。 </p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/Subscription2.png">
+</section>
+
+
+<section>
+    <p>Subject</p>
+
+<p style="text-align: left">Subject是一种能够发射数据给多个observer的Observable, 这让Subject看起来就好像是EventEmitter。 先上代码：</p>
+<pre>
+    <code>
+var subject = new Rx.Subject();
+
+subject.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+
+subject.next(1);
+subject.next(2);        
+    </code>
+</pre>
+
+
+</section>
+
+
+<section>
+<img src="../img/JS-10-How-to-understand-RxJS/subject1.png">
+<p style="text-align: left">与Observable不同的是， Subject发射数据给多个observer。 其次， 定义subject的时候并没有传入callback， 这是因为subject自带next, complete, error等方法。从而可以发射数据给observer。 这和EventEmitter很类似。observer并不知道他subscribe的是Obervable还是Subject。 对observer来说是透明的。 而且Subject还有各种派生， 比如说：</p>
+
+</section>
+<section>
+    
+ <p style="text-align: left">BehaviorSubject 能够保留最近的数据，使得当有subscribe的时候，立马发射出去。看代码：</p>   
+ <p style="text-align: left">ReplaySubject 能够保留最近的一些数据， 使得当有subscribe的时候，将这些数据发射出去。</p>
+ <p style="text-align: left">AsyncSubject 只会发射结束前的一个数据</p>
+ <p style="text-align: left">Multicasted Observables 是一种借助Subject来将数据发射给多个observer的Observable。</p>
+</section>
+
+
+
+
+
+        <section>       
+            <h3>四.解决方案</h3>
+        </section>        
+        <section>       
+            <h3>五.代码实战</h3>
+        </section>
+
+
+<section>
+
+<p style="text-align: left">我们来举几个例子。比如说在传统的编程中 a=b+c，表示将表达式的结果赋给a，而之后改变b或c 的值不会影响a。但在响应式编程中，a的值会随着b或c的更新而更新。</p>
+
+<a href="http://jsbin.com/?html,output">JSBin这个在线Javascript IDE</a> 
+<p>传统编程中b,c的变化不会影响a</p>
+
+<pre>
+    <code>
+var a,b=1,c=2;
+a=b+c;
+console.log('b=' + b);
+console.log('c=' + c);
+console.log('a=' + a);
+b=3;
+c=2;
+console.log('a=' + a);        
+    </code>
+</pre>
+
+</section>
+<section>
+<img src="../img/JS-10-How-to-understand-RxJS/abc1.png">
+
+</section>
+
+<section>
+    <p style="text-align: left">那么用响应式编程方法写出来就是这个样子，可以看到随着b和c的变化a也会随之变化。</p>
+<pre>
+    <code>
+var b$ = Rx.Observable.from([1,3]);        
+var c$ = Rx.Observable.from([2,2]);  
+
+var a$ = Rx.Observable.zip(b$, c$, (b,c) => {
+    console.log('b=' + b);
+    console.log('c=' + c);
+    return b+c;
+});
+a$.subscribe(a=> console.log('a=' +a));        
+    </code>
+</pre>    
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/abc2.png">
+</section>
+
+<section>
+    <p style="text-align: left">看出来一些不一样的思维方式了吗？响应式编程需要描述数据流，而不是单个点的数据变量，我们需要把数据的每个变化汇聚成一个数据流。如果说传统编程方式是基于离散的点，那么响应式编程就是线。</p>
+</section>
+
+<section>
+
+<p>上面的代码虽然很短，但体现出Rx的一些特点</p>
+
+<p style="text-align: left">    Lamda表达式，对，就是那个看上去像箭头的东西 => 。你可以把它想象成一个数据流的指向，我们从箭头左方取得数据流，在右方做一系列处理后或者输出成另一个数据流或者做一些其他对于数据的操作。
+    操作符：这个例子中的 from, zip 都是操作符。Rx中有太多的操作符，从大类上讲分为：创建类操作符、变换类操作符、过滤类操作符、合并类操作符、错误处理类操作符、工具类操作符、条件型操作符、数学和聚集类操作符、连接型操作符等等。
+</p>
+</section>
+
+
+
+
+
+
+<section>
+    <p>Rx再体验</p>
+<p style="text-align: left">首先在HTML中引入Rx类库，然后定义一个id为todo的文本输入框：</p>
+<pre>
+    <code>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.7/dist/global/Rx.umd.js"></script>
+</head>
+<body>
+<input id="todo" type="text"/>
+</body>
+</html>    -->     
+    </code>
+</pre>
+
+</section>        
+<section>
+
+
+<p>在Javascript标签中选择 ES6/Babel，因为这样可以直接使用ES6的语法，在文本框中输入以下javascript。在RxJS领域一般在Observable类型的变量后面加上$标识这是一个“流变量”（由英文Stream得来，Observable就是一个Stream，所以用$标识），不是必须的，但是属于约定俗成。</p>
+<pre>
+    <code>
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+input$.subscribe(input => console.log(input.target.value));        
+    </code>
+</pre>
+
+<p style="text-align: left">
+如果Console窗口默认没有打开的话，请点击 Console 标签，然后选中右侧的 Run with JS 旁边的Auto-run js复选框。在Output窗口中应该可以看到一个文本输入框，在这个输入框中输入任意你要试验的字符，观察Console
+</p>    
+</section>
+        
+<section>
+<p>Console和Output窗口</p>
+    <img src="../img/JS-10-How-to-understand-RxJS/12341.png">
+</section>
+
+
+<section>
+    <p style="text-align: left">这几行代码很简单：首先我们得到HTML中id为todo的输入框对象，然后定义一个观察者对象将todo这个输入框的keyup事件转换成一个数据流，最后订阅这个数据流并在console中输出我们接收到的input事件的值。我们从这个例子中可以观察到几个现象：</p>
+</section>
+<section>
+<p style="text-align: left">    数据流：你每次在输入框中输入时都会有新的数据被推送过来。本例中，你会发现连续输入“1，2，3，4”，在console的输出是“1，12，123，1234”，也就是说每次keyup事件我们都得到了完整的输入框中的值。而且这个数据流是无限的，只要我们不停止订阅，它就会一直在那里待命。</p>
+    <p style="text-align: left">我们观察的是todo上发生的keyup这个事件，那如果我一直按着某个键不放会怎么样呢？你的猜测是对的，一直按着的时候，数据流没有更新，直到你抬起按键为止</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/12345.png">
+</section>
+<section>
+    <p>如果观察的足够仔细的话，你会发现console中输出的值其实是 input.target.value，我们观察的对象其实是id为todo的这个对象上发生的keyup事件（Rx.Observable.fromEvent(todo, 'keyup')）。那么其实在订阅的代码段中的input其实是keyup事件才对。好，我们看看到底是什么，将 console.log(input.target.value) 改写成 console.log(input)，看看会怎样呢？是的，我们得到的确实是KeyboardEvent</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/value.png">
+</section>
+
+<section>
+    <p style="text-align: left">那么我们再来做几个小练习，首先将代码改成下面的样子，其实不用我讲，你应该也可以猜得到，这是要过滤出 keyCode=32 的事件，keyCode是Ascii码，那么这就是要把空格滤出来</p>
+<pre>
+    <code>
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+input$
+  .filter(ev=>ev.keyCode===32)
+  .subscribe(ev=>console.log(ev.target.value));        
+    </code>
+</pre>
+
+
+<p style="text-align: left">结果我们看到了，按123456789都没有反应，直到按了空格</p>
+<img src="../img/JS-10-How-to-understand-RxJS/kong.png">
+
+
+</section>
+
+<section>
+    <p style="text-align: left">你可能一直在奇怪，我们最终只对输入框的值有兴趣，能不能数据流只传值过来呢？当然可以，使用map这个变换类操作符就可以完成这个转换了</p>
+<pre>
+    <code>
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+input$
+  .map(ev=>ev.target.value*10)
+  .subscribe(value=>console.log(value));        
+    </code>
+</pre>
+
+
+<p style="text-align: left">map这个操作符做的事情就是允许你对原数据流中的每一个元素应用一个函数，然后返回并形成一个新的数据流，这个数据流中的每一个元素都是原来的数据流中的元素应用函数后的值。比如下面的例子，对于原数据流中的每个数应用一个函数10*x，也就是扩大了10倍，形成一个新的数据流。</p>
+</section>
+
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/map.png">
+</section>
+
+<section>
+    <p style="text-align: left">最常见的两个操作符我们上面已经了解了，我们继续再来认识新的操作符。类似 .map(ev=>ev.target.value) 的场景太多了，以至于rxjs团队搞出来一个专门的操作符来应对，这个操作符就是 pluck。这个操作符专业从事从一系列嵌套的属性种把值提取出来形成新的流。比如上面的例子可以改写成下面的代码，效果是一样的。那么如果其中某个属性为空怎么办？这个操作符负责返回一个 undefined 作为值加入流中。</p>
+</section>
+
+<section>
+    <pre>
+        <code>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.7/dist/global/Rx.umd.js"></script>
+</head>
+<body>
+<input id="todo" type="text"/>
+</body>
+</html>  -->  
+
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+input$
+  .pluck('target', 'value')
+  .subscribe(value=>console.log(value));  
+<!-- input$
+  .map(ev=>ev.target.value)
+  .subscribe(value=>console.log(value));  -->        
+        </code>
+    </pre>
+</section>
+
+
+<section>
+<p style="text-align: left">这里解释下用到的操作符（创建类操作符(from.fromEvent)、变换类操作符(map)、过滤类操作符(filter)、合并类操作符(combineLatest.zip)、错误处理类操作符、工具类操作符、条件型操作符、数学和聚集类操作符、连接型操作符等等）</p>
+</section>
+<section>
+    <p>创建类操作符</p>
+
+        <p style="text-align: left">通常来讲，Rx团队不鼓励新手自己从0开始创建Observable，因为状态太复杂，会遗漏一些问题。Rx鼓励的是通过已有的大量创建类转换操作符来去建立Observable。比如 from 和 fromEvent。
+        from操作符</p>
+
+        <p style="text-align: left">from 可以支持从数组、类似数组的对象、Promise、iterable 对象或类似Observable的对象（其实这个主要指ES2015中的Observable）来创建一个Observable。</p>
+
+        <p style="text-align: left">这个操作符应该是可以创建Observable的操作符中最常使用的一个，因为它几乎可以把任何对象转换成Observable。</p>
+</section>
+<section>        
+<pre>
+    <code>
+    var array = [10, 20, 30];
+    var result$ = Rx.Observable.from(array);
+    result$.subscribe(x => console.log(x));        
+    </code>
+</pre>
+<img src="../img/JS-10-How-to-understand-RxJS/from1.png">
+<img src="../img/JS-10-How-to-understand-RxJS/from2.png">
+</section>        
+<section>  
+        <p>fromEvent操作符</p>
+
+        <p style="text-align: left">这个操作符是专门为事件转换成Observable而制作的，非常强大且方便。对于前端来说，这个方法用于处理各种DOM中的事件再方便不过了。</p>
+<pre>
+    <code>
+var click$ = Rx.Observable.fromEvent(document, 'click');
+click$.subscribe(x => console.log(x));      
+    </code>
+</pre>
+</section>        
+<section> 
+<img src="../img/JS-10-How-to-understand-RxJS/fromEvent.png">
+
+
+</section>
+
+<section>
+    <p style="text-align: left">下面我们稍微给我们的页面加点料，除了输入框再加一个按钮</p>
+
+
+<pre>
+    <code>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.7/dist/global/Rx.umd.js"></script>
+</head>
+<body>
+  <input id="todo" type="text"/>
+  <button id="addBtn">Add</button>
+</body>
+</html> -->
+
+在Javascript中我们同样方法得到按钮的DOM对象以及声明对此按钮点击事件的观察者：
+
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+ input$
+   .pluck('target', 'value')
+   .subscribe(value=>console.log(value)); 
+
+let addBtn = document.getElementById('addBtn');
+let buttonClick$ = Rx.Observable.fromEvent(addBtn, 'click');
+ buttonClick$
+   .mapTo('clicked');       
+    </code>
+</pre>
+
+</section>
+<section>
+    
+<p style="text-align: left">由于点击事件没有什么可见的值，所以我们利用一个操作符叫 mapTo 把对应的每次点击转换成字符 clicked。其实它也是一个 map 的简化操作。</p>
+<img src="../img/JS-10-How-to-understand-RxJS/mapTo.png">
+</section>
+
+
+
+
+
+
+<section>
+    <p>合并类操作符</p>
+<p style="text-align: left">combineLatest操作符</p>
+
+<p style="text-align: left">既然现在我们已经有了两个流，应该试验一下合并类操作符了，先来试试 combineLatest，我们合并了按钮点击事件的数据流和文本框输入事件的数据流，并且返回一个对象，这个对象有两个属性，第一个是按钮事件数据流的值，第二个是文本输入事件数据流的值。也就是说应该是类似 { ev: 'clicked', input: '1'} 这样的结构。</p>
+<pre>
+    <code>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.7/dist/global/Rx.umd.js"></script>
+</head>
+<body>
+  <input id="todo" type="text"/>
+  <button id="addBtn">Add</button>
+</body>
+</html> -->
+
+
+let todo = document.getElementById('todo');
+let input$ = Rx.Observable.fromEvent(todo, 'keyup');
+// input$
+//   .pluck('target', 'value')
+//   .subscribe(value=>console.log(value)); 
+
+let addBtn = document.getElementById('addBtn');
+let buttonClick$ = Rx.Observable.fromEvent(addBtn, 'click');
+// buttonClick$
+//   .mapTo('clicked');
+
+Rx.Observable.combineLatest(buttonClick$, input$, (ev, input)=>{
+  return {
+    ev: ev,
+    input: input
+  }
+})
+  .subscribe(value => console.log(value))       
+    </code>
+</pre>
+
+
+<p style="text-align: left">那看看结果如何，在文本输入框输入1，没反应，再输入2，还是没反应</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/conbine1.png">
+</section>
+
+<section>
+    <p style="text-align: left">那我们点击一下按钮试试，这回有结果了，但有点没明白为什么是12，输入的数据流应该是： 1，12，... 但那个1怎么丢了呢？</p>
+    <img src="../img/JS-10-How-to-understand-RxJS/conbine2.png">
+</section>
+
+<section>
+    <p style="text-align: left">再来文本框输入3，4看看，这回倒是都出来了</p>
+    <img src="../img/JS-10-How-to-understand-RxJS/conbine3.png">
+</section>
+
+
+<section>
+<p style="text-align: left">    我们来解释一下combineLatest的机制就会明白了，如下图所示，上面的2条线是2个源数据流（我们分别叫它们源1和源2吧），经过combineLatest操作符后产生了最下面的数据流（我们称它为结果流）。</p>
+
+<p style="text-align: left">当源1的数据流发射时，源2没有数据，这时候结果流也不会有数据产生，当源2发射第一个数据（图中A）后，combineLatest操作符做的处理是，把A和源1的最近产生的数据（图中2）组合在一起，形成结果流的第一个数据（图中2A）。当源2产生第二个数据（图中B）时，源1这时没有新的数据产生，那么还是用源1中最新的数据（图中2）和源2中最新的数据（图中B）组合。</p>
+
+<p style="text-align: left">也就是说 combineLatest 操作符其实是在组合2个源数据流中选择最新的2个数据进行配对，如果其中一个源之前没有任何数据产生，那么结果流也不会产生数据。</p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/conbine4.png">
+</section>
+
+
+<section>
+    <p style="text-align: left">讲到这里，有童鞋会问，原理是明白了，但什么样的实际需求会需要这个操作符呢？其实有很多，我这里只举一个小例子，现在健身这么热，比如说我们做一个简单的BMI计算器，BMI的计算公式是：体重（公斤）／（身高身高）（米米）。那么我们在页面给出两个输入框和一个用于显示结果的div：</p>
+<pre>
+    <code>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.0-beta.7/dist/global/Rx.umd.js"></script>
+</head>
+<body>
+  Weight: <input type="number" id="weight"> kg
+  <br/>
+  Height: <input type="number" id="height"> cm
+  <br/>
+  Your BMI is <div id="bmi"></div>
+</body>
+</html> -->        
+    </code>
+</pre>
+
+</section>
+<section>
+<p style="text-align: left">那么在JS中，我们想要达成的结果是只有两个输入框都有值的时候才能开始计算BMI，这时你发现combineLatest的逻辑不要太顺溜啊。</p>
+<pre>
+    <code>
+let weight = document.getElementById('weight');
+let height = document.getElementById('height');
+let bmi = document.getElementById('bmi');
+
+let weight$ = Rx.Observable
+                .fromEvent(weight, 'input')
+                .pluck('target', 'value');
+
+let height$ = Rx.Observable
+                .fromEvent(height, 'input')
+                .pluck('target', 'value');
+
+let bmi$ = Rx.Observable
+              .combineLatest(weight$, height$, (w, h) => w/(h*h/100/100));
+
+bmi$.subscribe(b => bmi.innerHTML=b);        
+    </code>
+</pre>
+
+</section>
+
+
+<section>
+    <p>zip操作符</p>
+
+<p style="text-align: left">除了 combineLatest ，Rxjs还提供了多个合并类的操作符，我们再试验一个 zip 操作符。 zip 和 combineLatest 非常像，但重要的区别点在于 zip 严格的需要多个源数据流中的每一个的相同顺序的元素配对。</p>
+
+<p style="text-align: left">比如说还是上面的例子，zip 要求源1的第一个数据和源2的第一个数据组成一对，产生结果流的第一个数据；源1的第二个数据和源2的第二个数据组成一对，产生结果流的第二个数据。而 combineLatest 不需要等待另一个源数据流产生数据，只要有一个产生，结果流就会产生。 </p>
+</section>
+
+<section>
+    <img src="../img/JS-10-How-to-understand-RxJS/zip1.png">
+</section>
+
+<section>
+ <p style="text-align: left">   zip 这个词在英文中有拉链的意思，记住这个有助于我们理解这个操作符，就像拉链一样，它需要拉链两边的齿一一对应。从效果角度上讲，这个操作符有减缓发射速度的作用，因为它会等待合并序列中最慢的那个。</p>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section>
+            <h3>六.拓展思考</h3>
+
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考：<a href="http://www.jianshu.com/p/eaf877d1274f">如何理解Rxjs</a></p>
+            <p style="text-align: left">参考：<a href="http://blog.csdn.net/ac_hell/article/details/68069224">RXJS详解 </a></p>
+            <p style="text-align: left">参考：<a href="http://www.jianshu.com/p/869a3f74d3ca">Angular 从0到1：Rx--隐藏在Angular 中的利剑</a></p>
+            <p style="text-align: left">参考：<a href="https://zhuanlan.zhihu.com/p/25467376">通俗的方式理解RxJS</a></p>
+            <p style="text-align: left">参考：<a href="https://segmentfault.com/a/1190000005059624">RxJS 核心概念Observer Subscription</a></p>
+            <p style="text-align: left">参考：<a href="http://ithelp.ithome.com.tw/users/20103367/ironman/1199">30天精通Rxjs</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 包鹏亮/徐恒 </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

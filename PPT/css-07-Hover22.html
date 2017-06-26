@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>手机上hover效果时应该怎么办？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task7】如果是在手机上查看投票页，没有hover效果时应该怎么办？</h2>
+            <h3>小课堂【北京第149期】</h3>
+            <p>分享人：杨纲</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left"><strong>怎么发现hover在手机上没效果？</strong><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                某一天夜晚，观天象异星突现，猛然一惊，急忙拿出手机检查白日刚修炼到第七层的CSS功法，
+                想着hover光环效果乃我得意之作，可万万不能有事！手止不住的颤抖着，点击屏幕都十分费劲，
+                五分钟后，终于运行出了第七层功法--投票页，触上玩家卡牌区域....<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                该死的！我的hover呢？？？
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>2.1 &nbsp;&nbsp;&nbsp;&nbsp;hover是什么？</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                W3C定义---- <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                :hover用于选择鼠标指针浮动在上面的元素，可用于所有元素，不只是链接。
+            </p>
+        </section>
+        <section>
+            <h3>2.2&nbsp;&nbsp;&nbsp;&nbsp;为啥hover在手机上没效果？</h3>
+        </section>
+        <section>
+            <p style="text-align: left;width: 105%">
+                <strong>让我们再回顾一下hover的定义...</strong><br>
+                :hover用于选择<u>鼠标指针</u>浮动在上面的元素。<br><br>
+                <strong>再想一想...</strong><br>
+                手机上哪来的鼠标啊伙计？！<br>
+                SO,手机端没有hover特效，当你点击的时候就直接触发click。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">手机上没有hover效果时应该怎么办？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                首先，经试验发现，设置的：hover在Android系统上点击会出现，
+                但是需要再次点击才会消失；IOS系统上点击无法出现；<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                然后来看一下解决的方法...
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <strong>手机虽然没有鼠标，但是咱有触摸事件啊！</strong><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                一开始触摸事件是ios版Safari浏览器为了向开发人员传达一些信息新添加的事件。
+                因为ios设备既没有鼠标也没有键盘，所以<u>在为移动Safari浏览器开发交互性网页的时候，
+                PC端的鼠标和键盘事件是不够用的</u>。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                在iPhone 3G发布的时候，其自带的移动Safari浏览器就提供了一些与触摸(touch)操作相关的新事件。
+                随后，Android上的浏览器也实现了相同的事件。<u>触摸事件(touch)会在用户手指放在屏幕上面的时候、
+                在屏幕上滑动的时候或者是从屏幕上移开的时候触发</u>。
+            </p>
+
+        </section>
+        <section>
+            <p style="text-align: left">
+                1.<strong>touchstart事件</strong>：当手指触摸屏幕时候触发，即使已经有一个手指放在屏幕上也会触发。<br>
+                2.<strong>touchmove事件</strong>：当手指在屏幕上滑动的时候连续地触发。在这个事件发生期间，
+                调用preventDefault()事件可以阻止滚动。<br>
+                3.<strong>touchend事件</strong>：当手指从屏幕上离开的时候触发。<br>
+                4.<strong>touchcancel事件</strong>：touchcancel，是在拖动中断时候触发。
+                <br>（PS:主要的是前三个触摸事件）
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="../demo/css-07-Hover/demo1/task7-2.html" target="_blank">
+                Demo1:手机上hover的效果</a><br><br>
+            <a href="../demo/css-07-Hover/demo2/demo.html" target="_blank">
+                Demo2:设置触摸事件之后的效果</a><br><br>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3 style="width: 130%;margin-left: -10%">手机上除了触摸事件，还有触摸手势，怎么用呢？</h3><br>
+            <p style="text-align: left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                可以利用插件来实现，比如，jQuery里有手势的插件，
+                移动端的zepto库也有手势插件，还有QuoJS的手势插件（不依赖任何库）。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;width: 130%;margin-left: -5%">
+            <p>参考一：<a
+                    href="http://blog.csdn.net/candy_home/article/details/45219765"
+                    target="_blank">
+                Hover手机端的实现</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/qiheng/p/3764837.html"
+                      target="_blank">touchstart和touchend事件</a></p>
+            <p>参考三：<a href="http://www.2cto.com/kf/201402/276737.html"
+                      target="_blank">HTML5实战与剖析之触摸事件(touchstart、touchmove和touchend)</a></p>
+            <p>参考四：<a href="http://blog.csdn.net/fuqinyijiu/article/details/41315123"
+                      target="_blank">HTML5触摸事件(touchstart、touchmove和touchend)</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 5px;width: 115%">现在用移动设备的越来越多，<br>怎么让写的页面更好的适应移动设备呢？</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 万维娜，杨纲</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

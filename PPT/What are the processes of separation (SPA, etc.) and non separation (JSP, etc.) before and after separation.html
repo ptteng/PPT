@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-10】前后端分离（SPA等）与不分离（JSP等）的工作流程分别是怎样的？</h2>
+            <h3>小课堂【武汉第217期】</h3>
+            <p>分享人：朱英杰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>前后端分离中的SPA和JSP是什么？</section>
+        <section>
+
+            <p>SPA：单页Web应用（Single-page application，SPA），就是只有一张Web页面的应用， 是加载单个HTML页面并在用户与应用程序交互时动态更新该页面的Web应用程序。</p>
+            <p>JSP：JSP全名为Java Server Pages，中文名叫java服务器页面 意思是基于JAVA服务器的网页技术，是一种动态网页开发技术, 使用JSP标签在HTML网页中插入Java代码。跟asp,php一样，都是网页制作用的语言。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>①.JSP的特点</p>
+            <p> 1. 跨平台</p>
+            <p> 2. 业务代码分离</p>
+            <p> 3. 组件重用</p>
+            <p> 4、继承Java Servlet功能</p>
+            <p> 5.、预编译</p>
+           </section>
+            <section>
+                <img src="../img/js/5.jpg" alt="">
+            </section>
+        <section>
+            <p>1.客户端请求</p>
+            <p> 2.服务端的servlet或controller接收请求（路由规则由后端制定，整个项目开发的权重大部分在后端）</p>
+            <p> 3.调用service,dao代码完成业务逻辑</p>
+            <p> 4.返回jsp</p>
+            <p>5.jsp展现一些动态的代码</p>
+        </section>
+
+            </p>
+        </section>
+        <section>
+            <p>  ②SPA的特点</p>
+            <p>1.速度-更好的用户体验，让用户在web app感受native app的速度和流畅。</p>
+            <p> 2.MVC-经典MVC开发模式，前后端各负其责，扯皮现象会少很多。</p>
+            <p> 3.ajax-重前端，业务逻辑全部在本地操作，数据都需要通过AJAX同步、提交。</p>
+            <p>4.路由-在URL中采用#号来作为当前视图的地址,改变#号后的参数，页面并不会重载。</p>
+        </section>
+        <section>
+                <img src="../img/js/4.jpg" alt="">
+        </section>
+        <section>
+            <p>1.浏览器发送请求</p>
+            <p>2.直接到达html页面（路由规则由前端制定，整个项目开发的权重前移）</p>
+            <p>3.html页面负责调用服务端接口产生数据（通过ajax等等，后台返回json格式数据）</p>
+            <p> 4.填充html，展现动态效果，在页面上进行解析并操作DOM。</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么要前后端分离？</p>
+        </section>
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+          <p>1. 彻底解放前端</p>
+              前端不再需要向后台提供模板或是后台在前端html中嵌入后台代码，如：
+          <img src="../img/js/1.png" alt="">
+      </section>
+        <section>
+            <p>这是前后端耦合的，可读性差。</p>
+            <img src="../img/js/02.png" alt="">
+        </section>
+        <section>
+           <p>2. 提高工作效率，分工更加明确</p>
+            <p>前后端分离的工作流程可以使前端只关注前端的事，后台只关心后台的活， 两者开发可以同时进行，在后台还没有时间提供接口的时候，前端可以先将 数据写死或者调用本地的json文件即可，页面的增加和路由的修改也不必再 去麻烦后台，开发更加灵活。</p>
+            <p> 3. 局部性能提升</p>
+            <p>通过前端路由的配置，我们可以实现页面的按需加载，无需一开始加载首页便 加载网站的所有的资源，服务器也不再 需要解析前端页面，在页面交互及用户体验上有所提升。</p>
+        </section>
+      </section>
+        <section>单页web的痛点和JSP开发的痛点</section>
+        <section>
+            <p>①单页web的痛点</p>
+            <p> 1.SEO不友好。</p>
+            <p>2.刚开始的时候加载可能慢很多</p>
+            <p> 3.用户操作需要写逻辑，前进、后退等；</p>
+            <p> 4.页面复杂度提高很多</p>
+        </section>
+        <section>
+            <p>  ②JSP开发的痛点</p>
+            <p>  1.jsp上动态资源和静态资源全部耦合在一起，服务器压力大， 因为服务器会收到各种静态资源的http请求，动态代码的等等，除非你使用nginx。</p>
+            <p> 2.前端工程师做好html后，需要由后端的java工程师来将html修改成jsp页面， 包括各种文件的路径，出错率较高（因为页面中经常会出现大量的js代码）， 修改问题时需要双方协同开发，效率低下。</p>
+            <p>   3.jsp必须要在支持java的web服务器里运行（例如tomcat/resin/jboss/weblogic等），性能提不上来。</p>
+            <p>  4.第一次请求jsp，必须要在web服务器中编译成servlet，第一次运行会较慢。</p>
+        </section>
+        <section>
+            <p>5.每次请求jsp都是访问servlet再用输出流输出的html页面，效率没有直接使用html高（记住是每次哟~~~内存哟，IO哟）。</p>
+            <p>    6.如果在生产环境中，发现了前端的bug，让前端工程师来调试bug，这个时候的页面已经很混乱了，呵呵，他会遇到很多痛点。</p>
+            <p>7.如果jsp中的内容很多，页面响应会很慢，因为是同步加载</p>
+        </section>
+      <section>
+          <h3>5.编码实战</h3>
+      </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Web 前后端分离的意义大吗？ </p>
+
+
+        </section>
+        <section>
+           <p>1、该网站前端变化远比后端变化频繁，则意义大。</p>
+            <p>2、该网站尚处于原始开发模式，数据逻辑与表现逻辑混杂不清，则意义大。</p>
+            <p>3、该网站前端团队和后端团队分属两个领导班子，技能点差异很大，则意义大。</p>
+            <p>4、该网站前端效果绚丽/跨设备兼容要求高，则意义大。</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <a href="https://www.zhihu.com/question/28207685/answer/39893889">Web 前后端分离的意义大吗？</a>
+            <a href="http://blog.jobbole.com/65513/">前后端分离的思考与实践</a>
+        </section>
+        <section>
+            <h3>更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : | 寇晨迪</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

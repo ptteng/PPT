@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS常用指令</title>
+    <style>
+        .sky {
+            background-color:lightblue;
+        }
+        .tomato {
+            background-color:coral;
+        }
+        .color {
+            color: #ff0000;
+        }
+        .border {
+            border:2px solid #ffff00;
+        }
+    </style>
+</head>
+
+<body>
+<h2>AngularJS 常用指令演示</h2>
+<div ng-app = "mainApp" ng-controller = "commonCtrl">
+
+    <p>------------------------------</p>
+    <div>
+        <p>ng-option演示（最简单的用法）</p>
+        <select ng-model="selectedName" ng-options="item for item in names">
+            <!--<option value="">请选择</option>-->//默认值
+        </select>
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>ng-options的写法</p>
+        <p>label for value in array（city for city in Cities）</p>
+        <select ng-model="mycity1" ng-options="city for city in Cities">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycity1}}</p>
+        <p>你会发现，上面的option中的text都是对象，这也很容易理解，因为cities数组的每一项都是一个对象，绑定的时候将以对象直接绑定上。
+            那么我们如何只让它显示name属性呢？</p>
+        <p>------------------------------</p>
+<p>直接点出属性即可。再查看下dom数。   </p>
+        <p>label for value in array（city.name for city in Cities）</p>
+        <select ng-model="mycity2" ng-options="city.id for city in Cities">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycity2}}</p>
+
+
+    </div>
+    <p>------------------------------</p>
+    <div>
+        <p>在看一个分组的例子，为cities数组加上group属性，并按照group分组：</p>
+        <p>ng-options的写法（分组）</p>
+        <p>select as label group by group for value in array </p>
+        <select ng-model="mycities" ng-options="city.name as city.name group by city.group for city in Citie">
+            <option value="">请选择</option>
+        </select>
+        <p>欢迎来到{{mycities}}</p>
+        <p>这里已经指定了ng-model，获取选中的值，也非常方便了。</p>
+    </div>
+    <!--//下面间距-->
+    <div style="margin-bottom: 30vh">
+
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+<script>
+    var commonApp= angular.module("mainApp",[]);
+    commonApp.controller("commonCtrl",function ($scope) {
+        $scope.color="sky";
+        $scope.names = ["Emil", "Tobias", "Linus"];
+        $scope.myValue = "这是input框的value";
+        $scope.aler =function (countnum) {
+            alert(countnum);
+        };
+//        ng-class-even/odd的数据
+        $scope.records = [
+            {
+                "Name" : "Alfreds Futterkiste",
+                "Country" : "Germany"
+            },
+            {
+                "Name" : "Berglunds snabbk",
+                "Country" : "Sweden"
+            },
+            {
+                "Name" : "Centro comercial Moctezuma",
+                "Country" : "Mexico"
+            },
+            {
+                "Name" : "Ernst Handel",
+                "Country" : "Austria"
+            }
+        ];
+//        ng-options的写法数据
+        $scope.mycity = '北京';
+        $scope.Cities = [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '广州' }];
+        $scope.Citie = [{ id: 1, name: '北京', group: '中国' }, { id: 2, name: '上海', group: '中国' }, { id: 3, name: '广州',group:'中国' },
+            { id: 4, name: '纽约', group: '美国' },{ id: 5, name: '旧金山', group: '美国' },  { id: 6, name: '伦敦', group: '英国' } ];
+    })
+</script>
+</body>
+</html>

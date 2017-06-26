@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p style="font-size: 50px">ng-option、ng-select是如何使用的？</p>
+            <h4></h4>
+            <p>分享人：王立志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                ng-options的值可以是一个内涵表达式（comprehension expression），其实这只是一种有趣的说法，简单来
+                说就是它可以接收一个数组或者对象，并对她们进行循环，将内部的内容提供给select标签内部的选项。
+                ng-select 它可以帮助你通过数据模型来创建select元素.它很好的支持了select标签的语法,
+            </section>
+        </section>
+        
+        
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                ng-option、ng-select如何使用的？
+            </section>
+            <section>
+                ng-option：
+                <p style="text-align: left">
+                    ng-options 指令用于使用 &lt;options&gt; 填充 &lt;select&gt; 元素的选项。<br>
+                    ng-options属性可以在表达式中使用数组或对象来自动生成一个select中的option列表。ng-options与
+                    ng-repeat很相似，很多时候可以用ng-repeat来代替ng-options。但是ng-options提供了一些好处，例如减少内存提高速度，以及提供选择框的选项来让用户选择。
+                </p>
+
+            </section>
+
+            <section>
+                ng-select：
+                <p style="text-align: left">ng-select用来将数据同HTML的select标签进行绑定。这个指令可以
+                    和ng-model以及ng-options指令一起使用，构建精细且表现良好的动态表单。
+                    ng-select 它可以帮助你通过数据模型来创建select元素.它很好的支持了select标签的语法,
+                    而ng-options用在selectd上面
+                </p>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            
+            <section>
+                <p>ng-option表达式的写法</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>
+                    1、ng-option表达式的写法</p>
+                <p style="text-align: left;font-size: 30px">
+                    1、数组作为数据源<br>
+                    用数组中的值做标签。(label for value in array)<br>
+                    用数组中的值作为选中的标签。(select as label for value in array)<br>
+                    用数组中的值做标签组。(label group by group for value in array)<br>
+                    用数组中的值作为选中的标签组。(select as label group by group for value in array track by trackexpr)<br>
+                    2、对象作为数据源<br>
+                    用对象的键-值（key-value）做标签。(label for (key , value) in object)<br>
+                    用对象的键-值作为选中的标签。(select as label for (key , value) in object)<br>
+                    用对象的键-值作为标签组。(label group by group for (key, value) in object)<br>
+                    用对象的键-值作为选中的标签组。(select as label group by group for (key, value) in ob)<br>
+                </p>
+            </section>
+              <section>
+                <p>
+                    ng-options的值可以是一个内涵表达式（comprehension expression），
+                    其实这只是一种有趣的说法，简单来说就是它可以接收一个数组或者对象，
+                    并对它们进行循环，将内部的内容提供给select标签内部的选项。它可以是一下两种形式。
+                    ng-options属性可用于使用通过评估理解表达式获得的数组或对象来动态生成option 元素的select元素。
+                </p>
+            </section>
+
+
+
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <a href="../demo/js-08-AngularJs common directive/js-08-AngularJscbaa.html">demo</a>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                <p></p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://www.runoob.com/angularjs/angularjs-reference.html" target="_blank">菜鸟教程</a></p>
+                <p>参考二：<a href="http://www.cnblogs.com/wolf-sun/p/4614532.html" target="_blank">[Angularjs]ng-select和ng-options</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>用angularJS的ng-model绑定到select上，会自动增加一个value为空的option,这是为什么？</p>
+            </section>
+            <section>
+                <p>原因：ng-model没有初始化导致的，
+                    如果ng-model所绑定的变量的值在ng-options绑定的value里面有，
+                    下拉选框中就不会有空白的一项，选中别的数据项以后消失；
+                    如果ng-model所绑定的变量的值不在ng-options绑定的value里面，
+                    下拉选框中就不会有空白一项,并且只有当ng-options绑定的value里有对应
+                    的text为空行时，这个空行才会一直存在于下拉选项里。
+                </p>
+            </section>
+            <section>
+                <p>解决办法<br>
+                    方法一：将select中的一个option设置为空，就可以防止因添加ng-model自动添加空option的问题<br>
+                方法二：自己预先添加一个value为空的option，再用ng-if="false"把它去掉<br>
+                </p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: left;">【js-11】强制缓存和协商缓存</h2>
+            <p style="text-align: center;">小课堂【147期】</p>
+            <p style="text-align: center;">分享人：张宇鹏</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">HTTP协议提供了非常强大的缓存机制， 了解这些缓存机制，对提高网站的性能非常有帮助。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h4 style="text-align:left">什么是浏览器缓存</h4>
+                <p style="text-align:left">
+                    浏览器缓存(Brower Caching)是浏览器在本地磁盘对用户最近请求过的文档进行存储，当访问者再次访问同一页面时，浏览器就可以直接从本地磁盘加载文档。
+                </p>
+                <p style="text-align:left">浏览器缓存的优点有：</p>
+                <p style="text-align:left">1.减少了冗余的数据传输，节省了带宽</p>
+                <p style="text-align:left">2.减少了服务器的负担，大大提升了网站的性能</p>
+                <p style="text-align:left">3.加快了客户端加载网页的速度，提升用户体验</p>
+            </section>
+            <section>
+                <p style="text-align:left">浏览器缓存主要有两类：缓存协商和彻底缓存，也有称之为协商缓存和强制缓存。</p>
+                <p style="text-align:left">1.强制缓存：不会向服务器发送请求，直接从缓存中读取资源，在chrome控制台的network选项中可以看到该请求返回200的状态码;</p>
+                <p style="text-align:left">2.协商缓存：向服务器发送请求，服务器会根据这个请求的request header的一些参数来判断是否命中协商缓存，如果命中，则返回304状态码并带上新的response header通知浏览器从缓存中读取资源；</p>
+                <p style="text-align:left">两者的共同点是，都是从客户端缓存中读取资源；区别是强缓存不会发请求，协商缓存会发请求。</p>
+            </section>
+            <section>
+                <img style="width:900px;height:680px;" src="http://images2015.cnblogs.com/blog/408483/201605/408483-20160525182943272-204994049.png">
+            </section>
+            <section>
+                <p style="text-align:left">缓存中header的参数：</p>
+                <p style="text-align:left">强制缓存</p>
+                <p style="text-align:left">Expires：response header里的过期时间，浏览器再次加载资源时，如果在这个过期时间内，则命中强缓存。</p>
+                <p style="text-align:left">Cache-Control：当值设为max-age=300时，则代表在这个请求正确返回时间（浏览器也会记录下来）的5分钟内再次加载资源，就会命中强缓存。</p>
+            </section>
+            <section>
+                <p style="text-align:left">cache-control除了该字段外，还有下面几个比较常用的设置值：</p>
+                <p style="text-align:left">-no-cache：不使用强制缓存。需要使用缓存协商，先与服务器确认返回的响应是否被更改，如果之前的响应中存在ETag，那么请求的时候会与服务端验证，如果资源未被更改，则可以避免重新下载。</p>
+                <p style="text-align:left">-no-store：直接禁止浏览器缓存数据，每次用户请求该资源，都会向服务器发送一个请求，每次都会下载完整的资源。</p>
+                <p style="text-align:left">-public：可以被所有的用户缓存，包括终端用户和CDN等中间代理服务器。</p>
+                <p style="text-align:left">-private：只能被终端用户的浏览器缓存，不允许CDN等中继缓存服务器对其缓存。</p>
+            </section>
+            <section>
+                <p style="text-align:left">Cache-Control和Expires，当两个都存在时，Cache-Control优先级较高。</p>
+                <p style="text-align:left">1. cache-control max-age 和 max-stale将覆盖Expires header。</p>
+                <p style="text-align:left">2. 使用Expires存在服务器端时间和浏览器时间不一致的问题。</p>
+                <p style="text-align:left">3. 另外有人说Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略</p>
+
+
+
+
+
+
+            </section>
+            <section>
+                <p style="text-align:left">协商缓存</p>
+                <p style="text-align:left">Last-Modify/If-Modify-Since：浏览器第一次请求一个资源的时候，服务器返回的header中会加上Last-Modify，Last-modify是一个时间标识,标记该资源的最后修改时间；当浏览器再次请求该资源时，request的请求头中会包含If-Modify-Since，该值为上一次请求返回的Last-Modify。服务器收到If-Modify-Since后，根据资源的最后修改时间判断是否有变化。</p>
+            </section>
+            <section>
+                <p style="text-align:left">Etag：web服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。</p>
+                <p style="text-align:left">If-None-Match：当资源过期时（使用Cache-Control标识的max-age），发现资源具有Etage声明，则再次向web服务器请求时带上头If-None-Match （Etag的值）。web服务器收到请求后发现有头If-None-Match 则与被请求资源的相应校验串进行比对，决定是否命中协商缓存；</p>
+            </section>
+            <section>
+                <p style="text-align:left">ETag和Last-Modified的作用和用法，他们的区别：</p>
+                <p style="text-align:left">1.在时间上，Etag要优于Last-Modified。Last-Modified的时间单位是秒，如果某个文件在1秒内改变了多次，那么他们的Last-Modified其实并没有体现出来修改，但是Etag每次都会改变确保了精度；</p>
+                <p style="text-align:left">2.在性能上，Etag要逊于Last-Modified，毕竟Last-Modified只需要记录时间，而Etag需要服务器通过算法来计算出一个hash值；</p>
+                <p style="text-align:left">3.在优先级上，服务器校验优先考虑Etag。</p>
+            </section>
+            <section>
+                <p style="text-align:left">浏览器缓存过程</p>
+                <p style="text-align:left">1.浏览器第一次加载资源，服务器返回200，浏览器将资源文件从服务器上请求下载下来，并把response header及该请求的返回时间一并缓存；</p>
+                <p style="text-align:left">2.下一次加载资源时，先比较当前时间和上一次返回200时的时间差，如果没有超过cache-control设置的max-age，则没有过期，命中强缓存，不发请求直接从本地缓存读取该文件（如果浏览器不支持HTTP1.1，则用expires判断是否过期）；如果时间过期，则向服务器发送header带有If-None-Match和If-Modified-Since的请求；</p>
+            </section>
+            <section>
+                <p style="text-align:left">3.服务器收到请求后，优先根据Etag的值判断被请求的文件有没有做修改，Etag值一致则没有修改，命中协商缓存，返回304；如果不一致则有改动，直接返回新的资源文件带上新的Etag值并返回200；；</p>
+                <p style="text-align:left">4.如果服务器收到的请求没有Etag值，则将If-Modified-Since和被请求文件的最后修改时间做比对，一致则命中协商缓存，返回304；不一致则返回新的last-modified和文件并返回200；；</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>用户行为对浏览器缓存的影响</p>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p style="text-align:left">点击刷新按钮或者按F5</p>
+                <p style="text-align:left">浏览器直接对本地的缓存文件过期，但是会带上If-Modifed-Since，If-None-Match,这就意味着服务器会对文件检查新鲜度，返回结果可能是304，也有可能是200.</p>
+                <p style="text-align:left">用户按Ctrl+F5</p>
+                <p style="text-align:left">浏览器不仅会对本地文件过期，而且不会带上 If-Modifed-Since，If-None-Match，相当于之前从来没有请求过，返回结果是200.</p>
+                <p style="text-align:left">地址栏回车</p>
+                <p style="text-align:left">浏览器发起请求，按照正常流程，本地检查是否过期，然后服务器检查新鲜度，最后返回内容。</p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section></section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>修真院官网请求文件后面加上?ver=54</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                客户端会缓存这些css或js文件，因此每次升级了js或css文件后，改变版本号，客户端浏览器就会重新下载新的js或css文件 。大家可能有时候发现修改了样式或者js，刷新的时候不变，就是客户端缓存了css或者js文件
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href=" http://www.cnblogs.com/wonyun/p/5524617.html">http强制缓存和协议缓存</a></p>
+            <!--<p style="text-align: left">参考二：<a href="http://www.jb51.net/css/12323.html" target="_blank">CSS网页布局的核心内容:CSS盒模型</a></p>-->
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>深究一下浏览器F5事件</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>鸣谢 :李玺 | 董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

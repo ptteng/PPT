@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+  <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h2>【JS-10】angular中$resource和$http有什么区别？</h2>
+      <p>分享人：韩阳</p>
+    </section>
+    <section>
+      <p>目录</p>
+      <p>1.背景介绍</p>
+      <p>2.知识剖析</p>
+      <p>3.常见问题</p>
+      <p>4.解决方案</p>
+      <p>5.编码实战</p>
+      <p>6.扩展思考</p>
+      <p>7.参考文献</p>
+      <p>8.更多讨论</p>
+    </section>
+    <section>
+      <section>
+        <h3>1.背景介绍</h3>
+      </section>
+      <section>
+        <p>一、本质上功能都是一样的，都是基于XMLHttpRequest和服务器交互的服务</p>
+      </section>
+    </section>
+    <section>
+	    <section>
+	    	<p>一.$HTTP</p>
+	        <div style="text-align: left; padding: 0 5%;">
+	          	<p>
+	          		$http是angular中的一个核心服务，利用浏览器的xmlhttprequest或者via JSONP对象与远程HTTP服务器进行交互。　
+	          		$http的使用方式和jquery提供的$.ajax操作比较相同，均支持多种method的请求，get、post、put、delete等。
+　					$http的各种方式的请求更趋近于rest风格。
+   					在controller中可通过与$scope同样的方式获取$http对象
+	          	</p>
+	         </div>
+	    </section>
+		<section>
+			 <p>二、resource</p>
+	        <div style="text-align: left; padding: 0 5%;">
+	          	<p>
+	          		AngularJS中的resource(资源)允许我们用描述性的方式来定义对象模型，它可以描述以下内容：
+						资源在服务端的URL。<br>
+						常用的请求参数类型。<br>
+						一些附加的方法（你可以自动获得get、save、query、remove和delete方法），这些方法为对象模型包装了特定的功能和业务逻辑（例如信用卡对象的charge()方法）。
+						期望获得的响应类型（一个数组或者一个对象）。
+						协议头
+	          	</p>
+	         </div>
+		</section>
+    </section>
+    <section>
+      <h3>3.常见问题</h3>
+      <p>如何正确的应用resource</p>
+    </section>
+    <section>
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+        <p>1、在加载的脚本文件中包含angular-resource.js. </p>
+        <pre>
+          <code>
+			<script src="http://cdn.bootcss.com/angular-resource/1.5.8/angular-resource.min.js"></script>
+          </code>
+        </pre>
+      </section>
+      <section>
+        <p>2、在模块依赖声明中包含ngResource </p>
+        <pre>
+          <code>
+			angular.module(‘myapp', [‘ngResource'])
+          </code>
+        </pre>
+      </section>
+      <section>
+        <p>3、在需要的地方使用注入的$resource服务。 </p>
+        <pre>
+          <code>
+			var obj=$resource(url,[,paramsDefaults],[,actions])
+          </code>
+        </pre>
+      </section>
+    </section>
+    <section>
+      <h3>5.编码实战</h3>
+    </section>
+    <section>
+      <section>
+        <pre>
+          <code>
+			app.service('serviceAdd', function(){
+				this.companyAdd = '/carrots-admin-ajax/a/company/search';
+			});
+			app.service('library', function($resource,serviceAdd){
+				var getCompany = $resource(serviceAdd.companyAdd);
+			return{
+				getCompanies: getCompany.get
+			}
+			});
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code>
+			angular.module('app').controller('company');
+				app.controller('company',function(library){
+    				var vm = this;
+    				vm.pageChange=function(){
+    					params=vm.company;
+    					library.getCompanies(params,function(response){
+	      				vm.response=response;
+	      				vm.a=vm.response.data;
+   						})
+  					};
+    					vm.pageChange();
+				});
+          </code>
+        </pre>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h3>6.扩展思考</h3>
+      </section>
+      <section><p>使用$resource的必要性</p></section>
+      <section>
+        <p>为了代码的更加的规范和易维护性。还是很有必要性的</p>
+      </section>
+    </section>
+    <section>
+      <h3>7.参考文献</h3>
+    </section>
+    <section>
+      <p>参考一：<a href="https://segmentfault.com/q/1010000004119855" target="_blank">segmentfault</a></p>
+      <p>参考一：<a href="http://www.jb51.net/article/101731.htm" target="_blank">$resource</a></p>
+    </section>
+    <section>
+      <section>
+        <h3>8.更多讨论</h3>
+      </section>
+    </section>
+    <section>
+      <h4>鸣谢</h4>
+      <p>感谢大家观看</p>
+      <p><small>成都-韩阳</small></p>
+    </section>
+
+  </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+  // 以下为常见配置属性的默认值
+  // {
+  //    controls: true, // 是否在右下角展示控制条
+  //    progress: true, // 是否显示演示的进度条
+  //    slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  //    history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  //    keyboard: true, // 是否启用键盘快捷键来导航
+  //    overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  //    center: true, // 是否将幻灯片垂直居中
+  //    touch: true, // 是否在触屏设备上启用触摸滑动切换
+  //    loop: false, // 是否循环演示
+  //    rtl: false, // 是否将演示的方向变成RTL，即从右往左
+  //    fragments: true, // 全局开启和关闭碎片。
+  //    autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+  //    transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+  //    transitionSpeed: 'default', // 过渡速度，default/fast/slow
+  //    mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+  // }
+  // 初始化幻灯片
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      { src: '../plugin/markdown/marked.js' },
+      { src: '../plugin/markdown/markdown.js' },
+      { src: '../plugin/notes/notes.js', async: true },
+      { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+  });
+</script>
+</body>
+</html>
