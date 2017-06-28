@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="PPT-master/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="PPT-master/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="PPT-master/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="PPT-master/img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-10】媒体查询</h2>
+            <p style="text-align: center;">分享人：董瑞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>
+                现今每天都有更多的手机和平板电脑问市。消费者能够拥有可想象到的各种规格和形状的设备，但是网站开发人员却面临一个挑战：如何使他们的网站在传统浏览器、手机和平板电脑浏览器上有很好的效果，如何在各种大小的屏幕上提供一流的用户体验,答案是：采用响应式设计。
+            </p>
+            <p>
+                响应式设计可以随着所显示的屏幕大小而改变。实现响应式设计的核心就是媒体查询。使用@media媒体查询，可以针对不同的媒体类型定义不同的样式。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+            <h4>设置meta标签</h4>
+					<pre>
+						<code>
+                            <、    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                        </code>
+					</pre>
+            </p>
+            <p>
+                width = device-width：宽度等于当前设备的宽度<br>
+                initial-scale:初始的缩放比例(默认设置为1.0)<br>
+                minimum-scale:允许用户缩放到的最小比例(默认设置为1.0)<br>
+                maximum-scale:允许用户缩放到的最大比例(默认设置为1.0)<br>
+                user-scalable:用户是否可以手动缩放(默认设置为no，因为我们不希望用户放大缩小页面)
+            </p>
+        </section>
+        <section>
+            <section>
+                <h4>media查询引入方式</h4>
+                <p>媒体查询有两种引入方法</p>
+                <p>link元素中的CSS媒体查询</p>
+				<pre>
+					<code>
+                        <、   link rel="stylesheet" media="(max-width: 800px)" href="example.css" />
+                    </code>
+				</pre>
+                <p>css样式表中媒体查询</p>
+				<pre>
+					<code>
+                        @media (max-width: 600px) {
+                        .facet_sidebar {
+                        display: none;
+                        }
+                        }
+                    </code>
+				</pre>
+            </section>
+            <section>
+                <p>第一种方法是css2媒体查询用法，最大的弊端是他会增加页面http的请求次数，增加了页面负担，我们用CSS3把样式都写在一个文件里面才是最佳的方法。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>逻辑操作符</h4>
+                <p>一个基本的媒体查询，即一个媒体属性与默认指定的 all媒体类型</p>
+				<pre>
+					<code>
+                        @media (min-width: 700px) { ... }
+                    </code>
+				</pre>
+            </section>
+            <section>
+                <p>and 关键字用于合并多个媒体属性或合并媒体属性与媒体类型,只有当每个属性都为真时，结果才为真</p>
+				<pre>
+					<code>
+                        @media and (max-width:600px) and (min-width: 800px;){......}
+                    </code>
+				</pre>
+            </section>
+            <section>
+                <p>媒体查询中使用逗号分隔效果等同于 or 逻辑操作符。当使用逗号分隔的媒体查询时，如果任何一个媒体查询返回真，样式就是有效的。逗号分隔的列表中每个查询都是独立的，一个查询中的操作符并不影响其它的媒体查询。这意味着逗号媒体查询列表能够作用于不同的媒体属性、类型和状态。</p>
+				<pre>
+					<code>
+                        @media (min-width: 700px), handheld and (orientation: landscape) { ... }
+                    </code>
+				</pre>
+            </section>
+            <section>
+                <p>not键字应用于整个媒体查询，在媒体查询为假时返回真,not关键字仅能应用于整个查询，而不能单独应用于一个独立的查询。</p>
+				<pre>
+					<code>
+                        @media not all (max-width:700px){......}
+                    </code>
+				</pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>媒体属性</h4>
+            </section>
+            <section>
+                <ul>
+                    <li>width:浏览器可视宽度</li>
+                    <li>height:浏览器可视高度</li>
+                    <li>device-width:设备屏幕的宽度</li>
+                    <li>device-height:设备屏幕的高度</li>
+                    <li>orientation:检测设备目前处于横向还是纵向状态</li>
+                    <li>aspect-ratio:检测浏览器可视宽度和高度的比例。(例如：aspect-ratio:16/9)</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>device-aspect-ratio:检测设备的宽度和高度的比例</li>
+                    <li>color:检测颜色的位数。（例如：min-color:32就会检测设备是否拥有32位颜色）</li>
+                    <li>color-index:检查设备颜色索引表中的颜色，他的值不能是负数</li>
+                    <li>monochrome:检测单色楨缓冲区域中的每个像素的位数。</li>
+                    <li>resolution:检测屏幕或打印机的分辨率</li>
+                    <li>grid：检测输出的设备是网格的还是位图设备。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>screen是什么，有哪些媒体类型</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">screen是媒体类型(media type)的一种，用于电脑屏幕、智能手机、平板等，媒体类型也就是网页显示的媒介，比如，一般在screen上显示时，页面字体要大一些，在纸质媒体显示时，页面字体要小一些。那么如何告诉别人某个样式是适用于何种媒体类型的呢？这就要靠声明media type来实现了。</p>
+            <p>大部分媒体类型都已弃用了，下面这些是仍可以使用的</p>
+            <ul>
+                <li>all:用于所有设备</li>
+                <li>print:用于打印机和打印预览</li>
+                <li>screen：用于电脑屏幕、智能手机、平板等</li>
+                <li>speech：应用于屏幕阅读器等发声设备</li>
+            </ul>
+        </section>
+        <section>
+            <h3>编码实战</h3>
+        </section>
+        <section>
+            <p>下面是一个简单的响应式网页，断点在1200px，768px</p>
+            <p><a href="https://ptteng.github.io/PPT/demo/css-10-@media/demo.html">demo</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">媒体查询的主要技巧</p>
+            <p class="fragment">
+                让内容确定断点，设备分辨率是不断变化的，比如在移动端ipone主流分辨率320px、360px、414px，但是可能几年后就不一样了，Web本质是流动的，因此我们的工作是在任何屏幕上创建外观、功能等，而不是简简单单的几个断点。
+            </p>
+            <p class="fragment">
+                在使用em、rem和百分比(%)等相对单位
+            </p>
+            <p class="fragment">
+                条件加载媒体查询，也就是在页面中只是为了加强某些模块，并没有具体价值的部分，可以先隐藏掉，等到了合适宽度时再加载出来
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.ibm.com/developerworks/cn/web/wa-cssqueries/" target="_blank">ibm.com</a></p>
+            <p>参考二：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries">css媒体查询---MDN</a></p>
+            <p>参考三：<a href="http://www.runoob.com/cssref/css3-pr-mediaquery.html">媒体查询---菜鸟教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>Mozilla专有的媒体属性</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY :龚浩 | 董瑞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="PPT-master/lib/reveal/js/head.min.js"></script>
+<script src="PPT-master/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
