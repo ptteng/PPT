@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-align: left;
+            textindent: 2em;
+        }
+    </style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>在浏览器地址栏输入URL，按下回车后究竟发生了什么？</h2>
+
+            <h3>小课堂【武汉第154期】</h3>
+
+            <p style="text-align: center;">分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="a">
+                当你在浏览器地址栏输入一个URL后回车，将会发生的事情？这是一道经典的面试题，同时也是一道复杂的题目，涉及到很多东西，不同的软件开发者对于此道问题有不同的答案，对于其中的某一点也能无限深究，今天我们就来侧重于web前端来看一下究竟发生了什么。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>基本流程</h3>
+                <ul class="a">
+                    <li>查询ip地址</li>
+                    <li>建立tcp连接，接入服务器</li>
+                    <li>浏览器发起http请求</li>
+                    <li>服务器后台操作并做出响应</li>
+                    <li>浏览器渲染页面</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>具体步骤？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4 class="a">查询ip地址</h4>
+            <ul class="a">
+                <li>浏览器解析出url中的域名</li>
+                <li>查询浏览器的DNS缓存</li>
+                <li>浏览器中没有DNS缓存，则查找本地客户端hosts文件有无对应的ip地址</li>
+                <li>hosts中无，则查找本地DNS服务器（运营商提供的DNS服务器）有无对应的DNS缓存</li>
+                <li>若本地DNS没有DNS缓存，则向根服务器查询，进行递归查找</li>
+                <li>递归查找从顶级域名开始（如.com）,一步步缩小范围，最终客户端取得ip地址</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4 class="a">tcp连接与http连接</h4>
+            <ul class="a">
+                <li>http协议建立在tcp协议之上，http请求前，需先进行tcp连接，形成客户端到服务器的稳定的通道。俗称TCP的三次握手</li>
+                <li>tcp连接完成后，http请求开始，请求有多种方式，常见的有get，post等</li>
+                <li>http请求包含请求头，也可能包含请求体两部分，请求头中包含我们希望对请求文件的操作的信息，请求体中包含传递给后台的参数。</li>
+                <li>服务器收到http请求后，后台开始工作，如负载平衡，跨域等，这里就是后端的工作了。</li>
+                <li>文件处理完毕，生成响应数据包，响应也包含两部分，响应头和相应体，响应体就是我们所请求的文件</li>
+                <li>经过网络传输，文件被下载到本地客户端，客户端开始加载</li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h4 class="a">html渲染</h4>
+                <ul class="a">
+                    <li>客户端浏览器加载了html文件后，由上到下解析html为DOM树（DOM Tree）</li>
+                    <li>遇到css文件，css中的url发起http请求。</li>
+                    <li>这是第二次http请求，由于http1.1协议增加了Connection: keep-alive声明，故tcp连接不会关闭，可以复用。</li>
+                    <li>http连接是无状态连接，客户端与服务器端需要重新发起请求--响应</li>
+                    <li>在请求css的过程中，解析器继续解析html，然后到了script标签。</li>
+                    <li>由于script可能会改变DOM结构，故解析器停止生成DOM树，解析器被js阻塞，等待js文件发起http请求，然后加载。这是第三次http请求。js执行完成后解析器继续解析。</li>
+                    <li>由于css文件可能会影响js文件的执行结果，因此需等css文件加载完成后再执行。</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>浏览器收到css文件后，开始解析css文件为CSSOM树（CSS Rule Tree）。</li>
+                    <li>CSSOM树生成后，DOM Tree与CSS Rule Tree结合生成渲染树（Render Tree），</li>
+                    <li>Render Tree会被css文件阻塞，渲染树生成后，先布局,绘制渲染树中节点的属性(位置，宽度，大小等),然后渲染，页面就会呈现信息。</li>
+                    <li>继续边解析边渲染，遇到了另一个js文件，js文件执行后改变了DOM树，渲染树从被改变的dom开始再次渲染</li>
+                    <li>继续向下渲染，碰到一个img标签，浏览器发起http请求，不会等待img加载完成，继续向下渲染，之后再重新渲染此部分。</li>
+                    <li>DOM树遇到html结束标签，停止解析，进而渲染结束</li>
+                </ul>
+            </section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>有那些网站优化的方法？</h4>
+            <ul class="a">
+                <li>减少DNS查询:将服务器域名的ip信息加入本地host文件</li>
+                <li>减少http请求数量，对于图片使用雪碧图,对于html文件和css文件，js文件分别进行合并操作。</li>
+                <li>减少下载时间：压缩图片，使用压缩应用压缩文档中的空格，删除文件多余的语句和注释，创造自己的js精简库和精简框架,使用本地浏览器缓存。</li>
+                <li>提前渲染开始时间：将css链接放在html头部</li>
+                <li>减轻解析器的阻塞：将js链接放在body尾部</li>
+            </ul>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://www.jianshu.com/p/5b069ae8c4f2">当我们输入URI，按下回车发生了什么？</a></p>
+            <p class="a">参考二：<a href="http://blog.csdn.net/android1514/article/details/51281494">
+                当你在浏览器地址栏输入一个URL后回车，将会发生的事情？
+            </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+         <section>
+             <h4>还有什么网站性能优化的方法？</h4>
+             <p class="a">使用CDN外链，CDN会尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。</p>
+             <p class="a">使用懒加载，能减轻首页压力</p>
+         </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

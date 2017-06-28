@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>【CSS-task3】px、em、rem、%、vw、vh、vm这些单位有什么区别？</h2>
-            <h3>小课堂【武汉第77期】</h3>
-            <p>分享人：李玺</p>
+            <h3>小课堂【郑州第153期】</h3>
+            <p>分享人：王姝丽</p>
         </section>
         <section>
             <p>目录</p>
@@ -57,55 +57,56 @@
         </section>
         <section>
             <p style="text-align: left">1、px</p>
-            <p style="text-align: left">px就是pixel的缩写，意为像素。px就是一张图片最小的一个点，一张位图就是千千万万的这样的点构成的，比如常常听到的电脑像素是1024x768的，表示的是水平方向是1024个像素点，垂直方向是768个像素点。</p>
+            <p style="font-size: 24px;">px就是pixel的缩写啦，pixel即像素，它不是自然界的长度单位。px是就是一张图片中最小的点，一张位图就是由这些点构成的。1024px就是1024像素，最简单的你可以在windows桌面属性里的“设置”看到，如果是1024×768，也就是说水平方向上有1024个点，垂直方向上有768个点。谁能说出一个“点”有多长多大么？可以画的很小，也可以很大。如果点很小，那画面就清晰，我们称它为“分辨率高”，反之，就是“分辨率低”。所以，像素的大小是会“变”的，也称为“相对长度”。</p>
             <p style="text-align: left">兼容性：</p>
             <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/1.png">
         </section>
         <section>
             <p style="text-align: left">2、em</p>
-            <p style="text-align: left">参考物是父元素的font-size，具有继承的特点。如果自身定义了font-size按自身来计算（浏览器默认字体是16px），整个页面内1em不是一个固定的值。</p>
+            <p style="font-size:24px;">参考物是父元素的font-size，具有继承的特点。如果自身定义了font-size按自身来计算（浏览器默认字体是16px），整个页面内1em不是一个固定的值。</p>
             <p style="text-align: left">兼容性：</p>
             <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/2.png">
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo1.html" target="_blank">demo1</a></p>
+            <p><a href="dome.html" target="_blank">demo</a></p>
+            <p style="font-size:24px;">字体大小同样都是1.5em，但是效果却截然不同，按照W3C提供的公式，我们可以计算下：
+                class为id1的div字体大小继承自父元素body：16px*1.5em = 24px
+                  class为id2的div字体大小继承自父元素id1：24px*1.5em = 36px
+                   class为id3的div字体大小继承自父元素id2：36px*1.5em = 54px</p>
         </section>
         <section>
             <p style="text-align: left">3、rem</p>
-            <p style="text-align: left">css3新单位，相对于根元素html（网页）的font-size，不会像em那样，依赖于父元素的字体大小，而造成混乱。</p>
-            <p style="text-align: left">兼容性：</p>
+            <p style="font-size:2rem;">rem：W3C官网是这样描述的“fontsize of the root element”，root element就是指的根元素html
+            前面说到的em是相对于其父元素来设置字体大小的，这样就会存在一个问题，进行任何元素设置，都必须知道父元素的字体大小，在多次使用中往往会给我们带来无法预知的错误风险。而rem是相对于根元素html不会像em那样，依赖于父元素的字体大小，而造成混乱。</p>
+            <p style="font-size:24px;">兼容性：</p>
             <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/3.png">
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo2.html" target="_blank">demo2</a></p>
+            <p><a href="dome1.html" target="_blank">demo</a></p>
         </section>
         <section>
             <p style="text-align: left">4、%</p>
-            <p style="text-align: left">一般宽泛的讲是相对于父元素，但是并不是十分准确。</p>
-            <p style="text-align: left">1、对于普通定位元素就是我们理解的父元素</p>
-            <p style="text-align: left">2、对于position: absolute;的元素是相对于已定位的父元素</p>
-            <p style="text-align: left">3、对于position: fixed;的元素是相对于 ViewPort（可视窗口）</p>
+            <p style="text-align: left">% 百分比，相对长度单位，相对于父元素的百分比值</p>
             <p style="text-align: left">兼容性：</p>
             <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/1.png">
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo3.html" target="_blank">demo3</a></p>
+            <p><a href="dome2.html" target="_blank">demo</a></p>
         </section>
         <section>
-            <p style="text-align: left">3、vw</p>
-            <p style="text-align: left">css3新单位，viewpoint width的缩写，视窗宽度，1vw等于视窗宽度的1%。</p>
-            <p style="text-align: left">举个例子：浏览器宽度1200px, 1 vw = 1200px/100 = 12 px。</p>
+        <p style="font-size:24px;">对于px、em和百分比都能设置元素的尺寸和字体大小，但是它们各自有自己所不同的应用场景。不合理的运用，则会导致页面的混乱、难易维护和扩展。对于它们的使用，有如下几点被大家所认同的最佳实践：
+        </p>
+        <p >1、尽量使用相对尺寸单位</p>
+        <P style="font-size:24px;">使用相对尺寸单位计量，则在调整页面的布局的时候，不需要遍历所有的内部DOM结构，重新设置内部子元素的尺寸大小，同时它也能更好的适应与多中分辨率和屏幕终端。</P>
+        <p style="font-size:24px;">对于相对尺寸单位的设置：em和%因为它们相对的参考物不同，所以它们也有不同的使用场景。如果希望随着当前元素的字体尺寸而改变尺寸，则使用em最佳，如：行高、字体大小。相反，如果是随着父容器或者是整体页面布局而改变尺寸，则使用%更好，如元素的高度和宽度设置。</p>
+        <P>2、字体尺寸尽量使用em、rem</P>
+        <p style="font-size:24px;">和尽量使用相对尺寸单位一样，为了字体大小的可维护性和伸缩性，W3C更推荐使用em作为字体尺寸单位。需要注意的是，如果存在3层以及3层以上的字体相对尺寸的设置，则对于实际字体大小的计算，就会变得相对麻烦。这个时候，在满足浏览器兼容性的情况下，可以考虑使用CSS3的新特性rem：根据固定根元素的字体大小来设置相对尺寸大小，这也是近几年移动APP所兴起的使用方式</p>
+         </section>
+        <section>
+            <p style="text-align: left">5、vh和vw</p>
+            <p style="font-size:24px;"> vh和vw相对于视口的高度和宽度，而不是父元素的（CSS百分比是相对于包含它的最近的父元素的高度和宽度）
+            1vh 等于1/100的视口高度，1vw 等于1/100的视口宽度
+              比如：浏览器高度900px，宽度为750px, 1 vh = 900px/100 = 9 px，1vw = 750px/100 = 7.5 px。
+            很容易实现与同屏幕等高的框：
+            设置一个和屏幕同宽的标题，那标题的字体大小就会自动根据浏览器的宽度进行缩放，以达到字体和viewport大小同步的效果。</p>
+
             <p style="text-align: left">兼容性：</p>
             <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/4.png">
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
-        </section>
-        <section>
-            <p style="text-align: left">4、vh</p>
-            <p style="text-align: left">css3新单位，viewpoint height的缩写，视窗高度，1vh等于视窗高度的1%。</p>
-            <p style="text-align: left">举个例子：浏览器高度900px, 1 vh = 900px/100 = 9 px。</p>
-            <p style="text-align: left">兼容性：</p>
-            <img src="../img/CSS-03-px,em,rem,%25,vw,vh,vm/4.png">
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
-        </section>
-        <section>
-            <p style="text-align: left">4、vm</p>
-            <p style="text-align: left">css3新单位，相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vm</p>
-            <p style="text-align: left">举个例子：浏览器高度900px，宽度1200px，取最小的浏览器高度， 1 vm = 900px/100 = 9 px。</p>
-            <p style="text-align: left">由于现在vm的兼容性较差，这里就不做展示了。</p>
+            <p><a href="dome3.html" target="_blank">demo</a></p>
         </section>
         <section>
             <h3>3.常见问题</h3>
@@ -146,47 +147,31 @@
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo1.html" target="_blank">demo1</a></p>
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo2.html" target="_blank">demo2</a></p>
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo3.html" target="_blank">demo3</a></p>
-            <p><a href="../demo/CSS-03-px,em,rem,%25,vw,vh,vm/demo4.html" target="_blank">demo4</a></p>
-        </section>
-        <section>
             <h3>6.扩展思考</h3>
         </section>
         <section>
             <p class="fragment">css还有哪些长度单位？</p>
-
-            <p class="fragment">in:寸</p>
-
-
-            <p class="fragment"> cm:厘米</p>
-
-            <p class="fragment">mm:毫米</p>
-
-            <p class="fragment">t:point，大约1/72寸</p>
-
-            <p class="fragment"> pc:pica，大约6pt，1/6寸</p>
-            <p class="fragment">1in = 2.54cm = 25.4 mm = 72pt = 6pc = 96px</p>
+            <img src="img/em.png" class="fragment">
         </section>
         <section>
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <p>参考一：<a href="http://www.xidayun.com/index.php/2016/06/27/rem-vh-vw-vmin-vmax-ex-ch/" target="_blank">你知道这7个css单位么</a></p>
-            <p>参考二：<a href="http://www.zhangxinxu.com/study/201103/css-length-value-test-demo.html" target="_blank">CSS 长度单位值测试实例页面</a></p>
+            <p>参考一：<a href="http://dapengtalk.blog.51cto.com/11549574/1861496">px,em,rem,vh,vw,vmin,vmax的区别</a></p>
+            <p>参考二：<a href="http://blog.sina.com.cn/s/blog_4c1e6a010102v6jp.html" target="_blank">幻梦的博客</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <p>css3的calc()</p>
+            <p>时间、频率、角度的单位</p>
+             <img src="img/deg.png" class="fragment">
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY :李玺</small>
+                <small>BY :李玺|王姝丽</small>
             </p>
         </section>
 

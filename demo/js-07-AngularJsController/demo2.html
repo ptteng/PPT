@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo2</title>
+
+<style type="text/css">
+	div.spicy div {
+    padding: 10px;
+    border: solid 2px blue;
+}
+</style>
+</head>
+<body ng-app="scopeInheritance">
+    <div class="spicy">
+	    <div ng-controller="MainController">
+	        <p>Good {{timeOfDay}}, {{name}}!</p>
+
+	        <div ng-controller="ChildController">
+	            <p>Good {{timeOfDay}}, {{name}}!</p>
+
+	            <div ng-controller="GrandChildController">
+	                <p>Good {{timeOfDay}}, {{name}}!</p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<p>
+		这里创建了三个ng-controller 指令，这样创建了三个scope（作用域对象）：<br/>
+		MainController scope，包含了timeOfDay和name两个属性<br/>
+		ChildController scope，继承了timeOfDay但覆盖了name属性<br/>
+		GrandChildController scope，覆盖了timeOfDay和name两个属性<br/>
+	</p>
+	
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+	var myApp = angular.module('scopeInheritance', []);
+	myApp.controller('MainController', ['$scope', function($scope) {
+	    $scope.timeOfDay = 'morning';
+	    $scope.name = '大娃';
+	}]);
+	myApp.controller('ChildController', ['$scope', function($scope) {
+	    $scope.name = '二娃';
+	}]);
+	myApp.controller('GrandChildController', ['$scope', function($scope) {
+	    $scope.timeOfDay = 'evening';
+	    $scope.name = '三娃';
+	}]);
+</script>
+</body>
+</html>

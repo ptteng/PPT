@@ -36,9 +36,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <p style="font-size: 50px">Angular js 常用指令ng-if、ng-class、ng-option、ng-value、ng-click是如何使用的？</p>
-            <h4>小课堂【成都第127期】</h4>
-            <p>分享人：王奎智&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;李兴</p>
+            <p style="font-size: 50px">ng-option、ng-select是如何使用的？</p>
+            <h4></h4>
+            <p>分享人：王立志</p>
         </section>
         <section>
             <p>目录</p>
@@ -56,17 +56,10 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
-                <p>指令是一个Dom元素上的标签(和元素上的属性, CSS 类样式一样，属于这个Dom元素)，
-                    它告诉AngualrJS的HTML 编译器，去附加一个行为到这个Dom元素上去，
-                    这个行为可以改变这个Dom元素，或者这个Dom元素的子元素。
-                </p>
-                <p>AngularJS 通过被称为 指令 的新属性来扩展 HTML。<br>
-                    AngularJS 通过内置的指令来为应用添加功能。
-                    AngularJS 内置指令是扩展的 HTML 属性，带有前缀 ng-。
-                </p>
+                ng-options的值可以是一个内涵表达式（comprehension expression），其实这只是一种有趣的说法，简单来
+                说就是它可以接收一个数组或者对象，并对她们进行循环，将内部的内容提供给select标签内部的选项。
+                ng-select 它可以帮助你通过数据模型来创建select元素.它很好的支持了select标签的语法,
             </section>
-
-
         </section>
         
         
@@ -75,56 +68,24 @@
                 <h3>2.知识剖析</h3>
             </section>
             <section>
-                ng-if、ng-class、ng-option、ng-value、ng-click是如何使用的？
-            </section>
-            <section>
-                ng-if：
-                <p style="text-align: left">
-                ng-if 指令用于在表达式为 false 时移除 HTML 元素。<br>
-                如果 ng-if 语句执行的结果为 true，会添加HTML元素，并显示。<br>
-                ng-if 指令不同于 ng-hide/ng-show， ng-hide/ng-show是隐藏元素,设置元素的 display 为 none。而 ng-if 是从 DOM 中移除元素。<br>
-                ng-hide 指令在表达式为 true 时隐藏指定的 HTML 元素。<br>
-                ng-show 指令在表达式为 true 时显示指定的 HTML 元素。<br>
-                </p>
-
-            </section>
-            <section>
-                ng-class：
-                <p style="text-align: left">
-                    ng-class 指令用于给 HTML 元素动态绑定一个或多个 CSS 类。<br>
-                    ng-class 指令的值可以是字符串，对象，或一个数组。<br>
-                    如果是字符串，多个类名使用空格分隔。<br>
-                    如果是对象，需要使用 key-value 对，key 为你想要添加的类名，value 是一个布尔值。只有在 value 为 true 时类才会被添加。<br>
-                    如果是数组，可以由字符串或对象组合组成，数组的元素可以是字符串或对象。
-                </p>
-
+                ng-option、ng-select如何使用的？
             </section>
             <section>
                 ng-option：
                 <p style="text-align: left">
                     ng-options 指令用于使用 &lt;options&gt; 填充 &lt;select&gt; 元素的选项。<br>
-                    ng-options属性可以在表达式中使用数组或对象来自动生成一个select中的option列表。ng-options与ng-repeat很相似，很多时候可以用ng-repeat来代替ng-options。但是ng-options提供了一些好处，例如减少内存提高速度，以及提供选择框的选项来让用户选择。
+                    ng-options属性可以在表达式中使用数组或对象来自动生成一个select中的option列表。ng-options与
+                    ng-repeat很相似，很多时候可以用ng-repeat来代替ng-options。但是ng-options提供了一些好处，例如减少内存提高速度，以及提供选择框的选项来让用户选择。
                 </p>
 
             </section>
-            <section>
-                ng-value：
-                <p style="text-align: left">
-                    ng-value 指令用于设置 input 或 select 元素的 value 属性。<br>
-                    和value相比，它的值可以是表达式，所以相比之下可以实现更多需求。<br>
-                    比如当需要使用ng-repeat来动态生成input[]的时候，ngValue是很有用处的。
-                </p>
 
-            </section>
             <section>
-                ng-click：
-                <p style="text-align: left">
-                    ng-click 指令告诉了 AngularJS HTML 元素被点击后需要执行的操作。<br>
-                    如果是使用ng-click来实现函数的执行的话，还可以进行传参。<br>
-                    一个ng-click可以触发多个操作，<br>
-                    &lt;button ng-click="function1();function2()"&gt;&lt;/button&gt;<br>
-                    先执行function1后执行function2
-
+                ng-select：
+                <p style="text-align: left">ng-select用来将数据同HTML的select标签进行绑定。这个指令可以
+                    和ng-model以及ng-options指令一起使用，构建精细且表现良好的动态表单。
+                    ng-select 它可以帮助你通过数据模型来创建select元素.它很好的支持了select标签的语法,
+                    而ng-options用在selectd上面
                 </p>
 
             </section>
@@ -136,8 +97,7 @@
             </section>
             
             <section>
-                <p>1、ng-option表达式的写法</p>
-                <p>2、ng-class-odd和ng-class-even如何使用</p>
+                <p>ng-option表达式的写法</p>
             </section>
         </section>
         <section>
@@ -146,15 +106,7 @@
             </section>
             <section>
                 <p>
-                    1、ng-option表达式的写法
-                </p>
-                <p>
-                    ng-options的值可以是一个内涵表达式（comprehension expression），
-                    其实这只是一种有趣的说法，简单来说就是它可以接收一个数组或者对象，
-                    并对它们进行循环，将内部的内容提供给select标签内部的选项。它可以是一下两种形式。
-                </p>
-            </section>
-            <section>
+                    1、ng-option表达式的写法</p>
                 <p style="text-align: left;font-size: 30px">
                     1、数组作为数据源<br>
                     用数组中的值做标签。(label for value in array)<br>
@@ -166,51 +118,35 @@
                     用对象的键-值作为选中的标签。(select as label for (key , value) in object)<br>
                     用对象的键-值作为标签组。(label group by group for (key, value) in object)<br>
                     用对象的键-值作为选中的标签组。(select as label group by group for (key, value) in ob)<br>
-
                 </p>
-
             </section>
-            <section>
+              <section>
                 <p>
-                    ng-class-odd和ng-class-even如何使用
+                    ng-options的值可以是一个内涵表达式（comprehension expression），
+                    其实这只是一种有趣的说法，简单来说就是它可以接收一个数组或者对象，
+                    并对它们进行循环，将内部的内容提供给select标签内部的选项。它可以是一下两种形式。
+                    ng-options属性可用于使用通过评估理解表达式获得的数组或对象来动态生成option 元素的select元素。
                 </p>
-                <p>
-                    ng-class-odd 指令用于为 HTML 元素动态的绑定一个或多个 CSS 类，但只作用于奇数行。<br>
-                    ng-class-even 指令用于为 HTML 元素动态的绑定一个或多个 CSS 类，但只作用于偶数行。<br>
-                    需要与 ng-repeat 指令搭配使用。建议用在表格的样式渲染中，但是所有HTML元素都是支持的。
-                </p>
-
             </section>
+
+
+
         </section>
         <section>
             <section>
                 <h3>5.编码实战</h3>
             </section>
             <section>
-                <a href="../demo/js-08-AngularJs common directive/js-08-AngularJs common directive.html">demo</a>
+                <a href="../demo/js-08-AngularJs common directive/js-08-AngularJscbaa.html">demo</a>
             </section>
 
         </section>
         <section>
             <section>
                 <h3>6.扩展思考</h3>
+                <p></p>
             </section>
-            <section>
-                <p>ng-if的作用域问题</p>
-            </section>
-            <section>
-                <p>ng-if指令会创建一个子级作用域，因此，如果在ng-if指令中添加了元素，
-                    并向元素属性增加 ng-model指令，那么ng-model指令对应的作用域属性
-                    子级作用域，而并非控制器注入的$scope作用域对象，这点在进行双向数
-                    据绑定时，需要引起注意。
-                </p>
-            </section>
-            <section>
-                因此，解决ng-if中ng-model值无效的问题，主要方法就是在绑定值时添加$parent标识，
-                或者用ng-show指令代替ng-if指令，这两种方法都可以达到同样的页面效果。<br>
-                写法如下：<br>
-                ng-model="$parent.industry"
-            </section>
+
         </section>
         <section>
             <section>
@@ -247,9 +183,6 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p>
-                <small>BY : 朱芳山丨王奎智 | 李兴</small>
-            </p>
         </section>
     
     </div>
