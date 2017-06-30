@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>什么是rest风格?get 与 post的区别?application json 与form表单的区别</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>开源框架调研、对比、使用的基本流程是什么？</h2>
+            <h3>小课堂【武汉第152期】</h3>
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+            <p class="left" style="text-indent: 2em">
+                近年来随着Web应用交互复杂度的提升，前端开发也迎来了一个高速发展的时期。除了一些老牌框架纷纷推出改动较大的升级之外，还涌现出一批新生代的开源库和框架，推动着Web应用开发理念向越来越强调前端架构的方向发展。当下的前端技术可以说是处在一个新旧交替的过程之中，同时存在着许多不同的观念和实践。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+
+            <section>
+
+                <p>前端开发中常见的一些问题例如封装原生API和常用任务、基础架构、基础架构、代码逻辑分层以及自定义事件系统和模块管理</p>
+                <p>众所周知，在前端开发中对于库（Library）和框架（Framework）的区分向来是有些模糊的。像jQuery、YUI这些项目的官方描述都是 “库”，却经常在各种地方被人们称作“框架”。近两年出现的一些MVC项目号称框架，实际上却更像库。此外，在同样号称框架的各个项目之间所覆盖的功能也 都有所不同。</p>
+            </section>
+            <section>
+                <p>传统软件工程对于库和框架的区分主要着眼于对应用运行流程的控制权。框架提供架构，控制运行流程，让开发者在合适的地方书写针对具体问题的代 码；而库则附属于架构，不控制运行流程，只提供可调用的函数。但由于上述Web前端开发的特殊性，这样的定义显得有些过于严格：真正称得上框架的项目很 少，却又经常需要和作为库的项目进行比较。因此，在比较JavaScript开源项目时，是框架还是库并不特别重要，首先应该分析该项目覆盖了前端开发中 的哪些问题</p>
+            </section>
+            <section>
+                <p>基础架构:这一部分通常是各类框架中比较底层的功能，决定了采用此框架的代码是如何被组织到一起的。目标是提高代码的可维护性、可协作性和可测试性。</p>
+            </section>
+            <section>
+                <p style="float: left">
+                    代码逻辑分层：把对视觉界面、交互逻辑和数据的处理清晰地分开。就这一点而言，大部分框架借鉴了经典的MVC模式，但传统的MVC在前端并不适合直接套 用，因此各个框架对此的处理都略有不同，有些采用了MVP（Model-View-Presenter）或是MVVM（Model-View- ViewModel）模式。著名前端布道师Addy Osmani有详细的分析，本文受篇幅所限不再赘述。</p>
+            </section>
+            <section style="float: left">
+          <p>自定义事件系统：为了提高模块的可复用性、整个系统的容错性和灵活性，各个模块之间需要尽量解耦，使得相互之间尽可能减少依赖。要实现这样的解耦，一个自定义的事件机制 (通常借鉴Pub-Sub、Observer、Mediator等设计模式) 是很好的手段。</p>
+            </section>
+            <section style="float: left">
+              <p>模块管理：对大型的JavaScript项目来说，模块化开发是必需的。有些框架只提供基本的模块注册机制以防止全局变量污染和冲突，而另一些则提供包括 模块依赖解析、文件加载、压缩打包的功能。目前JavaScript模块管理有两个互相竞争的标准，一个是AMD（Asynchronous Module Definition），采用的框架有Dojo，单独的模块管理库有RequireJS；另一个是CommonJS的模块标准，采用者有模块管理库 SeaJS，以及基于SeaJS的开放型框架Arale。</p>
+            </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>选取前端框架的流程</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">状态：
+                在业务界面中我们经常需要数据和界面的交互，根据某些数据去生成界面，通过界面上的操作去改变数据。这其中有两种，一种就是数据到界面，一种是界面到数据，使用原生或者jquery实现这种操作要大量代码，而且实时更新也很麻烦，所以主流框架都在交互上进行了封装处理。
+                MVVM流派的angular、vue，通过类似模版的语法，通过内部转换，构建数据和界面状态的绑定关系，甚至双向绑定，监听界面变化，当界面发生改变，按照规则去更新响应的数据，然后，再根据配置好的规则，从数据更新界面状态。
+                react则通过函数式编程实现，推崇的是单向数据流：给定原始界面或数据，施加一个变化，就能推导出另一个状态，有点像状态机。</p>
+        </section>
+            <section>
+                <p>组织：
+
+                    整个业务代码的模块关系、业务模型。模块关系共识就是组件化，整个应用形成组件树，每个组件树提供对外接口，用来数据交互，然后内部只关注自己的实现，需要考虑组件的定义、约束、管理、测试等很是复杂；react和vue的组件化成都要优于angular。业务模型指的是所处领域中的业务数据、规则、流程的集合。即使抛开所有的展示层，这一层也是应当要能够运作起来的。react有redux来辅助管理，angular2引入了RxJS，vue有vuex。如果是学习能力强的人，发现面向函数编程模型的时候会非常喜欢，但是对于大型项目，并非好事。用面向对象、面向过程的那些方式，虽然笨重，但是门槛低，符合大多数人的理解和思维模式，而且经验丰富。</p>
+            </section>
+            <section>
+                <p>
+                    效率：
+
+                    分为开发效率和运行效率。组件化是提升开发效率的一种手段，具体到单个组件的实现上，mvvm系的代码量会少一些、开发效率稍高一些。其中，angular因为实现的特殊性，有作用域继承之类的双刃剑黑魔法，开发效率的不稳定因素要高不少，深刻理解的人用起来效率很高，不理解的用了到处是坑。angular是三者中运行效率最低的那个，主要在于数据变更方式是脏检查，当监听数量提高时，极大影响性能。在针对现实情况的测试中，vue是效率最高的那个（使用和react共同约定的测试基准），在大数据的情况下，react效率最高。
+                </p>
+            </section>
+            <section>
+                <p>学习曲线：
+
+                    angular1学习曲线陡峭，大量新的概念、晦涩的说明、复杂的指令；angular2即使不用typescript，它使用es2015的js，18个npm依赖包、4个文件、超过三千多字的介绍来实现一个hello world！；react学习曲线陡峭，需要了解jsx和es2015，需要学习构建系统；vue需要你熟悉html、符合es5的js。</p>
+            </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            主要是概念上的东西，所以没有代码。
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何才能更好地学习框架，更快的提高自己</p>
+</section>
+            <section>
+            <p>先把javascript本身学到精通，这样风险很小。有了坚实的基础可以迅速掌握简单的框架。单独使用这些框架来写个小的应用，来了解这些框架解决什么问题，喜欢哪一种、什么样风格的API是你更有效率，从而可以尝试大型框架。这样比尝试一个大型框架几个月发现不适合自己要好的多。<br>
+                另一方面我们应该了解es最新版本的语法，基本的node.js、npm如何工作，框架系统、打包工具这些与框架无关但是可以应用在任何框架中的技术。核心思想是不要把鸡蛋放在同一个篮子，选择js框架不是选择党派战队，不必永远坚持一个。无论别人说什么不要在没有尝试的情况下，为自己做出决定。如果只使用一个框架而忽略其他的，几乎肯定是错的。</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://www.jianshu.com/p/9786c8678f87" target="_blank">前端框架的选择</a></p>
+            <p class="left">参考二：<a href="http://www.csdn.net/article/2013-04-15/2814893">开源前端框架纵横谈</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+
+            <p>学习何种框架更好？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王力</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

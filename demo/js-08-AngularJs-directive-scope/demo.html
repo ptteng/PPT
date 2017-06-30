@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+</head>
+<body>
+    <div ng-app="MyApp">
+        <div class="container" ng-controller="MyController">
+            <!--<h3>Demo1 scope=false</h3>-->
+            <h3>Demo1 scope=true</h3>
+            <div class="my-info">我的名字是：<span ng-bind="name"></span>
+                <!-- 使用"ng-bind"防止网络状态不佳时出现没有被赋值表达式   -->
+                <br/>我的年龄是：<span ng-bind="age"></span>
+            </div>
+            <!-- 使用属性声明指令 -->
+            <div class="my-directive" my-directive></div>
+
+            <!--<h3>Demo2 scope=false 是共享作用域</h3>-->
+            <h3>Demo2 scope=true 是独立作用域</h3>
+            <my-hello></my-hello><br/>
+            <my-hello></my-hello><br/>
+        </div>
+    </div>
+</body>
+<script>
+    angular.module("MyApp", [])
+        .controller("MyController", function ($scope) {
+            //J1 这里我们在作用域里初始化两个变量
+            $scope.name = "dreamapple";
+            $scope.age = 20;
+            //J2 创建一个方法，修改我们创建的对象的年龄
+            $scope.changeAge = function () {
+                $scope.age = 22;
+            }
+        })
+        //J3 创建我们的指令，指令名字为"myDirective"
+
+        .directive("myDirective", function () {
+            return {
+                //J4   指令的声明模式为 "AE" 属性和元素
+                restrict: "AE",
+                //J5   指令继承父作用域的属性和方法
+//                scope: false,
+                scope: true,
+                replace: true,
+                template: "<div class='my-directive'>" +
+                "<h3>下面部分是我们创建的指令生成的</h3>" +
+                "我的名字是：<span ng-bind='name'></span><br/>" +
+                "我的年龄是：<span ng-bind='age'></span>" +
+                    "<br>"+
+                "<input type='text' ng-model='name'>"+
+                "</div>"
+            }
+        })
+        .directive("myHello", function() {
+            return {
+                restrict: "AE",
+                template: '<div><input type="text" ng-model="test"/>{{test}}</div>',
+                replace: true,
+                // 注释下行观察变化，每个directive保持各自的作用域
+//                scope: false
+                scope: true
+            };
+        })
+</script>
+</html>

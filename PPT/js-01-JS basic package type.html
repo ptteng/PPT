@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Javascript-task10】</h2>
+            <h3>小课堂【郑州第150期】</h3>
+            <h4>JavaScript中的基本包装类型？</h4>
+            <p>分享人：高雪峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>我们目前对Javascript多少都有一些了解和使用。其中最基础的，就是js的数据类型，分为两大块，一个是基本数据类型，包括：undefined、null、boolean、number、string等；一个是引用数据类型，包括object、array、Date、RegExp等。在引用类型中，还有三个特殊的引用类型，和基本数据类型相似，我们接下来来认识一下：boolean、number、string。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1 特殊的引用类型之string
+            </section>
+            <section>
+            	<pre>
+            		<code>
+            			var a = "Hello World!";
+            			var b = a.substring(3);
+            			console.log(b);
+            		</code>
+            	</pre>
+                <p>如同上边代码所示，字符串是一个基本数据值。但是，我们知道基本数据类型不是对象，在逻辑上来讲，它不应该有方法，但是上边的substring()是如何实现的呢？详细剖析的话，我们可以把它分成一下这种步骤：</p>
+                <pre>
+            		<code>
+            			var a = new String("Hello World!");//创建String类型的一个实例；
+            			var b = a.substring(3); //在实例上调用指定的方法；
+            			a = null; //销毁这个实例；
+            			console.log(b);
+            		</code>
+            	</pre>
+            </section>
+            <section>
+                <p>通过上一页的代码细节的展示，我们可以看出，基本类型的字符串就变成了和对象一样。这就引入了基本包装类型的概念：每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。</p>  
+                <p>作为特殊的引用类型，其与引用类型的的主要区别在于对象的生存期上。使用new或者其他简写的方法创建引用类型的实例，在执行六离开当前作用域之前都一直保存在内存中。自动创建的基本包装类型的对象，则只存在于一行代码执行的瞬间，然后立即被销毁了。这就意味着，不能在运行时为基本类型值添加属性和方法。</p>
+            </section>
+            <section>
+            	<pre>
+            		<code>
+            			var a = "something";
+            			a.color = "red";
+            			console.logo(a.color); //undefined
+            		</code>
+            	</pre>
+            </section>
+            <section>
+            	<pre>
+            		<code>
+            		    //字符方法
+            			var svalue = "Hello World!";
+            			console.log(svalue.length);
+            			console.log(svalue.charAt(5));
+            			console.log(svalue.charCodeAt(5)); //字符编码
+            			console.log(svalue[3]); //支持IE8+ 及所有其他浏览器
+            		</code>
+            	</pre>
+            	<p>String类型在ECMAScript中提供了一些方法，用于对字符串进行解析和操作。</p>
+            </section>
+            <section>
+                <p>字符串的方法：</p>
+                <p>concat()用于对一个或者多个字符串进行拼接显示，生成新的字符串，不会影响原有字符串。</p>
+                <pre>
+                	<code>
+	        		    //字符串方法
+	        			var svalue = "Hello";
+	        			var result = svalue.concat("Da Wa");
+	        			console.log(result);
+	        			console.log(svalue);
+	        			var b = svalue + 'Er Wa';
+	        		</code>
+                </pre>
+            </section>
+            <section>
+            	<p>还有三种创建新字符串的方法：slice()、substr()、substring()。</p>
+            	<pre>
+            		<code>
+            			var a = "tianqingle";
+            			console.log(a.slice(3));
+            			console.log(a.substring(3));
+            			console.log(a.substr(3));
+            			console.log(a.slice(3, 7));
+            			console.log(a.substring(3, 7));
+            			console.log(a.substr(3, 7));
+            		</code>
+            	</pre>
+            </section>
+            <section>
+                2.4 特殊的引用类型之Boolean
+            </section>
+            <section>
+            	<pre>
+            		<code>
+            			var aobj = new Boolean(false);
+						var result = aobj && true;
+						console.log(result);
+        				
+        				var bvalue = false;
+        				result = bvalue && true;
+						console.log(result);
+            		</code>
+            	</pre>
+            	<P>	在布尔值运算中，fals&&true返回false，一假全假；布尔表达式中所有对象会返回true。</P>
+            </section>
+            <section>
+            	<pre>
+            		<code>
+            			console.log(typeof aobj);
+            			console.log(typeof bvalue);
+            			console.log(aobj instanceof Boolean);
+            			console.log(bvalue instanceof Boolean);
+            		</code>
+            	</pre>
+            	<p>由于以上的原因，建议轻易不要使用Boolean对象。</p>
+            </section>
+            <section>
+                2.3 特殊的引用类型之Number
+            </section>
+            <section>
+                <p>Number类型是与数字值对应的引用类型。</p>
+                <pre>
+            		<code>
+            			var num = new Number(100);
+            			console.log(num.toString());
+            			console.log(num.toLocaleString());
+            			console.log(num.valueOf());
+            			console.log(num.toFixed(3));
+            			console.log(num.toExponential(3));
+            			console.log(num.toPrecision(2));//支持1到21位小数
+            		</code>
+            	</pre>
+            </section>
+            <section>
+                <p>与Boolean类型一样，同样不建议显式实例化Number类型，原因同Boolean类型一样，在使用valueOf()和instanceof()方法时会出现容易让人误解的结果，从而造成混乱。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何分割一个很长的字符串？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>通过字符串模式匹配的方法。</p>
+            <pre>
+                <code>
+                    var s = "天上的云，地上的水，水清了，就可以低头看见天上的云！"；
+                    var b = s.split(',');
+                    var c = s.split(',',2);
+                    console.log(b);
+                    console.log(c);
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>参看上边简单的demo演示，暂无更多demo！</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题: 如何替换子字符串的内容？</p> 
+            <p>这里使用了replace()的方法：</p>
+            <pre>
+            	<code>
+            		var h = "cat, bat, sat, fat";
+            		console.log(h.replace("at", "ond"));
+            		console.log(h.replace(/at/g, "end"));
+            	</code>
+            </pre>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：JavaScript高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点：大家对于基本包装类型还有哪些认识，分享一下？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 高雪峰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

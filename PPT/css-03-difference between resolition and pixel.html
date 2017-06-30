@@ -32,9 +32,9 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
     <div class="slides">
         <section>
             <h2>【CSS-task03】</h2>
-            <h3>小课堂【郑州第50期】</h3>
+            <h3>小课堂【郑州第155期】</h3>
             <h4>手机分辨率和网页中的px是一回事吗？</h4>
-            <p>分享人：高雪峰</p>
+            <p>分享人：胡嘉杰</p>
         </section>
         <section>
             <p>目录</p>
@@ -51,7 +51,12 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>在我们从设计人员那里拿到网页模板时经常要按照模板的尺寸进行网页的代码编写，做出模板的样子来显示到不同的分辨率的设备上，我们通常使用像素这个单位作为我们进行网页制作的单位，那么像素和设备的分辨率之间是一样的概念吗？又或者有什么不同？</p>
+            <p>
+                在我们从设计人员那里拿到网页模板时经常要按照模板的尺寸进行网页的代码编写，<br>
+                做出模板的样子来显示到不同的分辨率的设备上，<br>
+                我们通常使用像素这个单位作为我们进行网页制作的单位，那么像素(px)和设备的分辨率之间是一样的概念吗？<br>
+                又或者有什么不同？
+            </p>
         </section>
         
         <section>
@@ -59,30 +64,62 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
         </section>
         <section>
             <section>
-                2.1像素的概念
+                2.1 分辨率的概念
             </section>
             <section>
-                <p>像素（pixel)，全称为图像元素，是表示显示器或图像显示大小的基本单位。</p>
-                <p>又可以分为物理像素和设备独立像素（dips:device-independent-pixels)来进行分析。</p>
+                <img src="../img/css-03-difference between resolition and pixel/sony-xzp.jpeg" alt="索尼xzp" width="1000px">
             </section>
             <section>
-                <p>1. 物理像素：指显示器上显示大小的基本单位。它是个物理部件，由红、蓝、绿三色次像素等部件组合而成。</p>
+                <img src="../img/css-03-difference between resolition and pixel/xz premium.jpeg" alt="索尼xzp" width="1000px">
+            </section>
+            <section>
+                <img src="../img/css-03-difference between resolition and pixel/mi6.jpg" alt="小米6" width="1000px">
+            </section>
+            <section>
+                <p>分辨率（Resolution)，是一个表示平面图像精细程度的概念，它通常是以横向和纵向点的数量来衡量的，<br>
+                    表示为水平点数*垂直点数的形式，例如1366px*768px。<br>
+                    分辨率的概念在具体的划分中，有分为显示分辨率、打印分辨率、扫描分辨率等概念。
+                </p>
+            </section>
+            <section>
+                <p>
+                    <b>显示分辨率：</b>
+                    显示器在显示图像时的分辨率，用点来衡量，在这里，点的概念其实就是物理像素。跟屏幕大小和显示部件的技术有关。<br>
+                    不同的设备，其图像基本单位是不同的，比如显示器的点距，可以认为是显示器的物理像素。
+                    现在的液晶显示器的点距一般在0.25mm到0.29mm之间。而打印机的墨点，
+                    也可以认为是打印机的物理像素，300DPI就是0.085mm，600DPI就是0.042mm。
+                </p>
+            </section>
+            <section>
                 <img src="../img/css-03-difference between resolition and pixel/1.jpg" alt="物理像素">
             </section>
             <section>
-                <p>2. 设备独立像素：可以认为是计算机坐标系中的一个点。这个点代表一个可以由程序使用并控制的虚拟像素。</p>
-                <img src="../img/css-03-difference between resolition and pixel/4.png" alt="设备独立像素">
+                <strong>
+                    注意：
+                </strong>
+                <p>
+                    我们通常所说的显示器分辨率，其实是指桌面设定的分辨率，而不是显示器的物理分辨率。
+                    只不过现在液晶显示器成为主流，由于液晶的显示原理与CRT（阴极射线显像管）不同，
+                    只有在桌面分辨率与物理分辨率一致的情况下，显示效果最佳，所以现在我们的桌面分辨率几乎总是与显示器的物理分辨率一致了。
+                </p>
             </section>
             <section>
-                2.2 分辨率的概念
+                <p><b>打印分辨率：</b>
+                    直接关系到输出打印的图像或者文字质量的概念，<br>
+                    用DPI(dot per inch，每英寸点数，1英寸换算到公制是2.54cm)表示，即每英寸能够打印多少个点。
+                    DPI原来是印刷上的记量单位，但随着数字输入，输出设备快速发展，大多数的人也将数字影像的解析度用DPI表示，但较为严谨的人可能注意到，
+                    印刷时计算的网点（Dot）和电脑显示器的显示像素（Pixel）并非相同，
+                    所以较专业的人士，会用PPI(Pixel Per Inch)表示数字影像的解析度，以区分二者。<br><br>
+                    我们通常讲的打印机分辨率是多少DPI，指的是"在该打印机最高分辨率模式下,每英寸所能打印的最多"理论"墨点数"。
+                </p>
             </section>
             <section>
-                <p>分辨率（Resolution)，是一个表示平面图像精细程度的概念，它通常是以横向和纵向点的数量来衡量的，表示为水平点数*垂直点数的形式，例如1366px*768px。分辨率的概念在具体的划分中，有分为显示分辨率、打印分辨率、扫描分辨率等概念。</p>
-            </section>
-            <section>
-                <p><b>显示分辨率：</b>显示器在显示图像时的分辨率，用点来衡量，在这里，点的概念其实就是物理像素。跟屏幕大小和显示部件的技术有关，固定值。</p>
-                <p><b>打印分辨率：</b>直接关系到输出打印的图像或者文字质量的概念，用dpi(dot per inch)表示，即每英寸能够打印多少个点。</p>
-                <p>扫描分辨率是一种输入分辨率，而显示分辨率和打印分辨率都是输出分辨率。我们在使用扫描仪扫描图形时可以根据需要调节扫描的精度，不像显示分辨率和打印分辨率是固定的或只有几种可选。扫描分辨率也用dpi来表示，但它不像打印机那样垂直分辨率和水平分辨率是一致的，扫描仪的水平分辨率是垂直分辨率的一半。</p>
+                <p>
+                    <strong>扫描分辨率：</strong>
+                    扫描分辨率是一种输入分辨率，而显示分辨率和打印分辨率都是输出分辨率。<br>
+                    我们在使用扫描仪扫描图形时可以根据需要调节扫描的精度，不像显示分辨率和打印分辨率是固定的或只有几种可选。
+                    扫描分辨率也用dpi来表示，但它不像打印机那样垂直分辨率和水平分辨率是一致的，扫描仪的水平分辨率是垂直分辨率的一半。
+                </p>
             </section>
             <section>
                 <p><b>PPI：</b>Pixel per Inch，每英寸的像素数，衡量图像分辨率，也就是显示分辨率。</p>
@@ -91,12 +128,97 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <section>
                 <img src="../img/css-03-difference between resolition and pixel/5.png" alt="PPI公式">
             </section>
+            <section>
+                2.2 像素的概念
+            </section>
+            <section style="text-align: left;">
+                <p>px，对于许多网页设计者来说，是最常用的CSS长度单位。然而，1px到底多长，恐怕没有多少人回答得上来。</p>
+                <p>CSS长度本身有绝对长度和相对长度的区分。</p>
+                <p>
+                    绝对长度：<br>
+                    cm——1cm是1/100米，而1米则大约是光在1秒钟内跑过距离的3亿分之一<br>
+                    pt——1pt是1/72英寸，而1英寸换算到公制是2.54cm。
+                </p>
+            </section>
+            <section>
+                <p>
+                    相对长度：<br>
+                    em、ex，以及百分比，是相对长度。比如em相对于当前字体大小，
+                    百分比则根据属性定义不同有不同涵义，例如margin的值如果是百分比，表示是相对于父元素的width。
+                </p>
+            </section>
+            <section>
+                <h3>然而，px是什么？</h3>
+            </section>
+            <section>
+                <p>一般而言，pixel（像素）是图像的基本采样单位。详细解释见维基像素条目。
+                    所以它不是一个确定的物理量，也不是一个具体的点或者小方块（尽管可以用点和小方块来呈现），而是一个
+                    <strong>抽象概念</strong>。
+                </p>
+            </section>
+            <section>
+                <p>
+                    按照CSS规范的定义，CSS中的px是一个相对长度，它相对的，是viewing device的分辨率。
+                    这个viewing device，通常就是电脑显示器。典型的电脑显示器的分辨率是96DPI，也就是1像素为1/96英寸
+                    （实际上，假设我们的显示器分辨率都与物理分辨率一致，而液晶点距其实是0.25mm到0.29mm之间，
+                    所以不太可能是正好1/96英寸，而只是接近）。
+                </p>
+            </section>
+            <section>
+                <p>
+                    一般来说，px就是对应设备的物理像素，然而如果输出设备的解析度与电脑显示器大不相同，
+                    输出效果就会有问题。例如打印机输出到纸张上，
+                    其解析度比电脑屏幕要高许多，如果不缩放，直接使用设备的物理像素，
+                    那电脑上的照片由600DPI的打印机打出来就比用显示器看小了约6倍。
+                </p>
+            </section>
+            <section>
+                <p>
+                    所以CSS规定，在这种情况下，浏览器应该对像素值进行缩放调节，以保持阅读体验的大体一致。
+                    也就是要保持一定像素的长度在不同设备输出上看上去的大小总是差不多。<br><br>
+
+                    怎样确保这一点呢？直接按照设备物理像素的大小进行换算当然是一个方式，
+                    但是CSS考虑得更多，它建议，转换应按照
+                    <strong>“参考像素”（reference pixel）</strong>
+                    来进行。
+                </p>
+            </section>
+            <section>
+                <p>
+                    眼睛看到的大小，取决于可视角度。因此CSS规范使用视角来定义“参考像素”，
+                    1参考像素即为从一臂之遥看解析度为96DPI的设备输出（即1英寸96点）时，1点（即1/96英寸）的视角。<br><br>
+                    请注意这个差别——CSS规范定义的参考像素并不是1/96英寸，而是1/96英寸在一臂之遥的看起来的视角。
+                    通常认为常人臂长为28英寸，所以其视角可以计算出来是0.0213度。（即(1/96)in / (28in * 2 * PI / 360deg) ）
+                </p>
+            </section>
+            <section>
+                <p>
+                    我们在使用不同设备输出时，眼睛与设备输出的典型距离是不同的。比如电脑显示器，
+                    通常是一臂之距，而看书和纸张时（对应于打印机的设备输出），则通常会更近一些。看电视时则会更远，
+                    比如一般建议是电视机屏幕对角线的2.5到3倍长——如果你是个42'彩电，那就差不多是3米远。看电影的话……我就不知道多远了，您自己量吧。
+                </p>
+            </section>
+            <section>
+                <p>
+                    因此，1参考像素：
+                    对于电脑显示器是0.26mm（即1/96英寸）；
+                    对于激光打印机是0.20mm（假设阅读距离通常为55cm，即21英寸）；<br><br>
+
+                    而换算时，对于300DPI的打印机（即每个点是1/300英寸），
+                    1px通常会四舍五入到3dots，也就是0.25mm左右；而对于600DPI的打印机，则可能四舍五入到5dots，也就是0.21mm。
+                </p>
+            </section>
+            <section>
+                <p>
+                    综上，px是一个相对单位，而且在特定设备上总是一个近似值（原则是尽量接近参考像素）。
+                </p>
+            </section>
         </section>
         <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <p>问题一: 用代码编写的网页大小是如何显示到设备上的，展现相同效果的？</p>
+            <p>问题: 用代码编写的网页大小是如何显示到设备上的，展现相同效果的？</p>
         </section>
         <section>
             <h3>4.解决方案</h3>
@@ -117,7 +239,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <h3>6.扩展思考</h3>
         </section>
         <section>
-            <p class="fragment">问题一: 手机网页做成多大的比较合适？</p> 
+            <p class="fragment">手机网页做成多大的比较合适？</p> 
         </section>
         <section>
             <h3>7.参考文献</h3>
@@ -126,6 +248,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
             <p>参考一：<a href="https://www.douban.com/note/169367388/" target="_blank">“像素”和“分辨率”的概念是什么？</a></p>
             <p>参考二：<a href="http://www.woshipm.com/ucd/198774.html" target="_blank">屏幕尺寸，分辨率，像素，PPI之间到底什么关系？</a></p>
              <p>参考三：<a href="http://blog.csdn.net/zhaoyw2008/article/details/46008513" target="_blank">android 手机屏幕密度等级和屏幕逻辑尺寸</a></p>
+            <p>参考四：<a href="http://hax.iteye.com/blog/374323">像素（px）到底是个什么单位？</a></p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -136,7 +259,7 @@ i        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/rev
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 沁修 | 高雪峰</small></p>
+            <p><small>BY : 胡嘉杰 | 高雪峰</small></p>
         </section>
 
     </div>

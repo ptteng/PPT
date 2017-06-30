@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>network中的请求信息，headers中的每一项分别是什么意义?</h2>
+            <h3>深圳小课堂-第148期</h3>
+            <p>分享人：郭俊伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                作为一个Web开发人员，日常中与我们开发相关的，就是Chrome的开发者工具。
+                Network标签页对于分析网站请求的网络情况、查看某一请求的 <b>请求头</b>和 <b>响
+                应头</b>还有 <b>响应内容</b>很有用，特别是在查看Ajax类请求的时候，非常有帮助。
+                今天就是要简要说说Chrome的开发者工具中Network中header部分。
+            </p>
+        </section>
+        <section>
+            <h3>HTTP请求的7个步骤</h3>
+            <p style="text-align: left">
+                1.建立TCP链接<br>
+                2.浏览器发送请求（GET/sample/hello.jsp HTTP/1.1）<br>
+                3.浏览器发送请求头（request header）<br>
+                4.服务器发送应答（HTTP/1.1 200 OK）<br>
+                5.服务器发送应答头（response header）<br>
+                6.服务器发送数据<br>
+                7.服务器关闭TCP连接 <br>
+                <br>
+                来源：图解Http
+
+            </p>
+        </section>
+        <section>
+            <img src="../img/js-5-XMLHttpRequestHeader/http.jpg" alt="">
+            <p>用于HTTP协议交互的信息被称为HTTP报文，客户端的HTTP报文叫做请求报文，服务器端的叫做响应报文。
+            HTTP报文本身是由多行数据构成的字符串文本。</p>
+        </section>
+        <section>
+            <img src="../img/js-5-XMLHttpRequestHeader/request.jpg" alt="">
+            <p>URI:uniform resource identifier,统一资源标识符。URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。URL和URN都是一种URI。</p>
+        </section>
+        <section><img src="../img/js-5-XMLHttpRequestHeader/response.jpg" alt=""></section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>1.找到Network下的Header</p>
+            </section>
+
+            <section style="text-align:left;">
+                <p>
+                    首先我们打开chrome的开发者工具，选中network，再刷新页面，此时可以在下方看到一个Name，Name对应的是资源的名称及其路径，Status是请求服务器返回的状态码,当状态码为200时，则表示接口配置成功。点击任一文件名，右侧则会出现Header选项。下面让我们来详细看下Header中的各项是什么意思。</p>
+            </section>
+            <section style="text-align:left;">
+                General部分:
+                Request URL:资源的请求url</br>
+                Request Method:HTTP方法</br>
+                Status Code:响应状态码    </br> 200（状态码） OK（原因短语）    </br>  301 - 资源（网页等）被永久转移到其它URL </br>  404 -
+                请求的资源（网页等）不存在 </br>   500 - 内部服务器错误 </br>
+                <a href="http://www.imooc.com/article/10185?block_id=tuijian_wz">比较全的响应状态码汇总</a>
+            </section>
+            <section style="text-align:left;">
+                Response Headers:</br>
+                Content-Encoding:gzip ——压缩编码类型</br>
+                Content-Type:text/html ——服务端发送的类型及采用的编码方式</br>
+                Date:Tue, 14 Feb 2017 03:38:28 GMT ——客户端请求服务端的时间</br>
+                Last-Modified:Fri, 10 Feb 2017 09:46:23 GMT ——服务端对该资源最后修改的时间，GMT是格林尼治标准时间</br>
+                Server:nginx/1.2.4 ——服务端的Web服务端名</br>
+                Transfer-Encoding:chunked ——分块传递数据到客户端</br>
+            </section>
+            <section style="text-align:left;">
+                Request Headers:</br>
+                Accept:text/html ——客户端能接收的资源类型</br>
+                Accept-Encoding:gzip, deflate ——客户端能接收的压缩数据的类型</br>
+                Accept-Language:en-US,en;q=0.8 ——客户端接收的语言类型</br>
+                Cache-Control:no-cache ——服务端禁止客户端缓存页面数据</br>
+                Connection:keep-alive ——维护客户端和服务端的连接关系</br>
+                Cookie: ——客户端暂存服务端的信息</br>
+                Host:www.jnshu.com ——连接的目标主机和端口号</br>
+                Pragma:no-cache ——服务端禁止客户端缓存页面数据</br>
+                Referer:http://www.jnshu.com/daily/15052 ——来于哪里</br>
+                User-Agent: ——客户端版本号的名字
+
+            </section>
+        </section>
+
+
+        <!-- 问题：
+         数据回发到服务器时浏览器使用的编码类型。 下边是说明： application/x-www-form-urlencoded： 窗体数据被编码为名称/值对，这是标准的编码格式。 multipart/form-data： 窗体数据被编码为一条消息通常上传图片等文件会使用这种编码格式提交。
+         application/json，提交JSON格式的数据-->
+
+
+        <section>
+            <h3>3.常见问题：</h3><br>
+            <p>使用post发送请求时如何设置content-type的值？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                1. application/x-www-form-urlencoded   最常见的POST提交格式，使用这个编码格式post的数据会以键值对的方式提交<br><br>
+                2. multipart/form-data   通常上传图片等文件会使用这种编码格式提交。<br><br>
+                3. application/json    提交JSON格式的数据
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            此知识点暂无编码，主要在于学会查看network中的信息。
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <div style="text-align: left;margin-left: 20%">
+            <p>参考一：<a href="http://blog.csdn.net/ahuangtaoa/article/details/8666407">http中请求头和响应头</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/klarclm/article/details/7711021">content-type说明</a></p>
+            <p>参考三：《图解HTTP》</p>
+            </div>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>Timeline 时间轴中的不同颜色的线代表什么意思？</h3>
+        </section>
+        <section>
+            <P>Timeline工具里面使用是4种颜色来表示不同类别的事件: </br>
+                蓝色：加载；</br>
+                黄色：脚本；</br>
+                紫色：渲染；</br>
+                绿色：绘制；</br>
+                <a href="http://www.softwhy.com/forum.php?mod=viewthread&tid=19118">谷歌浏览器Timeline用法详解</a> &nbsp;点击跳转
+            </P>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 陈尚欢|胡嘉杰|朱芳山|周启明|郭俊伟</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

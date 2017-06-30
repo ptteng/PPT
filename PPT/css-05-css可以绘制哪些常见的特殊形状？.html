@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>css可以绘制哪些常见的特殊形状？</h3>
+            <h3>小课堂【郑州第143期】</h3>
+            <p style="text-align: center;">分享人：王姝丽</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section><h3>一、背景介绍</h3></section>
+        <section>
+            <p style="text-align:left;font-size: 31px">
+                在写网页的时候，会遇到网站需要装饰一些几何图形的情况，在css绘制图形时，一般要使用到border-radius,transform（旋转:rotate,缩放:scale,倾斜:skew,移动:translate）等属性来实现。用css而不直接切图的原因是可以减少http的请求。而且css是矢量图是根据几何特性来绘制图形，矢量可以是一个点或一条线，它的特点是放大后图像不会失真，文件占用空间较小。位图进行放大和缩小处理都会导致失真。
+            </p>
+        </section>
+        <section><h3>二、知识剖析</h3></section>
+            <section>
+            <h3>第一步：理解盒子模型中的border</h3>
+            <p>先看图：</p>
+            <img src="img/border.png">
+            </section>
+            <section style="font-size: 24px">
+                <pre>
+                 <code>
+                 .box{
+                      width: 100px;
+                      height: 100px;
+                      border-top: 20px solid red;
+                      border-right: 20px solid yellow;
+                      border-bottom: 20px solid blue;
+                      border-left: 20px solid green;
+                    
+                    }                
+                 </code>
+            </section>
+            <section>
+            <p style="font-size: 24px">令一个div的长宽都是0。此时这个div可以看近似做是一个无限小的点。并且这个div的content和padding都是0。此时如果我们放大这个div，看到的会是这样的：</p>
+            <img src="img/border1.png">
+            <p style="font-size: 18px">可以看到其中的content和padding都是0所以没有了。所以4个边框变成了4个等腰三角形。 
+             其中白色的线的长度，就是border-bottom的线宽。</p>
+             <a href="http://www.html5cn.org/article-9811-1.html">都是图形</a>	            
+            </section>
+            <section>
+            <p>  transform:rotate(10deg);定义 2D 旋转</p>
+            <p>transform:skew(x-angle,y-angle);定义沿着 X 和 Y 轴的 2D 倾斜转换。</p>
+            </section>
+        <section><h3>三、常见问题</h3></section>
+        <section>
+            <p>什么是SVG？</p>
+        </section>
+        <section><h3>四、解决方案</h3></section>
+	    <section>
+		    <p >
+			   SVG 指可伸缩矢量图形 (Scalable Vector Graphics),
+               使用 XML(可扩展的标记语言) 格式定义图形 , 图像在放大或改变尺寸的情况下其图形质量不会有损失</p>
+               <pre>
+               <code>
+               <?xml version="1.0" encoding="utf-8" standalone="no" ?>
+
+                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+                "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+                 <svg width="100%" height="100%" version="1.1">
+
+                    <circle cx="60" cy="60" r="40" style="fill:skyblue">
+               </svg>
+               </code>
+               </pre>
+               fill属性设置对象内部的颜色,stroke属性设置绘制对象的线条的颜色。1. 矩形元素rect 2. 圆型元素
+   　　　　circle 3. 椭圆元素　ellipse 4. 直线元素line 5. 折线元素polyline
+	    </section>
+        <section><h3>五、编码实战</h3></section>
+        <section><h3>六、拓展思考</h3></section>
+        <section>
+            <h4>SVG 具体的应用场景是怎样的？</h4>
+            
+        </section>
+        <section>
+            <p>Svg应用场景：
+1、高保真度复杂矢量文档已是并将继续是 SVG 的最佳点。它非常详细，适用于查看和打印，可以是独立的，也可以嵌入到网页中
+2、在WEB项目中的平面图绘制，如需要绘制线，多边形，图片等。
+3、在WEB项目中的动画绘制，如需要在一个平面中某个对象需要某种动画效果。</p>
+            
+        </section>
+        <section>
+            <h3>七、参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.runoob.com/svg/svg-path.html"> svg教程</a></p><br>
+            <p>参考二： <a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Fills_and_Strokes">MDN SVG教程</a></p><br>
+        </section>
+        <section>
+            <h3>八、更多讨论</h3>
+        </section>
+        <section>
+            <p> canvas和svg的区别</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h3>感谢观看</h3>
+            <p><small>BY ︱汪开放︱王姝丽</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>

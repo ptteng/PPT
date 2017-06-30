@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>angular之中，$state  $watch $scope $rootScope 分别是什么？</h2>
+            <h3>149期小课堂【深圳分院】</h3>
+            <p>分享人：隋鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: left">在平时的编码中，我们总会想着有什么方法能够简化我们的工作流程，让我们只专心于业务逻辑和数据的处理，而angularjs
+                就为我们程序员实现了这一点。$scope $rootScope $watch 和 $state就是里面的几个方法，今天着重跟大家讨论一下这
+                几个方法
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h4>$scope</h4>
+                <p>
+                    $scope在angularjs中，你可以把它理解成作用域，每个不同的controller，都具有它不同的作用域，所以
+                    controller不同，他们的scope是不同的，那么，如果我们想象js那样，做一个全局变量该怎么办呢？这就要说
+                    到rootScope了。
+                </p>
+            </section>
+            <section>
+                <h4>$rootScope</h4>
+                <p>
+                    $rootScope就相当于一个全局作用域，所以我们保存在其中的东西是全局性的，在任一controller之中都能够使用
+                </p>
+                <p>
+                    scope是html和单个controller之间的桥梁，数据绑定就靠他了。rootscope是各个controller中scope的桥梁。
+                    用rootscope定义的值，可以在各个controller中使用。
+                </p>
+            </section>
+            <section>
+                <h4>$watch</h4>
+                <p>
+                    相信使用过angularjs的同学都知道，ng中有个比较重要的特点，叫做双向绑定，那么这个双向绑定是如何实现的呢？
+                    当我们在创建出scope下的一个新属性的时候，ng就会主动为我们新属性加上$watch这个方法，这个方法会监听我们
+                    的数据变化，当数据变化之后，就立即把view和scope上数据同步。
+                </p>
+            </section>
+            <section style="text-align: left">
+                <p>$watch(watchExpression, listener, objectEquality);</p>
+                <p>watchExpression,需要监控的表达式</p>
+                <p>listener,处理函数，函数参数如下
+                    function(newValue,oldValue, scope)</p>
+                <p>objectEquality,是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么你应该使用它</p>
+            </section>
+            <section>
+                <h4>$state</h4>
+                <p>
+                    在ajax技术发展普及之后，因为其不会留下历史记录方便浏览器访问和对于seo不友好的特点，一个新技术应运而生：
+                    路由，$state就是路由中的一项服务。
+                </p>
+                <p>路由的具体用法</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>Angular这个框架要怎么去学习</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>如果你写惯了jQuery手工操作DOM的代码， 刚开始的时候会对angular的代码风格非常不适应。</p>
+            <p>angular对于js基础不够好的新手确实比较困难，尽量多想一想directive，provider，filter是什么，想通了就知道angular是什么，该怎么写了，在这之前建议花几天时间把js基础先看一遍</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            什么是依赖注入
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/sitemanager/p/3513827.html" target="_blank">深度理解scope</a></p>
+            <p>参考二：<a href="http://web.jobbole.com/82517/"  target="_blank">原始数据类型和对象类型的区别及深度拷贝解析</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>$scope与双向数据绑定的深层原理</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 汤特/隋鑫</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo2</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+</head>
+<body ng-app="MyApp">
+    <div>
+        <div class="container" ng-controller="MyController">
+            <div class="my-info">
+                我的名字是：<span ng-bind="name"></span><br/>
+                我的年龄是：<span ng-bind="age"></span><br />
+                在这里修改名字：<input type='text' ng-model='name'><br/>
+                在这里修改年龄：<input type='text' ng-model='age'><br/>
+            </div>
+            <div class="my-directive" my-directive my-name="{{name}}" age="age" change-my-age="changeAge()"></div>
+        </div>
+    </div>
+</body>
+<script>
+    angular.module("MyApp", [])
+        .controller("MyController", function($scope) {
+            $scope.name = "dreamapple";
+            $scope.age = 20;
+            $scope.changeAge = function() {
+                $scope.age = 0;
+            }
+        })
+        .directive("myDirective", function() {
+            return {
+                restrict: "AE",
+                scope: {
+                    name: '@myName',
+                    age: '=',
+                    changeAge1: '&changeMyAge'
+                },
+                replace: true,
+                template: "<div class='my-directive'>" +
+                "<h3>下面部分是我们创建的指令生成的</h3>" +
+                "我的名字是：<span ng-bind='name'></span><br/>" +
+                "我的年龄是：<span ng-bind='age'></span><br/>" +
+                "在这里修改名字：<input type='text' ng-model='name'><br/>" +
+                "在这里修改年龄：<input type='text' ng-model='age'><br/>" +
+                "<button ng-click='changeAge1()'>修改年龄</button>" +
+                "</div>"
+            }
+        });
+</script>
+</html>
+
+1、

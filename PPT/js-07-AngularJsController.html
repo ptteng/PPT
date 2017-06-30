@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Javascript-js07】</h2>
+            <h3>小课堂【深圳第150期】</h3>
+            <h4>Angular控制器是什么？</h4>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">在学习angular的过程中，不同于javascript，遇到了许多新的概念，比如指令（directive）、服务（service）、控制器（controller）、模型（model）等。还接触到了MVC这种将数据管理、业务逻辑控制和数据展示分离开，进而使程序的逻辑性和可维护性更强的思想。接下来，我们会分享、讨论一下控制器的用法。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1什么是控制器？
+            </section>
+            <section>
+
+                <p style="text-align: left">Angular中的控制器，是一个常规的JavaScript对象，用于控制 AngularJS 应用程序的数据。由标准的 JavaScript 对象的构造函数创建。通常它是通过controller()方法进行声明，该方法接受两个参数，第一个为控制器名称，第二个是个匿名方法，即控制器的构造方法（函数）。</p>
+                <p>例如，它可以这样表达：</p>
+                <pre>
+                    <code>
+                        //一般格式,$scope 是作用域对象，是控制器与视图之间传递信息的载体。
+                        var app = angular.model("app", []);
+                        app.controller("loginCtrl", function($scope){
+                            $scope.name = "大娃";
+                            $scope.pwd = "12345";
+                        })
+                    </code>
+                </pre>
+            </section>
+            <section>
+                2.2 控制器的作用域范围和继承
+            </section>
+            <section>
+                <p style="text-align: left">在html中使用ng-controller指令实例化控制器时，会产生一个新的作用域对象。在同一个页面的ng-app作用域下可以通过ng-controller实例化多个控制器对象。但是，每个控制器对应的作用域对象只能与ng-controller指令所在标签的开始与结束标签之间的DOM元素上建立数据绑定。</p>
+                <a href="../demo/js-07-AngularJsController/demo1.html">demo1</a><br>
+                <a href="../demo/js-07-AngularJsController/demo2.html">demo2</a>
+            </section>
+            <section>
+                2.3 控制器的作用
+            </section>
+            <section>
+                <p style="text-align: left">控制器的作用主要有两个：第一个，scope作用域对象初始化 ；第二个，给scope作用域对象通过一些方法或者函数增加行为 。</p>
+                  <a href="../demo/js-07-AngularJsController/demo3.html">demo3</a>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题: 如何在多个controller中进行信息的沟通？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">方法一：利用作用域继承的原理，子控制器访问父级控制器中的内容。</p>
+            <p style="text-align: left">方法二：异步回调响应式通信—事件机制(或消息机制)。</p>
+            <p style="text-align: left">方法三：使用service服务进行数据传输。</p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >问题: 在多个controller中进行信息的沟通还有哪些？</p>
+            <a href="http://blog.csdn.net/lai_xu/article/details/49612915" class="fragment">ngularJs项目实战: 不同controller作用域之间通信的方式</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：AngularJs入门与进阶</p>
+            <p style="text-align: left">参考二：<a href="http://www.cnblogs.com/whitewolf/archive/2013/04/16/3024843.html">Angularjs Controller 间通信机制</a></p>
+            <p style="text-align: left">参考三：<a href="http://blog.csdn.net/lastsweetop/article/details/51190079" target="_blank">angular学习（三）—— Controller</a></p>
+            <p style="text-align: left">参考四：<a href="http://www.tuicool.com/articles/qIBNve" target="_blank">AngularJS的学习--$on、$emit和$broadcast的使用</a></p>
+            <p style="text-align: left">参考五：<a href="http://www.tuicool.com/articles/InuMF3J">angularJS的controller之间如何正确的通信</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论：大家对angularJs中的控制器还有哪些理解？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰| 黄源志</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
