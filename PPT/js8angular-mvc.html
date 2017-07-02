@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>北京小课堂</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文本格式与图像插入</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>angular的核心思想是什么？怎么体现在代码里？</h3>
+            <h4>小课堂【北京第157期】</h4>
+            <p>分享人：李仁</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.拓展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <p>angular是什么？</p>
+                <p>AngularJS[1]  诞生于2009年，由Misko Hevery 等人创建，后为Google所收购。是一款优秀的前端JS框架，
+                    已经被用于Google的多款产品当中。AngularJS有着诸多特性，最为核心的是：MVC、模块化、自动化双向数据绑定、语义化标签、
+                    依赖注入等等。</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>AngularJS是为了克服HTML在构建应用上的不足而设计的。HTML是一门很好的伪静态文本展示设计的声明式语言，
+                但要构建WEB应用的话它就显得乏力了。所以我做了一些工作（你也可以觉得是小花招）来让浏览器做我想要的事。
+            </p>
+        </section>
+            <section>
+                <p>通常，我们是通过js来解决静态网页技术在构建动态应用上的不足；但是原生js代码量会很大；</p>
+                <p>类库 - 类库是一些函数的集合，它能帮助你写WEB应用。起主导作用的是你的代码，由你来决定何时使用类库。类库有：jQuery等</p>
+                <P>框架 - 框架是一种特殊的、已经实现了的WEB应用，你只需要对它填充具体的业务逻辑。这里框架是起主导作用的，
+                    由它来根据具体的应用逻辑来调用你的代码。目前比较流行的有angular，vue，React，
+                </P>
+            </section>
+
+            <section>
+                <h4>3.常见问题 </h4>
+                <p>什么是mvc框架？</p>
+            </section>
+            <section>
+                <h3>4.解决方案</h3>
+                <p>MVC全名是Model View Controller；一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，
+                    在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。</p>
+            </section>
+            <section>
+                <img src="mvc.jpg">
+            </section>
+            <section>
+                <p>MVC与MVVM区别？</p>
+                <p>mvvm算是mvc的升级版！angular就是mvvm的代表，</p>
+                <p>在MVC里，View是可以直接访问Model的！从而，View里会包含Model信息，不可避免的还要包括一些业务逻辑。 MVC模型关注的是Model的不变，所以，在MVC模型里，Model不依赖于View，但是 View是依赖于Model的。不仅如此，因为有一些业务逻辑在View里实现了，导致要更改View也是比较困难的，至少那些业务逻辑是无法重用的。</p>
+
+            </section>
+            <section>
+                <p>MVVM在概念上是真正将页面与数据逻辑分离的模式，使得 Model 变化时，ViewModel 会自动更新，而 ViewModel 变化时，View 也会自动变化。
+                </p>
+                <p>有人做过测试：使用Angular（MVVM）代替Backbone（MVC）来开发，代码可以减少一半。</p>
+                <p>　此外，MVVM另一个重要特性，双向绑定。它更方便你同时维护页面上都依赖于某个字段的N个区域，而不用手动更新它们。</p>
+            </section>
+        <section>
+            <img src="mvvm.png">
+        </section>
+        <section>
+            <P>angular的亮点和过人之处！</P>
+            <h4>1.代码组织结构清晰</h4>
+            <p>AngularJS模块划分明确，不同的代码有其明确的存放处，可读性强，便于维护和扩展（后面会有代码组织结构图）。</p>
+        </section>
+
+                <section>
+                    <h4>2.功能模块易测试</h4>
+                    <p>AngularJS的代码方便测试。虽然代码易测试不能成为一个框架闪光的决定性因素，但是反向思考，如果写出来的代码可测试性差将会使工作效率事倍功半。</p>
+                </section>
+                <section>
+                    <h4>3.双向绑定</h4>
+                    <p>双向绑定的出现，无可争议的大大简化了你的代码量，与其说是技术的革新，不如说是一场思想上的颠覆与突破。回想jQuery还需要通过在DOM中找到需要的元素并在其上添加事件监听，通过触发事件（如点击等）才能解析获取DOM元素中的值。而在AngularJS中只需要将DOM中的元素与js的某个属性绑定，js属性值变化会同步到DOM元素上，同样的，DOM元素值得变化也会映射到js的属性上。夸张点说，一个是刀耕火种，一个是蒸汽驱动。</p>
+                </section>
+                <section>
+                    <p>AngularJS专业术语概览</p>
+                   <table style="font-size: 25px">
+                       <tr>
+                           <td>名称</td>
+                           <td>作用</td>
+                       </tr>
+                       <tr>
+                           <td>Module</td>
+                           <td>AngularJS中一切都是从Module模块开始的，模块是组织代码的容器，当然模块中还可以包含子模块</td>
+                       </tr>
+                       <tr>
+                           <td>Routes</td>
+                           <td>路由负责在应用中基于state进行页面的跳转</td>
+                       </tr>
+                       <tr>
+                           <td>Views</td>
+                           <td>Views是通过AngularJS编译后呈现的DOM</td>
+                       </tr>
+                       <tr>
+                           <td>$scope</td>
+                           <td> $scope 实际上就是一个JavaScript对象，controller和view都可以访问它，所以我们可以利用它在两者间传递信息。在这个 $scope 对象里，我们既存储数据，又存储将要运行在view上的函数。$scope是连接controller和view之间的桥梁，</td>
+                       </tr>
+                       <tr>
+                           <td>Controller</td>
+                           <td>定义一些属性和方法用于绑定到view的元素上，一般来说，controller是比较轻量的，它里面只放一些负责view呈现的属性和方法</td>
+                       </tr>
+                       <tr>
+                           <td>Directive</td>
+                           <td>指令使得AngularJS能够创建自定义的标签并实现相应的功能，可以将指令看成一种特殊的html标签</td>
+                       </tr>
+                       <tr>
+                           <td>Service</td>
+                           <td>Service负责提供一些通用的功能函数，比如有些数据在多个controller中都会用到，就可以定义在一个service中</td>
+                       </tr>
+                   </table>
+                </section>
+                <section>
+                <h3>5.参考文献</h3>
+                <p>菜鸟教程</p>
+                    <p>http://www.tuicool.com/articles/aiMvQb3</p>
+            </section>
+        <section>
+            <h3>6..更多讨论</h3>
+            <p>angular和jQuery哪好用一些？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :  李仁</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

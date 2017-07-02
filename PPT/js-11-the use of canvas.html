@@ -1,0 +1,177 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>it修真院</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-11】如何使用canvas？</h2>
+
+            <h3>小课堂【武汉第157期】</h3>
+
+            <p style="text-align: center;">分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">Canvas API（画布）是在HTML5中新增的标签用于在网页实时生成图像，并且可以操作图像内容，基本上它是一个可以用JavaScript操作的位图（bitmap）。Canvas 对象表示一个 HTML 画布元素 -canvas。它没有自己的行为，但是定义了一个 API 支持脚本化客户端绘图操作。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h4 style="text-align:left">2.1canvas的一些基本属性</h4>
+                <div style="text-align:left">
+                    <p>首先得说下width和height属性了，这是在canvas中必备的属性。</p>
+                    <p>width:画布的高度。和一幅图像一样，这个属性可以指定为一个整数像素值或者是窗口高度的百分比。当这个值改变的时候，在该画布上已经完成的任何绘图都会擦除掉。；默认值是 300。</p>
+                    <p>height:画布的宽度。和一幅图像一样，这个属性可以指定为一个整数像素值或者是窗口宽度的百分比。当这个值改变的时候，在该画布上已经完成的任何绘图都会擦除掉。默认值是 width的一半。</p>
+                </div>
+            </section>
+            <section>
+                <h4 style="text-align: left">如何利用dom绘出一些简单的图</h4>
+                <p style="text-align: left">在这里就需要用到一些属性：</p>
+                <div style="text-align: left">
+                    <p>fillStyle:设置或返回用于填充绘画的颜色、渐变或模式。比如说绘制一个渐变色的矩形</p>
+                    <p>fillRect(x,y,width,height):从坐标(x,y)处绘制一个长度为width,宽度为height的填充矩形</p>
+                </div>
+                <div style="text-align: left">
+                    <p>strokeStyle:设置或返回用于笔触的颜色、渐变或模式。</p>
+                    <p>strokeRect(x,y,width,height):从坐标(x,y)处绘制一个长度为width,宽度为height的矩形边框</p>
+                    <p>line-width:表示边框宽度</p>
+                    <p style="text-align:left">canvas里面还可以添加一些文本属性，比如说font,textAlign,textBaseline等等</p>
+                </div>
+
+            </section>
+            <section style="text-align: left">
+                <h4>canvas中的一些常用方法</h4>
+                <p style="text-align:left">1.lineTo():添加一个新点，然后在画布中创建从该点到最后指定点的线条</p>
+                <p>2.moveTo():把路径移动到画布中的指定点，不创建线条</p>
+                <p>3.stroke():绘制已定义的路径</p>
+                <p>4.beginPath():起始一条路径，或重置当前路径</p>
+                <p>5.arc():创建弧/圆线</p>
+                <p>6.closePath():创建从当前点回到起始点的路径</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>图像能不能放到canvas上？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">可通过使用drawImage(image,x,y)就可以将图像放到canvas上，然后在canvas内设置宽高，就可以将图像放到画布中。</p>
+
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>在上个demo中发现如果设置canvas标签css的width，height与在canvas中设置width，height不一样，这是为什么？</p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                高度和宽度是用于绘图的逻辑帆布尺寸和是不同的距离style.height和style.widthCSS属性。如果不设置CSS属性，画布的本征大小将被用作显示大小; 如果设置CSS属性，并且它们与画布尺寸不同，则您的内容将在浏览器中缩放。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="https://stackoverflow.com/questions/4938346/canvas-width-and-height-in-html5">canvas中width,height与style width,style height的区别</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.runoob.com/html/html5-canvas.html">HTML5 Canvas | 菜鸟教程</a></p>
+            <p style="text-align: left">参考三：<a href="http://www.w3school.com.cn/html5/html5_canvas.asp">W3C HTML5标签</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+
+
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY :王峰</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
