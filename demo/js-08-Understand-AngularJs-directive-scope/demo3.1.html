@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo3.1</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div data-ng-app="myApp" ng-controller="MyController">
+    <test></test>
+</div>
+<script>
+    /*重点:
+     scope : {
+     name : “@”
+     }
+     scope对象声明了一个属性name,然后在DOM元素的属性加上一个name,(注意两边的名字必须要一致)这样就可以进行交互操作*/
+    angular.module("myApp", [])
+        .controller("MyController", function ($scope) {
+            $scope.name = "jack";
+            $scope.age = 25;
+        })
+        .directive("test", function () {
+            return {
+                restrict : "E",
+                template : '<div name="{{name}}"></div>',
+                replace : true,
+                scope : {
+                    name : "@"
+                },
+                controller : function($scope){
+                    console.log($scope.name);  //"jack"
+                    console.log($scope.age);   //age是undefined,因为没有跟myApp进行交互
+                },
+                link : function ($scope) {
+                    console.log($scope.name); //"jack"
+                    console.log($scope.age);  //age是undefined,因为没有跟myApp进行交互
+                }
+            }
+        });
+
+</script>
+
+</body>
+</html>

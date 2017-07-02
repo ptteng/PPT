@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo3.3</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+    <style>
+        a {
+            outline: none;
+            text-decoration: none;
+        }
+        div {
+            font-size: 26px;
+        }
+        input {
+            height: 26px;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+<div data-ng-app="myApp" ng-controller="MyController">
+    <test></test>
+</div>
+<script>
+    /*“&”的意思是子指令能调用父控制器的方法,这里的指令template元素点击调用控制器的getName方法*/
+    angular.module("myApp", [])
+        .controller("MyController", function ($scope) {
+            $scope.getName = function(){
+                console.log("jack");
+            }
+        })
+        .directive("test", function () {
+            return {
+                restrict : "E",
+                template : '<div get-name="getName()">子指令:<a href="javascript:void(0)" ng-click="getName()">点击调用父方法</a></div>',
+                replace : true,
+                scope : {
+                    getName : "&"
+                },
+                controller : function($scope){
+                    $scope.getName();  //"jack"
+                },
+                link : function ($scope) {
+                    $scope.getName(); //"jack"
+                }
+            }
+        });
+        /*重点:
+            scope : {
+                name : “@”
+            }
+        scope对象声明了一个属性name,然后在DOM元素的属性加上一个name,(注意两边的名字必须要一致)这样就可以进行交互操作*/
+</script>
+
+</body>
+</html>

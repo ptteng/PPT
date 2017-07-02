@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo3.2</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+    <style>
+        div {
+            font-size: 26px;
+        }
+        input {
+            height: 26px;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+<div data-ng-app="myApp" ng-controller="MyController">
+        父：<input type="text" ng-model="data.name" />
+        <test></test>
+</div>
+<script>
+    /*“=”有双重绑定的功能,比如myApp控制器与test子指令进行双重绑定(单个字符串、对象都是有效的)下面代码用对象来演示*/
+    angular.module("myApp", [])
+        .controller("MyController", function ($scope) {
+            $scope.data = {
+                name : "jack",
+                age : 25
+            }
+        })
+        .directive("test", function () {
+            return {
+                restrict : "E",
+                template : '<div data="data">子指令:<input ng-model="data.name" /></div>',
+                replace : true,
+                scope : {
+                    data : "="
+                },
+                controller : function($scope){
+                    console.log($scope.data);  //Object {name: "jack", age: 25}
+                },
+                link : function ($scope) {
+                    console.log($scope.data); //Object {name: "jack", age: 25}
+                }
+            }
+        });
+
+</script>
+
+</body>
+</html>
