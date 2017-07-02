@@ -49,7 +49,7 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【js-05】</h2>
+            <h2>【js-08】</h2>
             <h2>主题：如何理解angular自定义指令directive的scope属性？</h2>
             <h3>小课堂【深圳157期】</h3>
             分享人：陈中彬
@@ -93,18 +93,15 @@
                 <img src="../img/js-08-Understand-AngularJs-directive-scope/1.png" alt="">
             </section>
             <section>
-                <B>$scope 的作用</B>
+                <B>2.1 $scope 的作用</B>
                 <p> $scope 对象在 AngularJS 中充当数据模型的作用,也就是一般 MVC 框架中 Model 得角色.但又不完全与通常意义上的数据模型一样,因为 $scope 并不处理和操作数据,它只是建立了视图和 HTML 之间的桥梁,让视图和 Controller 之间可以友好的通讯.
                 </p>
             </section>
             <section style="width: 110%">
-                <B>scope属性的3种取值</B>
-                <p>1、false（默认值）：直接使用父scope。</p>
-                <p>2、true：继承父scope</p>
-                <p>3、对象{ }：创建一个新的“隔离”scope，但仍可与父scope通信。隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。然而虽然说是“隔离”，但通常我们还是需要让这个子scope跟父scope中的变量进行绑定。绑定的策略有3种：
-                    <br>1）@：单向绑定；
-                    <br>2）=：双向绑定；
-                    <br>3）&：把内部scope的函数的返回值和外部scope的任何属性绑定起来。</p>
+                <B>2.2 scope属性的3种取值</B>
+                <p>①、false（默认值）：直接使用父scope。</p>
+                <p>②、true：继承父scope</p>
+                <p>③、对象{ }：创建一个新的“隔离”scope，但仍可与父scope通信。隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。然而虽然说是“隔离”，但通常我们还是需要让这个子scope跟父scope中的变量进行绑定。绑定的策略有3种：@、=、&。</p>
             </section>
         </section>
         <section>
@@ -113,7 +110,7 @@
             </section>
         </section>
         <section>
-            <B>scope属性的3种取值对指令的影响</B>
+            <B>scope属性的3种取值对指令有什么影响?</B>
         </section>
         <section>
             <section>
@@ -123,7 +120,7 @@
                 <p>每当一个指令被创建的时候，都会有这样一个选择，是继承自己的父作用域（一般是外部的Controller提供的作用域或者根作用域（$rootScope）），还是创建一个新的自己的作用域，当然AngularJS为我们指令的scope参数提供了三种选择，分别是：false,true,{}；默认情况下是false。</p>
             </section>
             <section>
-                <B>1.scope = false。</B>
+                <B>4.1 scope = false。</B>
                 <p>首先我们来看一下，当scope参数被设置为false时有什么情况发生在这种情况下，在指令模板中可以直接使用父作用域中的变量，函数。首先我们来创建一个指令，代码如下所示：<a href="../demo/js-08-Understand-AngularJs-directive-scope/demo1.html" target="_blank">demo1</a></p>
                 <pre>
                     <code>
@@ -164,7 +161,7 @@
                 <p>注意：此时我们在输入框里改变名字，会发现上面的两个名字都发生了变化，你肯定会说，这肯定是这样啊，数据绑定嘛，好，我们接着往下走。</p>
             </section>
             <section>
-                <B>2.scope = true。</B>
+                <B>4.2 scope = true。</B>
                 <p>
                     当把scope属性设置为true时，这表明我们创建的指令要创建一个新的作用域，这个作用域继承自我们的父作用域。等等，刚才我们不是说了，当把scope属性值设置为false时，不也是继承我们的父作用域吗？表急，我们接着往下看。
                 </p>
@@ -178,7 +175,7 @@
                 <p>当我们将scope设置为false的时候,我们创建的指令和父作用域（其实是同一个作用域）共享同一个model模型，所以在指令中修改模型数据，它会反映到父作用域的模型中。</p>
             </section>
             <section>
-                <B>3、scope = {}</B>
+                <B>4.3 scope = {}</B>
                 <P>当我们将scope的属性设置为{}时，我们可以做更多的事情。</P>
                 <p>
                     AngularJS最强的大的地方之一就是它可以构建组件，无论放在哪里都是可以使用的；
@@ -308,10 +305,10 @@
         </section>
         <section>
             <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p>
-                <small>BY : 陈中彬</small>
-            </p>
+            <h4>感谢大家观看</h4>
+
+            <small>BY : 陈中彬</small>
+
         </section>
     
     </div>
