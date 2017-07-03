@@ -56,7 +56,8 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
-                <p>内存泄露是指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束。在C++中，因为是手动管理内存，内存泄露是经常出现的事情。而现在流行的C#和Java等语言采用了自动垃圾回收方法管理内存，正常使用的情况下几乎不会发生内存泄露。浏览器中也是采用自动垃圾回收方法管理内存，但由于浏览器垃圾回收方法有bug，因此会产生内存泄露。</p>
+                <h2>什么是内存泄漏</h2>
+                <p>内存泄漏是指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束。在C++中，因为是手动管理内存，内存泄漏是经常出现的事情。而现在流行的C#和Java等语言采用了自动垃圾回收方法管理内存，正常使用的情况下几乎不会发生内存泄漏。浏览器中也是采用自动垃圾回收方法管理内存，但由于浏览器垃圾回收方法有bug，因此会产生内存泄漏。</p>
             </section>
 
         </section>
@@ -79,12 +80,12 @@
                 <p>1、标记清除</p>
                 <p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在函数中声明一个变量，就将这个变量标记为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为“离开环境”。</p>
                 <pre>
-                    <code>
-                        function test(){
-                            var a = 10 ; //被标记 ，进入环境
-                            var b = 20 ; //被标记 ，进入环境
-                        }
-                        test(); //执行完毕 之后 a、b又被标离开环境，被回收。
+                    <code  style="font-size: 30px;">
+  function test(){
+     var a = 10 ; //被标记 ，进入环境
+     var b = 20 ; //被标记 ，进入环境
+  }
+  test(); //执行完毕 之后 a、b又被标离开环境，被回收。
                     </code>
                 </pre>
             </section>
@@ -94,13 +95,13 @@
             </section>
             <section style="text-align: left">
                 <pre>
-                    <code>
-                        function test(){
-                            var a = {} ; //a的引用次数为0
-                            var b = a ; //a的引用次数加1，为1
-                            var c =a; //a的引用次数再加1，为2
-                            var b ={}; //a的引用次数减1，为1
-                        }
+                    <code  style="font-size: 30px;">
+  function test(){
+     var a = {} ; //a的引用次数为0
+     var b = a ; //a的引用次数加1，为1
+     var c =a; //a的引用次数再加1，为2
+     var b ={}; //a的引用次数减1，为1
+  }
                     </code>
                 </pre>
                 <p></p>
@@ -112,7 +113,7 @@
                 <h3>3.常见问题</h3>
             </section>
             <section>
-                <p>JS哪些操作会造成内存泄漏？</p>
+                <h2>JS哪些操作会造成内存泄漏？</h2>
             </section>
         </section>
         <section>
@@ -120,7 +121,7 @@
                 <h3>4.解决方案</h3>
             </section>
             <section>
-                <p>虽然JavaScript 会自动垃圾收集，但是如果我们的代码写法不当，会让变量一直处于“进入环境”的状态，无法被回收。下面列一下内存泄露常见的几种情况。</p>
+                <p>虽然JavaScript 会自动垃圾收集，但是如果我们的代码写法不当，会让变量一直处于“进入环境”的状态，无法被回收。下面列一下内存泄漏常见的几种情况。</p>
             </section>
             <section>
                 <p>1、意外的全局变量引起的内存泄漏</p>
@@ -153,17 +154,16 @@
                 <pre>
                     <code style="font-size: 30px;">
 //将事件处理函数定义在外部
-function bindEvent()
-{
+function onclickHandler(){
+//do something
+}
+function bindEvent(){
     var obj=document.createElement("XXX");
     obj.onclick=onclickHandler;
 }
-function onclickHandler(){
-    //do something
-}
+
 //在定义事件处理函数的外部函数中，删除对dom的引用
-function bindEvent()
-{
+function bindEvent(){
     var obj=document.createElement("XXX");
     obj.onclick=function(){
         //Even if it's a empty function
@@ -178,9 +178,9 @@ function bindEvent()
                 <pre>
                     <code style="font-size: 30px;">
  var elements = {
-   button: document.getElementById('button'),
-   image: document.getElementById('image'),
-   text: document.getElementById('text')
+   button: document.getElementById('#button'),
+   image: document.getElementById('#image'),
+   text: document.getElementById('#text')
  };
 
  function doStuff() {
@@ -233,42 +233,42 @@ function bindEvent()
             </section>
             <section>
                 <pre>
-                    <code>
-                        function fn() {
-                            var a = {};
-                            var b = {};
-                            a.pro = b;
-                            b.pro = a;
-                        }
-                        fn();
+                    <code style="font-size: 30px;">
+    function fn() {
+       var a = {};
+       var b = {};
+       a.pro = b;
+       b.pro = a;
+    }
+    fn();
                     </code>
                 </pre>
                 <p style="font-size: 25px">
-                    fn()执行完毕后，两个对象都已经离开环境，在标记清除方式下是没有问题的，但是在引用计数策略下，因为a和b的引用次数不为0，所以不会被垃圾回收器回收内存，如果fn函数被大量调用，就会造成内存泄露。在IE7与IE8上，内存直线上升。
+                    fn()执行完毕后，两个对象都已经离开环境，在标记清除方式下是没有问题的，但是在引用计数策略下，因为a和b的引用次数不为0，所以不会被垃圾回收器回收内存，如果fn函数被大量调用，就会造成内存泄漏。在IE7与IE8上，内存直线上升。
                 </p>
-                <p style="font-size: 25px">IE中有一部分对象并不是原生js对象。例如，其内存泄露DOM和BOM中的对象就是使用C++以COM对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使IE的js引擎采用标记清除策略来实现，但js访问的COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。</p>
+                <p style="font-size: 25px">IE中有一部分对象并不是原生js对象。例如，其内存泄漏DOM和BOM中的对象就是使用C++以COM对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使IE的js引擎采用标记清除策略来实现，但js访问的COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。</p>
             </section>
             <section>
                 <pre>
-                    <code>
-                        var element = document.getElementById("some_element");
-                        var myObject = new Object();
-                        myObject.e = element;
-                        element.o = myObject;
+                    <code style="font-size: 30px;">
+    var element = document.getElementById("some_element");
+    var myObject = new Object();
+    myObject.e = element;
+    element.o = myObject;
                     </code>
                 </pre>
                 <p style="font-size: 25px">
-                    这个例子在一个DOM元素（element)与一个原生js对象（myObject)之间创建了循环引用。其中，变量myObject有一个名为element的属性指向element对象；而变量element也有一个属性名为o回指myObject。由于存在这个循环引用，即使例子中的DOM从页面中移除，它也永远不会被回收。
+                    这个例子在一个DOM元素（element)与一个原生js对象（myObject)之间创建了循环引用。其中，变量myObject有一个名为e的属性指向element对象；而变量element也有一个属性名为o回指myObject。由于存在这个循环引用，即使例子中的DOM从页面中移除，它也永远不会被回收。
                 </p>
             </section>
             <section>
-                <p>看上面的例子，有人会觉得太弱了，谁会做这样无聊的事情，其实我们是不是就在做</p>
+                <p>看上面的例子，有人会觉得太弱了，谁会做这样无聊的事情，但是其实我们经常会这样做</p>
                     <pre>
-                        <code>
-                            window.onload=function outerFunction(){
-                                var obj = document.getElementById("element");
-                                obj.onclick=function innerFunction(){};
-                            };
+                        <code style="font-size: 30px;">
+    window.onload=function outerFunction(){
+       var obj = document.getElementById("element");
+       obj.onclick=function innerFunction(){};
+    };
                         </code>
                     </pre>
                 <p>
@@ -276,21 +276,21 @@ function bindEvent()
                 </p>
             </section>
             <section>
-                <p>最简单的方式就是自己手工解除循环引用，比如刚才的函数可以这样</p>
+                <p>最简单的解决方式就是自己手工解除循环引用，比如刚才的函数可以这样</p>
                 <pre>
-                    <code>
-                        myObject.element = null;
-                        element.o = null;
+                    <code style="font-size: 30px;">
+    myObject.element = null;
+    element.o = null;
 
-                        window.onload=function outerFunction(){
-                            var obj = document.getElementById("element");
-                            obj.onclick=function innerFunction(){};
-                            obj=null;
-                        };
+    window.onload=function outerFunction(){
+       var obj = document.getElementById("element");
+       obj.onclick=function innerFunction(){};
+       obj=null;
+    };
                     </code>
                 </pre>
                 <p>将变量设置为null意味着切断变量与它此前引用的值之间的连接。当垃圾回收器下次运行时，就会删除这些值并回收它们占用的内存。
-                    要注意的是，IE9+并不存在循环引用导致Dom内存泄露问题，可能是微软做了优化，或者Dom的回收方式已经改变</p>
+                    要注意的是，IE9+并不存在循环引用导致Dom内存泄漏问题，可能是微软做了优化，或者Dom的回收方式已经改变</p>
 
             </section>
         </section>
@@ -316,7 +316,7 @@ function bindEvent()
             </section>
             <section>
                 <p>summary 视图提供了不同类型的分配对象以及它们的合计大小：shallow size （一个特定类型的所有对象的总和）和 retained size （shallow size 加上保留此对象的其它对象的大小）。distance 显示了对象到达 GC 根（校者注：最初引用的那块内存，具体内容可自行搜索该术语）的最短距离。
-                    comparison 视图提供了同样的信息但是允许对比不同的快照。这对于找到泄露很有帮助。</p>
+                    comparison 视图提供了同样的信息但是允许对比不同的快照。这对于找到泄漏很有帮助。</p>
                 <a href="http://www.2cto.com/kf/201402/281855.html">JS内存泄漏排查方法</a>
             </section>
         </section>
@@ -324,7 +324,7 @@ function bindEvent()
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 朱芳山</small>
+                <small>BY : 朱芳山|郭俊伟</small>
             </p>
         </section>
     
