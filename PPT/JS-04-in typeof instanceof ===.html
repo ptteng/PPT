@@ -100,14 +100,14 @@
                         };
 
                         // 如果是name，要注意：window有name属性
-                        console.log("name1" in obj); // true
-                        console.log("age" in obj);
-                        console.log("age123" in obj);
+                        console.log("name1" in obj);   // true
+                        console.log("age" in obj);     // true
+                        console.log("age123" in obj);  // false
 
                         // 如果是对象中存在的成员或者是原型中的成员，此时，返回的结果就是 true
-                        console.log("toString" in obj);
-                        console.log(obj.toString());
-                        console.log("abc" in obj);
+                        console.log("toString" in obj); // true
+                        console.log(obj.toString());    // object
+                        console.log("abc" in obj);      // true
                     </code>
                     </pre>
                 </P>
@@ -123,12 +123,12 @@
                         var arr = [1];
                         console.log("1" in arr); // false
                         console.log("0" in arr); // true
-                        console.log(0 in arr); // true
+                        console.log(0 in arr);   // true
 
                         // 访问数组的成员：
                         // 可以使用 数组索引 也可以使用 字符串
-                        console.log(arr[0]);
-                        console.log(arr["0"]);
+                        console.log(arr[0]);    //1
+                        console.log(arr["0"]);  //1
                     </code>
                     </pre>
                 </P>
@@ -159,7 +159,9 @@
                 <P>
                     <pre>
                     <code>
-typeof在js中是一个一元操作符，可以判断操作数的类型，其返回值为字符串，有number、string、object、boolean、function、undefined。使用方式可以是typeof 操作数或typeof(操作数)，下面是几个实例，
+typeof在js中是一个一元操作符，可以判断操作数的类型，
+      其返回值为字符串，有number、string、object、boolean、function、undefined。
+      使用方式可以是typeof 操作数或typeof(操作数)，下面是几个实例，
 
 typeof NaN  返回值：number  NaN特殊的非数字值
 
@@ -210,7 +212,9 @@ instanceof 用于判断一个变量是否某个对象的实例，instanceof 运�
 运算符相似，用于识别正在处理的对象的类型。与 typeof 方法不同的是，
 instanceof 方法要求开发者明确地确认对象为某特定类型。
 通常来讲，使用 instanceof 就是判断一个实例是否属于某种类型。
-另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。例如：
+另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。
+
+                        例如：
 
                         function Person(){};
                         var p =new Person();
@@ -226,12 +230,12 @@ instanceof 方法要求开发者明确地确认对象为某特定类型。
                 <P>
                     <pre>
                     <code>
-===用于严格比较,只要数据类型不匹配就返回flase。
+  “===”用于严格比较,只要数据类型不匹配就返回flase。
 
 1、如果类型不同，就[不相等]
 2、如果两个都是数值，并且是同一个值，那么[相等]；
-(！例外)的是，如果其中至少一个是NaN，那么[不相等]。
-（判断一个值是否是NaN，只能用isNaN()来判断）
+  (！例外)的是，如果其中至少一个是NaN，那么[不相等]。
+  (判断一个值是否是NaN，只能用isNaN()来判断）
 3、如果两个都是字符串，每个位置的字符都一样，那么[相等]；否则[不相等]。
 4、如果两个值都是true，或者都是false，那么[相等]。
 5、如果两个值都引用同一个对象或函数，那么[相等]；否则[不相等]。
@@ -253,7 +257,7 @@ instanceof 方法要求开发者明确地确认对象为某特定类型。
 
         <section>
             <h3>3.常见问题</h3>
-            <p>JS运算符 == 和 === 之间有什么一样？</p>
+            <p>JS运算符 == 和 === 之间有什么不一样？</p>
         </section>
 
 
@@ -335,13 +339,14 @@ e、任何其他组合，都[不相等]。
                     <code>
 //1、constructor  属性
 //这个属性在我们使用js系统或者自己创建的对象的时候，会默认的加上，例如：
-     var arr = [1,2,3];  //创建一个数组对象
-     arr.prototype.constructor = Array;  //这一句是系统默认加上的,指向这个对象的原型方法
+  var arr = [1,2,3];  //创建一个数组对象
+  arr.prototype.constructor = Array;  //这一句是系统默认加上的,指向这个对象的原型方法
 //所以我们就可以这样来判断：
      var arr = [1,2,3,1];
      alert(arr.constructor === Array);   // true
 //2、instanceof
-//instanceof是检测对象的原型链是否指向构造函数的prototype对象的，所以我们也可以用它来判断：
+//instanceof是检测对象的原型链是否指向构造函数的prototype对象的，
+  所以我们也可以用它来判断：
 
      var arr = [1,2,3];
      alert(arr instanceof Array);   // true
