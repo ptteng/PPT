@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>怎么将分页封装成指令？</h2>
+            <h3>【深圳162期】小课堂-jstask9</h3>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+            <p>8.参考文献</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: left">对于指令，可以把它简单的理解成在特定DOM元素上运行的函数，指令可以扩展这个元素的功能。 例如，一些原生的指令如 ng-disabled ， ng-if ，ng-repeat ，ng-click 等。ng-click可以让一个元素能够监听click事件，并在接收到事件的时候执行AngularJS表 达式。正是指令使得AngularJS这个框架变得强大，并且在AngularJs我们可以自己通过directive来创造新的指令。 </p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>当在我们的项目中需要实现一些功能，比如，时间筛选、分页的功能，我们最先想到的可能是先去网上找找看，有没有相应的插件可以给我们直接拿来使用。但是插件代码一般十分复杂，无法定位bug进行修改，也无法保证修改后不会出现别的bug，用起来可能不太顺手。像一些实现简单功能的插件，我们可以利用AngularJS中的directive自己写一个指令，进行封装，也可以方便以后重复使用。</p>
+                </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>怎么将分页封装成指令？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+            <h4>先了解一下directive自定义指令中都可以设置哪些选项？</h4>
+                <pre>
+                <code>
+                    app.directive('pagination', function() {
+                    return {
+                        restrict: String,
+                        priority: Number,
+                        terminal: Boolean，
+                        templateUrl: String,
+                        replace: Boolean or String,
+                        scope: Boolean or Object,
+                        transclude: Boolean,
+                        controller: String or function() { ... },
+                        controllerAs: String,
+                        require: String,
+                        link: function() { ... },
+                        compile: function() { ... }
+                    });
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>分页功能还可以怎么做？</p>
+
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+            <p>1.还可以用directive自定义指令封装哪些插件</p>
+            <p>2.directive自定义指令中的scope作用和注意点</p>
+        </section>
+        <section>
+            <h3>8.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="#">AngularJS权威教程</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/mazhaokeng/p/6795576.html">Angular简易分页设计</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/webHero/p/5770703.html#top">angular 自定义指令详解 Directive</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>黄源志</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+
+
+</script>
+</body>
+</html>
