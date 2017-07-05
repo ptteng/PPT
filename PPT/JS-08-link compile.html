@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【如何理解angular自定义指令directive的compile、link属性？】</h2>
+            <h4>小课堂【深圳第161期】</h4>
+            <p>分享人：隋鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <div style="text-align: left; margin-left: 5%">Directive是AngularJ非常强大而有有用的功能之一。你可以在它的基础上来操作scope、绑定事件、更改样式等。通过这个Directive，我们可以封装很多公共指令，比如分页指令、自动补全指令等等。然后在HTML页面里只需要简单的写一行代码就可以实现很多强大的功能。一般情况下，需要用Directive有下面的情景：
+                    1. 使你的Html更具语义化，不需要深入研究代码和逻辑即可知道页面的大致逻辑。
+                    2. 抽象一个自定义组件，在其他地方进行重用。
+                    今天重点讲解一下里面的compile和link属性
+                    <br>
+                </div>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            说到Directive指令，我们要先了解下Angular初始化的过程：
+        </section>
+        <section>1脚本加载：加载 Angular，</section>
+        <section>2查找ng-app：标识符找到应用绑定 </section>
+        <section>3编译阶段：在这一阶段，Angular 遍历 DOM 标识模板中所有注册的标志。对于每个标识符，基于标 识符规则（template，replace，transclude 等等）改造 DOM，然后如果编译函数存在就调用 它。结果是一个编译的 template 函数，它会调用从所有的标志符中搜集的 link 函数，compile就是这个阶段执行的，一般不推荐使用，会覆盖原有的compile</section>
+        <section>4链接阶段：为了让视图动起来，然后 Angular 为每个标识符运行 link 函数。Link 函数通常在 DOM 或模型上创建监听器。这些监听器让视图和模型始终保持一致。</section>
+        <section>
+            <p>先看一段代码，代码是一个较为完整的模板</p>
+            <pre>
+                    <code>
+                        var myModule = angular.module(...);
+                        myModule.directive('directiveName', function factory(injectables) {
+                            return{
+                                priority: 0,//优先级
+                                template: '<div></div>',//需要添加的dom
+                                templateUrl: 'directive.html',//把html写成独立的页面加载进来
+                                replace: false,
+                                transclude: false,
+                                controller: 'SomeController'
+                                restrict: 'A',//匹配类型(EAMC)
+                                scope: false,//作用域类型
+                                compile: function compile(tElement, tAttrs, transclude) {
+                                    return {
+                                        pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+                                        post: function postLink(scope, iElement, iAttrs, controller) { ... }
+                                    }
+                                },
+                                link: function postLink(scope, iElement, iAttrs) { ... }
+                            };
+                        });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                link的四个参数分别是什么意思，怎么去用
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left">
+                function link(scope, Element, Attrs, controller) { ... }
+                <br>
+                链接函数负责注册DOM事件和更新DOM。它是在模板被克隆之后执行的，它也是大部分指令逻辑代码编写的地方。
+                <br>
+                scope:指令需要监听的作用域。
+                <br>
+                Element:指令所在的元素。只有在postLink函数中对元素的子元素进行操作才是安全的，因为那时它们才已经全部链接好。
+                <br>
+                Attrs:实例属性，一个标准化的、所有声明在当前元素上的属性列表，这些属性在所有链接函数间是共享的。
+                <br>
+                controller:控制器实例，也就是当前指令通过require请求的指令direct2内部的controller。比如：direct2指令中的controller:function(){this.addStrength = function(){}}，那么，在当前指令的link函数中，你就可以通过controller.addStrength进行调用了。
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                require是怎么用的?
+            </section>
+            <section>
+                <pre>
+                    <code>
+                <outer-directive>
+                    <inner-directive></inner-directive>
+                    <inner-directive2></inner-directive2>
+                </outer-directive>
+                <script>
+                    var app = angular.module('myApp', []);
+                    app.directive('outerDirective', function() {
+                        return {
+                            scope: {},
+                            restrict: 'AE',
+                            controller: function($scope) {
+                                this.say = function(someDirective) {
+                                    console.log('Got:' + someDirective.message);
+                                };
+                            }
+                        };
+                    });
+                    app.directive('innerDirective', function() {
+                        return {
+                            scope: {},
+                            restrict: 'AE',
+                            require: '^outerDirective',
+                            link: function(scope, elem, attrs, controllerInstance) {
+                                scope.message = "Hi,leifeng";
+                                controllerInstance.say(scope);
+                            }
+                        };
+                    });
+                    app.directive('innerDirective2', function() {
+                        return {
+                            scope: {},
+                            restrict: 'AE',
+                            require: '^outerDirective',
+                            link: function(scope, elem, attrs, controllerInstance) {
+                                scope.message = "Hi,shushu";
+                                controllerInstance.say(scope);
+                            }
+                        };
+                    });
+                </script>
+                    </code>
+                </pre>
+            </section>
+            <section style="text-align: left">
+                另外我们可以在require的参数值加上下面的某个前缀，这会改变查找控制器的行为：<br>
+                （1）没有前缀，指令会在自身提供的控制器中进行查找，如果找不到任何控制器，则会抛出一个error <br>
+                （2）？如果在当前的指令没有找到所需的控制器，则会将null传给link连接函数的第四个参数 <br>
+                （3）^如果在当前的指令没有找到所需的控制器，则会查找父元素的控制器 <br>
+                （4）?^组合
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>angular权威教程pdf</p>
+            <a href="http://blog.csdn.net/kongjiea/article/details/49840035">AngularJS指令参数详解</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>什么时候用controller，什么时候用link</p>
+        </section>
+        <section>上面例子中的指令innerDirective和指令innerDirective2复用了定义在指令outerDirective的controller中的方法
+            也进一步说明了，指令中的controller是用来让不同指令间通信用的。
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :隋鑫</small></p>
+        </section>
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
