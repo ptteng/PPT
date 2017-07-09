@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Java日志记录之log4j</h3>
+			<p></p>
+            <h4>java分享会</h4>
+            <p>分享人：北京分院 赵宇</p>
+        </section>
+        <section>
+            <p>1，引言</p>
+            <p>2.记录日志的几种方式</p>
+            <p>3.log4j与slf4j的结合</p>
+            <!-- <p>4.REST其他方法</p> -->
+           <!--  <p>5.</p>
+            <p>6.</p>
+            <p>7.</p> -->
+        </section>
+        <section>
+            <h3>1，引言</h3>
+            <p>Java中日志是个很重要但又容易被初学者忽略的知识点，那么今天我们就来看一下几种记录日志的方式，以及应该怎么记录日志。</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+		
+        <section>
+            <h3>2,记录日志的几种方式</h3>
+            <!-- <p></p> -->
+            <p>① 最简单的方式：System.out.println("徐小明");</p>
+            <img src="/Users/linshimingyi/Desktop/1.png">
+            <p></p>
+            <p>这种方式是我们在学习Java基础时就掌握了的，但为什么我们不建议用这种方式呢？其中一个很重要的原因是这种日志输出方式是在控制台，而我们开发的项目是要上线运行的，任何的问题反馈我们是靠日记记录来查找原因的，就必须要脱离控制台这种模式。
+            </p>
+		</section>
+			
+		
+        <section>
+            <h3>②Java.util.logging.logger</h3>
+            <p>在JDK1.4版本之后，提供了日志的API，可以往文件中写日志了。</p>
+            <img src="/Users/linshimingyi/Desktop/2.png">
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>③Log4j</h3>
+            <p>log4j是Apache提供的记录日志的jar包。</p>
+            <p>在使用时，首先要导入log4j的jar包，然后要配置log4j.properties。</p>
+            <p>配置实例：</p>
+        </section>
+        <section>
+            <p>--log4j.rootLogger=DEBUG,Console,Stdout</p>
+            <p>这里指定了日志级别为debug，并将等级为debug的日志信息输出到Console和Stdout两个目的地。Console和Stdout名字可以随意起，只要在后面定义了就行。</p>
+            <p></p>
+        </section>
+        <section>
+            <img src="/Users/linshimingyi/Desktop/3.png">
+        </section>
+        <section>
+            <img src="/Users/linshimingyi/Desktop/4.png">
+        </section>
+		<section>
+            <img src="/Users/linshimingyi/Desktop/5.png">
+        </section>
+        <section>
+            <img src="/Users/linshimingyi/Desktop/6.png">
+        </section>
+        <section>
+            <h3>3，log4j与slf4j的结合</h3>
+            <p>slf4j：Simple logging facade for Java。</p>
+            <p>slf4j不是具体的日志解决方案，它只服务于各种各样的日志系统。按照官方的说法，SLF4J是一个用于日志系统的简单Facade，允许最终用户在部署其应用时使用其所希望的日志系统。</p>
+        </section>
+        <section>
+            <p>在使用SLF4J的时候，不需要在代码中或配置文件中指定你打算使用那个具体的日志系统，SLF4J提供了统一的记录日志的接口，只要按照其提供的方法记录即可，最终日志的格式、记录级别、输出方式等通过具体日志系统的配置来实现，因此可以在应用中灵活切换日志系统。</p>
+            <p>使用步骤：</p>
+        </section>
+        <section>
+            <p>1，在JavaWeb项目中使用SLF4J和LOG4J，需要在项目中添加下面三个jar包:log4j.jar slf4j-api.jar slf4j-log4j.jar。</p>
+            <p>2，配置log4j.properties</p>
+            <p>3，在web.xml中添加log4j的配置</p>
+            <img src="/Users/linshimingyi/Desktop/7.png">
+        </section>
+        <section>
+            <p>4,在需要输出日志的类中添加slf4j的logger实例对象：</p>
+            <img src="/Users/linshimingyi/Desktop/8.png">
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
