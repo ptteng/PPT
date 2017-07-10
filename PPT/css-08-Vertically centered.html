@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Html、CSS里垂直居中有哪些方法</h2>
+            <h3>小课堂【成都第164期】</h3>
+            <p>分享人：刘夏阳</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>一.背景介绍</p>
+            <p>二.行内元素的垂直居中</p>
+            <p>三.已知高度元素的垂直居中</p>
+            <p>四.未知高度元素的垂直居中</p>
+            <p>五.扩展思考</p>
+            <p>六.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>居中在Html、CSS布局中经常会被使用，</p>
+            <p>元素的水平居中比较简单，</p>
+            <p>行级元素设置其父元素 text-align：center，</p>
+            <p>块级元素设置其本身left、right的margin值为auto即可，</p>
+            <p>垂直居中则较为麻烦，</p>
+            <p>以下是我所知道的垂直居中的一些方法。</p>
+        </section>
+        <section>
+            <h3>二.行内元素的垂直居中</h3>
+        </section>
+        <section>
+            <p>1.使用line-height=height</p>
+            <p>2.使用 + 一个行内元素（如下图）</p>
+            <p><img src="http://images2015.cnblogs.com/blog/729128/201511/729128-20151103143717867-367575891.png"/></p>
+        </section>
+        <section>
+            <h3>三.已知高度元素的垂直居中</h3>
+            <p>1.使用绝对定位position：absolute top/bottom：50% + margin:-50%自身高度</p>
+            <p>2.前面设置一个父元素高度50%的DIV + position：elative：top：-自身高度的一半</p>
+        </section>
+        <section>
+            <h3>四.未知高度元素的垂直居中</h3>
+            <p>1.使用display：table-cell + vertical-align:middle</p>
+            <p>2.使用绝对定位，top：0 bottom：0 left：0 right：0 + margin:0 auto(如下图)</p>
+            <p><img src="http://images2015.cnblogs.com/blog/729128/201511/729128-20151103164328883-578248503.png"/></p>
+            <p>3.CSS3新属性 transform：ranslat:(-50%,-50%)+绝对定位</p>
+        </section>
+        <section>
+        	<h3>五.扩展思考</h3>
+        </section>
+        <section>
+        	<h3>使用绝对定位，top：0 bottom：0 left：0 right：0 + margin:0 auto 实现居中的原理是什么？</h3>
+        	<p>可能是将未知的宽度高度的元素，使其让它的top,bottom,left,right,都与父级的距离为零，如果其元素宽高不够的，就会用margin:auto去填充其大小，从而实现了居中。</p>
+        </section>
+        <section>
+        	<p>还有没有更为简便或适用性更广的垂直居中方法？</p>
+            <p>使用flex弹性布局：display: flex align-items: center</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 刘夏阳 </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
