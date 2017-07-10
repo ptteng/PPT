@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>常见的几种排序方法</h2>
+            <h3>【深圳167期】小课堂-jstask</h3>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+            <p>8.参考文献</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: left">将杂乱无章的数据元素，通过一定的方法按关键字顺序排列的过程叫做排序。在angularJS中，过滤器用来格式化需要展示给用户的数据。AngularJS有很多实用的内置过滤器（currency 、date、limitTo等），同时也提 供了方便的途径可以自己创建过滤器。我们对数据的排序也就相当于对数据进行了“格式化”，我们通过过滤器来实现数据的排序。</p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">在HTML中的模板绑定符号{{ }}内通过|符号来调用过滤器。例如，假设我们希望将字符串 转换成大写，可以对字符串中的每个字符都单独进行转换操作，也可以使用过滤器：{{ name | uppercase }}</p>
+                <p style="text-align: left">以HTML的形式使用过滤器时，如果需要传递参数给过滤器，只要在过滤器名字后面加冒号 即可。如果有多个参数，可以在每个参数后面都加入冒号。可以用|符号作为分割符来同时使用多个过滤器。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>常见的几种排序方法有哪些？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>一些其他的过滤器，这里就不再阐述详见深圳小课堂151期，本次小课堂主要给大家分享过滤器当中的orderBy</p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">orderBy过滤器可以用表达式对指定的数组进行排序。 orderBy可以接受两个参数，第一个是必需的，第二个是可选的。 第一个参数是用来确定数组排序方向的谓词,我们可以传入+或-来强制进行升序或降序排列。第二个参数用来控制排序的方向（是否逆向），通过将第二个参数设置为true可以将排序结果进行反转。</p>
+                <pre>
+                <code>
+                    <ol>
+                        <li ng-repeat="item in data | orderBy:'age'">
+                        <!--<li ng-repeat="item in data | orderBy:'-age'">-->
+                        <!--<li ng-repeat="item in data | orderBy:'age':true">-->
+                            <ul>
+                                <li>name:<span ng-bind="item.name"></span></li>
+                                <li> age:<span ng-bind="item.age"></span></li>
+                                <li> born:<span ng-bind="item.born"></span></li>
+                                <li> sex:<span ng-bind="item.sex"></span></li>
+                                <li> height:<span ng-bind="item.height"></span></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p style="text-align: left">另外多字段排序，只需要把orderBy后面的条件作为数组就可以了</p>
+                <pre>
+                <code>
+                    <ol>
+                        <li ng-repeat="item in data | orderBy:['age','height']">
+                            <ul>
+                                <li>name:<span ng-bind="item.name"></span></li>
+                                <li> age:<span ng-bind="item.age"></span></li>
+                                <li> born:<span ng-bind="item.born"></span></li>
+                                <li> sex:<span ng-bind="item.sex"></span></li>
+                                <li> height:<span ng-bind="item.height"></span></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>你知道排序算法有哪些吗？</p>
+            <p class="fragment" style="text-align: left">常见排序算法：快速排序、希尔排序、堆排序、直接选择排序不是稳定的排序算法，而基数排序、冒泡排序、直接插入排序、折半插入排序、归并排序是稳定的排序算法</p>
+            <p class="fragment" style="text-align: left">排序算法的稳定性,通俗地讲就是能保证排序前2个相等的数其在序列的前后位置顺序和排序后它们两个的前后位置顺序相同。在简单形式化一下，如果Ai = Aj，Ai原来在位置前，排序后Ai还是要在Aj位置前</p>
+
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+            <p>orderBy是不是稳定的排序算法？</p>
+            <p>使用自定义过滤器实现排序？</p>
+
+        </section>
+        <section>
+            <h3>8.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="#">AngularJS权威教程</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/freshcoder/p/4966375.html">angular中的orderBy过滤器使用</a></p>
+            <p>参考三：<a href="http://www.cnblogs.com/benchan2015/p/4798054.html">angular入门--列表排序</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>黄源志</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+
+</script>
+</body>
+</html>
