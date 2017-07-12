@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-align: left;
+            text-indent: 2em;
+        }
+
+        .b {
+            test-align: left;
+        }
+
+        body {
+            font-size: 24px !important;
+        }
+
+        code {
+            font-size: 2rem !important;
+            line-height: 1.1em !important;
+        }
+    </style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>登录之后，在其他页面怎么判断是否已经登录？ </h2>
+
+            <h3>小课堂【武汉第169期】</h3>
+
+            <p style="text-align: center;">分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="a">
+                登陆验证是网站的基本需求之一，通过登陆为用户展示特定的信息与页面，登陆验证可以保护用户的个人信息，避免遭到他人的篡改与破坏。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>登陆验证的方法</h4>
+                <p class="a">
+                    通过在登陆时记录一个数据，然后在需要进行登陆验证的页面比较此数据，若数据与登陆时记录的数据相符，则通过验证，否则不通过验证。这要求此数据是稳定的，不随url的变化而改变。即本地存储的方法。</p>
+            </section>
+            <section>
+                <p class="a">常用的本地存储方法有4种:</p>
+                <ul class="b">
+                    <li class="">Cookies：浏览器均支持，容量为4KB，默认生命周期为浏览器窗口，默认作用域为本目录</li>
+                    <li class="">Session：服务器端的存储。</li>
+                    <li class="">LocalStorage：HTML5，容量为5M,生命周期是永久，作用域为文档源级别，即同协议、同主机名、相端口。</li>
+                    <li class="">SesstionStorage：HTML5，容量为5M,生命周期为当前标签页,作用域是标签页级别</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>各种验证的使用方法？</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4 class="a">Cookies</h4>
+            <pre>
+                <code>
+    //设置cookie
+    document.cookie  = 'name=xiaoyu'
+    //编辑cookie
+    document.cookie= 'name=desu'
+    //获取cookie某一项的值
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg)) {
+            console.log(document.cookie.match(reg));
+            return encodedURI(arr[2]);
+        } else {
+            return null;
+        }
+    }
+
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h4 class="a">Session进行的身份验证过程</h4>
+            <p class="a">
+                开启了Session支持的服务器在客户端开始会话的时候，生成一个SessionID，并且在响应（Response）头（Headers）中的Set-Cookie字段设置一个Cookie，Cookie的内容就是SessionID和Cookie的路径（path），在后继的会话中，客户端浏览器会自动附上Set-Cookie中的SessionID以向服务器表明身份，服务器根据SessionID在自己的存储中查找相关用户信息，并完成验证过程。</p>
+            <p class="a">那么用户登陆的过程也就是用户对服务器提交用户名、密码等信息，获取SessionID的过程。</p>
+        </section>
+        <section>
+            <p class="a">LocalStorage与SesstionStorage</p>
+            <p class="a">两者用法相同：</p>
+            <pre><code>
+    // 保存数据到sessionStorage
+    sessionStorage.setItem('key', 'value');
+
+    // 从sessionStorage获取数据
+    sessionStorage.getItem('key');
+    sessionStorage.key;
+
+    // 从sessionStorage删除保存的数据
+    sessionStorage.removeItem('key');
+
+    // 从sessionStorage删除所有保存的数据
+    sessionStorage.clear();
+            </code></pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4 class="a">各种存储的优缺点？</h4>
+            <ul>
+                <li>cookie始终在服务器和浏览器之间来回传送，明文传递，不够安全，且占用了带宽。数据大小受限，只有4kb，对cookie的操作也比较繁琐。</li>
+                <li>session保存在服务器端，数据安全。对数据的操作需要后端协助。</li>
+                <li>localStorage,永久存储且可存入大量数据，但如果数据过多，打开浏览器时会比较卡。</li>
+                <li>sessionStorage，生命周期和作用域都比较窄，这是优点也是缺点。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一：<a href="https://segmentfault.com/a/1190000007506189">Javascript本地存储小结</a></p>
+            <p class="a">参考二：<a href="http://blog.csdn.net/shuaishenkkk/article/details/8634917">
+                Session和Cookie的区别及Session的生命周期
+            </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
