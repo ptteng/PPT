@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 >【css-11】如何使用less?</h2>
+            <h3>小课堂【郑州第156期】</h3>
+            <p >分享人：王姝丽</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+            <h3>什么是less</h3>
+            </section>
+            <section>
+             <p style="text-align: left">我们先提一下css</p>
+            <p style="text-align: left">CSS（层叠样式表）是一门历史悠久的标记性语言，同 HTML 一道，被广泛应用于万维网（World Wide Web）中。HTML 主要负责文档结构的定义，CSS 负责文档表现形式或样式的定义。</p>
+            <p style="text-align: left">作为一门标记性语言，CSS 的语法相对简单，对使用者的要求较低，但同时也带来一些问题：CSS 需要书写大量看似没有逻辑的代码，不方便维护及扩展，不利于复用，尤其对于非前端开发工程师来讲，往往会因为缺少 CSS 编写经验而很难写出组织良好且易于维护的 CSS 代码，造成这些困难的很大原因源于 CSS 是一门非程序式语言，没有变量、函数、SCOPE（作用域）等概念。</p>
+            </section>
+            <section>
+            <p style="text-align: left">为了加入一些编程元素，让CSS能像其他程序语言一样可以做一些预定的处理，CSS预处理器应运而生。
+            CSS预处理器用一种专门的编程语言，进行样式设计，然后再编译成正常的CSS文件，以供项目使用。CSS预处理器为CSS增加一些编程的特性，<!-- 无需考虑浏览器的兼容性问题， -->使用变量、简单的逻辑程序、函数等在编程语言中的一些基本特性，让CSS 更加简洁、适应性更强、可读性更佳，更易于代码的维护。</p>
+            </section>
+            <section>
+            <p style="text-align: left">
+            使用最为普遍的三款CSS预处理器框架分别是 SASS、LESS和Stylus。
+            </p>
+            <p style="text-align: left">
+            1、SASS：最早、最成熟的CSS预处理器，拥有Ruby社区的支持和compass这一最强大的CSS框架，目前受LESS影响，已经进化到了全面兼容CSS的SCSS。SASS使用.sass扩展名。<br>
+             2、LESS：受SASS的影响较大，但又使用CSS的语法，更容易上手，在Ruby社区之外支持者远超过SASS，其缺点是比起SASS来，可编程功能不够，优点是简单和兼容CSS。LESS影响了SASS演变到SCSS，著名的Twitter Bootstrap就是采用LESS做底层语言的。LESS使用.less扩展名。<br>
+             3、Stylus：来自Node.js社区，主要用来给Node项目进行CSS预处理，在node.js社区内有一定支持者，但在广泛意义上人气还完全不如SASS和LESS。Stylus使用.styl扩展名。Stylus功能上更为强壮，和JavaScript联系更加紧密。
+            </p>
+            </section>
+            <section style="font-size: 2rem">
+            <h3 style="text-align: left">LESS是受SASS启发而开发的工具，为什么要开发SASS的替代品？</h3>
+            <p style="text-align: left">            
+            原因：语法。SASS支持老的缩进式的语法{不带花括号的语法），因此程序员需要学习一种新的语法；LESS能与CSS无缝地紧密结合在一起，能够让开发者从已有CSS文件平滑地过渡到LESS，而不需要像SASS那样将CSS文件转换成SASS格式。
+            </p>
+            <p style="text-align: left">
+            目前受LESS影响，已经进化到了全面兼容CSS的SCSS。Sass 和 SCSS 其实是同一种东西，我们平时都称之为 Sass，SCSS 是 Sass 3引  入新的语法，其语法完全兼容 CSS3，并且继承了 Sass 的强大功能。
+           不同点：<br>
+            1、文件扩展名不同，Sass 是以“.sass”后缀为扩展名，而 SCSS 是以“.scss”后缀为扩展名.
+            2、语法书写方式不同，Sass 是以严格的缩进式语法规则来书写，不带大括号({})和分号(;)，而 SCSS 的语法书写和我们的 CSS 语法书写方式非常类似（SCSS 和 CSS 写法无差别）。简单点说，把你现有的“.css”文件直接修改成“.scss”即可使用。
+            </p>
+            </section>
+            <section>
+            <img src="img/dawa2.png">
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+        <section>
+            <h3>2.1如何使用LESS？</h3>
+        </section>
+        <section>
+        <section>
+          <p style="text-align: left;">
+           页面引入js代码文件解析<br>
+           我们可以直接在客户端使用 .less（LESS 源文件），只需要从 http://lesscss.org下载 less.js 文件，然后在我们需要引入 LESS 源文件的 HTML 中加入如下代码,也可以直接引入cdn.
+           首先引入less代码</p>
+           <pre style="font-size: 2rem">link rel="stylesheet/less" href="example.less" </pre>
+           <pre style="font-size: 1.8rem">script src="http://cdn.bootcss.com/less.js/2.7.0/less.js"</pre>
+        </section>
+        <section>
+           <p >服务器端编译less
+           <p style="text-align: left;"> 安装完node.js之后，打开Node.js command prompt,通过npm install -d less命令安装LESS包,然后新建一个demo.less文件，输入lessc demo.less > test.css之后以后即可编译CSS文件。
+           </p>
+           </p>
+           </section>
+           <section>
+           <p>使用工具进行编译
+            <p style="text-align: left;">监测指定的less文件的变化，如果检测到变化，则自动将less文件输出成相应的css文件。并且大多数工具都提供一定的debug功能。
+            </p>
+            <p style="text-align: left;">例如使用koala对less文件进行编译</p>
+           </p>
+           </section>
+        </section>      
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">less包含了什么</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+            <p style="text-align: left;">Less在CSS语法的基础上进行了扩展，主要包含： 变量、嵌套、混合、操作符、函数等等.
+            </p>
+            </section>
+            <section style="font-size: 1.8rem">
+            <h3>变量(variables)</h3>
+            <p style="text-align: left;">LESS 允许开发者自定义变量，变量可以在全局样式中使用，变量使得样式修改起来更加简单。我们可以从下面的代码了解变量的使用及作用：<br>
+            less文件<br>
+            <img src="img/dawa.png" ><br>
+            经过编译生成的 CSS 文件如下：<br>
+            <img src="img/dawa1.png">
+            </p>
+            <p>从上面的代码中我们可以看出，可以将相同的值定义成变量统一管理起来。该特性适用于定义主题，我们可以将背景颜色、字体颜色、边框属性等常规样式进行统一定义，这样不同的主题只需要定义不同的变量文件就可以了。less 变量以@作为前缀，不能以数字开头， 不能包含特殊字符。</p>
+            </section>
+            <section>
+            <p>Less中的变量还具有计算功能，如：</p>
+            <p>less文件 css文件</p>
+            <img src="img/erwa2.png" >   
+            <img src="img/erwa3.png" >
+            </section>
+            <section>
+            <p style="text-align: left;">在Less中的变量实际上就是一个“常量”，因为它们只能被定义一次。</p>
+            <pre>
+            less文件
+            @dawa:#29b078;
+            @dawa:white;
+            .siwa{
+                  color: @dawa;
+                  }
+            </pre>          
+            <pre>
+            css文件
+            .siwa {
+                   color: #ffffff;
+                  }
+            </pre>
+            <p>上面代码很明显说明了后的@dawa覆盖了前面的@dawa。</p>
+            </section>                    
+        </section>
+        <section>
+        <section style="font-size: 1.5rem">
+            <h3>Mixins（混入）</h3>
+            <p>如图所示less文件  css文件<br>
+            <img src="img/erwa.png" >
+            <img src="img/erwa1.png">
+            </p>
+            <p style="text-align: left;">从上面的代码我们可以看出：
+            什么是混入，这个是在bootstrap中经常看到的一个东西。混入可以将定义好的class A轻松的引 入到classB ，从而简单实现class B继承所有class A的属性。定义的时候前面要加点。<br>
+            而在引用之前，这段代码都不会出现在编译文件中，也就是不会生成任何内容。这也是非常重要的一个特性。</p>          
+            </section>
+            <section style="font-size: 1.3rem">
+            <p>混入(Mixin)有一个名词叫“混入参数（Parametric Mixins）”</p>         
+            <img src="img/lizi.jpg">
+            <img src="img/sanwa.png" ><br>
+            <img src="img/sanwa1.png" >
+            <p style="text-align: left;">我们的默认值是原谅绿我们可以改为自己想要的颜色比如红色或者更绿</p>
+            </section>
+            </section>
+            <section>
+            <section  style="font-size: 1.3rem">
+            <h3>嵌套规则(Nested Rules)</h3>
+            <p style="text-align: left;">嵌套可以增强代码的层级关系，我们也可以通过嵌套来实现继承，这样很大程度减少了代码量，代码量看起来更加清晰。</p>
+            <img src="img/siwa.png">
+            <img src="img/siwa1.png">
+            <p style="text-align: left;"> 有 & 时解析的是同一个元素或此元素的伪类，没有 & 解析是后代元素</p>
+            </section>
+            </section>
+            <section>
+            <section style="font-size: 1.3rem">
+            <h3>函数</h3>
+            <p style="text-align: left;">LESS中的函数 - 映射了JavaScript函数代码，如果你愿意的话，可以操纵属性值。这一块我还没整明白，大家知道less里有函数，可以自己找一下。</p>
+            <img src="img/wuwa.png" >
+            </section>
+            </section>
+             <section style="text-align: left;">
+            <p>LESS 还拥有一些很有趣的特性有助于我们的开发，例如模式匹配、条件表达式、命名空间和作用域，以及 JavaScript 赋值等等。</p>
+            具体参考：<br>
+            <a href="https://www.ibm.com/developerworks/cn/web/1207_shenyi_lesscss/" target="_blank">LESS使用参考1</a><br>
+            <a href="http://www.w3cplus.com/css/less" target="_blank">LESS使用参考2</a><br>
+            <a href="http://less.bootcss.com/" target="_blank">LESS使用参考3</a><br><br>
+            可以了解：<br>
+            <a href="https://www.oschina.net/question/12_46118" target="_blank">值得参考的 10 个 LESS CSS 实例</a>
+        </section>        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                less和sass选哪个用？<br><br>
+                <a href="https://www.zhihu.com/question/22285654" target="_blank">less和sass现状</a>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 30%">
+            <p>参考一：<a
+                    href="http://www.cnblogs.com/sxz2008/p/6409018.html"
+                    target="_blank">
+               博客园sass的学习笔记</a></p>
+            <p>参考二：<a href="http://www.sohu.com/a/127625441_472885"
+                      target="_blank">CSS 预处理语言的模块化实践</a></p>
+            <p>参考三：<a href="https://www.ibm.com/developerworks/cn/web/1207_zhaoch_lesscss/"
+                      target="_blank">LESS CSS 框架简介</a></p>
+            <p>参考四：<a href="http://blog.csdn.net/m0_38099607/article/details/72953432"
+                      target="_blank"> 学会如何使用LESS（一）----变量和混合</a></p>
+            <p>参考五：<a href="https://www.ibm.com/developerworks/cn/web/1207_shenyi_lesscss/"
+                      target="_blank">初步认识 LESS</a></p>
+            <p>参考六：<a href="http://www.jianshu.com/p/95d47de3c63e"
+                      target="_blank">less的配置安装及语法使用</a></p>
+            <p>参考七：<a href="http://www.w3cplus.com/css/less"
+                      target="_blank">CSS——LESS</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+        <section>
+            <!-- <p style="letter-spacing: 5px">国内互联网前端用LESS的还是SASS的多一些？</p> -->
+            <ol>
+            <li>国内互联网前端用LESS的还是SASS的多一些？</li>
+            <li>less的三种引入方式有什么优缺点？</li>
+            <li>你比较喜欢less还是sass？</li>
+            </ol>
+        </section>
+       <!--  <section style="font-size: 1.5rem">
+           <p style="text-align: left;">页面引入js代码文件解析<br>
+           优点：不必安装less编译环境，同样可以使用less文件<br>
+           缺点：在页面上解析代码，效率较低，受机器、网络影响较大 ，影响了页面加载速度
+           </p>
+           <p style="text-align: left;">
+           服务器端预编译
+             优点：服务器端预编译，效率高，避免客户端解析延时消耗服务器资源,编译出错的话，你可能要自己写一个处理error的函数,何时编译less文件成为一个问题，每次有客户请求就编译一次less文件显然效率比较低，但是根据less文件的变化来编译又好像没有放在服务器上编译的必要
+           </p>
+            <p style="text-align: left;"></p>
+        </section> -->
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: left;">
+              感谢 万维娜、董瑞师兄，此教程是在他们之前技术分享的基础上完善而成
+              <p>今天的分享到此结束，谢谢大家。</p>
+            </p>
+             <p></p>
+            <p>
+                <small>BY : 董瑞|王姝丽</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../../lib/reveal/js/head.min.js"></script>
+<script src="../../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

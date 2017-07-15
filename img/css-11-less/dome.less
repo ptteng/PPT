@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+@dawa:#29b078;
+@qiwa:#258;
+//@dawa:white;
+header{
+  background: @dawa;
+  height: 100px;
+}
+//定义圆角5px
+.erwa(@radius:5px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+//在三娃中使用圆角
+.sawa{
+  width: 100px;
+  height: 100px;
+  background-color:@qiwa;
+  &:hover{
+    color: lighten(@qiwa, 10%);
+  }
+  .erwa(50%);
+
+  //color: @dawa+123;
+}
+.siwa{
+  color: @dawa;
+}
+.btn(@wa:@dawa){
+  width:200px;
+  height:200px;
+  background-color:@wa;
+}
+
+.btn_border(){
+  border:1px solid #ccc;
+}
+
+.btn_b{
+  .btn(red);
+  .btn_border();
+}
+.location{
+  height:80px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .35s;
+  &:hover{
+    height:320px;
+  }
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li{
+      width: 29%;
+      height: 78px;
+      line-height: 80px;
+      text-align: center;
+      border: solid 1px @dawa;
+    }
+  }
+}
+
+
