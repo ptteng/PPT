@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>angular中如何使用日历插件？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="width: 110%">【JS-task11】angular如何使用日历插件？</h2>
+            <h3>小课堂【武汉第172期】</h3>
+            <p>分享人：王峰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;letter-spacing: 1px;width: 120%;margin-left: -10%;margin-top: 5%">
+                日历在网页中的应用有很多，比如说后台的搜索功能，备忘录功能等等。要实现日历功能，有很多插件可以实现，
+                利用angular实现相关的日历功能的插件也就只有几个，比如说ui-jquery,angular-datepicker,ui-bootstrap等等，
+                这些都可以实现部分功能的日历插件；但是说到好用的话，我个人觉得还是angular-datepicker要好用一些，
+                因为这个插件的demo简单易懂，很多种情况都考虑到了，比如说时区、设定日历的最大最小值，日期格式，
+                起始时间和终止时间，都有相对应的demo，这样就更加直观，清晰易懂。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <div style="text-align: left;margin-left: -10%;width: 120%;margin-top: 8% ">
+                <p>在这个日历插件中，有以下相关属性。</p>
+                <p>1.时区：一般都是用date-picker timezone属性来表示；timezone有以下值'Europe/London'，'Asia/Hong_Kong'，'America/Vancouver'</p>
+                <p>2.日期格式date-time format属性,格式可以自行设定，插件属性值有
+                    "MMMM YYYY",
+                    "DD MMM YYYY",
+                    "ddd MMM DD YYYY",
+                    "D MMM YYYY HH:mm",
+                    "lll",</p>
+                <p>3.date-time min-date,max-date属性：用于表示最大日期和最小日期；</p>
+                <p>4.view:日期/时间的默认选择级别；属性值有year、month、date、hours、minutes</p>
+            </div>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3 style="letter-spacing: 2px">如何实现设置开始日期和结束日期</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            首先新建2个div标签，然后分别在两个标签内的ng-model绑定dates.minDate和dates.maxDate、
+            分别在max-date和min-date属性设置maxDate和minDate(目的是为了保证日历在开始日期在结束日期前面),对两个标签都添加
+            date-change属性，然后在通过date-change属性中的方法来对ng-model为dates.minDate和dates.maxDate进行更新
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align: left;width: 110%">
+                如何修改日历的样式，比如说把英文（默认）修改为中文日历？
+            </p>
+            <p>这时候就需要使用webstorm的全局查找功能了（不要使用cdn加载js文件，否则会出现找不到的情况，也就无法修改样式），
+                通过全局查找找到相关单词之后，然后修改成中文就行了</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;margin-left: 10%">
+            来源：<a href="https://github.com/g00fy-/angular-datepicker">github g00fy- / angular- datepicker</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3 style="width: 115%">
+                你们还用过哪些angular日历插件？
+            </h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 王峰</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

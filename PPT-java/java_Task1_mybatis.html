@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>mybatis常用标签和动态查询</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 胡凯博</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+        
+            <p>3.解决方案</p>
+            <p>4.编码实战</p>
+           
+            <p>5.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>MyBatis 是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。
+			MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。并可以对配置和原生Map使用简单的 XML 或注解，
+			将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。</p>
+            <p> </p>
+        </section>
+        <section>
+            <p>Mybatis的功能架构分为三层：		<br>
+(1)API接口层：提供给外部使用的接口API，开发人员通过这些本地API来操纵数据库。接口层一接收到调用请求就会调用数据处理层来完成具体的数据处理。<br>
+(2)数据处理层：负责具体的SQL查找、SQL解析、SQL执行和执行结果映射处理等。它主要的目的是根据调用的请求完成一次数据库操作。<br>
+(3)基础支撑层：负责最基础的功能支撑，包括连接管理、事务管理、配置加载和缓存处理，这些都是共用的东西，将他们抽取出来作为最基础的组件。为上层的数据处理层提供最基础的支撑。
+            </p>
+            <p>
+
+            </p>
+		</section>
+	 <section>
+            
+            <p> 动态 SQL 元素和使用 JSTL 或其他类似基于 XML 的文本处理器相似。在 MyBatis 之前的版本中,有很多的元素需要来了解。MyBatis 3 大大提升了它们,现在用不到原先一半的元素就可以了。MyBatis 采用功能强大的基于 OGNL 的表达式来消除其他元素。<br>
+
+1.if<br>
+2.choose (when, otherwise)<br>
+3.trim (where, set)<br>
+4.foreach</p>
+        </section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>MyBatis的一个强大特性之一就是动态SQL能力了，能省去我们很多串联判断拼接SQL的痛苦，根据项目而定，在一定的场合下使用，比如模糊查询和多条件查询等等，动态查询能大大减少程序的代码量和复杂程度，不过还是不是过度太过复杂的使用，以免不利于后期的维护和扩展。</p>
+        </section>
+		
+		<section>
+		<p>foreach元素是非常强大的，它允许你指定一个集合，方便遍历集合元素，而且它也允许你自定义分隔符，并通过separator将其插入sql。这个元素很智能，它不会附加多余的分隔符。foreach的标签元素如下：</p>
+		    <p>item表示集合中每一个元素进行迭代时的别名，<br>
+    index指 定一个名字，用于表示在迭代过程中，每次迭代到的位置<br>
+    open表示该语句以什么开始<br>
+    separator表示在每次进行迭代之间以什么符号作为分隔符<br>
+    close表示以什么结束。
+		
+		</section>
+		<section>
+		<br>
+       where元素知道如果由被包含的标记返回任意内容，就仅仅插入“WHERE” 。而且，如果以“AND”或“OR”开头的内容，那么就会跳过 WHERE，由if标签判断是否插入
+ 	
+	</p>
+		</section>
+		<section>
+		<p>set元素可以被用于update语句。根据if条件动态判断包含更新的列，而不包含不需更新的。<br>
+		if元素则和java中的if相同，做条件判断。</p>
+		
+		
+		</section>
+		<section>
+		<p>trim标记是一个格式化的标记，可以完成set或者是where标记的功能，可以替代where/set.但并不常用。
+		include标签将频繁使用的sql整合到一起，节省代码</p>
+		</section>
+		<section>
+		<p>Mybatis中的OGNL表达式<br>
+		和EL表达式一样，它是表达式语言的一种，OGNL常用于struts2框架。但mybatis也可以灵活的使用。通过它简单一致的表达式语法，可以存取对象的任意属性，调用对象的方法，遍历整个对象的结构图，实现字段类型转化等功能。它使用相同的表达式去存取对象的属性。</p>
+		</section>
+		<section>
+            <p>e1 or e2<br>
+e1 and e2<br>
+e1 == e2,e1 eq e2<br>
+e1 != e2,e1 neq e2<br>
+e1 lt e2：小于<br>
+e1 lte e2：小于等于，其他gt（大于）,gte（大于等于）<br>
+e1 in e2<br>
+e1 not in e2<br>
+e1 + e2,e1 * e2,e1/e2,e1 - e2,e1%e2<br>
+!e,not e：非，求反<br>
+e.method(args)调用对象方法<br>
+e.property对象属性值<br>
+e1[ e2 ]按索引取值，List,数组和Map<br>
+@class@method(args)调用类的静态方法<br>
+
+        </section>
+		<section>
+            <p>mybatis中什么地方需要用到OGNI？<br><br>
+			1.动态SQL表达式中<br>
+2.${param}参数中
+			</p>
+        </section>
+        <section>
+            <h3>3.编码实战</h3>
+			<p>请看示例</p>
+        </section>
+        <section>
+            <h3>4.常见问题</h3>
+			<p>1.为什么要使用转义字符？<br>
+			在xml的sql语句中，不能直接用大于号、小于号要用转义字符,当然你也可以使用ognl表达式</p>
+        </section>
+        <section>
+       <section>
+            <h3>5.更多讨论</h3>
+            <p>mybatis官方文档：http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 胡凯博</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
