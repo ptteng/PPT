@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task8】angular的config和run分别是干什么的</h2>
+            <h3>小课堂</h3>
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+
+
+            <p>"依赖" 都可以理解为 "需要使用的资源",依赖注入是一种软件设计模式,用于处理如何让程序获得其依赖(对象的)引用</p>
+        </section>
+        <section>
+            <p>$provide服务负责告诉Angular如何创造一个新的可注入的东西：即服务(service)。服务会被叫做provider的东西来定义，你可以使用$provide来创建一个provider。你需要使用$provide中的provider方法来定义一个provider，同时你也可以通过要求改服务被注入到一个应用的config函数中来获得$provide服务。</p>
+            <p>factory，service以及value全部都是用来定义一个providr的简写，它们提供了一种方式来定义一个provider而无需输入所有的复杂的代码</p>
+            <!--<img src="../img/js-08-Html5Validator/effect.jpg" alt="">-->
+        </section>
+        <section>
+            <h3>
+                二.知识剖析
+            </h3>
+        </section>
+        <section>
+            <pre>
+                app.config(function($provide) {
+                      $provide.provider('greeting', function() {
+                    this.$get = function() {
+                      return function(name) {
+                    alert("Hello, " + name);
+                      };
+                    };
+                      });
+                    });
+            </pre>
+        </section>
+<section>
+    在上面的例子中我们为一个服务定义了一个叫做greeting的新provider；我么可以把一个叫做greeting的变量注入到任何可注入的函数中（例如控制器，在后面会讲到）然后Angular就会调用这个provider的$get函数来返回这个服务的一个实例。在上面的例子中，被注入的是一个函数，它接受一个叫做name的参数并且根据这个参数alert一条信息。我们可以像下面这样使用它
+    <pre>
+        app.controller('MainController', function($scope, greeting) {
+              $scope.onClick = function() {
+            greeting('Ford Prefect');
+              };
+            });
+    </pre>
+</section>
+        <section>
+            <p>factory，service以及value全部都是用来定义一个providr的简写，它们提供了一种方式来定义一个provider而无需输入所有的复杂的代码。例如，你可以用下面的代码定义一个和前面完全相同的provider：</p>
+            <pre>
+                app.config(function($provide) {
+                      $provide.factory('greeting', function() {
+                    return function(name) {
+                      alert("Hello, " + name);
+                    };
+                      });
+                    });
+            </pre>
+            <p>在幕后，AngularJS实际上是在调用前面出现的代码（就是$provide.provider的版本）。从字面上来说，这两种方法基本上没有差别</p>
+        </section>
+
+
+        <section>
+        <h3>
+            三.常见问题
+        </h3>
+        </section>
+        <section>
+            <p>angular中的配置块和运行块是什么</p>
+           
+        </section>
+        <section>
+            <h3>
+                四.解决方案
+            </h3>
+        </section>
+        <section>
+            AngularJS分两个阶段运行你的应用 – config阶段和run阶段。config阶段是你设置任何的provider的阶段，它也是你设置任何的指令，控制器，过滤器以及其它东西的阶段。在run阶段，AngularJS会编译你的DOM并启动你的应用。
+            </section>
+        <section>
+        <p>首先是配置块</p>
+            <p>通过config方法实现对模块的配置,AngularJS中的服务多数都对应一个provider,
+                用来执行与对应服务相同的功能或对其配置,比如$log、$http、$location都是内置服务，
+                相对应的“provider”分别是$logProvider、$httpProvider、$locationPorvider。</p>
+
+        </section>
+        <section>
+           <p>然后是运行快</p>
+            <p>  和配置块不同，运行块在注入器创建之后被执行，它是所有AngularJS应用中第一个被执行的方法。，利用这个特点我们可以将一些需要优先执行的功能通过run方法来运行，
+                运行块是AngularJS中与main方法最接近的概念。运行块中的代码块通常很难进行单元测试，它是和应用本身高度耦合的。
+
+                运行块通常用来注册全局的事件监听器。例如，我们会在.run()块中设置路由事件的监听器以及过滤未经授权的请求</p>
+
+        </section>
+
+        <section>
+            <h3>五.编码实战</h3>
+            见demo
+        </section>
+
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+
+        <section>
+            <p>哪几种对象类型可以注入到config()函数里？</p>
+        </section>
+        <section>
+            <p>提供者和常量。如果我们将一个服务注入进去，会在真正对其进行配置之前就意外地把服务实例化了。</p>
+        </section>
+
+        <section>
+            <h3>7.参考资料</h3>
+        </section>
+
+        <section>
+
+            <a href="http://sentsin.com/web/663.html">理解angularJs的依赖注入</a>
+            <!-- <p><a href="" target="_blank" ></a></p> -->
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>既然factorry和value能够节省那么多的代码，为什么还有人要使用provider?</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王力</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
