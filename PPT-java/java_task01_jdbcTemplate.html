@@ -1,0 +1,212 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JDBC和JDBCTemplate</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 于博韬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>JDBC这个概念是我在做DAO层时了解到的知识点，主要用来实现连接底层数据库，
+			           并且能够实现通过java代码对数据库进行数据的增删查改</p>
+            <p>这个各位师兄肯定是很了解的，但是最近任务更新后使用的是JDBCTemplate进行操作，
+			      可能会有一些师兄们就了解的不是很深，所以我也就浅显的讲一下，括弧笑</p>
+        </section>
+        <section>
+            <p>并且JDBC和JDBCTemplate是不是有啥联系呢？
+			 <p>         毕竟长得这么像！</p>
+            </p>
+            <p>
+            接下来我就吹一波，各位老铁捧个场
+            </p>
+		</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+			</section>
+			<section>
+            <p>首先讲JDBC肯定离不开DAO（Data Access Object）层，而JDBC的原理就是通过Connection对象获取数据库的连接，
+			然后通过PreparedStatement对象处理SQL语句，再通过它的.setObject方法传入数据，最后通过方法.executeUpdate()和.executeQuery()执行更新，
+			这就是JDBC的基本原理</p>
+        </section>
+		<section>
+		    <p>可以看到，JDBC涉及到了连接数据库、然后处理SQL语句、然后传值这几个过程，可以说任何通过java代码对数据库的操作都离不开这几个过程
+			<p>但为什么会有五花八门的JDBC、JDBCTemplate和mybatis（我就学了这几个，更多的我就不知道了）这些方法的分别呢？</p>
+			</p>
+		</section>
+		<section>
+		    <p>那我们来看看JDBCTemplate有什么不一样
+			</p>
+		</section>
+		<section>
+		    <p>首先JDBCTemplate是涉及到spring框架的一种方法，我们都知道spring框架中有一个神奇的东西，就是.xml配置文件。
+			</p>
+			<p>JDBCTemplate就是通过这个配置文件极大的简化了我们代码量，并且提高了安全性
+			</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		
+            <p>那么问题来了</p>
+		</section>
+	   <section>
+            <p>怎么通过配置文件实现简化代码呢？</p>
+        </section>
+      
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+		 <section>
+		<p> 其实和JDBC的思路是大同小异的。</p>
+        
+		</section>
+
+        <section>
+            <p>
+                 首先我们需要在接口实现类中拥有一个set方法，这个是使用JDBCTemplate一定要注意的，没有会报错，而这个set方法就是用来连接数据库的 </p>
+            <p>然后创建DataSource对象和JDBCTemplate对象，分别是用来连接数据库和处理SQL语句的</p>
+            <p>最后使用JDBCTemplate对象的.update方法和.query方法分别实现插入和查找</p>
+            
+        </section>	
+
+		<section>
+		<p>讲完原理，还有配置文件的功用还没讲。
+		配置文件中的东西不多，一个是DataSource对象的bean，另一个是接口实现类的bean并且和DataSource的bean做了引用
+		</p>
+		<p>最后在测试类中（就是驱动函数中），我们需要用ApplicationContext对象存储配置文件的路径，该路径通过ClassPathXmlApplicationContext得到，
+		然后用ApplicationContext对象的.getBean方法连接到配置文件里的接口实现类的bean，然后就可以愉快的使用方法了
+		</p>
+</section>
+<section>
+<p>可以看到JDBCTemplate其实对JDBC的获取数据库连接的Connection对象做了封装，提高了整体安全性，并且减少了大量冗余代码，提高工作效率
+<p>插入、删除等操作时也不用像JDBC一个一个字段进行操作了，极大简化代码量，减少失误</p>
+<p>并且摒弃了TryCatch块，更加安全了</p>
+</section>
+
+<section>
+<p>总之是个利器，就这么理解好了，哈哈</p>
+<p>（但是比起mybatis还是弱的一比）</p>
+
+        </section>
+
+	<section>
+            <h3>5.编码实战</h3>
+        </section>
+		<section>
+        <p>憋说话，用心感受我的操作~
+		</p>
+		</section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>畅所欲言</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.yiibai.com/springjdbc/stored_function.html</p>
+			<p>其他的忘记了，找不到了</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 于博韬</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
