@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>imgLoad</title>
+            /*margin: 2em;*/
+            padding: 1em;
+            border: 1px solid red;
+        }
+
+        #form{
+            position: relative;
+        }
+
+        #imgFile{
+            display: none;
+        }
+
+        #img {
+            display: block;
+            /*height: 200px;*/
+            width: 50%;
+            /*background-color: blanchedalmond;*/
+            padding: .5em;
+            outline: 1px dotted #ccc;
+            text-align: center;
+            vertical-align: middle;
+            margin: auto;
+        }
+
+
+    </style>
+    <script type="text/ng-template" id="imgLoad.html">
+        <div class="box">
+            <form id="form" enctype="multipart/form-data">
+                <label for="imgFile">上传:</label>
+                <label for="imgFile" class="btn btn-primary btn-md" ng-disabled="upDisabled">选择图片</label><span>图片最大为2000000byte(约2MB)</span>
+                <input type="file" id="imgFile">
+                <img alt="这里是图片" id="img" ng-src="{{src}}">
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>名字</th>
+                    <th>大小</th>
+                    <th>进度</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr ng-if="hasImg">
+                    <td>{{name}}</td>
+                    <td>{{size}}</td>
+                    <td><progress id="progress" ng-value="progress" max="100"></progress><span>{{progress}}</span></td>
+                    <td>{{status}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class='btn btn-success' ng-disabled="upDisabled" ng-click="upLoad()">上传</button>
+                            <button class="btn btn-danger" ng-click="delete()">删除</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+</head>
+<body ng-controller="myCtrl">
+
+<div class="imgUpload"></div>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/angular.js/1.5.11/angular.min.js"></script>
+<script src="fileUpload.js"></script>
+</body>
+</html>
