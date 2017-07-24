@@ -66,3 +66,5 @@ myApp.directive('imgUpload', function ($http) {
         }
     };
 });
+
+
