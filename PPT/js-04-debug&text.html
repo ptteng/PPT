@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何验证程序是否完成，测试以及修复bug?</h2>
+            <h3>小课堂【北京】</h3>
+            <p style="text-align: center;">分享人：杨梦桐</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在日常中，我们码代码都是按照需求来的，为了验证我们验证我们的工作成果符合我们的项目需求，那么验证程序是否完成、测试以及修复bug就成了我们工作中非常重要的流程。 </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么样的程序是完成的程序</p>
+            <ul style="text-align: left">
+                <li>从需求的角度看：满足用户的全部需求</li>
+                <li>从程序的角度看：代码不存在明显bug，结构明晰，逻辑通顺，有一定的优化</li>
+                <li>从UI图的角度看：较为完美的还原了UI图的设计</li>
+                <li>从后期版本维护迭代的角度看：注释完备，稳定性好，不加班的代码就是好代码</li>
+            </ul>
+        </section>
+        <section>
+            <p>测试：测试是使用人工操作或者软件自动运行的方式来检验它是否满足规定的需求或弄清预期结果与实际结果之间的差别的过程。</p>
+        </section>
+        <section>
+            <p>软件测试的方法</p>
+            <ul style="text-align: left">
+                <li>按照测试范围，可以分为模块测试和整体联调</li>
+                <li>按照测试条件，可以分为正常操作情况测试和异常情况测试</li>
+                <li>按照测试的输入范围，可以分为全覆盖测试和抽样测试</li>
+            </ul>
+        </section>
+        <section>
+            <p>测试方式之间的区别</p>
+            <ul style="text-align: left">
+                <li>模块测试：针对设计中的一个一个模块来进行测试的，目的是保证每个模块作为一个单元能正确运行，所以模块测试通常又被称为单元测试。
+                    在这个测试步骤中所发现的往往是编码和详细设计的错误。</li>
+                <li>整体联调：测试模块间接口的正确性、各模块间的数据流和控制流是否按照设计实现其功能、以及集成后整体功能的正确性。</li>
+            </ul>
+        </section>
+        <section>
+            <ul style="text-align: left">
+                <li>正常操作情况测试：根据正确的操作流程对单独的模块或整体进行测试，确定被测对象可以良好运行</li>
+                <li>
+                    异常情况测试：异常情况，可能会包括数据库异常，系统异常，用户异常操作等情况
+                    <ul>
+                        <li>成熟性：软件产品要避免由软件中错误而导致失效的能力</li>
+                        <li>容错性：在软件失效或者违反规定的接口的情况下，软件产品维持规定的性能级别的能力</li>
+                        <li>易恢复性：在发生故障的情况下，软件重建规定的性能级别并恢复受直接影响的数据的能力</li>
+                        <li>可靠性依从性：软件产品依附于同可靠性相关的标准、约定或规定的能力</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <ul style="text-align: left">
+                <li>全覆盖测试：对于被测对象全面，整体，多维度的测试，受限于时间和人力成本，除非被测对象级别很高，不然不会采用这种测试方式</li>
+                <li>抽样测试：针对功能及模块随机抽取被测对象</li>
+            </ul>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何debug</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>断点调试</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>如何尽量少的减少bug？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://baike.baidu.com/link?url=Qb1W_P7EOP3EzzAa1OaYVb7gNtwRcfZ8iY7RUJ75pk5xhNMHgayo6-4EE-0113i0s6CeqHyH62GJ6dqkWYv-qle0rxWDug6RnatixrHN1zc8GFT2oZHm5CeyGeckzfjfG7qV8JdytX2xBg46Awjima#1_5">软件开发流程</a></p>
+            <p><a href="http://blog.csdn.net/chrenny/article/details/42390795">如何提高测试覆盖率</a></p>
+            <p><a href="http://www.51testing.com/html/14/188314-170205.html">测试分析中对异常情况考虑</a></p>
+            <p><a href="http://www.51testing.com/html/07/n-220007-2.html">软件异常测试</a></p>
+            <p><a href="http://www.cnblogs.com/mqfblog/p/5397282.html">断点调试</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p style="text-align: left">好的代码应该是什么样的？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY : 杨梦桐</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
