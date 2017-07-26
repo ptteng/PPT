@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】</h2>
+            <h3>小课堂【深圳第182期】</h3>
+            <h4>CSS有哪些选择器，优先级如何计算？</h4>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是CSS选择器？</p>
+        </section>
+        <section>
+            <p>要使用css对HTML页面中的元素实现一对一，一对多或者多对一的控制，这就需要用到CSS选择器。
+            HTML页面中的元素就是通过CSS选择器进行控制的。</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1类别选择器
+            </section>
+            <section>
+            <p>类选择器根据类名来选择，前面以“.”来标志</p>
+                <pre>
+                    <code>
+                        .demo{
+                            color:#FF0000;
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    在HTML中，元素可以定义一个class的属性，并且多个元素都可以重复应用这个属性。
+                </p>
+                <pre>
+                    <code>
+                        <div class="demo">这里是红色</div>
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.2标签选择器
+            </section>
+            <section>
+                一个完整的HTML页面是有很多不同的标签组成，如：body，div，p，ul，li，而标签选择器，则是决定哪些标签
+                采用相应的CSS样式
+                <pre>
+                    <code>
+                        p{
+                            font-size:12px;
+                            background:#900;
+                            color:090;
+                        }
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+           <section>
+               2.3ID选择器
+           </section>
+           <section>
+               ID 选择器可以为标有特定 ID 的 HTML 元素指定特定的样式。
+               根据元素ID来选择元素，具有唯一性，这意味着同一id在同一文档页面中只能出现一次，
+               例如，你将一个元素的id取值为”name”，那么在同一页面你就不能再将其他元素id取名为”name”了。
+           </section>
+            <section>
+                前面以”#”号来标志，在样式里面可以这样定义：
+                <pre>
+                   <code>
+                       #dmeo{
+                            color:blue
+                       }
+                   </code>
+               </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.4通用选择器
+            </section>
+            <section>
+                通过*号来表示。如下代码表示所有元素的内外边距都为0，所有的字体都为微软雅黑。
+                它可以清除不同浏览器的默认样式。
+                <pre>
+                    <code>
+                        * {
+                            margin: 0;
+                            padding:0;
+                            font-family:"Microsoft YaHei"
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>同时通用选择器还可以和后代选择器组合。如下表示所有p元素后代的所有元素都应用这个样式。</p>
+                <pre>
+                    <code>
+                        p* {
+                            color:green;
+                        }
+                    </code>
+                </pre>
+                <span style="color:red">注意：</span>但是如果你在p标签里嵌套了一个p标签，就会出现浏览器不能解析的情况，因此要避免。
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.5后代选择器
+            </section>
+            <section>
+                <p>后代选择器也称为包含选择器，用来选择特定元素或元素组的后代，将对父元素的选择放在前面，
+                    对子元素的选择放在后面，中间加一个空格分开。后代选择器中的元素不仅仅只能有两个，
+                    对于多层祖先后代关系，可以有多个空格加以分开。
+                </p>
+            </section>
+            <section>
+                <p>如下例子定义了所有class属性为father的元素下面的class属性为child的颜色为红色。</p>
+                <pre>
+                     <code>
+                        <style>
+                             .father.child{
+                                 color:red;
+                             }
+                        </style>
+                         <p class="father">
+                             黑色
+                             <label class="child">红色
+                                 <b>也是红色</b>
+                             </label>
+                         </p>
+                     </code>
+                 </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.6子选择器
+            </section>
+            <section>
+                <p>请注意这个选择器与后代选择器的区别，子选择器只是选择元素的直接后代，即仅仅作用于第一个后代。
+                    后代选择器通过空格来进行选择，而子选择器是通过“>”进行选择</p>
+                <pre>
+                     <code>
+                        .links > a {
+                                    color:blue;
+                         }
+                     </code>
+                 </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.7伪类选择器
+            </section>
+            <section>
+                <p>即链接样式，a元素的伪类，存在4种不同的状态：link、visited、active、hover。如：</p>
+                <pre>
+                     <code>
+                        a:link{
+                            color:#999;
+                            }
+                     </code>
+                 </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                2.8群组选择器
+            </section>
+            <section>
+                <p>具有相同样式的标签分组显示将具有多个相同属性的元素，
+                    合并群组进行选择，定义同样的CSS属性，这大大的提高了编码效率，
+                    同时也减少了CSS文件的体积。</p>
+                <pre>
+                     <code>
+                        p, td, li {
+                                     line-height:20px;
+                                     color:#c00;
+                                 }
+                     </code>
+                 </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                2.9相邻同胞选择器
+            </section>
+            <section>
+                <p>如一个标题h1元素后面紧跟了两个段落p元素，我们想定位第一个段落p元素，
+                    对它应用样式，就可以使用相邻同胞选择器。</p>
+                <pre>
+                     <code>
+                         h1 + p {color:blue}
+                         HTML
+                         <h1>标题</h1>
+                         <p>第一段</p>
+                         <p>第二段</p>
+                     </code>
+                 </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一: 对多个选择器使用的优先级是怎么进行计算的？
+                </p>
+            <p>问题二：当不同类别的多个选择器混合使用该怎么计算优先级？
+                </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>问题1：对多个选择器使用的优先级是怎么进行计算的？</p>
+        </section>
+        <section>
+            <p>不同类别</p>
+            <span style="text-align:left; display: inline-block">
+            1、在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。
+            <br>
+            2、作为style属性写在元素内的样式
+            <br>
+            3、id选择器
+            <br>
+            4、类选择器
+            <br>
+            5、标签选择器
+            <br>
+            6、通配符选择器
+            <br>
+            7、浏览器自定义或子元素继承父类的样式
+            </span>
+        </section>
+          <section>
+              <p>总结排序：</p><br>
+              !important > 行内样式>ID选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性
+          </section>
+          <section>
+              同一级别中后写的会覆盖先写的样式
+          </section>
+      </section>
+        <section>
+           <section>
+            <p>
+                问题2：当不同类别的多个选择器混合使用该怎么计算优先级？
+            </p>
+           </section>
+           <section>
+                <span style="text-align:left; display: inline-block">
+                    <li>内联样式表的权值为 1000 </li>
+                    <li>ID 选择器的权值为 100 </li>
+                    <li> Class 类选择器的权值为 10 </li>
+                    <li>HTML标签选择器的权值为 1 </li>
+                </span><br><br>
+               我们可以把选择器中规则对应做加法，比较权值，如果权值相同那就后面的覆盖前面的了，
+               div.test1.test3的权值是1+10+10=21，而.test1.test2.test3的权值是10+10+10=30，
+               所以div会应用.test1 .test2.test3变成绿色。
+           </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment" style="text-align: left;">问题一：如果是十一个class类选择器和一个ID选择器，系统会以哪个优先？</p>
+            <p class="fragment" style="text-align: left;">问题二：子选择器和后代选择器的区别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/zxjwlh/p/6213239.html" target="_blank">博客园</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：我们经常会遇到写了一个样式后没显示的情况，如何判断是否是优先级的问题？</p>
+            <p>讨论点二：在用css选择器的时候我们还会遇到什么问题？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :高雪峰|包腾飞</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
