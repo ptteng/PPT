@@ -31,80 +31,96 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>浅谈cookie和session</h2>
+            <h3>rest的请求方法有哪些，有什么区别</h3>
 			<p></p>
-            <h3>java分享会</h3>
+            <h4>java分享会</h4>
             <p>分享人：北京分院 赵宇</p>
         </section>
         <section>
-            <p>1.引子</p>
-            <p>2.什么是cookie</p>
-            <p>3.cookie机制</p>
-            <p>4.cookie属性</p>
-            <p>5.session机制</p>
-            <p>6.保存sessionID的方式</p>
-            <p>7.session、cookie的区别</p>
+            <p>1.什么是REST？</p>
+            <p>2.REST的方法</p>
+            <p>3.REST方法的使用</p>
+            <p>4.REST其他方法</p>
+           <!--  <p>5.</p>
+            <p>6.</p>
+            <p>7.</p> -->
         </section>
         <section>
-            <h3>1.引子</h3>
-            <p>一个小例子</p>
-            <p> </p>
+            <h3>1，什么是REST？</h3>
+            <p>首先简要的说一下REST  --REpresentational State Transfer，直接翻译就是：表现层状态转移。这个就不是人话，听了还不如不听。然后找到个这样的解释：URL定位资源，用HTTP动词(GET，POST，DELETE，PUT)描述操作。</p>
+            <p>因为这里主要讲rest的方法，所以不过多涉及REST本身了，想了解REST内容的，请看修真院其他师兄分享的日报，传送门：http://www.jianshu.com/p/7a97d82a4810</p>
             <p></p>
-            <p>星巴克开始优惠活动，每消费10杯咖啡，会免费赠送1杯。考虑到一个人一次性消费10杯咖啡几乎不可能，所以需要采取某种方式来记录顾客的消费数量。</p>
+            <p></p>
+            <p></p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
         </section>
 		
         <section>
-            <p>解决方案：</p>
-            <p>1，店员很厉害，每个顾客的消费记录都记得一清二楚；</p>
-            <p>2，分给顾客一张卡片，每消费一次记录一次；</p>
-            <p>3，发给顾客一张卡片，上面有卡号，顾客每消费一次，由店员在操作机上记录一次。</p>
-            <p>从生活上来看，方案一的可执行性几乎为0，方案二和方案三我们都见过。
-
-而方案二和三正是对应的客户端记录和服务端记录。与之相对应的正式cookie和session。
-
-好了，我们进入正题。
-
-我们知道HTTP协议是一种无状态的协议，数据一旦交换完毕，客户端与服务端的连接就会关闭，再次交换数据需要重新建立连接。而我们有时候又有跟踪会话的需求，所以必须引入一种机制：cookie。</p>
+            <h3>2,REST的方法</h3>
+            <p>GET：用来获取资源，可类比于数据库增删改查的Select方法</p>
+            <p>POST：用来新建资源（也可以用于更新资源），可类比于数据库增删改查的insert方法。</p>
+            <p>PUT：用来更新资源，可类比于数据库增删改查的update方法。</p>
+            <p>DELETE：用来删除资源，可类比于数据库增删改查的delete的方法。</p>
 		</section>
 			
 		
         <section>
-            <h3>2.什么是cookie？</h3>
-            <p>cookie是一小段文本信息，它记录了一个用户访问某个网站时的用户信息。</p>
+            <h3>3.REST方法的使用</h3>
+            <p>说到这里就不得不再提一下RESTful API。我们知道这东西就是个设计风格，但它也有一个标准或者说格式。
+			</p>
+            <p>资源（URL）：api.jnshu.com/ptteng/students</p>
+            <p>HTTP方法：GET</p>
+            <p>GET  --/students   获取所有学员</p>
+            <p>GET  --/students/{id}  获取Id={id}的学员</p>
         </section>
+        <section>
+            	<p>rest方法的使用我们来看一下，首先是get方法：</p>
+            <p>@RequestMapping(value ="/add.html", method = RequestMethod.GET)
+
+				public String addStu() {
+
+				return"add";
+
+				}</p>
+            <p>这是我在做任务2时的添加学员的例子，当然现在回头看是不太符合格式标准的，因为value这里应该用名词才对。但不影响我们讲解。首先value=“add.html"，这里其实就是个URL，用来定位资源。其次method=RequestMethod.GET，这就是HTTP请求的动作。两者的结合完成了对添加人员页面的查询。</p>
+        </section>
+        <section>
+            	<p>接下来是post方法：</p>
+            <p>@RequestMapping(value ="/addStu.html", method = RequestMethod.POST)
+
+				public String addStu() {
+
+				return"add";
+
+				}</p>
+            <p>可以看到与get方法其实很像，不同的是具体点的URL和方法。</p>
+            <p>演示部分我们用postman来操作。</p>
+        </section>
+            
+        
 		
         <section>
-            <h3>3.cookie机制</h3>
-            <p>cookie机制其实在前面已经说了，但cookie需要解决三个问题：分发、内容和使用。
-
-            <p>cookie的分发是通过扩展HTTP协议来实现的，服务器端通过在HTTP的响应由中加上一行特殊的指示以提示浏览器按照指示生成相应的cookie。</p>
-
-            <p>cookie的内容主要包括名字、值、过期时间、路径和域。</p>
-
-            <p>cookie的使用是由浏览器按照一定的原则在后台自动发送给服务器。浏览器检查所有存储的cookie，如果某个cookie所声明的作用范围大于等于将要请求的资源所在的位置，则把该cookie附在请求资源的HTTP请求头上发送给服务器。</p>
+            <h3>4，REST其他方法</h3>
+            <p>基本上来说，我们用get和post方法就可以满足日常操作，而且rest的delete和put方法可以通过某种方式转换成get和put方法。</p>
+            <p>rest其实还有4中操作方法：OPTIONS HEAD TRACE CONNECTION，但因为基本上接触不到，这里就不做说明了。/p>
         </section>
 
-        <section>
-            <h3>4.cookie属性</h3>
-            <p>name：cookie的名字，一旦创建，名称不可更改。</p>
+        <!-- <section>
+            <h3>6,HEAD方法</h3>
+            <p>向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法
+            可以再不必传输整个相应内容的情况下，就可以获取包含在响应消息头中的元信息</p>
+            <h3>7.TRACE</h3>
+            <p>回显服务器收到的请求，主要用于测试或诊断</p>
+            <h3>8.CONNECT</h3>
+            <p>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</p>
+            <p></p>
+        </section> -->
 
-            <p>value：cookie的值，如果值为Unicode字符，需要为字符编码。如果为二进制数据，则需要使用BASE64编码。</p>
-
-            <p>maxAge：cookie失效时间，单位秒。如果为正数，则该cookie在maxAge后失效。如果为负数，该cookie为临时cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该cookie。如果为0，表示删除该cookie。默认为-1。</p>
-            <p>secure：该cookie是否仅被使用安全协议传输。</p>
-            <p>path：该cookie的使用路径。如果设置为"/sessionWeb/"，则只有ContextPath为“/sessionWeb/”的程序可以访问该cookie。如果设置为“/”，则本域名下ContextPath都可以访问该cookie。</p>
-        </section>
-        <section>
-         <p>5.session机制</p>
-        </section>
-
-		 <section>
-		<p>session机制是一种服务端的机制，服务器使用一种类似散列表的结构来保存信息。
-
-当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端里的请求里是否已包含了一个session标识--sessionID，如果已经包含一个sessionID，则说明以前已经为此客户端创建过session，服务器就按照sessionID把这个session检索出来使用（检索不到，可能会新建一个），如果客户端请求不包含sessionID，则为此客户端创建一个session并且声称一个与此session相关联的sessionID，sessionID的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个sessionID将被在本次响应中返回给客户端保存。</p>
-		</section>
-
-        <section>
+        <!-- <section>
             <p>6,保存sessionID的方式</p>
             <p>1，使用cookie：一般这个cookie的名字都是类似于XSESSIONID
 
@@ -138,7 +154,7 @@ http://...../xxx?jsessionid=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
             <p><small>BY : 北京分院 赵宇</small></p>
-        </section>
+        </section> -->
 
     </div>
 </div>

@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jemeter入门教程</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 韦琦</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+	    <section>     
+		Apache JMeter是Apache组织开发的基于Java的压力测试工具。用于对软件做压力测试，它最初被设计用于Web应用测试，但后来扩展到其他测试领域。 它可以用于测试静态和动态资源，例如静态文件、Java 小服务程序、CGI 脚本、Java 对象、数据库、FTP 服务器， 等等。JMeter 可以用于对服务器、网络或对象模拟巨大的负载，来自不同压力类别下测试它们的强度和分析整体性能。另外，JMeter能够对应用程序做功能/回归测试，通过创建带有断言的脚本来验证你的程序返回了你期望的结果。为了最大限度的灵活性，JMeter允许使用正则表达式创建断言。
+		</section>
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+		<p>1、线程组：代表一定数量的并发用户，它可以用来模拟并发用户发送请求。实际的请求内容在Sampler中定义，它被线程组包含。可以在“测试计划->添加->线程组”来建立它，然后在线程组面板里有几个输入栏：线程数、Ramp-Up Period(in seconds)、循环次数，其中Ramp-Up Period(in seconds)表示在这时间内创建完所有的线程。如有8个线程，Ramp-Up = 200秒，那么线程的启动时间间隔为200/8=25秒，这样的好处是：一开始不会对服务器有太大的负载。线程组是为模拟并发负载而设计。</p>
+		</section>
+		<section>
+		<p>2、取样器（Sampler）：模拟各种请求。所有实际的测试任务都由取样器承担，存在很多种请求。如：HTTP 、ftp请求等等。</p>
+		<p>3、监听器：负责收集测试结果，同时也被告知了结果显示的方式。功能是对取样器的请求结果显示、统计一些数据（吞吐量、KB/S……）等。</p>
+		<p>4、断言：用于来判断请求响应的结果是否如用户所期望，是否正确。它可以用来隔离问题域，即在确保功能正确的前提下执行压力测试。这个限制对于有效的测试是非常有用的。</p>
+		</section>
+		<section>
+		<p>5、定时器：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。</p>
+		<p>6、逻辑控制器：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。</p>
+		<p>7、配置元件维护Sampler需要的配置信息，并根据实际的需要会修改请求的内容。</p>
+		<p>8、前置处理器和后置处理器负责在生成请求之前和之后完成工作。前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。</p>
+		</section>
+
+		<section>
+			<h3>聚合报告参数详解</h3>
+		</section>
+		<section>
+			<p>Label：每个 JMeter 的 element（例如 HTTP Request）都有一个 Name 属性，这里显示的就是 Name 属性的值</p>
+			<p>#Samples：表示你这次测试中一共发出了多少个请求，如果模拟10个用户，每个用户迭代10次，那么这里显示100</p>
+			<p>Average：平均响应时间——默认情况下是单个 Request 的平均响应时间，当使用了 Transaction Controller 时，也可以以Transaction 为单位显示平均响应时间</p>
+		</section>
+		<section>
+			<p>Median：中位数，也就是 50％ 用户的响应时间</p>
+			<p>90% Line：90％ 用户的响应时间</p>
+			<p>Note：关于 50％ 和 90％ 并发用户数的含义</p>
+		</section>
+		<section>
+			<p>Min：最小响应时间</p>
+			<p>Max：最大响应时间</p>
+			<p>Error%：本次测试中出现错误的请求的数量/请求的总数</p>
+		</section>
+		<section>
+			<p>Throughput：吞吐量——默认情况下表示每秒完成的请求数（Request per Second），当使用了 Transaction Controller 时，也可以表示类似 LoadRunner 的 Transaction per Second 数.
+			<p>KB/Sec：每秒从服务器端接收到的数据量，相当于LoadRunner中的Throughput/Sec</p>
+		</section>
+
+		<section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+			<p>哪些原因可能导致error的产生？</p>
+			<p> Http错误，包括不响应，结果找不到，数据错误等等；</p>
+			<p>JMeter本身原因产生的错误。</p>
+		</section>
+
+		<section>
+			<p> 当测试对象在多server间跳转时，应该怎样处理？</p>
+			<p> 程序运行时，有些http和隐函数会携带另外的server IP,我们可以从他们的返回值中获取。</p>
+		</section>
+
+		<section>
+            <h3>4.扩展思考</h3>
+        </section>
+       
+		<section>
+		<p>(1) 首先说一下如何产生压力，产生压力的方法有很多，通常可以写脚本产生压力机器人对服务器进行发包和收包操作，也可以使用现有的工具(像jmeter、LoadRunner这些），所以说产生压力其实并不难，难点在于产生的压力是不是真实地反映了实际用户的操作场景。举个例子来说，对游戏来说单纯的并发登陆场景在整个线上环境中的占比可能并不大(新开服等特殊情况除外)，相反“登陆-开始战斗-结束战斗”、不同用户执行不同动作这种“混合模式”占了更大的比重。所以如何从实际环境中提炼出具体的场景比重，并且把这种比重转化成实际压力是一个重要的关注点。</p>
+		</section>
+
+		<section>
+		<p>(2) 产生压力之后，通常我们可以拿到TPS、响应时延等性能数据，那么如何定位性能问题呢？TPS、响应时延只能告诉你服务器是否存在问题，但不能帮助你定位问题。这些表面背后是整个后台处理逻辑综合作用的结果，这时候可以先关注系统的CPU、内存、IO、网络，对比在tps、时延达到瓶颈时这些系统数据的情况，确定性能问题是系统哪一部分造成的，然后再回到代码的逻辑中逐个优化这些点。</p>
+		</section>
+
+		<section>
+		<p>(3) 当服务器的整体性能就可以相对稳定下来，这时候就需要对自己服务器的承载能力有一个预估，通过产生真实压力、对比系统数据，大致可以对单套系统的处理能力有个真实的评价，然后结合业务规模配置服务器数量。可以看下腾讯wetest的这个压测工具http://wetest.qq.com/gaps/</P>
+		</section>
+
+		<section>
+            <h3>5.更多讨论</h3>
+            <p></p>
+        </section>
+
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 韦琦</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

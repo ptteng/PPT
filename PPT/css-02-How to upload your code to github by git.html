@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何使用git将代码上传至githup?</h2>
+            <h3>北京170期小课堂</h3>
+            <p>分享人：郭婷婷</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是git？</h3>
+            <p style="text-align: left">
+                Git是一个开源的分布式版本控制系统。<br>
+                通俗的说，就是一个管理代码历史记录的工具,当多人协作时可以相互推送各自的修改。<br>
+
+            </p>
+        </section>
+        <section>
+            <h3>什么是github？</h3>
+            <p style="text-align: left">
+                GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。
+                付费用户可以建私人仓库，我们一般的免费用户只能使用公共仓库，也就是代码要公开。
+            <p>
+            <img src="../img/css-02-How%20to%20upload%20your%20code%20to%20github%20by%20git/Octocat.png"width="400"height="332">
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: left">
+                <h3 style="text-align: center">2.知识剖析</h3>
+            </section>
+            <section style="text-align: left">
+                <h3>什么是版本库？</h3>
+                <p>版本库又名仓库，英文名repository，你可以简单理解成一个目录，
+                    这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，
+                    以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+            </section>
+            <section style="text-align: left">
+                <h3>Git 工作区、暂存区和版本库</h3>
+                <p>工作区：就是在电脑里能看到的目录。</p>
+                <p>暂存区：英文叫stage, 或index。一般存放在 ".git目录下" 下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。</p>
+                <p>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。</p>
+            </section>
+            <section style="text-align: left">
+                <img  src="../img/css-02-How%20to%20upload%20your%20code%20to%20github%20by%20git/stage.png">
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h3 style="text-align: center"> 3.1 如何添加远程库</h3>
+                <h3 style="text-align: center"> 3.2 如何从远程库克隆</h3>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section>
+                <h3>4.1 添加远程库</h3>
+                <p style="text-align: left">（1）创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，
+                    如果有的话，直接跳过此如下命令，如果没有的话，打开命令行，输入如下命令(在github上注册的邮箱)：
+                <pre><code>ssh-keygen  -t rsa –C “youremail@example.com”
+                 </code></pre>
+                </p>
+                <p>按3个回车，密码为空.</p>
+                <p>最后得到了两个文件：id_rsa和id_rsa.pub</p>
+
+            </section>
+            <section>
+                <img src="../img/css-02-How%20to%20upload%20your%20code%20to%20github%20by%20git/id.png"width="300" height="200">
+                <img src="../img/css-02-How%20to%20upload%20your%20code%20to%20github%20by%20git/SSH%20key.png" width="620"heihgt="600">
+                <p>进入github官网，登陆个人账户后，settings--SSH and GPG keys--New SSH key,填上任意title，
+                    在Key文本框里黏贴id_rsa.pub文件的内容。最后点击 Add SSH Key。</p>
+            </section>
+            <section>
+
+                <img src="../img/css-02-How%20to%20upload%20your%20code%20to%20github%20by%20git/githubaddress.png">
+
+            <p> 现在在github上创建新的仓库，获取仓库地址，然后：</p>
+                <pre><code> $ git remote add origin https://github.com/bettertiti/jnshu.git</code></pre>
+            <p>添加后，远程库的名字就是origin。</p>
+
+            </section>
+            <section>
+                <p>下一步，就可以把本地库的所有内容推送到远程库上：</p>
+                <pre><code>$ git push -u origin master</code></pre>
+                <p>由于远程库是空的，我们第一次推送master分支时，加上了 –u参数，Git不但会把本地的master分支内容推送的远程新的master分支，
+                    还会把本地的master分支和远程的master分支关联起来， 在以后的推送或者拉取时就可以简化命令。</p>
+                <pre><code>$ git push origin master</code></pre>
+
+            </section>
+
+
+            <section>
+                <h3>4.2 从远程库克隆</h3>
+                <pre><code>
+                   $ git clone  https://github.com/bettertiti/jnshu.git
+                </code></pre>
+
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+                <p style="text-align: center">如何使用WebStorm管理github上的仓库</p>
+
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考1：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a></p>
+            <p>参考2：<a href="https://zhuanlan.zhihu.com/p/21377146">Git是什么</a></p>
+            <p>参考3：<a href="http://www.runoob.com/git/git-tutorial.html">Git教程</a></p>
+            <p>参考4：<a href="http://www.open-open.com/lib/view/open1414396787325.html">手把手教你使用Git</a></p>
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭婷婷</small></p>
+        </section>
+
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

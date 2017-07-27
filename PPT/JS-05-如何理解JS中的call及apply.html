@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>武汉线下小课堂第160期【JS-5】</h3>
+            <h3>如何理解JS中的call及apply</h3>
+            <p>分享人：冯强</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: justify;text-indent: 2em">在 javascript 中，call 和 apply
+                    都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部 this 的指向。
+
+                    JavaScript 的一大特点是，函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <div style="margin: 70px auto 0;width: 30em;text-align: justify">
+                    <p>call和apply的定义</p>
+                    <p>1.call()方法调用具有给定this值的函数和单独提供的参数。说白了就是改变this的指向</p>
+                    <p>2.apply()方法调用具有给定this值的函数，并作为数组（或类似数组的对象）提供。</p>
+
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <div style="margin: 70px auto 0;width: 30em;text-align: justify"><p>问题一：为什么要用call()和apply()方法？</p>
+                    <p class="fragment">问题二：call()和apply()两种方法的区别</p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>比如有段这样的函数：</p>
+                <pre>
+                    <code>
+function cat(){
+    }
+    cat.prototype={
+        food:"fish",
+        say: function(){
+            alert('I love '+this.food);
+        }
+    };
+    var blackCat = new cat;
+    blackCat.say();
+    var whiteDog = {food:'bone'};
+    blackCat.say.call(whiteDog);
+                    </code>
+                </pre>
+                <p>我们有一个对象whiteDog = {food:”bone”},我们不想对它重新定义say方法,那么我们可以通过call或apply用blackCat的say方法：blackCat.say.call(whiteDog);</p>
+            </section>
+            <section>
+                <p>call与apply的区别</p>
+                <p>call, apply都属于Function.prototype的一个方法,它是JavaScript引擎内在实现的,因为属于Function.prototype,所以每个Function对象实例,也就是每个方法都有call, apply属性.既然作为方法的属性,那它们的使用就当然是针对方法的了.这两个方法是容易混淆的,因为它们的作用一样,只是使用方式不同.</p>
+
+            </section>
+            <section>
+                <p style="text-align: left">相同点:两个方法产生的作用是完全一样的</p>
+
+                <p style="text-align: left">不同点:方法传递的参数不同</p>
+                <p style="text-align: left">call()接受的是一个参数列表，而apply()接受一个参数数组。</p>
+                <p style="text-align: left">func.call(this, arg1, arg2);
+                </p>
+                <p style="text-align: left">func.apply(this, [arg1, arg2])</p>
+                <p style="text-align: left">其中 this 是你想指定的上下文，他可以是任何一个 JavaScript 对象(JavaScript 中一切皆对象)，call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里。因此要说适用条件的话，当你的参数是明确知道数量时用 call 。 而不确定的时候用 apply，然后把参数 push 进数组传递进去。</p>
+            </section>
+            <section>
+                <p>举个小栗子来区别call和apply</p>
+                <p>获取数组中的最大值和最小值</p>
+                <pre>
+                    <code>
+                        var  numbers = [5, 458 , 120 , -215 ];
+                        var maxInNumbers = Math.max.apply(Math, numbers),   //458
+                        maxInNumbers = Math.max.call(Math,5, 458 , 120 , -215); //458
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>Demo</p>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>还有哪些和call，apply类似的方法</p>
+                <p class="fragment">bind() 方法</p>
+                <p class="fragment" style="text-align: left">bind() 方法与 apply 和 call 很相似，也是可以改变函数体内 this 的指向。</p>
+                <p  class="fragment" style="text-align: left">bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第二个以及以后的参数，加上绑定函数运行时本身的参数，按照顺序作为原函数的参数来调用原函数。</p>
+                <p  class="fragment" style="text-align: left">也就是说，区别是，当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用 bind() 方法。而 apply/call 则会立即执行函数。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考一：<a href="http://www.cnblogs.com/coco1s/p/4833199.html" target="_blank">【优雅代码】深入浅出 妙用Javascript中apply、call、bind</a></p>
+                <p style="text-align: left">参考二：<a href="http://rangercyh.blog.51cto.com/1444712/1615809">js中bind、call、apply函数的用法</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>欢迎大家补充</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 冯强</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

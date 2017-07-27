@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-11】如何使用webpack？</h2>
+            <h3>深圳分院小课堂第166期
+            <p>分享人：覃腾波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;">
+            当今的很多网页其实可以看做是功能丰富的应用，它们拥有着复杂的JavaScript代码和一大堆依赖包。为了简化开发的复杂度，前端社区涌现出了很多好的实践方法：<br>
+            a:模块化，让我们可以把复杂的程序细化为小的文件;<br>
+            b:类似于TypeScript这种在JavaScript基础上拓展的开发语言：使我们能够实现目前版本的JavaScript不能直接使用的特性，并且之后还能能装换为JavaScript文件使浏览器可以识别；<br>
+            c:scss，less等CSS预处理器.........<br>
+            这些改进确实大大的提高了我们的开发效率，但是利用它们开发的文件往往需要进行额外的处理才能让浏览器识别,而手动处理又是非常反锁的，这就为WebPack类的工具的出现提供了需求。
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        <h3>什么是webpack？</h3>
+        </section>
+        <section style="text-align: left">
+        Webpack 是当下最热门的前端资源模块化管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。<br>
+        webpack已经是大部分前端项目打包工具的首选，grunt、glup、browserify等逐渐沦为辅助甚至完全被替代。在grunt、glup、browserify等已经相当火了之后，webpack长江后浪推前浪，把前辈们拍死在沙滩上，实力惊人。<br>
+        可以毫不夸张的说，webpack已经是你下山行走江湖，叱咤风云的必备技能。
+        </section>
+        <section>
+        <h3>webpack2入门</h3>
+        </section>
+        <section>
+        <strong>安装</strong><br>
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        npm install webpack -g
+        npm install webpack@< version> --save-dev
+        </code>
+        </pre>
+        </section>
+        <section>
+        <strong>创建一个 bundle 文件</strong><br>
+        创建一个示例目录来尝试 wepback。<br>
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        mkdir webpack-demo && cd webpack-demo
+        npm init -y
+        npm install --save-dev webpack
+        查看帮助：
+        .\node_modules\.bin\webpack --help # windows 用户请使用此路径
+        </code>
+        </pre>
+        </section>
+        <section>
+        现在在 app 子目录下创建一个 index.js 文件。<br>
+        app/index.js:<br>
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        function component () {
+            var element = document.createElement('div');
+            /* 需要引入 lodash，下一行才能正常工作 */
+            element.innerHTML = _.join(['Hello','webpack'], ' ');
+            return element;
+            }
+        document.body.appendChild(component());
+        </code>
+        </pre>
+        </section>
+        <section>
+        要运行这段代码，通常需要有以下 HTML:<br>
+        index.html:<br>
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        <html>
+        <head>
+        <title>webpack 2 demo</title>
+        <script src="https://unpkg.com/lodash@4.16.6"></script>
+        </head>
+        <body>
+        <script src="app/index.js"></script>
+        </body>
+        </html>
+        </code>
+        </pre>
+        </section>
+        <section>
+        <p style="text-align: left">在 index.js 中打包 lodash 依赖，首先我们需要安装 lodash。<br>
+        npm install --save lodash<br>
+        然后 import lodash。<br></p>
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        + import _ from 'lodash';
+        function component () {
+        ...
+        </code>
+        </pre>
+        同时还要在刚刚创建的html文件中引入bundle文件
+        <pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        <script src="dist/bundle.js"></script>
+        </code>
+        </pre>
+        </section>
+        <section style="text-align: justify;">
+            现在在此文件夹下运行 webpack，其中 index.js 是输入文件，bundle.js 是输出文件，输出文件已打包此页面所需的所有代码。<br>
+            <pre>
+            <code style="font-size: 25px;line-height: 1.5;">
+    ./node_modules/.bin/webpack app/index.js dist/bundle.js
+
+    Hash: ff6c1d39b26f89b3b7bb
+    Version: webpack 2.2.0
+    Time: 385ms
+        Asset    Size  Chunks                    Chunk Names
+    bundle.js  544 kB       0  [emitted]  [big]  main
+       [0] ./~/lodash/lodash.js 540 kB {0} [built]
+       [1] (webpack)/buildin/global.js 509 bytes {0} [built]
+       [2] (webpack)/buildin/module.js 517 bytes {0} [built]
+       [3] ./app/index.js 278 bytes {0} [built]
+            </code>
+            </pre>
+        
+        </section>
+        <section>
+        <h3>3.常见问题</h3>
+        执行webpack命令时显示不是系统命令
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>webpack如何打包多个文件</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="https://webpack.js.org/" target="_blank">webpack官网</a></p>
+            <p><a href="http://www.cnblogs.com/zhengrunlin/p/7070479.html" target="_blank">webpack从入门到放弃</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>webpack2插件如何使用</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY覃腾波</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

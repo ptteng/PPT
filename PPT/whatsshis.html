@@ -1,0 +1,211 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是SSH协议</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：魏杨</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 <section>
+            <p>先介绍下背景</p>
+			<p> 传统的网络服务程序，如：ftp、pop和telnet在本质上都是不安全的，因为它们在网络上用明文传送口令和数据，别有用心的人非常容易就可以截获这些口令和数据。 </p>
+			<p></p>
+			<p> </p>
+			</section>
+			
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		 <section>
+            <p></p>
+			<p> 这些服务程序的安全验证方式也是有其弱点的， 就是很容易受到“中间人”（man-in-the-middle）这种方式的攻击。所谓“中间人”的攻击方式， 就是“中间人”冒充真正的服务器接收你传给服务器的数据，然后再冒充你把数据传给真正的服务器。服务器和你之间的数据传送被“中间人”一转手做了手脚之后，就会出现很严重的问题。 </p>
+			<p></p>
+			<p> </p>
+			</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		<section>
+         <p>那么如何保证传输数据的安全性，加解密？</p>
+		</section>
+		<section>
+        <p>如果使用一套密码来加解密（对称加密），那么传输秘钥是一个难题？你如何保证秘钥不会被“中间人”获取呢？</p>
+        </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+		<section>
+		<p>ssh可以把所有传输的数据进行加密，传输的数据是经过压缩的，所以可以加快传输的速度。</p>
+        </section>
+
+		 <section>
+		<p>ssh提供一套完备的密钥机制，即一对秘钥的非对称加密</p>
+		<p></p>
+        </section>
+		</section>
+			 
+		<section>
+		<p>SSH协议框架中最主要的部分是三个协议：</p>
+		<img src="e:\SSH_layer.gif">
+<p>1传输层协议（The Transport Layer Protocol）提供服务器认证，数据机密性，信息完整性 等的支持；</p>
+<p>2用户认证协议（The User Authentication Protocol） 则为服务器提供客户端的身份鉴别；</p>
+<p>3连接协议（The Connection Protocol） 将加密的信息隧道复用成若干个逻辑通道，提供给更高层的应用协议使用； </p>
+<p>各种高层应用协议可以相对地独立于SSH基本体系之外，并依靠这个基本框架，通过连接协议使用SSH的安全机制。</p>
+        </section>
+		
+		<section>
+		<section>
+		<p>加解密的工作原理：</p>
+		<img src="e:\1292466-0465a6d3e37cc29a.jpg">
+		 </section>
+		
+		
+		<section>
+		<p>1服务器建立公钥： 每一次启动 sshd 服务时，该服务会主动去找 /etc/ssh/ssh_host* 的文件，若系统刚刚安装完成时，由于没有这些公钥，因此 sshd 会主动去计算出这些需要的公钥，同时也会计算出服务器自己需要的私钥。</p>
+      <p> 2客户端主动联机请求： 若客户端想要联机到 ssh 服务器，则需要使用适当的客户端程序来联机，包括 ssh, putty 等客户端程序连接。</p>
+	   </section>
+		
+		<section>
+		<p>
+3服务器传送公钥给客户端： 接收到客户端的要求后，服务器便将第一个步骤取得的公钥传送给客户端使用 (此时应是明码传送，反正公钥本来就是给大家使用的)。
+</p>
+<p>
+4客户端记录并比对服务器的公钥数据及随机计算自己的公私钥： 若客户端第一次连接到此服务器，则会将服务器的公钥记录到客户端的用户家目录内的 ~/.ssh/known_hosts 。若是已经记录过该服务器的公钥，则客户端会去比对此次接收到的与之前的记录是否有差异。若接受此公钥， 则开始计算客户端自己的公私钥。
+</p>
+
+        </section>
+		
+		
+		<section>
+		<p>5回传客户端的公钥到服务器端： 用户将自己的公钥传送给服务器。此时服务器：具有服务器的私钥与客户端的公钥，而客户端则是： 具有服务器的公钥以及客户端自己的私钥，你会看到，在此次联机的服务器与客户端的密钥系统 (公钥+私钥) 并不一样，所以才称为非对称加密系统。
+</p>
+<p>6开始双向加解密： (1)服务器到客户端：服务器传送数据时，拿用户的公钥加密后送出。客户端接收后，用自己的私钥解密 (2)客户端到服务器：客户端传送数据时，拿服务器的公钥加密后送出。服务器接收后，用服务器的私钥解密，这样就能保证通信安全。
+</p>
+        </section>
+		
+        </section>	
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>加密的方式有哪些？  </p>
+			
+			 <p>对称加密、非对称加密、单向加密  </p>
+			
+			<p>加密的算法有哪些？  </p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.jianshu.com/p/8e5b7aea52b5</p>
+			<p>http://network.51cto.com/art/201507/483575.htm</p>
+			<p></p>
+			<p></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 魏杨</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

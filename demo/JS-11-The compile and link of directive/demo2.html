@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app="dirAppModule">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>demo2</title>
+
+</head>
+<body>
+<div ng-controller="compileCtrl">
+    <level-one>
+        <level-two>
+            <level-three>
+                hello,{{name}}
+            </level-three>
+        </level-two>
+    </level-one>
+</div>
+
+
+<script src="//cdn.bootcss.com/angular.js/1.4.4/angular.min.js"></script>
+<script>
+    var appModule = angular.module('dirAppModule', []);
+    appModule.controller('compileCtrl', function ($scope) {
+        $scope.name = "code_bunny"
+    });
+
+
+    appModule.directive('levelOne', function () {
+        return {
+            restrict: 'E',
+            compile: function (tEle, tAttrs, trans) {
+                console.log('compile→' + 'levelOne');
+                return {
+                    pre: function () {
+                        console.log('pre→' + 'levelOne')
+                    },
+                    post: function () {
+                        console.log('post→' + 'levelOne')
+                    }
+                }
+            }
+        }
+    });
+    appModule.directive('levelTwo', function () {
+        return {
+            restrict: 'E',
+            compile: function (tEle, tAttrs, trans) {
+                console.log('compile→' + 'levelTwo');
+                return {
+                    pre: function () {
+                        console.log('pre→' + 'levelTwo')
+                    },
+                    post: function () {
+                        console.log('post→' + 'levelTwo')
+                    }
+                }
+            }
+        }
+    });
+    appModule.directive('levelThree', function () {
+        return {
+            restrict: 'E',
+            compile: function (tEle, tAttrs, trans) {
+                console.log('compile→' + 'levelThree');
+                return {
+                    pre: function () {
+                        console.log('pre→' + 'levelThree')
+                    },
+                    post: function () {
+                        console.log('post→' + 'levelThree')
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

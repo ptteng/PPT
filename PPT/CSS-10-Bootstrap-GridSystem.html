@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="../ppt-css.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-task10】bootstrap中的栅格系统</h2>
+            <h3>【小课堂-成都】</h3>
+            <p>分享人：韩建名</p>
+
+        </section>
+        <section>
+            <div class="catalogue">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+            </div>
+        </section>
+        <section>
+            <p>今天小课堂分享的内容主要是讲，Bootstrap中的栅格系统(Grid System)</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>  Bootstrap，来自 Twitter，是如今最流行的前端框架之一，Bootstrap功能强大，简单易学，很符合实际应用场景。
+                它是一个CSS/HTML框架。由动态CSS语言Less写成。Bootstrap一经推出后颇受欢迎，一直是GitHub上的热门开源项目。bootstrap为我们提供了一套完整的流体栅格系统，而且随着屏幕或者视扣尺寸的增加，系统会自动分成最多12列，通过类名使用非常便捷。 </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+            <p>2.1   bootstrap中栅格系统的原理是采取12列的栅格体系，根据主流设备的尺寸进行分段，每段宽度固定并且浮动，通过百分比和媒体查询实现响应式布局。</p>
+        </section>
+        <section>
+            <p>2.2使用栅格系统</p>
+        </section>
+        <section>
+            <p>第一步：创建栅格系统的容器</p>
+
+<pre><code>
+
+	<div class="container-fluid">
+ 		<div class="row">
+   			 ...
+  		</div>
+	</div>
+
+</code></pre>
+        </section>
+        <section>
+            <p>  解释：为了寄予栅格系统合适的排列和padding，要把每一行“row”包含在一个容器中，而这个容器我们用class名为“container”或者“container-fluid”,这两个class是Bootstrap为我们事先设计好的</p>
+        </section>
+        <section>
+            <p>.container是固定宽度，居中显示。<br> 下面是Bootstrap中.container类的代码</p>
+    <pre><code>
+
+	.container{
+		padding-right:15px;
+		padding-left:15px;
+		margin-right:auto;
+		margin-left:auto;
+	}    
+	@media (min-width: 768px){
+		.container{
+			width: 750px;
+		}
+	}    
+	@media (min-width: 992px){
+		.container{
+			width: 970px;
+		}
+	}    
+	@media (min-width: 1200px){
+		.container{
+			width: 1170px;
+		}
+	}    
+
+    </code></pre>
+        </section>
+        <section>
+           <p>
+            .container-fluid是 100% 宽度：下面是Bootstrap中.container-fluid类的代码
+           </p>
+           <pre><code>
+            	
+	.conyainer-fluid{
+		padding-right: 15px;
+		padding-left: 15px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
+           </code></pre>
+        </section>
+        <section>
+            <p>第二步：创建合适的栅格系统</p>
+		<pre><code>
+
+<div class="row">
+　　<div class="col-md-8">.col-md-8</div>
+　　<div class="col-md-4">.col-md-4</div>
+</div>
+<div class="row">
+　　<div class="col-md-4">.col-md-4</div>
+　　<div class="col-md-4">.col-md-4</div>
+　　<div class="col-md-4">.col-md-4</div>
+</div>
+
+		</code></pre>
+        </section>
+        <section>
+            <p>解释：每一个“row”代表一行，而内部的“col-md-数字”代表一个单元格；Bootstrap把每一行分成12等份，“col-md-数字”中的“数字”从1-12中取，数字等于几，就占几份；合理的选择单元格的数字配置，再往单元格中添加我们想要的内容，这样一个栅格系统就完成了！</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>3.1单元格的类如何选择和使用</p>
+            <p>单元格一共有四种：</p>
+            <p>.col-xs-:  无论屏幕宽度如何，单元格都在一行，宽度按照百分比设置，适用于手机</p>
+            <p>.col-sm-:  屏幕大于768px时，单元格在一行显示，屏幕小于768px时，独占一行，适用于平板</p>
+ 			<p>.col-md-:  屏幕大于992px时，单元格在一行显示，屏幕小于992px时，独占一行，适用于桌面显示器</p>     
+			<p>.col-lg-:  屏幕大于1200px时，单元格在一行显示，屏幕小于1200px时，独占一行，适用于大型桌面显示器</p>
+        </section>
+        <section>
+        <p>举例说明一下：</p>
+            <pre><code>
+            	
+	<div class="container">
+　　	<div class="row">
+　　　　	<div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+　　　　	<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+　　	</div>
+　　	<div class="row">
+　　　　	<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+　　　　	<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+　　　　	<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+　　	</div>
+	</div>
+
+            </code></pre>
+        </section>
+        <section>
+			<img src="../img/bootSTRAP/1.png" alt="" >
+			<br>
+			<img src="../img/bootSTRAP/2.png" alt="" >
+        </section>
+        <section>
+            <img src="../img/bootSTRAP/3.png" alt="" >
+        </section>
+        <section>
+       		 <p>3.2  栅格系统中的“15px”</p>
+        	<p>相信细心的同学已经发现bootstrap的栅格系统在padding、margin中大量出现了15px这个值，让我们探讨一下这个15px到底是什么东西以及它的作用是什么。</p>
+        </section>
+        <section>
+        	<p>首先是Container的padding-left和padding-right为15px</p>
+        	<p>这个padding是为了使其中的内容不会紧贴于浏览器边缘</p>
+        </section>
+        <section>
+        	<p>其次是row的两侧有-15px的margin</p>
+        	<p>这个负margin把row推出了Container的15px，使其与之重叠</p>
+        </section>
+        <section>
+        	<p>最后是列（col）也有左右两个15px的padding</p>
+        	<p>因为Container和row的15px导致重叠，所以列的左右padding防止col的内容直接接触边界</p>
+        </section>
+        <section>
+        	<p>那么问题来了</p>
+        	<p>去掉Container和row的15px，只是单纯设置col的左右padding不是也可以达到预期的效果吗？</p>
+        	<p>别急，接着往下看</p>
+        </section>
+        <section>
+        	<p>单纯的从常规的row、col中发出这样的质疑的确是情理之中的</p>
+        	<p>但是Bootstrap的栅格系统还有一个嵌套列，当我们使用嵌套类的时候，这三个15px就保证了嵌套列的正常实现</p>
+        </section>
+        <section>
+        	<p>当设置了container,row,column后，如果要在column中嵌套column。首先要把被嵌套的column放到row中，把row放到作为容器的column中，而不需要再放置到一个新的container中，被嵌套的col就充当了container。</p>
+        	<p>而又因为col和container有相同的padding15px，所以在实现上保证了一致性</p>
+        </section>
+        <section>
+        	<h3>4.解决方案</h3>
+        </section>
+        <section>
+        	<h3>5.编码实战</h3>
+        </section>
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >Bootstrap 有哪些缺点？</p>
+        </section>
+        <section>
+            <p >1、Bootstrap 自带的样式权值很高，在开发中需要大量的代码用于覆盖原有样式。</p>
+            <p >2、不兼容IE8以下浏览器,有兼容需求的就不能使用bootstrap了。</p>
+        </section>
+        <section>
+        	<h3>7.参考文献</h3>
+        	<p>http://www.cnblogs.com/JerryTao/p/5476027.html</p>
+        	<p>http://www.jb51.net/article/86469.htm</p>
+        </section>
+        <section>
+        	<h3> 8.更多讨论</h3>
+        </section>
+        <section>
+            <p>bootstrap栅格系统所定义的宽度为什么是小于768px 大于或等于768px 大于或等于992px 大于或等于1200px 这四个分辨率呢？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>成都-王帅</p>
+            <p>感谢大家观看</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

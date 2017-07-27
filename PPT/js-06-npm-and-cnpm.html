@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-06】如何使用npm？cnpm又是什么？</h2>
+            <h3>武汉分院小课堂第162期
+            <p>分享人：王力</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;">
+            什么是npm<br>
+            npm（node package manager）是nodejs的包管理器，用于node插件管理（包括安装、卸载、管理依赖等）, NPM是随同NodeJS一起安装的包管理工具，能解决NodeJS代码部署上的很多问题，常见的使用场景有以下几种：<br>
+
+            为啥我们需要一个包管理工具呢？因为我们在Node.js上开发时，会用到很多别人写的JavaScript代码。如果我们要使用别人写的某个包，每次都根据名称搜索一下官方网站，下载代码，解压，再使用，非常繁琐。于是一个集中管理的工具应运而生：大家都把自己开发的模块打包后放到npm官网上，如果要使用，直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。<br>
+            更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X和模块Y，npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。否则，靠我们自己手动管理，肯定既麻烦又容易出错。
+        </section>
+        <section>
+            允许用户从NPM服务器下载别人编写的第三方包到本地使用。<br>
+            允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。<br>
+            允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。<br>
+            由于新版的nodejs已经集成了npm，所以之前npm也一并安装好了。同样可以通过输入 "npm -v" 来测试是否成功安装<br>
+        </section>
+        <section style="text-align: justify;">
+            什么是cnpm?<br>
+            因为npm安装插件是从国外服务器下载，受网络影响大，可能出现异常，如果npm的服务器在中国就好了，所以我们乐于分享的淘宝团队干了这事。来自官网：“这是一个完整 npmjs.org 镜像，你可以用此代替官方版本(只读)，同步频率目前为 10分钟 一次以保证尽量与官方服务同步。”
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: justify;">
+        <h3>npm常用指令<br></h3>
+            1、npm install moduleNames：安装Node模块<br>
+            安装完毕后会产生一个node_modules目录，其目录下就是安装的各个node模块。<br>
+            node的安装分为全局模式和本地模式。<br>
+            一般情况下会以本地模式运行，包会被安装到和你的应用程序代码的本地node_modules目录下。<br>
+            在全局模式下，Node包会被安装到Node的安装目录下的node_modules下。<br>
+            全局安装命令为$npm install -g moduleName。<br>
+            获知使用$npm set global=true来设定安装模式，$npm get global可以查看当前使用的安装模式。<br>
+            示例：<br>
+            npm install express<br>
+            默认会安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6<br>
+        </section>
+        <section style="text-align: justify;">
+        npm install name -g<br>
+        将包安装到全局环境中<br>
+        但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令<br>
+        npm install name --save<br>
+        安装的同时，将信息写入package.json中项目路径中如果有package.json文件时，直接使用npm install方法就可以根据dependencies配置安装所有的依赖包，这样代码提交到github时，就不用提交node_modules这个文件夹了。<br>
+    </section>
+        <section style="text-align: justify;">
+            npm root：查看当前包的安装路径<br>
+            npm root -g：查看全局的包的安装路径<br>
+            npm -v：查看npm安装的版本<br>
+            npm list --depth=0：查看所有高级的npm moudles<br>
+            npm list --depth=0 -global：查看所有全局安装的模块<br>
+        </section>
+        <section>
+            <h3>为什么要保存至package.json？</h3>
+            因为node插件包相对来说非常庞大，所以不加入版本管理，将配置信息写入package.json并将其加入版本管理，其他开发者对应下载即可（命令提示符执行npm install，则会根据package.json下载所有需要的包）。
+
+        </section>
+        <section style="text-align: justify;">
+           使用npm卸载插件：npm uninstall < name > [-g] [--save-dev]  PS：不要直接删除本地插件包<br>
+           使用npm更新插件：npm update < name > [-g] [--save-dev] <br>
+           更新全部插件：npm update [--save-dev] <br>
+           查看npm帮助：npm help <br>
+           查看当前目录已安装插件：npm list <br>
+           PS：npm安装插件过程：从<a href="http://registry.npmjs.org" target="_blank">http://registry.npmjs.org</a>下载对应的插件包（该网站服务器位于国外，所以经常下载缓慢或出现异常），解决办法就是cnpm
+
+        </section>
+        <section style="text-align: justify;">
+            <h3>cnpm介绍：<br></h3>
+            官方网址：<a href="http://npm.taobao.org" target="_blank">http://npm.taobao.org</a><br>
+            安装：命令提示符执行npm install cnpm -g --registry=https://registry.npm.taobao.org<br>
+            注意：安装完后最好查看其版本号cnpm -v或关闭命令提示符重新打开，安装完直接使用有可能会出现错误 <br>
+            PS：cnpm跟npm用法完全一致，只是在执行命令时将npm改为cnpm。
+
+        </section>
+        <section style="text-align: justify;">
+            <h3>Package.json 属性说明：<br></h3>
+            name - 包名。<br>
+            version - 包的版本号。<br>
+            description - 包的描述。<br>
+            homepage - 包的官网 url 。<br>
+            author - 包的作者姓名。<br>
+            contributors - 包的其他贡献者姓名。<br>
+            dependencies - 依赖包列表。如果依赖包没有安装，npm 会自动将依赖包安装在 node_module 目录下。<br>
+            repository - 包代码存放的地方的类型，可以是 git 或 svn，git 可在 Github 上。<br>
+            main - main 字段是一个模块ID，它是一个指向你程序的主要项目。就是说，如果你包的名字叫 express，然后用户安装它，然后require("express")。<br>
+            keywords - 关键字<br>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        </section>
+        <section>
+            <p>如何安装npm?</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section style="text-align: justify;">
+            1.前往nodejs官网下载nodejs，<a href="https://nodejs.org/en/" target="_blank">https://nodejs.org/en/ </a>，建议下载稳定版的，下载后无脑安装即可。安装完毕之后，在cmd中输入node -v查看是否已经安装成功,如果有版本号显示，则代表安装成功！！！<br>
+            2.接下来我们尝试输入npm -v <br>
+            竟然也有版本号！？其实，nodejs自带npm，所以我们不需要额外安装就可以了。 接下来，我们需要配置npm的全局模块的存放路径以及cache的路径，例如我希望将以上两个文件夹放在NodeJS的主目录下，便在NodeJs下建立“node_global”及“node_cache”两个文件夹。我们就在cmd中键入两行命令：
+            <pre><code>
+            npm config set prefix "D:\Program Files\nodejs\node_global"
+            npm config set cache "D:\Program Files\nodejs\node_cache"
+            </code>
+            </pre>
+
+        </section>
+        <section>
+        下面这一步非常关键，我们需要设置系统变量。进入我的电脑→属性→高级→环境变量。在系统变量下新建“NODE_PATH”，输入“D:\Program Files\nodejs\node_global\node_modules”
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>cnpm有哪些问题？</p>
+        </section>
+        <section>1.cnpm 的仓库只是 npm 仓库的一个拷贝，它不承担 publish 工作，所以你用 cnpm publish 命令会执行失败的<br>
+
+            2.不仅是 publish 会执行失败，其它的需要注册用户(npm adduser)、或者修改 package 状态等命令都无法用 cnpm</section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="http://www.cnblogs.com/shmilysong/p/6133989.html">npm的一些常用命令</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>npm和bower有什么异同之处？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY王力</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

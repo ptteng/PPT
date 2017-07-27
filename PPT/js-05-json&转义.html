@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>北京Web小课堂</h2>
+            <h3>json是什么，如何处理转义？</h3>
+            <p >分享人：杨梦桐</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">数据传输是我们在编写代码时经常遇到的一个场景。给数据一个统一的格式有利于我们编写和解析数据。</p>
+            <p style="text-align: left">json，是数据格式的一种，在与后端的数据交换中有较为广泛的应用。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+	    <section>
+		    <h4>什么是json</h4>
+		    <ul style="text-align: left;display:block">
+			    <li> 一种数据格式，全名JavaScript Object Notation (JavaScript 对象表示法)</li>
+			    <li>基于文本</li>
+			    <li>轻量级</li>
+			    <li>被广泛地用于数据交换</li>
+				<li>也是一种传递对象的语法，对象可以是name/value对，数组和其他对象。</li>
+		    </ul>
+	    </section>
+	    <section>
+		    <p style="text-align: justify">基于文本：JSON是基于文本的数据格式，相对于基于二进制的数据，所以JSON在传递的时候是传递符合JSON这种格式的字符串，而不是一个对象。</p>
+
+		    <p style="text-align: justify">轻量级：在JSON之前，有一个数据格式叫xml，现在依旧广泛使用，但是JSON更加轻量，这在有大量数据请求和传递的情况下是有明显优势的。</p>
+
+			<p style="text-align: justify">应用广泛：轻量已经是一个用于数据交换的优势了，但更重要的JSON是易于阅读、编写和机器解析的，即这个JSON对人和机器都是友好的，而且又轻，独立于语言（因为是基于文本的），所以JSON被广泛用于数据交换。</p>
+	    </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+	        <h3>json常见问题</h3>
+	        <ui style="text-align: justify">
+		        <li>什么是JSON对象？</li>
+		        <li>json对象和js对象有什么区别？</li>
+		        <li>什么是json格式？</li>
+	        </ui>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+	    <section>
+		    <h4>什么是JSON对象？</h4>
+		    <p style="text-align: justify">符合json格式的js对象被简称为json对象</p>
+			<p style="text-align: justify">JSON是一个提供了stringify和parse方法的内置对象</p>
+			<p style="text-align: justify">JSON.stringify()将js对象转化为符合json标准的字符串</p>
+			<p style="text-align: justify">JSON.parse()将符合json标准的字符串转化为js对象</p>
+	    </section>
+	    <section>
+		    <h4>json格式的对象与一般js对象语法上的区别？</h4>
+		    <table style="font-size: 18px">
+			    <thead>
+			    <tr>
+				    <th id="对比内容" style="text-align:left;"> 对比内容 </th>
+				    <th id="json" style="text-align:left;"> JSON </th>
+				    <th id="js对象" style="text-align:left;"> JS对象 </th>
+			    </tr>
+			    </thead>
+			
+			    <tbody>
+			    <tr>
+				    <td style="text-align:left;"><p>键名 </p></td>
+				    <td style="text-align:left;"><p>必须是加双引号 </p></td>
+				    <td style="text-align:left;"><p>可允许不加、加单引号、加双引号 </p></td>
+			    </tr>
+			
+			    <tr>
+				    <td style="text-align:left;"><p>属性值 </p></td>
+						<td style="text-align:left;"><p>只能是数值（10进制）、字符串（双引号）、布尔值和null，<br>也可以是数组或者符合JSON要求的对象，<br>不能是函数、NaN, Infinity（存放表示正无穷大的数值）, -Infinity和undefined </p></td>
+				    <td style="text-align:left;"><p>任意属性值均可 </p></td>
+			    </tr>
+			
+			    <tr>
+				    <td style="text-align:left;"><p>逗号问题 </p></td>
+				    <td style="text-align:left;"><p>最后一个属性后面不能有逗号 </p></td>
+				    <td style="text-align:left;"><p>可以有逗号 </p></td>
+			    </tr>
+
+			    <tr>
+				    <td style="text-align:left;"><p>数值 </p></td>
+				    <td style="text-align:left;"><p>前导0不能用，小数点后必须有数字 </p></td>
+				    <td style="text-align:left;"><p>无限制  </p></td>
+			    </tr>
+			
+			    </tbody>
+		    </table>
+	    </section>
+	    <section>
+		    <h4>什么是json格式？</h4>
+		    <p style="text-align: justify">数据以键值对的形式存储，和对象的格式有点像</p>
+		    <pre>
+			    <code style="text-align: center">
+var person={name:"blabla"};
+//一个普通的js对象
+var obj2 = {"width":100,"height":200,"name":"blabla"};
+// 可把这个称做：JSON 格式的 JavaScript 对象
+
+var str1 = '{"width":100,"height":200,"name":"blabla"}';
+// 可把这个称做：JSON 格式的字符串
+
+var arr = [
+{"width":100,"height":200,"name":"blabla"},
+{"width":100,"height":200,"name":"blabla"},
+{"width":100,"height":200,"name":"blabla"},
+];
+// 这个可叫JSON格式的数组，是JSON的稍复杂一点的形式
+
+var str2='['+
+'{"width":100,"height":200,"name":"blabla"},'+
+'{"width":100,"height":200,"name":"blabla"},'+
+'{"width":100,"height":200,"name":"blabla"},'+
+']';
+// 这个可叫稍复杂一点的 JSON 格式的字符串
+			    </code>
+		    </pre>
+	    </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p style="text-align: left">因为json是一种文本格式，所以我们要传输的数据只能是以字符串的形式传输</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+	    <section>
+		    <h3>由json字串生成json对象时的转义问题</h3>
+		    <p style="text-align: justify">参见：<a href="http://blog.csdn.net/robotech_er/article/details/40260377">转义字符，特殊字符的json转义</a></p>
+	    </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考文献：<a href="http://www.jb51.net/article/29893.htm" target="_blank">JSON.stringify 语法实例讲解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+	    <section>
+		    <h3>json和xml作为数据传输的格式分别有什么优缺点？</h3>
+		    <a href="http://blog.csdn.net/tangtiantian520/article/details/50945582">answer</a>
+	    </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 叶紫杨 | 杨梦桐 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p style="font-size: 50px">angular的config和run分别是干什么的？？</p>
+            <h4>小课堂【深圳第165期】</h4>
+            <p>分享人：郭俊伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h2>1.背景介绍</h2>
+                <h3>AngularJS模块加载</h3>
+            </section>
+            <section>
+                <p>AngularJS模块可以在被加载和执行之前对其自身进行配置。我们可以在应用的加载阶段应用不同的逻辑组对其修改，在模块加载阶段，AngularJS会在提供者(provide)注册和配置的过程中对模块进行配置。在整个AngularJS的工作流中，这个阶段是唯一能够在应用启动前对其进行修改的部分。
+                    <br>AngularJS的工作流包括了 配置块（config） 和 运行块（run） 并且在编译期间会执行它们</p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>配置（config）</p>
+            </section>
+            <section style="text-align: left">
+                <p>配置块（config）: <br>
+                    通过config方法实现对模块的配置,AngularJS中的服务多数都对应一个provider,
+                    用来执行与对应服务相同的功能或对其配置,比如$log、$http、$location都是内置服务，
+                    相对应的“provider”分别是$logProvider、$httpProvider、$locationPorvider。  </p>
+            </section>
+
+            <section style="text-align: left">
+                <pre>
+                    <code>
+    我们现在新建了一个模板：这个模板中有一个服务，一个自定义指令
+    var app = angular.module("myApp", []);
+    app.fatory('myFactory',function(){
+    //利用工厂生产  创建一个 服务
+    var service = {}；
+    return service；
+    });
+    app.directive('myDirectiive',function(){
+    //创建 一个 自定义指令
+    return {
+    template：'<div><button>戳我!</button></div>'
+    }
+    });
+
+    angularJS编译的流程是这样的：
+    var app = angular.module('myApp',[]);
+    app.config(function($provide,$compileProvider){
+    $provide.factory('myFactory',function(){
+    var service = {};
+    return service;
+    });
+    $compileProvider.directive('myDiretive',function(){
+    return {
+    template:'<div><button>click me</button></div>'
+    }
+    });
+    });
+
+    PS:angularJS会根据你定义的函数顺序来执行他们
+                    </code>
+                </pre>
+            </section>
+
+            <section style="text-align: left">
+                <p>运行块（run）: <br>
+                    和配置块不同，运行块在注入器创建之后被执行，它是所有AngularJS应用中第一个被执行的方法。<br>
+                    运行块是AngularJS中与main方法最接近的概念。运行块中的代码块通常很难进行单元测试，它是和应用本身高度耦合的。 <br>
+                    运行块通常用来注册全局的事件监听器。例如，我们会在.run()块中设置路由事件的监听器以及过滤未经授权的请求。 <br>
+                    调用方式1: 服务也是以模块形式存在的,对外提供特定功能，将服务做为依赖注入进去的,然后再进行调用,
+                    调用方式2: 直接运行相应的服务模块， AngularJS提供了run方法来实现。 <br>
+
+                </p>
+            </section>
+            <section style="text-align: left">
+                <p>
+                    run方法还是最先执行的，利用这个特点我们可以将一些需要优先执行的功能通过run方法来运行。 <br>
+                    假设我们需要在每次路由发生变化时，都执行一个函数来验证用户的权限，放置这个功能唯一合理的地方就是run方法： <br>
+                </p>
+            </section>
+            <section style="text-align: left">
+                <pre>
+                    <code style="font-size: 25px">
+    angular.module('myApp', ['ngRoute'])
+    .run(function($rootScope, AuthService) {
+    $rootScope.$on('$routeChangeStart', function(evt, next, current) {
+    // 如果用户未登录
+    if (!AuthService.userLoggedIn()) {
+    if (next.templateUrl === "login.html") {
+    // 已经转向登录路由因此无需重定向
+    } else {
+    $location.path('/login');
+    }}
+    });
+    });
+
+
+
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>如何通过 config 配置一个路由模块？</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+
+                    <pre>
+                <code style="font-size: 23px;">
+ var myApp = angular.module("myApp", ["ui.router"]);
+     声明AngularJS模块, 并把ui-router传入AngularJS主模块
+
+ myApp.config(function ($stateProvider, $urlRouterProvider) {
+
+   这一行声明了把 $stateProvider 和 $urlRouteProvider
+   路由引擎作为函数参数传入，这样我们就可以为这个APP 配置路由了。
+
+ $urlRouterProvider.when("", "/PageTab");
+
+ $stateProvider
+  .state("PageTab", {
+      url: "/PageTab",
+      templateUrl: "PageTab.html"
+ })父页面
+
+   这一行定义了会在main.html页面第一个显示出来的状态，
+   作为页面被加载好以后第一个被使用的路由.
+ .state("PageTab.Page1", {
+      url:"/Page1",
+      templateUrl: "Page-1.html"
+ })子页面1
+ .state("PageTab.Page2", {
+      url:"/Page2",
+      templateUrl: "Page-2.html"
+ })子页面2
+ .state("PageTab.Page3", {
+      url:"/Page3",
+      templateUrl: "Page3.html"
+ });子页面3
+ });
+                </code>
+            </pre>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>provider是个啥？</p>
+            </section>
+            <section>
+
+                <p style="font-size: 25px">
+                    <a href="http://blog.csdn.net/dm_vincent/article/details/52137733" target="_blank">provider是个啥？</a>
+                </p>
+
+            </section>
+            <section>
+
+                <p style="font-size: 25px">
+                    $provide服务负责告诉Angular如何创造一个新的可注入的东西：即服务。服务会被叫做供应商的东西来定义，你可以使用$provide来创建一个供应商。你需要使用$provide中的provider()方法来定义一个供应商，同时你也可以通过要求$provide被注入到一个应用的config函数中来获得$provide服务。
+                </p>
+
+            </section>
+
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：angular权威指南——第十一章：模块加载</p>
+                <p><a href="http://www.open-open.com/lib/view/open1416878937309.html" target="_blank">AngularJS ui-router配置</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>1、angularjs中config和run的区别？</p>
+            </section>
+            <section>
+                <p></p>
+                <p>执行顺序不同，注入服务类型不同</p>
+            </section>
+            <section>
+                <p>2、什么样的东西能够被注入到config里面呢</p>
+
+            </section>
+            <section>
+                <p>答案：provider（提供者）、constant（常量）</p>
+
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭俊伟</small>
+            </p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
