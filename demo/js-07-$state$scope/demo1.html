@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Title</title>
+	<link rel="stylesheet" href="task6-9/bt/css/bootstrap/3.3.6/bootstrap.min.css">
+	<script  src="task6-9/angular-1.4.6/angular.min.js"></script>
+	<style type="text/css">
+		div{margin-top: 15px;border: 2px solid rebeccapurple;width: 400px;}
+	</style>
+</head>
+<body>
+
+
+<!--<form id="form1" runat="server">-->
+	<!--<div>-->
+		<!--<input type="file" name="f" id="f" />-->
+		<!--<img src="" alt="图片预览" id="file_img">-->
+	<!--</div>-->
+<!--</form>-->
+<!--<script>-->
+    <!--var input  = document.getElementById("f"); //input file-->
+    <!--input.onchange = function(){-->
+        <!--var file = this.files[0];-->
+        <!--console.log(file);-->
+        <!--console.log(file.name);-->
+        <!--if(!!file){-->
+            <!--var reader = new FileReader();-->
+            <!--// 图片文件转换为base64-->
+            <!--reader.readAsDataURL(file);-->
+            <!--reader.onload = function(){-->
+                <!--// 显示图片-->
+                <!--document.getElementById("file_img").src = this.result;-->
+                <!--console.log(reader)-->
+            <!--}-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<span >
+  <div>
+    <h3>我是全局变量language: {{ language}}</h3>
+  </div>
+  <div ng-controller="oneController">
+    <h3>我是one_language局部变量: {{ one_language}}</h3>
+  </div>
+  <div ng-controller="twoController">
+    <h1>twoController</h1>
+    <h3>我是two_language局部变量: {{ two_language }}</h3>
+    <h3>我是one_language局部变量: {{ one_language}}</h3>
+    <h3>我是全局变量language: {{ language }}</h3>
+  </div>
+</span>
+<script>
+    var myApp = angular.module("app", []);
+    myApp.controller('oneController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+        // 局部的变量，只有在oneController中才会显示
+        $scope.one_language = 'Python';
+
+        // 全局的变量，都可以调用
+        $rootScope.language = 'Go';
+    }]);
+    myApp.controller('twoController', ['$scope', function ($scope) {
+        // 局部的变量，只有在twoController中才会显示
+        $scope.two_language = 'Java';
+    }]);
+</script>
+
+
+<!--监听基本类型数据-->
+<!--<div ng-controller="MainCtrl">-->
+<!--<input ng-model="name" />-->
+<!--改变次数： {{updated}}-->
+<!--</div>-->
+
+<!--<script>-->
+    <!--myApp.controller('MainCtrl', function($scope) {-->
+        <!--$scope.name = "Angular";-->
+        <!--$scope.updated = -1;-->
+       <!--$scope.$watch('name', function() {-->
+            <!--$scope.updated++;-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+监听引用类型
+<div ng-controller="MainCtrl">
+	<input ng-model="user.name" />
+	改变次数： {{updated}}
+</div>
+<script>
+    myApp.controller('MainCtrl', function($scope) {
+        $scope.user = { name: "Fox" };
+        $scope.updated = -1;
+        var a =$scope.$watch('user', function() {
+            $scope.updated++;
+            if ( $scope.updated >5) {
+                a();
+			}
+        },true);
+    });
+</script>
+<script>
+//        var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的数组，里面有3个值，
+//        ];
+//        var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+//        b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+//        console.log(a)//那么现在打印a 是什么结果呢
+//        console.log(b)
+        var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+		var arrtoo = arr.slice(0,9);
+		console.log(arrtoo)
+		arrtoo[1] = "set Map";
+console.log(arrtoo)
+//		console.log(arr);//One,Two,Three
+//		console.log(arrtoo);//One,set Map,Three
+//		var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+//		var arrtooo = arr1.concat();
+//		arrtooo[1] = "set Map To";
+//		console.log(arr1);//One,Two,Three
+//		console.log(arrtooo);//One,set Map To,Three
+</script>
+
+<script  src="task6-9/bt/js/jquery/2.0.0/jquery.min.js"></script>
+<script  src="task6-9/bt/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+</body>
+</html>
