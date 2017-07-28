@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>url传参的优缺点？还可以通过什么传递？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+        .in{
+            text-indent: 2em
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>url传参的优缺点？还可以通过什么传递？</h2>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：韩筠宜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>页面传参的必要性</h4>
+            <p class="left in" >
+                Web页面通过URL地址传递参数常见问题及检测方法Web页面即我们在浏览器中所看到的网页，在Web应用程序中，其页面往往需要进行动态切换和数据交互，页面间的数据常规传递方法有多种.
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>URL传参的格式</li>
+                    <li>URL传参的优缺点</li>
+                    <li>其它传参方法</li>
+                </ol>
+            </section>
+            <section>
+                <h4>1.URL传参的格式</h4>
+                <ul class="left">
+                    <li>写法：http://xxx.com/login.jsp?name=zhang&type=admin</li>
+                    <li>url和参数之间用"?"隔开</li>
+                    <li>多个参数之间用"&"符号连接</li>
+                </ul>
+            </section>
+            <section>
+                <h4>2.URL传参的优缺点</h4>
+                <ul>
+                    <li >优点：</li>
+                    <li>URL地址法简洁易用，可同时传递多个字符型参数；</li>
+                    <li>URL地址法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况比较不会性能损失；</li>
+                     <li>缺点：</li>
+                    <li>URL传递参数长度受限，最大为2K；</li>
+                    <li>URL只能传递字符型参数，传递中文时，由于发送页面和接收页面的字符编码方式不一样而导致参数解析处理错误，参数包含中文时可能出现乱码或者参数接收错误；</li>
+                    <li>信息泄露：URL地址在客户端可见，导致会泄露信息，可能被黑客用来攻击系统。</li>
+                </ul>
+            </section>
+            <section>
+                <h4>其它传参方法</h4>
+                <p class="left"> 其他传参方法，包括localStorage,sessionStorage,cook,基于angular的一些方法，在代码实战中详细讲解。</p>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何传递对象</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">下面的编码实战中详解</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <section>
+            URL传参
+            <pre>
+                <code>
+var go = document.getElementById('go');
+//跳转带参数
+function tt() {
+    location.href='page2.html?name=zhang'
+}
+//获取参数
+function get() {
+     var name=  location.search;
+     console.log(name)
+                </code>
+            </pre>
+            <pre>
+                    <code>
+                location.href='page2.html?name=张三&type=2'
+            </code>
+            </pre>
+
+<img src="../img/js-03-url/error1.png">
+        </section>
+        <section>
+            <p>使用localStorage传参，（Session是一个套路，有限期不一样）</p>
+            <pre>
+                <code>
+            var go = document.getElementById('go');
+            //跳转带参数
+            function tt() {
+            location.href='page2.html';
+            localStorage.name='zhang';
+            localStorage.age='二十一'
+            }
+            //获取参数
+            function get() {
+            location.href='page1.html';
+            var name= localStorage.name;
+            var age = localStorage.age;
+            console.log(name,age)
+            }
+                </code>
+            </pre>
+<img src="../img/js-03-url/error2.png">
+
+        </section>
+            <section>
+                <p>如果我们传一个对象</p>
+
+            <pre>
+                <code>
+        var go = document.getElementById('go');
+//跳转带参数
+function tt() {
+    var people={
+        name:'张三',
+        age:8
+    }
+    location.href='page2.html';
+    localStorage.people=people;
+}
+//获取参数
+function get() {
+    location.href='page1.html';
+    var people= localStorage.people;
+     console.log(people)
+}
+                </code>
+<img src="../img/js-03-url/error3.png">
+            </pre>
+            </section>
+<section>
+    <p>先处理后再传递</p>
+<pre>
+    <code>
+        var go = document.getElementById('go');
+//跳转带参数
+function tt() {
+    var people={
+        name:'张三',
+        age:8
+    }
+    location.href='page2.html';
+    localStorage.people= JSON.stringify(people);
+}
+//获取参数
+function get() {
+    location.href='page1.html';
+    var people= JSON.parse(localStorage.people);
+     console.log(people)
+}
+    </code>
+</pre>
+</section>
+    <section>
+        <p>使用cook传参，涉及到了cook的设置有效期，删除，修改，编码</p>
+        <pre>
+            <code>
+///设置cookie
+function setCookie(NameOfCookie, value, expiredays)
+{
+//@参数:三个变量用来设置新的cookie:
+//cookie的名称,存储的Cookie值,
+// 以及Cookie过期的时间.
+// 这几行是把天数转换为合法的日期
+
+    var ExpireDate = new Date ();
+    ExpireDate.setTime(ExpireDate.getTime() + (expiredays * 24 * 3600 * 1000));
+
+// 下面这行是用来存储cookie的,只需简单的为"document.cookie"赋值即可.
+// 注意日期通过toGMTstring()函数被转换成了GMT时间。
+
+    document.cookie = NameOfCookie + "=" + escape(value) +
+        ((expiredays == null) ? "" : "; expires=" + ExpireDate.toGMTString());
+}
+
+///获取cookie值
+function getCookie(NameOfCookie)
+{
+
+// 首先我们检查下cookie是否存在.
+// 如果不存在则document.cookie的长度为0
+
+    if (document.cookie.length > 0)
+    {
+
+// 接着我们检查下cookie的名字是否存在于document.cookie
+
+// 因为不止一个cookie值存储,所以即使document.cookie的长度不为0也不能保证我们想要的名字的cookie存在
+//所以我们需要这一步看看是否有我们想要的cookie
+//如果begin的变量值得到的是-1那么说明不存在
+
+        begin = document.cookie.indexOf(NameOfCookie+"=");
+        if (begin != -1)
+        {
+
+// 说明存在我们的cookie.
+
+            begin += NameOfCookie.length+1;//cookie值的初始位置
+            end = document.cookie.indexOf(";", begin);//结束位置
+            if (end == -1) end = document.cookie.length;//没有;则end为字符串结束位置
+            return unescape(document.cookie.substring(begin, end)); }
+    }
+
+    return null;
+
+// cookie不存在返回null
+}
+
+///删除cookie
+function delCookie (NameOfCookie)
+{
+// 该函数检查下cookie是否设置，如果设置了则将过期时间调到过去的时间;
+//剩下就交给操作系统适当时间清理cookie啦
+
+    if (getCookie(NameOfCookie)) {
+        document.cookie = NameOfCookie + "=" +
+            "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+    }
+}
+setCookie(NameOfCookie, value, expiredays)//新增；（修改，直接覆盖即可）
+getCookie(NameOfCookie)//获取cookie
+delCookie (NameOfCookie)//删除，原理为设置cookie的有效期为过去的时间
+            </code>
+        </pre>
+    </section>
+<section>
+    <img src="../img/js-03-url/cookie.png">
+</section>
+<section>
+    <p>基于angular的传参</p>
+<pre>
+    <code>
+        //路由设置
+.state('producers', {
+    url: '/producers',
+    templateUrl: 'views/producers.html',
+    controller: 'ProducersCtrl'
+})
+.state('producer', {
+    url: '/producer/:producerId',
+    templateUrl: 'views/producer.html',
+    controller: 'ProducerCtrl'
+})
+//传参
+        .controller('ProducersCtrl', function ($scope, $state) {
+    $scope.toProducer = function (producerId) {
+        $state.go('producer', {producerId: producerId});
+    };
+});
+//接收参数
+        .controller('ProducerCtrl', function ($scope, $state, $stateParams) {
+   var producerId = $stateParams.producerId;
+});
+    </code>
+</pre>
+</section>
+          <!--  <section>
+                <p>利用父级实现兄弟controller传参</p>
+                <ul>
+                    <li>$emit只能向parent controller传递event与data</li>
+                    <li>$broadcast只能向child controller传递event与data</li>
+                    <li>$on用于接收event与data</li>
+                </ul>
+                <pre>
+                    <code>
+function Sandcrawler($scope) {
+    $scope.$on('requestDroidRecall', function(e) {
+        $scope.$broadcast('executeDroidRecall');
+    });
+}
+function Droid($scope) {
+    $scope.location = "Owen Farm";
+    $scope.recallAllDroids = function() {
+        $scope.$emit('requestDroidRecall');
+    }
+    $scope.$on('executeDroidRecall', function() {
+        $scope.location = "Sandcrawler"
+    });
+}
+</code>
+                </pre>
+            </section>-->
+<section>
+
+<p>利用服务来传参</p>
+    <pre>
+
+          <code>
+var app = angular.module('myApp', []);
+app.factory('instance', function(){
+    return {};
+});
+app.controller('MainCtrl', function($scope, instance) {
+  $scope.change = function() {
+       instance.name = $scope.test;//设置instance.name的值
+  };
+});
+app.controller('sideCtrl', function($scope, instance) {
+    $scope.add = function() {
+        $scope.name = instance.name;//获取MainCtrl中$scope.test的值
+    };
+});
+    </code>
+    </pre>
+
+</section>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>cook的详细参数</p>
+
+            <ul>
+              <il> path：表示 cookie 影响到的路径，匹配该路径才发送这个 cookie。</il>
+                <il> expires 和 maxAge：告诉浏览器 cookie 时候过期，maxAge 是 cookie 多久后过期的相对时间。</il>
+                    <il>  不设置这两个选项时会产生 session cookie，session cookie 是 transient 的，当用户关闭浏览器时，就被清除。一般用来保存 session 的 session_id。</il>
+                        <il>   secure：当 secure 值为 true 时，cookie 在 HTTP 中是无效，在 HTTPS 中才有效</il>
+                            <il>  httpOnly：浏览器不允许脚本操作 document.cookie 去更改 cookie。一般情况下都应该设置这个为 true，这样可以避免被 xss 攻击拿到 cookie。</il>
+            </ul>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://blog.csdn.net/liuyong0818/article/details/4807473" target="_blank">cookie</a></p>
+            <p class="left">参考二：<a href="https://www.zhihu.com/question/33565135" target="_blank">知乎-传参</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+            <p>你常用什么方式传参</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇 | 韩筠宜</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

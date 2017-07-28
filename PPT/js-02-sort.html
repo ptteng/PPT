@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>小课堂【北京第162期】</h3>
+            <p>JS常用的排序算法及实现</p>
+            <p>分享人：王野</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <h3>什么是算法</h3>
+            </section>
+            <section>
+                <p>算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。如果一个算法有缺陷，或不适合于某个问题，执行这个算法将不会解决这个问题。不同的算法可能用不同的时间、空间或效率来完成同样的任务。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。</p>
+        </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>算法的特点</h4>
+            </section>
+            <section >
+                <p>1.有限性（Finiteness）：一个算法必须保证执行有限步之后结束。</p>
+                <p>2.确切性（Definiteness）： 一个算法的每一步骤必须有确切的定义。</p>
+                <p>3.输入（Input）：一个算法有零个或多个输入，以刻画运算对象的初始情况，所谓零个输入是指算法本身给定了初始条件。</p>
+                <p>4.输出（Output）：一个算法有一个或多个输出。没有输出的算法毫无意义。</p>
+                <p>5.可行性(Effectiveness)：算法中执行的任何计算步骤都是可以被分解为基本的可执行的操作步，即每个计算步都可以在有限时间内完成（也称之为有效性）。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>几种常见算法的写法及实现</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <h4>冒泡排序（Bubble Sort）</h4>
+                <p>思想：每一次对比相邻两个数据的大小，小的排在前面，如果前面的数据比后面的大就交换这两个数的位置</p>
+                <p>要实现上述规则需要用到两层for循环，外层从第一个数到倒数第二个数，内层从外层的后面一个数到最后一个数</p>
+                <p>特点：排序算法的基础。简单实用易于理解，缺点是比较次数多，效率较低。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+       var bubbleSort=function(arr){
+        for(var i=0;i<arr.length-1;i++){<br>
+            for(var j=i+1;j<arr.length;j++){
+                if(arr[i]>arr[j]){//如果前面的数据比后面的大就交换
+                    var temp=arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+                document.write("第"+(++times)+"次排序后："+arr+"<br>");
+            }
+        }
+        return arr;
+    }
+    document.write("未排序:  "+arr+"<br>");
+    document.write("The result is:"+bubbleSort(arr));
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>快速排序（Quick Sort）</h4>
+                <p>思想：先找到一个基准点（一般指数组的中部），然后数组被该基准点分为两部分，依次与该基准点数据比较，如果比它小，放左边；反之，放右边。</p>
+                <p>左右分别用一个空数组去存储比较后的数据。最后递归执行上述操作，直到数组长度<=1;</p>
+                <p>特点：快速，常用。缺点是需要另外声明两个数组，浪费了内存空间资源。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+        var quickSort=function(arr){
+        //如果数组长度小于等于1无需判断直接返回即可
+        if(arr.length<=1){
+            return arr;
+        }
+        var midIndex=Math.floor(arr.length/2);//取基准点
+        var midIndexVal=arr.splice(midIndex,1);//取基准点的值,splice(index,1)函数可以返回数组中被删除的那个数arr[index+1]
+        var left=[];//存放比基准点小的数组
+        var right=[];//存放比基准点大的数组
+        //遍历数组，进行判断分配
+        for(var i=0;i<arr.length;i++){<br>
+            if(arr[i]<midIndexVal){
+                left.push(arr[i]);//比基准点小的放在左边数组
+            }
+            else{
+                right.push(arr[i]);//比基准点大的放在右边数组
+            }
+            document.write("第"+(++times)+"次排序后："+arr+"<br>");
+        }
+        //递归执行以上操作,对左右两个数组进行操作，直到数组长度为<=1；
+        return quickSort(left).concat(midIndexVal,quickSort(right));
+    };
+    document.write("未排序:  "+arr+"<br>");
+    document.write(quickSort(arr));
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4>插入排序（Insertion Sort）</h4>
+                <p>（1） 从第一个元素开始，该元素可以认为已经被排序</p>
+                <p>（2） 取出下一个元素，在已经排序的元素序列中从后向前扫描</p>
+                <p>（3） 如果该元素（已排序）大于新元素，将该元素移到下一位置</p>
+                <p>（4） 重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</p>
+                <p>（5）将新元素插入到下一位置中</p>
+                <p>（6） 重复步骤2</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+    var insertionsort=function (arr) {
+    var len = arr.length;
+    var preIndex, current;
+    for (var i = 1; i < len; i++) {
+        preIndex = i - 1;
+        current = arr[i];
+        while(preIndex >= 0 && arr[preIndex] > current) {
+            arr[preIndex+1] = arr[preIndex];
+            preIndex--;
+        }
+        arr[preIndex+1] = current;
+        document.write("第"+(++times)+"次排序后："+arr+"<br>");
+    }
+    return arr;
+}
+    document.write("未排序:  "+arr+"<br>");
+    document.write("The result is: "+insertionsort(arr));
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p >这几种排序算法的优缺点</p>
+        </section>
+        <section>
+            <section>
+                <img src="../img/css-01-box/11111.png">
+            </section>
+            <section>
+                <p>n: 数据规模</p>
+                <p>k:“桶”的个数</p>
+                <p>In-place: 占用常数内存，不占用额外内存</p>
+                <p>Out-place: 占用额外内存</p>
+                <p>稳定性：排序后2个相等键值的顺序和排序之前它们的顺序相同</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/dushao/p/6004883.html" >JS的十大经典算法排序</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/loving_m/article/details/52993521" >js实现两种实用的排序算法——冒泡、快速排序</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>还有其他的排序算法吗？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 王野</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

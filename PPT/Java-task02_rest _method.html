@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>rest的请求方法有哪些，有什么区别</h3>
+			<p></p>
+            <h4>java分享会</h4>
+            <p>分享人：北京分院 赵宇</p>
+        </section>
+        <section>
+            <p>1.什么是REST？</p>
+            <p>2.REST的方法</p>
+            <p>3.REST方法的使用</p>
+            <p>4.REST其他方法</p>
+           <!--  <p>5.</p>
+            <p>6.</p>
+            <p>7.</p> -->
+        </section>
+        <section>
+            <h3>1，什么是REST？</h3>
+            <p>首先简要的说一下REST  --REpresentational State Transfer，直接翻译就是：表现层状态转移。这个就不是人话，听了还不如不听。然后找到个这样的解释：URL定位资源，用HTTP动词(GET，POST，DELETE，PUT)描述操作。</p>
+            <p>因为这里主要讲rest的方法，所以不过多涉及REST本身了，想了解REST内容的，请看修真院其他师兄分享的日报，传送门：http://www.jianshu.com/p/7a97d82a4810</p>
+            <p></p>
+            <p></p>
+            <p></p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+		
+        <section>
+            <h3>2,REST的方法</h3>
+            <p>GET：用来获取资源，可类比于数据库增删改查的Select方法</p>
+            <p>POST：用来新建资源（也可以用于更新资源），可类比于数据库增删改查的insert方法。</p>
+            <p>PUT：用来更新资源，可类比于数据库增删改查的update方法。</p>
+            <p>DELETE：用来删除资源，可类比于数据库增删改查的delete的方法。</p>
+		</section>
+			
+		
+        <section>
+            <h3>3.REST方法的使用</h3>
+            <p>说到这里就不得不再提一下RESTful API。我们知道这东西就是个设计风格，但它也有一个标准或者说格式。
+			</p>
+            <p>资源（URL）：api.jnshu.com/ptteng/students</p>
+            <p>HTTP方法：GET</p>
+            <p>GET  --/students   获取所有学员</p>
+            <p>GET  --/students/{id}  获取Id={id}的学员</p>
+        </section>
+        <section>
+            	<p>rest方法的使用我们来看一下，首先是get方法：</p>
+            <p>@RequestMapping(value ="/add.html", method = RequestMethod.GET)
+
+				public String addStu() {
+
+				return"add";
+
+				}</p>
+            <p>这是我在做任务2时的添加学员的例子，当然现在回头看是不太符合格式标准的，因为value这里应该用名词才对。但不影响我们讲解。首先value=“add.html"，这里其实就是个URL，用来定位资源。其次method=RequestMethod.GET，这就是HTTP请求的动作。两者的结合完成了对添加人员页面的查询。</p>
+        </section>
+        <section>
+            	<p>接下来是post方法：</p>
+            <p>@RequestMapping(value ="/addStu.html", method = RequestMethod.POST)
+
+				public String addStu() {
+
+				return"add";
+
+				}</p>
+            <p>可以看到与get方法其实很像，不同的是具体点的URL和方法。</p>
+            <p>演示部分我们用postman来操作。</p>
+        </section>
+            
+        
+		
+        <section>
+            <h3>4，REST其他方法</h3>
+            <p>基本上来说，我们用get和post方法就可以满足日常操作，而且rest的delete和put方法可以通过某种方式转换成get和put方法。</p>
+            <p>rest其实还有4中操作方法：OPTIONS HEAD TRACE CONNECTION，但因为基本上接触不到，这里就不做说明了。/p>
+        </section>
+
+        <!-- <section>
+            <h3>6,HEAD方法</h3>
+            <p>向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法
+            可以再不必传输整个相应内容的情况下，就可以获取包含在响应消息头中的元信息</p>
+            <h3>7.TRACE</h3>
+            <p>回显服务器收到的请求，主要用于测试或诊断</p>
+            <h3>8.CONNECT</h3>
+            <p>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</p>
+            <p></p>
+        </section> -->
+
+        <!-- <section>
+            <p>6,保存sessionID的方式</p>
+            <p>1，使用cookie：一般这个cookie的名字都是类似于XSESSIONID
+
+      如：JSESSIONID=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng!-145788764 ---名字就是JSESSIONID
+
+</p>
+            <p>2，URL重写：因为cookie可以被人为禁止，所以为了保证sessionID能够被传递给服务器，使用URL重写也是一种解决方法。
+
+如：
+
+http://...../xxx;jsessionid=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng!-145788764
+
+http://...../xxx?jsessionid=ByOK3vjFD75aPnrF7C2HmdnV6QZcEbzWoWiBYEnLerjQ99zWpBng!-145788764
+
+两种写法都行。</p>
+            
+        </section>	
+
+		<section>
+		<p>7,session、cookie区别</p>
+        </section>
+        <section>
+        <p>1，cookie数据存放在客户的浏览器（本地），session数据放在服务器上；</p>
+        <p>2，cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到安全应当使用session；</p>
+        <p>3，session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie；</p>
+        <p>4，单个cookie保存的数据不能超过4k，很多浏览器都限制一个站点最多保存20个cookie；</p>
+        <p>5，可以将的呢轮毂信息等重要信息存放为session。</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 赵宇</small></p>
+        </section> -->
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

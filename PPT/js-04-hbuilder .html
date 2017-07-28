@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Collaborative Development&Slides tutorial</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+ <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>【JS-task04】如何使用HBuilder打包app？ </h2>
+                <h3>小课堂【北京第161期】</h3>
+                <p>分享人：王振</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <p>
+                        什么是HBuilder？
+                    </p>
+                </section>
+                <section>
+                    <p>
+                        HBuilder是DCloud（数字天堂）推出的一款支持HTML5的Web开发IDE。HBuilder的编写用到了Java、C、Web和Ruby。HBuilder本身主体是由Java编写，它基于Eclipse，所以顺其自然地兼容了Eclipse的插件。
+                        快，是HBuilder的最大优势，通过完整的语法提示和代码输入法、代码块等，大幅提升HTML、js、css的开发效率。
+                        当知道如何创建HTML5 APP项目，以及APP页面如何调试后。接下来，需要考虑的就是HTML5 APP项目打包的事情。
+                    </p>
+                </section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <p>Manifest.json文档</p>
+                    <p>Manifest.json文件是5+移动App的配置文件，用于指定应用的显示名称、图标、应用入口文件地址及需要使用的设备权限等信息，用户可通过HBuilder的可视化界面视图或者源码视图来配置5+移动App的信息。
+Manifest.json文件根据w3c的webapp规范制定，plus节点下内容为HTML5Plus扩展规范，其下包括iOS和Android子节点，内容来源分别为iOS和Android原生打包所要求的参数，用于对5+移动App打包为ipa或apk安装包进行配置。</p>
+                </section>
+                 <section>
+                 	<p>应用信息配置</p>
+                 	<p>在HBuilder中创建“移动App”应用后后都会在工程下生成manifest.json文件，在“项目管理器”中双击即可打开。</p>
+                 	<img src="../img/task-hbuilder/11.png">
+                 </section>
+                 <section>
+                 	<p>HBuilder打开manifest.json文件后默认显示“可视化视图”，可配置应用的基本信息：</p>
+                 	<img src="../img/task-hbuilder/12.png">
+                 </section>
+                <section>
+                    <p>- 应用名称：App打包后在手机上桌面的快捷方式名称；</p>
+                    <p>- appid：HBuilder appid（应用标识），在创建时分配的、以后不可改的标识。如用户手动修改ID打包时会提示参数错误；</p>
+                    <p>- 版本号：应用的版本号</p>
+                    <p>- 入口页面：应用启动后自动打开的第一个HTML页面，可填写本地html文件地址（相对于应用根目录）或网络地址（以http://或https://开头）。</p>
+                    <p>-debug模式：不勾选打包后的apk不生成日志文件</p>
+                </section>
+                <section>
+                    <img src="../img/task-hbuilder/13.png">
+                    <p>可通过点击表示设备方向的按钮来选择设备支持重力感应旋转方向。
+                        重力选择按钮可选择一个或多个，选择多个方向后，应用可按照指定方向显示应用页面，如只选中一个按钮，表示终端只支持一个方向显示页面内容。</p>
+                </section>
+                 <section>
+                 	<img src="../img/task-hbuilder/14.png">
+                 	<p>点击下方的代码视图，切换代码视图，把设置的应用设置信息以json格式展现</p>
+                 </section>
+                 <section>
+                 	<img src="../img/task-hbuilder/17.png">
+                 </section>
+                 <section>	
+                    <p>点击“发行”-“发行为原生安装包”</p>
+                    <p>可以勾选ios和Android的安装包;</p>
+                    <p>ios选项：默认选择ipone和ipad版本，选择越狱包可以不需要苹果证书，如果是需要发布到苹果商店点选使用证书，在下方ios开发者证书把相应的描述文件和私钥文件上传好</p>
+                    <p>Android选项：如果只是打包的应用是自己用的话可以选择DCloud公用证书，如果是需要发布到线上应用商店徐点选使用自有证书，在下方的Google开发者证书把相应的证书文件、密码上传上去</p>
+                 </section>
+            </section>
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    	<p>应用的应用图标和启动图片设置</p>
+                    </section>
+            </section>
+            <section>
+                <section>
+                    <h3>4.解决方案</h3>
+                </section>
+
+            <section>
+                解决方法：请检查应用的图标是否有格式问题，严格按照指定的尺寸使用png格式提交打包。
+                图标文件和启动图片都需要png格式的图片，用户可以根据HBuilder提示添加指定尺寸的图片
+                或者通过修改manifest文件修改图片的引用地址
+            </section>
+            <section>
+            	<img src="../img/task-hbuilder/15.png">
+            	<p>设置应用图标只能上传png格式的图片，可以通过上传一张256x256的源图片，可以选择自动生成所有ios和Android上不同格式的应用图标</p>
+            </section>
+            <section>
+            	<img src="../img/task-hbuilder/16.png">
+            	<p>设置启动图片只能上传png格式的图片，选择ios和Android上不同尺寸的图片</p>
+            </section>
+            </section>
+            <section>
+                <section>
+                    <h3>5.编码实战</h3>
+                </section>
+                <section>
+                    点击菜单栏“运行”-“手机运行"（可以是Android手机运行，也可以是IOS手机运行）---- 前提是用数据线连接手机和电脑端。
+                </section>
+                <section>
+                    首次手机运行，会自动安装HBuilder APP软件（该软件用于直接打开运行的APP软件界面），下面是安装完成的效果。
+                </section>
+                <section>
+                    对于安桌手机，需要先把USB调试和USB安装应用选项打开，安装HBuilder APP软件后，会自动打开运行的APP软件。对于IOS手机，需要在电脑上打开itunes，通过itunes连接到手机，安装HBuilder APP软件后，需人工点击HBuilder APP软件打开运行的APP软件。
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    还有什么比较好的打包的软件
+                </section>
+                <section>
+                	<p>PhoneGap打包工具</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section>
+                          <a href="http://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/89">DCloud文档</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8.更多讨论</h3>
+                </section>
+                <section>
+                       <p>打包应用时的开发者证书怎么获取？</p>
+                </section>
+                <section>
+                    <p>IOS开发者证书：<a href="http://www.cnblogs.com/vincent-guo/p/3568074.html">点击这里</a></p>
+                    <p>安卓开发者证书：<a href="http://www.cnblogs.com/franksunny/p/3938143.html">点击这里</a></p>
+                    <P>IOS开发APP、上线流程（详细版）<a href="http://www.jianshu.com/p/01e2b977f177">点击这里</a></P>
+                </section>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p>by：汤金鑫|王振</p>
+            </section>
+        </div>
+    </div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        transition: 'convex',
+
+
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

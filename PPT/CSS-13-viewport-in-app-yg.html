@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task13】固定宽度布局开发WebApp如何实现多终端下自适应？</h2>
+            <h3>小课堂【北京第156期】</h3>
+            <p>分享人：杨纲</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p>现在人们通过手机浏览网页占了大多数，随着浏览方式的改变，网页在webapp下面实现多终端自适应，无论对于避免工程师无谓的重复劳动或者是项目管理的便捷性上来说重要性都是十分巨大的。</p>
+        </section>
+        
+        <section>
+            <h3>
+                二.知识剖析
+            </h3>
+        </section>
+
+        <section>
+            <h3>固定宽度布局？</h3>
+            <pre><code>
+              <meta name="viewport" content="width=750px,user-scalable=no">
+
+            </code></pre> 
+            <p>在移动设备上进行网页的重构或开发，首先得搞明白的就是移动设备上的viewport了，只有明白了viewport的概念以及弄清楚了跟viewport有关的meta标签的使用，才能更好地让我们的网页适配或响应各种不同分辨率的移动设备。</p>   
+        </section>
+
+        <section>
+            <h3>
+                三.常见问题
+            </h3>
+        </section>
+
+        <section>
+            <p>1.viewport的概念？</p>
+            <p>2.css中的1px等于设备的1px吗？</p>
+            <p>3.如何利用meta标签对viewport进行控制？</p>
+           
+        </section>
+
+        <section>
+             <h3>
+                四.解决方案
+            </h3>
+        </section>
+
+        <section>
+            <h3>1.viewport的概念</h3>
+            <p>通俗的讲，移动设备上的viewport就是设备的屏幕上能用来显示我们的网页的那一块区域，在具体一点，就是浏览器上(也可能是一个app中的webview)用来显示网页的那部分区域，但viewport又不局限于浏览器可视区域的大小，它可能比浏览器的可视区域要大，也可能比浏览器的可视区域要小。在默认情况下，一般来讲，移动设备上的viewport都是要大于浏览器可视区域的，这是因为考虑到移动设备的分辨率相对于桌面电脑来说都比较小，所以为了能在移动设备上正常显示那些传统的为桌面浏览器设计的网站---</p><br>
+            
+        </section>
+        <section>
+            <p>移动设备上的浏览器都会把自己默认的viewport设为980px或1024px（也可能是其它值，这个是由设备自己决定的），但带来的后果就是浏览器会出现横向滚动条，因为浏览器可视区域的宽度是比这个默认的viewport的宽度要小的。下图列出了一些设备上浏览器的默认viewport的宽度。</p><br>
+            <img src="../img/CSS-13-viewport-in-app/eg.png" alt="">
+        </section>
+        
+
+        <section>
+            <h3>2.css中的1px并不等于设备的1px</h3>
+            <p>在css中我们一般使用px作为单位，在桌面浏览器中css的1个像素往往都是对应着电脑屏幕的1个物理像素，这可能会造成我们的一个错觉，那就是css中的像素就是设备的物理像素。但实际情况却并非如此，css中的像素只是一个抽象的单位，在不同的设备或不同的环境中，css中的1px所代表的设备物理像素是不同的。</p><br>
+            <p>还有一个因素也会引起css中px的变化，那就是用户缩放。例如，当用户把页面放大一倍，那么css中1px所代表的物理像素也会增加一倍；反之把页面缩小一倍，css中1px所代表的物理像素也会减少一倍。</p>
+            
+        </section>
+
+        <section>
+            <h3>3.利用meta标签对viewport进行控制</h3>
+            <p>移动设备默认的viewport是layout viewport，也就是那个比屏幕要宽的viewport，但在进行移动设备网站的开发时，我们需要的是ideal viewport。那么怎么才能得到ideal viewport呢？这就该轮到meta标签出场了。
+
+我们在开发移动设备的网站时，最常见的的一个动作就是把下面这个东西复制到我们的head标签中：
+
+</p>
+            <pre><code>
+             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+            </code></pre> 
+        </section>
+
+        <section>
+            <p>该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度，这个应该是大家都想要的效果，如果你不这样的设定的话，那就会使用那个比屏幕宽的默认viewport，也就是说会出现横向滚动条。
+
+这个name为viewport的meta标签到底有哪些东西呢，又都有什么作用呢？</p>
+
+            
+        </section>
+        <section>
+            <p>
+            meta viewport 标签首先是由苹果公司在其safari浏览器中引入的，目的就是解决移动设备的viewport问题。后来安卓以及各大浏览器厂商也都纷纷效仿，引入对meta viewport的支持，事实也证明这个东西还是非常有用的。
+
+在苹果的规范中，meta viewport 有6个属性(暂且把content中的那些东西称为一个个属性和值)，如下：
+                <img src="../img/CSS-13-viewport-in-app/eg2.jpg" alt="">
+
+            </p>
+            
+        </section>
+        <section>
+            <p>把当前的viewport宽度设置为 ideal viewport 的宽度!要得到ideal viewport就必须把默认的layout viewport的宽度设为移动设备的屏幕宽度。因为meta viewport中的width能控制layout viewport的宽度，所以我们只需要把width设为width-device这个特殊的值就行了。</p>
+            <pre><code>
+              <meta name="viewport" content="width=750px,user-scalable=no">
+
+            </code></pre> 
+        </section>
+
+        <section>
+            <h3>五.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+
+        <section>
+            <p>关于meta viewport的更多知识</p>
+            <p><a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank" >移动前端开发之viewport的深入理解</a></p>
+        <p>使用 @media 查询，你可以针对不同的媒体类型定义不同的样式。
+            @media 可以针对不同的屏幕尺寸设置不同的样式，特别是如果你需要设置设计响应式的页面，@media 是非常有用的。
+            当你重置浏览器大小的过程中，页面也会根据浏览器的宽度和高度重新渲染页面。</p>
+        </section>
+
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <section>
+            <h3>问题一：为什么initial-scale=1和width=device-width效果一样，却要都写上呢？</h3>
+            <h3>问题二：浏览器可视区域的宽度是比这个默认的viewport的宽度要小，为什么当他在meta属性里设置宽度却不会出现滚动条？</h3>
+        </section>
+        <section>
+            <h3>8.参考文献</h3>
+            <p><a href="http://www.cnblogs.com/2050/p/3877280.html" target="_blank">博客</a></p>
+            
+            <!-- <p><a href="" target="_blank" ></a></p> -->
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 黄国保|冯馨雨|杨纲</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

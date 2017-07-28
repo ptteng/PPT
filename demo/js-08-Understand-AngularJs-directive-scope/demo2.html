@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo2</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.js"></script>
+    <style>
+        div{
+            padding: 6px;
+            font-size: 20px;
+            line-height: 26px;
+        }
+        div.container {
+            width: 500px;
+            border: 1px solid black;
+        }
+        div.my-info {
+            border-bottom: 1px solid blue;
+        }
+        input {
+            font-size: 20px;
+            height: 26px;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="MyApp">
+    <h3>2.scope = true</h3>
+    <div class="container" ng-controller="MyController">
+        <div class="my-info">
+            <h3>父级scope</h3>
+            我的名字是：<span ng-bind="name"></span>
+            <!-- 使用"ng-bind"防止网络状态不佳时出现没有被赋值表达式   -->
+            <br>我的年龄是：<span ng-bind="age"></span>
+            <br/>在这里修改名字：<input type='text' ng-model='name'>
+        </div>
+        <!-- 使用属性声明指令 -->
+        <div class="my-directive" my-directive></div>
+    </div>
+</div>
+
+<script>
+    angular.module("MyApp", [])
+        .controller("MyController", function ($scope) {
+            $scope.name = "Bill";
+            $scope.age = 20;
+            $scope.changeAge = function () {
+                $scope.name = 22;
+            }
+        })
+        .directive("myDirective", function () {
+            var obj = {
+                restrict: "AE",
+                scope: true,
+                replace: true,
+                template: "<div class='my-directive'>" +
+                "<h3>自定义指令scope</h3>" +
+                "我的名字是：<span ng-bind='name'></span><br/>" +
+                "我的年龄是：<span ng-bind='age'></span><br/>" +
+                "在这里修改名字：<input type='text' ng-model='name'>"+
+                " </div>"
+            };
+            return obj;
+        });
+</script>
+
+</body>
+</html>

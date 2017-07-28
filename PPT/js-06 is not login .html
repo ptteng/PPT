@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-06】登录之后，在其他页面怎么判断是否已经登录？</h2>
+            <p>分享人：王野</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>登录功能，是前端经常要完成的需求之一。</p>
+            <p>一个 网站有很多的操作是必须要用户登陆才能进行操作的</p>
+            <p>那么如何进行登录判断？</p>
+            <p>需要用到什么样的属性或者方法？</p>
+            <p>有什么地方的细节需要注意？</p>
+            <p>以上这些，都是本次小课堂要讲解的重点！</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>如果想要实现登陆判断，就要有一个判断的依据。</p>
+            <p>首先，这个依据在我们访问网站的过程中不会失效，</p>
+            <p>其次，这个依据要能存储一定的信息，以提供必要的判断，</p>
+            <p>同时满足这两个条件有Storage和cookies</p>
+        </section>
+        <section>
+            <p>Web Storage</p>
+            <p>WebStorage是HTML5中本地存储的解决方案之一</p>
+            <p>Web Storage实际上由两部分组成:sessionStorage与localStorage。</p>
+        </section>
+        <section>
+            <p>localStorage和sessionStorage</p>
+            <p>localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</p>
+            <p>sessionStorage存储的数据只在会话期间有效，关闭浏览器则自动删除。</p>
+        </section>
+        <section>
+            <h5 style="color: white">什么是cookie</h5>
+            <p style="text-align: left">首先，cookie,sessionStorage和localStorage，都是web存储里面的知识点，虽然都是网页数据存储，但他们产生的先后顺序和应用是不同的。</p>
+            <p style="text-align: left">cookie有时也用cookies。网景公司发展的一种机制，Cookie是由服务器端生成，发送给浏览器，浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。目前，cookie已经成为一种标准，所有的主流浏览器如IE、chrome、Firefox、Opera等都支持Cookie。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么不用cookie？</p>
+        </section>
+        <section>
+            <h3>解决方案</h3>
+        </section>
+        <section>
+            <h3>cookie怎么了？</h3>
+            <p style="font-size: 35px;text-align: left">1. 数据大小：作为存储容器，cookie的大小限制在4KB左右。</p>
+            <p style="font-size: 35px;text-align: left">2. 安全性问题：由于在HTTP请求中的cookie是明文传递的（HTTPS不是），带来的安全性问题还是很大的。</p>
+            <p style="font-size: 35px;text-align: left">3. 网络负担：我们知道cookie会被附加在每个HTTP请求中，在HttpRequest和HttpResponse的header中都是要被传输的，
+                所以无形中增加了一些不必要的流量损失。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>Web Storage相对于cookie的优势</h4>
+            <p style="font-size: 35px;text-align: left">1.从容量上讲WebStorage一般浏览器提供5M的存储空间，用来存储视频、图片神马的不够，但对于绝大部分操作足矣</p>
+            <p style="font-size: 35px;text-align: left">2.安全性上WebStorage并不作为HTTP header发送的浏览器，所以相对安全。</p>
+            <p style="font-size: 35px;text-align: left">3.从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="margin-left: 18rem">
+            <p style="font-size: 35px;text-align: left">参考一：<a href="http://www.cnblogs.com/dolphinX/p/3348469.html">HTML5 WebStorage</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a href="http://baike.so.com/doc/4477793-4686855.html">360百科</a></p>
+            <p style="font-size: 35px;text-align: left">参考三：<a href="http://blog.csdn.net/xtzz92/article/details/51668644">Nancy的专栏</a></p>
+            <p style="font-size: 35px;text-align: left">参考四：<a href="http://blog.csdn.net/fangaoxin/article/details/6952954">Cookie/Session机制详解</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>还有其他实现登陆判断的方法吗？</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :王野</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+
+
+</script>
+

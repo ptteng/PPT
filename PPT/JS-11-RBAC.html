@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <style>
+        img{
+            transform: scale(1.4);
+        }
+    </style>
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>前端如何管理用户权限</h2>
+                <h3>小课堂【第159期】</h3>
+                <p style="text-align: center;">分享人：张宇鹏</p>
+            </section>
+            <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+            </section>
+            <section><h3>一、背景介绍</h3></section>
+            <section>
+                <p>
+                    问题：
+                    假如在做一个管理系统，面向老师学生的，学生提交申请，老师负责审核（或者还需要添加其他角色，功能权限都不同）。
+                    现在的问题是，每种角色登录看到的界面应该都是不一样的，那这个页面的区分如何实现呢？，
+
+                </p>
+            </section>
+            <section>
+                <p>
+                    我的想法是在一套完整的页面判断权限控制显示隐藏。但是，这样的话，不同角色就是用的同一套前端代码，
+                    所以请求都一样了，但是不同角色的请求都不一样（比如学生查询显示自己的，教师查询显示所有的），
+
+                    这是否意味着需要通过后台进行用户判断，对同样的请求参数调用不同的方法处理。
+                    另一个方案是，对不同的用户采用独立的页面，这样就会产生大量重复的代码，感觉不可取。
+
+                    所以想问一下有什么解决方案？
+                </p>
+            </section>
+            <section><h3>二、知识剖析</h3></section>
+            <section>
+              <p>权限设计与管理是一个很复杂的问题，涉及的东西很多，相比前端，更偏向于后端，在搜集相关资料的过程中
+              ，发现掺杂了许多数据库之类的知识，以及几个用于权限管理的java框架，比如spring，比如shiro等等，都
+                  属于后端的工作
+              </p>
+            </section>
+
+            <section><h3>三、常见问题</h3></section>
+            <section>那我们前端能做的有什么呢？</section>
+            <section><h3>四、解决方案</h3></section>
+            <section>
+            <p>我们来简单讲一下在我们使用的angular框架里边，如何进行用户权限管理</p>
+            </section>
+            <section><h3>五、编码实战</h3></section>
+            <section>
+                <h3>大概思路</h3>
+                <p>
+                    1. UI处理(根据用户拥有的权限,判断页面上的一些内容是否显示)
+                </p>
+                <p>
+                    2. 路由处理(当用户访问一个它没有权限访问的url时,跳转到一个错误提示的页面)
+                </p>
+                <p>
+                    3. HTTP请求处理(当我们发送一个数据请求,如果返回的status是401或者401,则通常重定向到一个错误提示的页面)
+
+                </p>
+            </section>
+            <section>
+                <p>
+                    首先需要在Angular启动之前就获取到当前用户的所有的permissions,然后比较优雅的方式是通过一个service存放这个映射关系.对于UI处理一个页面上的内容是否根据权限进行显示,我们应该通过一个directive来实现.当处理完这些,我们还需要在添加一个路由时额外为其添加一个"permission"属性,并为其赋值表明拥有哪些权限的角色可以跳转这个URL,然后通过Angular监听routeChangeStart事件来进行当前用户是否拥有此URL访问权限的校验.最后还需要一个HTTP拦截器监控当一个请求返回的status是401或者403时,跳转页面到一个错误提示页面.
+                </p>
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/1.jpg">
+            </section>
+            <section>
+                <p>
+                    进一步使用上面的代码可以将获取到的映射关系放入一个service作为全局变量来使用.
+                </p>
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/2.jpg">
+            </section>
+            <section>
+                <p>
+                    如何确定UI组件的依据权限进行显隐
+                    </p>
+                   <p>
+                    这里我们需要自己编写一个directive,它会依据权限关系来进行显示或者隐藏元素.
+                </p>
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/3.jpg">
+
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/7.jpg">
+
+            </section>
+            <section>
+                <p>
+                    路由上的依权限访问
+                    </p>
+                <p>
+                    这一部分的实现的思路是这样: 当我们定义一个路由的时候增加一个permission的属性,属性的值就是有哪些权限才能访问当前url.然后通过routeChangeStart事件一直监听url变化.每次变化url的时候,去校验当前要跳转的url是否符合条件,然后决定是跳转成功还是跳转到错误的提示页面.
+                </p>
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/5.jpg">
+            </section>
+            <section>
+                <img src="../img/CSS-12-index/6.jpg">
+            </section>
+            <section>
+                <h3>七、参考文献</h3>
+            </section>
+            <section>
+              <a href="https://my.oschina.net/blogshi/blog/300595">
+                  Angular中在前后端分离模式下实现权限控制 - 基于RBAC
+              </a>
+            </section>
+            <section>
+                <h4>感谢观看</h4>
+                <p><small>by 张宇鹏</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

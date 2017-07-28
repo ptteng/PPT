@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS中作用域以及作用域链</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-01】JS中作用域以及作用域链</h2>
+            <h3>小课堂【成都分院】</h3>
+            <p>分享人：王奎智</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>作用域与作用域链是JS中非常重要的概念之一</p>
+            <p>学习作用域与作用域链对于深入了解JS的运行机制是一个很大的帮助。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>执行环境</h3>
+                <p style="text-align:left;">首先，我们要知道执行环境和作用域是两个完全不同的概念</p>
+                <p style="text-align:left;">执行环境(EC)或执行上下文，是JS中极为重要的一个概念</p>
+                <p style="text-align:left;">EC的组成：变量对象(VO):变量对象即包含变量的对象，除了我们无法访问它外，和普通对象没什么区别。<br>
+                [[scope]]属性：作用域即变量对象，作用域链是一个由变量对象组成的带头结点的单向链表，其主要作用就是用来进行变量查找。而[[Scope]]属性是一个指向这个链表头节点的指针。<br>
+                this:指向一个环境对象，注意是一个对象，而且是一个普通对象，而不是一个执行环境。
+                </p>
+                <p style="text-align:left;">当JavaScript代码执行的时候，会进入不同的执行上下文，这些执行上下文会构成了一个执行上下文栈</p>
+            </section>
+            <section>
+                <h3>全局执行环境</h3>
+                <p style="text-align:left;">在web浏览器中，全局执行环境被认为是window对象,因此所有全局变量和函数都是作为window对象的属性和方法创建的。代码载入浏览器时，全局执行环境被创建(当我们关闭网页或者浏览器时全局执行环境才被销毁)。</p>
+            </section>
+            <section>
+                <h3>局部执行环境</h3>
+                <p style="text-align:left;">每个函数都有自己的执行环境，因此局部执行环境为函数对象。当函数被调用时函数的局部环境被创建（函数内的代码执行完毕后，该环境被销毁，同时保存在其中的所有变量和函数定义也随之被销毁)。</p>
+            </section>
+            <section>
+                <p>当执行环境的所有代码执行完毕，该环境被销毁。</p>
+                <p>全局执行环境只有关闭网页或浏览器时才会被销毁。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>作用域链</h3>
+                <p style="text-align:left;">代码在环境中执行，会创建变量对象的一个作用域链。</p>
+                <p style="text-align:left;">javascript函数的执行用到了作用域链，这个作用域链是函数定义的时候创建的,当定义一个函数时，它实际保存一个作用域链。当调用这个函数时，它创建一个新的对象来存储它的局部变量，并将这个对象添加至保存的作用域链。作用域链的前端始终都是当前执行的代码所在环境的变量对象。作用域链的末端始终都是全局执行环境的变量对象。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有权访问</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>几种不同的作用域</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+          <p>函数作用域</p>
+            <pre>
+            <code>
+              var scope="global";
+              function t(){
+                  console.log(scope);
+                  var scope="local"
+                  console.log(scope);
+              }
+              t();
+            </code>
+          </pre>
+           <p>结果：1.)undefined 2.)local</p>
+           <p>原因：提前声明</p>
+                   </section>
+           <section>
+           <pre>
+           <code>
+             function doSomething(){
+                 var authorName="修真院";
+                 blogName="技能树";
+                 alert(authorName);
+             }
+             doSomething(); //修真院
+             console.log(blogName); //技能树
+             console.log(authorName); //抛出错误
+           </code>
+         </pre>
+          </section>
+        <section>
+          <p style="text-align:left;">全局作用域:在代码中任何地方都能访问到的对象拥有全局作用域</p>
+          <pre>
+          <code>
+            var authorName="修真院";
+            function doSomething(){
+                var blogName="技能树";
+                function innerSay(){
+                    alert(blogName);
+                }
+                innerSay();
+            }
+            alert(authorName);
+            alert(blogName);
+            doSomething();
+            innerSay()
+          </code>
+        </pre>
+        <p>结果：1.)修真院 2.)抛出错误 3.)技能树 4.)抛出错误</p>
+        </section>
+        <section>
+         <p style="text-align:left;">局部作用域：局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部</p>
+         <p style="text-align:left;">以上两个例子便可以说明</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <section>
+              <pre>
+              <code>
+                var name="张三";
+                function t(){
+                    var name="李四";
+                    function s(){
+                        var name="王五";
+                        console.log(name);
+                    }
+                    function ss(){
+                        console.log(name);
+                    }
+                    s();
+                    ss();
+                }
+                t();
+              </code>
+            </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+          <p style="text-align:left;">从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。如上图所示，因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
+        </section>
+        <section>
+          <h3>栗子</h3>
+          <pre>
+          <code>
+            function changeColor(){
+                document.getElementById("btnChange").onclick=function(){
+                    document.getElementById("targetCanvas").style.backgroundColor="red";
+                };
+            }
+          </code>
+        </pre>
+        <p>这个函数引用了两次全局变量document，查找该变量必须遍历整个作用域链，直到最后在全局对象中才能找到。</p>
+        <pre>
+        <code>
+          function changeColor(){
+              var doc=document;
+              doc.getElementById("btnChange").onclick=function(){
+                  doc.getElementById("targetCanvas").style.backgroundColor="red";
+              };
+          }
+        </code>
+      </pre>
+        <p>优化后</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html">博客园</a></p>
+            <p><a href="http://blog.csdn.net/liujie19901217/article/details/52225025">CSDN</a></p>
+        </section>
+        <section>
+            <p>javaScript高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 张珺琢|王奎智 </small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

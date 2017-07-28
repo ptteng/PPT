@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <style>
+        .ct{text-align: center}
+    </style>
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides"style="font-family: 楷体 ">
+        <section>
+            <h2>【JS-task10】</h2>
+            <h3>小课堂【成都第147期】</h3>
+<<<<<<< HEAD
+            <h3 style="font-weight: 700  ">如何使用富文本编辑器-UEditor？</h3>
+=======
+            <h3 style="font-weight: 700  ">如何使用富文本编辑器</h3>
+>>>>>>> 7505a9d3b0f517d1e3a41aa189cb0b3449788838
+            <p>分享人：王奎智</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;text-indent: 2em;">
+            <p >在做Web应用时，经常会进行富文本编辑，常用的富文本编辑器有很多，比如CuteEditor、CKEditor、NicEditor、KindEditor、UEditor等等。好的富文本编辑器可以让我们用户有更好的体验效果，带来更多的用户好评。</p>
+            <p>在这里为大家推荐百度推出的UEditor，UEditor 是由百度「FEX前端研发团队」开发的所见即所得富文本web编辑器，具有轻量，可定制，注重用户体验等特点，开源基于MIT协议，允许自由使用和修改代码。</p>
+        </section>
+        <section >
+            <h3>2.知识剖析</h3>
+            <p>1、开始使用UEditor</p>
+            <p>2、定制自己的工具栏</p>
+            <p>3、UEditor简单初始化设置</p>
+        </section>
+
+        <section style="text-align: justify;text-indent: 2em">
+            <p>知识点1：开始使用UEditor</p>
+            <p>（1）UEditor目录： </p>
+            <p>下载编辑器并解压，部署包解压后的文件目录结构如下所示</p>
+            <div class=ct style="display: flex ;flex-direction: row ">
+                <img  src="../img/JS-06-HowToUseEditor/02.png" title="项目结构">
+                <div style="text-align: left;font-size: 1.3rem">
+                    <p>dialogs: 弹出对话框对应的资源和JS文件</p>
+                    <p>lang: 编辑器国际化显示的文件</p>
+                    <p>themes: 样式图片和样式文件</p>
+                    <p>third-party: 第三方插件(包括代码高亮，源码编辑等组件）</p>
+                    <p>ueditor.all.js: 开发版代码合并的结果,目录下所有文件的打包文件</p>
+                    <p>ueditor.config.js: 编辑器的配置文件，建议和编辑器实例化页面置于同一目录</p>
+                </div>
+            </div>
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>（2）UEditor部署： </p>
+            <p>在HTML中引入配置文件ueditor.config.js和源码文件ueditor.all.js以及jquery库</p>
+            <div class=ct>
+                <img  src="../img/JS-06-HowToUseEditor/03.png" title="引入js文件">
+            </div>
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>（3）实例化UEditor： </p>
+            <p>至此，UE富文本编辑器已经按照默认配置成功部署</p>
+            <div class=ct>
+                <img  src="../img/JS-06-HowToUseEditor/4.png" title="引入js文件">
+            </div>
+        </section>
+        <section style="text-align: justify;text-indent: 2em;font-size: 1.3rem">
+            <p style="font-size:2rem;">知识点2：定制自己的工具栏</p>
+            <p>UEditor 工具栏上的按钮列表可以自定义配置,只需要通过修改配置项就可以实现需求</p>
+            <p>修改配置项的方法： 1. 方法一：修改 ueditor.config.js 里面的 toolbars </p>
+            <img  src="../img/JS-06-HowToUseEditor/6.png">
+            <img src="../img/JS-06-HowToUseEditor/5.png">
+            <p>2. 方法二：实例化编辑器的时候传入 toolbars 参数</p>
+
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>常用功能</p>
+            <img src="../img/JS-06-HowToUseEditor/7.png">
+            <p>完整</p>
+            <img src="../img/JS-06-HowToUseEditor/8.png">
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>知识点3：UEditor简单的初始化设置</p>
+            <p>常用初始设置： </p>
+            <pre>
+                <code>
+            //focus时自动清空初始化时的内容
+            autoClearinitialContent:true,
+            //关闭字数统计
+            wordCount:true,
+            //关闭elementPath
+            elementPathEnabled:true,
+            //默认的编辑区域高度
+            initialFrameHeight:200,
+            // 更多其他参数，请参考ueditor.config.js中的配置项
+            initialFrameWidth:300
+            //默认的编辑区域宽度
+                </code>
+            </pre>
+            <p>初始化前后对比图见demo</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+
+            <p>问题1:实例创建后为什么直接执行接口报错?</p>
+            <p>问题2：div标签自动转换为p标签</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>问题1：实例创建后为什么直接执行接口报错?</p>
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>开发者在创建编辑器时后，会执行一些接口或者调用编辑命令，例如</p>
+            <pre>
+                  <code>
+                var ue = UE.getEditor('editor');
+                ue.setContent('初始化的内容');
+                //或者调用命令
+                //ue.execCommand('inserthtml','内容');
+                        </code>
+            </pre>
+            <p>这些代码看起来没有问题，编辑器实例也能正确拿到，但就是没有效果</p>
+
+        </section>
+        <section style="text-align: justify;text-indent: 2em;font-size: 1.5rem">
+            <p>其实出现这种问题，其实是大家不了解UEditor的创建原理导致的。因为UEditor的编辑区域使用iframe作为编辑容器。所以当编辑器创建实例后，先会创建一个iframe元素，然后在iframe元素中写入一些脚本，这些脚本会在iframe元素初始化完成时被调用。</p>
+            <p>脚本的作用主要是为编辑器实例赋值iframe中的body,window,document对象的引用。 看到这里，大家就应该明白UEditor的初始化过程其实是个异步过程。</p>
+
+             <p>因为是个异步过程。所以场景中的书写方式就会出现问题了。虽然工厂方法getEditor能正确返回编辑器实例，但同步的代码ue.setContent马上就被执行了，因为setContent是在编辑容器中写内容，这时需要用到body,document等元素，但这些元素的引用赋值却在异步中才做的赋值。所以才会出现直接执行setContent时会出现无效的问题。当然有时不同浏览器的效果会出现不同。一些高级的浏览器比如chrome有时是可以的，但大部分ie浏览器都不行。这主要是因为浏览器的性能所致的。
+
+                 那正确的方式是什么呢？</p>
+
+        </section>
+        <section style="text-align: justify;text-indent: 2em;">
+            <p>UEditor为开发者提供了ready接口，他会在编辑器所有的初始化操作都结束时调用。保证你要做的操作能在一个完整的初始化环境中执行。</p>
+            <pre>
+                <code>
+                    UE.getEditor('editor').ready(function() {
+                    //this是当前创建的编辑器实例
+                    this.setContent('内容')
+                    })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>问题2：div标签自动转换为p标签</p>
+        </section>
+        <section style="text-align: justify;text-indent: 2em">
+            <p>背景：刚开始使用UEditor的开发者，会发现一个现象，粘贴到编辑器中的内容如果带有div标签，待粘贴到编辑器之后，会发现粘贴到编辑器中的div已经被转换为p标签了。</p>
+            <p>原因：首先这不是一个bug,这是UEditor对于进入编辑器中的数据进行的过滤处理。在UEditor中表示段落的标签是p标签，很多的编辑操作都是基于p标签进行的处理。</p>
+            <p>解决方案：</p>
+            <pre>
+                <code>
+                  UE.getEditor('editorID', {
+	              allowDivTransToP: false
+                  })
+                </code>
+            </pre>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+        <section>
+            <p>大修真院曾设置的富文本编辑器学习的任务：</p>
+            <img src="../img/JS-06-HowToUseEditor/9.png">
+
+        </section>
+        <section >
+            <div style="width: 45% ;margin-right: 5% ;float: left">
+                <p>html部分:</p>
+                <div style="overflow: auto">
+                    <img src="../img/JS-06-HowToUseEditor/10.png">
+                    <img height="120px" src="../img/JS-06-HowToUseEditor/11.png">
+                </div>
+            </div>
+            <div style="width: 45% ;margin-right: -100px; ;float: left ;font-size: 1rem">
+                <p>js部分：</p>
+                <pre style="width:100%">
+                    <code>
+                        $(document).ready(function () {
+                        var editor = UE.getEditor('editor', { //UEditor编辑器 实例化
+                        initialFrameHeight: 90,//编辑器高度
+                        toolbars: [['undo', //撤销
+                          'redo', //重做
+                          'bold', //加粗,...]]
+                        ......
+                        editor.setContent(data.wish)//设置编辑器内容；
+                        wish = editor.getContent();//获取编辑器内容；
+                        ...
+                            }
+                        ）
+                        ....
+
+                    </code>
+                </pre>
+
+
+            </div>
+
+        </section>
+        <section>
+            <p>链接：<a href="http://119.10.57.69:880/jnshu033/Javascript/task10/home.html#/admin/add" target="_blank">任务详情</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+           <p>怎么给编辑器添加事件</p>
+            <p>UEditor内置了很多方法；如</p>
+            <pre>
+                <code>
+                       ue.isFocus();//判断编辑器是否获得焦点 ；
+                        ue.hasContents();//判断是否有内容
+                </code>
+            </pre>
+            <p>链接：<a href="http://fex.baidu.com/ueditor/#api-common" target="_blank">常用方法</a></p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://fex.baidu.com/ueditor/" target="_blank">UEditor文档</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论1：编辑器开源，可不可以参考写一个自己的富文本编辑器？</p>
+            <p>难度大，考虑问题多，诸如浏览器兼容性等问题</p>
+            <p>讨论2：对UEditor进行二次开发</p>
+            <p>难度比前者小，可以参照官网进行</p>
+            <p>链接：<a href="http://fex.baidu.com/ueditor/#dev-developer" target="_blank">如何进行二次开发</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 李绍博|陈冲|王奎智</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        mouseWheel: true,
+        transition: 'fade',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

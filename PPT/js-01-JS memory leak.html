@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p style="font-size: 50px">JS哪些操作会造成内存泄漏？</p>
+            <h4>小课堂【深圳第160期】</h4>
+            <p>分享人：郭俊伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <h2>什么是内存泄漏</h2>
+                <p>内存泄漏是指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束。在C++中，因为是手动管理内存，内存泄漏是经常出现的事情。而现在流行的C#和Java等语言采用了自动垃圾回收方法管理内存，正常使用的情况下几乎不会发生内存泄漏。浏览器中也是采用自动垃圾回收方法管理内存，但由于浏览器垃圾回收方法有bug，因此会产生内存泄漏。</p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>js的回收机制</p>
+            </section>
+            <section style="text-align: left">
+                <p>垃圾回收机制—GC</p>
+                <p>Javascript具有自动垃圾回收机制(GC:Garbage Collecation)，也就是说，执行环境会负责管理代码执行过程中使用的内存。<br>
+                    JavaScript垃圾回收的机制很简单：找出不再使用的变量，然后释放掉其占用的内存，但是这个过程不是实时的，因为其开销比较大，所以垃圾回收系统（GC）会按照固定的时间间隔,周期性的执行。</p>
+            </section>
+            <section style="text-align: left">
+                <p>到底哪个变量是没有用的？所以垃圾收集器必须跟踪到底哪个变量没用，对于不再有用的变量打上标记，以备将来收回其内存。用于标记的无用变量的策略可能因实现而有所区别，通常情况下有两种实现方式：标记清除和引用计数。引用计数不太常用，标记清除较为常用。</p>
+            </section>
+            <section style="text-align: left">
+                <p>1、标记清除</p>
+                <p>js中最常用的垃圾回收方式就是标记清除。当变量进入环境时，例如，在函数中声明一个变量，就将这个变量标记为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为“离开环境”。</p>
+                <pre>
+                    <code  style="font-size: 30px;">
+  function test(){
+     var a = 10 ; //被标记 ，进入环境
+     var b = 20 ; //被标记 ，进入环境
+  }
+  test(); //执行完毕 之后 a、b又被标离开环境，被回收。
+                    </code>
+                </pre>
+            </section>
+            <section style="text-align: left">
+                <p>2、引用计数</p>
+                <p>引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型值（function object array）赋给该变量时，则这个值的引用次数就是1。如果同一个值又被赋给另一个变量，则该值的引用次数加1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数减1。当这个值的引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其占用的内存空间回收回来。这样，当垃圾回收器下次再运行时，它就会释放那些引用次数为0的值所占用的内存。</p>
+            </section>
+            <section style="text-align: left">
+                <pre>
+                    <code  style="font-size: 30px;">
+  function test(){
+     var a = {} ; //a的引用次数为0
+     var b = a ; //a的引用次数加1，为1
+     var c =a; //a的引用次数再加1，为2
+     var b ={}; //a的引用次数减1，为1
+  }
+                    </code>
+                </pre>
+                <p></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h2>JS哪些操作会造成内存泄漏？</h2>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>虽然JavaScript 会自动垃圾收集，但是如果我们的代码写法不当，会让变量一直处于“进入环境”的状态，无法被回收。下面列一下内存泄漏常见的几种情况。</p>
+            </section>
+            <section>
+                <p>1、意外的全局变量引起的内存泄漏</p>
+                <pre>
+                    <code style="font-size: 30px;">
+ function leaks(){
+   leak = 'xxxxxx';//leak 成为一个全局变量，不会被回收
+ }
+                    </code>
+                </pre>
+                <p>你可以通过加上 'use strict' 启用严格模式来避免这类问题, 严格模式会阻止你创建意外的全局变量.</p>
+            </section>
+            <section>
+                <p>2、闭包引起的内存泄漏</p>
+                <pre>
+                    <code style="font-size: 30px;">
+ function bindEvent(){
+   var obj=document.createElement("XXX");
+   obj.onclick=function(){
+   //Even if it's a empty function
+   }
+ }
+                    </code>
+                </pre>
+                <p style="font-size: 26px;text-align: left">闭包可以维持函数内局部变量，使其得不到释放。
+                    上例定义事件回调时，由于是函数内定义函数，并且内部函数--事件回调的引用外暴了，形成了闭包
+                    解决之道，将事件处理函数定义在外部，解除闭包,或者在定义事件处理函数的外部函数中，删除对dom的引用<p>
+            </section>
+            <section>
+                <pre>
+                    <code style="font-size: 30px;">
+//将事件处理函数定义在外部
+function onclickHandler(){
+//do something
+}
+function bindEvent(){
+    var obj=document.createElement("XXX");
+    obj.onclick=onclickHandler;
+}
+
+//在定义事件处理函数的外部函数中，删除对dom的引用
+function bindEvent(){
+    var obj=document.createElement("XXX");
+    obj.onclick=function(){
+        //Even if it's a empty function
+    }
+    obj=null;
+}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>3、没有清理的DOM元素引用</p>
+                <pre>
+                    <code style="font-size: 30px;">
+ var elements = {
+   button: document.getElementById('#button'),
+   image: document.getElementById('#image'),
+   text: document.getElementById('#text')
+ };
+
+ function doStuff() {
+   image.src = 'http://some.url/image';
+   button.click();
+   console.log(text.innerHTML);
+ }
+
+ function removeButton() {
+   document.body.removeChild(document.getElementById('button'));
+ }
+                    </code>
+                </pre>
+                <p>虽然我们用removeChild移除了button, 但是还在elements对象里保存着#button的引用，换言之, DOM元素还在内存里面.</p>
+            </section>
+            <section>
+                <p>4、被遗忘的定时器或者回调</p>
+                <pre>
+                    <code style="font-size: 30px;">
+ var someResource = getData();
+    setInterval(function() {
+        var node = document.getElementById('Node');
+        if(node) {
+           node.innerHTML = JSON.stringify(someResource));
+        }
+    }, 1000);
+                    </code>
+                </pre>
+                <p>这样的代码很常见, 如果 id 为 Node 的元素从 DOM 中移除, 该定时器仍会存在, 同时, 因为回调函数中包含对 someResource 的引用, 定时器外面的 someResource 也不会被释放.</p>
+            </section>
+            <section>
+                <p>5、子元素存在引用引起的内存泄漏</p>
+                <img src="../img/js-11-JS memory leak/detached-nodes.gif" alt="" width="600" height="400">
+                <p style="font-size: 26px;text-align: left">黄色是指直接被 js变量所引用，在内存里<br>
+                    红色是指间接被 js变量所引用，如上图，refB 被 refA 间接引用，导致即使 refB 变量被清空，也是不会被回收的<br>
+                    子元素 refB 由于 parentNode 的间接引用，只要它不被删除，它所有的父元素（图中红色部分）都不会被删除</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>IE7/8引用计数使用循环引用产生的问题。</p>
+            </section>
+            <section>
+                <pre>
+                    <code style="font-size: 30px;">
+    function fn() {
+       var a = {};
+       var b = {};
+       a.pro = b;
+       b.pro = a;
+    }
+    fn();
+                    </code>
+                </pre>
+                <p style="font-size: 25px">
+                    fn()执行完毕后，两个对象都已经离开环境，在标记清除方式下是没有问题的，但是在引用计数策略下，因为a和b的引用次数不为0，所以不会被垃圾回收器回收内存，如果fn函数被大量调用，就会造成内存泄漏。在IE7与IE8上，内存直线上升。
+                </p>
+                <p style="font-size: 25px">IE中有一部分对象并不是原生js对象。例如，其内存泄漏DOM和BOM中的对象就是使用C++以COM对象的形式实现的，而COM对象的垃圾回收机制采用的就是引用计数策略。因此，即使IE的js引擎采用标记清除策略来实现，但js访问的COM对象依然是基于引用计数策略的。换句话说，只要在IE中涉及COM对象，就会存在循环引用的问题。</p>
+            </section>
+            <section>
+                <pre>
+                    <code style="font-size: 30px;">
+    var element = document.getElementById("some_element");
+    var myObject = new Object();
+    myObject.e = element;
+    element.o = myObject;
+                    </code>
+                </pre>
+                <p style="font-size: 25px">
+                    这个例子在一个DOM元素（element)与一个原生js对象（myObject)之间创建了循环引用。其中，变量myObject有一个名为e的属性指向element对象；而变量element也有一个属性名为o回指myObject。由于存在这个循环引用，即使例子中的DOM从页面中移除，它也永远不会被回收。
+                </p>
+            </section>
+            <section>
+                <p>看上面的例子，有人会觉得太弱了，谁会做这样无聊的事情，但是其实我们经常会这样做</p>
+                    <pre>
+                        <code style="font-size: 30px;">
+    window.onload=function outerFunction(){
+       var obj = document.getElementById("element");
+       obj.onclick=function innerFunction(){};
+    };
+                        </code>
+                    </pre>
+                <p>
+                    这段代码看起来没什么问题，但是obj引用了document.getElementById(“element”)，而document.getElementById(“element”)的onclick方法会引用外部环境中的变量，自然也包括obj，是不是很隐蔽啊。
+                </p>
+            </section>
+            <section>
+                <p>最简单的解决方式就是自己手工解除循环引用，比如刚才的函数可以这样</p>
+                <pre>
+                    <code style="font-size: 30px;">
+    myObject.element = null;
+    element.o = null;
+
+    window.onload=function outerFunction(){
+       var obj = document.getElementById("element");
+       obj.onclick=function innerFunction(){};
+       obj=null;
+    };
+                    </code>
+                </pre>
+                <p>将变量设置为null意味着切断变量与它此前引用的值之间的连接。当垃圾回收器下次运行时，就会删除这些值并回收它们占用的内存。
+                    要注意的是，IE9+并不存在循环引用导致Dom内存泄漏问题，可能是微软做了优化，或者Dom的回收方式已经改变</p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://www.jb51.net/article/75292.htm" target="_blank">javascript的垃圾回收机制与内存管理</a></p>
+                <p>参考二：<a href="http://www.tuicool.com/articles/7J3amu" target="_blank">js内存泄漏常见的四种情况</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>1、如何分析JS内存使用情况</p>
+            </section>
+            <section>
+                <p>Google Chrome浏览器提供了非常强大的JS调试工具，Memory 视图</p>
+                <p>profiles 视图让你可以对 JavaScript 代码运行时的内存进行快照，并且可以比较这些内存快照。它还让你可以记录一段时间内的内存分配情况。在每一个结果视图中都可以展示不同类型的列表，但是对我们最有用的是 summary 列表和 comparison 列表。</p>
+            </section>
+            <section>
+                <p>summary 视图提供了不同类型的分配对象以及它们的合计大小：shallow size （一个特定类型的所有对象的总和）和 retained size （shallow size 加上保留此对象的其它对象的大小）。distance 显示了对象到达 GC 根（校者注：最初引用的那块内存，具体内容可自行搜索该术语）的最短距离。
+                    comparison 视图提供了同样的信息但是允许对比不同的快照。这对于找到泄漏很有帮助。</p>
+                <a href="http://www.2cto.com/kf/201402/281855.html">JS内存泄漏排查方法</a>
+            </section>
+            <section>
+                <p>2、Chrome开发者工具初窥-Profiles面板</p>
+            </section>
+            <section>
+                <a target="_blank">http://www.cnblogs.com/LibraThinker/p/6003713.html</a>
+            </section>
+            <section>
+                <p>3、你能想哪些避免内存泄漏的姿势</p>
+            </section>
+            <section>
+               <p> 1.减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收 <br> <br>
+                2.注意程序逻辑，避免“死循环”之类的 <br> <br>
+                3.避免创建过多的对象 <br> <br>
+
+                原则：不用了的东西要及时归还。</p>
+
+            </section>
+        </section>
+
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 朱芳山|郭俊伟</small>
+            </p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

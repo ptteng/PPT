@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>varchar类型的长度怎么确定？</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：杨舜</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+
+            <p>什么是VARCHAR、Text、LongText？</p>
+        </section>
+        <section>
+            <p>它们都是MySQL数据库的字符串类型，用来存储字符数据。区别是存储的数据长度、大小不一样。我们可以根据需求选择使用哪种字符串类型。</p>
+            
+    </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        
+        <section>
+         
+            <p>首先介绍下字节和字符</p>
+            <p>字节的定义：字节（byte）是一种计量单位，表示数据量多少，它是计算机信息技术用于计量存储容量的一种计量单位。</p>
+            <p>字符的定义：字符是指计算机中使用的文字和符号，如：1、2、3、A、B、C、！、#、￥、.....、+、——等这些符号。</p>
+            <p>在UTF8编码中，一个英文字符等于一个字节，一个中文字符等于三个字节。</p>
+            <p>VARCHAR是可以保存长度可变的字符串。如：一个用户名字段不能确定长度，只知道不超过10个字符，就可以选择varchar类型。而另一种CHAR类型是只能保存长度固定的字符。如：六位的邮编、股票代码。</p>
+        </section>
+        <section>
+        	<p>需要注意的是：</p>
+
+<p>mysql数据库的varcahr类型在4.1以下版本中最大长度限制为255字节</p>
+
+<p>mysql5.0以上的版本中varchar数据类型的长度支持到了65535字节。</p>
+
+<p>Text和LongText 也是长度可变的类型</p>
+
+<p>Text的最大长度是可以存储 65535 (2^16 – 1) 个字符</p>
+
+<p>LongText的最大长度是可以存储4294967295 (2^32 – 1) 个字符。</p>
+        </section>
+
+   		<section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>定义varchar字段时，可不可以短的定义成varchar(20),长的定义成varchar(50),超长另算。</p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+
+        </section>
+        <section>
+              <p>根据需求与实际情况来考虑，不能千篇一律。
+
+比如：用户名，谁的名字会有255/3=85个字符？所以也没必要那么长，但又不能定义成CHAR()，所以给个够用的长度varchar(20)或更少varchar(10)即可，考虑少数民族可以长点。
+
+varchar的长度，最好是在够用（需要适当预测未来需求）且方便管理的前提下尽可能短。</p>
+
+		<p>那么varchar（20）中的20表示的是字节长度还是字符长度？</p>
+        </section>
+
+   
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+        	<p>如果把字符串字段都设置成varchar（255）会怎样？</p>
+        	<p>我百度到解释是：1、mysql建立索引时如果没有限制索引大小，索引长度会默认采用该字段的长度也就是varchar(20)和varchar(255)，加载索引信息时用varchar（255）类型会占用跟多内存</p>
+        	<p>2、建表时设置不同的varchar长度值时，存储相同数据占用的空间是不一样</p>
+        </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+            <p>在int(m)中，这里的M代表的并不是存储在数据库中的具体的长度，当我们在选择使用int类型的时候，不论int(3)、int(4)、int(8) 在磁盘上都是占用 4 btyes 的存储空间。除了显示给用户的方式有点不同外，int(M) 跟 int 数据类型是相同的。</p>
+            <p>如果int的值为10</p>
+            <p>int（10）显示结果为0000000010</p>
+            <p>int（3）显示结果为010</p>
+            <p>就是显示的长度不一样而已 都是占用四个字节的空间</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨舜</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何理解angolar自定义指令directive的compile、link属性？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-align: left;
+            text-indent: 2em;
+        }
+    </style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何理解angolar自定义指令directive的compile、link属性？</h2>
+
+            <h3>小课堂【武汉第166期】</h3>
+
+            <p style="text-align: center;">分享人：肖浩宇</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="a">
+                指令是angularjs最重要的特性之一，通过自定义指令，我们可以将html与js封装成一个独立的模块，使HTML标签的范围扩展到无穷大。在directive，compile和link是其最重要的两个属性。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4 class="a">自定义指令的基本结构：</h4>
+                <pre>
+                <code>
+dirAppModole.directive('directive-name',function(){
+    var obj = {
+        restrict:'string',
+        priority:number,
+        template:'string',
+        templateUrl:'string',
+        replace:bool,
+        transclude:bool or 'element',
+        scope:bool or string,
+        controller:function(){},
+        require:'string',
+        link: function(scope,iEle,iAttrs,ctrl,linker){},
+        compile: function(tEle,tAttrs,linker){
+            return {
+                pre: function(scope,iEle,iAttrs,ctrl){},
+                post: function(scope,iEle,iAttrs,ctrl){}
+            }
+        }
+    };
+    return obj
+});
+                </code>
+            </pre>
+
+
+            </section>
+            <section>
+                <h4 class="a">link函数：</h4>
+                <pre><code>
+link:function(scope,iEle,iAttrs,ctrl,linker){
+    ....
+}
+                </code></pre>
+                <p class="a">如上，link有5个参数：:scope,iEle,iAttrs,ctrl,linker</p>
+                <ol>
+                    <li>scope:指令所在的作用域,这个scope和指令定义的scope属性是一致的.</li>
+                    <li>iEle:指令元素本身，可进行jq操作</li>
+                    <li>iAttrs:指令元素的属性的集合</li>
+                    <li>ctrl:需要和require属性一起使用,用于调用其他指令的方法,指令之间的互相通信,</li>
+                    <li>linker:即transclude()函数,自定义指令的transclude属性有关。</li>
+                </ol>
+            </section>
+
+            <section>
+                <h4 class="a">compile函数：</h4>
+                <p class="a">compile函数有三个参数:tEle,tAttrs,linker:</p>
+                <ol>
+                    <li>tEle:指令元素本身，可进行jq操作.</li>
+                    <li>tAttrs:指令元素的属性的集合</li>
+                    <li>linker函数:即transclude()函数.</li>
+                </ol>
+
+                <p class="a">compile的返回值:compile函数返回值有两种可能:</p>
+                <ol>
+                    <li>返回pre-link函数和post-link函数</li>
+                    <li>只返回post-link函数</li>
+                </ol>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4 class="a">compile和link有什么不同？</h4>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4 class="a">要解决这个问题需从指令的解析流程讲起：</h4>
+            <p class="a">1.ng 框架会在页面载入完毕的时候，根据 ng-app 划定的作用域来调用 $compile 服务进行编译，清点作用域内的 DOM 元素，然后根据这些指令的优先级 (priority)
+                排列一下，根据指令中的配置参数 (template，transclude 等) 转换 DOM，让指令“初具人形”。</p>
+            <p class="a">2.然后就开始按顺序执行各指令内的 compile 函数，注意此处的 compile 不是 $compile，compile 函数中可以访问到 DOM 节点并进行操作，其主要职责就是进行
+                DOM 转换，每个compile 函数执行完后都会返回compile内的link函数，这些 link 函数会被$compile汇合一下组合成一个合体后的 link 函数。</p>
+        </section>
+
+        <section>
+            <p class="a">3.接下来进入 link 阶段，合体后的 link 函数被执行。所谓的链接，就是把 view 和 scope 链接起来。这就是我们熟悉的数据绑定，通过在 DOM 上注册监听器来动态修改
+                scope 中的数据，或者是使用 $watchs 监听 scope 中的变量来修改 DOM，从而建立双向绑定。由此也可以断定，合体的link可以访问到 scope 和 DOM 节点。</p>
+            <p class="a">4若没有配置 compile 函数？ $compile 就把这里的 link 函数拿来执行。配置的 link 函数也可以访问到 scope 以及 DOM 节点。compile
+                函数通常是不会被配置的，因为我们定义一个指令的时候，大部分情况不会通过编程的方式进行 DOM 操作，而更多的是进行监听器的注册、数据的绑定。</p>
+        </section>
+
+        <section>
+
+            <p class="a">由上可知，compile与link不能共存，两者的参数中都有ele，都是获取指令元素本身，不同的是，compile 拿到的是编译前的，是从 template 里拿过来的，而 link
+                拿到的是编译后的，已经与作用域建立了关联，这也正是 link 中可以进行数据绑定的原因。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="../demo/JS-11-The%20compile%20and%20link%20of%20directive/demo1.html">DEMO1</a>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4 class="a">几个指令嵌套时compile中pre-link，post-link的执行顺序？</h4>
+            <a href="../demo/JS-11-The%20compile%20and%20link%20of%20directive/demo2.html">DEMO2</a>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一：<a href="http://www.cnblogs.com/liulangmao/p/3980144.html">返回主页
+                流浪猫の窝-angular学习笔记(三十)-指令(7)-compile和link</a></p>
+            <p class="a">参考二：<a href="http://www.cnblogs.com/lvdabao/p/3391634.html">吕大豹-走进AngularJs(三)自定义指令
+            </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 肖浩宇</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

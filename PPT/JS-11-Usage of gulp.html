@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>如何使用gulp?</h3>
+            <h4>小课堂</h4>
+            <p>分享人：王蒙</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    gulp是前端开发过程中对代码进行构建的工具，是自动化
+                    项目的构建利器；它不仅能对网站资源进行优化，而且在开发
+                    过程中很多重复的任务能够使用正确的工具自动完成；使用它，
+                    我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。
+                </p>
+            </section>
+            <section>
+                <p>gulp是基于Nodejs的自动任务运行器， 它能自动化地完成
+                    javascript/coffee/sass/less/html/image/css 等文件的的测试
+                    、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监
+                    听文件在改动后重复指定的这些步骤。在实现上，它借鉴了Unix操作系统
+                    的管道（pipe）思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;margin-left: 8em" >
+                <p>安装gulp</p>
+            </section>
+            <section>
+                首先安装nodejs，通过nodejs的npm全局安装和项目安装gulp，其次在项目里安装所需要的gulp插件，然后新建gulp的配置文件gulpfile.js并写好配置信息（定义gulp任务），最后通过命令提示符运行gulp任务即可。<br>
+                安装nodejs -> 全局安装gulp -> 项目安装gulp以及gulp插件 -> 配置gulpfile.js -> 运行任务
+            </section>
+            <section>
+                <p>安装nodejs</p>
+                <p style="text-align: left">
+                    node -v查看安装的nodejs版本，出现版本号，说明刚刚已正确安装nodejs。<br>
+                    npm -v查看npm的版本号，npm是在安装nodejs时一同安装的nodejs包管理器。<br>
+                </p>
+            </section>
+            <section>
+                <p>全局安装gulp</p>
+                <p style="font-size: 25px;text-align: left">
+                    npm install -g gulp 使用npm全局安装gulp<br>
+                    gulp -v 查看版本<br>
+                    进入项目根目录建立一个package.json<br>
+                    (package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件)<br>
+                    使用npm init - y 自动设置
+                </p>
+            </section>
+            <section>
+                <p>本地安装gulp和插件</p>
+                <p style="font-size: 30px;text-align: left">
+                    定位目录命令后：
+                    npm install gulp --save-dev 本地安装gulp
+                    npm install name --save-dev 安装插件
+                </p>
+            </section>
+            <section>
+                <p>配置gulpfile.js</p>
+            </section>
+            <section>
+             <pre>
+            <code>
+                //引入组件
+                var gulp = require('gulp'),
+                uglify = require('gulp-uglify');//压缩文件插件
+
+                //创建任务
+                //gulp.task(name,[deps], fn)
+                //name 为任务名
+                //deps 是当前定义的任务需要依赖的其他任务
+                //fn 为任务函数
+                gulp.task('jsmin', function () {
+                gulp.src('jstask1.js')
+                .pipe(uglify())
+                .pipe(gulp.dest('jstask1-min.js'));
+                });
+            </code>
+            </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>如何使用gulp</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <p>以上</p>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <a href="../demo/JS-11-Usage%20of%20gulp/gulpfile.js">demo</a>
+                <p>上传demo文件夹，须在本地安装gulp，使用webstorm打开，右键gulpfile.js，选择show gulp tasks，双击任务运行</p>
+            </section>
+        </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>gulp常用的的API</p>
+                <p>task，run，watch，src，和dest</p>
+            </section>
+            <section style="text-align: left">
+                <p>
+                    1、gulp.src(globs,[options])<br>
+                    输出符合所提供的匹配模式（glob）或者匹配模式的数组（array of globs）的文件。<br>
+                    globs参数是文件匹配模式(类似正则表达式)，用来匹配文件路径(包括文件名)，当然这里也可以直接指定某个具体的文件路径。当有多个匹配模式时，该参数可以为一个数组。<br>
+                    options为可选参数。通常情况下我们不需要用到。
+                </p>
+            </section>
+            <section style="text-align: left">
+                2、gulp.dest(path,[options])<br>
+                gulp.dest()方法是用来写文件 path为写入文件的路径，如果文件夹不存在，将会自动创建它。<br>
+                options为一个可选的参数对象，通常我们不需要用到
+            </section>
+            <section style="text-align: left">
+                3、gulp.task(name,[deps], fn)<br>
+                用来定义任务，name 为任务名<br>
+                deps 是当前定义的任务需要依赖的其他任务，为一个数组。当前定义的任务会在所有依赖的任务执行完毕后才开始执行。如果没有依赖，则可省略这个参数<br>
+                fn 为任务函数，我们把任务要执行的代码都写在里面。该参数也是可选的。
+            </section>
+            <section style="text-align: left">
+                4、gulp.watch(glob,[opts], tasks)<br>
+                glob 为要监视的文件匹配模式，用来指定具体监控哪些文件的变动<br>
+                opts 为一个可选的配置对象，通常不需要用到<br>
+                tasks 为文件变化后要执行的任务，为一个数组
+            </section>
+            <section style="text-align: left">
+                5、gulp.run(tasks...)尽可能多的并行运行多个task。<br>
+                理想的写法是能控制哪些任务串行执行，哪些任务并行执行。<br>
+                解决办法：<br>
+                每个需要依赖其他任务的任务写依赖。<br>
+                使用插件<br>
+                gulp的当前最新、未正式发布版本gulp 4.0也提供了新的API(series、parallel)来解决这个问题。<br>
+                series里的任务是顺序执行的，parallel里的任务是同时执行的。
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section style="text-align: left">
+                <p>参考一：<a href="http://www.gulpjs.com.cn/docs/api/" target="_blank">gulp API 文档</a></p>
+                <p>参考二：<a href="http://www.cnblogs.com/rion1234567/p/5556891.html" target="_blank">Gulp的安装配置过程和一些小坑</a></p>
+                <p>参考三：<a href="http://www.cnblogs.com/2050/p/4198792.html" target="_blank">前端构建工具gulpjs的使用介绍及技巧</a></p>
+                <p>参考四：<a href="http://www.ydcss.com/archives/18" target="_blank">gulp详细入门教程</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>grunt、webpack的使用</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY：朱芳山|赵锐泉|王蒙</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

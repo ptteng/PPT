@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Log4j的使用</h3>
+            <h4>小课堂</h4>
+            <p>分享人：王蒙</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">Log4j是Apache的一个开源项目，通过使用Log4j，我们可以控制日志信息输送的目的地是控制台、文件、GUI组件，甚至是套接口服务器、NT的事件记录器、UNIX Syslog守护进程等；我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。这些可以通过一个配置文件来灵活地进行配置，而不需要修改应用的代码。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>2.1 从System.out.println到Log4j</p>
+                <p style="text-align: left">
+                    System.out（还有System.err）是一个直接和控制台打交道的PrintStream对象，是终端显示的基础，高级的Logger要在终端显示日志内容，就必然会用到。但它还不是一个日志系统，一个比较完善的日志系统应当有输出媒介、优先级、格式化、日志过滤、日志管理、参数配置等功能。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    然后伴随J2SE 1.4一起发布了Java Logging API（java.util.logging），它包含7大部分：
+                </p>
+                <p style="text-align: left">1. 日志记录器Logger</p>
+                <p style="text-align: left">2. 日志对象：LogRecord</p>
+                <p style="text-align: left">3. 日志管理器：LogManager</p>
+                <p style="text-align: left">4. 输出媒介控制：Handler</p>
+                <p style="text-align: left">5. 输出格式：Formatter</p>
+                <p style="text-align: left">6. 日志级别：Level</p>
+                <p style="text-align: left">7. 日志过滤器：Filter</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Apache Jakarta log4j日志工具包是当前比较流行的一个工具包，它在Logging API的基础上提供更多的输出媒介、输出格式和配置选择。
+                </p>
+                <p style="text-align: left">                Logging中的类        log4j中的类</p>
+                <p style="text-align: left">日志记录器      Logger               Logger</p>
+                <p style="text-align: left">日志管理器    LogManager           LogManager</p>
+                <p style="text-align: left">日志对象      LogRecord            LoggingEvent</p>
+                <p style="text-align: left">输出媒介控制   Handler               Appender</p>
+                <p style="text-align: left">格式化        Formatter              Layout</p>
+                <p style="text-align: left">级别           Level                 Level</p>
+                <p style="text-align: left">过滤器         Filter                Filter</p>
+            </section>
+            <section>
+                <p>2.2 Log4j用法</p>
+                <p style="text-align: left">
+                    建立maven工程，在pom.xml文件中加入依赖包，通过设置Log Level，定义Appender和在配置文件中指定Layout对象来配置log4j。log4j.properties 文件是一个log4j配置文件，它保留键/值对中的属性。默认情况下， LogManager 在CLASSPATH中查找名为log4j.properties的文件。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Logger是日志记录器，其通常在主类中静态实例化，如：static Logger log = Logger.getLogger(log4jExample.class.getName());
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">Logger类具有处理日志记录活动的方法：</p>
+                <p style="text-align: left">public void debug(Object message)：打印Level.DEBUG级别的消息。</p>
+                <p style="text-align: left">public void error(Object message)：打印Level.ERROR级别的消息。</p>
+                <p style="text-align: left">public void fatal(Object message)：打印具有Level.FATAL级别的消息。</p>
+                <p style="text-align: left">public void info(Object message)：打印Level.INFO级别的消息。</p>
+                <p style="text-align: left">public void warn(Object message)：打印Level.WARN级别的消息。</p>
+                <p style="text-align: left">public void trace(Object message)：打印Level.TRACE级别的消息</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    日志级别用Level类表示，一个日志级别对应的是一个整数值，范围和整型值的范围是一致的，该整数值愈大，说明警戒级别愈高。Level有9个内置的级别，分别是：
+                </p>
+                <p style="text-align: left">类型          对应的整数</p>
+                <p style="text-align: left">OFF          最大整数（Integer.MAX_VALUE）</p>
+                <p style="text-align: left">SEVERE       1000</p>
+                <p style="text-align: left">WARNING      900</p>
+            </section>
+            <section>
+                <p style="text-align: left">INFO         800</p>
+                <p style="text-align: left">CONFIG       700</p>
+                <p style="text-align: left">FINE         500</p>
+                <p style="text-align: left">FINER        400</p>
+                <p style="text-align: left">FINEST       300</p>
+                <p style="text-align: left">ALL          最小整数（Integer.MIN_VALUE）</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Appender对象用于将日志消息打印到不同目标（如控制台，文件，套接字，NT事件日志等），所有类别：
+                    AppenderSkeleton，AsyncAppender，ConsoleAppender，DailyRollingFileAppender，ExternallyRolledFileAppender，FileAppender，JDBCAppender，JMSAppender，LF5Appender，NTEventLogAppender，NullAppender，RollingFileAppender，SMTPAppender，SocketAppender，SocketHubAppender，SyslogAppender，TelnetAppender，WriterAppender。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    每个Appender对象都具有与其关联的不同属性，这些属性指示该对象的行为。
+                </p>
+                <p style="text-align: left">layout：Appender使用布局对象和转换模式来格式化日志记录信息。</p>
+                <p style="text-align: left">target：目标可以是控制台，文件或其他项目，具体取决于附加程序。</p>
+                <p style="text-align: left">level：级别过滤日志消息。</p>
+                <p style="text-align: left">threshold：Appender可以具有阈值级别，并忽略具有低于阈值级别的级别的任何日志记录消息。</p>
+                <p style="text-align: left">filter：Filter对象决定日志记录请求是由特定Appender处理还是忽略。</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    org.apache.log4j.Layout是日志格式类，是log4j API中所有其他Layout类的基类。
+                    它有以下子类:DateLayout，HTMLLayout，PatternLayout，SimpleLayout，XMLLayout。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">Log4j采用类似C语言中的printf函数的打印格式格式化日志信息，打印参数如下：</p>
+                <p style="text-align: left">%m：输出代码中指定的消息</p>
+                <p style="text-align: left">%p：输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL</p>
+                <p style="text-align: left">%r：输出自应用启动到输出该log信息耗费的毫秒数</p>
+                </section>
+            <section>
+                <p style="text-align: left">%c：输出所属的类目，通常就是所在类的全名</p>
+                <p style="text-align: left">%t：输出产生该日志事件的线程名</p>
+                <p style="text-align: left">%n：输出一个回车换行符，Windows平台为“rn”，Unix平台为“n”</p>
+                <p style="text-align: left">%l：输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>实际使用</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>以上</p>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p style="text-align: left">日志应该怎么打，在什么位置，需要打印出来什么样的关键参数？</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    日志打印应该从4个方面进行：模块运行日志、业务日志、模块性能日志、模块外部资源日志。关键参数为堆栈信息和运行场景。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section style="text-align: left">
+                <p>参考一：<a href="http://imain.iteye.com/blog/263639" target="_blank">Java调试的变迁：从System.out.println到log4j【zz】</a></p>
+                <p>参考二：<a href="https://www.w3cschool.cn/java/log4j-installation.html" target="_blank">W3CSchool Log4j</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>Common-logging、SLF4J、Logback</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY：王蒙</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

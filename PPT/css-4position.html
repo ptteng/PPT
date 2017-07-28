@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-4】position定位有哪几种？各有什么特点？</h2>
+            <h3>深圳分院小课堂第170期
+            <p>分享人：覃腾波</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;">
+            我们在布局的时候经常会使用到position的属性，那么你真的完全了解它吗？
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+        <h3>position概念</h3>
+        position 属性把元素放置到一个静态的、相对的、绝对的、或固定的位置中。<br>
+        position属性值:<br>
+        position的属性值共有四个常用的：static、relative、absolute、fixed。还有不常用的：inherit、initial、sticky<br>
+        </section>
+        <section>
+        <h3>知识详解</h3>
+        </section>
+        <section style="text-align: left">
+        <h3>Static</h3>
+        所有元素在默认的情况下position属性均为static，而我们在布局上经常会用到的相对定位和绝对定位常用的属性top、bottom、left、right或者 z-index 声明在position为static的情况下无效。其用法为：在改变了元素的position属性后可以将元素重置为static让其回归到页面默认的普通流中。
+        </section>
+        <section style="text-align: left">
+        <h3>Relative</h3>
+        俗称的相对定位，重点在于对相对理解。我们此前说过每个元素在页面的普通流中会有“占用”一个位置，这个位置可以理解为默认位置，而相对定位就是将元素偏离元素的默认位置，但普通流中依然保持着原有的默认位置，并没有脱离普通流，只是视觉上发生的偏移。<br>
+        <img src="../img/css4position/070901493627278.png">
+        </section>
+        <section style="text-align: left">
+        <pre>
+        <code>
+        <style type="text/css">
+            strong { background: #808080; }
+            em { background: #ffd800; }
+            span { background: #b6ff00; position: relative; top: 10px; left: 10px; width: 100px; }
+        </style>
+        <strong>strong</strong><em>em</em><span>span</span>
+        </code>
+        </pre>
+        <img src="../img/css4position/070901563721302.png"><br>
+        请注意看，在这里我是有对span进行width属性的赋值（为100px）。但是我们可以看到span在运用了relative这个position属性值后，依然对width属性无效，换而言之，position: relative并没有改变行内元素的Display属性，这个概念非常重要（注意与接下来的absolute的区别）。
+        </section>
+        <section style="text-align: left">
+        <h3>Absolute</h3>
+        俗称的绝对定位，绝对定位是相对而言的，怎么理解呢？应用了position: absolute的元素会循着节点树中的父（祖）元素来确定“根”，然后相对这个“根”元素来偏移。如果在其节点树中所有父（祖）元素都没有设置position属性值为relative或者absolute则该元素最终将对body进行位置偏移。应用了position: absolute的元素会脱离页面中的普通流并改变Display属性（重点）！<br>
+
+        </section>
+        <section style="text-align: left">
+        <pre>
+        <code>
+        <div style="background: #fff">
+        A
+            <div style="background: #81b6ff">
+            A - 1
+                <div style="background: #b6ff00;">
+                A - 2
+                </div>
+            </div>
+        </div>
+        </code>
+        </pre>
+        <img src="../img/css4position/070902047815867.png"><br>
+
+        </section>
+        <section style="text-align: left">
+        现在我们对A-2这个div设置绝对定位(Top: 0, Left: 0)，而没有对它的父元素（A、A-1）设置任何的position值<br>
+        <pre>
+        <code>
+        <div style="background: #fff">
+        A
+            <div style="background: #81b6ff">
+            A - 1
+                <div style="background: #b6ff00; position: absolute; top: 0; left: 0;">
+                A - 2
+                </div>
+            </div>
+        </div>
+        </code>
+        </pre>
+        <img src="../img/css4position/070902109233090.png"><br>
+        可以看到（A-2）最终是根据body来产生了位移
+        </section>
+        <section>
+        <img src="../img/css4position/070908241373570.png">
+        </section>
+        <section style="text-align: left">
+        从上面的图，我们可以总结以下几个结论。<br>
+
+        1）块状元素在position(relative/static)的情况下width为100%，但是设置了position: absolute之后，会将width变成auto（会受到父元素的宽度影响）。<br>
+
+        2）元素设置了position: <br>absolute之后，如果没有设置top、bottom、left、right属性的话，浏览器会默认设置成auto，而auto的值则是该元素的“默认位置”。即设置position: absolute前后的offsetTop和offsetLeft属性值不变。
+        </section>
+        <section style="text-align: left">
+        特殊情况：<br>
+        Firefox的话会直接将top、left设置成offsetTop和offsetLeft的值而非auto。<br>
+        IE7下的表现更类似于float，会附加到父元素的末尾。<br>
+        <img src="../img/css4position/070908320593679.png">
+        </section>
+        <section style="text-align: left">
+        <h3>Fixed</h3>
+        在很长的时间里，这个属性值因为兼容性问题，并没有得到非常广泛的应用（IE6未实现该属性值）。fixed和absolute有很多共同点：<br>
+        1.会改变行内元素的呈现模式，使display之变更为block。<br>
+        2.会让元素脱离普通流，不占据空间。<br>
+        3.默认会覆盖到非定位元素上。<br>
+        fixed与absolute最大的区别在于：absolute的”根元素“是可以被设置的，而fixed则其”根元素“固定为浏览器窗口。即当你滚动网页，其元素与浏览器窗口之间的距离是恒定不变的。<br>
+        <img src="../img/css4position/070909370699487.png">
+        </section>
+        <section>
+        <h3>拓展知识</h3>
+        </section>
+        <section style="text-align: left">
+        1）应用了position: relative/absolute的元素，margin属性仍然有效，以position:relative来举例。如果设置了left、top、bottom、right的属性，建议大家不要设置margin数据，因为很难精确元素的定位，尽量减少干扰因素。<br>
+        <img src="../img/css4position/070908392046202.png">
+        </section>
+        <section style="text-align: left">
+        2）position: absolute忽略根元素的padding。<br>
+        <pre>
+        <code>
+        <div id="a" style="background: #fff; width: 200px;">
+        A
+            <div id="b" style="background: #81b6ff; width: 150px; position: relative; padding-top: 100px;">
+            A - 1
+                <div id="c" style="background: #b6ff00; position: absolute; left: 0; top: 0">
+                A - 2
+                </div>
+            </div>
+        </div>
+        </code>
+        </pre>
+        <img src="../img/css4position/070908494321708.png">
+        </section>
+        <section>
+        3）在IE6/7中设置position属性后会导致z-index属性失效<br>
+        解决方案，父元素设置一个更大的z-index值即可
+        </section>
+        <section style="text-align: left">
+        4）行内元素在应用了position：absolute之后会改变display。<br>
+        <pre>
+        <code>
+        <span style="position: absolute; width: 100px; height: 100px; top: 10px; left: 10px; background: #fff;">
+        我的display属性由inline变成了block
+        </span>
+        </code>
+        </pre>
+        <img src="../img/css4position/070909080643252.png"><br>
+        因此，要注意到relative是并没有改变行内元素的呈现模式，而absolute是会改变行内元素的呈现模式，如果设置了absolute并不需要显式的的将元素display改成block。
+        </section>
+        <section style="text-align: left">
+        5）应用了position: absolute / relative之后，会覆盖其他非定位元素（即position为static的元素），如果你不想覆盖到其他元素，也可以将z-index设置成-1。<br>
+        absolute是一个能够独当一面的属性，其使用可以不要relative，当然，也可以不使用z-index。在默认情况下，元素应用了非static的position属性后，其就会有一个隐晦的层级，会居于普通元素之上，无需额外设置z-index属性值。
+        </section>
+        <section>
+        <h3>3.常见问题(与浮动相关)</h3>
+        </section>
+        <section style="text-align: left">
+        1）元素同时应用了position: relative、float、（top / left / bottom / right）属性后，则元素先浮动到相应的位置，然后再根据（top / left / bottom / right）所设置的距离来发生偏移。<br>
+        <pre>
+        <code>
+        <div style="position:relative; float:right; left:50px; top:10px;">div</div>
+        </code>
+        </pre>
+        <img src="../img/css4position/070909370699487.png"><br>
+        左图中的div是没有设置top、left值的，而右边则设置了50px的偏移。
+        </section>
+        <section style="text-align: left">
+        2）元素同时应用了position: absolute及float属性，则float失效。<br>
+        </section>
+        <section style="text-align: left">
+        3）第一个元素应用了position之后会覆盖着接下来的float元素（如果两个元素所处的位置相同）<br>
+        如果你不将float的元素的position设置成relative的话，你想通过设置float元素的z-index来的达到覆盖position:absolute是无效的。同理，float元素下面存在position: absolute的子元素，如果你不将float的元素的position设置成relative的话，absolute元素是不会定位到float元素的。<br>
+        </section>
+        <section style="text-align: left">
+        4）同时应用position: absolute和float: left会导致清除浮动无效（position: relative则可以清除浮动）。<br>
+
+        常用的清除浮动的方法有两种：<br>
+
+        1.通过在容器中添加一个标签，设置该标签的样式为 clear: both<br>
+        2.容器设置overflow: hidden
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>absolute与float有哪些区别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="http://www.cnblogs.com/coffeedeveloper/p/3145790.html#float" target="_blank">对CSS中的Position、Float属性的一些深入探讨</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY覃腾波</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

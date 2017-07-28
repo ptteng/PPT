@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+		        <h2>【JS-11】如何使用webpack？</h2>
+	            <h3>武汉分院小课堂第183期</h3>
+	            <p>分享人： 叶紫阳</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+	    <section>
+        <p style="text-align: justify;">
+            模块化是现在前端比较热门的一个词汇，最新的es2015中也提供了原生的module语法，提供对编程模块化的支持。<br>
+	        而cmd以及es6的module语法都是不被浏览器支持的，需要在node环境下打包以后才可以在浏览器里面运行。<br>
+	        webpack就是现在主流的一个打包工具，使用webpack打包以后，我们的代码就可以在浏览器中运行了</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+	    <section>
+		    <h3>javascript的运行环境</h3>
+	    </section>
+	    <section style="text-align: left">
+		   因为我们平时写的js代码都在浏览器中运行，所以可能会造成一个错觉，那就是js代码只能在浏览器中运行，其实浏览器只是js的一个运行环境，除了在浏览器，还可以在服务器上运行，也就是node环境，感兴趣的可以自己下载node.js试一下，在node.js里面可以直接运行js代码。所以有些语法在浏览器里面并不支持，比如es6的module，即使在最新的浏览器里面也不行，这些语法只能在node环境中运行，直接在浏览器中使用会报错。
+	    </section>
+        <section>
+        <h3>什么是模块化？</h3>
+        </section>
+        <section style="text-align: left">
+	        在讲模块化之前，我们先复习一下less，我们在a.less文件中定义了一个颜色变量@white:#fff，现在我在b.less中想用到这个@white变量应该怎么办呢？使用@import 'a'就可以了。在上面那段less代码中，其实我们就用到了模块化编程，只不过是基于less的。现在我们再来看一下js如何实现模块化编程。<br>
+        传统的写法比较简单，就是把自己需要的js文件全部放到index,html中引入，在引入的时候还需要确保引入的顺序是正常的，本质上来说，就是把所有代码全部引入到一个js文件中。而现在我们采用模块化的写法，就会相对来说结构清晰一点，比如在main.js里面需要使用jquery，那么我们可以在main.js里面这么写：import $ from "jquery"，在index.html里面只需要引入main.js即可，采用这种写法可以让文件间的依赖关系更加清楚，实现按需加载，同时结构也会更加合理。
+        </section>
+	    <section>
+		    <h3>js的模块规范有哪些</h3>
+	    </section>
+	    <section style="text-align: left">
+		    在es6之前，主要采用AMD和CMD这2中规范，AMD规范比较好的一个实现库是require.js，CMD对应的是seajs,还有一点node.js也是符合CMD规范的，所以cmd规范的代码可以直接在node环境下运行。而js的最新版本es6则提供了原生的module语法，以实现对模块化的支持。<br>
+	    </section>
+	    <section style="text-align: left">
+		    CMD语法：
+		<pre>
+        <code style="font-size: 25px;line-height: 1.5">
+        // 定义模块
+		module.exports = function() {
+		var greet = document.createElement('div');
+		greet.textContent = "Hi there and greetings!";
+		return greet;
+		};
+	    //引用模块
+	    let greeter = require('./Greeter.js');
+        </code>
+        </pre>
+	    </section>
+	    <section>
+		    ES6语法：
+		    <pre>
+			    <code>
+				    //定义模块
+				    let dog="我爱哈士奇"
+				    export default dog
+				    //引用模块
+				    import dog from 'animal'
+			    </code>
+		    </pre>
+	    </section>
+        <section>
+        <h3>webpack核心概念</h3>
+        </section>
+        <section>
+            <ul>
+	            <li>entry:整个打包文件的入口</li>
+	            <li>loader:解析器，用来打包css或者图片等其他资源</li>
+	            <li>模块：在webpack中，每一个文件都是一个模块，这些模块通过对应的loader都可以按需加载</li>
+            </ul>
+        </section>
+        <section>
+        <h3>3.常见问题</h3>
+	        webpack和gulp有什么区别
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+	    <section style="text-align: justify">
+		    两者虽然在某些功能上类似，比如都可以压缩代码，编译less等。但是两者的定位不同，刚才也提到过了，webpack本质上是一个打包工具，支持CMD的语法，将多个互相依赖的js文件打包成一个js文件。而gulp则是一个自动化工具，用来处理less编译，代码压缩这些，gulp的核心概念是管道，所有文件在管道中流通，然后在流的过程中依次进行代码压缩，less编译等操作，最后再将这些文件流输出到指定目录。所以两者在功能以及定位上都有很大的不同。
+	    </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+	    <section style="text-align: justify">
+		    <a href="https://github.com/qianlongo/resume-native">多动症简历</a>：这是一个很有意思的项目，里面用到了es6+promise+webpack,如果你能将这段代码进行打包，并实现以下几个要求，那么你webpack可以说是入门了。
+		    <ul>
+			    <li>使用babel-loader将es6转换成es5</li>
+			    <li>将css单独的打包成一个文件</li>
+			    <li>压缩js代码</li>
+			    <li>压缩css代码</li>
+			    <li>使用html模板生成index.html</li>
+		    </ul>
+	    </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何配置webpack.config？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="https://webpack.js.org/" target="_blank">webpack官网</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>webpack3插件如何使用</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY叶紫阳</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

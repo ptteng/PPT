@@ -1,0 +1,533 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>葡萄藤PPT</title>
+
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+	<style type="text/css">
+		p{
+			font-size: 30px!important;
+			letter-spacing: 2px;
+			line-height: 50px!important;
+			text-indent:2em;
+		}
+	</style>
+	<!-- 打印和PDF输出样式 -->
+	<script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>【js-07】</h2>
+			<h2>主题：简述angular中constant和$filter的用法</h2>
+			<h3>小课堂【深圳151期】</h3>
+			分享人：陈中彬
+		</section>
+		<section>
+			<p>目录</p>
+			<p>1.背景介绍</p>
+			<p>2.知识剖析</p>
+			<p>3.常见问题</p>
+			<p>4.解决方案</p>
+			<p>5.编码实战</p>
+			<p>6.扩展思考</p>
+			<p>7.参考文献</p>
+			<p>8.更多讨论</p>
+		</section>
+		<section>
+			<h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<p style="text-align: left">angular是什么：AngularJS 最初由Misko Hevery 和Adam Abrons于2009年开发，后来成为了Google公司的项目。AngularJS弥补了HTML在构建应用方面的不足，其通过使用标识符（directives）结构，来扩展Web应用中的HTML词汇，使开发者可以使用HTML来声明动态内容，从而使得Web开发和测试工作变得更加容易。</p>
+			<p style="text-align: left">constant，可以算作angular的全局数据，想要使用的话，只需要在控制器注入即可。</p>
+			<p style="text-align: left">$filter，angular的过滤器，如果想要在控制器里面使用，也是注入，然后调用，而html中的数据过滤，直接键入过滤器名称和对应值即可。</p>
+		</section>
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>
+			<section>
+				<B>constant</B>
+				<p style="text-align: left">每当搜索constant时候，总会连带出现value的说明。</p>
+				<p style="text-align: left">两者都可以作为全局变量使用，但是有两点不同：</p>
+				<p style="text-align: left">1.value不可以在config里注入，但是constant可以。</p>
+				<p style="text-align: left">2.value可以修改，但是constant不可以修改，一般直接用constant配置一些需要经常使用的数据。</p>
+			</section>
+			<section>
+				<p style="text-align: left">下面是简单的应用例子：</p>
+				<pre>
+	<code style="background-color: #1c1e20">
+angular.module('myApp', [])
+.constant('apiKey', '123123123')
+.value('FBid','231231231')
+.controller('myController',function($scope,apiKey,FBid){
+	$scope.a = apiKey;
+	$scope.b = FBid;
+})
+.config(function(apiKey) {
+// 在这里apiKey将被赋值为123123123
+// 就像上面设置的那样
+})
+.config(function(FBid) {
+// 这将抛出一个错误，未知的provider: FBid
+// 因为在config函数内部无法访问这个值
+});
+	</code>
+</pre>
+			</section>
+		</section>
+		<section>
+			<section>
+				<p style="text-align: left">filter是用来格式化数据用的</p>
+				<p style="text-align: left">基本原型</p>
+				<p style="text-align: left">{{expression | filter}}</p>
+				<p style="text-align: left">多个filter连用版</p>
+				<p style="text-align: left">{{expression | filter1 | filter2}}</p>
+				<p style="text-align: left">传入参数版</p>
+				<p style="text-align: left">{{expression | filter:1:2}}</p>
+			</section>
+			<section>
+				<p style="text-align: left">AngularJS内建了一些常用的filter：</p>
+				<p style="text-align: left">1、格式化货币：</p>
+				<p style="text-align: left">{{ 12 | currency}}  //将12格式化为货币，默认单位符号为 '$', 小数默认2位</p>
+				<p style="text-align: left">{{ 12.45 | currency:'￥'}} //将12.45格式化为货币，使用自定义单位符号为 '￥', 小数默认2位</p>
+				<p style="text-align: left">{{ 12.45 | currency:'CHY￥':1}} //将12.45格式化为货币，使用自定义单位符号为 'CHY￥', 小数指定1位, 会执行四舍五入操作</p>
+				<p style="text-align: left">{{ 12.55 | currency:undefined:0}} //将12.55格式化为货币， 不改变单位符号， 小数部分将四舍五入</p>
+			</section>
+			<section>
+				<p style="text-align: left">2、格式化日期：</p>
+				<p style="text-align: left">{{ 1304375948024 | date:'medium'}}//May 03, 2011 06:39:08 PM </p>
+				<p style="text-align: left">{{ 1304375948024 | date }}//结果：May 3, 2011 </p>
+				<p style="text-align: left">{{ 1304375948024 | date:"MM/dd/yyyy @ h:mma" }}//结果：05/03/2011 @ 6:39AM </p>
+				<p style="text-align: left">{{ 1304375948024 | date:"yyyy-MM-dd hh:mm:ss" }}//结果：2011-05-03 06:39:08</p>
+			</section>
+			<section>
+				<p style="text-align: left">3、过滤数组：</p>
+				<p style="text-align: left">$scope.arr = [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ]</p>
+				<p style="text-align: left">{{arr | filter:'s'}}  //查找含有有s的行//上例结果：[{"age":12,"id":11,"name":"sunm xing"},{"age":44,"id":12,"name":"test abc"}]</p>
+				<p style="text-align: left">{{arr | filter:{'name':'ip'} }}//查找name like ip的行//上例结果:[{"age":20,"id":10,"name":"iphone"}]  </p>
+			</section>
+			<section>
+				<p style="text-align: left">4、将对象格式化成标准的JSON格式：</p>
+				<p style="text-align: left">{{ {name:'Jack', age: 21} | json}}</p>
+			</section>
+			<section>
+				<p style="text-align: left">5、字符串，对象截取：</p>
+				<p style="text-align: left">{{ "i love tank" | limitTo:6 }}//结果：i love</p>
+				<p style="text-align: left">{{ "i love tank" | limitTo:-4 }}//结果：tank   </p>
+				<p style="text-align: left">{{ [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ] | limitTo:1 }}//结果：[{"age":20,"id":10,"name":"iphone"}] </p>
+			</section>
+			<section>
+				<p style="text-align: left">6、大小写转换：</p>
+				<p style="text-align: left">China has joined the {{ "wto" | uppercase }}.</p>
+				<p style="text-align: left">We all need {{ "MONEY" | lowercase }}.</p>
+			</section>
+			<section>
+				<p style="text-align: left">7、数值类：</p>
+				<p style="text-align: left">{{ 1.234567 | number:1 }}  //结果：1.2</p>
+				<p style="text-align: left">{{ 1234567 | number }}    //结果：1,234,567 </p>
+			</section>
+			<section>
+				<p style="text-align: left">8、对象排序：</p>
+				<p style="text-align: left">$scope.arr = [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ]</p>
+				<p style="text-align: left">{{arr | orderBy:'id':true }}//根id降序排  </p>
+				<p style="text-align: left">{{arr | orderBy:'id' }}//根据id升序排</p>
+			</section>
+			<section>
+				<p style="text-align: left">9、当然，我们还可以自定义filter方法。</p>
+			</section>
+		</section>
+		<section>
+			<h3>3.常见问题</h3>
+		</section>
+		<section>
+			<B>如何使用angular中constant和$filter</B>
+		</section>
+		<section>
+			<h3>4.解决方案</h3>
+		</section>
+		<section>
+			<h3>5.编码实战</h3>
+		</section>
+		<section>
+<pre>
+	<code style="background-color: #1c1e20">
+	html:
+<body ng-app='myApp' ng-controller='personCtrl'>
+1.格式化货币：
+<div>{{ 12 | currency}}</div>
+<div>{{ 12.45 | currency:'￥'}}</div>
+<div>{{ 12.45 | currency:'CHY￥':1}}</div>
+<div>{{ 12.55 | currency:undefined:0}}</div>
+2、格式化日期：
+<div>{{ 1304375948024 | date:'medium'}}</div>
+<div>{{ 1304375948024 | date }}</div>
+<div>{{ 1304375948024 | date:"yyyy-MM-dd hh:mm:ss" }}</div>
+3、过滤数组：
+<div>{{arr | filter:'s'}}</div>
+<div>{{arr | filter:{'name':'ip'} }}</div>
+4、将对象格式化成标准的JSON格式：
+<div>{{ {name:'Jack', age: 21} | json}}</div>
+5、字符串，对象截取：
+<div>{{ "i love tank" | limitTo:6 }}</div>
+<div>{{ "i love tank" | limitTo:-4 }}</div>
+<div>{{ [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ] | limitTo:1 }}</div>
+6、大小写转换：
+<div>China has joined the {{ "wto" | uppercase }}.</div>
+<div>We all need {{ "MONEY" | lowercase }}.</div>
+7、数值类：
+<div>{{ 1.234567 | number:1 }}</div>
+<div>{{ 1234567 | number }}</div>
+8、对象排序：
+<div>{{arr | orderBy:'id':true }}</div>
+<div>{{arr | orderBy:'id' }}</div>
+9、自定义：
+<div>{{1 | fMes:'compPoList':'type'}}</div>
+<div>{{1 | provinceFilter}}</div>
+</body>
+
+	app.js:
+angular.module('myApp',[])
+.controller('personCtrl',function($scope){
+	$scope.arr = [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ]
+})
+.filter('fMes',function(con){
+	return function(input,field,str){
+		if(input >= 0){//input != undefined &&
+			var name;
+			var aMes = con[field];
+			angular.forEach(aMes,function(data){
+				if(data[str] == input){
+					name = data.name;
+				}
+			})
+			return name;
+		}else{console.log('false');}
+	}
+})
+.filter('provinceFilter', function (PROVINCE) {//省
+	return function (id) {
+		if (id != undefined && id != '') {
+			var name;
+			angular.forEach(PROVINCE, function (data) {
+				if (data.ProID == id) {
+					name = data.ProName;
+				}
+			});
+			return name;
+		}
+	}
+})
+	</code>
+</pre>
+		</section>
+		<section>
+<pre>
+	<code style="background-color: #1c1e20">
+angular.module("myApp")
+.value('val',{
+
+})
+//公司编辑常量组
+.constant('con', {
+	//公司人数
+	companyPop:[
+		{type: 0, name: '1-10人'},
+		{type: 1, name: '10-20人'},
+		{type: 2, name: '30-50人'},
+		{type: 3, name: '50-100人'},
+		{type: 4, name: '100-200人'},
+		{type: 5, name: '200-500人'},
+		{type: 6, name: '500-1000人'},
+		{type: 7, name: '1000人以上'}
+	],
+	//公司行业
+	//团队规模：
+	workGroupScale:[
+		{type: 0, name: '1-10人'},
+		{type: 1, name: '10-20人'},
+		{type: 2, name: '30-50人'},
+		{type: 3, name: '50-100人'},
+		{type: 4, name: '100人以上'},
+	],
+	//用户人数
+	userPop:[
+		{type:0,name:'不限'},
+		{type:1,name:'1W-10W'},
+		{type:2,name:'10W-50W'},
+		{type:3,name:'50W-100W'},
+		{type:4,name:'100W-1000W'},
+		{type:5,name:'1000W以上'}
+	],
+	//盈利情况
+	earnings:[
+		{type:0,name:'不限'},
+		{type:1,name:'亏损'},
+		{type:2,name:'平衡'},
+		{type:3,name:'盈利'},
+		{type:4,name:'其他'}
+	],
+	//公司标签
+	companyTag:[
+		{type:0,name:'管理扁平化'},
+		{type:1,name:'发展前景好'},
+		{type:2,name:'成长空间大'},
+		{type:3,name:'五险一金'},
+		{type:4,name:'股票期权'},
+		{type:5,name:'系统培训'},
+		{type:6,name:'免费旅游'},
+		{type:7,name:'餐补'},
+		{type:8,name:'固定团建'},
+		{type:9,name:'年底双薪'},
+		{type:10,name:'高效自由'},
+		{type:11,name:'氛围好'},
+		{type:12,name:'大牛带领'},
+		{type:13,name:'弹性工作制'},
+		{type:14,name:'带薪假期'},
+		{type:15,name:'平台广阔'},
+		{type:16,name:'免费零食'}
+	],
+//职位编辑常量
+	//职业分类
+	positionList:[
+		{type:0,name:'ui设计师'},
+		{type:1,name:'运维工程师'},
+		{type:2,name:'产品'},
+		{type:3,name:'Java工程师'},
+		{type:4,name:'IOS工程师'},
+		{type:5,name:'Android工程师'},
+		{type:6,name:'Web前端工程师'}
+	],
+	//公司职位类别
+	compPoList:[
+		{type: 1, name: '产品'},
+		{type: 2, name: 'UI'},
+		{type: 3, name: 'QA'},
+		{type: 4, name: 'Android'},
+		{type: 5, name: 'IOS'},
+		{type: 6, name: 'WEB'},
+		{type: 7, name: 'OP'},
+		{type: 8, name: 'Java'},
+		{type: 9, name: 'NLP'},
+		{type: 10, name: 'DM'},
+		{type: 11, name: 'DL'}
+	],
+	//职业分类二级菜单
+	positionListSub:[
+		{type:0,name:'初级'},
+		{type:1,name:'中级'},
+		{type:2,name:'高级'}
+	],
+	//工作性质
+	category:[
+		{type:0,name:'全职'},
+		{type:1,name:'兼职'},
+		{type:2,name:'实习'}
+	],
+	//经验
+	experience:[
+		{type:0,name:'无'},
+		{type:1,name:'应届'},
+		{type:2,name:'0-1年'},
+		{type:3,name:'1-2年'},
+		{type:4,name:'3-5年'},
+		{type:5,name:'6-9年'},
+		{type:6,name:'10年以上'}
+	],
+	//学历
+	education:[
+		{type:0,name:'高中'},
+		{type:1,name:'大专'},
+		{type:2,name:'本科'},
+		{type:3,name:'硕士'},
+		{type:4,name:'博士'}
+	],
+	//BAT从业经验
+	batExperience:[
+		{type:0,name:'有'},
+		{type:1,name:'无'}
+	],
+	//英语水平
+	englishEx:[
+		{type:0,name:'四级'},
+		{type:1,name:'六级'},
+		{type:2,name:'其他'}
+	],
+	//薪资
+	compensation:[
+		{type:0,name:'8K以下'},
+		{type:1,name:'8-10K'},
+		{type:2,name:'10-15K'},
+		{type:3,name:'15-20K'},
+		{type:4,name:'20K以上'}
+	],
+	isShelve:[
+		{type:0,name:'上架'},
+		{type:1,name:'下架'}
+	],
+//候选人列表常量
+	status:[
+		{type:null,name:'全部'},
+		{type:0,name:'尚未预约'},
+		{type:1,name:'预约成功'},
+		{type:2,name:'预约失败'},
+		{type:3,name:'面试失败'},
+		{type:4,name:'通过面试'}
+	],
+	statusNew:[
+		{type:0,name:'尚未预约'},
+		{type:1,name:'预约成功'},
+		{type:2,name:'预约失败'},
+		{type:3,name:'面试失败'},
+		{type:4,name:'通过面试'}
+	],
+	//人才等级
+	talentLevel:[
+		{type:0,name:'初级'},
+		{type:1,name:'中级'},
+		{type:2,name:'高级'}
+	],
+	//是否需要推荐：
+	isRecommond:[
+		{type:0,name:'需要'},
+		{type:1,name:'不需要'}
+	],
+	gender:[
+		{type:0,name:'男'},
+		{type:1,name:'女'}
+	],
+	maritalStatus:[
+		{type:0,name:'未婚 '},
+		{type:1,name:'已婚未育'},
+		{type:2,name:'已婚已育'},
+		{type:3,name:'已婚'}
+	],
+	workExperience:[
+		{type:0,name:'应届'},
+		{type:1,name:'1-2年'},
+		{type:2,name:'3-5年'},
+		{type:3,name:'6-9年'},
+		{type:4,name:'10年以上'},
+	],
+	workIndustry:[
+		{type:0, name: '移动互联网'},
+		{type:1, name: '电子商务'},
+		{type:2, name: '企业服务'},
+		{type:3, name: 'O2O'},
+		{type:4, name: '教育'},
+		{type:5, name: '金融'},
+		{type:6, name: '游戏'}
+	],
+	workFinanceRound:[
+		{type:0, name: '无需融资'},
+		{type:1, name: '天使轮'},
+		{type:2, name: 'A轮'},
+		{type:3, name: 'B轮'},
+		{type:4, name: 'C轮'},
+		{type:5, name: 'D轮及以上'},
+		{type:6, name: '上市公司'}
+	]
+})
+
+    .constant('PROVINCE', [
+        {"ProID": 1, "ProName": "北京市", "ProSort": 1, "ProRemark": "直辖市"},
+        {"ProID": 2, "ProName": "天津市", "ProSort": 2, "ProRemark": "直辖市"},
+        {"ProID": 3, "ProName": "河北省", "ProSort": 5, "ProRemark": "省份"}, {
+            "ProID": 4,
+            "ProName": "山西省",
+            "ProSort": 6,
+            "ProRemark": "省份"
+        }, {"ProID": 5, "ProName": "内蒙古自治区", "ProSort": 32, "ProRemark": "自治区"}, {
+            "ProID": 6,
+            "ProName": "辽宁省",
+            "ProSort": 8,
+            "ProRemark": "省份"
+        }, {"ProID": 7, "ProName": "吉林省", "ProSort": 9, "ProRemark": "省份"}, {
+            "ProID": 8,
+            "ProName": "黑龙江省",
+            "ProSort": 10,
+            "ProRemark": "省份"
+        }, {"ProID": 9, "ProName": "上海市", "ProSort": 3, "ProRemark": "直辖市"}, {
+            "ProID": 10,
+            "ProName": "江苏省",
+            "ProSort": 11,
+            "ProRemark": "省份"
+        }])
+
+	</code>
+</pre>
+		</section>
+		<section>
+			<h3>6.扩展思考</h3>
+		</section>
+		<section>
+			<B style="text-align: center;"><a href="http://www.jb51.net/article/66105.htm" target="_blank" style="color: white;">AngularJS的内置过滤器有哪些？</a></B>
+		</section>
+		<section>
+			<h3>7.参考文献</h3>
+		</section>
+		<section>
+			<p style="text-align: left">参考一：<a href="http://www.cnblogs.com/lyy-2016/p/5691499.html" target="_blank">angularJS constant和value</a></p>
+			<p style="text-align: left">参考二：<a href="http://www.tuicool.com/articles/vmmeQvj" target="_blank">AngularJS的Filter用法详解</a></p>
+		</section>
+		<section>
+			<h3>8.更多讨论</h3>
+		</section>
+		<section>
+			<h4>感谢观看</h4>
+			<small>BY : 梁家健| 陈中彬 </small>
+		</section>
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

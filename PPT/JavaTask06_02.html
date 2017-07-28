@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是负载均衡，为什么要做负载均衡？</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：杨舜</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+
+            <p>
+随着 Internet 的快速发展和业务量的不断提高，基于网络的数据访问流量迅速增长，特别是对数据 中心、大型企业以及门户网站等的访问，其访问流量甚至达到了 10Gb/s 的级别；同时，服务器网 站借助 HTTP、FTP等应用程序，为访问者提供了越来越丰富的内容和信息，服务器逐渐 被数据淹没；另外，大部分网站（尤其电子商务等网站）都需要提供不间断 24 小时服务，任何服 务中断或通信中的关键数据丢失都会造成直接的商业损失。所有这些都对应用服务提出了高性能和 高可靠性的需求。 但是，相对于网络技术的发展，服务器处理速度和内存访问速度的增长却远远低于网络带宽和应用 服务的增长，网络带宽增长的同时带来的用户数量的增长，也使得服务器资源消耗严重，因而服务 器成为了网络瓶颈。传统的单机模式，也往往成为网络故障点。</p>
+        </section>
+        <section>
+            <p>针对以上情况的解决方案</p>
+            <p>①.服务器进行硬件升级：采用高性能服务器替换现有低性能服务器。</p>
+            <p>该方案的弊端：成本高，可扩展性差，无法完全解决现在网络中面临的问题。</p>
+            <p>②.组建服务器集群，利用负载均衡技术在服务器集群间进行业务均衡。多台服务器通过网络设备相连组成一个服务器集群，每台服务器都提供相同或相似的网络服务。服 务器集群前端部署一台负载均衡设备，负责根据已配置的均衡策略将用户请求在服务器集群中分发， 为用户提供服务，并对服务器可用性进行维护。</p>
+            <p>该方案的优势：低成本，可扩展性，高可靠性</p>
+    </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        
+        <section>
+         
+            <p>负载均衡原理</p>
+            <p>系统的扩展可分为纵向（垂直）扩展和横向（水平）扩展。纵向扩展，是从单机的角度通过增加硬件处理能力，比如CPU处理能力，内存容量，磁盘等方面，实现服务器处理能力的提升，不能满足大型分布式系统（网站），大流量，高并发，海量数据的问题。因此需要采用横向扩展的方式，通过添加机器来满足大型网站服务的处理能力。比如：一台机器不能满足，则增加两台或者多台机器，共同承担访问压力。这就是典型的集群和负载均衡架构：如下图：</p>
+        </section>
+        <section>
+        	<img src="file:///Users/shun/Desktop/1.png "/>
+        </section>
+
+        <section>
+
+        <p>应用集群：将同一应用部署到多台机器上，组成处理集群，接收负载均衡设备分发的请求，进行处理，并返回相应数据。</p>
+            <p>负载均衡设备：将用户访问的请求，根据负载均衡算法，分发到集群中的一台处理服务器。</p>
+
+        </section>
+
+        <section>
+            <p>负载均衡的作用</p>
+            <p>1.解决并发压力，提高应用处理性能（增加吞吐量，加强网络处理能力）；</p>
+            <p>2.提供故障转移，实现高可用</p>
+            <p>3.通过添加或减少服务器数量，提供网站伸缩性（扩展性)</p>
+            <p>4.安全防护；（负载均衡设备上做一些过滤，黑白名单等处理）</p>
+        </section>
+
+
+        <section>
+            <p>负载均衡分类</p>
+            <p>根据实现技术不同，可分为DNS负载均衡，HTTP负载均衡，IP负载均衡，反向代理负载均衡、链路层负载均衡等。</p>      
+
+        </section>
+        <section>
+        <p>负载均衡算法</p>
+        <p>轮询、 随机、最少链接、Hash（源地址散列）、加权</p>
+        </section>
+        <section>
+            <p>硬件负载均衡</p>
+            <p>采用硬件的方式实现负载均衡，一般是单独的负载均衡服务器，价格昂贵，一般土豪级公司可以考虑，业界领先的有两款，F5和A10。
+            价格：F5， 15w~55w不等；A10， 55w-100w不等。</p>
+            <p>优点：功能全面支持各层级的负载均衡，支持全面的负载均衡算法，支持全局负载均衡。一般软件负载均衡支持到5万级并发已经很困难了，硬件负载均衡可以支持。商用硬件负载均衡稳定性高，具备防火墙，防DDOS攻击等安全功能，提供售后支持。
+
+</p>
+        </section>
+
+   
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>怎么配置负载均衡？</p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+
+        </section>
+        <section>
+                    <p>部署至少两台服务器，我选择在本地部署一台jetty、一台tomcat。在nginx.conf配置文件中http括号内添加如下配置:</p>
+          <p>upstream  local_tomcat {</p>
+  <p>server    localhost:8088;</p>
+  <p>server    localhost:8089;}</p>
+
+<p>server{</p>
+ <p>       location / {</p>
+ <p>       proxy_pass http://local_tomcat;}}</p>
+<p>在hosts文件中添加解析域名</p>
+<p>127.0.0.1   &nbsp;   local_tomcat</p>
+        </section>
+
+   
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+        	<p>什么是反向代理负载均衡？</p>
+        	<p> 反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器，该服务器就可称之为代理服务器。由于代理服务器处在最终处理请求访问的服务器之前，因此可以在代理服务器上做负载均衡。</p>
+        </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨舜</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

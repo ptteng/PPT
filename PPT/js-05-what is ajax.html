@@ -1,0 +1,350 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2  style="font-family: 'Times New Roman';text-transform:none; ">【JS-05】什么是Ajax</h2>
+            <h3>小课堂【成都第158期】</h3>
+            <p>分享人：王帅</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section style="font-family: 'Times New Roman'; text-transform:none;">
+            <h4 style="font-family: 'Times New Roman'; text-transform:none;">什么是Ajax？ </h4>
+            <p style="text-align: left;"><br>
+                AJAX即“Asynchronous JavaScript and XML”（异步的JavaScript与XML技术），指的是一套综合了多项技术的浏览器端网页开发技术。
+                Ajax的概念由杰西·詹姆士·贾瑞特所提出。<br>通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。
+                这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
+                传统的网页（不使用 Ajax）如果需要更新内容，必须重载整个网页页面。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h4>传统的请求方式</h4>
+                <p style="text-align: left;">传统的web应用程序中，用户向服务器发送一个请求，然后等待，服务器接受到用户的请求然后响应。在这段时间内，用户会只能等待数据传输完成，否则什么事情也不能做。这是因为以往的传输方式为同步处理方式。一次HTTP请求对应一个页面。
+                </p>
+            </section>
+            <section>
+                <img src="../img/js-05-ajax/pic01.png">
+
+                <img class="fragment" src="../img/js-05-ajax/pic02.png">
+            </section>
+        </section>
+        <section>
+            <section  style="font-family: 'Times New Roman'; text-transform:none;">
+                <h4 style="font-family: 'Times New Roman'; text-transform:none;">Ajax的工作方式</h4>
+                <p style="text-align: left;">和传统的web应用不同，Ajax采取了异步交互避免了用户请求-等待-应答交互方式的缺点。
+                    Ajax在应用程序和服务器中引入了一个中间层---Ajax引擎，它是用Javascript编写的，在一个隐藏的框架中运行。Ajax引擎负责呈现用户界面，
+                    以及代表用户和服务器进行交互。Ajax引擎允许用户和服务器进行异步的交互。这样就可以实现一边填写表单一边验证的效果。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section style="font-family: 'Times New Roman'; text-transform:none; text-align: left;">
+            <br><br><br>
+            <p >1、IE浏览器下面的缓存问题</p>
+            <p >2、跨域问题</p>
+            <p >3、Ajax乱码问题</p>
+            <p >4、使用post时需要设置请求体的编码格式</p>
+            <p >5、Ajax对象属性的大小写问题</p>
+            <br><br>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                1. 缓存问题：<br>在IE浏览器下面使用get请求时，如果第一次请求了数据之后IE会自动缓存数据，如果下一次再发送同样的
+                请求的时候浏览器会自动先去找缓存显示出来，所以如果请求的数据有变化的时候，这里是看不到变化的。
+                解决办法：<pre><code> xhr.open("get","xxxx.aspx?_dc="+new Date().getTime(),true);</code></pre>
+                就是在请求的后面 加上_dc=。。。让url变成唯一，或者是，改成post请求。
+            </section>
+            <section style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                2. 跨域问题：<br>这是我们目前见到的最多的，也是最熟悉的一个问题。本地上面直接采用Nginx跨域实现。
+                注意 Nginx跨域可以同时配置多个接口的，就是多写几个location就好了，然后location后面带的参数不一样就可以了。
+            </section>
+            <section>
+                <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                    3. Ajax乱码问题 <br>
+                    乱码问题虽然我们目前遇到的不多，但是也属于比较常见的一个问题了。出现的主要原因就是编码不一致导致的。
+                    如果出现乱码问题了，首先检查一下meta声明的charset要和请求的页面返回的charset一致。
+
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                    4. 使用post提交的时候需要设置请求头，用于定义网络文件的类型和网页的编码。
+                    <pre><code>
+                        XHR:        content-Type: application/x-www-form-urlencoded
+                        content-Type: multipart/form-data
+                        jQuery:     content-Type: application/x-www-form-urlencoded
+                        $http:      content-Type: application/json
+                        http:       content-Type: application/json
+                    </code></pre>
+                <p style="text-align: left">当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&name2=value2...），然后把这个字串append到url后面，用?分割，加载这个新的url。 当action为post时候，浏览器把form数据封装到http body中，然后发送到server。</p>
+                <p>application/json：用来告诉服务端消息主体是序列化后的 JSON 字符串。</p>
+                </p>
+
+            </section>
+            <section>
+                <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                    5. Ajax对象属性的大小写问题
+                    <pre><code>
+                        if (xhr.readystate == 4)  // IE ok  /  firefox error
+                        if (xhr.readyState == 4)
+                    </code></pre>
+
+                同理还有属性
+                responseText，responseXML。<br>
+                <b>习惯采用驼峰形式的写法可以避免这个问题。</b><br/>
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                Javascript原生方法
+                <pre><code>
+                    var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象;
+                    request.onreadystatechange = function () { // 状态发生变化时，函数被回调;
+                    if (request.readyState === 4) { // 成功完成
+                    // 判断响应结果:
+                    if (request.status === 200) {
+                    // 成功，通过responseText拿到响应的文本:
+                    } else {
+                    // 失败，根据响应码判断失败原因:
+                    }
+                    } else {
+                    // HTTP请求还在继续...
+                    }
+                    }
+                    // 发送请求:
+                    request.open("POST","/skill-ajax/a/login",true);
+                    request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    request.send();
+                    alert('请求已发送，请等待响应...');
+
+                    // readyState值说明
+                    // 0,初始化,XHR对象已经创建,还未执行open
+                    // 1,载入,已经调用open方法,但是还没发送请求
+                    // 2,载入完成,请求已经发送完成
+                    // 3,交互,可以接收到部分数据
+
+                    // status值说明
+                    // 200:成功
+                    // 404:没有发现文件、查询或URl
+                    // 500:服务器产生内部错误
+                </code></pre>
+            </section>
+            <section>
+                jQuery方法
+                <pre><code>
+                    $.ajax({
+                    url: "student-ajax/student",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                    name: $("#names").val(),
+                    qq: $("#QQs").val(),
+                    },
+                    success: function(data){
+                    console.log(data);
+                    if(data.code === 200){
+                    alert($("#names").val() + "学员信息" +data.message);
+                    }else{
+                    alert(data.message);
+                    }
+                    },
+                    error: function(data){
+                    console.log(data);
+                    alert("添加失败");
+                    }
+                    });
+                </code></pre>
+            </section>
+            <section>
+                AngularJS方法
+                <pre><code>
+                    $http({
+                    method:'get',
+                    url:('/a/a/all/document?type=1&page='+$scope.page),
+                    headers:{'Content-Type':'application/x-www-form-urlencoded'}
+                    })
+                    .success(function (response) {
+                    console.log(response.total);
+                    console.log(response);
+                    console.log(aaa);
+                    // if (response.message === "查询成功") {
+                    $scope.userList = response.data;
+                    $scope.userTotal = response.total;
+                    $scope.page=response.page;
+                    // console.log($scope.userList.total);
+                    });
+                </code></pre>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                原生的讲解
+                <p style="text-align: left">
+                    (1) 在使用xhr对象发送请求和处理请求响应之前，必须先用js语言创建一个xhr对象。由于xhr对象当前还不是w3c标准，所以才有多种方式进行创建以解决兼容性问题。具体创建方式如下：
+                   <pre><code>
+                       var xmlhttp;
+                       if (window.XMLHttpRequest) {
+                       // code for IE7+, Firefox, Chrome, Opera, Safari
+                       xmlhttp=new XMLHttpRequest();
+                       }else{
+                       // code for IE6, IE5
+                       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                       }
+                   </code></pre>
+                </p>
+            </section>
+            <section  style="font-family: 'Times New Roman'; text-transform:none; text-align: left;">
+                (2) 向服务器发送请求 <br>
+                (a) open(method,url,async)
+                规定请求的类型、URL 以及是否异步处理请求。 <br>
+                method：请求的类型；GET 或 POST <br>
+                url：文件在服务器上的位置 <br>
+                async：true（异步）或 false（同步）<br>
+                (b)send(string)<br>
+                将请求发送到服务器。<br>
+                string：仅用于 POST 请求<br>
+            </section>
+        </section>
+
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>跨域问题</p>
+        </section>
+        <section>
+            <p>跨域问题是因为浏览器的同源策略导致的。默认情况下，JavaScript在发送AJAX请求时，URL的域名必须和当前页面完全一致。完全一致的意思是，域名要相同（www.example.com和example.com不同），协议要相同（http和https不同），端口号要相同（默认是:80端口，它和:8080就不同）。有的浏览器口子松一点，允许端口不同，大多数浏览器都会严格遵守这个限制。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/fanyx/p/5775939.html" target="_blank">什么是跨域</a></p>
+            <p>参考二：<a href="http://www.syntaxsuccess.com/viewarticle/angular-promises%E2%80%93then-vs-success" target="_blank">AngularJS中then和success的区别</a></p>
+            <p>参考三：
+                <a href="http://www.cnblogs.com/blsong/archive/2009/12/30/1636101.html" target="_blank">Ajax常见问题</a></p>
+            <p>参考四：<a href="http://liubin.org/promises-book/#what-is-promise">JavaScript Promise迷你书</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>ajax的缺点
+            </p>
+            <p style="font-size: 1rem;white-space: pre-wrap;text-align: left">
+1、ajax干掉了back按钮，即对浏览器后退机制的破坏。后退按钮是一个标准的web站点的重要功能，但是它没法和js进行很好的合作。这是ajax所带来的一个比较严重的问题，因为用户往往是希望能够通过后退来取消前一次操作的。Gmail已经解决这个这问题。
+2、安全问题
+技术同时也对IT企业带来了新的安全威胁，ajax技术就如同对企业数据建立了一个直接通道。这使得开发者在不经意间会暴露比以前更多的数据和服务器逻辑。ajax的逻辑可以对客户端的安全扫描技术隐藏起来，允许黑客从远端服务器上建立新的攻击。还有ajax也难以避免一些已知的安全弱点，诸如跨站点脚步攻击、SQL注入攻击和基于credentials的安全漏洞等。
+3、对搜索引擎的支持比较弱。
+4、破坏了程序的异常机制。给我们的调试带来了很大的困难。
+5、另外，像其他方面的一些问题，比如说违背了url和资源定位的初衷。例如，我给你一个url地址，如果采用了ajax技术，也许你在该url地址下面看到的和我在这个url地址下看到的内容是不同的。这个和资源定位的初衷是相背离的。
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 左少华|包鹏亮|王帅</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'convex',
+        transitionSpeed: 'fast',
+        slideNumber: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help

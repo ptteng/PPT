@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>post提交的数据有哪几种编码格式</h2>
+            <h3>【深圳156期】小课堂-jstask5</h3>
+            <p>分享人：黄源志</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+            <p>8.参考文献</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: left">HTTP/1.1 协议规定的 HTTP 请求方法有 OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT 这几种。其中 POST 一般用来向服务端提交数据，本文主要讨论 POST 提交数据的几种编码方式。</p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>协议规定 POST 提交的数据必须放在消息主体（entity-body）中，但协议并没有规定数据必须使用什么编码方式。但是，数据发送出去，还要服务端解析成功才有意义。
+                <p>服务端通常是根据请求头（headers）中的 Content-Type 字段来获知请求中的消息主体是用何种方式编码，再对主体进行解析。</p>
+                <p> POST 提交数据方案，包含了 Content-Type 和消息主体编码方式两部分。下面就正式开始介绍它们。</p>
+                </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>常用的POST 提交数据方式有哪些？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+            <h4>四种常见的 POST 提交数据方式</h4>
+            <p style="text-align: left">1.application/x-www-form-urlencoded</p>
+            <p style="text-align: left">2.multipart/form-data</p>
+            <p style="text-align: left">3.application/json</p>
+            <p style="text-align: left">4.text/xml</p>
+            </section>
+        </section>
+        <section>
+            <h3>1.application/x-www-form-urlencoded</h3>
+            <p style="text-align: left">这应该是最常见的 POST 提交数据的方式了。浏览器的原生 form 表单，如果不设置 enctype属性，那么最终就会默认以 application/x-www-form-urlencoded 方式提交数据。</p>
+            <p style="text-align: left">在POST提交数据中Content-Type 被指定为 application/x-www-form-urlencoded；提交的数据按照 key1=val1&key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。大部分服务端语言都对这种方式有很好的支持。</p>
+            <p style="text-align: left">很多时候，我们用 Ajax 提交数据时，也是使用这种方式。</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    xhr.open("POST","http://www.example.com",true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>2.multipart/form-data</h3>
+            <p style="text-align: left">这也是一个常见的 POST 数据提交的方式。我们使用表单上传文件时，必须让 form 的 enctype 等于这个值。</p>
+            <p style="text-align: left">这种方式一般用来上传文件，各大服务端语言对它也有着良好的支持。上面提到的这两种 POST 数据的方式，都是浏览器原生支持的。</p>
+            <pre>
+                <code>
+                    xhr.open("POST","http://www.example.com",true);
+                    xhr.setRequestHeader("Content-Type", "multipart/form-data");
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>3.application/json</h3>
+            <p style="text-align: left">application/json 这个 Content-Type 作为响应头大家肯定不陌生。实际上，现在越来越多的人把它作为请求头，用来告诉服务端消息主体是序列化后的 JSON 字符串。由于 JSON 规范的流行，除了低版本 IE 之外的各大浏览器都原生支持 JSON.stringify，服务端语言也都有处理 JSON 的函数，使用 JSON 不会遇上什么麻烦。</p>
+            <pre>
+                <code>
+                    xhr.open("POST","http://www.example.com",true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>4.text/xml</h3>
+            <p style="text-align: left">它是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范,它的使用也很广泛，能很好的支持已有的 XML-RPC 服务。不过，XML 结构还是过于臃肿，一般场景用 JSON 会更灵活方便。</p>
+            <pre>
+                <code>
+                    xhr.open("POST","http://www.example.com",true);
+                    xhr.setRequestHeader("Content-Type", "text/xml");
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>我们应该选择哪种编码方式呢？</p>
+            <p style="text-align: left">1.选择与后端约定好的提交方式</p>
+            <p style="text-align: left">2.看提交的数据类型，如果提交文件的话选择multipart/form-data</p>
+
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+            <p>GET和POST有哪些区别？</p>
+        </section>
+        <section>
+            <h3>传言1：GET方式对长度有限制；POST方式对长度没限制。</h3>
+            <p style="text-align: left">(1).因为GET是通过URL提交数据，那么GET可提交的数据量就跟URL的长度有直接关系了。而实际上，URL不存在参数上限的问题，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持。</p>
+            <p style="text-align: left">(2).理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，说“POST数据量存在80K/100K的大小限制”是不准确的，POST数据是没有限制的，起限制作用的是服务器的处理程序的处理能力。</p>
+        </section>
+        <section>
+            <h3>传言2：GET是从服务器上获取数据；POST是向服务器传送数据。</h3>
+            <p style="text-align: left">回答：GET方式就没有向服务器传送数据？那么URL中的?子句送的是什么？不论是GET还是POST，都可以向服务器传送数据，只不过传送数据的位置不同,GET请求的数据会附在URL之后,POST把提交的数据则放置在是HTTP包的包体中；不论是GET还是POST，都要从服务器上获取数据,关键的问题是:</p>
+            <p style="text-align: left">GET的主要任务是获得数据，但在获得数据前也可以向服务器提交一些数据；</p>
+            <p style="text-align: left">POST的主要任务是提交数据，但在提交数据之后服务器也会向用户端返回一些显示用的数据。</p>
+        </section>
+        <section>
+            <h3>传言3：GET不安全，用户能从地址栏上看到传送的数据；POST安全，用户不能从地址栏上看到传送的数据。</h3>
+            <p style="text-align: left">回答：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存，(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了。POST方式看不到传送的数据是因为IE浏览器做了限制。如果你通过第三方工具看到了POST方式传送的数据，你还能说POST方式是安全的吗？理论上说GET和POST方式都不安全，要不就用不着研究HTTPS了。</p>
+        </section>
+        <section>
+            <h3>8.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://imququ.com/post/four-ways-to-post-data-in-http.html">四种常见的 POST 提交数据方式</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html">浅谈HTTP中Get与Post的区别</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/jiangguilong2000/article/details/12651597">HTTP协议POST请求问题总结</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>黄源志</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+//    原始类型对象直接赋值不会相互影响
+//    var a = 1;
+//
+//    var b = a;
+//    b = 10;
+//    console.log(a); // 1
+////
+//    var a = 'hello';
+//    var b = a;
+//    b = 'world';
+//    console.log(a); // hello
+//
+//    var a = true;
+//    var b = a;
+//    b = false;
+//    console.log(a);
+
+    //数组浅复制
+//    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+//    ];
+//    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+//    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+//    console.log(a)//那么现在打印a 是什么结果呢
+//
+//    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+//    var arrtoo = arr.slice(1);
+//    arrtoo[2] = "set Map";
+//    console.log(arr);//One,Two,Three
+//    console.log(arrtoo);//One,set Map,Three
+
+//
+//    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+//    var arrtooo = arr1.concat(111111);
+//    arrtooo[1] = "set Map To";
+//    console.log(arr1);//One,Two,Three
+//    console.log(arrtooo);//One,set Map To,Three
+
+//
+//    var b=[1,2,3,4,5];   //concat的链接
+//    var c=[6,7,8,9];
+//    var d =[4,4,22]
+//    console.log(b.concat(c,d))
+
+    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    var b=new Object();
+    b.name=a.name;
+    b.age=a.age;
+    b.name='xx';
+    console.log(a);//Object { name="yy", age=26}
+    console.log(b);//Object { name="xx", age=26}
+
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+
+
+
+
+//    var person = {    //第二种深拷贝
+//        name: 'aa',
+//        friends: ['da', 'dsa', 'gf']
+//    };
+//
+//    var aPerson = Object.create(person, {
+////        name: {
+////            value: "gee"
+////        }
+//    });
+//
+//    console.log(person.name);
+//    console.log(aPerson.friends)
+
+    var Chinese = {
+        nation:'中国'
+
+    }
+    var Doctor = {
+        career:'医生'
+    }
+    function extendCopy(p) {
+        var c = {};
+        for (var i in p) {
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+    var Doctor = extendCopy(Chinese);
+    Doctor.career = '医生';
+    console.log(Doctor); // 中国
+    Chinese.birthPlaces = ['北京','上海','香港'];
+    var Doctor = extendCopy(Chinese);
+    Doctor.birthPlaces.push('厦门');
+
+</script>
+</body>
+</html>

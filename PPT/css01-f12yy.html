@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>CSS-TASK1如何使用浏览器的F12调试页面？</h2>
+                <h3>小课堂【深圳分院第183期】</h3>
+                <p style="text-align: center;">分享人：余翼</p>
+            </section>
+            <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+            </section>
+            <section><h3>一、背景介绍</h3></section>
+            <section>
+                <p>一个程序员按照要求编写一个网页，不可能一次编写就完全达到目的，一般要对自己的的代码修改调试几次后才能到达要求，浏览器的F12开发人员工具就可以很方便的帮助程序员调试自己的代码。
+                 </p>
+            </section>
+            <section><h3>二、知识剖析</h3></section>
+            <section>
+                <p>F12 开发人员工具是一套按需采用的工具，网站开发人员可以随时在任何网页上使用 F12 工具，从而快速调试 JavaScript、HTML 和级联样式表 (CSS)，还可以跟踪并查明网页或网络的性能问题。</p>
+            </section>
+
+            <section><h3>三、常见问题</h3></section>
+            <section><p>F12调试页面各个功能分别是什么？</p>
+            </section>
+            <section>
+                <h3>1、F12调试页面各个功能分别是什么？</h3>
+                <p>按下F12进入调试</p>
+                <img src="http://siberiawolf.qiniudn.com/images/chrome_bebug/20141222161221.png">
+            </section>
+            <section>
+                <h3>Elements标签页</h3>
+                <p>Elements标签页的左侧就是对页面HTML结构的查看与编辑，你可以直接在某个元素上双击修改元素的属性。</p>
+                <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be100270d">
+            </section>
+            <section>
+                <h3>Elements标签页的下侧</h3>
+                <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be1002706">
+            </section><section>
+            <h3>Network标签页</h3>
+            <p>Network标签页对于分析网站请求的网络情况、查看某一请求的请求头和响应头还有响应内容很有用。注意是在你打开Chrome开发者工具后发起的请求，才会在这里显示。</p>
+            <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be1002701">
+        </section>
+            <section>
+            <p>点击左侧某一个具体请求URL，可以看到该请求的详细HTTP请求情况：</p>
+            <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be1002708">
+        </section><section>
+            <h3>Sources标签页</h3>
+            <p>Sources标签页可以查看到请求的资源情况，包括CSS、JS、图片等的内容。也可以设置各种断点。对存储的内容进行编辑然后保存也会实时的反应到页面上。</p>
+            <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be1002702">
+        </section>
+            <section>
+                <h3>Timeline标签页</h3>
+            <p>注意这个Timeline的标签页不是指网络请求的时间响应情况，这个Timeline指的JS执行时间、页面元素渲染时间</p>
+            <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be100270a">
+        </section>
+            <section>
+                <h3>Audits标签页</h3>
+                <p>这个对于优化前端页面、加速网页加载速度很有用;点击run按钮，就可以开始分析页面，分析完了就可以看到分析结果了</p>
+                <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be100270f">
+            </section>
+            <section>
+                <h3>Console标签页</h3>
+                <p>就是Javascript控制台了：</p>
+                <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be100270b">
+            </section>
+            <section>
+                <p>在控制台中可以直接模拟手机、调整UA、修改网络连接状态。</p>
+                <img src="https://leanote.com/api/file/getImage?fileId=5693f928ab64415be10026ff">
+            </section>
+
+            <section><h3>四、解决方案</h3></section>
+            <section>
+            <p>把自己编写好的网页在浏览器中打开，按F12快捷键打开开发人员工具</p>
+            </section>
+            <section><h3>五、编码实战</h3></section>
+
+            <section><h3>六、拓展思考</h3></section>
+            <section>
+            <h4>如何通过F12开发者工具来学习优秀网站的设计</h4>
+            </section>
+                <section>
+                <h3>七、参考文献</h3>
+            </section>
+            <section>
+                <a href="http://blog.csdn.net/gaoranfighting/article/details/51682338">参考文献--使用 F12 开发人员工具调试 HTML 和 CSS
+                </a><br>
+                <a href="http://www.cnblogs.com/zourong/p/5020526.html">Chrome调试工具简单介绍</a><br>
+            </section>
+            <section>
+                <h3>更多讨论</h3>
+            </section>
+            <section>
+                <p>如何将在F12上的代码更新到本地？</p>
+
+            </section>
+            <section>
+                <h4>感谢观看</h4>
+                <p><small>by 龚海/余翼</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

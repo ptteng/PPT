@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  a
+  <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+  <map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>【JS-task】</h2>
+        <h3>小课堂【武汉第155期】常见的几种排序方法</h3>
+        <p>分享人：庄引</p>
+      </section>
+      <section>
+        <p>目录</p>
+        <p>1.背景介绍</p>
+        <p>2.知识剖析</p>
+        <p>3.常见问题</p>
+        <p>4.解决方案</p>
+        <p>5.编码实战</p>
+        <p>6.扩展思考</p>
+        <p>7.参考文献</p>
+        <p>8.更多讨论</p>
+      </section>
+      <section>
+        <section>
+          <h3>1.背景介绍</h3>
+        </section>
+        <section>
+          <div>在计算机科学与数学中，一个排序算法（英语：Sorting algorithm）是一种能将一串资料依照特定排序方式进行排列的一种算法。 最常用到的排序方式是数值顺序以及字典顺序。有效的排序算法在一些算法（例如搜寻算法与合并算法）中是重要的， 如此这些算法才能得到正确解答。 排序算法也用在处理文字资料以及产生人类可读的输出结果。 基本上，排序算法的输出必须遵守下列两个原则：
+            <ul>
+              <li>输出结果为递增序列（递增是针对所需的排序顺序而言） </li>
+              <li> 输出结果是原输入的一种排列、或是重组</li>
+            </ul>
+            虽然排序算法是一个简单的问题，但是从计算机科学发展以来，在此问题上已经有大量的研究。 更多的新算法仍在不断的被发明。
+          </div>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h3>2.知识剖析</h3>
+        </section>
+        <section>
+          查找和排序算法是算法的入门知识，其经典思想可以用于很多算法当中。因为其实现代码较短，应用较常见。 所以在面试中经常会问到排序算法及其相关的问题。但万变不离其宗，只要熟悉了思想，灵活运用也不是难事。 一般在面试中最常考的是快速排序和归并排序，并且经常有面试官要求现场写出这两种排序的代码。 对这两种排序的代码一定要信手拈来才行。还有插入排序、冒泡排序、堆排序、基数排序、桶排序等。
+        </section>
+        <section>
+          <p>常见的几种算法：
+            <ul>
+              <li>冒泡算法 </li>
+              <li>选择排序</li>
+              <li>插入排序</li>
+              <li>快速排序</li>
+              <li>希尔排序</li>
+            </ul>
+          </p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>3.常见问题</h3>
+        </section>
+        <section>
+          <p>问题一:各种排序算法用JavaScript 如何实现?</p>
+          <p>问题二:各种排序算法的优劣及其应用?</p>
+        </section>
+      </section>
+
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+
+      <section>
+        <section>
+          <h3>冒泡排序</h3>
+          <p>冒泡排序（英语：Bubble Sort）是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素， 如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有元素再需要交换， 也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢"浮"到数列的顶端。 </p>
+        </section>
+        <section>
+          <div>冒泡排序演算法的运作如下：
+            <ol>
+              <li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+              <li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。</li>
+              <li>针对所有的元素重复以上的步骤，除了最后一个。</li>
+              <li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
+            </ol>
+          </div>
+        </section>
+        <section>
+          <h3>冒泡排序</h3>
+          <pre><code>
+  Array.prototype.bubbleSort = function() {
+      var i, j, temp;
+      for (i = 0; i < this.length - 1; i++)
+          for (j = 0; j < this.length - 1 - i; j++)
+              if (this[j] > this[j + 1]) {
+                  temp = this[j];
+                  this[j] = this[j + 1];
+                  this[j + 1] = temp;
+              }
+      return this;
+  };
+  var num = [22, 34, 3, 32, 82, 55, 89, 50, 37, 5, 64, 35, 9, 70];//定义一个数组
+  num.bubbleSort();//数组定义冒泡排序算法
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <section>选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理如下。 首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素， 然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
+        </section>
+        <section>选择排序的思想其实和冒泡排序有点类似，都是在一次排序后把最小的元素放到最前面。但是过程不同， 冒泡排序是通过相邻的比较和交换。而选择排序是通过对整体的选择。
+        </section>
+        <section>
+          <h3>选择排序</h3>
+          <pre><code>
+  Array.prototype.selectionSort = function() {
+      var i, j, min;
+      var temp;
+      for (i = 0; i < this.length - 1; i++) {
+          min = i;
+          for (j = i + 1; j < this.length; j++)
+              if (this[min] > this[j])
+                  min = j;
+          temp = this[min];
+          this[min] = this[i];
+          this[i] = temp;
+      }
+      return this;
+  };
+  var num = [22, 34, 3, 32, 82, 55, 89, 50, 37, 5, 64, 35, 9, 70]; //定义一个数组
+
+  num.selectionSort(); //数组定义选择排序算法
+          </code></pre>
+        </section>
+      </section>
+      <section>
+        <section>插入排序（英语：Insertion Sort）是一种简单直观的排序算法。它的 工作原理是通过构建有序序列，对于未排序数据， 在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序 （即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位， 为最新元素提供插入空间。
+        </section>
+        <section>
+          <ol>
+            <li>从第一个元素开始，该元素可以认为已经被排序</li>
+            <li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
+            <li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
+            <li重复步骤3，直到找到已排序的元素小于或者等于新元素的位置></li>
+              <li>将新元素插入到该位置后</li>
+              <li>重复步骤2~5</li>
+          </ol>
+        </section>
+        <section>
+          <h3>插入排序</h3>
+          <pre><code>
+            Array.prototype.insertionSort = function () {
+               for (var i = 1; i < this.length; i++) {
+                   var temp = this[i];
+                   var j = i - 1;
+                   //如果将赋值放到下一行的for循环内, 会导致在第13行出现j未声明的错误
+                   for (; j >= 0 && this[j] > temp; j--) {
+                       this[j + 1] = this[j];
+                   }
+                   this[j + 1] = temp;
+               }
+               return this;
+            }
+            var num = [22, 34, 3, 32, 82, 55, 89, 50, 37, 5, 64, 35, 9, 70]; //定义一个数组
+
+            num.insertionSort(); //数组调用插入排序算法
+        </code></pre>
+        </section>
+      </section>
+      <section>
+
+        <section>
+          <h3>快速排序</h3> 快速排序（英语：Quicksort），又称划分交换排序（partition-exchange sort）， 一种排序算法， 最早由东尼·霍尔提出。在平均状况下，排序n个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较， 但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n)演算法更快， 因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来。 快速排序使用分治法（Divide and conquer）策略来把一个序列（list）分为两个子序列（sub-lists）。
+
+        </section>
+        <section> 步骤为：
+          <ol>
+            <li>从数列中挑出一个元素，称为"基准"（pivot），</li>
+            <li>重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任一边）。在这个分割结束之后，该基准就处于数列的中间位置。这个称为分割（partition）操作。
+            </li>
+            <li>递归地（recursively）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+            递归到最底部时，数列的大小是零或一，也就是已经排序好了。这个演算法一定会结束，因为在每次的迭代（iteration）中，它至少会把一个元素摆到它最后的位置去。
+          </ol>
+        </section>
+        <section>
+          <pre><code>
+  Array.prototype.quickSort = function() {
+	var len = this.length;
+	if (len <= 1)
+		return this.slice(0);
+	var left = [];
+	var right = [];
+	var mid = [this[0]];
+	for (var i = 1; i < len; i++)
+		if (this[i] < mid[0])
+			left.push(this[i]);
+		else
+			right.push(this[i]);
+	return left.quickSort().concat(mid.concat(right.quickSort()));
+};
+
+var arr = [5, 3, 7, 4, 1, 9, 8, 6, 2];
+arr = arr.quickSort();
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <h3>5.编码实战</h3>
+      </section>
+
+      <section>
+        <section>
+          <h3>6.扩展思考</h3>
+        </section>
+        <section>
+          <p class="fragment">各种排序算法的时间复杂度和空间复杂度</p>
+        </section>
+        <section>
+          <h3>算法优劣评价术语</h3>
+          <ol>稳定性:
+            <li>稳定：如果 a 原本在 b 前面，而 a = b，排序之后 a 仍然在 b 的前面；</li>
+            <li>不稳定：如果 a 原本在 b 的前面，而 a = b，排序之后 a 可能会出现在 b 的后面；</li>
+          </ol>
+          <ol>
+            排序方式:
+            <li>内排序：所有排序操作都在内存中完成，占用常数内存，不占用额外内存。</li>
+            <li>外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行，占用额外内存。</li>
+          </ol>
+          <ol>
+            复杂度:
+            <li>时间复杂度: 一个算法执行所耗费的时间。</li>
+            <li>空间复杂度: 运行完一个程序所需内存的大小。</li>
+          </ol>
+        </section>
+        <section>
+          <img src="https://pic3.zhimg.com/v2-b9be48653bfab93879d605b76a621da6_r.png" alt="">
+        </section>
+      </section>
+
+      <section>
+        <h3>7.参考文献</h3>
+      </section>
+      <section>
+        <p>参考一：<a href="http://www.qcyoung.com/2016/12/18/JavaScript%20%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB/" target="_blank">JavaScript 排序算法汇总 </a></p>
+      </section>
+      <section>
+        <h3>8.更多讨论</h3>
+      </section>
+      <section>
+        <li>还有那些经典排序算法</li>
+       </section>
+      <section>
+        <h4>鸣谢</h4>
+        <p>感谢大家观看</p>
+        <p><small>BY : 庄引</small></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../lib/reveal/js/head.min.js"></script>
+  <script src="../lib/reveal/reveal.js"></script>
+
+  <script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+      history: true,
+      dependencies: [{
+          src: '../plugin/markdown/marked.js'
+        },
+        {
+          src: '../plugin/markdown/markdown.js'
+        },
+        {
+          src: '../plugin/notes/notes.js',
+          async: true
+        },
+        {
+          src: '../plugin/highlight/highlight.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+
+</html>
+Contact GitHub API Training Shop Blog About © 2016 GitHub, Inc. Terms Privacy Security Status He

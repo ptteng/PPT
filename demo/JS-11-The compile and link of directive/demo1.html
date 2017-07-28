@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" ng-app='app'>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>JS-11-The compile and link of directive</title>
+</head>
+<body ng-controller="appCtrl">
+
+<!--<pre>-->
+<!--<p>模板{{ b }}<i ng-transclude></i></p>-->
+<!--</pre>-->
+<div>
+    <dir1>tran内</dir1>
+    <dir2>tran内</dir2>
+</div>
+
+<script src="//cdn.bootcss.com/angular.js/1.4.4/angular.min.js"></script>
+<script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', function ($scope) {
+        $scope.b = '父变量';
+    })
+
+    app.directive('dir1', function () {
+        return {
+            template: "<p>模板{{ b }}<i ng-transclude></i></p>",
+            transclude: true,
+            compile: function (tEle, tAttrs, trans) {
+                console.log('compile→');
+                console.log(tEle.html());
+                console.log('');
+                return {
+                    pre: function (scope, iEle, iAttrs, ctrl, linker) {
+                        console.log('pre→');
+                        console.log(iEle.html());
+                        console.log('')
+                    },
+                    post: function (scope, iEle, iAttrs, ctrl, linker) {
+                        console.log('post→');
+                        console.log(iEle.html());
+                        console.log('');
+                        console.log('')
+
+                    }
+                }
+            }
+        }
+    });
+
+    app.directive('dir2', function () {
+        return {
+            template: "<p>模板{{ b }}<i ng-transclude></i></p>",
+            transclude: true,
+            scope: true,
+            link: function (scope, iEle, iAttrs, ctrl, linker) {
+                console.log('link→')
+                console.log(iEle.html());
+                console.log('')
+            }
+        }
+    });
+
+
+</script>
+
+</body>
+</html>
