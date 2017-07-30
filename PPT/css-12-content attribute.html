@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>【CSS-task12】知道css有个content属性吗？有什么作用？有什么应用？</h2>
-            <h3>小课堂【郑州第39期】</h3>
-            <p>分享人：寇晨迪</p>
+            <h3>小课堂【成都第178期】</h3>
+            <p>分享人：先小波</p>
         </section>
         <section>
             <p>目录</p>
@@ -98,84 +98,31 @@
         <section>
             <h3>3.常见问题</h3>
         </section>
-        <section>
-            <p>不同的语言使用不同的引号字符。比如英文的引号就是""，而中文引号就是“”。
-              我们需要对不同语言文字添加其对应语言的引号，该怎么办呢？</p>
-        </section>
+             <section>
+
+            <p>当使用attr()获取标签属性名的时候，添加了引号使得获取失败</p>
+                <pre>
+                <code>
+
+                    a.content:after {
+                    content: attr("href");
+                    }
+
+                    <a class="content" href="http://www.baidu.com/">此标签的href值是：</a>
+                    </code>
+                    </pre>
+                </section>
       <section>
         <h3>4.解决方案</h3>
       </section>
       <section>
-      <p>使用content可以使得不同的语言使用对应的一些字符。例如，我们需要对下面的些文字添加其对应语言的引号</p>
-      <pre>
-          <code>
-            <p lang="en"><q>It’s only work if somebody makes you do it.</q></p>
-            <p lang="ch"><q>欢迎来到上海，欢迎参观世博会！</q></p>
-          </code>
-          CSS
-          <code>
-            /* 为不同语言指定引号的表现 */
-            :lang(en) > q {quotes:"\"" "\"";}
-            :lang(ch) > q {quotes:"“" "”";}
-
-            /* 在q标签的前后插入引号 */
-            q:before {content:open-quote;}
-            q:after  {content:close-quote;}
-          </code>
-      </pre>
+ 
       </section>
       <section>
           <h3>5.编码实战</h3>
       </section>
       <section>
-          <section>
-          <pre>
-              <code>
-              <h1>大标题</h1>
-              <h2>中标题</h2>
-              <h3>小标题</h3>
-              <h3>小标题</h3>
-              <h2>中标题</h2>
-              <h3>小标题</h3>
-              <h3>小标题</h3>
-              <h1>大标题</h1>
-              <h2>中标题</h2>
-              <h3>小标题</h3>
-              <h3>小标题</h3>
-              <h2>中标题</h2>
-              <h3>小标题</h3>
-              <h3>小标题</h3>
-              </code>
-          </pre>
-          </section>
-          <section>
-          <pre>
-              <code>
-              h1::before{
-              content:counter(h1)'.';
-              }
-              h1{
-              counter-increment:h1;
-              counter-reset:h2;
-              }
-              h2::before{
-              content:counter(h1) '.' counter(h2);
-              }
-              h2{
-              counter-increment:h2;
-              counter-reset:h3;
-              margin-left:40px;
-              }
-              h3::before{
-              content:counter(h1) '.' counter(h2) '.' counter(h3);
-              }
-              h3{
-              counter-increment:h3;
-              margin-left:80px;
-              }
-              </code>
-          </pre>
-          </section>
+      
        </section>
         <section>
             <h3>6.扩展思考</h3>
@@ -205,7 +152,7 @@
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 沁修 | 寇晨迪</small></p>
+            <p><small>BY : 寇晨迪 | 先小波</small></p>
         </section>
 
     </div>
