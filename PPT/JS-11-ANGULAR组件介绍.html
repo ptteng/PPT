@@ -1,0 +1,176 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular组件介绍</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Angular组件介绍</h2>
+
+            <h3>小课堂【武汉第167期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Angular中的3大核心概念</p>
+            <p>Component,Module,Route</p>
+            <p>angular最核心的概念是组件化</p>
+        </section>
+        <section>
+            <p>组件的必备元素</p>
+            <p style="text-align: left">1.组件元数据装饰器：@Component()<br>告诉angular如何处理TS类，里面包含多个属性，这些属性的值叫元数据，angular根据这些元数据来渲染组件并执行逻辑。</p>
+            <p style="text-align: left">2.模板：Template。通过组件的模板来定义组件的外观， 渲染组件。一般在模板中使用angular的数据绑定语法来呈现控制器中的数据</p>
+            <p style="text-align: left">3.控制器：Controller。控制器就是组件的TS类，被装饰器装饰，包含组件所有的属性和方法。模板展现控制器的数据，控制器处理模板上发生的事件。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+                <p style="text-align: left">首先创建一个组件：ng g component user</p>
+                <p style="text-align: left">会自动在src/app目录下面创建user文件夹，里面有4个这个组件的文件：组件定义文件ts,css文件，html模板，自动化测试文件</p>
+                <p style="text-align: left">查看ts文件，里面的selector有个配置：'app-user',在别的地方使用这个组件的时候，写上这个标签就能被渲染。</p>
+                <p style="text-align: left">在angular-cli.json里面的prefix可以修改app前缀，换成自定义的名字或者去掉</p>
+            </section>
+            <section>
+                <p style="text-align: left">app.component.ts</p>
+                <p style="text-align: left">首先从angular核心模块里引入一个Component的装饰器</p>
+                <p style="text-align: left">下面是组件元数据装饰器@component，所有的组件必须使用一个装饰器@Component来注解</p>
+                <p style="text-align: left">最下面的的export class AppComponent是TS类，告诉app.component是一个组件。在TS中，我们用装饰器附加元数据到类上。元数据会告诉angular如何讲TS类处理成组件。 </p>
+            </section>
+            <section>
+                <p>元数据</p>
+                <p style="text-align: left">selector:这个组件可以通过app标签来调用，展示这个组件模板的内容。</p>
+                <p style="text-align: left">templateUrl：定义组件的html文件为模板</p>
+                <p style="text-align: left">styleUrls：组件的css文件</p>
+                <p style="text-align: left">控制器下面有个属性叫title，这个属性的值会被展示到浏览器的页面中。</p>
+            </section>
+        <section>
+            <p>app.module.ts</p>
+            <p style="text-align: left">一个模块也是一个带着装饰器的TS类。最上边是一组import，引入模块需要的包，然后用@NgModule装饰器声明模块</p>
+            <p style="text-align: left">在声明中，首先用declarations属性声明模块中有什么组件，指令，管道。其次，imports属性声明还需要什么模块，这里声明了三个angular框架提供的模块，当你引用这些模块后，你就可以使用这些模块提供的指令和服务</p>
+            <p style="text-align: left">providers:默认情况下是空的，用来声明模块中提供了什么服务</p>
+            <p style="text-align: left">bootstrap属性声明了模块的主组件是什么</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>启动时加载了哪个页面？</p>
+            <p>启动时加载了哪些脚本</p>
+            <p>这些脚本做了什么事？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>打开angular-cli.json</p>
+            <p style="text-align: left">有一个叫“apps”这样的数组，数组中的对象有一个index属性和main属性</p>
+            <p style="text-align: left">默认情况下index属性指向src/index.html，它是启动时加载的页面。</p>
+            <p style="text-align: left">main属性指向src/main.ts文件，它是启动时加载的脚本</p>
+        </section>
+        <section>
+            <p>main.ts是整个应用的起点</p>
+            <p style="text-align: left">开头我们要导入必要的库‘./polyfills.ts’,以便运行在老版本浏览器中</p>
+            <p style="text-align: left">从浏览器模块中导入platformBrowserDynami方法，告诉angular使用哪个模块来启动整个应用</p>
+            <p style="text-align: left">导入angular核心模块中提供的enableProdMode方法，用来关闭开发者模式</p>
+            <p style="text-align: left">导入AppMoudle，也就是命令行工具生成的整个应用的主模块</p>
+            <p style="text-align: left">最后调用bootstrapModule方法传入AppModule作为启动模块来启动应用</p>
+        </section>
+        <section>
+            <p style="text-align: left">AppModule作为主模块会首先加载，然后分析AppModule需要依赖那些模块并加载这些模块，比如app.module.ts中BrowserModule模块，加载这个模块以后会分析这个模块还需要什么模块再去加载，依次类推，直道加载完所有所需的依赖。</p>
+            <p style="text-align: left">加载完后会在index.html中寻找启动模块AppModule指定的主组件AppComponent对应的CSS选择器app-root，这时候会用app.component.html替换掉这个app标签。</p>
+            <p style="text-align: left">在整个过程完成之前，页面会展示app标签中的内容，也就是“loading”这个字符串</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">大漠穷秋的博客：<a href="https://my.oschina.net/mumu/blog">https://my.oschina.net/mumu/blog“</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 周恒光 </small></p>
+        </section>
+</div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

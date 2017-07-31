@@ -1,0 +1,187 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Agular-cli简介</h2>
+
+            <h3>小课堂【武汉第162期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">angular-cli它是angular框架官方的一个构建工具，当你使用 ng new xxx(项目名) 创建一个项目时，会自动生成项目结构</p>
+            <p style="text-align: left">angular-cli的核心是webpack，以及npm做为依赖包。正确的安装依赖包的姿势应该是：</p>
+            <p style="text-align: left">Windows下必须是【管理员模式】下运行CMD；再使用 ng 命令。</p>
+            <p style="text-align: left">当 ng new xx 创建项目时会自动执行 npm install 下载依赖包,耐心等待</p>
+            <p style="text-align: left">如果你网络没有问题的情况下，此时 ng serve 就可以正常运行。</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+                <p>Angular CLI主要特性</p>
+                <p style="text-align: left">Angular CLI 可以快速搭建框架，创建module，service，class，directive等</p>
+                <p style="text-align: left">具有webpack的功能，代码分割code splitting，按需加载</p>
+                <p style="text-align: left">代码打包压缩，模块测试，端到端测试</p>
+                <p style="text-align: left">热部署，有改动立即重新编译，不用刷新浏览器；而且速度很快</p>
+                <p style="text-align: left">有开发环境，测试环境，生产环境的配置</p>
+                <p style="text-align: left">sass，less的预编译Angular-CLI都会自动识别后缀来编译</p>
+                <p style="text-align: left">typescript的配置，Angular-CLI在创建应用时都可以自己配置</p>
+            </section>
+
+            <section>
+                <p style="text-align: left">Angular CLI用法</p>
+                <p style="text-align: left">通过ng help命令来获取相关的命令信息</p>
+                <p style="text-align: left">创建本地开发环境生成和运行angular2项目:ng serve</p>
+                <p style="text-align: left">启动成功后，在浏览器输入 http://localhost:4200/ 就可以看到app works！</p>
+                <p style="text-align: left">可以配置默认的 HTTP 端口和一个 LiveReload server 用 -- ：</p>
+                <p style="text-align: left">ng serve --host 0.0.0.0 --port 4201 --live-reload-port 49153</p>
+            </section>
+            <section>
+                <p>创建component的几种方式</p>
+                <p style="text-align: left">ng generate component my-new-component #创建my-new-component的组件</p>
+                <p style="text-align: left">组件支持相对路径生成,如果在src/app/model/这个目录下运行</p>
+                <p style="text-align: left">ng g component new-cmp # 组件将会被创建在src/app/model/new-cmp</p>
+                <p style="text-align: left">如果是这么创建的话:ng g component ../newer-cmp</p>
+                <p style="text-align: left">那么组件将会在被创建在 src/app/newer-cmp</p>
+            </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么选择Angular CLI？</p>
+            <p style="text-align: left">在开发中，搭建一个良好的前端架构非常重要，他对后续的开发，维护，团队协作，易读性具有重要意义</p>
+        </section>
+        <section>
+            <p>初始化目录结构解读</p>
+            <img src="ima/aaa.png">
+            <p>这些配置都是angular2的生产项目中需要配置的文件</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+            <section>
+                <p>创建module</p>
+                <p style="text-align: left">创建一个home的module：ng g component home</p>
+                <p style="text-align: left">创建一个创建一个about的module：ng g component about</p>
+            </section>
+            <section>
+                <p style="text-align: left">在app.module.ts中添加路由</p>
+                <pre><code>
+                    const appRoutes:Routes = [
+                    { path:'', redirectTo:'home',pathMatch:'full'},
+                    { path:'home',component:HomeComponent },
+                    { path:'about',component:AboutComponent}
+                    ]
+                </code></pre>
+                <p style="text-align: left">import引入路由模块，同时在@ngModule声明路由</p>
+            </section>
+            <section>
+                <p style="text-align: left">在app.component.html中添加路由的代码</p>
+                <pre><code>
+                    <h1>{{title}}</h1>
+                    <nav>
+                      <a routerLink="/home" class="navbar">home</a>
+                      <a routerLink="/about"class="navbar">about</a>
+                    </nav>
+                    <router-outlet></router-outlet>
+                </code></pre>
+                <p style="text-align: left">router-outlet就是输出的地方；</p>
+            </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">Angular CLI 使用教程指南参考：<a href="http://www.cnblogs.com/bh4lm/p/6638057.html">http://www.cnblogs.com/bh4lm/p/6638057.html</a></p>
+            <p style="text-align: left">如何利用angular-cli组织项目结构：<a href="http://www.jb51.net/article/80454.htm">http://www.jb51.net/article/80454.html"</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 周恒光 </small></p>
+        </section>
+</div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>
