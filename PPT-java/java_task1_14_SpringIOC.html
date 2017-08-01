@@ -1,0 +1,178 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h3>
+			<p></p>
+            <h4>java 分享会</h4>
+            <p>分享人：童志荣</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>平常的java开发中，程序员在某个类中需要依赖其它类的方法，则通常是new一个依赖类再调用类实例的方法。
+            </p>
+            <p>
+                这种开发存在的问题是 new 的类实例不便于统一管理，spring 提出了依赖注入的思想，即依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类中。
+            </p>
+           
+
+        </section>
+		
+        <section>
+             <p>
+                依赖注入的另一种说法是“控制反转”，通俗的理解是：平常我们new一个实例，这个实例的控制权是我们程序员，而控制反转是指new实例工作不由我们程序员来做而是交给spring容器来做。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		 <section>
+            <p>spring有多种依赖注入的形式</p>
+        
+            <p>1、Setter方法注入</p>
+            <p>2、构造方法注入</p>
+            <p> 3、静态工厂的方法注入</p>
+            <p> 4、实例工厂的方法注入 </p>
+            
+            <p>
+            其中，用得最多的是1、2 种，多写多练就会非常熟练
+            </p>
+        </section>
+    
+		
+        <section>
+            <p>手动装配</p>
+            <p>
+                通过在<property> 或者 <constructor>标签中使用ref属性，在上一小节的“依赖注入”部分使用的就是手动装配
+            </p>
+        </section>
+        
+        <section>
+            <p>自动装配</p>
+            <p>在<bean>标签中使用autowire属性；</p>
+        </section>
+
+        <section>
+            <h3>3、常见问题</h3>
+            <p>spring 配置文件是什么？</p>
+            <p> Spring 配置文件是个XML 文件，这个文件包含了类信息，描述了如何配置它们，以及如何相互调用。</p>
+        </section>
+
+        <section>
+            <p>什么是依赖注入？</p>
+            <p>
+                依赖注入，是IOC的一个方面，是个通常的概念，它有多种解释。这概念是说你不用创建对象，而只需要描述它如何被创建。 </p>
+            <p>
+                你不在代码里直接组装你的组件和服务，但是要在配置文件里描述哪些组件需要哪些服务，之后一个容器（IOC容器）负责把他们组装起来。
+            </p>
+        </section>
+
+        <section>
+            <p>什么是bean装配?</p>
+            <p>装配，或bean 装配是指在Spring 容器中把bean组装到一起，前提是容器需要知道bean的依赖关系，如何通过依赖注入来把它们装配到一起。</p>
+        </section>
+
+        <section>
+            <p>什么是自动装配？</p>
+            <p>Spring 容器能够自动装配相互合作的bean，这意味着容器不需要 constructor-arg 和 property 配置，能通过Bean工厂自动处理bean之间的协作。</p>
+        </section>
+
+
+        <section>
+            <h3>4、编码实战</h3>
+        </section>
+
+        <section>
+            <h3>5、扩展思考</h3>
+            <p>spring的依赖注入到底有什么优势？</p>
+        </section>
+
+        <section>
+            <p>让使用者不需要自己去创建或获取自己的依赖，既然创建或获取的过程不是使用者控制的。</p>
+            <p>这也就意味着，当我需要切换依赖时，不需要改变使用者的代码。这当然要结合面向接口编程等思想，也许有人要说我一个接口就只有一个实现，何必用接口，我也基本不会去切换自己的实现。</p>
+            <p>说的对，然而就算你只有一个实现。
+            但是你往往会用到AOP吧，其实用代理对象替换原对象也算是切换了实现。什么日志，权限检查，异常处理等等需求。</p>
+                
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
