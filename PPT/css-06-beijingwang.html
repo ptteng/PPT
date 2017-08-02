@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>葡萄藤PPT</title>
+
+	<link rel="stylesheet" href="../css/reveal/reveal.css">
+
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+	<!-- 打印和PDF输出样式 -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>【CSS-task6】</h2>
+			<h3>小课堂【北京第76期】</h3>
+			<h3>rgba和opacity的透明效果有什么不同？display和visiblity有什么区别？</h3>
+			<p>分享人：王立志</p>
+		</section>
+		<section>
+			<h3>目录</h3>
+			<h4>1.背景介绍</h4>
+			<h4>2.知识剖析</h4>
+			<h4>3.常见问题</h4>
+			<h4>4.解决方案</h4>
+			<h4>5.编码实战</h4>
+			<h4>6.扩展思考</h4>
+			<h4>7.参考文献</h4>
+			<h4>8.更多讨论</h4>
+		</section>
+		<section>
+			<h3>一.背景介绍</h3>
+		</section>
+		<section>
+			<p>    大家在布局页面时，有时候想做出与正常网页不一样的效果，一张页面会放好几张图片，图片如果显示效果都一样页
+				面给人的感觉会很硬，这时候给图片或者相应的div设置透明度就能产生不一样的效果。比如让div或者图片变成半透明
+				能看到覆盖的父元素，而透明度就可以通过opacity和rgba()这两个属性来取值。
+				<br><br>
+				而相比rgba和opacity设透明度为0来影藏元素，display和visibility可以直接设置属性来影藏元素，故名思意，display
+				和visibility是与元素显示有关系的，这两个属性都可以控制元素的 显示与隐藏。
+				究其作用，我们可以知道，为了提高用户的体验，实现更好的页面甚至元素与用户的互动，当用户开始某个操作时，可
+				以通过display和visibility 这两个属性让元素显示或者隐藏, 或者以哪种方式显示。
+
+			</p>
+		</section>
+
+		<section>
+			<h3>二.知识剖析</h3>
+		</section>
+		<section>
+			<h3>rgba</h3>
+				<p>rgba的色彩模式与RGB相同，只是在RGB模式上新增了Alpha透明度。</p>
+			    <p>取值：</p>
+			    <p>R：红色值。G：绿色值。B：蓝色值。</p>
+		     	<p>A：透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。</p>
+			    <p>r，g，b都是取正整数或百分比，比如background: rgba(12, 45, 0, .5);</p>
+
+		</section>
+
+		<section>
+			<p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
+			<p>RGBA是在R（Red）G（Green）B（Blue）模式上增加了alpha通道，alpha通道是不透明度，即，如果一个元素的alpha通道数值为0%（或0），
+				那该元素就是完全</p>
+			<p>透明的（也就是看不见的，但是可以透过该元素看到该元素下的元素），我们取值为0~1，0即完全透明，1为完全不透明，如果为
+				了更精确的设置透明度也可以选择和rgb一样的取值方式，比如100%就意味着该元素完全不透明，50%该元素为半透明。</p>
+			<p>比如：rgba(12,45,0, .8) ，rgb值为（12，45,0）    .8使设定的rgb值为80%不透明,</p>
+		</section>
+
+		<section>
+			<h3>Opacity</h3>
+			<p>opacity在css3中加入，其用来设置元素的不透明级别</p>
+			<p>取值:value 从0.0(完全透明)到1.0（完全不透明）。</p>
+			<p>注意事项：IE8以及更早版本支持替代的filter属性。例如：filter: Alpha（opacity=50）;</p>
+		</section>
+
+
+		<section>
+			<h3>1.Opacity和rgba的区别：</h3>
+			<p>RGBA和opacity都是用来设置元素的不透明度的，那么两者有什么区别呢？</p>
+			<p>opacity会让子元素继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。</p>
+			<p>简单来说就是opacity作用于元素和元素所有内容的透明</p>
+		</section>
+
+		<section>
+			<p>因此在平时布局的时候，对于rgba和opacity的选择，我更加推荐rgba，因为其不会让子元素继承不必要的属性样式，从而达到正确的页面效果。</p>
+		</section>
+		<section>
+			<h3>display的属性值</h3>
+				<p>block:独占一行，可以设置宽高。</p>
+				<p>inline:表现为一个行级元素（一般情况下不独占一行）</p>
+				<p>inline-block：不独占一行，但是可以设置宽高。同时具有inline和block的特性。</p>
+				<p>none:元素不可见，并且不为其保留相应的位置。</p>
+		</section>
+		<section>
+			<h3>visibility的属性值</h3>
+			<p>hidden 元素不可见，但仍然为其保留相应的空间</p>
+			<p>visible 元素可见，默认值</p>
+			<p>collapse 只对table对象起作用，能移除行或列但不会影响表格的布局。</p>
+			<p>visibility:inherit 继承上级元素的visibility值</p>
+		</section>
+		<section>
+			<p>dispaly和visibility二者的区别：</p>
+			<p>当visibility为visible，display为none时，该元素看不到并且不占位，其他元素会顶替它的位置，不占据空间</p>
+			<p>当visibility为hidden，display不为none，该元素看不到，但是占位，其他元素不会顶替它的位置。但是占据空间</p>
+
+		</section>
+		<section>
+			<p>所以如果要利用:hover伪类选择器来隐藏原素，visibility：hidden是更合适的选择。</p>
+			<p>还有一点是，从visibility：hidden转换为visibility：visible时比display：none转换为display：block性能要好，
+				因为display在切换可见性时，文档流会重新书写,所以visibility：visible性能更好。</p>
+		</section>
+
+
+
+
+
+		<section>
+			<h3>三.常见问题</h3>
+			<p>透明度的兼容性</p>
+			<p>主流的浏览器比如谷歌火狐都支持Opacity和rgba，我们需要注意的是旧版本的ie浏览器，ie9以下的版本都不兼容。</p>
+		</section>
+		<section>
+			<h3>四.解决方案</h3>
+			<p>旧版本的ie浏览器提供了filter这一属性，下面是兼容性写法，rgba的写法会比较长，比如filter: progid:DXImageTransform.Microsoft.
+				gradient(startColorstr='#4C000000,endColorstr=#4C000000')，其数值需要通过十六进制来进行换算才能得到。</p>
+			<pre>
+                <code>
+	                .transparent_class {
+	                filter:alpha(opacity=50);
+	                -moz-opacity:0.5;
+	                -khtml-opacity: 0.5;
+	                opacity: 0.5;
+	                }
+                </code>
+            </pre>
+		</section>
+		<section>
+			<h3>五.编码实战</h3>
+		</section>
+		<section>
+			<h3>六.拓展思考</h3>
+		</section>
+		<section>
+			<p>属性的应用</p>
+			<p><a href="http://www.whutyzy.cc/task08/position-list.html">透明度的应用</a></p>
+			<p>除此之外，还有哪些比较巧妙的用法？</p>
+		</section>
+		<section>
+			<h3>七.参考文献</h3>
+			<p>参考一：<a href="http://www.cnblogs.com/Chenshuai7/p/5188068.html">div中display和visibility属性差别 </a></p>
+			<p>参考二:<a href="http://www.cnblogs.com/myvin/p/4621417.html" target="_blank">rgba与opacity区别小解</a></p>
+			<p>参考三：<a href="http://www.aichengxu.com/htmlcss/28812.htm">HTML5 rgba与opacity的属性兼容</a> </p>
+			<p>感谢叶紫阳师兄的ppt参考<a href="https://ptteng.github.io/PPT/PPT/css-06-3.html#/">https://ptteng.github.io/PPT/PPT/css-06-3.html#/</a> </p>
+		</section>
+		<section>
+			<h3>八.更多讨论</h3>
+		</section>
+		<section>
+
+		</section>
+		<section>
+			<h4>鸣谢 叶紫阳师兄</h4>
+			<p>感谢大家观看</p>
+			<p><small>王立志</small></p>
+		</section>
+
+	</div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+	// 以下为常见配置属性的默认值
+	// {
+	// 	controls: true, // 是否在右下角展示控制条
+	// 	progress: true, // 是否显示演示的进度条
+	// 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+	// 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+	// 	keyboard: true, // 是否启用键盘快捷键来导航
+	// 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+	// 	center: true, // 是否将幻灯片垂直居中
+	// 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+	// 	loop: false, // 是否循环演示
+	// 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+	// 	fragments: true, // 全局开启和关闭碎片。
+	// 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+	// 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+	// 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+	// 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+	// }
+
+	// 初始化幻灯片
+	Reveal.initialize({
+		history: true,
+		dependencies: [
+			{ src: '../plugin/markdown/marked.js' },
+			{ src: '../plugin/markdown/markdown.js' },
+			{ src: '../plugin/notes/notes.js', async: true },
+			{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
+</script>
+</body>
+</html>
