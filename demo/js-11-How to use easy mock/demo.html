@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>如何使用Easy Mock</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .text-red {
+            background: red;
+        }
+        .text-green {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+<h2 style="text-align: center">Easy Mock简单应用</h2>
+
+<div ng-app = "mainApp" ng-controller = "CalcController">
+    <table class="table table-striped add-table-border" style="text-align: center">
+        <thead>
+            <tr>
+                <th  style="text-align: center">姓名</th>
+                <th  style="text-align: center">身份证号</th>
+                <th  style="text-align: center">省市区</th>
+                <th  style="text-align: center">时间</th>
+                <th  style="text-align: center">等级</th>
+                <th  style="text-align: center">医师人数</th>
+                <th  style="text-align: center">颜色</th>
+                <th  style="text-align: center">图片</th>
+                <th  style="text-align: center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in data track by $index">
+                <td>{{item.name}}</td>
+                <td>{{item.cid}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.datetime}}</td>
+                <td>{{item.string}}</td>
+                <td>{{item.total}}</td>
+                <td style="background:{{item.color}};">{{item.color}}</td>
+                <td >
+                    <img ng-src="{{item.image}}">
+                </td>
+                <td>
+                    <a  type="button" class="btn btn-success text-red"
+                        ng-class="{'text-green':item.status==1}"
+                        ng-click="onOffLine(item.id,0,item.status)"
+                    >{{item.status|changeHospitalStatusFilter}}</a>
+                    <a  type="button" class="btn btn-warning" ng-click="delete(item.id)">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+
+<script>
+    var mainApp = angular.module("mainApp", []);
+    mainApp.controller('CalcController', function($scope,$http) {
+        $http({
+            method: 'get',
+            url: 'https://easy-mock.com/mock/5975df8ca1d30433d83c1261/demo/a/u/search/hospital'
+        }).then(function successCallback(res) {
+            if (res.data.code===0) {
+                console.log(res);
+                $scope.data = res.data.data.hospitalList;
+            }
+            else {
+                alert(res.data.message)
+            }
+        });
+        $scope.onOffLine =function (id,type,status) {
+            if (status === 0) {
+                $http({
+                    method: 'put',
+                    data: {
+                        id:id,
+                        status:1
+                    },
+                    url: 'https://easy-mock.com/mock/5975df8ca1d30433d83c1261/demo/a/u/change'
+                }).then(function successCallback(res) {
+                    if(res.data.code === 0){
+                        alert("下线成功")
+                    }
+                    else {
+                        alert(res.data.message)
+                    }
+                });
+            }
+            else if (status === 1) {
+                $http({
+                    method: 'put',
+                    data: {
+                        id:id,
+                        status:0
+                    },
+                    url: 'https://easy-mock.com/mock/5975df8ca1d30433d83c1261/demo/a/u/change'
+                }).then(function successCallback(res) {
+                    if(res.data.code === 0){
+                        alert("上线成功")
+                    }
+                    else {
+                        alert(res.data.message)
+                    }
+                });
+            }
+        };
+        $scope.delete =function () {
+            $http({
+                method: 'delete',
+                url: 'https://easy-mock.com/mock/5975df8ca1d30433d83c1261/demo/a/u/delete'
+            }).then(function successCallback(res) {
+                if(res.data.code === 0){
+                    alert("删除成功")
+                }
+                else {
+                    alert(res.data.message)
+                }
+            });
+        }
+    });
+
+    mainApp.filter('changeHospitalStatusFilter', function () {
+        return function (status) {
+            switch (status) {
+                case 0:
+                    return "下线";
+                case 1:
+                    return "上线";
+                default :
+                    return "数据异常";
+            }
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>javascript基本包装类型介绍</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>javascript基本包装类型介绍</h2>
+
+            <h3>小课堂【武汉第187期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                引用类型的值（对象）是一个引用类型的一个实例。在ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起。它也通常称为类。
+            </p>
+            <p style="text-align: left">为了便于操作基本类型值，ECMAScript 提供了 3 个特殊的引用类型：Boolean、Number和
+                String。这些类型与其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而能够调用一些方法来操作这些数据。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>基本包装类型概述</p>
+            <p style="text-align: left">var box = 'me';//定义一个字符串</p>
+            <p style="text-align: left">var box2 = box.substring(2);//截掉字符串前两位</p>
+            <p style="text-align: left">alert(box2);//输出新字符串</p>
+            <p style="text-align: left">变量box是一个字符串类型，而box.substring(2)又说明它是一个对象(只有对象才会调用方法)，最后把处理结果赋值给box2。</p>
+        </section>
+
+        <section>
+            <p>字面量写法：</p>
+            <pre><code>
+                var box = 'Mr. Lee';//字面量
+                box.name = 'Lee';//无效属性
+                box.age = function () {//无效方法
+                return 100;
+                };
+                alert(box);//Mr. Lee
+                alert(box.substring(2));//. Lee
+                alert(typeof box);//string
+                alert(box.name);//undefined
+                alert(box.age());//错误
+            </code></pre>
+        </section>
+
+        <section>
+            <p>new 运算符写法：</p>
+            <pre><code>
+                var box = new String('Mr. Lee');//new 运算符
+                box.name = 'Lee';//有效属性
+                box.age = function () {//有效方法
+                return 100;
+                };
+                alert(box);//Mr. Lee
+                alert(box.substring(2));//. Lee
+                alert(typeof box);//object
+                alert(box.name);//Lee
+                alert(box.age());//100
+            </code></pre>
+            <p style="text-align: left">
+                以上字面量声明和 new 运算符声明很好的展示了他们之间的区别。不管字面量形式还是 new 运算符形式，都可以使用它的内置方法。并且Boolean 和 Number 特性与 String 相同，三种类型可以成为基本包装类型。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Boolean 布尔对象类型<br>Boolean类型是布尔值创建的引用类型。创建Boolean类型,可以使用Boolean构造函数去创建，并传入true或者false参数。如：<br>var booleanObject = new Boolean(true);<br>注意：在布尔表达式中使用Boolean对象，我们可能会出错的一些地方，如：
+            </p>
+        </section>
+        <section>
+            <pre><code>
+                var booleanObj = new Boolean(false);
+                var result = booleanObj && true;
+                console.log(result);
+            </code></pre>
+            <p style="text-align: left">
+                结果是true，因为booleanObj是一个对象，在布尔表达式中，所有的对象都会被转换为true。记住：引用类型的布尔值，其实是对象。当然，我们不推荐这么用（不推荐用引用类型的布尔值来判断布尔表达式）
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                Number 类型<br>Number类型是数字值创建的引用类型。创建Number类型,使用Number类型的构造函数，可以传递数字值参数，如：<br>var numberObj = new Number(1024);
+            </p>
+            <p style="text-align: left">
+                numberObj.toFixed()方法：<br>可以接受一个数值，表示保留的小数的个数（会自动四舍五入）。如果要处理价格问题或者增长率问题，即保留多少为小数，用这个方法非常有效。
+            </p>
+            <pre><code>
+                var numberObj = new Number(1024.153);
+                console.log(numberObj.toFixed(2));//1024.15
+                console.log(numberObj.toFixed(1));//1024.2
+            </code></pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                String类型<br>String类型是字符串值创建的引用类型。String类型创建的方式，使用String构造函数创建，可以传入字符串参数；如：<br>var stringOjb = new<br>String(“hello,1024idea”);
+            </p>
+            <p style="text-align: left">
+                String类型的每个实例都有一个length属性，用于计算字符串的长度（即字符串中包含多少个字符）。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                字符方法：charAt()，charCodeAt(),接受一个数字参数，返回某个数字索引位置的字符或字符编码。
+            </p>
+            <pre><code>
+                var str = "hello,1024idea";
+                console.log(str.charAt(4));//o
+                console.log(str.charCodeAt(4));//111
+                console.log(str[4]);//o
+            </code></pre>
+        </section>
+        <section>
+            <p style="text-align: left">
+                字符串的操作方法：concat(),可以将多个字符串连接起来。返回得到的新字符串。实践中，我们平时用的多的还是用“+”去拼接字符串。
+            </p>
+            <pre><code>
+                var str1 = "hello,";
+                var str2 = str1.concat("1024idea");
+                console.log(str2);//hello,1024idea
+            </code></pre>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>引用类型与基本包装类型的区别</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                在于对象的生命周期。使用new关键字创建的引用类型的实例，对象在当前作用域都存在。而基本包装类型自动创建的对象则在对象被调用的时刻存在，调用完毕后，就被销毁不存在了。<br> 引用类型，也就是对象类型。创建好对象可以调用这个对象下的方法有Object类型，function类型等。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                使用new关键字创建的构造函数与使用同名的转型函数的效果是不一样的。如：
+            </p>
+            <pre><code>
+                // 构造函数与转型函数返回值的区别
+                var str = "1024";
+                var strObj = new String(str);
+                console.log(typeof strObj);//object
+                var strNum = Number(str);
+                console.log(typeof strNum);//number
+            </code></pre>
+            <p style="text-align: left">
+                这个例子中，变量strObj保存的是object类型，而变量strNum保存的是number类型。一般情况下，是不建议手动的去创建基本包装类型的对象，因为这样经常造成的问题是，分不清自己是在处理基本包装类型还是引用类型。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">javaScript对象－基本包装类型的详解：http://www.cnblogs.com/john-sr/p/5731247.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 周恒光</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

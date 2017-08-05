@@ -16,11 +16,11 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>如何验证程序是否完成，测试以及修复bug?</h2>
-            <h3>小课堂【北京】</h3>
-            <p style="text-align: center;">分享人：杨梦桐</p>
+            <h3>小课堂【武汉】</h3>
+            <p style="text-align: center;">分享人：龚家豪</p>
         </section>
         <section>
             <p>目录</p>
@@ -50,7 +50,7 @@
             <h3>1.背景介绍</h3>
         </section>
         <section>
-            <p>在日常中，我们码代码都是按照需求来的，为了验证我们验证我们的工作成果符合我们的项目需求，那么验证程序是否完成、测试以及修复bug就成了我们工作中非常重要的流程。 </p>
+            <p>在日常中，我们码代码都是按照需求来的，为了验证我们的工作成果是否符合项目的需求，那么验证程序是否完成、测试以及修复bug就成了我们工作中非常重要的流程。 </p>
         </section>
         <section>
             <h3>2.知识剖析</h3>
@@ -79,7 +79,8 @@
             <p>测试方式之间的区别</p>
             <ul style="text-align: left">
                 <li>模块测试：针对设计中的一个一个模块来进行测试的，目的是保证每个模块作为一个单元能正确运行，所以模块测试通常又被称为单元测试。
-                    在这个测试步骤中所发现的往往是编码和详细设计的错误。</li>
+                    在这个测试步骤中所发现的往往是编码和详细设计的错误。
+                </li>
                 <li>整体联调：测试模块间接口的正确性、各模块间的数据流和控制流是否按照设计实现其功能、以及集成后整体功能的正确性。</li>
             </ul>
         </section>
@@ -113,31 +114,95 @@
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p>断点调试</p>
+            <p><a href="https://www.zhihu.com/question/61826619" target="_blank">老大在知乎上的回答：</a></p>
+            <ul>
+                <ol>1。确认Bug是否在本地可以重现</ol>
+                <ol>2。确认Bug在哪一段代码中。</ol>
+                <ol>3。去除掉所有无关代码，只去调试和Bug相关的代码。</ol>
+                <ol>4。和之前正常运行的版本对比，尝试恢复到之前可以正常运行的代码。</ol>
+                <ol>5。重新写一个小Demo，确认是否可以正常运行，可以的话，移动代码到原有的代码中。</ol>
+                <ol>6。如果本地无法重现，打日志，观察线上行为。</ol>
+                <ol>7。重启服务，重启IDE，重启笔记本，重启服务器。</ol>
+                <ol>8。跟产品经理说这个Bug解决不了，花费的代价很大，不值得。</ol>
+            </ul>
         </section>
-
+        <section>
+            <section>
+                <p><a href="https://www.zhihu.com/question/61826619" target="_blank">张明云在知乎上的回答：</a></p>
+                <h5>解决问题的流程</h5>
+                <p>了解问题→定位问题→分析问题→解决问题→验证问题</p>
+            </section>
+            <section>
+                <p>
+                    解决问题的方法(排名分先后)
+                <p>
+                <ul>
+                    <ol>1.借助搜索引擎：遇到有明显的异常信息，且自己并不熟悉为什么异常时，最高效的解决方法是
+                        借助搜索引擎，这里的搜索引擎一定是谷歌，不是百度；借助搜索引擎能解决工作中的大部分
+                        bug，你要相信，全世界这么多开发人员，你遇到过的大多数问题其他人也遇到过；
+                    </ol>
+                    <ol>2.打印调试法：这是最笨但最有效的办法，人会说谎、断点调试可能会说谎，但日志一定不会说谎；</ol>
+                    <ol>3.二分排除法：当你遇到随机问题、帮助他人解bug或者遇到自己不熟悉的代码时，通过屏蔽一
+                        部分代码，运行观察问题仍然存在，如果存在则进一步分析屏蔽一部分代码，直到定位到有问
+                        题的具体位置为止，这种方法能解决工作中的很大一部分疑难杂症；
+                    </ol>
+                </ul>
+            </section>
+            <section>
+                <ol>4.小黄鸭调试法：当你向某个对象陈述你的思路时，往往会有意想不到的结果，哪怕对方并不是一个生物；</ol>
+                <ol>5.断点调试法：受限于效率不高以及在多线程环境下断点调试并不灵，有必要时才考虑用这种方法；通常可以使用打印调试法来代替；</ol>
+                <ol>6.线上求助：包括论坛提问、RTX和微信群提问等；不到万不得已不要用这种办法，在有限的圈
+                    子里面，你遇到的一个具体技术问题很有可能其他人并没有遇到过，多数时候问了也是白问，
+                    但有时候也可能是一种有效的方法。
+                </ol>
+                </ul>
+            </section>
+        </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
             <h3>6.扩展思考</h3>
-            <p>如何尽量少的减少bug？</p>
+            <p>什么是小黄鸭调试法</p>
+            <p>
+                小黄鸭调试法，又称橡皮鸭调试法、黄鸭除虫法（Rubber Duck Debugging）是可在软件工
+                程中使用的一种调试代码的方法。方法就是在程序的调试、除错或测试过程中，操作人耐心地
+                向小黄鸭解释每一行程序的作用，以此来激发灵感与发现矛盾。
+            </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rubber_duck_assisting_with_debugging.jpg/220px-Rubber_duck_assisting_with_debugging.jpg">
+        </section>
+        <section>
+            <p>名称由来</p>
+            <p>
+                此概念是参照于一个故事。故事中程序大师随身携带一只小黄鸭，在调试代码的时候会
+                在桌上放上这只小黄鸭，然后详细地向鸭子解释每行代码。许多程序员都有向别人提问
+                及解释编程问题的经历，而目标甚至可能是完全不懂编程的人。而就在解释的过程中，程
+                序员可能就发觉了问题的解决方案。一边阐述代码的意图，一边观察它实际上的意图并做
+                调试，两者间的任何不协调都会变得更明显，使人更容易发现错误所在。如果没有玩具
+                小鸭，操作人也可以向其他任何东西倾诉，比如桌上的盆栽、键盘/鼠标等。
+            </p>
         </section>
         <section>
             <h3>7.参考文献</h3>
-            <p><a href="http://baike.baidu.com/link?url=Qb1W_P7EOP3EzzAa1OaYVb7gNtwRcfZ8iY7RUJ75pk5xhNMHgayo6-4EE-0113i0s6CeqHyH62GJ6dqkWYv-qle0rxWDug6RnatixrHN1zc8GFT2oZHm5CeyGeckzfjfG7qV8JdytX2xBg46Awjima#1_5">软件开发流程</a></p>
+            <p>
+                <a href="http://baike.baidu.com/link?url=Qb1W_P7EOP3EzzAa1OaYVb7gNtwRcfZ8iY7RUJ75pk5xhNMHgayo6-4EE-0113i0s6CeqHyH62GJ6dqkWYv-qle0rxWDug6RnatixrHN1zc8GFT2oZHm5CeyGeckzfjfG7qV8JdytX2xBg46Awjima#1_5">软件开发流程</a>
+            </p>
             <p><a href="http://blog.csdn.net/chrenny/article/details/42390795">如何提高测试覆盖率</a></p>
             <p><a href="http://www.51testing.com/html/14/188314-170205.html">测试分析中对异常情况考虑</a></p>
             <p><a href="http://www.51testing.com/html/07/n-220007-2.html">软件异常测试</a></p>
             <p><a href="http://www.cnblogs.com/mqfblog/p/5397282.html">断点调试</a></p>
+            <p><a href="https://www.zhihu.com/question/61826619">老程序员解bug有那些通用套路？</a></p>
+            <p><a href="https://zh.wikipedia.org/zh-hans/%E5%B0%8F%E9%BB%84%E9%B8%AD%E8%B0%83%E8%AF%95%E6%B3%95">维基百科</a></p>
+
+
         </section>
         <section>
             <h3>8.更多讨论</h3>
-            <p style="text-align: left">好的代码应该是什么样的？</p>
+            <p style="text-align: left"></p>
         </section>
         <section>
             <h4>感谢观看</h4>
-            <p>BY : 杨梦桐</p>
+            <p>BY : 杨梦桐|龚家豪</p>
         </section>
     </div>
 </div>

@@ -1,0 +1,186 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何搭建angular2的开发环境</h2>
+
+            <h3>小课堂【武汉第152期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">讲解一下：</p>
+            <p style="text-align: left">安装node.js，angular/cli，VS Code,工具安装好了以后，创建并运行angular项目。最后分析angular项目的目录结构以及生成的基础代码.</p>
+        </section>
+        <section>
+            <p style="text-align: left">搭建开发环境是一件很麻烦的事情，请大家一定要根据我讲的这个方法来搭建这个环境。</p>
+            <p style="text-align: left">方法一：Angular-cli（内核是webpack）</p>
+            <p style="text-align: left">方法二：Webpack</p>
+                <p>什么是angular-cli</p>
+                <p style="text-align: left">Angular-CLI 是 Google Angular 核心团队提供的开发工具，集成了大量的 NodeJS 模块，例如：webpack，karma，asmine，typescript 编译器等。只要一条命令就能帮你自动创建项目的目录结构、自动帮你生成 Component 骨架代码并自动添加依赖、自动热加载代码、对 AngularMaterial2 组件库提供了内置支持等等，不用再一个一个去配了</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">安装node.js。在cmd中输入命令nod -v查看版本（注意有的模块要与之对应的版本才能兼容）</p>
+                <p style="text-align: left">node.js有自己的包管理器npm。由于某种神奇的原因，都懂得。有些模块比如node-sass会被墙掉。没办法安装，那怎么办呢？ </p>
+            </section>
+            <section>
+                <p style="text-align: left">有个东西叫cnpm，是淘宝的人提供的一个npm的镜像。每10分钟就和官方版本同步一次。服务器是在国内的，不用担心速度和被墙的问题。</p>
+                <p style="text-align: left">通过这条命令安装cnpm：<br>npm install -g cnpm<br>
+                    -g是global装在全局空间，路径是C:\Users\ksqb0\AppData\Roaming\npm
+                </p>
+            </section>
+            <section>
+                <p>安装angular/cli</p>
+                <p style="text-align: left">cnpm install -g @angular/cli。如果要更新cli的版本，卸载npm uninstall -g @angular/cli，再重新安装</p>
+                <p style="text-align: left">输入ng查看是否安装成功，它会告诉你很多命令的用法。ng version查看版本。</p>
+                <p style="text-align: left">通过CLI，你可以创建、开发、测试、构建项目，而不需要额外的依赖。它封装了实现细节，如果是新手，你完全不需要懂Webpack，也不需要自己写构建脚本。</p>
+            </section>
+            <section>
+                <p>创建目录</p>
+                <p style="text-align: left">选择指定路径创建新项目ng new MyProject。创建完之后它会自动生成目录结构，根组件，package.json里的依赖的模块。</p>
+                <p style="text-align: left">cd到项目目录，cnpm install。cnpm装的包它是会读到目录下的package.json，所以不用-g，所依赖的包装在项目目录node_modules的文件夹里。</p>
+            </section>
+            <section>
+                <p>启动项目</p>
+                <p style="text-align: left">输入ng serve启动。这样在4200端口就有一个轻量级开发状态的http serve。打开浏览器输入localhost:4200打开</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么用cnpm安装？</p>
+            <p style="text-align: left">原生npm的安装需要你的机器有python的环境,然后可能依赖于Windows API。node-sass的包被墙。node-gyp编译错误等一些大堆的问题。</p>
+        </section>
+        <section>
+            <p>关于目录结构</p>
+            <p style="text-align: left">命令行工具是按照一定的规则生成文件和目录，如果改变文件的位置或重命名文件，有可能导致其他的功能失效。除非你明确的知道你要干什么，否则就不要改这些文件。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align: left">项目目录每一层都生成了什么</p>
+            <p style="text-align: left">e2e：端到端的测试目录</p>
+            <p style="text-align: left">karma.conf.js：单元测试执行器</p>
+            <p style="text-align: left">src：代码目录</p>
+            <p style="text-align: left">angular-cli.json：这是angular命令行工具的配置文件</p>
+            <p style="text-align: left">package.json：npm的配置文件，列明了当前应用所使用到的第三方依赖包。</p>
+        </section>
+        <section>
+            <p style="text-align: left">src目录</p>
+            <p style="text-align: left">app：包含项目的组件和模块</p>
+            <p style="text-align: left">assets：存放静态资源，比如图片</p>
+            <p style="text-align: left">environment：环境配置文件</p>
+            <p style="text-align: left">index.html：根html</p>
+            <p style="text-align: left">main.ts：脚本执行的入口点，通过这个文件启动项目</p>
+            <p style="text-align: left">polyfills.ts：导入一些必要的库，用来兼容老版本浏览器</p>
+            <p style="text-align: left">style.css：全局样式</p>
+        </section>
+        <section>
+            <p style="text-align: left">app目录</p>
+            <p style="text-align: left">一个angular程序需要一个模块和一个组件</p>
+            <p style="text-align: left">app.component.ts：组件，整个应用的基础</p>
+            <p style="text-align: left">app.module.ts：模块</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">大漠穷秋的博客：<a href="https://my.oschina.net/mumu/blog" target="_blank">https://my.oschina.net/mumu/blog</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 周恒光 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+    <!DOCTYPE html>
+    <html lang="zh-cmn-Hans">
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+        <title>侧边栏高亮</title>
+        <style>
+            html, body, ul, li, div {
+                margin: 0;
+                padding: 0;
+            }
+
+            ::-webkit-scrollbar {
+                width: 0;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            aside {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                overflow: auto;
+                background-color: #ccc;
+                width: 300px;
+                text-align: center;
+            }
+
+            .toggle {
+                padding-bottom: .5em;
+            }
+
+            .title {
+                font-size: 20px;
+                line-height: 1.5;
+                color: #0d99a5;
+                cursor: pointer;
+            }
+
+            .title:hover {
+                background-color: red !important;
+            }
+
+            ul.body {
+                display: none;
+            }
+
+            .list {
+                font-size: 16px;
+                color: #0000f1;
+            }
+
+            .list:hover {
+                background-color: #00ee00 !important;
+                cursor: pointer;
+            }
+        </style>
+
+    </head>
+    <body>
+    <aside>
+        <div class="toggle">
+            <div class="title" index="1">title01</div>
+            <ul class="body" index="1">
+                <li class="list" index="1">list01</li>
+                <li class="list" index="2">list02</li>
+                <li class="list" index="3">list03</li>
+                <li class="list" index="4">list04</li>
+            </ul>
+        </div>
+        <div class="toggle">
+            <div class="title" index="2">title02</div>
+            <ul class="body" index="2">
+                <li class="list" index="1">list01</li>
+                <li class="list" index="2">list02</li>
+                <li class="list" index="3">list03</li>
+                <li class="list" index="4">list04</li>
+            </ul>
+        </div>
+        <div class="toggle">
+            <div class="title" index="3">title03</div>
+            <ul class="body" index="3">
+                <li class="list" index="1">list01</li>
+                <li class="list" index="2">list02</li>
+                <li class="list" index="3">list03</li>
+                <li class="list" index="4">list04</li>
+            </ul>
+        </div>
+        <div class="toggle">
+            <div class="title" index="4">title04</div>
+            <ul class="body" index="4">
+                <li class="list" index="1">list01</li>
+                <li class="list" index="2">list02</li>
+                <li class="list" index="3">list03</li>
+                <li class="list" index="4">list04</li>
+            </ul>
+        </div>
+        <div class="toggle">
+            <div class="title" index="5">title05</div>
+            <ul class="body" index="5">
+                <li class="list" index="1">list01</li>
+                <li class="list" index="2">list02</li>
+                <li class="list" index="3">list03</li>
+                <li class="list" index="4">list04</li>
+            </ul>
+        </div>
+    </aside>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            //取值title
+            if (localStorage.getItem('title')) {
+                for (var i = 0; i < JSON.parse(localStorage.getItem('title')).length; i++) {
+                    if (JSON.parse(localStorage.getItem('title'))[i] == 1) {
+                        $(".title[index=" + i + "]").css("background-color", "red");
+                        $(".title[index=" + i + "]+ul").css("display", "block");
+                    } else {
+                        $(".title[index=" + i + "]").css("background-color", "transparent");
+                        $(".title[index=" + i + "]+ul").css("display", "none");
+                    }
+                }
+            }
+
+            //取list数组
+            if (localStorage.getItem('list')) {
+                for (var i = 0; i < JSON.parse(localStorage.getItem('list')).length; i++) {
+                    for (var j = 0; j < JSON.parse(localStorage.getItem('list'))[i].length; j++) {
+                        if (JSON.parse(localStorage.getItem('list'))[i][j] == 1) {
+                            $(".title[index=" + i + "]").siblings("ul.body").children(".list[index=" + j + "]").css("background-color", "#00ee00");
+                        } else {
+                            $(".title[index=" + i + "]").siblings('ul.body').children(".list[index=" + j + "]").css("background-color", "transparent");
+                        }
+                    }
+                }
+            }
+
+
+            //存数组title
+            $('.title').click(function () {
+                    var title = [];
+                    $(".title").css('background-color', 'transparent');
+                    $("ul.body").css("display", "none");
+                    $(this).css('background-color', 'red');
+                    $(this).siblings('ul.body').toggle();
+                    if ($(this).siblings('ul.body').css('display') === 'block') {
+                        title[Number($(this).attr("index"))] = 1;
+                        console.log(title[Number($(this).attr("index"))]);
+                        localStorage.setItem('title', JSON.stringify(title));
+                    } else if ($(this).siblings('ul.body').css('display') === 'none') {
+                        title[Number($(this).attr("index"))] = 0;
+                        localStorage.setItem('title', JSON.stringify(title));
+                    }
+                    console.log($(this).siblings('ul.body').css("display"));
+                }
+            )
+
+            //存数组list
+            $('.list').click(function () {
+                    //定义二维数组
+                    var list = new Array(6);
+                    for (var i = 0; i < 6; i++) {
+                        list[i] = new Array(5);
+                    }
+                    //重置.list的背景色
+                    $(".list").css('background-color', 'transparent');
+                    $(this).css('background-color', '#00ee00');
+                    //用Number转化index的字符串值
+                    list[Number($(this).parent().attr("index"))][Number($(this).attr("index"))] = 1;
+                    //存数组需先把数组转化为JSON
+                    localStorage.setItem('list', JSON.stringify(list));
+                }
+            )
+        });
+    </script>
+    </body>
+    </html>
