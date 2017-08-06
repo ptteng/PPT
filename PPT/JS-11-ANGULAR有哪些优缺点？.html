@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-10】angular有哪些优缺点？</h2>
+
+            <h3>小课堂【武汉第144期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">Angular最显著的特征就是其整合性。它是由单一项目组常年开发维护的一体化框架，涵盖了M、V、C/VM等各个层面，不需要组合、评估其它技术就能完成大部分前端开发任务。这样可以有效降低决策成本，提高决策速度，对需要快速起步的团队是非常有帮助的。Angular 2就是前端开发领域的“宜家套装”，它经过精心的前期设计，涵盖了开发中的各个层面，层与层之间都经过了精心调适，是一个“开箱即用”的框架。</p>
+        </section>
+        <section>
+            <p>什么是angular-cli</p>
+            <p style="text-align: left">Angular-CLI 是 Google Angular 核心团队提供的开发工具，集成了大量的 NodeJS 模块，例如：webpack，karma，asmine，typescript 编译器等。只要一条命令就能帮你自动创建项目的目录结构、自动帮你生成 Component 骨架代码并自动添加依赖、自动热加载代码、对 AngularMaterial2 组件库提供了内置支持等等</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>模块化的技术</p>
+                <p style="text-align: left">Angular 2很好的践行了OCP原则以及SoC（关注点分离）原则。它非常有效的分离了渲染与交互逻辑，这就让它可以很好的跟包括React在内的渲染引擎搭配使用，除此之外，它还可以使用内存渲染引擎，以实现服务端渲染；还可以使用Native渲染引擎，以编译出真正的原生程序（NativeScript）。它还分离了数据供应与变更检测逻辑，从而让它可以自由使用包括RxJS以及ImmutableJS在内的第三方数据框架/工具。</p>
+            </section>
+            <section>
+                <p style="text-align: left">不仅如此。在Angular1和2中最具特色的应该算是依赖注入(DI)系统了，它把后端开发中用来解决复杂问题、实现高弹性设计的DI技术引入了前端。Angular 2中更是通过引入TypeScript赋予它更高的灵活性和便利性。不过，Angular 2并没有敝帚自珍，把它跟框架本身紧紧黏结在一起，而是把它设计成了一个独立可用的模块。这就意味着，无论你正在使用什么前端框架，甚至NodeJS后端框架，都可以自由使用它，并从中获益。</p>
+            </section>
+            <section>
+                <p>工具更加完善、简单</p>
+                <p style="text-align: left">通过CLI，你可以创建、开发、测试、构建项目，而不需要额外的依赖。它封装了实现细节，如果是新手，你完全不需要懂Webpack，也不需要自己写构建脚本。</p>
+            </section>
+            <section>
+                <p>更有利于分工</p>
+                <p style="text-align: left">在Angular中，模板、样式、组件代码、服务等都是明确分开的。样式需要精通CSS，服务需要丰富的设计经验和架构观。如果不能分工又没有足够敏捷的项目管理。分开之后，精通某项技能的人可以去做专项增强，而不用担心意外影响到别人（都不在同一个文件里），甚至可以打通前后端，把服务交给实现API的后端程序员来写</p>
+            </section>
+            <section>
+                <p>严谨的版本发布计划</p>
+                <p style="text-align: left">Angular开发团队将遵循严格的语义化版本方式进行发布，摘译文章参见 Angular 的版本号与发布周期 。如果你不担心Node的版本发布周期，也没必要担心Angular的。Angular的这种发布策略，可以兼顾技术更新与向后兼容，通过使用这种发布策略，Angular在将来可以安全的不断引入新技术，保持和业界最新的进展同步。</p>
+            </section>
+            <section>
+                <p>简化开发</p>
+                <p style="text-align: left">AngularJS（1）中有70多个内置指令，而Angular（2+）中只有20多个，但是能实现的功能比以前却多了很多，因为新的绑定语法取代了以前的50多个内置指令和大量第三方指令。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>学习曲线陡峭，学习成本较大</p>
+            <p style="text-align: left">目前中文的学习资料较少，且基于ES6，语法默认TypesScipt，采用严格的后端模式，涉及的知识点比较广泛</p>
+        </section>
+        <section>
+            <p>angular2的优缺点</p>
+            <img src="ima/111.png">
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p>【NiceFish（美人鱼）】：这是一个微型Blog系统，前端基于Angular 4.0.0 + ng-Bootstrap。</p>
+                <p>演示地址：<a href="http://121.196.220.118:8081/">http://121.196.220.118:8081/</a></p>
+                <p>项目教程：<a href="http://git.oschina.net/mumu-osc/NiceFish">http://git.oschina.net/mumu-osc/NiceFish</a></p>
+            </section>
+
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">大漠穷秋的博客：<a href="https://my.oschina.net/mumu/blog" target="_blank">https://my.oschina.net/mumu/blog</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 周恒光 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

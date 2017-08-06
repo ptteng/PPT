@@ -1,0 +1,237 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>HTML文件里开头的!Doctype有什么作用？</h2>
+            <h3>小课堂【武汉小课堂】</h3>
+            <p>分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+       
+            <section>
+                <h3>DOCTYPE是什么？</h3>
+                <p style="text-align: left;">DOCTYPE是document type的简写，它并不是 HTML 标签，也没有结束标签，它是一种标记语言的文档类型声明，即告诉浏览器当前 HTML 是用什么版本编写的。DOCTYPE的声明必须是 HTML 文档的第一行，位于html标签之前。大多数Web文档的顶部都有doctype声明，它是在新建一个文档时，由Web创作软件草率处理的众多细节之一。很少人会去注意 doctype ，但在遵循标准的任何Web文档中，它都是一项必需的元素。doctype会影响代码验证，并决定了浏览器最终如何显示你的 Web文档。</p>
+            </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+            <h3>DOCTYPE有哪几种？</h3>
+            <p>DOCTYPE可声明三种 DTD 类型：严格、过渡以及框架集的 HTML 文档。</p>
+            </section>
+            <section>
+                <ul>
+                    <li>超文本严格文档类型定义：HTML Strict DTD。</li>
+                    <li>如果需要干净的标记，免于表现层的混乱，请使用此类型。请与层叠样式表配合使用。该 DTD 包含所有 HTML 元素和属性</li>
+                    <li>但不包括展示性的和弃用的元素（比如 font）。不允许框架集（Framesets）</li>
+                    <li>代码为：DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//en" "http://www.w3. org/TR/html4/strict.dtd"</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>超文本过渡文档类型定义：HTML Transitional DTD。</li>
+                    <li>可包含 W3C 所期望移入样式表的呈现属性和元素。如果您的读者使用了不支持层叠样式表（CSS）的浏览器以至于您不得不使用 HTML 的呈现特性时，请使用此类型。该 DTD 包含所有 HTML 元素和属性，包括展示性的和弃用的元素（比如 font）。不允许框架集（Framesets）。</li>
+                    <li>代码为：DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"</li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>超文本框架集文档类型定义：Frameset DTD。</li>
+                    <li>此类型定义应当被用于带有框架的文档。除 frameset 元素取代了 body 元素之外，Frameset DTD 等同于 Transitional DTD。该 DTD 等同于 HTML 4.01 Transitional，但允许框架集内容。</li>
+                    <li>代码为：DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>DOCTYPE的作用是什么？</h3>
+            <section>
+                <p style="text-align: left;">DOCTYPE声明中指出阅读程序应该用什么规则来解释文档中的标记。在Web文档的情况下，阅读程序通常是浏览器或者校验器这样的一个程序，规则是W3C所发布的一个文档类型定义 DTD 中包含的规则。制作一个符合标准的网页，DOCTYPE声明是是不可缺少的，它在Web设计中用来说明你用的XHTML或者HTML是什么版本，如果不做DOCTYPE声明或声明不正确的情况下，将有可能导致你的标识与CSS失效，从而令你网页的布局变乱，造成网页在浏览器中不能正常的显示。我们还可以通过W3C提供的验证工具来检查页面的内容是否符合在DOCTYPE中声明的标准。</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>DTD是什么</h3>
+            <section>
+                <p>文档类型定义(Document Type Definition)是一套为了进行程序间的数据交换而建立的关于标记符的语法规则。</p>
+            </section>
+            <section>
+                <ul>
+                    <li>是SGML的一部分</li>
+                    <li>它使用一系列合法的元素来定义文档的结构。</li>
+                    <li>它可被成行地声明于 XML 文档中，也可作为一个外部引用。</li>
+                    <li>通过它，独立的团体可一致地使用某个标准的文档类型定义来交换数据。</li>
+                    <li>而您的应用程序也可使用某个标准的文档类型定义来验证从外部接收到的数据。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>标准模式和怪异模式</h3>
+            <section>
+                <ul>
+                    <li>在标准模式中，浏览器以其支持的最高标准呈现页面.</li>
+                    <li>在怪异模式中，页面以一种比较宽松的向后兼容的方式显示。</li>
+                    <li>怪异模式通常模拟老式浏览器的行为以防止老站点无法工作。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>模式触发</h3>
+            <section>
+                <ul>
+                    <li>如果XHTML、HTML 4.01文档包含形式完整的DOCTYPE，那么它一般以标准模式呈现。</li>
+                    <li>包含过渡DTD和URI的DOCTYPE也导致页面以标准模式呈现，但是有过渡DTD而没有URI会导致页面以混杂模式呈现。</li>
+                    <li>DOCTYPE不存在或形式不正确会导致HTML和XHTML文档以混杂模式呈现。</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题1:如果不声明doctype会发生什么？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <section>
+                <h4>声明文档的解析类型(document.compatMode)，避免浏览器的怪异模式。</h4>
+                <p> BackCompat：怪异模式，浏览器使用自己的怪异模式解析渲染页面。
+                    CSS1Compat：标准模式，浏览器使用W3C的标准解析渲染页面。</p>
+                <p>这个属性会被浏览器识别并使用，但是如果你的页面没有DOCTYPE的声明，那么compatMode默认就是BackCompat,
+                    这也就是恶魔的开始 -- 浏览器按照自己的方式解析渲染页面，那么，在不同的浏览器就会显示不同的样式。
+                    如果你的页面添加了<!DOCTYPE html>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的
+                    标准解析渲染页面，这样一来，你的页面在所有的浏览器里显示的就都是一个样子了。</p>
+            </section>
+            <section>
+                <h3>使用：<!DOCTYPE html></h3>
+                <p>jsp的话，添加在<%@ page %>的下一行。不用区分大小写哦</p>
+        </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>有没有其他进入怪异模式的方法</p>
+            <p class="fragment">除了不写DOCTYPE声明外，最常见的就是在DOCTYPE声明前面出现了这些内容：普通文本、HTML 标签、HTML 注释、XML 声明、IE条件注释。</p>
+        </section>
+        <section>
+            <p>关于 DOCTYPE 的一个小发现</p>
+            <p>使用 XHTML 声明时，图片是完美贴合包裹 DIV 元素的,但使用 HTML 5 标准声明时，包裹 DIV 元素底部会被撑开 2～5 个像素不等</p>
+        </section>
+
+        <section>
+            <section>
+             <p>首先，浏览器并没有所谓的“HTML 5 模式"，而是只有三种：怪异模式（Quirks)，几乎标准的模式（Limited Quirks）和标准模式（Standards），其中几乎标准的模式和标准模式之间的唯一差异在于是否对 img 元素给定行高（line-height）和基线（baseline）</p>
+            <p>几乎标准模式中，如果img标签所在行没有其他的行内元素，将不指定基线（baseline）， img 标签因此会紧贴着父元素底部在标准模式中，行框总是会包含类似字母 g，f 尾巴下伸出来的那一部分空间（针对下行字母），即使行框内并没有任何内容。因此这种情况下你看到的 img 跟父元素底部几个像素的间隙实际上就是为”字母尾巴“预留的</p>
+            </section>
+            <section>
+            <p>使用 XHTML Transitional Doctype 会是浏览器运行在”几乎标准模式（Limited Quirks）”。如果你使用XHTML Strict 或者HTML 4 Strict模式，你将看到和使用HTML 5 模式同样的间隙，因为这是标准模式（Standards mode</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;">
+            <p>参考一：<a href="https://www.zhihu.com/question/20249139" target="_blank">为何说 HTML5「no longer based on SGML」？</a></p>
+            <p>参考二：<a href="http://www.jianshu.com/p/2c381cd4fcf9" target="_blank">HTML_严格模式与混杂模式</a></p>
+            <p>参考三：<a href="http://blog.csdn.net/binglingnew/article/details/17301433">严格模式与混杂模式-如何触发这两种模式，区分它们有何意义</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 周恒光</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+  // 	loop: false, // 是否循环演示
+  // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+  // 	fragments: true, // 全局开启和关闭碎片。
+  // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+  // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+  // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+  // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+  // }
+  // 初始化幻灯片
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+      { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+      { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+      { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+  });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
