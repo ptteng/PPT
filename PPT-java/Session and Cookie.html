@@ -1,0 +1,246 @@
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Cookie和Session的区别</h2>
+            <h3>小课堂</h3>
+            <p>分享人: 张鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+       
+        <section>
+            <p>什么是Cookie</p>
+            <p>Cookie 是在HTTP协议下，服务器或脚本可以维护客户工作站上信息的一种方式。Cookie 是由 Web 服务器保存在用户浏览器（客户端）上的小文本文件(内容通常经过加密)，它可以包含有关用户的信息。无论何时用户链接到服务器，Web站点都可以访问 Cookie 信息,可以看作是浏览器缓存.
+            </p>
+
+        </section>
+         <section>
+            <p>什么是Session</p>
+            <p> Session的定义很抽象,在不同的场合中session一词的含义也很不相同.它可以代表服务器与浏览器的一次会话过程,指从一个浏览器窗口打开到关闭的这个期间.也可以用于指一类用来在客户端与服务器之间保持状态的解决方案.</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>  Cookie机制</p>
+            <p>  Cookie需要解决三个问题：分发、内容和使用。</p>
+        </section>
+        <section>
+             <p>cookie的分发是通过扩展HTTP协议来实现的，服务器端通过在HTTP的响应由中加上一行特殊的指示以提示浏览器按照指示生成相应的cookie。</p>
+        </section>
+         <section>
+             <p>cookie的内容主要包括name(名字)、value(值)、maxAge(失效时间)、path(路径),domain(域)和secure</p>
+             <p>name：cookie的名字，一旦创建，名称不可更改。</p>
+             <p>value：cookie的值，如果值为Unicode字符，需要为字符编码。如果为二进制数据，则需要使用BASE64编码.</p>
+             <p>maxAge：cookie失效时间，单位秒。如果为正数，则该cookie在maxAge后失效。如果为负数，该cookie为临时cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该cookie。如果为0，表示删除该cookie。默认为-1</p>
+             <p>path：该cookie的使用路径。如果设置为"/sessionWeb/"，则只有ContextPath为“/sessionWeb/”的程序可以访问该cookie。如果设置为“/”，则本域名下ContextPath都可以访问该cookie。</p>
+             <p>domain:域.可以访问该Cookie的域名。第一个字符必须为".",如果设置为".google.com",则所有以"google.com结尾的域名都可以访问该cookie",如果不设置,则为所有域名</p>
+              <p>secure：该cookie是否仅被使用安全协议传输。</p>
+        </section>
+         <section>
+             <p>cookie的使用是由浏览器按照一定的原则在后台自动发送给服务器。浏览器检查所有存储的cookie，如果某个cookie所声明的作用范围大于等于将要请求的资源所在的位置，则把该cookie附在请求资源的HTTP请求头上发送给服务器.</p>
+        </section>
+         <section>
+             <p>  Session机制</p>
+             <p>  Session机制是一种服务端的机制，服务器使用一种类似散列表的结构来保存信息。当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端里的请求里是否已包含了一个session标识--sessionID，如果已经包含一个sessionID，则说明以前已经为此客户端创建过session，服务器就按照sessionID把这个session检索出来使用（检索不到，可能会新建一个），如果客户端请求不包含sessionID，则为此客户端创建一个session并且声称一个与此session相关联的sessionID，sessionID的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串(服务器会自动创建),这个sessionID将被在本次响应中返回给客户端保存。
+            </p>
+        </section>       
+        <section>
+             <p>  保存sessionID的方式
+             <p>1，使用Cookie.此时Cookie不再用作认证,只是作为载体,存储sessionID</p>
+             <p>2，URL重写：因为cookie可以被人为禁止，所以为了保证sessionID能够被传递给服务器，使用URL重写也是一种解决方法。如,
+              href="<%=response.encodeURL("index.jsp") %>"
+               写好后URL是这样的
+               href="index.jsp;jsessionid=0CCD096E7F8D97B0BE608AFDC3E1931E"</p>
+             <p>3, 隐藏表单提交.将sessionId放在隐藏表单中,如:
+        <!-- <form name=”"testform”" action=”"/xxx”">
+            <input type=”"hidden”"name=”"jsessionid”"value=”"ByOK3vjFD75aPnrF7EbzWoWiBYEnL″”>
+            <input type=”"text”">
+        </form> -->
+             </p> 
+             <p>实际上这几种方式最方便的还是cookie,其他两种方式都各有弊端,URL重写的弊端是要对所有的URL都重写,非常繁琐.表单隐藏字段的弊端是只能局限于表单提交,如果是单纯的文本链接则不能提供会话跟踪</p>
+        </section>
+        <section>
+            <p> Cookie和Session之间的区别</p>
+            <p>1.Cookie数据存放在客户的浏览器(本地),session数据放在服务器上</p>
+            <p>2.Cookie不如session安全，别人可以分析存放在本地的Cookie并进行Cookie欺骗,所以出于安全性的考虑应当使用Session</p>
+            <p>3.Session会在一定时间内保存在服务器上。当访问增多,会占用较多的服务器资源,所以出于性能考虑则应当使用cookie</p>
+            <p>单个cookie保存的数据不能超过4k,很多浏览器都限制一个站点最多保存20个cookie.实际上为了性能考虑,不论是cookie还是session,其中的信息都应当短小精悍</p>
+            <p>session因为是保存在服务器上,所以不支持跨域的访问</p>
+        </section>
+        <section>  
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <section>
+                <p>  使用cookie和session的具体场景</p>
+            </section>
+            <section>
+                 <p>  一般来说,登陆验证信息,客户的私人信息,如姓名,电话等,应该放在Session中.Cookie则用于用户登陆网站时的自动登陆以及类似"购物车"的处理.使用Cookie保存信息时最好通过加密形式来保存数据,同时是否保存登陆信息,需要由用户自行选择</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/fangaoxin/article/details/6952954/">Cookie Session机制详解</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/duan1078774504/article/details/51912868">浅谈Session与Cookie的区别与联系</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>1.如何使用URL重写来完成session认证</p>
+            <p>2.如何使用JWT token实现自动认证登录</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 张鑫</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
