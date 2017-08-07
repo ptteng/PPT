@@ -33,7 +33,7 @@
         <section>
             <h2>network中的请求信息，headers中的每一项分别是什么意义?</h2>
             <h3>小课堂</h3>
-            <p>分享人：胡嘉杰</p>
+            <p>分享人：张珺琢</p>
         </section>
         <section>
             <p>目录</p>
@@ -58,28 +58,6 @@
             </p>
         </section>
         <section>
-            <h3>HTTP请求的7个步骤</h3>
-            <p style="text-align: left">
-                1.建立TCP链接<br>
-                2.浏览器发送请求（GET/sample/hello.jsp HTTP/1.1）<br>
-                3.浏览器发送请求头（request header）<br>
-                4.服务器发送应答（HTTP/1.1 200 OK）<br>
-                5.服务器发送应答头（response header）<br>
-                6.服务器发送数据<br>
-                7.服务器关闭TCP连接
-            </p>
-        </section>
-        <section>
-            <img src="../img/js-5-XMLHttpRequestHeader/http.jpg" alt="">
-            <p>用于HTTP协议交互的信息被称为HTTP报文，客户端的HTTP报文叫做请求报文，服务器端的叫做响应报文。
-            HTTP报文本身是由多行数据构成的字符串文本。</p>
-        </section>
-        <section>
-            <img src="../img/js-5-XMLHttpRequestHeader/request.jpg" alt="">
-            <p>URI:uniform resource identifier,统一资源标识符。URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。URL和URN都是一种URI。</p>
-        </section>
-        <section><img src="../img/js-5-XMLHttpRequestHeader/response.jpg" alt=""></section>
-        <section>
             <h3>2.知识剖析</h3>
         </section>
         <section>
@@ -95,30 +73,30 @@
                 General部分:
                 Request URL:资源的请求url</br>
                 Request Method:HTTP方法</br>
-                Status Code:响应状态码    </br> 200（状态码） OK（原因短语）    </br>  301 - 资源（网页等）被永久转移到其它URL </br>  404 -
+                Status Code:响应状态码    </br> 200(状态码) OK    </br>  301 - 资源（网页等）被永久转移到其它URL </br>  404 -
                 请求的资源（网页等）不存在 </br>   500 - 内部服务器错误
             </section>
             <section style="text-align:left;">
                 Response Headers:</br>
-                Content-Encoding:gzip ——压缩编码类型</br>
-                Content-Type:text/html ——服务端发送的类型及采用的编码方式</br>
-                Date:Tue, 14 Feb 2017 03:38:28 GMT ——客户端请求服务端的时间</br>
-                Last-Modified:Fri, 10 Feb 2017 09:46:23 GMT ——服务端对该资源最后修改的时间，GMT是格林尼治标准时间</br>
-                Server:nginx/1.2.4 ——服务端的Web服务端名</br>
-                Transfer-Encoding:chunked ——分块传递数据到客户端</br>
+                Content-Encoding:gzip 压缩编码类型</br>
+                Content-Type:text/html 服务端发送的类型及采用的编码方式</br>
+                Date:Tue, 14 Feb 2017 03:38:28 GMT 客户端请求服务端的时间</br>
+                Last-Modified:Fri, 10 Feb 2017 09:46:23 GMT 服务端对该资源最后修改的时间</br>
+                Server:nginx/1.2.4 服务端的Web服务端名</br>
+                Transfer-Encoding:chunked 分块传递数据到客户端</br>
             </section>
             <section style="text-align:left;">
-                Request Headers:</br>
-                Accept:text/html ——客户端能接收的资源类型</br>
-                Accept-Encoding:gzip, deflate ——客户端能接收的压缩数据的类型</br>
-                Accept-Language:en-US,en;q=0.8 ——客户端接收的语言类型</br>
-                Cache-Control:no-cache ——服务端禁止客户端缓存页面数据</br>
-                Connection:keep-alive ——维护客户端和服务端的连接关系</br>
-                Cookie: ——客户端暂存服务端的信息</br>
-                Host:www.jnshu.com ——连接的目标主机和端口号</br>
-                Pragma:no-cache ——服务端禁止客户端缓存页面数据</br>
-                Referer:http://www.jnshu.com/daily/15052 ——来于哪里</br>
-                User-Agent: ——客户端版本号的名字
+                Response Headers:</br>
+                Accept:客户端能接收的资源类型</br>
+                Accept-Encoding:gzip, deflate(客户端能接收的压缩数据的类型)</br>
+                Accept-Language:en-US,en;q=0.8 客户端接收的语言类型</br>
+                Cache-Control:no-cache 服务端禁止客户端缓存页面数据</br>
+                Connection:keep-alive 维护客户端和服务端的连接关系</br>
+                Cookie:客户端暂存服务端的信息</br>
+                Host:www.jnshu.com 连接的目标主机和端口号</br>
+                Pragma:no-cache 服务端禁止客户端缓存页面数据</br>
+                Referer:http://www.jnshu.com/daily/15052 来于哪里</br>
+                User-Agent: 客户端版本号的名字
 
             </section>
         </section>
@@ -130,18 +108,22 @@
 
 
         <section>
-            <h3>3.常见问题：</h3><br>
-            <p>使用post发送请求时如何设置content-type的值？</p>
+            <h3>问题</h3>
+            <p>使用post发送请求时如何设置content-type的值</p>
         </section>
 
         <section>
             <h3>4.解决方案</h3>
         </section>
         <section>
-            <p style="text-align: left">
-                1. application/x-www-form-urlencoded   最常见的POST提交格式，使用这个编码格式post的数据会以键值对的方式提交<br><br>
-                2. multipart/form-data   通常上传图片等文件会使用这种编码格式提交。<br><br>
-                3. application/json    提交JSON格式的数据
+            <p>
+               1. application/x-www-form-urlencoded   最常见的POST提交格式，使用这个编码格式post的数据会以键值对的方式提交
+            </p>
+            <p>
+                2. multipart/form-data   通常上传图片等文件会使用这种编码格式提交。
+            </p>
+            <p>
+                2. application/json    提交JSON格式的数据
             </p>
         </section>
         <section>
@@ -158,11 +140,8 @@
             <h3>7.参考文献</h3>
         </section>
         <section>
-            <div style="text-align: left;margin-left: 20%">
             <p>参考一：<a href="http://blog.csdn.net/ahuangtaoa/article/details/8666407">http中请求头和响应头</a></p>
             <p>参考二：<a href="http://blog.csdn.net/klarclm/article/details/7711021">content-type说明</a></p>
-            <p>参考三：《图解HTTP》</p>
-            </div>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -171,7 +150,7 @@
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
             <p>
-                <small>BY : 陈尚欢|胡嘉杰</small>
+                <small>BY : 陈尚欢</small>
             </p>
         </section>
 
