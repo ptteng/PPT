@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify {
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>position定位有哪几种？各有什么特点？</h2>
+            <h3>北京总院小课堂
+                <p>分享人：李博为</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>背景介绍</h3>
+        </section>
+        <section>
+            <p>
+                POSITION是CSS中非常重要的一个属性，通过position属性，我们可以让元素相对于其正常位置，父元素或者浏览器窗口进行偏移。
+            </p>
+        </section>
+        <section>
+            <h3>知识剖析</h3>
+        </section>
+        <section>
+            <h3>position概念</h3>
+            <p>
+                CSS的很多其他属性大多容易理解，比如字体，文本，背景等。有些CSS书籍、博客或网站也会对这些简单的属性进行大张旗鼓的介绍，而偏偏忽略了对一些难缠的属性讲解，有避重就轻的嫌疑。CSS中主要难以理解的属性包括盒型结构，各种垂直居中问题、弹性布局以及定位。<br>
+                <h4>正如position is everything.</h4>
+                position属性值:<br>
+                position的属性值共有四个常用的：static、relative、absolute、fixed。<br>
+                还有三个不常用的：inherit、initial、sticky
+        </section>
+        <section>
+            <h3>知识详解</h3>
+        </section>
+        <section style="text-align: left">
+            <h3>Static</h3>
+            所有元素在默认的情况下position属性均为static，而我们在布局上经常会用到的相对定位和绝对定位常用的属性top、bottom、left、right或者 z-index
+            声明在position为static的情况下无效。<br>其用法为：在改变了元素的position属性后可以将元素重置为static让其回归到页面默认的文档流中。
+        </section>
+        <section style="text-align: left">
+            <h3>Relative</h3>
+            relative定位，又称为相对定位，从字面上来解析，我们就可以看出该属性的主要特性：相对。但是它相对的又是相对于什么地方而言的呢？这个是个重点，也是最让我在学习CSS中迷糊的一个地方，现在让我们来做个测试，我想大家都会明白的：<br>
+            (1) 初始未定位<br>
+            <img src="../img/css4position-way/1.png">
+        </section>
+        <section style="text-align: left">
+            (2) 我们修改first元素的position属性：<br>
+            相对偏移20px后：<br>
+            <img src="../img/css4position-way/2.png"><br>
+        </section>
+        <section style="text-align: left">
+            已经很明显了，相对定位相对的是它原本在文档流中的位置而进行的偏移，而我们也知道relative定位也是遵循正常的文档流，它没有脱离文档流，但是它的top/left/right/bottom属性是生效的，可以说它是static到absoult的一个中间过渡属性，最重要的是它还占有文档空间，而且占据的文档空间不会随
+            top / right / left / bottom 等属性的偏移而发生变动，也就是说它后面的元素是依据虚线位置( top / left / right / bottom
+            等属性生效之前)进行的定位，这点一定要理解。<br>
+            <br>
+            <br>
+            <h4>小扩展</h4>
+            那好，我们知道了top / right / left / bottom 属性是不会对relative定位的元素所占据的文档空间产生偏移，那么margin /
+            padding属性会让该文档空间产生偏移吗？<br>
+            答案是肯定的，我们一起来做个试验吧：
+        </section>
+        <section style="text-align: left">
+            (3) 添加margin属性：<br>
+            设置margin：20px后：<br>
+            <img src="../img/css4position-way/3.png"><br>
+            对比一下，答案一目了然，我们先将first元素外边距设为20px，那么second元素就得向下偏移40px，所以margin是占据文档空间！<br>
+            同理，大家可以自己动手测下padding的效果！
+        </section>
+        <section style="text-align: left">
+            <h3>Absolute</h3>
+            absolute定位，也称为绝对定位，虽然它的名字号曰“绝对”，但是它的功能却更接近于"相对"一词，为什么这么讲呢？原来，使用absolut定位的元素脱离文档流后，就只能根据祖先类元素(父类以上)进行定位，而这个祖先类还必须是以position非static方式定位的，
+            举个例子，a元素使用absolute定位，它会从父类开始找起，寻找以position非static方式定位的祖先类元素(Note!一定要是直系祖先才算.），直到html根标签为止。<br>
+            这里还需要注意的是，relative和static方式在最外层时是以body标签为定位原点的，而absolute方式在无父级是position非static定位时是以html作为原点定位。<br>
+            但是呢，我们都知道html和body元素相差大概有9px左右。我们来看下效果：<br>
+        </section>
+        <section style="text-align: left">
+            (4) 添加absolute属性：<br>
+            position: absolute;top :0;left : 0<br>
+            <img src="../img/css4position-way/4.png"><br>
+            <br>
+            <br>
+            <br>
+            <br>
+            看了上面的信息后，细心的同学肯定要问了，为什么absolute定位要加 top:0; left:0; 属性，这不是多此一举吗？
+        </section>
+        <section style="text-align: left">
+            其实我们加上这两个属性是完全必要的，因为我们如果使用absolute或fixed定位的话，必须指定 left、right、 top、 bottom
+            属性中的至少一个，否则left/right/top/bottom属性会使用它们的默认值 auto
+            ，这将导致对象遵从正常的HTML布局规则，在前一个对象之后立即被呈递，简单讲就是都变成relative，会占用文档空间，这点非常重要，很多人使用absolute定位后发现没有脱离文档流就是这个原因，这里要特别注意~~~<br>
+            <br>
+            <br>
+            <br>
+            <h4>小扩展</h4>
+            既然absolute是根据祖先类中的position非static元素进行定位的，那么祖先类中的margin/padding会不会对position产生影响呢？看个例子先：
+        </section>
+        <section style="text-align: left">
+            (5) 在absolute定位中添加margin / padding属性：<br>
+            <img src="../img/css4position-way/5.png"><img src="../img/css4position-way/6.png">
+        </section>
+        <section style="text-align: left">
+            结果很明朗了，祖先类的margin会让子类的absolute跟着偏移，而padding却不会让子类的absolute发生偏移。<br>
+            总结一下，就是absolute是根据祖先类的border进行的定位。<br>
+            <br>
+            <br>
+            <br>
+            <br>
+            Note : 充分了解Relative和Absolute的区别后，我们可以分析得出这个结论：<br>(absolute)定位对象在可视区域之外会导致滚动条出现。而放置(relative)定位对象在可视区域之外，滚动条不会出现。这点在我们的前端页面制作中需要多加注意~~~
+        </section>
+        <section style="text-align: left">
+            <h3>Fixed</h3>
+            在很长的时间里，这个属性值因为兼容性问题，并没有得到非常广泛的应用（IE6未实现该属性值）。fixed和absolute有很多共同点：<br>
+            1.会改变行内元素的呈现模式，使display之变更为block。<br>
+            2.会让元素脱离文档流，不占据空间。<br>
+            3.默认会覆盖到非定位元素上。<br>
+            <br>
+            fixed与absolute最大的区别在于：absolute的”根元素“是可以被设置的，而fixed则其”根元素“固定为浏览器窗口。即当你滚动网页，其元素与浏览器窗口之间的距离是恒定不变的。<br>
+        </section>
+        <section>
+            <h3>拓展知识</h3>
+        </section>
+        <section style="text-align: left">
+            z-index属性：<br>
+            <br>
+            z-index，又称为对象的层叠顺序，它用一个整数来定义堆叠的层次，整数值越大，则被层叠在越上面，当然这是指同级元素间的堆叠，如果两个对象的此属性具有同样的值，那么将依据它们在HTML文档中流的顺序层叠，写在后面的将会覆盖前面的。需要注意的是，父子关系是无法用z-index来设定上下关系的，一定是子级在上父级在下。
+            <br>
+            <br>
+            Note：使用static 定位或无position定位的元素z-index属性是无效的。
+        </section>
+        <section>
+            什么是文档流？<br>
+            <br>
+            将窗体自上而下分成一行行, 并在每行中按从左至右的顺序排放元素,即为文档流。
+            <br>
+            只有三种情况会使得元素脱离文档流，分别是：浮动、绝对定位和相对定位。
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>absolute与float有哪些区别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+        </section>
+        <section>
+            <p><a href="http://www.cnblogs.com/coffeedeveloper/p/3145790.html#float" target="_blank">对CSS中的Position、Float属性的一些深入探讨</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>BY李博为</p>
+            <p>感谢师兄：覃腾波</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

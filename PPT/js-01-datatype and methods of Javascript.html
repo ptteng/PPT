@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-01】 <br>JS数据类型简介及常用方法</h2>
+
+            <h3>小课堂【成都第192期】</h3>
+
+            <p style="text-align: center;">分享人：赵绪琦</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>JavaScript 是一种轻量级的脚本语言，最初由网景公司开发。
+                所谓“脚本语言”，指的是它不具备开发操作系统的能力，而是只用来编写控制其他大型应用程序的“脚本”。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>一、有哪些数据类型</p>
+                <p>二、重点说明的数据类型</p>
+                <p>三、常用的方法</p>
+            </section>
+            <section>
+                <h3 style="position: relative;bottom: 5rem">一、有哪些数据类型</h3>
+                <p>在javascript中，数据类型有六种：string、number、boolean、undefined、null、object。（ES6 又新增了第七种 Symbol 类型的值，本此小课堂不涉及。）
+                   其中前五种为原始类型，后一种为引用类型。
+                </p>
+                <p>那么什么是原始类型，什么是引用类型呢？</p>
+            </section>
+            <section>
+                <p>栈内存&nbsp;&nbsp;&nbsp;&nbsp;内存区域比较小，但是能快速地访问。</p>
+                <p>堆内存&nbsp;&nbsp;&nbsp;&nbsp;内存区域大，不能够直接访问。需指针</p>
+               <p>
+                   所以在javascript中，因为原始类型就是比较简单的数据段，故其数据存储在栈内存中。引用类型是复杂的数据段，存放在堆内存中。
+               </p>
+            </section>
+            <section>
+                <h3 style="position: relative;bottom: 5rem">二、重点说明的数据类型</h3>
+                <p>1.数值（number）类型</p>
+                <p>2.对象（object）类型</p>
+            </section>
+            <section>
+                <h4 style="position: relative;bottom: 3rem">数值类型</h4>
+                <p>1.数值（number）类型</p>
+                <P>
+                    在javascript中，任何数值都是以64位浮点数来储存的。称为双精度浮点数。
+                    根据国际标准IEEE 754，任意一个二进制浮点数V可以表示成下面的形式：
+                </P>
+                <img src="../img/js-01-datatype and methods of Javascript/QQ-1.png" alt="">
+            </section>
+            <section>
+                <h4 style="position: relative;bottom: 3rem">数值类型</h4>
+                <img src="../img/js-01-datatype and methods of Javascript/QQ-1.png" alt="">
+                <p>举例来说，javascript中，一个10进制数"5"的存储过程：计算机先将其转化成二进制数，即101，然后再根据浮点数的形式，
+                    计算出s=0，M=1.01，E=2。
+                </p>
+            </section>
+            <section>
+                <h4 style="position: relative;bottom: 3rem">数值类型</h4>
+                <p>前面已经计算出s=0，M=1.01，E=2。然后再按照s、 E、 M的顺序排列好:</p>
+                <img src="../img/js-01-datatype and methods of Javascript/QQ-2.png" alt="">
+                <p>M默认的首位是1</p>
+                <p>所以是<span style="font-size: 18px">&nbsp;&nbsp;0 &nbsp;&nbsp;&nbsp;00000000010 &nbsp;&nbsp;&nbsp;
+                    0100000000000000000000000000000000000000000000000000</span></p>
+            </section>
+            <section>
+                <h4 style="position: relative;bottom: 3rem">数值类型</h4>
+                <p>提问：既然M是大于1的，那么在javascript中数值0怎么表示？？</p>
+            </section>
+            <!--对象篇-->
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">对象</h4>
+                <p>前面讲过引用类型，即object，提到了是一种复杂的数据段。怎么个复杂呢？</p>
+                <p>属性、方法</p>
+                <p>javascript中，引用类型预定义了许多种引用类型，如Object、Function、Array、RegExp、三种基本数据类型的包装对象等。</p>
+                <p>广义分类</p>
+                <p>狭义分类</p>
+            </section>
+            <!--常用的方法-->
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">字符串方法</h4>
+
+                <p>（1）split()方法 。作用是将字符串分割成字符串数组。并返回此数组。如：</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    var str="hello_world!";<br>
+                    str.split("_");//返回["hello","world"]
+                </code>
+                <p>(2)slice(start,stop)方法和substring(start,stop)方法 。返回字符串中某一指定部分
+                    两者基本类似，只不过前者支持负值，且负值表示末尾，如-1表倒数第一位，以此类推。如：
+                </p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    str.slice(0,2)//返回he
+                    str.slice(0,-2)//返回hello_worl
+                </code>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">字符串方法</h4>
+                <p>（3）indexof方法 。检测某一字符串值在字符串中首次出现的位置。如：</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    str.indexof("hello");//返回0
+                    若是返回值为负值，表示未找到
+                </code>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">数组方法</h4>
+                <p>（1）concat()方法，用于将两个数组组合在一起，或者说是在某一个数组上增加另外一个。如：</p>
+                    <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                        var arr1=["A"，"B"];<br>
+                        var arr2=["C", "D"];<br>
+                        arr1.concat(arr2);//["A","B","C","D"];
+                    </code>
+                <p>（2）join（）方法，将数组的元素组合成字符串。如：</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    arr1.join(".")//A.B.C  添加的参数为新字符串之间的连接符
+                </code>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">数组方法</h4>
+                <p>（3）sort（）方法  对数组进行排序
+                    不输入参数时按字符编码排序，可以自定义排序函数作为参数。如：
+                </p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    var arr=[1,2,3,4,5,6];<br>
+                    arr.sort(function mySort(a,b){return a-b;})
+                    /*相当于sort()方法每次从中选出两个元素a、b,
+                    这两个元素a、b按照排序函数里定义的运算进行运算，若输出为负数或零，则将a排在前面，否则排在后面*/
+                </code>
+            </section>
+            <section>
+                <h4 style="font-family: 'Times New Roman';text-transform:none;">算数方法</h4>
+                <p>（1）random()</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    var x=Math.random();//产生一个随机数x∈[0,1)
+                </code>
+                <p>（2）floor()与~~运算符</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    var y=Math.floor();//向下取整
+                    var z=~~x;//比floor()更高效
+                </code>
+                <p>（3）ceil()</p>
+                <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                    var y=Math.ceil();//向上取整
+                </code>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4 style="font-family: 'Times New Roman';text-transform:none;">如何理解涉及数据类型的一些怪象</h4>
+
+            <p>如原始类型的属性和方法</p>
+            <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                var str="abc";<br>
+                alert(a.length);
+            </code>
+            <p>表单value属性获得值</p>
+            <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                <input type="text" value="5"><br>
+                var x=document.getElementById("ipt");<br>
+                document.write(x > 0);//返回true
+            </code>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">元素类型的自动转换</h4>
+            <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                var str="abc";<br>
+                alert(a.length);
+            </code>
+            <p>
+                上面代码中，abc是一个字符串，本身不是对象，不能调用length属性。
+                JavaScript引擎自动将其转为包装对象，在这个对象上调用length属性。
+                调用结束后，这个临时对象就会被销毁。这就叫原始类型的自动转换。
+            </p>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">元素类型的自动转换</h4>
+            <code style="display: block;text-align:left;background-color: black;padding: .5rem 1rem;border-radius: 5px;margin: 0">
+                <input type="text" value="5"><br>
+                var x=document.getElementById("ipt");<br>
+                document.write(x > 0);//返回true
+            </code>
+            <p>
+                这里是因为有比较运算符，规则为：若二者均为字符串，则按照字典进行比较，否则两个子运算都会被自动转换成数值，再进行比较。
+            </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section style="text-align: center">
+            <p style="text-align: left;display: inline-block;">
+                typeof运算符 <br>
+                instanceof运算符 <br>
+                Object.prototype.toString方法 <br>
+            </p>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <h4  style="font-family: 'Times New Roman';text-transform:none;">javascript数据类型的自动转换</h4>
+            <p>
+                JavaScript是一种动态类型语言，变量没有类型限制，可以随时赋予任意值。
+                虽然变量没有类型，但是数据本身和各种运算符是有类型的。如果运算符发现，数据的类型与预期不符，就会自动转换类型。<br> <br>
+                详细参考：<a href="http://javascript.ruanyifeng.com/grammar/conversion.html">数据类型转换详解</a>
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p><a href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程(阮一峰著)</a></p>
+            <p><a href="http://www.w3school.com.cn/js/index.asp">W3School JavaScript 教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            javascript中浮点数是怎么存储数值&nbsp;0&nbsp;的？
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY : 赵绪琦 | somebody</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

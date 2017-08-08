@@ -1,0 +1,180 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>简述SCA及SCA和SOA的关系</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 胡凯博</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+        
+            <p>3.解决方案</p>
+            <p>4.编码实战</p>
+           
+            <p>5.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>SCA规范<br>SCA全称Service Component Architecture，即服务组件框架。它由BEA、IBM、Oracle等知名中间件厂商联合制定的一套符合SOA思想的规范。
+SCA在2005年11月，发布了0.9版本的规范，其中包括了组装模型规范，Java/C++客户端以及其实现规范。2006年4月，整个SCA规范有了很大的改进，推出了对应的0.95版本。2007年3月，SCA的1.0版本终于发布。
+Task9的tuscany就是SCA规范的实现。</p>
+            <p> </p>
+        </section>
+		<section>
+            <p>SOA架构<br>面向服务的架构（SOA）是一个组件模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。这使得构建在各种各样的系统中的服务可以以一种统一和通用的方式进行交互。</p>
+
+        </section>
+        
+			
+		
+        <section>
+            <h3>2.SCA的实现</h3>
+        </section>
+		
+		<section>
+            <p>SCA致力于解决软件应用的两个问题：复杂性和重用性。	<br>
+			<br>
+SCA提供了构建分布式系统的简单模型
+其次，SCA通过composite,component和服务的方式来实现应用程序资源和业务逻辑的重用。<br>
+而且SCA它作为一种编程规范，与具体的语言和平台无关。它既可以运行于统一操作系统的不同进程，也可以跨越不同机器上的多个进程。
+而且SCA作为一种规范，需要与其他企业架构结合使用，比如它没有定义持久层和表现层的机制，它可以和JDBC，jsp等技术结合使用
+
+            </p>
+            <p>
+
+            </p>
+		</section>
+	 <section>
+            
+            <p> Task9中的Tuscany就是apache提供的一个实现了SCA规范/编程模型的开源项目，为java sca提供了其运行环境.<br>
+			<br>
+			SCA中有几个基本元素：<br>
+			component：实现功能的单元<br>
+			service：组件通过服务的方式对外提供服务<br>
+			composite：用于描述如何连接组件和服务
+
+        </section>
+		<section>
+		<h3>2.SOA的具体实现</h3>
+		
+		
+		</section>
+		<section>
+		<p>由于SOA的架构实现不依赖于技术和平台，所以能够被各种不同的技术实现。<br>
+		比如：RPC,REST,Web Service，java RMI等等</p>
+		</section>
+		<section>
+
+            <h3>RPC协议：</h3>
+			RPC（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。<br>
+			<br>
+它和java RMI的区别是RPC协议是跨语言的，是一种略微底层的传输协议。而java RMI只支持java，而且RMI支持对java对象的传输。RPC的消息传输由一种叫XDR的语言表示，它抽象了不同语言数据类型的差异，因此可以跨平台。
+<br>总的来说，java RMI可以看作java版本的rpc协议。
+			</p>
+        </section>
+        <section>
+			<h3>Java RMI协议：</h3>
+			之前说RMI和RPC差不多，两者在根本上都是基于tcp协议来传输数据的。java RMI在java1.1版本就提供了，它是在tcp协议上传递可序列化的java对象，只能用在java虚拟机上，绑定语言，客户端和服务端都必须是java</p>
+        </section>
+        <section>
+            <h3>web service协议：</h3>
+			<p>webservice是一种标准，他可以通过soap或rest的方式来实现。
+传统的soap-webservice，使用了soap协议（基于xml包装）等。如果使用restful-webservice的话，则不需要soap与之相关的协议等，而是通过最简单的 http 协议传输数据 ( 包括 xml 或 json) 。既简化了设计，也减少了网络传输量（因为只传输代表数据的 xml 或 json ，没有额外的 xml 包装）。<br>
+			（soap协议：一种严格定义的简单对象访问协议）</p>
+        </section>
+		 <section>
+            <h3>REST：</h3>
+			<p>REST(Representational State Transfer)一种轻量级的Web Service架构，可以完全通过HTTP协议实现。我们在Task2里的restful风格就是REST的实现，通过HTTP协议提供GET、POST、PUT和DELETE方法获取参数，吞吐标准数据格式（一般是json）</p>
+        </section>
+        <section>
+            <h3>4.编码实战</h3>
+			
+        </section>
+       <section>
+            <h3>5.更多讨论</h3>
+            <p>相关文档：http://blog.csdn.net/pcceo1/article/details/51245249/p>
+			<br>http://blog.csdn.net/tantexian/article/details/48196453
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 胡凯博</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

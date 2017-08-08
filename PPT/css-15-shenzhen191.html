@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤 PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task15】</h2>
+            <h3>小课堂【深圳第191期】</h3>
+            <h4>渐进增强和优雅降级之间的区别</h4>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.拓展思考</p>
+            <p>7.课后讨论</p>
+            <p>8.参考文献</p>
+        </section>
+        <section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在前端开发过程中，如果有注意的话，发现有些写css3属性时，兼容性的写法顺序不太一样。
+                比如transform属性，有些把transform放在前面有些是放在后面，这就引出了两个概念：优雅降级和渐进增强。</p>
+        </section>
+            <section>
+            <p>渐进增强和优雅降级这两个概念是在css3出现之后火起来的。由于低级浏览器不支持css3，但是也不能因噎废食而放弃css3。
+                所以就产生了一种解决方式，即在高级浏览器中使用css3，而在低级浏览器只保持最基本的功能，这样就能皆大欢喜了。</p>
+            </section>
+            </section>
+        <section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+            <section>
+                <h3>一、什么是渐进增强？</h3>
+                <p>一开始就针对低版本的浏览器构建页面，完成最基本的功能，然后再针对高级浏览器进行效果，交互，追加各种功能以达到更好用户体验。其实也就相当于向上兼容。</p>
+                <pre>
+                    .box {
+                    -webkit-transform:rotate(7deg);     /* Safari 和 Chrome */
+                       -moz-transform:rotate(7deg); 	/* Firefox */
+                        -ms-transform:rotate(7deg); 	/* IE 9 */
+                         -o-transform:rotate(7deg); 	/* Opera */
+                            transform:rotate(7deg);
+                    }
+                </pre>
+            </section>
+            <section>
+                <h3>二、什么是优雅降级？</h3>
+                <p>一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。也就相当于向下兼容。</p>
+                <pre>
+                    .box {
+                            transform:rotate(7deg);
+                         -o-transform:rotate(7deg); 	/* Opera */
+                        -ms-transform:rotate(7deg); 	/* IE 9 */
+                       -moz-transform:rotate(7deg); 	/* Firefox */
+                    -webkit-transform:rotate(7deg);     /* Safari 和 Chrome */
+                    }
+                </pre>
+            </section>
+
+            </section>
+
+        <section>
+            <section>
+            <h3>3.常见问题</h3>
+        </section>
+            <section>
+                <h3 style="text-transform:none;">优雅降级(Graceful Degradation)和渐进增强(Progressive Enhancement)有什么区别？</h3>
+                <img src="https://dn-mhke0kuv.qbox.me/ef73818a141751a53e40" alt="优雅降级和渐进增强的区别">
+            </section>
+        </section>
+
+        <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+            <section>
+                <h3>优雅降级</h3>
+                <p>优雅降级观点认为应该针对那些最高级、最完善的浏览器来设计网站。而将那些被认为“过时”或有功能缺失的浏览器下的测试工作安排在开发周期的最后阶段，
+                    并把测试对象限定为主流浏览器。在这种设计范例下，旧版的浏览器本认为仅能提供“简陋却无妨”的浏览体验。你可以做一些小的调整来适应某个特定的浏览器。
+                    但由于它们并非我们关注的焦点，因此除了修复较大的错误之外了，其它的差异将被直接忽略。这就有一种“谁让你们那么差，作为吊车尾还不赶快自己努力赶上来”的意味在里面。</p>
+            </section>
+            <section >
+                <h3>渐进增强</h3>
+                <p>渐进增强观点认为应该关注内容本身。内容是我们建立网站的诱因。有的网站展示它，有的则收集它，有的寻求，有的操作，还有的网站甚至会包含以上的种种，
+                    但相同点是它们都涉及到内容。这使得渐进增强成为一种更为合理的设计范例。这就有一种“一个也不能落下”的人道主义精神在里面了。虽然你版本低，但是也不能放弃你。</p>
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section style="text-align: left;">
+            <p>这两个概念看起来其实差别也没那么大，似乎也就是顺序不同而已。但是有时候，顺序不同，相同属性产生的作用是不同的。</p>
+            <p>比如border-radius属性和-webkit-border-radius属性，当属性值超过一个参数值的时候，两个属性产生的作用是不同的。看代码。</p>
+            <pre>
+                .box1 {
+                        border-radius: 100px 30px;
+                -webkit-border-radius: 100px 30px;
+                }
+
+                .box2 {
+                -webkit-border-radius: 100px 30px;
+                        border-radius: 100px 30px;
+                }
+            </pre>
+        </section>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <p>渐进增强和优雅降级如何抉择？</p>
+        </section>
+        <section style="text-align: left; font-size: 30px">
+            <p>如果软件开发的预算和时间充足，就不存在抉择的问题，可以两者都调整到一个最佳状态。
+                然而现实中实际上要么开发周期短，要么开发预算少，或者二者兼而有之，那么如何抉择？</p>
+            <p>1、如果低版本用户居多，当然优先采用渐进增强的开发流程。</p>
+            <p>2、如果高版本用户居多，为了提高大多数用户的使用体验，当然优先采用优雅降级的开发流程。</p>
+        </section>
+        <section style="text-align: left; font-size: 30px">
+            <p>然而事实情况是怎么样的呢？绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。
+                例如：新浪微博网站前端的更新，拥有这种亿级用户的网站，绝对不可能追求某个特效而不考虑低版本用户可不可用，
+                一定是确保低版本到高版本的可访问性，再去渐进增强，采用新功能给高版本用户提供更好的用户体验。</p>
+            <p>但也不是没有反例。如果你开发的是一款面向青少年的软件（或网站），你知道这个群体的人总是喜欢尝试新事物，
+                总是喜欢酷炫的特效，总是喜欢把它们的软件更新到最新版本（而不像我们老一辈的用户）。面对这种情况，优雅降级的开发流程是“坠吼的”。
+            </p>
+
+        </section>
+        <section>
+            <h3>7.课后讨论</h3>
+        </section>
+        <section>
+            <p>对于渐进增强和优雅降级你的看法是什么？</p>
+            <p>我们在学习工作中写代码时用的是哪种方式?</p>
+            <p>如果要建立个人网站，你会用哪种方式？</p>
+        </section>
+        <section>
+        <section>
+            <h3>8.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.zhangxinxu.com/wordpress/2010/09/%E9%9C%80%E8%AD%A6%E6%83%95css3%E5%B1%9E%E6%80%A7%E7%9A%84%E4%B9%A6%E5%86%99%E9%A1%BA%E5%BA%8F/">《需警惕css3属性的书写顺序》 --张鑫旭</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/obkoro1/article/details/70141882">渐进增强和优雅降级之间的区别在哪里？</a></p>
+        </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :张珺琢|包腾飞</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -133,7 +133,6 @@
                     for (var j = 0; j < JSON.parse(localStorage.getItem('list'))[i].length; j++) {
                         if (JSON.parse(localStorage.getItem('list'))[i][j] == 1) {
                             $(".title[index=" + i + "]").siblings("ul.body").children(".list[index=" + j + "]").css("background-color", "#00ee00");
-    //                        console.log($(".title[index="+i+"]").siblings("ul.body[index="+j+"]"));
                         } else {
                             $(".title[index=" + i + "]").siblings('ul.body').children(".list[index=" + j + "]").css("background-color", "transparent");
                         }
@@ -155,7 +154,6 @@
                         localStorage.setItem('title', JSON.stringify(title));
                     } else if ($(this).siblings('ul.body').css('display') === 'none') {
                         title[Number($(this).attr("index"))] = 0;
-    //                    console.log($(this).attr("index"));
                         localStorage.setItem('title', JSON.stringify(title));
                     }
                     console.log($(this).siblings('ul.body').css("display"));
@@ -176,7 +174,6 @@
                     list[Number($(this).parent().attr("index"))][Number($(this).attr("index"))] = 1;
                     //存数组需先把数组转化为JSON
                     localStorage.setItem('list', JSON.stringify(list));
-    //                console.log(localStorage.getItem('list'));
                 }
             )
         });

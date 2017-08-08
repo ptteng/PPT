@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        p{text-align: left}
+        .a>p{text-align: center}
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JS如何进行模块化编程？</h2>
+            <h3>小课堂【武汉第一百三十九期】</h3>
+            <p style="text-align: center">分享人：朱英杰</p>
+        </section>
+        <section class="a">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-indent: 2em;text-align: justify">
+                随着网站逐渐变成"互联网应用程序"，嵌入网页的Javascript代码越来越庞大，越来越复杂。网页越来越像桌面程序，需要一个团队分工协作、进度管理、单元测试等等......开发者不得不使用软件工程的方法，管理网页的业务逻辑。
+                Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。
+                但是，Javascript不是一种模块化编程语言，它不支持"类"（class），更不用说"模块"（module）了。（正在制定中的ECMAScript标准第六版，将正式支持"类"和"模块"。）
+              </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>
+                    模块规范
+                </p>
+                <p>由于Javascript模块现在还没有官方规范，目前，通行的Javascript模块规范共有两种：CommonJS和AMD。</p>
+            </section>
+            <section>
+                <p>CommonJS</p>
+                <p>2009年，美国程序员Ryan Dahl创造了node.js项目，将javascript语言用于服务器端编程。
+
+                    这标志"Javascript模块化编程"正式诞生。因为老实说，在浏览器环境下，没有模块也不是特别大的问题，毕竟网页程序的复杂性有限；但是在服务器端，一定要有模块，与操作系统和其他应用程序互动，否则根本没法编程。
+                    node.js的模块系统，就是参照CommonJS规范实现的。在CommonJS中，有一个全局性方法require()，用于加载模块。
+
+            </section>
+            <section>
+                <p>假定有一个数学模块math.js，就可以像下面这样加载。</p>
+                <p>var math = require('math');</p>
+                <p> 然后，就可以调用模块提供的方法：</p>
+                <p>var math = require('math');</p>
+                <p>　math.add(2,3); // 5</p>
+
+            </section>
+            <section>
+                <p>
+                    但是，由于一个重大的局限，使得CommonJS规范不适用于浏览器环境。还是上一节的代码，如果在浏览器中运行，会有一个很大的问题，<p>第二行math.add(2, 3)，在第一行require('math')之后运行</p>因此必须等math.js加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。
+                    这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于"假死"状态。因此，浏览器端的模块，不能采用"同步加载"（synchronous），只能采用"异步加载"（asynchronous）。这就是AMD规范诞生的背景。
+                </p>
+            </section>
+            <section>
+                <p>AMD</p>
+                <p>
+                AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+                AMD也采用require()语句加载模块，：
+            </p>
+            </section>
+            <section>
+                <p>但是不同于CommonJS，它要求两个参数</p>
+                <p>　require([module], callback);</p>
+                <p> 第一个参数[module]，是一个数组，里面的成员就是要加载的模块；第二个参数callback，则是加载成功之后的回调函数。如果将前面的代码改写成AMD形式，就是下面这样：</p>
+                <p>　require(['math'], function (math) {</p>
+                <p>math.add(2, 3);</p>
+                <p>});</p>
+                <p>    math.add()与math模块加载不是同步的，浏览器不会发生假死。所以很显然，AMD比较适合浏览器环境。</p>
+            </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h3>模块的写法是怎么样的</h3>
+            </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>原始写法</p>
+            <p>模块就是实现特定功能的一组方法。只要把不同的函数（以及记录状态的变量）简单地放在一起，就算是一个模块。</p>
+            <pre>
+                <code>
+                    　　function m1(){
+                    　　　　//...
+                    　　}
+                    　　function m2(){
+                    　　　　//...
+                    　　}
+                </code>
+            </pre>
+            <p style="font-size: 30px;"> 上面的函数m1()和m2()，组成一个模块。使用的时候，直接调用就行了。这种做法的缺点很明显："污染"了全局变量，无法保证不与其他模块发生变量名冲突，而且模块成员之间看不出直接关系。</p>
+        </section>
+            <section>
+                <p>对象写法</p>
+                <p>  为了解决上面的缺点，可以把模块写成一个对象，所有的模块成员都放到这个对象里面。</p>
+            <pre>
+                <code>
+                    　　var module1 = new Object({
+                    　　　　_count : 0,
+                    　　　　m1 : function (){
+                    　　　　　　//...
+                    　　　　},
+                    　　　　m2 : function (){
+                    　　　　　　//...
+                    　　　　}
+                    　　});
+                </code>
+            </pre>
+                <p style="font-size: 30px;">
+                    上面的函数m1()和m2(），都封装在module1对象里。使用的时候，就是调用这个对象的属性。
+                    　　module1.m1();
+                    但是，这样的写法会暴露所有模块成员，内部状态可以被外部改写。比如，外部代码可以直接改变内部计数器的值。
+                    　　module1._count = 5;
+                </p>
+            </section>
+            <section>
+                <p style="font-size: 30px">立即执行函数写法</p>
+                <p style="font-size: 30px">
+                    使用"立即执行函数"（Immediately-Invoked Function Expression，IIFE），可以达到不暴露私有成员的目的。
+                </p>
+                <p style="font-size: 30px">
+                </p>
+            <pre>
+                <code>
+                    　　var module1 = (function(){
+                    　　　　var _count = 0;
+                    　　　　var m1 = function(){
+                    　　　　　　//...
+                    　　　　};
+                    　　　　var m2 = function(){
+                    　　　　　　//...
+                    　　　　};
+                    　　　　return {
+                    　　　　　　m1 : m1,
+                    　　　　　　m2 : m2
+                    　　　　};
+                    　　})();
+                    console.info(module1._count); //undefined
+                </code>
+            </pre>
+
+            </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        <h3>require.js</h3>
+        </section>
+        <section>
+            <p>require.js是一个非常小巧的JavaScript模块载入框架，是AMD规范最好的实现者之一。</p>
+            <p>
+                最早的时候，所有Javascript代码都写在一个文件里面，只要加载这一个文件就够了。后来，代码越来越多，一个文件不够了，必须分成多个文件，依次加载。下面的网页代码，相信很多人都见过。
+               <pre>
+                <code>
+                        <script src="1.js"></script>
+                    　　<script src="2.js"></script>
+                    　　<script src="3.js"></script>
+                    　　<script src="4.js"></script>
+                    　　<script src="5.js"></script>
+                    　　<script src="6.js"></script>
+                </code>
+               </pre>　
+
+            </p>
+        </section>
+        <section>
+        <p>
+            这段代码依次加载多个js文件。
+            这样的写法有很大的缺点。首先，加载的时候，浏览器会停止网页渲染，加载文件越多，网页失去响应的时间就会越长；其次，由于js文件之间存在依赖关系，因此必须严格保证加载顺序（比如上例的1.js要在2.js的前面），依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。
+            require.js的诞生，就是为了解决这两个问题：
+        </p>
+    </section>
+        <section>
+            <p>
+                require.js加载的模块，采用AMD规范。也就是说，模块必须按照AMD的规定来写。
+                具体来说，就是模块必须采用特定的define()函数来定义。如果一个模块不依赖其他模块，那么可以直接定义在define()函数之中。
+            </p>
+        </section>
+        <section>
+            <p>假定现在有一个math.js文件，它定义了一个math模块。那么，math.js就要这样写</p>
+              <pre>
+                    <code>
+                        // math.js
+                        　　define(function (){
+                        　　　　var add = function (x,y){
+                        　　　　　　return x+y;
+                        　　　　};
+                        　　　　return {
+                        　　　　　　add: add
+                        　　　　};
+                        　　});        加载方法如下：
+                        　　// main.js
+                        　　require(['math'], function (math){
+                        　　　　alert(math.add(1,1));
+                        　　});
+                        如果这个模块还依赖其他模块，那么define()函数的第一个参数，必须是一个数组，指明该模块的依赖性。
+                        　　define(['myLib'], function(myLib){
+                        　　　　function foo(){
+                        　　　　　　myLib.doSomething();
+                        　　　　}
+                        　　　　return {
+                        　　　　　　foo : foo
+                        　　　　};
+                        　　});
+                        当require()函数加载上面这个模块的时候，就会先加载myLib.js文件。
+                    </code>
+                </pre>
+        </section>　　
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">Javascript模块化编程-阮一峰</a></p>
+            <p>参考二：<a href="http://www.ruanyifeng.com/blog/2012/10/asynchronous_module_definition.html" target="_blank">Javascript模块化编程-阮一峰</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:center;">感谢大家观看</p>
+            <p style="text-align:center;">
+                <small>BY :朱英杰</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
