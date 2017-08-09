@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>拦截器、过滤器、监听器各有什么作用？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘家铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>拦截器:spring mvc中的一项重要功能,主要作用是拦截用户的请求并进行相应的处理.比如通过拦截器进行用户权限验证,判断用户是否已经登录</p>
+			<p>过滤器:过滤器是实现了javax.servlet.Filter接口的服务器端程序,主要的用途是过滤字符编码,做一些业务逻辑判断,过滤器随web应用启动而启动,只初始化一次,只有当web应用停止或重新部署才销毁</p>
+			<p>监听器:监听器是实现了javax.servlet.ServletContextListener接口的服务器端程序,它也是随web应用的启动而启动,只初始化了一次,随web应用的停止而销毁.</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>拦截器:拦截器请求是通过实现HandlerInterceptor接口来完成的.HandlerInterceptor接口定义了三个方法,spring mvc就是通过这三个方法来对用户请求进行拦截处理</p>
+			<p>1:boolean preHandle,在请求处理之前被调用,可以在这个方法中进行一些前置的初始化操作或者对当前请求进行预处理.也可以进行一些判断来决定请求是否要继续进行下去.</p>
+			<p>spring mvc中的拦截器是链式调用形式.也就是说一个请求可以同时存在多个控制器,每个控制器的调用会根据它声明的顺序依次执行,且最先执行的是preHandle方法
+该方法返回值是boolean类型,返回false时表示请求结束,返回true时就会继续调用下一个拦截器的preHandLe方法,如果没有下一个拦截器,就会调用当前请求的控制器方法</p>
+			
+		</section>
+		<section>
+			<p>2:void postHandle,该方法只能在当前拦截器返回true时才能被调用.此方法意思是在当前请求被处理后,也就是控制器方法被调用之后执行,但是会在DispatcherServlet(分发器)进行视图渲染前被调用</p>
+			<p>3:void afterCompletion,该方法也是需要preHandle方法返回true时才会执行,.该方法将在整个请求结束后,也就是DispatcherServlet渲染对应视图之后执行,主要作用是进行资源清理</p>
+		</section>
+		<section>
+			<p>监听器:监听器Listener就是在application,session,request三个对象创建、销毁或者往其中添加修改删除属性时自动执行代码的功能组件。</p>
+			<p>Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。</p>
+			<p>监听器主要分为以下三类</p>
+		</section>
+		<section>
+			<p>1:ServletContext监听</p>
+			<img src="D:\jianting.png">
+		</section>
+		<section>
+			<p>2:Session监听</p>
+			<img src="D:\se.png">
+		</section>
+		<section>
+			<p>3:Request监听</p>
+			<img src="D:\as.png">
+		</section>
+		<section>
+			<p>过滤器:Filter,是Servlet中最实用的技术,通过过滤器对web服务器管理的所有web资源,如:jsp,servlet,静态图片文件或静态html文件进行拦截,从而实现一些特殊的功能,例如实现URL级别的权限访问控制,过滤敏感词汇等功能</p>
+			<p>主要用于对用户请求进行预处理,也可以对HttpServletResponse进行后处理.</p>
+			<img src="D:\guolv.png">
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1:过滤器如何实现拦截</p>
+			<p>2:他们的配置是怎样的</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>Filter接口中有一个doFilter方法,当开发人员编写好Filter,并配置对哪个web资源进行拦截后,web服务器在每次调用方法之前,都会先调用一下filter的doFilter方法,因此,可以达到以下目的:</p>
+			<p>1:调用目标之前,让一段代码执行</p>
+			<p>2:是否调用目标资源(即是否让用户访问web资源)</p>
+			<p>web服务器在调用doFilter方法时，会传递一个filterChain对象进来，filterChain对象是filter接口中最重要的一个对象，它也提供了一个doFilter方法，开发人员可以根据需求决定是否调用此方法，调用该方法，则web服务器就会调用web资源的service方法，即web资源就会被访问，否则web资源不会被访问。</p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		<p>过滤器,监听器,拦截器的配置</p>
+		
+        <!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\1.png">
+		<!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\2.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        <section>
+			
+		</section>
+		<section>
+			
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘家铭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
