@@ -1,0 +1,214 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>唯一索引和普通索引的区别是什么，什么时候需要建唯一索引。</h3>
+			<p></P>
+            <h4>小课堂【武汉第17期】</h4>
+            <p>分享人：甘乐乐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">索引（INDEX）是寻找资源中特定项目的一种机制，其实质是一种以特定顺序保存的表。索引的作用是便捷化检索表中的行和列的子集，而不需要检查表中的每行。常见有INDEX、UNIQUE INDEX、FULLTXET INDEX和SPATIAL INDEX（仅MyISAM支持后两者)。</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">UNIQUE INDEX具备INDEX的全部特点，还作为一种机制限制索引列出现重复值，即设置为UNIQUE INDEX的列或者字段，其对应的值必须唯一。唯一索引可以保证数据记录的唯一性。</p>
+			<p style="text-align:left">通常，人们创建唯一索引的目的往往不是为了提高访问速度，而只是为了避免数据出现重复。即向表中插入一条记录，DBMS首先检查该记录中被定义为UNIQUE INDEX字段的值是否已经存在；如果是，DBMS将拒绝插入那条新记录。</p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">每个索引实质上是一个表，需要占用磁盘空间与维护管理。每次对表增或删，表中的所有INDEX必须被修改；更新行时，受影响的的列的任何INDEX也必须被修改。一旦发生较多INDEX更改，服务器的处理性能将被拖累。</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>INDEX默认使用策略（一）</p>
+			<p></p>
+            <p>确保所有主键列被索引；</p>
+        </section>
+        <section>
+            <p>INDEX默认使用策略（二）</p>
+			<p></p>
+            <p>为所有被外键约束引用的列创建索引；</p>   
+        </section>
+        <section>
+            <p>INDEX默认使用策略（三）</p>
+			<p></p>
+            <P>索引被频繁检索的列。</P>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+             <p style="text-align:left">1）创建索引</p>
+		     <p style="text-align:left">
+			 mysql> ALTER TABLE Registration<br/>
+			 -> ADD INDEX reg_name_idx(name);<br/>
+			Query OK, 0 rows affected (0.03 sec)<br/>
+			Records: 0  Duplicates: 0  Warnings: 0
+			</p>
+        </section>
+		<section>
+             <p style="text-align:left">2）创建唯一索引 </p>
+		     <p style="text-align:left">
+			 mysql>  CREATE INDEX reg_name_idx<br/>
+			 -> ON Registration (name);<br/>
+	        Query OK, 0 rows affected (0.02 sec)<br/>
+			Records: 0  Duplicates: 0  Warnings: 0<br/>
+			<p></p>
+			<p style="text-align:left">
+			<i><small>从MySQL5.0开始，create index命令已经映射到alter table命令，但是前者依旧可用。</small></i>
+			</p>
+        </section>
+		
+		<section>
+             <p style="text-align:left">3）删除索引</p>
+		     <p style="text-align:left">
+			 mysql> ALTER TABLE Registration<br/>
+			 -> DROP INDEX reg_QQ_idx;<br/>
+		    Query OK, 0 rows affected (0.02 sec)<br/>
+		    Records: 0  Duplicates: 0  Warnings: 0
+			</p>
+        </section>
+		
+		<section>
+             <p style="text-align:left">4）插入一条记录</p>
+		     <p style="text-align:left">
+			 mysql> INSERT INTO Registration(QQ)<br/>
+			 -> VALUES('505034172');<br/>
+			Query OK, 0 rows affected (0.02 sec)<br/>
+		    ERROR 1062 (23000): Duplicate entry '505034172' for key<br/>
+		    reg_QQ_idx'<br/>
+			</p>
+			<p></p>
+			<p style="text-align:left"><i><small>表Registration中已经存在VALUE(QQ)='505034172'的记录，插入操作被拒绝。</small></i></p>
+        </section>
+		
+		<section>
+             <p style="text-align:left">5）查看索引</p>
+		     <p style="text-align:left">
+			 mysql> SHOW INDEX FROM Registration \G<br/>
+			 </p>
+			 <p></p>
+			<p style="text-align:left">
+			 <i><small>在实施主键约束（primary key）、外键约束（foreign key）和唯一约束（unique key）时，MySQL自动生成新索引；而SQL Sever和Oracle处理机制则不同。</small></i>
+			 </p>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align:left">基于报名帖的学员表，如果对QQ建立了UNIQUE INDEX，在插入新的学员记录时候，是否需要先判断这个QQ是否存在？</p>  
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align:left">Alan Beaulieu . SQL 学习指南（第2版）.张伟超 林青松译.北京：人民邮电出版社，2015.</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家拍砖和吐槽!</p>
+        </section>
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:left">首先感谢我的辅导师兄 王玉琛和刘家铭在学习DBMS过程中对我给予指导和释疑,其次感谢大家观看。</p>
+       
+        </section>
+		
+		
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
