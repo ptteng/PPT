@@ -261,6 +261,57 @@
                 <h3>6.扩展思考</h3>
             </section>
             <section>
+                <p>SourceTree里GitFlow的使用</p>
+            </section>
+            <section style="text-align: left">
+                <p>1、初始化</p>
+                <p>SourceTree会自动化进行一些操作，最明显的变化是项目代码库里自动增加了一个develop的分支。</p>
+                <p>将新创建的develop分支推送到远端仓库。</p>
+                <p>从此，代码库里就存在了两个永久性的分支：master和develop，未来所有的开发工作都围绕这两个分支进行派生跟合并。</p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 30px">
+                    之前提到，项目里有两个永久的分支：master和develop。这两个分支也被称为“历史性”分支，在其后的开发工作中，
+                    Gitflow模型支持在feature、release、hotfix分支上折腾，这样也有效避免了不同类型的开发工作在代码层级的耦合和干扰。<br>
+                    这三个分支的用途、派生来源分支和合并目标分支如下：<br>
+                    feature，功能开发分支，用于承接具体功能需求的开发<br>
+                    派生于develop<br>
+                    合并于develop<br>
+                    hotfix，bug修复分支，用于解决线上运行环境发现的bug<br>
+                    派生于master<br>
+                    合并于master、develop<br>
+                    release，版本发布分支，用于完成发布准备的<br>
+                    派生于develop<br>
+                    合并于master、develop<br>
+                    跟“历史性”分支相反，这三类分支都是短期分支，针对他们的工作内容完成后，一般都要进行删除。工作内容完成的标识有两个：开发完成、合并完成，缺一不可。
+                </p>
+            </section>
+            <section>
+                <p>我们使用sourcetree来实际演示一下</p>
+            </section>
+            <section>
+                <p>
+                    三类临时性分支中，hotfix和release的结果都要合并到master和develop中，为什么？因为它们的修改结果持续影响这后续的开发和维护，必须合并以保证代码的一致性。
+                    如果你没有认识到这个特性很有用，那是因为你的开发工作还没有复杂到一个程度，一个必须要规避代码干扰、保证并行推进的程度。
+                    对于小型项目和团队来说，基于GIT的中心式协作模型和特性分支模型就足够了；GitFlow模型适合中型、大型项目和团队。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md#231-工作方式" target="_blank">Git工作流指南</a></p>
+                <p>参考二：<a href="http://blog.csdn.net/wwj_748/article/details/55226044" target="_blank"> Git 工作流的一些经验分享</a></p>
+                <p>参考三：<a href="http://www.cnblogs.com/niwanglong385/articles/5645835.html" target="_blank">SourceTree里GitFlow的使用</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
                 <p style="text-align: left">
                     一定要按照上述几种工作流来进行开发吗？
                 </p>
@@ -275,20 +326,6 @@
                     编码实战演示的工作流只是可能用法的例子，而不是在实际工作中使用Git不可违逆的条例。
                     所以不要畏惧按自己需要对工作流的用法做取舍。不变的目标就是让Git为你所用。
                 </p>
-            </section>
-        </section>
-        <section>
-            <section>
-                <h3>7.参考文献</h3>
-            </section>
-            <section>
-                <p>参考一：<a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md#231-工作方式" target="_blank">Git工作流指南</a></p>
-                <p>参考二：<a href="http://blog.csdn.net/wwj_748/article/details/55226044" target="_blank"> Git 工作流的一些经验分享</a></p>
-            </section>
-        </section>
-        <section>
-            <section>
-                <h3>8.更多讨论</h3>
             </section>
         </section>
         <section>
