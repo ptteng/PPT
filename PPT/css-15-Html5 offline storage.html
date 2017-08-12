@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-indent: 2em;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-15】HTML5的离线储存怎么使用？</h2>
+            <h3>小课堂【深圳第198期】</h3>
+            <p>分享人：孙剑立</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p> HTML5提供了很多新的功能以及相应的接口，离线存储就是其中的一个，离线存储可以将站点的一些文件存储在本地，在没有网络的时候还是可以访问到以缓存的对应的站点页面，其中这些文件可以包括html，js，css，img等等文件，但其实即使在有网络的时候，浏览器也会优先使用已离线存储的文件，返回一个200（from cache）头。这跟HTTP的缓存使用策略是不同的。<br>
+                它是浏览器自己的一种机制，随着移动互联网时代的到来，网络可靠性降低，如果我们已经将需要的文件缓存下下来，一旦网络无法访问，也能继续访问。<br>
+                而且做好相应资源的缓存可以带来更好的用户体验，当用户使用自己的流量上网时，本地缓存不仅可以提高用户访问速度，而且大大节约用户的使用流量。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>什么是Manifest：<br>
+                    其实Manifest是一个简单的 文本文件，它的扩展名是任意的，定义需要缓存的文件、资源，当第一次打开时，浏览器会自动缓存相应的资源。</p>
+                <p>
+                    Manifest 的特点：<br>
+                    离线浏览：即当网络断开时，可以继续访问你的页面。<br>
+                    访问速度快：将文件缓存到本地，不需每次都从网络上请求。<br>
+                    稳定性：做了Manifest缓存，遇到突发网络故障或者服务器故障，继续访问本地缓存。<br>
+                </p>
+            </section>
+            <section>
+                <h4>如何使用:</h4>
+                <p>创建一个和html同名的manifest文件，比如页面为text.html，那么可以建一个test.appcache的文件，注意，这里的扩展名是任意的。然后给text.html的html标签添加如下属性即可：</p>
+                <code>
+                    &lt;html manifest="test.appcache"&gt;
+                </code>
+                </pre>
+            </section>
+            <section>
+                <p>manifest 标签应该包含到你需要缓存资源的页面，当第一次打开该页面时，浏览器会解析该页面中的mainfest，并缓存里面列举的资源，同时该页面也会自动会被浏览器缓存，即使该页面没有在Manifest中列出。</p>
+                <p>接下来详细说说manifest的细节，一个典型的manifest文件代码结构像下面这样：</p>
+            </section>
+            <section>
+                <p class="a">这个文件中存储了服务器希望缓存的文件列表:</p>
+                <pre>
+                <code>
+CACHE MANIFEST
+#上面一句必须
+#v1.0.1
+
+#需要缓存的文件
+CACHE:
+test.html
+test.js
+doraemon.jpg
+
+#不需要缓存的文件
+NETWORK:
+test.css
+
+#无法访问页面
+FALLBACK:
+404.html
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>以#号开头的是注释，可以是版本号，时间戳等等。一般会在这写个版本号，用来在缓存的文件更新时，更改manifest的作用：浏览器已经缓存下来的缓存，只有当manifest文件发生了改变才会更新本地缓存，即使你的代码发生了更新，本地浏览器也是不知道的，所以每次发布代码时你可以更改下#后面的信息比如版本号或者时间，告诉浏览器相应的更新本地缓存。</p>
+            </section>
+            <section>
+                <h4>2.更新缓存:</h4>
+                <p class="">在有网时，以下条件触发缓存的更新</p>
+                <ul>
+                    <li>用户清空浏览器缓存</li>
+                    <li>manifest 文件被修改</li>
+                    <li>由程序来更新应用缓存</li>
+                </ul>
+            </section>
+            <section>
+                <h4>3.缓存流程:</h4>
+                <ul>
+                    <li>利用一个manifest清单文件告知服务器需要离线的网页文件。</li>
+                    <li>在第一次访问网站时服务器响应manifest文件进行缓存。</li>
+                    <li>在第二次访问该网址时，检测是否达到更新缓存的条件，否则直接使用缓存文件（即使你修改了服务器上的文件）。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <h4>
+                    离线存储有什么优缺点？
+                </h4>
+            </section>
+            <section>
+                <h5>优点</h5>
+                <ul>
+                    <li>离线浏览 - 用户可在应用离线时使用它们</li>
+                    <li>速度 - 已缓存资源加载得更快</li>
+                    <li>减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。</li>
+                </ul>
+            </section>
+            <section>
+                <h5>缺点</h5>
+                <ul>
+                    <li>更新的资源，需要二次刷新才会被页面采用</li>
+                    <li>不支持增量更新，只有manifest发生变化，所有资源全部重新下载一次</li>
+                    <li>缺乏足够容错机制，当清单中任意资源文件出现加载异常，都会导致整个manifest策略运行异常</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>4.编码实战</h3>
+        </section>
+        <section>
+            <h3>5.扩展思考</h3>
+        </section>
+        <section>
+            存储网页数据的方式？
+        </section>
+        <section>
+            <ul>
+                <li>localStorage - 没有时间限制的数据存储(永久),对于同一个浏览，当用户关闭浏览器窗口后，数据不会被删除。</li>
+                <li>sessionStorage - 针对一个 session 的数据存储(sesion/),当用户关闭浏览器窗口后，数据会被删除。</li>
+                <li>cookie：不适合大量数据的存储，因为它们由每个对服务器的请求来传递，这使得 cookie 速度很慢而且效率也不高。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一:<a href="http://www.w3school.com.cn/html5/html_5_app_cache.asp">慕课网-manifest</a></p>
+            <p class="a">参考二:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">MDN-manifest</a>
+            </p>
+            <p class="a">参考三:<a href="https://www.zhihu.com/question/35130316">知乎-关于前端缓存优化，为什么没人用manifest？</a></p>
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <section>
+            <h4>浏览器对离线存储的大小有限制吗？</h4>
+            <h4>其他的离线存储各自应该在什么情况下使用？</h4>
+            <h4>除了这些还有其他能实现离线存储的方式吗？</h4>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY</p>
+            <p>孙剑立-肖浩宇</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
