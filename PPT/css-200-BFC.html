@@ -1,0 +1,160 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>请描述 BFC(Block Formatting Context) 及其如何工作</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>请描述 BFC(Block Formatting Context) 及其如何工作</h2>
+
+            <h3>小课堂【武汉第200期】</h3>
+
+            <p style="text-align: center;">分享人：杨梓雄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">BFC 是什么</p>
+            <p style="text-align: left">MDN解释：
+                一个块级格式化上下文[BFC]是可视化CSS渲染网页的一部分，它是一个区域，块级布局，相互浮动在这个区域发生。
+                它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。</p>
+        </section>
+        <section>
+            <p style="text-align: left">怎样才能形成BFC</p>
+            <p style="text-align: left">①float的值不为none。</p>
+            <p style="text-align: left">②overflow的值不为visible。</p>
+            <p style="text-align: left">③display的值为table-cell, table-caption, inline-block中的任何一个。</p>
+            <p style="text-align: left">④position的值不为relative和static。 ⑤css3中flex boxes</p>
+            <p style="text-align: left">⑤fieldset元素</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">BFC的作用</p>
+            <p style="text-align: left">①包含浮动元素(清除浮动)BFC会根据子元素的情况自适高度，这个特性是对父元素使用overflow:hidden/auto/scroll、 float:left/right 样式可以闭合浮动的 </p>
+            <p style="text-align: left">②不被浮动元素覆盖 浮动元素会无视兄弟元素的存在， 覆盖在兄弟元素的上面， 为该兄弟元素创建BFC 后可以阻止这种情况的出现 </p>
+        </section>
+        <section>
+            <p style="text-align: left">BFC规则</p>
+            <p style="text-align: left">①内部的Box会在垂直方向，从顶部开始一个接一个地放置。</p>
+            <p style="text-align: left">②Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生叠加</p>
+            <p style="text-align: left">③每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</p>
+            <p style="text-align: left">④BFC的区域不会与float box叠加。</p>
+            <p style="text-align: left">⑤BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <P style="text-align: left">①元素重叠</P>
+            <p style="text-align: left">②浮动坍塌的问题</p>
+            <P style="text-align: left">③margin重叠</P>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">① BFC会阻止外边距折叠 两个相连的 div 在垂直上的外边距会发生叠加，在实际开发中，或许我们有时会不需要这种折叠，这时可以利用 BFC 的其中一个特性——阻止外边距叠加。阻止父子元素的 margin 折叠，仅当两个块级元素毗邻并且在同一个块级格式化上下文时，它们垂直方向之间的外边距才会叠加。也就是说，即便两个块级元素相邻，但当它们不在同一个块级格式化上下文时它们的边距也不会折叠。同时BFC 的元素，不和它的子元素发生外边距折叠。。</p>
+        </section>
+        <section>
+            <p style="text-align: left">② BFC可以包含浮动的元素 这也正是上面使用 overflow: hidden 与 overflow: auto 方法
+                闭合浮动的原理，使用 overflow: hidden 或 overflow: auto 触发浮动元素父元素的 BFC 特性，
+                从而可以包含浮动元素，闭合浮动。 W3C 的原文是“’Auto’ heights for block formatting context roots”
+                ，也就是 BFC 会根据子元素的情况自动适应高度，即使其子元素中包括浮动元素。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">w3c<a href="http://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank">https://my.oschina.net/mumu/blog</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p style="text-align: left">什么是IE的haslayout</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 杨梓雄 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>
