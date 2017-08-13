@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        .out {
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .in {
+            background-color: yellow;
+        }
+
+        /*法1,代码少，兼容性好,但子元素背景色覆盖了父元素*/
+        /*.out{*/
+        /*height:  300px;*/
+        /*}*/
+
+        /*.in{*/
+        /*line-height: 300%;*/
+        /*}*/
+
+        /* 法2，兼容性好，但需要设置子元素的高度*/
+
+        /* .out{
+            position: relative;
+        }
+
+        .in{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            height: 20px;
+        } */
+
+        /* 法3，兼容性好，但需要设置子元素的高度 */
+        /* .out{
+            position: relative;
+        }
+
+        .in{
+            position: absolute;
+            top: 50%;
+            height: 20px;
+            margin-top: -10px;
+        } */
+
+        /* 法4，无需设置子元素的高度，但兼容性不好*/
+
+        /* .out{
+            position: relative;
+        }
+
+        .in{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        } */
+
+        /* 法5 ，只需设置子元素，但需要知道子元素的高度，且兼容性不好*/
+        /* .in{
+           position: relative;
+           height: 20px;
+           top:calc(50% - 10px);
+        } */
+
+        /* 法6 ，设置很简单，但兼容性不好*/
+        /* .out{
+            display: flex;
+            align-items: center;
+        }
+         */
+
+        /* 法7 ，设置简单，比6稍微复杂，但同样兼容性不好*/
+        /* .out{
+            display: flex;
+        }
+
+        .in{
+            margin: auto;
+        } */
+
+        /* 法8 ，传统的布局方式，兼容性好，但子元素背景色会覆盖父元素，且性能不好*/
+        /* .out{
+            display: table;
+        }
+
+        .in{
+            display: table-cell;
+            vertical-align: middle;
+        } */
+
+        /* 法9 ，兼容性好，但需要知道父元素高度，且比较复杂*/
+        /* .out:after{
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .in{
+            display: inline;
+            vertical-align: middle;
+        } */
+
+
+
+
+
+
+
+
+
+
+
+        /*水平居中*/
+
+        /*法1，块级 */
+        /*.in{*/
+        /*margin: auto;*/
+        /*width: 4em;*/
+        /*}*/
+
+        /*法2，行内元素*/
+        /*.in {*/
+            /*text-align: center;*/
+        /*}*/
+
+        /*法3*/
+
+        /*.out{*/
+        /*text-align: center;*/
+
+        /*}*/
+        /*.in{*/
+        /*display: inline-block;*/
+        /*}*/
+
+        /*法4*/
+        /*
+        .out{
+            position: relative;
+        }
+
+                .in{
+                    position: absolute;
+                    left: 50%;
+                    width: 5em;
+                    margin-left: -2.5em;
+                }
+        */
+
+        /*法5*/
+        /*
+        .out{
+            position: relative;
+        }
+
+                .in{
+                    position: absolute;
+                    left: 50%;
+                    transform: transitionx(-50%);
+                }
+        */
+
+        /*法6*/
+        .in {
+            display: table;
+            margin: auto;
+        }
+
+        /*法7*/
+        .out {
+            display: flex;
+        }
+
+        .in {
+            margin: 0 auto;
+            height: 20px;
+        }
+
+        /*法8*/
+        .out {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="out">
+    <div class="in">nihaoa</div>
+</div>
+</body>
+</html>
