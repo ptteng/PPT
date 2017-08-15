@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Mybatis常用标签和动态查询</h3>
+            <h4>小课堂</h4>
+            <p>分享人：王蒙</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">MyBatis 是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以对配置和原生Map使用简单的 XML 或注解，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>2.1 基本知识</p>
+                <p style="text-align: left">
+                    SqlSessionFactory：SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。而 SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。
+                </p>
+                <p style="text-align: left">
+                    SqlSession：SqlSession完全包含了面向数据库执行 SQL 命令所需的所有方法。你可以通过 SqlSession 实例来直接执行已映射的 SQL 语句。
+                </p>
+                <p style="text-align: left">
+                    XML 配置文件（configuration XML）中包含了对 MyBatis 系统的核心设置，包含获取数据库连接实例的数据源（DataSource）和决定事务作用域和控制方式的事务管理器（TransactionManager）。
+                </p>
+            </section>
+            <section>
+                <p>作用域和生命周期：</p>
+                <p style="text-align: left">
+                    SqlSessionFactoryBuilder一旦创建了 SqlSessionFactory，就不再需要它了，因此该实例的最佳作用域是方法作用域，也就是局部方法变量。
+                </p>
+                <p style="text-align: left">
+                    SqlSessionFactory 一旦被创建就应该在应用的运行期间一直存在，没有任何理由对它进行清除或重建，因此 SqlSessionFactory 的最佳作用域是应用作用域。
+                </p>
+                <p style="text-align: left">
+                    SqlSession：每个线程都应该有它自己的 SqlSession 实例。SqlSession 的实例不是线程安全的，因此是不能被共享的，所以它的最佳的作用域是请求或方法作用域。绝对不能将 SqlSession 实例的引用放在一个类的静态域，甚至一个类的实例变量也不行，也绝不能将 SqlSession 实例的引用放在任何类型的管理作用域中。
+                </p>
+            </section>
+            <section>
+                <p>2.2 Configuration.xml配置文件</p>
+                <p>properties标签</p>
+                <p style="text-align: left">
+                    包含了mybatis的属性信息。如果属性在多个地方进行配置，mybatis加载顺序为：
+                </p>
+                <p style="text-align: left">--在 properties 元素体内指定的属性首先被读取</p>
+                <p style="text-align: left">--然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。</p>
+                <p style="text-align: left">--最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。</p>
+                <p style="text-align: left">-- 从MyBatis 3.4.2开始，可以为占位符指定一个默认值，如：${username:ut_user}"</p>
+            </section>
+            <section>
+                <p>settings标签</p>
+                <p style="text-align: left">
+                    设置mybatis的行为，通常采用默认设置，若有特殊需要，则在文件中显式设置。
+                </p>
+            </section>
+            <section>
+                <p>typeAliases标签</p>
+                <p style="text-align: left">
+                    类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余。可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean，可以在Bean上使用注解。
+                </p>
+            </section>
+            <section>
+                <p>typeHandlers标签</p>
+                <p style="text-align: left">
+                    无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时，都会用类型处理器将获取的值以合适的方式转换成 Java 类型。可以重写类型处理器或创建自定义的类型处理器来处理不支持的或非标准的类型。
+                </p>
+            </section>
+            <section>
+                <p>objectFactory标签</p>
+                <p style="text-align: left">
+                    MyBatis 每次创建结果对象的新实例时，它都会使用一个对象工厂（ObjectFactory）实例来完成。可以创建自定义的对象工厂来覆盖默认行为。
+                </p>
+            </section>
+            <section>
+                <p>plugins标签</p>
+                <p style="text-align: left">可以在已映射语句执行过程中的某一点进行拦截调用。</p>
+            </section>
+            <section>
+                <p>environments标签</p>
+                <p style="text-align: left">MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中，但是每个 SqlSessionFactory 实例只能选择其一。</p>
+            </section>
+            <section>
+                <p>transactionManager标签</p>
+                <p style="text-align: left">MyBatis 中有两种类型的事务管理器：</p>
+                <p style="text-align: left">JDBC – 这个配置就是直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域。</p>
+                <p style="text-align: left">MANAGED – 让容器来管理事务的整个生命周期，比如 JEE 应用服务器的上下文。如果使用 Spring + MyBatis，则没有必要配置事务管理器，Spring 模块会使用自带的管理器来覆盖前面的配置。</p>
+            </section>
+            <section>
+                <p>dataSource标签</p>
+                <p style="text-align: left">dataSource使用标准的 JDBC 数据源接口来配置 JDBC 连接对象的资源。有三种类型的数据源：</p>
+                <p style="text-align: left">UNPOOLED– 这个数据源的实现只是每次被请求时打开和关闭连接。</p>
+                <p style="text-align: left">POOLED– 这种数据源的实现利用“池”的概念将 JDBC 连接对象组织起来，避免了创建新的连接实例时所必需的初始化和认证时间。</p>
+                <p style="text-align: left">JNDI– 这个数据源的实现是为了能在如 EJB 或应用服务器这类容器中使用，容器可以集中或在外部配置数据源，然后放置一个 JNDI 上下文的引用。</p>
+            </section>
+            <section>
+                <p>mappers标签</p>
+                <p style="text-align: left">可告诉 MyBatis 去哪里找映射文件，可以通过设置resource、url、class或指定Java bean包名等。</p>
+            </section>
+            <section>
+                <p>2.3 Mapper.xml映射文件</p>
+                <p style="text-align: left">映射文件有几个顶级元素，按顺序为：：</p>
+                <p style="text-align: left">cache：给定命名空间的缓存配置。</p>
+                <p style="text-align: left">cache-ref：其他命名空间缓存配置的引用。</p>
+                <p style="text-align: left">resultMap：用来描述如何从数据库结果集中来加载对象。</p>
+                <p style="text-align: left">sql：可被其他语句引用的可重用语句块。</p>
+                <p style="text-align: left">insert、update、delete、select：分别映射插入、更新、删除、查询语句。</p>
+            </section>
+            <section>
+                <p>2.4 动态查询标签</p>
+                <p style="text-align: left">if、choose、otherwise、when：用于在查询时有条件地包含where子句的一部分。</p>
+                <p style="text-align: left">trim、where、set：用于处理查询条件语句拼接的情况。</p>
+                <p style="text-align: left">foreach：用于在构建 IN 条件语句的时候，对一个集合进行遍历。</p>
+                <p style="text-align: left">bind：用于创建一个变量并将其绑定到sql语句上下文中。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>实际使用</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>以上</p>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p style="text-align: left">Mybatis与JDBCTemplate</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Mybatis可自定义多种操作，在ObjectFactory中,在TypeHandler中,在Plugin中。这样方便排查在整个操作过程中可能出现的问题，但是需要写大量的实现代码。
+                </p>
+                <p style="text-align: left">
+                    JDBCTemplate使用简单，也可以自行处理一些操作异常，相比之下实现代码较少。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section style="text-align: left">
+                <p>参考：<a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank">Mybatis中文文档</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>Mybatis实现更复杂的操作，如嵌套查询、联表查询等</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY：王蒙</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
