@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task9】什么是promise？</h2>
+            <h3></h3>
+            <p>分享人：龚家豪</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>什么是promise？</p>
+            <p style="text-align: left">Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。
+                它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。
+            </p>
+            <p style="text-align: left">
+                所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。
+                从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操
+                作都可以用同样的方法进行处理。
+            </p>
+        </section>
+        <section>
+            <section><h3>2.知识剖析</h3></section>
+            <section>
+                <h3>Promise的基本用法</h3>
+                <p style="text-align: left">
+                    ES6 规定，Promise对象是一个构造函数，用来生成Promise实例。
+                    下面代码创造了一个Promise实例。
+                </p>
+                <pre>
+                    <code>
+                        var p = new Promise(function (resolve, reject) {
+                            // ... some code
+                            if (/* 异步操作成功 */) {
+                                resolve(value);
+                            } else {
+                                reject(error);
+                            }
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。
+                    它们是两个函数，由 JavaScript 引擎提供，不用自己部署。
+                </p>
+                <p style="text-align: left">
+                    resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 Pending 变为
+                    Resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject函数的作用是，
+                    将Promise对象的状态从“未完成”变为“失败”（即从 Pending 变为
+                    Rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+                    Promise实例生成以后，可以用then方法分别指定Resolved状态和Rejected状态的回调函数。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        p.then(function (value) {
+                            // success
+                        }, function (error) {
+                            // failure
+                        });
+                    </code>
+                </pre>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.如何使用promise？</h3>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+                <p style="text-align: left">
+                    需要注意的是，new一个Promise对象时，里面的代码就直接运行了。
+                    所以我们用Promise的时候一般是包在一个函数中，在需要的时候去运行这个函数。
+                </p>
+                <pre>
+                    <code>
+                        function runAsync(){
+                            var p = new Promise(function(resolve, reject){
+                                //做一些异步操作
+                                setTimeout(function(){
+                                    console.log('执行完成');
+                                    resolve('随便什么数据');
+                                }, 2000);
+                            });
+                            return p;
+                        }
+                        runAsync().then(function(data){
+                            console.log(data);
+                            //后面可以用传过来的数据做些其他操作
+                            //......
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    then里面的函数就跟我们平时的回调函数一个意思，能够在runAsync这个
+                    异步任务执行完成之后被执行。这就是Promise的作用了，简单来讲，就是能把
+                    原来的回调写法分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。
+                    写成回调函数如下：
+                </p>
+
+                <pre>
+                    <code>
+                    function runAsync(callback){
+                        setTimeout(function(){
+                            console.log('执行完成');
+                            callback('随便什么数据');
+                            }, 2000);
+                        };
+
+                        runAsync(function(data){
+                        console.log(data);
+                    });
+                    </code>
+                </pre>
+            </section>
+            <section style="text-align: left">
+                那么问题来了，既然回调函数回调函数能实现异步操作，为什么还要用Promise呢？
+                <br/>
+                请考虑这种情况：有多层回调该怎么办？如果callback也是一个异步操作，而且执行
+                完后也需要有相应的回调函数，该怎么办呢？总不能再定义一个callback2，然后给
+                callback传进去吧。而Promise的优势在于，可以在then方法中继续写Promise对
+                象并返回，然后继续调用then来进行回调操作。
+            </section>
+            <section>
+                <h3>Promise的链式调用</h3>
+                <p style="text-align: left">
+                    所以，从表面上看，Promise只是能够简化层层回调的写法，而实质上，Promise的精髓是“状态”，
+                    用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递callback函数要简单、灵活的多。
+                    所以使用Promise的正确场景是这样的：
+                </p>
+                <pre>
+                    <code>
+                        runAsync1()
+                        .then(function(data){
+                            console.log(data);
+                            return runAsync2();
+                        })
+                        .then(function(data){
+                            console.log(data);
+                            return runAsync3();
+                        })
+                        .then(function(data){
+                            console.log(data);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>runAsync1、runAsync2、runAsync3这三个函数定义如下</p>
+                <pre>
+                    <code>
+                        function runAsync1(){
+                            var p = new Promise(function(resolve, reject){
+                                //做一些异步操作
+                                setTimeout(function(){
+                                    console.log('异步任务1执行完成');
+                                    resolve('随便什么数据1');
+                                }, 1000);
+                            });
+                            return p;
+                        }
+                        function runAsync2(){
+                            var p = new Promise(function(resolve, reject){
+                                //做一些异步操作
+                                setTimeout(function(){
+                                    console.log('异步任务2执行完成');
+                                    resolve('随便什么数据2');
+                                }, 2000);
+                            });
+                            return p;
+                        }
+                        function runAsync3(){
+                            var p = new Promise(function(resolve, reject){
+                                //做一些异步操作
+                                setTimeout(function(){
+                                    console.log('异步任务3执行完成');
+                                    resolve('随便什么数据3');
+                                }, 2000);
+                            });
+                            return p;
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    在then方法中，你也可以直接return数据而不是Promise对象，在后面的then中就可以接收到数据了，比如我们把上面的代码修改成这样：
+                </p>
+                <pre>
+                    <code>
+                        runAsync1()
+                        .then(function(data){
+                            console.log(data);
+                            return runAsync2();
+                        })
+                        .then(function(data){
+                            console.log(data);
+                            return '直接返回数据';  //这里直接返回数据
+                        })
+                        .then(function(data){
+                            console.log(data);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>reject的用法</h3>
+                <p style="text-align: left">
+                    事实上，我们前面的例子都是只有“执行成功”的回调，还没有“失败”的情况，
+                    reject的作用就是把Promise的状态置为rejected，这样我们在then中就
+                    能捕捉到，然后执行“失败”情况的回调。看下面的代码。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        function getNumber(){
+                            var p = new Promise(function(resolve, reject){
+                                //做一些异步操作
+                                setTimeout(function(){
+                                    var num = Math.ceil(Math.random()*10); //生成1-10的随机数
+                                    if(num<=5){
+                                        resolve(num);
+                                    }
+                                    else{
+                                        reject('数字太大了');
+                                    }
+                                }, 2000);
+                            });
+                            return p;
+                        }
+
+                        getNumber()
+                        .then(
+                            function(data){
+                                console.log('resolved');
+                                console.log(data);
+                            },
+                            function(reason, data){
+                                console.log('rejected');
+                                console.log(reason);
+                            }
+                        );
+                    </code>
+                </pre>
+                <p style="text-align: left">
+                    运行getNumber并且在then中传了两个参数，then方法可以接受两个参数，
+                    第一个对应resolve的回调，第二个对应reject的回调。所以我们能够分别
+                    拿到他们传过来的数据。
+                </p>
+            </section>
+            <section>
+                <h3>catch的用法</h3>
+                <p style="text-align: left;">
+                    我们知道Promise对象除了then方法，还有一个catch方法，它是做什么用的呢？
+                    其实它和then的第二个参数一样，用来指定reject的回调，用法是这样：
+                </p>
+                <pre>
+                    <code>
+                        getNumber()
+                        .then(function(data){
+                            console.log('resolved');
+                            console.log(data);
+                        })
+                        .catch(function(reason){
+                            console.log('rejected');
+                            console.log(reason);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 28px;">
+                    效果和写在then的第二个参数里面一样。不过它还有另外一个作用：在执行resolve的回调
+                    （也就是上面then中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会报错
+                    卡死js，而是会进到这个catch方法中。请看下面的代码：
+                </p>
+                <pre>
+                    <code>
+                        getNumber()
+                        .then(function(data){
+                            console.log('resolved');
+                            console.log(data);
+                            console.log(somedata); //此处的somedata未定义
+                        })
+                        .catch(function(reason){
+                            console.log('rejected');
+                            console.log(reason);
+                        });
+                    </code>
+                </pre>
+                <p style="text-align: left;font-size: 28px;">
+                    也就是说进到catch方法里面去了，而且把错误原因传到了reason参数中。
+                    即便是有错误的代码也不会报错了，这与我们的try/catch语句有相同的功能。
+                </p>
+
+            </section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                <p>all的用法</p>
+                <p style="text-align: left;font-size: 28px;">
+                    Promise的all方法提供了并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调。
+                    我们仍旧使用上面定义好的runAsync1、runAsync2、runAsync3这三个函数，看下面的例子：
+                </p>
+                <pre>
+                    <code>
+                        Promise
+                            .all([runAsync1(), runAsync2(), runAsync3()])
+                            .then(function(results){
+                            console.log(results);
+                            });
+                    </code>
+                </pre>
+                <p style="text-align: left;font-size: 28px;">
+                    用Promise.all来执行，all接收一个数组参数，里面的值最终都
+                    算返回Promise对象。这样，三个异步操作的并行执行的，等到它
+                    们都执行完后才会进到then里面。那么，三个异步操作返回的数据哪里
+                    去了呢？都在then里面呢，all会把所有异步操作的结果放进一个数组中
+                    传给then，就是上面的results。
+                </p>
+            </section>
+            <section>
+                有了all，你就可以并行执行多个异步操作，并且在一个回调中处理所有的返回数
+                据，是不是很酷？有一个场景是很适合用这个的，一些游戏类的素材比较多的应用，
+                打开网页时，预先加载需要用到的各种资源如图片、flash以及各种静态文件。所
+                有的都加载完后，我们再进行页面的初始化。
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 28px;">
+                    race的用法
+                </p>
+                <p style="text-align: left;font-size: 28px;">
+                    all方法的效果实际上是「谁跑的慢，以谁为准执行回调」，
+                    那么相对的就有另一个方法「谁跑的快，以谁为准执行回调」，
+                    这就是race方法，这个词本来就是赛跑的意思。race的用法
+                    与all一样，我们把上面runAsync1的延时改为1秒来看一下：
+                </p>
+                <pre>
+                    <code>
+                        Promise
+                            .race([runAsync1(), runAsync2(), runAsync3()])
+                            .then(function(results){
+                                console.log(results);
+                            });
+                    </code>
+                </pre>
+                <p style="text-align: left;font-size: 28px;">
+                    在then里面的回调开始执行时，runAsync2()和runAsync3()并没有停止，
+                    仍旧再执行。于是再过1秒后，输出了他们结束的标志。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 28px;">
+                    这个race有什么用呢？使用场景还是很多的，比如我们可以用race给某个异步请求
+                    设置超时时间，并且在超时后执行相应的操作，代码如下：
+                </p>
+                <pre>
+                    <code>
+                        //请求某个图片资源
+                        function requestImg(){
+                            var p = new Promise(function(resolve, reject){
+                                var img = new Image();
+                                img.onload = function(){
+                                    resolve(img);
+                                }
+                                img.src = 'xxxxxx';
+                            });
+                            return p;
+                        }
+
+                        //延时函数，用于给请求计时
+                        function timeout(){
+                            var p = new Promise(function(resolve, reject){
+                                setTimeout(function(){
+                                    reject('图片请求超时');
+                                }, 5000);
+                            });
+                            return p;
+                        }
+
+                        Promise
+                        .race([requestImg(), timeout()])
+                        .then(function(results){
+                            console.log(results);
+                        })
+                        .catch(function(reason){
+                            console.log(reason);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 28px;">
+                    requestImg函数会异步请求一张图片，我把地址写为"xxxxxx"，所以肯定是无
+                    法成功请求到的。timeout函数是一个延时5秒的异步操作。我们把这两个返回
+                    Promise对象的函数放进race，于是他俩就会赛跑，如果5秒之内图片请求成功了，
+                    那么遍进入then方法，执行正常的流程。如果5秒钟图片还未成功返回，那么timeout
+                    就跑赢了，则进入catch，报出“图片请求超时”的信息。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.cnblogs.com/lvdabao/p/es6-promise-1.html">
+                大白话讲解Promise（一）
+            </a></p>
+            <p>
+                <a href="http://es6.ruanyifeng.com/#docs/promise">
+                    阮一峰的ECMAScript 6 入门
+                </a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h5>谢谢观看</h5>
+            <p>BY : 龚家豪</p>
+        </section>
+
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
