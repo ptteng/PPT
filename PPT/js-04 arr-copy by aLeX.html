@@ -1,0 +1,251 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何实现数组深拷贝和浅拷贝？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何实现数组深拷贝和浅拷贝？</h2>
+            <h3>小课堂【成都】</h3>
+            <p>分享人：李兴</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>什么是栈内存和堆内存？</h4>
+            <p class="left" style="text-indent: 2em">
+                JavaScript中的变量的存放有有原始值与引用值之分，原始值代表了原始的数据类型，如Undefined，Null，Number，
+                String，Boolean类型的值；而Object，Function，Array等类型的值便是引用值了。
+            </p>
+            <p class="left" style="text-indent: 2em">
+                栈内存中存放的是存储对象的地址，而堆内存中存放的是存储对象的具体内容。对于原始类型的值而言
+                ，其地址和具体内容都存在与栈内存中；而基于引用类型的值，其地址存在栈内存，其具体内容存在堆内存中。堆内存
+                与栈内存是有区别的，栈内存运行效率比堆内存高，空间相对推内存来说较小，反之则是堆内存的特点。所以将构造简
+                单的原始类型值放在栈内存中，将构造复杂的引用类型值放在堆中而不影响栈的效率。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>什么是深拷贝和浅拷贝?</li>
+                    <li>slice和concat使用方法</li>
+                </ol>
+            </section>
+            <section>
+                <h4>1.什么是深拷贝和浅拷贝?</h4>
+                <p class="left">浅拷贝：复制一份引用，所有引用对象都指向一份数据，并且都可以修改这份数据。</p>
+                <p class="left">深拷贝（复杂）：复制变量值，对于非基本类型的变量，则递归至基本类型变量后，再复制。可以使用slice和concat方法。</p>
+            </section>
+            <section>
+                <h4>2.slice和concat使用方法</h4>
+                <p class="left">slice：</p>
+                <p class="left">语法：arrayObject.slice(start,end)</p>
+                <p class="left">该方法并不会修改数组，而是返回一个子数组。</p>
+                <p class="left">start：必需。规定从何处开始选取。如果是负数，那么它规定从数组尾部开始算起的位置。也就是说，-1 指最后一个元素，-2
+                    指倒数第二个元素，以此类推。</p>
+                <p class="left">end:可选。规定从何处结束选取。该参数是数组片断结束处的数组下标。如果没有指定该参数，那么切分的数组包含从
+                    start 到数组结束的所有元素。如果这个参数是负数，那么它规定的是从数组尾部开始算起的元素。</p>
+            </section>
+            <section>
+                <p class="left">concat：</p>
+                <p class="left">语法：arrayObject.concat(arrayX,arrayX,......,arrayX)</p>
+                <p class="left">返回一个新的数组。该数组是通过把所有 arrayX 参数添加到 arrayObject 中生成的。如果要进行 concat() 操作的参
+                    数是数组，那么添加的是数组中的元素，而不是数组。</p>
+                <p class="left">arrayX：必需。该参数可以是具体的值，也可以是数组对象。可以是任意多个。</p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>深拷贝和浅拷贝的运用环境。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">这个要看大家具体的应用，注意到数组带来的影响。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p class="left">浅拷贝的实现,例如：</p>
+                <pre>
+                <code>
+    var arr = ["One","Two","Three"];
+    var arrto = arr;
+    arrto[1] = "test";
+    document.writeln("数组的原始值：" + arr + "<br />");//Export:数组的原始值：One,test,Three
+    document.writeln("数组的新值：" + arrto + "<br />");//Export:数组的新值：One,test,Three
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>深拷贝之slice</p>
+                <pre>
+                <code>
+    var num = ["One","Two","Three"];
+    var newNum = num.slice(0);
+    newNum[1] = "haha";
+    document.writeln("数组的原始值：" + num + "<br />");//Export:数组的原始值：One,Two,Three
+    document.writeln("数组的新值：" + newNum + "<br />");//Export:数组的新值：One,haha,Three
+        </code>
+            </pre>
+            </section>
+            <section>
+                <p>深拷贝之concat</p>
+                <pre>
+                <code>
+    var arr = new Array(3)
+    arr[0] = "George"
+    arr[1] = "John"
+    arr[2] = "Thomas"
+
+    var arr2 = new Array(3)
+    arr2[0] = "James"
+    arr2[1] = "Adrew"
+    arr2[2] = "Martin"
+    document.write(arr.concat(arr2))//输出：George,John,Thomas,James,Adrew,Martin；
+        </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >对象的深拷贝</p>
+            <!--<pre>
+                <code>
+var Chinese = {birthPlaces : ['北京','上海','香港']}
+function deepCopy(p,c) {
+    var c = c || {};
+    for (var i in p) {
+        if (typeof p[i] === 'object') {
+            c[i] = (p[i].constructor === Array) ? [] : {};
+            //alert(i);  // i = birthPlace
+            //alert( c[i]);//空对象
+            //alert(p[i]);//['北京','上海','香港'];
+            deepCopy(p[i], c[i]);
+        } else {
+            c[i] = p[i];
+        }
+    }
+    return c;
+}
+var Doctor = deepCopy(Chinese);
+Doctor.birthPlaces.push('厦门');
+alert(Doctor.birthPlaces); //北京, 上海, 香港, 厦门
+alert(Chinese.birthPlaces); //北京, 上海, 香港
+</code>
+            </pre>-->
+            <p ><a href="http://www.html-js.com/article/3749" target="_blank">原生js对象的浅拷贝和深拷贝的总结</a></p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://www.jb51.net/article/49065.htm" target="_blank">JavaScript数组深拷贝和浅拷贝的两种方法</a></p>
+            <p class="left">参考二：<a href="http://www.html-js.com/article/3749" target="_blank">原生js对象的浅拷贝和深拷贝的总结</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一</p>
+            <p>有被浅拷贝坑过的经历吗？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇 | 李维文 | 李兴</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
