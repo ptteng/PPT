@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis">
+    <!--For Learner-->
+    <resultMap id="learnerMap" type="Learner">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex" javaType="String" jdbcType="INTEGER"
+                typeHandler="com.jnshu.util.IntTypeHandler"/>
+        <result property="age" column="age"/>
+        <result property="school" column="school"/>
+        <result property="salary" column="salary" javaType="org.json.JSONArray" jdbcType="OTHER"
+                typeHandler="com.jnshu.util.JSONArrayTypeHandler"/>
+        <result property="intro" column="intro"/>
+    </resultMap>
+
+    <select id="selectLearnerAll" resultMap="learnerMap">
+        select * from mybatisdemo
+    </select>
+    
+    <select id="selectLearnerById" parameterType="int" resultMap="learnerMap">
+        select * from mybatisdemo where id=#{id}
+    </select>
+    
+    <select id="selectLearnerWithNameLike" resultMap="learnerMap">
+        select * from mybatisdemo where sex = '1'
+        <if test="name != null">
+            and name like #{name}
+        </if>
+    </select>
+    <select id="selectLearnerWithSchoolLike" resultMap="learnerMap">
+        select * from mybatisdemo where sex = '1'
+        <if test="school != null">
+            and school like #{school}
+        </if>
+    </select>
+
+    <select id="selectLearnerWithLike" resultMap="learnerMap">
+        select * from mybatisdemo where sex = '1'
+        <choose>
+            <when test="name != null">
+                and name like #{name}
+            </when>
+            <when test="school != null">
+                and school like #{school}
+            </when>
+        </choose>
+    </select>
+
+    <select id="selectLearnerWithWhere" resultMap="learnerMap">
+        select * from mybatisdemo
+        <where>
+            <if test="age != null">
+                and age like #{age}
+            </if>
+            <if test="name != null">
+                and name like #{name}
+            </if>
+            <if test="school != null">
+                and school like #{school}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateLearner" parameterType="learner">
+        update mybatisdemo set name = #{name}, sex = #{sex, javaType = String, jdbcType = INTEGER, typeHandler = IntTypeHandler},
+        age = #{age}, school = #{school}, salary = #{salary, javaType = JSONArray, jdbcType = OTHER, typeHandler = JSONArrayHandler},
+        intro = #{intro}, updateAt = #{updateAt} where id = #{id}
+    </update>
+
+    <insert id="insertLearner" parameterType="learner">
+        insert into mybatisdemo (name, sex, age, school, salary, intro, createAt, updateAt) values (#{name},
+        #{sex, javaType = String, jdbcType = INTEGER, typeHandler = IntTypeHandler}, #{age}, #{school},
+        #{salary, javaType = JSONArray, jdbcType = OTHER, typeHandler = JSONArrayHandler}, #{intro}, #{createAt}, #{updateAt})
+    </insert>
+</mapper>

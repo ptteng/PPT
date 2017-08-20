@@ -33,9 +33,9 @@
         <section>
             <h2>【js-02】js有哪几种传参方式</h2>
 
-            <h3>小课堂【成都第九十二期】</h3>
+            <h3>小课堂【成都】</h3>
 
-            <p style="text-align: center;">分享人：李婷</p>
+            <p style="text-align: center;">分享人：张珺琢</p>
         </section>
         <section>
             <p>目录</p>
@@ -72,6 +72,8 @@
 <br>删除所有数据：clear();
 <br>得到某个索引的key：key(index);</p>
             </section>
+		</section>
+		<section>
             <section>
                <p>2，cookie传递参数</p>
 			   <p style="text-align: left">HTTP Cookie，通常直接叫做cookie，Cookie是浏览器访问服务器后，服务器传给浏览器的一段数据。</p>
@@ -88,35 +90,10 @@
             </section>
         </section>
         <section>
-        <section>
             <h3>3.常见问题</h3>
         </section>
         <section>
-            <h3>localStorage和sessionStorage的使用</h3>
-        </section>
-        </section>
-        <section>
-        <section>
             <h3>4.解决方案</h3>
-        </section>
-        <section>
-            <pre>
-                 <code style="background-color: #1c1e20">
- //把值存入本地
-var live_kill=3;
-var arr_kill={
-    killer:2,
-    live:8,
-    people:[{name:"平民"，id：1},{name:"杀手",id:2}]
-}
-localStorage.livekill=live_kill;
-localStorage.arr_killer=JSON.stringify(arr_kill);
-//取出本地存储的值
-var arr_kill=JSON.parse(localStorage.arr_killer);
-var live_kill=localStorage.livekill;
-                 </code>
-               </pre>
-        </section>
         </section>
         <section>
             <h3>5.编码实战</h3>
@@ -127,46 +104,46 @@ var live_kill=localStorage.livekill;
                <p>URL</p>
 			   <pre>
                  <code style="background-color: #1c1e20">
-$(function() {  
-    //获取url中传来的数据  
-    var openId = getParamValue("openId");  
-    //当传递过来的数据中包含有中文数据的时候，需要在添加编码设置，                                                                 
-    //也就可以写成这样：var name = decodeURI(getParamValue("userName"));这样写的话                                                              
-    //就可以正确获得中文字符。  
-});  
-//分解url获得数据部分  
-function getUrlParams() {  
-    var search = window.location.search;  
-    // 写入数据字典   
-    var tmparray = search.substr(1, search.length).split("&");  
-    var paramsArray = new Array;  
-    if (tmparray != null) {  
-        for (var i = 0; i < tmparray.length; i++) {  
-            var reg = /[=|^==]/; // 用=进行拆分，但不包括==   
-            var set1 = tmparray[i].replace(reg, '&');  
-            var tmpStr2 = set1.split('&');  
-            var array = new Array;  
-            array[tmpStr2[0]] = tmpStr2[1];  
-            paramsArray.push(array);  
-        }  
-    }  
-    // 将参数数组进行返回   
-    return paramsArray;  
-}  
-// 根据参数名称获取参数值   
-function getParamValue(name) {  
-    var paramsArray = getUrlParams();  
-    if (paramsArray != null) {  
-        for (var i = 0; i < paramsArray.length; i++) {  
-            for (var j in paramsArray[i]) {  
-                if (j == name) {  
-                    return paramsArray[i][j];  
-                }  
-            }  
-        }  
-    }  
-    return null;  
-}  
+$(function() {
+    //获取url中传来的数据
+    var openId = getParamValue("openId");
+    //当传递过来的数据中包含有中文数据的时候，需要在添加编码设置，
+    //也就可以写成这样：var name = decodeURI(getParamValue("userName"));这样写的话
+    //就可以正确获得中文字符。
+});
+//分解url获得数据部分
+function getUrlParams() {
+    var search = window.location.search;
+    // 写入数据字典
+    var tmparray = search.substr(1, search.length).split("&");
+    var paramsArray = new Array;
+    if (tmparray != null) {
+        for (var i = 0; i < tmparray.length; i++) {
+            var reg = /[=|^==]/; // 用=进行拆分，但不包括==
+            var set1 = tmparray[i].replace(reg, '&');
+            var tmpStr2 = set1.split('&');
+            var array = new Array;
+            array[tmpStr2[0]] = tmpStr2[1];
+            paramsArray.push(array);
+        }
+    }
+    // 将参数数组进行返回
+    return paramsArray;
+}
+// 根据参数名称获取参数值
+function getParamValue(name) {
+    var paramsArray = getUrlParams();
+    if (paramsArray != null) {
+        for (var i = 0; i < paramsArray.length; i++) {
+            for (var j in paramsArray[i]) {
+                if (j == name) {
+                    return paramsArray[i][j];
+                }
+            }
+        }
+    }
+    return null;
+}
                  </code>
                </pre>
             </section>
@@ -174,39 +151,34 @@ function getParamValue(name) {
                <p>ajax</p>
 			   <pre>
                  <code style="background-color: #1c1e20">
-function orderCancel(orderId, commant){  
-    var flag = false;  
-    $.ajax({  
-        type: "POST",  
-        url: "../order/orderCancel.action", //orderModifyStatus  
-        data: {"orderId":orderId,"commant":commant},  
+function orderCancel(orderId, commant){
+    var flag = false;
+    $.ajax({
+        type: "POST",
+        url: "../order/orderCancel.action", //orderModifyStatus
+        data: {"orderId":orderId,"commant":commant},
         dataType:"json",
         success: function(data){  //参数正确执行
-            var member = eval("("+data+")"); //包数据解析为json 格式                                                            
+            var member = eval("("+data+")"); //包数据解析为json 格式
             if(member.success=="true"){  //请求成功执行
-                flag = true;  
+                flag = true;
             }else if(member.success=="false") {  //请求失败执行
-                alert(member.info);  
-            }  
-        },  
+                alert(member.info);
+            }
+        },
         error: function(json){  //参数错误执行
-            alert("订单取消异常，请刷新后重试...");  
-        }  
-    });  
-    hidediv();  
-    return flag;  
+            alert("订单取消异常，请刷新后重试...");
+        }
+    });
+    hidediv();
+    return flag;
 }
                  </code>
                </pre>
             </section>
         </section>
         <section>
-        <section>
             <h3>6.扩展思考</h3>
-        </section>
-        <section>
-            <h3>JS的几种传参方式在什么情况使用比较好？</h3>
-        </section>
         </section>
         <section>
             <h3>7.参考文献</h3>
@@ -220,7 +192,7 @@ function orderCancel(orderId, commant){
         </section>
         <section>
             <h4>感谢观看</h4>
-            <p><small>BY : 梁家健&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;李婷</small></p>
+            <p><small>BY : 梁家健 </small></p>
         </section>
     </div>
 </div>

@@ -1,0 +1,194 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>1.Stay True To The Mission 不忘初心</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：白笑然</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+	
+			<section>
+            <p>Maven是优秀的构建工具</p>
+			<p> Maven不仅仅是构建工具，还是一个依赖管理工具和项目信息管理工具</p>
+			<p>我们平常使用的IDEA新版本本身默认安装了maven3</p>
+			<p>我们平常使用maven也很普遍</p>
+			<p>主要用它来管理相关依赖</p>
+			<p>任务一里面有个思考怎么样能让Maven跳过JUnit</p>
+			<p>今天我们就在这个基础上讲解一下</p>
+			<p>以及有关我在服务器上使用maven的一些收获</p>
+			</section>
+			
+		 
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+            <p>仓库：本地仓库 远程仓库 中央仓库</p>
+			<p>本地仓库 ：本地储存依赖文件仓库 默认在用户目录下.m2\repository文件夹下</p>
+			<p>也可以进行编辑文件~/.m2/setting.xml 的localRepository元素进行修改</p>
+			<p>但是注意这个文件一般是不存在的 需要从原始解压文件夹下进行复制</p>
+			<p>注意 一个构件只有在本地仓库中才能由其他Maven项目使用</p>
+			<p>那么构建是如何进入到本地仓库的呢 最常见的有两个来源</p>
+			<p>一个是从远程仓库进行下载 另一个是将本地项目的构件安装到maven仓库中 也就是我们常用的mvn clean install</p>
+			<p>而中央仓库是一默认的远程仓库 在安装时自带配置</p>
+			<p>这里在setting文件可以进行修改 可以设置多个远程仓库</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+            <p>1.环境变量配置问题</p>
+			<p>2.没有.m2文件</p>
+			<p>3.没有pom文件</p>
+			<p>4.找不到文件</p>
+			<p></p>
+		</section>
+		
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		<section>
+            <p>1，配置环境变量，编辑/etc/profile文件，添加如下代码</p>
+			<p>   MAVEN_HOME=/usr/local/apache-maven-3.0.3</p>
+			<p>   export MAVEN_HOME</p>
+			<p>   export PATH=${PATH}:${MAVEN_HOME}/bin</p>
+			<p>   保存文件，并运行如下命令使环境变量生效</p>
+			<p>    source /etc/profile</p>
+			<p>2，初次安装运行 mvn help:system</p>
+			<p>3.在pom文件目录下运行mvn命令</p>
+			<p>4.设置文件目录要遵循规则</p>
+			
+		</section>
+	
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+        <section>
+        <img src="image/task1-10.jpg">
+		<img src="">
+        </section>
+		
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+		
+      
+		
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>Maven实战 许晓斌著</p>
+		
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+			<p>平常我们还有什么常用的maven命令以及插件</p>
+		</section>		
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : sweetalin</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

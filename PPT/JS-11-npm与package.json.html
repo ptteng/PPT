@@ -1,0 +1,189 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>npm与package.json</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>npm与package.json</h2>
+
+            <h3>小课堂【武汉第205期】</h3>
+
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>NPM是什么</p>
+            <p style="text-align: left">NPM（node package manager），通常称为node包管理器。顾名思义，它的主要功能就是管理node包，包括：安装、卸载、更新、查看、搜索、发布等。<br>npm的背后，是基于couchdb的一个数据库，详细记录了每个包的信息，包括作者、版本、依赖、授权信息等。它的一个很重要的作用就是：将开发者从繁琐的包管理工作（版本、依赖等）中解放出来，更加专注于功能的开发。</p>
+        </section>
+        <section>
+                <p>我们需要了解什么</p>
+                <p style="text-align: left">1.npm的安装、卸载、升级、配置<br>2.npm的使用：package的安装、卸载、升级、查看、搜索、发布<br>3.npm包的安装模式：本地 vs 全局<br>4.package.json：包描述信息<br>5.package版本：常见版本声明形式</p>
+            </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>npm包安装模式</p>
+                <p style="text-align: left">node包的安装分两种：本地安装、全局安装。两者的区别如下:<br>本地安装：npm install pkg,package会被下载到当前所在目录，也只能在当前目录下使用。<br>全局安装：npm install -g pkg,package会被下载到到特定的系统目录下，安装的package能够在所有目录下使用</p>
+            </section>
+            <section>
+                <p style="text-align: left">有个东西叫cnpm，是淘宝的人提供的一个npm的镜像。每10分钟就和官方版本同步一次。服务器是在国内的，不用担心速度和被墙的问题。</p>
+                <p style="text-align: left">通过这条命令安装cnpm：<br>npm install -g cnpm<br>
+                    -g是global装在全局空间，路径是C:\Users\ksqb0\AppData\Roaming\npm
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">通过package.json进行安装</p>
+                <p style="text-align: left">如果我们的项目依赖了很多package，一个一个地安装那将是个体力活。我们可以将项目依赖的包都在package.json这个文件里声明，然后一行命令搞定<br>npm install</p>
+                <p style="text-align: left">其他package安装命令</p>
+                <p style="text-align: left">运行如下命令，列出所有npm install可能的参数形式<br>npm install --help</p>
+            </section>
+            <section>
+                <p style="text-align: left">卸载：npm uninstall pkg<br>npm ls：查看当前目录安装了哪些package<br>npm info pkg：查看特定package的详细信息<br>npm update pkg：package更新<br>npm search pgk：搜索</p>
+            </section>
+            <section>
+                <p>NPM配置</p>
+                <p style="text-align: left">
+                    npm的配置工作主要是通过npm config命令，主要包含增、删、改、查几个步骤，下面就以最为常用的proxy配置为例。<br>设置proxy:npm set prox<br>查看proxy:npm get proxy<br>删除proxy:npm delete proxy<br>查看所有配置:npm config list<br>直接修改配置文件:npm config edit
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>什么是package.json？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                假设当我们下载了node应用，这个node应用依赖于A、B、C三个包，如果没有package.json，我们需要人肉安装这个三个包（如果对版本有特定要求就更悲剧了）：<br>npm install A<br>npm install B<br>npm install C<br>有了package.json，一行命令安装所有依赖。<br>npm install
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p>npm 允许在package.json文件里面，使用scripts字段定义脚本命令。</p>
+            <p style="text-align: left">"scripts": {"build": "node build.js"}</p>
+            <p style="text-align: left">上面代码是package.json文件的一个片段，里面的scripts字段是一个对象。它的每一个属性，对应一段脚本。比如，build命令对应的脚本是node build.js</p>
+            <p style="text-align: left">命令行下使用npm run命令，就可以执行这段脚本。</p>
+            <p style="text-align: left">npm run build</p>
+            <p style="text-align: left">node build.js</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>package.json字段简介</p>
+            <p style="text-align: left">package.json中最重要的属性是name和version两个属性，这两个属性是必须要有的，否则模块就无法被安装，这两个属性一起形成了一个npm模块的唯一标识符。模块中内容变更的同时，模块版本也应该一起变化。</p>
+        </section>
+        <section>
+            <p style="text-align: left">name属性就是你的模块名称，下面是一些命名规则:</p>
+            <p style="text-align: left">1.必须小于等于214个字节，包括前缀名称在内（如 x/xmodule）。<br>2.name属性会成为模块url、命令行中的一个参数或者一个文件夹名称，任何非url安全的字符在name中都不能使用，也不能以"_"或"."开头,不能含有大写字母<br>3.不要使用和node核心模块一样的名称,明早不要含有"js"和"node"。<br>4.name属性也许会被写在require()的参数中，所以最好取个简短而语义化的值。<br>5.创建一个模块前可以先到https://www.npmjs.com查查name是否已经被占用</p>
+        </section>
+        <section>
+            <p style="text-align: left">version:</p>
+            <p style="text-align: left">package的版本，当package发生变化时，version也应该跟着一起变化，同时，version必须可以被npm依赖的一个node-semver模块解析</p>
+            <p style="text-align: left">description:</p>
+            <p style="text-align: left">package的应用依赖模块，即别人要使用这个package，至少需要安装哪些东东。应用依赖模块会安装到当前模块的node_modules目录下。</p>
+            <p style="text-align: left">devDependencies：</p>
+            <p style="text-align: left">package的开发依赖模块，即别人要在这个package上进行开发</p>
+        </section>
+        <section>
+            <p style="text-align: left">常见版本声明形式</p>
+            <p style="text-align: left">"~1.2.3" 是神马意思呢:<br>"~1.2.3" = ">=1.2.3 <1.3.0"</p>
+            <p style="text-align: left">"1.x.x"是什么意思呢:<br>"1.2.x" = ">=1.2.0 <1.3.0"</p>
+            <p style="text-align: left">~version "约等于",^version "兼容版本"</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">npm package.json属性详解：<a href="http://www.cnblogs.com/tzyy/p/5193811.html" target="_blank">http://www.cnblogs.com/tzyy/p/5193811.html</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 周恒光 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

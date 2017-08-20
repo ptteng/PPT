@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <script src="../lib/reveal/js/html5shiv.js"></script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo" style="visibility: hidden">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task12】用CSS写一个简单的幻灯片效果页面</h2><br><br>
+            <p>分享人：韩筠宜</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left"> CSS3属性中有关于制作动画的三个属性：Transform,Transition,Animation。<br>
+                </p>
+        </section>
+        <section>
+            <p style="text-align:left">transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。<br>
+                </p>
+        </section>
+        <section>
+            <p style="text-align:left">transition 是令一个或多个可以用数值表示的css属性值发生变化时产生过渡效果。<br>
+                </p>
+        </section>
+        <section>
+            <p style="text-align:left">Animation字面上的意思，就是“动画”的意思，
+                我们使用CSS3的Animation制作动画，实现简单的幻灯片效果，可以省去复杂的js,jquery代码。Animation有一点不足之处，
+                我们运用Animation能创建自己想要的一些动画效果，但是有点粗糙，如果想要制作比较好的动画，大家还是使用flash或js等。</p>
+        </section>
+        <section>
+            <h4>到底怎么选择？</h4>
+            <p style="text-align:left">1. 如果要灵活定制多个帧以及循环，定义帧数比较精确，常于事件配合使用，用animation. <br>
+
+                2. 如果要简单的from to 效果，用 transition. <br>
+
+                3. 如果要使用js灵活设定动画属性，用transition.</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>语法</h3>
+        </section>
+        <section>
+            <p>animation: name duration timing-function delay <br>iteration-count direction fill-mode play-state;</p>
+            <br><br>
+            <p>animation:marginLeft 10s linear 2s infinite <br> 100 reverse  paused</p>
+            <!--(fill-mode定义一个开始前结束后的状态)-->
+        </section>
+        <section>
+            <h3>animation</h3>
+        </section>
+        <section>
+            <p style="text-align:left">在开始介绍Animation之前我们有必要先来了解一个特殊的东西，那就是"Keyframes",我们把他叫做“关键帧”。
+                下面我们就一起来看看这个“Keyframes”是什么东西。一个动画初始属性和最终属性，
+                一个开始执行动作时间和一个延续动作时间以及动作的变换速率，其实这些值都是一个中间值，
+                如果我们要控制的更细一些，比如说我要第一个时间段执行什么动作，第二个时间段执行什么动作，
+                此时我们需要这样的一个“关键帧”来控制。那么CSS3的Animation就是由“keyframes”这个属性来实现这样的效果。
+            </P>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>css===>ppt~~~</p>
+        </section>
+        <section>
+            <p> @keyframes 规则</p><br>
+            <p>兼容性该如何解决</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>在 CSS3 中创建动画，您需要学习 @keyframes 规则。</p>
+            <p style="text-align:left">
+                Keyframes具有其自己的语法规则，他的命名是由"@keyframes"开头，
+                后面紧接着是这个“动画的名称”加上一对花括号“{}”，括号中就是一些不同时间段样式规则，
+                有点像我们css的样式写法一样。对于一个"@keyframes"中的样式规则是由多个百分比构成的，
+                如“0%”到"100%"之间，我们可以在这个规则中创建多个百分比，
+                我们分别给每一个百分比中给需要有动画效果的元素加上不同的属性，从而让元素达到一种在不断变化的效果，
+                比如说移动，改变元素颜色，位置，大小，形状等，不过有一点需要注意的是，
+                我们可以使用“fromt”“to”来代表一个动画是从哪开始，到哪结束，
+                也就是说这个 "from"就相当于"0%"而"to"相当于"100%",值得一说的是，
+                其中"0%"不能像别的属性取值一样把百分比符号省略。
+            </p>
+        </section>
+        <section>
+            <p>Internet Explorer 11、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <p style="margin-left: -15%;font-size: 3rem">
+                    <a href="D:\wangye\views\test_ppt.html">demo1</a><br>
+
+                </p>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">如何用JQ写幻灯片效果页面.</a></p>
+        </section>
+        <section><a href="http://www.mizuiren.com/391.html">介绍</a></section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+            <p style="margin-left: 1.5rem;">参考二：<a href="http://www.htmleaf.com/">JQ之家</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <!--<section>-->
+            <!--<p></p>-->
+        <!--</section>-->
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY:徐浩程 张增锋 | 韩筠宜</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
