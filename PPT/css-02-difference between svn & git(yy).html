@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>difference between svn & git</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>深圳分院第207期小课堂</h2>
+            <h2>SVN和GIT的区别?</h2>
+            <h2>Webstorm如何配置SVN？</h2>
+            <p>分享人：余翼</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                在开发软件或者进行文案工作时，经常需要在原有的基础上进行修改，但又担心无法恢复原有内容，因此一份文件可能会保存成多份，
+                更可怕的是还得从堆积如山的文件中找出自己更改之前的内容。版本控制系统可以记录每次的文档更改，并确保由不同人所编辑的同
+                一文档都得到更新，甚至还可以将数据恢复到以前的版本，所以大家也称版本控制系统为神奇的“时间机器”。
+
+            </p>
+        </section>
+
+        <section style="text-align: left">
+            <section style="text-align: left">
+                <h3 style="text-align: center">2.知识剖析</h3>
+            </section>
+
+            <section style="text-align: left">
+                <h3>什么是SVN</h3>
+                <b>SVN</b>是Subversion的简称，是一个自由开源的版本控制系统,
+                支持大多数常见的操作系统。作为一个开源的版本控制系统,Subversion
+                管理着随时间改变的数据。这些数据集中放置在一个<b>中央资料档案库</b>
+                中。这个档案库很像一个普通的文件服务器,它会记住每一次文件的变动。
+                这样你就可以把档案恢复到旧的版本,或是浏览文件的变动历史。
+            </section>
+            <section style="text-align: center">
+                <h4>集中式版本控制系统</h4>
+                <img  src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=21886377828ba61edbeecf2d713597cc/d1160924ab18972b44ba6577e6cd7b899f510a8e.jpg"  width="360" height="240";>
+                <p style="font-size:1.5rem;text-align: left">
+                    版本库是集中存放在中央服务器的，而工作的时候，用的都是自己的电脑，
+                    所以要先从中央服务器取得最新的版本，然后开始工作，工作结束后，再把自己的文件推送给中央服务器。
+                </p>
+            </section>
+            <section style="text-align: left">
+                <h3>什么是git？</h3>
+                <p><b>Git</b>是开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。
+                    分布式相比于集中式的最大区别在于开发者可以提交到本地，每个开发者通过克隆
+                    （git clone），在本地机器上拷贝一个完整的Git仓库。通俗的说，就是一个管理
+                    代码历史记录的工具,当多人协作时可以相互推送各自的修改。
+                </p>
+            </section>
+            <section style="text-align: center">
+                <h4>分布式代码管理</h4>
+                <p style="font-size:1.5rem;text-align: left">分布式版本控制系统根本没有“中央服务器”
+                    ，每个人的电脑上都是一个完整的版本库服务器。工作的时候，就不需要联网了，
+                    因为版本库就在你自己的电脑上。既然每个人电脑上都有一个完整的版本库，那多
+                    个人如何协作呢？比方说你在自己电脑上改了文件A，你的同事也在他的电脑上改
+                    了文件A，这时，你们俩之间只需把各自的修改推送给对方，就可以互相看到对方
+                    的修改了。
+                </p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h3 style="text-align: center"> 3.1 SVN和Git有什么区别？</h3>
+                <h3 style="text-align: center"> 3.2 webstorm怎样配置svn？</h3>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section>
+                <h3>4.1 SVN和Git有什么区别？</h3>
+                <p >1.SVN属于集中化的版本控制系统，而Git是一个分布式版本控制系统。<br>
+                    使用SVN，每个版本库有唯一一个“官方地址”，每个用户都从这个唯一地址获取代码、数据;
+                    获取代码库的更新，也只能连接到这个唯一的代码库，同步以取得最新数据;
+                    提交必须有网络连接(非本地版本库)。
+                </p>
+            </section>
+            <section>
+                <p >2.GIT跟SVN一样有自己的集中式版本库或服务器。但GIT更倾向于被使用于分布式模式，也就是每个开发人员从中
+                    心版本库/服务器上check out代码后会在自己的机器上克隆一个自己的版本库。可以这样说，如果你被困在一个不能连接网络的地方时，你仍
+                    然能够提交文件，查看历史版本记录，创建项目分支，对一些人来说，这好像没多大用处，但当你突然遇到没有
+                    网络的环境时，这个将解决你的大麻烦。</p>
+            </section>
+
+            <section>
+                <p >3.GIT把内容按元数据方式存储，而SVN是按文件：<br>
+                    GIT会在本地存储项目下的所有文件，因为本地存储的是一个远端的克隆版本，而svn则只需要checkout你需要的那部分代码文件到本地即可。
+                    所以通常本地的git目录的大小要远远大于svn的目录。
+                </p>
+            </section>
+            <section>
+                <p >4.SVN的全局版本号，每一个事物处理（即一次提交）都具有整个版本库全局唯一的版本号。SVN 的版本号是连续的，可以预判下一个版本号。
+                    因为 SVN 是集中式版本控制，当然很容易实现版本号的连续性。<br>
+                    GIT是分布式版本控制，多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。
+                    所以采用 40 位长的哈希值作为版本号，版本号是全球唯一的。
+                </p>
+                <img src="../img/css-02-difference%20between%20svn%20&%20git/gitid.png" >
+            </section>
+            <section>
+                <p >5.GIT的内容完整性要优于SVN：GIT的内容存储使用的是<a href="http://baike.baidu.com/item/哈希算法?fr=aladdin">SHA-1哈希算法</a>。这能确保代码内容的完整性，确保在遇到磁
+                    盘故障和网络问题时降低对版本库的破坏。</p>
+            </section>
+
+
+            <section>
+                <h3>4.2 webstorm怎样配置svn？</h3>
+                <p>
+                    下载SVN客户端，windows一般选择<a href="https://tortoisesvn.net/downloads.html" >svn小乌龟户端</a><br>
+                    在Webstorm上配置SVN：
+                </p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+                <p style="text-align: center">如何使用svn上传代码至github</p>
+
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+
+            <p>参考2：<a href="https://zhuanlan.zhihu.com/p/21377146">Git是什么</a></p>
+            <p>参考3：<a href="http://www.runoob.com/git/git-tutorial.html">Git教程</a></p>
+            <p>参考4：<a href="http://www.open-open.com/lib/view/open1414396787325.html">手把手教你使用Git</a></p>
+            <p>参考5：<a href="http://os.51cto.com/art/201104/254543.htm">版本控制系统对比：Git与Subversion</a></p>
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :郭婷婷/余翼</small></p>
+        </section>
+
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
