@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>MySQL的事务管理</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：程凯</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>当多个用户访问同一份数据时，一个用户再更改数据的过程中可能有其他用户同时发起更改请求，为保证数据的更新从一个一致性状态变更为另一个一致性状态，这时就有必要引入事物的概念。MySQL提供了多种存储引擎支持事务，支持事务的存储引擎有InnoDB和BDB。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1.事务的4种特性：</p>
+            <p>（1）原子性：事务中所有的操作视为一个原子单元，即对于事务所进行的数据修改等操作只能是完全提交或者是完全回滚。</p>
+			<p>（2）一致性：事务完成时，必须使用所有的数据从一种一致性状态变更为良一中一致性状态，所有的变更都必须应用于事务的修改，以确保数据的完整性。</p>
+			<p>（3）隔离性：一个事务中操作语句所做的修改必须与其他事务所做的修改相隔离。</p>
+			<p>（4）持久性：事务完成之后，所做的修改是对数据的影响是永久的，即使是系统重启或者出现系统故障数据依然可以恢复</p>
+        </section>
+		<section>
+			<p>2.REDO日志：</p>
+			<p>事务执行时需要将执行的事务日志写入到日志文件中，对应的文件为REDO日志</p>
+			<p>3.UNDO日志</p>
+			<p>与REDO日志相反，UNDO日志主要用于事务异常时的数据回滚。</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.事务控制语句</p>
+            <p>2.事务的几种隔离级别</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1.事务控制语句</p>
+            <p></p>
+        </section>
+		<section>
+            <p>2.事务的几种隔离级别</p>
+            <p>(1)READ-UNCOMMITTED(读取未提交内容)(脏读)</p>
+			<p>(2)READ-COMMITTED(读取提交内容):满足了格力的简单定义：一个事务从开始到提交前所做的任何改都是不可见的，事务之只能看见已提交事务所做的改变</p>
+            <p>(3)REPEATEABLE-READ(可重复读)：这是MySQL的默认的事务管理级别，能同时保同一个事务的多个实例在并发读数据时，会看到同样的数据行，理论上会导致另一个问题：幻读。</p>
+			<p>(4)Serializabel(可串行化)：这是最高的隔离级别，通过强制事务排序，使之不可能相互冲突，从而解决幻读
+			的问题。</p>>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>Serilizabel是事务管理最高的级别，为什么不是默认的事务级别？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>InnoDB的锁机制？</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 程凯</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

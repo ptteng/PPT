@@ -1,0 +1,181 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>web.xml里的主要配置都包括什么，都代表什么含义</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘家铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+			<p>web.xml是什么?</p>
+			<p>web.xml是web工程的一个配置文件,默认放在web-app文件夹下面.</p>
+			<p>web.xml文件是用来配置:欢迎页、servlet、filter等,如果web工程没用到这些,是可以不用web.xml文件的</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>①定义头和根元素</p>
+			<p>部署web.xml文件就像所有XML文件一样,必须以一个XML头开始,这个头声明可以使用XML版本并给出文件的字符编码.需要注意的是,所有部署描述符文件的根元素为web-app</p>
+			<p>xml元素不像HTML,他们是大小写敏感的,所以web-app必须用小写</p>
+		</section>
+		<section>
+			<p>②部署描述符文件内的元素次序</p>
+			<p>xml元素不仅是大小写敏感的,而且还对出现在其他元素中的次序敏感.例如,xml头必须是文件的第一项.DOCTYPE声明是第二项,web-app元素是第三项.服务器不一定强制要求这种次序,但他们允许完全拒绝执行含有次序不正确的元素的web应用</p>
+			<p>这表示使用非标准元素次序的web.xml文件是不可移植的.此外,xml元素出现地次序不是随意的.特别是,需要把所有servlet元素放在所有servlet-mapping元素之前</p>
+		</section>
+			
+		<section>
+			<p>③定义欢迎页面</p>
+			<p>访问一个网站时,默认看到的第一个页面就叫欢迎页,一般情况下是由首页来充当欢迎页的.一般情况下,我们会在web.xml中指定欢迎页,但web.xml并不是一个web的必要文件,没有web.xml网站仍然是可以正常工作的</p>
+			
+		</section>
+		
+		<section>
+			<p>④命名与定制URL</p>
+			<p>我们可以为servlet和jsp文件命名并定制URL,其中定制URL是依赖命名的,命名必须在定制url前</p>
+			<img src="D:\QQ图片20170819141251.png">
+		</section>
+		
+		<section>
+			<p>其他更多</p>
+			<p>web.xml里还可以设置更多元素功能.如指定错误处理页面,设置过滤器,监听器,会话过期时间等</p>
+			
+		
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>假如没有指定欢迎页面,系统会进入哪个页面?</p>
+			
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>对于tomcat而言,当你指定一个web的根名,没有指定具体页面,去访问一个web时,如果web.xml文件配置了欢迎页,那么就返回指定页面,如果没有,默认先查找index.html文件,如果找到了,就返回该页面.</p>
+			<p>如果index.html和index.jsp都没找到,又没有web.xml文件指定欢迎页面,就显示The requested resource (/XXX) is not available的页面。其中XXX表示web的根名。但如果你指定了具体页面，是可以正常访问的</p>
+        </section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		<p>web.xml配置</p>
+		
+        <!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\1.png">
+		<!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\2.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        <section>
+			
+		</section>
+		<section>
+			
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘家铭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
