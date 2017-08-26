@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task8】angular js 常用指令ng-if、ng-class、ng-option、ng-value、ng-click是如何使用的？</h2>
+            <h3>【小课堂成都】</h3>
+            <p>分享人：韩建名</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>指令是一个Dom元素上的标签(和元素上的属性, CSS类样式一样，属于这个Dom元素)，它告诉AngualrJS的HTML编译器，去附加一个行为到这个Dom元素上去，这个行为可以改变这个Dom元素，或者这个Dom元素的子元素。AngularJS通过被称为 指令 的新属性来扩展HTML。AngularJS通过内置的指令来为应用添加功能。AngularJS内置指令是扩展的HTML属性，带有前缀ng-。
+            </p>   
+        </section>
+        <section>
+        	
+            <p>Angular有许多指令，今天我们主要来从ng-if、ng-class、ng-option、ng-value、ng-click这几个指令入手。</p>
+            
+        </section>
+        <section>
+           <h3>2.知识剖析</h3>
+        </section>
+         <section>
+           <h3>(1)ng-if</h3>
+        </section>
+         <section>
+           <p>ng-if指令用于在表达式为false时移除HTML元素。如果ng-if语句执行的结果为true，会添加HTML元素，并显示。ng-if指令不同于ng-hide/ng-show，ng-hide/ng-show是隐藏元素,设置元素的display为none。而ng-if是从DOM中移除元素。ng-hide指令在表达式为true时隐藏指定的HTML元素。ng-show指令在表达式为true时显示指定的HTML元素。
+           语法<element ng-if="expression"></element>
+            所有的 HTML 元素都支持该指令。
+            </p>
+        </section>
+        <section>
+            <pre>
+                <code>
+
+                    
+                    
+                    保留 HTML: <input type="checkbox" ng-model="myVar" ng-init="myVar = true">
+                    <div ng-if="myVar">
+                    <h1>Welcome</h1>
+                    <p>Welcome to my home.</p>
+                    <hr>
+                    </div> 
+                    <p>当复选框取消选中时 DIV 元素将移除。</p>
+                    <p>当重新选中复选框，DIV 元素会重新显示。</p> 
+                  
+                   
+
+                </code>
+            </pre>
+        </section>
+        <section>
+           <h3>(2)ng-class</h3>
+        </section>
+        <section>
+            <p>ng-class指令用于给HTML元素动态绑定一个或多个CSS类。ng-class指令的值可以是字符串，对象，或一个数组。如果是字符串，多个类名使用空格分隔。如果是对象，需要使用key-value对，key为你想要添加的类名，value是一个布尔值。只有在value为true时类才会被添加。如果是数组，可以由字符串或对象组合组成，数组的元素可以是字符串或对象。
+            </p>
+        </section>
+        <section>
+           <p>有三种方式：
+           <br>
+            第一种：通过数据的双向绑定（不推荐）
+            <br>
+            第二种：通过对象数组
+            <br>
+            第三种：通过key/value
+           </p>
+        </section>
+        <section>
+            <p>第一种</p>
+            <br>
+            <pre>
+                <code>
+                    function changeClass(){
+                        $scope.className = "change2";
+                    }
+                    <div class="{{className}}"></div>
+                </code>
+            </pre>    
+        </section>
+        <section>
+            <p>第二种</p>
+            <br>
+            <pre>
+                <code>
+                    function changeClass(){
+                        $scope.className = true/false;
+                    } 
+                    <div ng-class="{true:‘zhende‘,false:‘jiade‘}[className]"></div>
+                </code>
+            </pre>
+            <p>
+              实现很简单，就是当className为真的时候class为zhende，相反则为jiade。但是有一点不好的只能够让一个元素拥有两种状态，虽然这么说,基本也是满足所需了  
+            </p>
+        </section>
+        <section>
+            <p>第三种</p>
+            <br>
+            <pre>
+                <code>
+                function changeClass(){
+                    $scope.lala = true;
+                }
+                <div ng-class="{‘selectClass‘:select,‘choiceClass‘:choice,‘haha‘:lala}"></div>  
+                </code>
+            </pre>
+            <p>当lala为true的时候，class则为haha，个人认为这个是比较推荐的，可以弥补第二种方式的点点遗憾~</p>
+        </section>
+        <section>
+            <h3>(3)ng-option</h3>        
+        </section>
+        <section>
+            <p>ng-options指令用于使用options填充select元素的选项。ng-options属性可以在表达式中使用数组或对象来自动生成一个select中的option列表。ng-options与ng-repeat很相似，很多时候可以用ng-repeat来代替ng-options。但是ng-options提供了一些好处，例如减少内存提高速度，以及提供选择框的选项来让用户选择。
+            </p>
+            <a href="http://www.jb51.net/article/67909.htm">传送门</a>
+        </section>
+        <section>
+             <h3>(4)ng-value</h3> 
+              <p>ng-value指令用于设置input或select元素的value属性。和value相比，它的值可以是表达式，所以相比之下可以实现更多需求。比如当需要使用ng-repeat来动态生成input[]的时候，ngValue是很有用处的。</p>
+        </section>
+        <section>
+            <h3>(5)ng-click</h3> 
+            <p>ng-click指令告诉了AngularJS HTML元素被点击后需要执行的操作。如果是使用ng-click来实现函数的执行的话，还可以进行传参。一个ng-click可以触发多个操作，
+            <pre>
+                <code>
+                <button ng-click="function1();function2()"></button>
+                </code>
+            </pre>
+            <p>先执行function1后执行function2</p>
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <h3>ng-option表达式的写法</h3>
+            <p>1、ng-option表达式的写法ng-options的值可以是一个内涵表达式（comprehension expression），其实这只是一种有趣的说法，简单来说就是它可以接收一个数组或者对象，并对它们进行循环，将内部的内容提供给select标签内部的选项。它可以是一下两种形式。
+            </p>
+           
+          
+        </section>
+        <section>
+        	 <p>(1)数组作为数据源用数组中的值做标签。(label for value in array)用数组中的值作为选中的标签。(select as label for value in array)用数组中的值做标签组。(label group by group for value in array)用数组中的值作为选中的标签组。(select as label group by group for value in array track by trackexpr)</p>
+        </section>
+        <section>
+        	  <p>(2)对象作为数据源用对象的键-值（key-value）做标签。(label for (key , value) in object)用对象的键-值作为选中的标签。(select as label for (key , value) in object)用对象的键-值作为标签组。(label group by group for (key, value) in object)用对象的键-值作为选中的标签组。(select as label group by group for (key, value) in ob)</p>
+        </section>
+        <section>
+            <h3>4.编码实战</h3>
+            <p>Demo</p>
+        </section>
+        <section>
+            <h3>5.拓展思考</h3>
+        </section>
+        <section>
+            <p>ng-if的作用域问题ng-if指令会创建一个子级作用域，因此，如果在ng-if指令中添加了元素，并向元素属性增加ng-model指令，那么ng-model指令对应的作用域属性子级作用域，而并非控制器注入的$scope作用域对象，这点在进行双向数据绑定时，需要引起注意。因此，解决ng-if中ng-model值无效的问题，主要方法就是在绑定值时添加$parent标识，或者用ng-show指令代替ng-if指令，这两种方法都可以达到同样的页面效果。
+            写法如下：
+            ng-model="$parent.industry"
+            </p>
+        </section>
+        <section>
+            <h3>6.参考文献</h3>
+            <a href="http://www.runoob.com/angularjs/ng-ng-if.html">菜鸟教程</a>
+            <br>
+            <a href="http://www.jb51.net/article/84665.htm">AngularJS中的指令全面解析(必看)</a>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 韩建名</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

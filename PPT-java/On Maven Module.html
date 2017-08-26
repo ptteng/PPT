@@ -1,0 +1,156 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>了解maven的module</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">POM(Project Object model 项目对象模型)，是Maven项目的核心，定义了项目的基本信息，
+			用于描述项目如何构建，声明项目依赖等。POM可以与实际的Java代码相独立，实现解耦或者正交性。</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">实际应用中，一个项目往往是由多个 project 构成的，在进行构建（build）时，针对多个 project 分别执行多次构建命令，这样极容易产生遗漏也会大大降低效率。
+			Maven 的聚合功能可以通过一个父模块将所有的要构建模块整合起来，将父模块的打包类型声明为 POM，通过"modules"将各模块集中到父 POM 中。</p>
+        </section>
+		<section>
+			<p style="text-align:left">父模块不需要有源代码和资源文件，即没有 src/main/java 和 src/test/java 目录。Maven首先解析父模块的 POM 文件，分析要构建的模块，并通过各模块的依赖关系计算一个反应堆构建顺序（Reactor Build Order ），
+			根据这个顺序依次构建模块。将各子模块聚合到父模块中后，就可以对父模块进行一次构建命令来完成全部模块的构建。反应堆（Reactor）是所有模块组成的一个构建结果。</p>
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">执行mvn clean install，控制台输出提示compilation failure。</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">由于compiler插件默认支持的java版本较低，需要对其进行配置，向pom.xml加入相关<plugin>元素。
+			（如果未指定版本，Maven 3.0+ 会提出警告。)</p>
+            <img src="..\img-java\On Maven Module-8.24\Maven compiler-conf.PNG" alt="Configuring Your Compiler Plugin">   			
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section></section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align:left">聚合和继承存在一些共性和潜在的联系，在实际的应用中，经常将聚合模块的父模块和继承的父模块定义为同一个;并不是所有的 POM 元素都可以被继承。</p>  
+			<img src="..\img-java\On Maven Module-8.24\inherited POM .PNG" alt="inherited POM"> 
+        </section>
+		<section>
+			<p style="text-align:left">Maven提供了dependencyManagement元素让子模块继承到父模块的依赖设置，又能保证子模块依赖使用的灵活性。完整的依赖声明
+			包含在在父POM中，子模块只需要配置简单的groupId和artifactId就能获得相应的依赖信息，从而引入正确的依赖。</p>  
+        </section>
+		<section>
+			<p style="text-align:left">类似的，Maven提供了pluginManagement元素帮助管理插件继承。</p>  
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:left">1.许晓斌. Maven实战. 北京：机械工业出版社，2017.</p>
+            <p style="text-align:left">2.<a href="http://maven.apache.org/index.html" target="_blank">《Guide to Working with Multiple Modules》</a></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
