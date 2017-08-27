@@ -1,0 +1,272 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何实现数组深拷贝和浅拷贝？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何实现数组深拷贝和浅拷贝？</h2>
+            <h3>小课堂【深圳第214期】</h3>
+            <p>分享人：余翼</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="left">在使用JavaScript对数组进行操作的时候，我们经常需要将数组进行备份.</p>
+            <p class="left">如下代码，如果只是简单才用赋值的方法，那么我们只要更改其中的任何一个，然后其他的也会跟着改变，这就导致了问题的发生</p>
+            <pre>
+                <code>
+                    var arr1 = ["red","yellow","black"];
+                    var arr2 = arr1;
+                    arr2[1] = "green";
+                    console.log("数组的原始值：" + arr1 );
+                    console.log("数组的新值：" + arr2);
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>测试结果如下</p>
+            <img src="http://images2015.cnblogs.com/blog/1118847/201703/1118847-20170308095253172-141799910.png" alt="">
+            <p>像上面的这种直接赋值的方式就是数组的浅拷贝，浅拷贝改变其中一个数组，另外一个数组也会跟着改变。很多时候，这不是我们想要的。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <ol>
+                    <li>什么是深拷贝和浅拷贝?</li>
+                    <li>slice和concat使用方法</li>
+                </ol>
+            </section>
+            <section>
+                <h4>1.什么是深拷贝和浅拷贝?</h4>
+                <p class="left">浅拷贝：复制一份引用，所有引用对象都指向一份数据，并且都可以修改这份数据。</p>
+                <p class="left">深拷贝（复杂）：复制变量值，对于非基本类型的变量，则递归至基本类型变量后，再复制。可以使用slice和concat方法。</p>
+            </section>
+            <section>
+                <h4>2.slice和concat使用方法</h4>
+                <p class="left">slice()：</p>
+                <p class="left">语法：arrayObject.slice(start,end)</p>
+                <p class="left">slice() 方法可从已有的数组中返回选定的元素（请注意，该方法并不会修改数组，而是返回一个子数组）。</p>
+            </section>
+            <section>
+                <p class="left">start：必需。规定从何处开始选取。如果是负数，那么它规定从数组尾部开始算起的位置。也就是说，-1 指最后一个元素，-2
+                    指倒数第二个元素，以此类推。</p>
+                <p class="left">end:可选。规定从何处结束选取。该参数是数组片断结束处的数组下标。如果没有指定该参数，那么切分的数组包含从
+                    start 到数组结束的所有元素。如果这个参数是负数，那么它规定的是从数组尾部开始算起的元素。</p>
+                <p class="left">返回值:返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素（如果 end 未被规定，那么 slice() 方法会选取从 start 到数组结尾的所有元素）。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        <script type="text/javascript">
+                            var arr = new Array(3);
+                            arr[0] = "George";
+                            arr[1] = "John";
+                            arr[2] = "Thomas";
+
+                            document.write(arr + "<br />");
+                            document.write(arr.slice(1) + "<br />");
+                            document.write(arr);
+                        </script>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p class="left">concat()：</p>
+                <p class="left">concat() 方法用于连接两个或多个数组。
+                    该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。</p>
+                <p class="left">语法：arrayObject.concat(arrayX,arrayX,......,arrayX)</p>
+                <p class="left">返回一个新的数组。该数组是通过把所有 arrayX 参数添加到 arrayObject 中生成的。如果要进行 concat() 操作的参
+                    数是数组，那么添加的是数组中的元素，而不是数组。</p>
+                <p class="left">arrayX：必需。该参数可以是具体的值，也可以是数组对象。可以是任意多个。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        <script type="text/javascript">
+
+                            var a = [1,2,3];
+                            document.write(a.concat(4,5));
+
+                        </script>
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>jquery如何实现深拷贝？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p class="left">jQuery.extend()</p>
+            <pre>
+                <code>
+                    var arr = [['a','b'],0,1,2,{name:'old'}];
+                    var newArr = $.extend(true, [], arr);
+                    newArr[4].name = 'new';
+                    newArr[0].push('c');
+                    console.log(newArr);
+                    console.log(arr);
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <section>
+                <p class="left">浅拷贝的实现,例如：</p>
+                <pre>
+                <code>
+    var arr = ["One","Two","Three"];
+    var arrto = arr;
+    arrto[1] = "test";
+    document.writeln("数组的原始值：" + arr + "<br />");//Export:数组的原始值：One,test,Three
+    document.writeln("数组的新值：" + arrto + "<br />");//Export:数组的新值：One,test,Three
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>深拷贝之slice</p>
+                <pre>
+                <code>
+    var num = ["One","Two","Three"];
+    var newNum = num.slice(0);
+    newNum[1] = "haha";
+    document.writeln("数组的原始值：" + num + "<br />");//Export:数组的原始值：One,Two,Three
+    document.writeln("数组的新值：" + newNum + "<br />");//Export:数组的新值：One,haha,Three
+        </code>
+            </pre>
+            </section>
+            <section>
+                <p>深拷贝之concat</p>
+                <pre>
+                <code>
+    var arr = new Array(3)
+    arr[0] = "George"
+    arr[1] = "John"
+    arr[2] = "Thomas"
+
+    var arr2 = new Array(3)
+    arr2[0] = "James"
+    arr2[1] = "Adrew"
+    arr2[2] = "Martin"
+    document.write(arr.concat(arr2))//输出：George,John,Thomas,James,Adrew,Martin；
+        </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p >对象的深拷贝</p>
+            <p ><a href="http://www.html-js.com/article/3749" target="_blank">原生js对象的浅拷贝和深拷贝的总结</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="left">参考一：<a href="http://www.jb51.net/article/49065.htm" target="_blank">JavaScript数组深拷贝和浅拷贝的两种方法</a></p>
+            <p class="left">参考二：<a href="http://www.html-js.com/article/3749" target="_blank">原生js对象的浅拷贝和深拷贝的总结</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>深拷贝的应用场景！</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 李兴 | 余翼</small></p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
