@@ -1,0 +1,196 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>手机分辨率和网页中的px是一回事吗？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>手机分辨率和网页中的px是一回事吗？</h2>
+
+            <h3>小课堂【武汉第211期】</h3>
+
+            <p style="text-align: center;">分享人：杨梓雄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">对于pc端适配的问题（除开布局方式），在不改变电脑分辨率，和缩放网页状态下。
+                通常只需要设置<meta>中设置viewport即可。但是放在手机上时候就不一样了，你需要了解px,dips,ppi等等有关知识，
+                才能应付移动端各种适配问题以及坑，光是Android各种花式分辨率和dpr就让人头疼，还有iphone的视网膜（Retina）屏幕
+                上，也够喝一壶。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: center">先来讲讲px</p>
+            <p style="text-align: left">
+                英文为pixel(像素),它是图像显示基本单元。分辨率是指在长和宽的两个方向上各拥有的像素个数。一个像素有多大呢？主要取决于
+                显示器的分辨率，相同面积不同分辨率的显示屏，其像素点大小就不相同。其实这里就是物理像素，又叫设备像素。英文名（device
+                pixels,简称dp）最好记住英语简称，不然混在一起脑子被搅成浆糊，还有它的单位是pt。
+            </p>
+            <p style="text-align: left">这些有限的点就叫做像素，每一个长度方向上的像素个数乖每一个宽度方向上的像素个数的形式表示，
+                就叫做图片的分辨率。</p>
+        </section>
+        <section>
+            <p style="text-align: center">再来谈谈ppi（pixels per inch）</p>
+            <p style="text-align: left">ppi:每英寸多少像素数，放到显示器上说的每英寸多少物理像素及显示器设备的点距。</p>
+            <p style="text-align: left">这里要知道1英寸（in）=（约等于）2.54cm(厘米)=25.4mm(毫米),以及为什么px不是绝对尺寸。</p>
+            <p style="text-align: left">除了ppi以外还有dpi(每英寸上的点数)，该数值可以粗略度量计算机显示器或手机屏幕等显示输出设备
+                上呈现的像素密度。DPI 越大，显示输出呈现的点数量越多、尺寸越小。</p>
+        </section>
+        <section>
+            <p style="text-align: center">css px</p>
+            <p style="text-align: left">CSS像素是Web编程的概念，独立于设备的用于逻辑上衡量像素的单位，也就是说我们在做网页时用到的
+                CSS像素单位，是抽象的，而不是实际存在的。</p>
+        </section>
+        <section>
+            <p style="text-align: center">还有一个设备独立像素，也叫做逻辑像素，也叫做与设备无关像素，也叫做与密度无关系像素。英文简称（dips）</p>
+            <p style="text-align: left">设备独立像素”也有人称为“CSS像素”，一种形象的说法，更倾向于表明与  CSS  中尺寸的对应。前面这
+                句话是错的但是容易理解。正确的解释是：可以认为是计算机坐标系统中的一个点，这个点代表一个可以由程序使用并控制的虚拟
+                像素(比如：CSS 像素,只是在android机中CSS 像素就不叫”CSS 像素”了而是叫”设备独立像素”)，然后由相关系统转换为物理像素。有点绕这个问题先放放</p>
+        </section>
+        <section>
+            <p style="text-align: center">论css像素与设备像素之间的关系</p>
+            <p style="text-align: left">这两个之间的关系是成比例的。这里就要牵扯到另外一个名词：设备像素比（英文名dpr）。设备像素比 = 设备像素/设备独立
+                像素。可以通过JavaScript 中的window.devicePixelRatio来获取设备中的像素比值。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <P style="text-align: left">1.移动端的尺寸，主要是间距，宽高，字体，和图像 的尺寸。由于移动设备千差万别，如何才能保证效果呢？</P>
+            <p style="text-align: left">2.retina屏幕下，图片模糊的情况。</p>
+            <P style="text-align: left">3.retina下，border: 1px问题</P>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">要注意的的有三点</p>
+            <p style="text-align: left">1. html  头部meat标签中的DPR</p>
+            <p style="text-align: left">2. width,height 的 rem </p>
+            <p style="text-align: left">3.font-size的px;</p>
+            <p style="text-align: left">可以利用rem特性做动态修改根元素font-size，另外就是媒体查询了。这里解决方法又可以讲几个小时就不再阐述了。</p>
+        </section>
+        <section>
+            <p style="text-align: left">对于图片高清问题，比较好的方案就是两倍图片(@2x)。</p>
+            <p style="text-align: left">如：200×300(css pixel)img标签，就需要提供400×600的图片。</p>
+            <p style="text-align: left">如此一来，位图像素点个数就是原来的4倍，在retina屏幕下，位图像素点个数就可以跟物理像素点个数形成 1 : 1的
+                比例，图片自然就清晰了(这也解释了之前留下的一个问题，为啥视觉稿的画布大小要×2？)。</p>
+        </section>
+        <section>
+            <p style="text-align: left">对于iphone5(dpr=2)，添加如下的meta标签，设置viewport(scale 0.5)：</p>
+            <p style="text-align: left"><meta name="viewport" content="width=640,initial-scale=0.5,maximum-scale=0.5, minimum-scale=0.5,user-scalable=no"></p>
+            <p style="text-align: left">这样，页面中的所有的border: 1px都将缩小0.5，从而达到border: 0.5px;的效果。 </p>
+            <p style="text-align: left">然而，页面scale，必然会带来一些问题：
+
+                字体大小会被缩放
+                页面布局会被缩放(如: div的宽高等)</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <a href="http://www.cnblogs.com/yaozhongxiao/archive/2014/07/14/3842908.html" target="_blank">
+                    dpi 、 dip 、分辨率、屏幕尺寸、px、density 关系以及换算 - 人间奇迹 - 博客园</a></p>
+            <p style="text-align: left">
+                <a href="http://www.html-js.com/article/Mobile-terminal-H5-mobile-terminal-HD-multi-screen-adaptation-scheme%203041" target="_blank">
+                    【原创】移动端高清、多屏适配方案 - 移动端H5 - 前端乱炖</a></p>
+            <p style="text-align: left">
+                <a href="http://yunkus.com/physical-pixel-device-independent-pixels/" target="_blank">
+                    设备像素，设备独立像素，CSS像素 - 云库网</a></p>
+            <p style="text-align: left">
+                <a href="http://blog.csdn.net/pi9nc/article/details/19897995" target="_blank">
+                    Android屏幕适配解析 - 详解像素,设备独立像素,归一化密度,精确密度及各种资源对应的尺寸密度分辨率适配问题</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>为什么psd中尺寸都是两倍？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 杨梓雄 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+  // 以下为常见配置属性的默认值
+  // {
+  // 	controls: true, // 是否在右下角展示控制条
+  // 	progress: true, // 是否显示演示的进度条
+  // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+  // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  // 	keyboard: true, // 是否启用键盘快捷键来导航
+  // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+  // 	center: true, // 是否将幻灯片垂直居中
+  // 	touch: true, // 是否在触屏设备上启用触
+  Reveal.initialize({
+    history: true,
+    dependencies: [
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+      {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+      {
+        src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

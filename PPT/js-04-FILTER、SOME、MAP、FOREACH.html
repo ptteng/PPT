@@ -1,0 +1,209 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>对一个数组 filter、some、map、foreach的操作分别有什么作用？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>对一个数组 filter、some、map、foreach的操作分别有什么作用？</h2>
+
+            <h3>小课堂【深圳第211期】</h3>
+
+            <p style="text-align: center;">分享人：孙剑立</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">使用JavaScript数组常常需要对数组进行遍历、迭代操作。而我们常用的就是for语句对数组进行迭代。然而在ECMAscript5已经为数组定义了5个迭代的方法，分别是：filter、some、map、foreach、every，下面我们讲讲它们的具体作用。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/some2.png" alt="">
+            <p>Firefox2+,safari3+,Opera9.5+</p>
+            <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/some3.png" alt="">
+        </section>
+        <section>
+            <p style="text-align:left">
+                every()： 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true ;<br>
+                <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/every1.png" alt=""><br><br>
+                some()： 对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true;<br>
+                <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/some1.png" alt="">
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                通过 demo，我们了解到对于 every() ，它返回的是false，因为存在不符合条件的值。<br>
+                而对于some() ，结果就为true，因为至少存在一项符合条件的值；
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                filter()： 对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组。
+                <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/filter.png" alt="">
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                通过调用 filter() 创建并返回了包含符合条件的数组，因为传入的函数对他们每一项都返回true。这个方法对查询符合某些条件的所有数组项非常有用。
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。<br>
+                <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/map.png" alt="">
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                map()也返回一个数组，而这个数组的每一项都是在原始数组中的对应项上运行传入函数的结果；
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                forEach()：对数组中的每一项运行给定函数，这个方法并没有返回值 ;<br>
+                <img src="../img/js-04-FILTER-SOME-MAP-FOREACH/for.png" alt="">
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                通过demo可以看出 forEach() ，只是对每个数组项运行指定的函数体，这个迭代方式并没有返回值,本质上与使用for循环迭代数组一样；
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>迭代和遍历、循环、递归有什么区别？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                循环（loop），指的是在满足条件的情况下，重复执行同一段代码。比如，while语句。<br><br>
+                迭代（iterate），指的是按照某种顺序逐个访问列表中的每一项。比如，for语句。<br><br>
+                遍历（traversal），指的是按照一定的规则访问树形结构中的每个节点，而且每个节点都只访问一次。<br><br>
+                递归（recursion），指的是一个函数不断调用自身的行为。比如，以编程方式输出著名的斐波纳契数列。<br>
+
+            </p>
+        </section>
+        <section>
+            <p>
+                有了以上定义，这几个概念之间的区别其实就比较清楚了。至于它们之间的联系，严格来讲，它们似乎都属于算法的范畴。<br><br>
+                换句话说，它们只不过是解决问题的不同手段和方式，而本质上则都是计算机编程中达成特定目标的途径。
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>相对于for()，JS数组自定义的数组迭代方式有哪些好处？</p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                答：在实现相同功能的前提下，后者除了能够节省代码量外，在实现某些功能上的流程中存在很多有意思的优势，比如forEach相比普通的for循环的优势在于对稀疏数组的处理，会跳过数组中的空位。for+i在性能测试上是优越于后者，但是前提是，array的length要事先计算出来，而在处理非常大量的数据时候，后者的优势就显而易见了。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: center">
+                JavaScript高级程序设计第三版<br>
+                (详见P96,第五章引用类型中的5.2.8迭代方法) <br><br>
+
+                W3Cschool JavaScript教程
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>你还能想到几种办法来应用以上几个数组迭代方式？</p>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>感谢大家的观看</small>
+                <small>BY : 孙剑立　|　郭俊伟</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
