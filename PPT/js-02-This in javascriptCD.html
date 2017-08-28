@@ -29,8 +29,8 @@
         <div class="slides">
             <section>
                 <h2>JS中this的指向</h2>
-                <h3>小课堂【北京小课堂】</h3>
-                <p>分享人：杨纲</p>
+                <h3>小课堂【成都小课堂】</h3>
+                <p>分享人：张珺琢</p>
             </section>
             <section>
                 <p>1.背景介绍</p>
@@ -46,9 +46,7 @@
                 <h3>1.背景介绍</h3>
             </section>
             <section>
-                <p>this对象是在运行时基于函数的执行环境绑定的，在全局函数中，this就是window，当函数被作为某个对象的方法调用时，this就是那个对象，匿名函数的执行具有全局性，也就是说，匿名函数this指向window。</p>
-                <!--<p>this是Javascript语言的一个关键字。它代表函数运行时，自动生成的一个内部对象。</p>-->
-                  <!--<p>this是动态绑定的，它可以是全局对象、当前对象或者任意对象(这取决于函数的调用方式)。这就导致了this具备了多重含义，可以使得javascript更灵活的使用。但是，带来了灵活性的同时也会给我们初学者带来不少困惑。</p>-->
+                <p>在Java语言中，this关键字的含义是明确且具体的，表示当前对象。而在javascript中，this是动态绑定的，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。这就导致了this具备了多重含义，可以使得javascript更灵活的使用。但是，带来了灵活性的同时也会给我们初学者带来不少困惑。</p>
             </section>
             <section>
                 <h3>2.知识剖析</h3>
@@ -57,25 +55,22 @@
                 <p>全局环境中的this</p>
                 <pre>
                 <code>
-                  function test() {
                   console.log(this);
-                  }
-                  test();
                 </code>
                 </pre>
                 <p>总结：在全局作用域中它的 this 执行当前的全局对象（浏览器端是 Window，node 中是 global）</p>
             </section>
             <section>
-                <p><a href="http://www.cnblogs.com/jiqing9006/p/5091491.html">严格模式</a> ‘use strict’下的this</p>
+                <p>严格模式 ‘use strict’下的this</p>
                 <pre>
                 <code>
                   'use strict';
                   function test() {
                   console.log(this);
                   };
-                  
+
                   test();
-                  
+
                   // undefined
                 </code>
                 </pre>
@@ -85,42 +80,41 @@
                 <p>在javascritp中，不一定只有对象方法的上下文中才有this， 全局函数调用和其他的几种不同的上下文中也有this指代。 它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。JavaScript 中函数的调用有以下几种方式：作为对象方法调用，作为函数调用，作为构造函数调用，和使用 apply 或 call 调用。</p>
             </section>
             <section>
-                <p>1.作为对象方法调用:this 被自然绑定到该对象,也就是说this就指这个上级对象</p>
+                <p>1.作为对象方法调用:this 被自然绑定到该对象</p>
                 <pre>
                 <code>
-                var point = { 
-                x : 0, 
-                y : 0, 
-                moveTo : function(x, y) { 
-                    this.x = this.x + x; 
-                    this.y = this.y + y; 
-                    } 
-                }; 
+                var point = {
+                x : 0,
+                y : 0,
+                moveTo : function(x, y) {
+                    this.x = this.x + x;
+                    this.y = this.y + y;
+                    }
+                };
 
                 point.moveTo(1, 1)//this 绑定到当前对象，即 point 对象
                 </code>
             </pre>
-                <a href="http://www.w3school.com.cn/jsref/met_win_moveto.asp"  target="_blank">moveTo</a>
             </section>
             <section>
                 <p>2.作为函数调用:this被绑定到全局对象</p>
                 <pre>
                 <code>
-                  function makeNoSense(x) { 
-                  this.x = x; 
+                  function makeNoSense(x) {
+                  this.x = x;
                   }
-                  makeNoSense(5); 
+                  makeNoSense(5);
                   x;// x 已经成为一个值为 5 的全局变量
                 </code>
                 </pre>
             </section>
             <section>
-                <p>3.作为构造函数调用:this 绑定到新创建的对象上，也就是说this就指这个新对象</p>
+                <p>3.作为构造函数调用:this 绑定到新创建的对象上</p>
                 <pre>
                 <code>
-                function Point(x, y){ 
-                   this.x = x; 
-                   this.y = y; 
+                function Point(x, y){
+                   this.x = x;
+                   this.y = y;
                 }
                 </code>
                 </pre>
@@ -130,18 +124,18 @@
                 <p>4.使用 apply 或 call 调用：在 JavaScript 中函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法。</p>
                 <pre>
                 <code>
-                   function Point(x, y){ 
-                      this.x = x; 
-                      this.y = y; 
-                      this.moveTo = function(x, y){ 
-                          this.x = x; 
-                          this.y = y; 
-                      } 
-                   } 
-                  
-                   var p1 = new Point(0, 0); 
-                   var p2 = {x: 0, y: 0}; 
-                   p1.moveTo(1, 1); 
+                   function Point(x, y){
+                      this.x = x;
+                      this.y = y;
+                      this.moveTo = function(x, y){
+                          this.x = x;
+                          this.y = y;
+                      }
+                   }
+
+                   var p1 = new Point(0, 0);
+                   var p2 = {x: 0, y: 0};
+                   p1.moveTo(1, 1);
                    p1.moveTo.apply(p2, [10, 10]);
                 </code>
                 </pre>
@@ -163,7 +157,7 @@
                      setTimeout(this.foo, 1000);
                    }
                  }
-                 
+
                  obj.foo2();
                 </code>
                 </pre>
@@ -178,9 +172,9 @@
                  function foo() {
                    console.log(this);
                  }
-                 
+
                  setTimeout(foo, 1);
-                 
+
                  // window
                 </code>
                 </pre>
@@ -202,20 +196,38 @@
                         var _this = this;
                         setTimeout(function() {
                           console.log(this);  // Window
-                    
+
                           console.log(_this);  // Object {name: "qiutc"}
                         }, 1000);
                       }
                     }
-                    
+
                     obj.foo2();</code>
                 </pre>
                 <p>可以看到直接用 this 仍然是 Window；因为 foo2 中的 this 是指向 obj，我们可以先用一个变量 _this 来储存，然后在回调函数中使用 _this，就可以指向当前的这个对象了</p>
             </section>
             <section>
-            <p>问题二</p>
-              <p>setTimeout 方法在调用传入函数的时候，如果这个函数没有指定了的 this，那么它会做一个隐式的操作—-自动地注入全局上下文，等同于调用 foo.apply(window) 而非 foo()；
-              </p>
+            <p>问题二可以这么这么解决：利用 闭包 的特性来处理</p>
+                <pre>
+                <code>var obj = {
+                      name: 'qiutc',
+                      foo: function() {
+                        console.log(this);
+                      },
+                      foo2: function() {
+                        console.log(this);
+                        var _this = this;
+                        setTimeout(function() {
+                          console.log(this);  // Window
+
+                          console.log(_this);  // Object {name: "qiutc"}
+                        }, 1000);
+                      }
+                    }
+
+                    obj.foo2();</code>
+                </pre>
+                <p>可以看到直接用 this 仍然是 Window；因为 foo2 中的 this 是指向 obj，我们可以先用一个变量 _this 来储存，然后在回调函数中使用 _this，就可以指向当前的这个对象了</p>
             </section>
             <section>
                 <h3>5、编码实战</h3>
@@ -294,10 +306,10 @@
                 <h3>7.参考文献</h3>
             </section>
             <section>
-                <p>参考一：<a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/"  target="_blank">深入浅出 JavaScript 中的 this</a></p>
-                <p>参考二：<a href="https://qiutc.me/post/this-this-this-in-javascript.html"  target="_blank">JavaScript 中的 this !</a></p>
-                <p>参考三：<a href="http://caibaojian.com/toutiao/6859"  target="_blank">JavaScript中的this用法与指向</a></p>
-                <p>参考四：<a href="https://www.zhihu.com/question/19636194"  target="_blank">如何理解 JavaScript 中的 this 关键字？</a></p>
+                <p>参考一：<a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/">深入浅出 JavaScript 中的 this</a></p>
+                <p>参考二：<a href="https://qiutc.me/post/this-this-this-in-javascript.html">JavaScript 中的 this !</a></p>
+                <p>参考三：<a href="http://caibaojian.com/toutiao/6859">JavaScript中的this用法与指向</a></p>
+                <p>参考四：<a href="https://www.zhihu.com/question/19636194">如何理解 JavaScript 中的 this 关键字？</a></p>
             </section>
             <section>
                 <h3>8、更多讨论</h3>
@@ -308,8 +320,7 @@
             <section>
                 <h4>鸣谢</h4>
                 <p>感谢大家观看</p>
-                <p><small>BY : 何华飒</small></p>
-              <p><small>感谢 : 陈冲 | 赵锐泉 | 郑明月| 杨纲</small></p>
+                <p><small>BY : 陈冲 | 赵锐泉 | 郑明月</small></p>
             </section>
         </div>
     </div>
