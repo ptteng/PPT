@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>什么是REST？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是REST？</h2>
+            <h3>小课堂【武汉第212期】</h3>
+            <p style="text-align: center;">分享人：周恒光</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">要解释什么是REST，你应该先了解什么是API（Application Programming Interface,应用程序编程接口）</p>
+            <p style="text-align: left">
+                形象一点说就是像一个公司比如腾讯，阿里巴巴之类，他们可以提供一个API，然后我们或者一些其他的小公司可以编一个软件去跟这个接口（API）进行相连或交互。
+            </p>
+            <p style="text-align: left">
+                举个例子，比如你可以用手机的其他软件分享内容到微信朋友圈或者新浪微博，这些软件就是与微信和微博的api进行了交互。
+            </p>
+            <p style="text-align: left">
+                知道了API，那么就容易理解REST了。它是一种架构风格，腾讯公司或其他公司建立API时要遵守的一种规则/风格，当然也有其他规则可以用。
+            </p>
+        </section>
+
+        <section>
+            <p style="text-align: left">要具体知道什么是REST，我们又必须提到Web，因为REST是以Web为平台的。</p>
+            <p style="text-align: left">Web是分布式信息系统为超文本文件和其他对象（资源）提供访问入口。</p>
+            <p style="text-align: left">
+                资源是Web架构的关键点,需要3个操作:<br>
+                识别(identify)，表示(represent)，交互(interact with)
+            </p>
+            <p style="text-align: left">
+                通过这三个操作，又引出三个概念:<br>
+                1.uri（统一资源标识符包括url和urn）识别资源；<br>
+                2.representation （例如html，图片，视频等等）表示资源；<br>
+                3.通过协议（包括http，ftp等等）与资源进行交互。
+            </p>
+            <p style="text-align: left">所以REST就是选择通过使用http协议和uri，<br>
+                利用client/server model对资源进行CRUD<br>
+                (Create/Read/Update/Delete)增删改查操作。
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>REST不是"rest"这个单词，而是Resource Representational State Transfer的缩写：通俗来讲就是：资源在网络中以某种表现形式进行状态转移。分开来讲：</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    1.Resource：资源，即数据（网络的核心）。<br>
+                    2.Representational：某种表现形式，比如用JSON，XML，JPEG等；<br>
+                    3.State Transfer：状态变化。通过HTTP动词实现。<br>
+                    4. REST描述的是在网络中client和server的一种交互形式；REST本身不实用，实用的是如何设计 RESTful API（REST风格的网络接口；<br>
+                    5. Server提供的RESTful API中，URL中只使用名词来指定资源，原则上不使用动词。“资源”是REST架构或者说整个网络处理的核心。<br>
+                    6. 用HTTP协议里的动词来实现资源的添加，修改。<br>
+                    7. Server和Client之间传递某资源的一个表现形式，比如用JSON，XML传输文本，或者用JPG，WebP传输图片等。<br>
+                    8. 用 HTTP Status Code传递Server的状态信息。比如最常用的 200 表示成功，500 表示Server内部错误等。<br>
+                    Web端不再用之前典型的PHP或JSP架构，而是改为前段渲染和附带处理简单的商务逻辑。Web端和Server只使用上述定义的API来传递数据和改变数据状态。格式一般是JSON。
+                </p>
+            </section>
+
+            <section>
+                <p style="text-align: left">
+                    对于资源的具体操作类型，由HTTP动词表示。<br>
+                    常用的HTTP动词有下面五个（括号里是对应的SQL命令）。
+                </p>
+                <p style="text-align: left">
+                    1.GET（SELECT）：   从服务器获取资源(一项或多项)<br>
+                    2.POST（CREATE）：  在服务器新建一个资源<br>
+                    3.PUT（UPDATE）：   在服务器更新资源（客户端提供改变后的完整资源）<br>
+                    4.PATCH（UPDATE）： 在服务器更新资源（客户端提供改变的属性）<br>
+                    5.DELETE（DELETE）：从服务器删除资源。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    比如：<br>
+                    GET /zoos：列出所有动物园<br>
+                    POST /zoos：新建一个动物园<br>
+                    GET /zoos/ID：获取某个指定动物园的信息<br>
+                    PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息<br>
+                    PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）<br>
+                    DELETE /zoos/ID：删除某个动物园<br>
+                    GET /zoos/ID/animals：列出某个指定动物园的所有动物<br>
+                    DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>Server的API如何设计才满足RESTful要求?</p>
+            <p style="text-align: left">
+                1. URL root:<br>
+                https://example.org/api/v1/*<br>
+                https://api.example.com/v1/<br><br>
+                2. API versioning:<br>
+                可以放在URL里面，也可以用HTTP的header：/api/v1/<br><br>
+                3. URI使用名词而不是动词，且推荐用复数。<br>
+                4. 保证HEAD和GET方法是安全的，不会对资源状态有所改变（污染）。<br><br>
+                5. 资源的地址推荐用嵌套结构：<br>
+                GET /friends/10375923/profile
+            </p>
+        </section>
+
+        <section>
+            <p>为什么要用RESTful结构呢？</p>
+            <p style=">text-align: left">
+                大家都知道"古代"网页是前端后端融在一起的。在之前的桌面时代问题不大，但是近年来移动互联网的发展，各种类型的Client层出不穷，RESTful可以通过一套统一的接口
+                为Web,iOS和Android提供服务。另外对于广大平台来说，比如Facebook，微博开放平台，微信公共平台等，它们不需要有显式的前端，只需要一套提供服务的接口
+            </p>
+        </section>
+
+        <section>
+            <p>REST的优点和限制</p>
+            <p style="text-align: left">
+                1.客户-服务器（Client-Server）客户端服务器分离<br>
+                优点:<br>
+                提高用户界面的便携性（操作简单）<br>
+                通过简化服务器提高可伸缩性（高性能，低成本）<br>
+                允许组件分别优化（可以让服务端和客户端分别进行改进和优化）<br><br>
+                2.无状态（Stateless）<br>
+                从客户端的每个请求要包含服务器所需要的所有信息<br>
+                优点:<br>
+                提高可见性（可以单独考虑每个请求）<br>
+                提高了可靠性（更容易从局部故障中修复）<br>
+                提高可扩展性（降低了服务器资源使用）
+            </p>
+        </section>
+
+        <section>
+            <p style="text-align: left">
+                3.缓存（Cachable）<br>
+                服务器返回信息必须被标记是否可以缓存，如果缓存，客户端可能会重用之前的信息发送请求。<br>
+                优点:减少交互次数,减少交互的平均延迟。<br><br>
+                4.分层系统（Layered System）<br>
+                系统组件不需要知道与他交流组件之外的事情。封装服务，引入中间层。<br>
+                优点:限制了系统的复杂性,提高可扩展性。<br><br>
+                5.统一接口（Uniform Interface）<br>
+                优点:提高交互的可见性,鼓励单独改善组件。<br><br>
+                6.支持按需代码（Code-On-Demand）<br>
+                优点:提高可扩展性
+            </p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                举个例子：<br>
+                例如我订阅了一个人的博客，想要获取他发表的所有文章（这里『他发表的所有文章』就是一个资源Resource）。于是我就向他的服务发出请求，说『我要获取你发表的所有文章，最好是atom格式的』，这时候服务器向你返回了atom格式的文章列表第一页（这里『atom格式的文章列表』就是表征Representation）。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                你看到了第一页的页尾，想要看第二页，这时候有趣的事情就来了。如果服务器记录了应用的状态（stateful），那么你只要向服务询问『我要看下一页』，那么服务器自然就会返回第二页。类似的，如果你当前在第二页，想服务器请求『我要看下一页』，那就会得到第三页。但是REST的服务器恰恰是无状态的（stateless），服务器并没有保持你当前处于第几页，也就无法响应『下一页』这种具有状态性质的请求。因此客户端需要去维护当前应用的状态（application state），也就是『如何获取下一页资源』。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                当然，『下一页资源』的业务逻辑必然是由服务端来提供。服务器在文章列表的atom表征中加入一个URI超链接（hyper link），指向下一页文章列表对应的资源。客户端就可以使用统一接口（Uniform Interface）的方式，从这个URI中获取到他想要的下一页文章列表资源。上面的『能够进入下一页』就是应用的状态（State）。服务器把『能够进入下一页』这个状态以atom表征形式传输（Transfer）给客户端就是表征状态传输（REpresentational State Transfer）这个概念。
+            </p>
+        </section>
+        <section>
+            <a href="http://jsonapi.org/format/">JSON的编码规范</a>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">怎样用通俗的语言解释REST，以及RESTful？：<a href="https://www.zhihu.com/question/28557115" target="_blank">https://www.zhihu.com/question/28557115</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 周恒光</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
