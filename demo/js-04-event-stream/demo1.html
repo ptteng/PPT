@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="click">点击</button>
+<script>
+    (function(){
+        var btn = document.getElementById("click");
+        btn.onclick = function(){
+            console.log("1. button");
+        }
+        document.body.onclick = function(){
+            console.log("2. document.body");
+        }
+        document.onclick = function(){
+            console.log("3. document");
+        }
+        window.onclick = function(){
+            console.log("4. window");
+        }
+    })();
+
+    (function(){
+        var btn = document.getElementById("click");
+        btn.addEventListener("click",function(event){
+            console.log("1. button");
+            event.stopPropagation();
+            console.log('Stop Propagation!');
+        },false)
+
+        window.addEventListener("click",function(){
+            console.log("4. window");
+        },false)
+    })()
+
+</script>
+</body>
+</html>
