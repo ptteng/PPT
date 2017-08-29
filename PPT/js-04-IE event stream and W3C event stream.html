@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        p{text-indent: 2em;text-align: justify;font-size: .8em}
+        .a>p{text-align: center}
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-4】IE事件流和W3C事件流有什么区别，参数分别是什么，以及如何阻止事件冒泡？</h2>
+            <h3>小课堂【武汉213期】</h3>
+            <h4>分享人：王力</h4>
+        </section>
+        <section class="a">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是事件？什么是事件流？</h3>
+            <p style="text-indent: 2em;text-align: justify">
+                HTML元素事件是浏览器内在自动产生的,当有事件发生时html元素会向外界(这里主要指元素事件的订阅者)发出各种事件,如click,onmouseover,onmouseout等等。而事件流(又叫事件传播)描述的是从页面中接收事件的顺序。
+            </p>
+        </section>
+        <section>
+            <h3>浏览器的事件历史</h3>
+            <p style="text-indent: 2em;text-align: justify">当浏览器发展到第四代时(IE4及Netscape4)，浏览器开发团队遇到了一个很有意思的问题：页面的哪一部分会拥有某个特定的事件？想象画在一张纸上的一组同心圆。如果把手指放在圆心上，那么手指指向的不是一个圆，而是纸上的所有圆。<br>
+                两家公司的浏览器开发团队在看待浏览器事件方面还是一致的。如果单击了某个按钮，他们都认为单击事件不仅仅发生在按钮上，甚至也单击了整个页面。</p>
+            <p style="text-indent: 2em;text-align: justify">但有意思的是，IE和Netscape开发团队居然提出了差不多是完全相反的事件流的概念。IE的事件流是事件冒泡流，而Netscape的事件流是事件捕获流</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+         <h3>事件冒泡流</h3>
+            <p style="text-indent: 2em;text-align: justify">
+                IE的事件流叫做事件冒泡，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。以下面的HTML页面为例。也就是说，click事件首先在div
+                元素上发生，而这个元素就是我们单击的元素，然后click事件沿着dom树向上传播，在每一级节点都或发生，直至传播到document对象</p>
+            <a href="../demo/js-04-event-stream/demo1.html"></a>
+        </section>
+        <section>
+            <h3>事件捕获流</h3>
+        </section>
+        <section>
+            <p>
+                事件捕获的概念，与事件冒泡正好相反。它认为当某个事件发生时，父元素应该更早接收到事件，具体元素则最后接收到事件。比如说刚才的demo，如果是事件捕获的话，事件发生顺序会是刚好与上面相反的。即window,document,document.body,button。虽然事件捕获是Netscape唯一支持的事件流模型，但IE9、Safari、Chrome、Opera和Firefox目前也都支持这种事件流模型。但由于老版本的浏览器不支持，因此很少有人使用事件捕获。所以放心的使用事件冒泡，有特殊需要再使用事件捕获即可。
+            </p>
+        </section>
+        <section>
+            <h3>dom事件流</h3>
+        </section>
+        <section>
+            DOM事件流可以分为下面3个阶段：<br>
+            1. 事件捕获阶段<br>
+            2. 处于目标阶段<br>
+            3. 事件冒泡阶段<br>
+            <img src="../img/js-04-event-strem/s2.png" alt="">
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何阻止事件冒泡？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>根据DOM事件流机制，在元素上触发的大多数事件都会冒泡传递到该元素的所有祖辈元素上，如果这些祖辈元素上也绑定了相应的事件处理函数，就会触发执行这些函数。<br>
+                使用stopPropagation()函数可以阻止当前事件向祖辈元素的冒泡传递，也就是说该事件不会触发执行当前元素的任何祖辈元素的任何事件处理函数。<br>
+                该函数只阻止事件向祖辈元素的传播，不会阻止该元素自身绑定的其他事件处理函数的函数。event.stopImmediatePropagation()不仅会阻止事件向祖辈元素的传播，还会阻止该元素绑定的其他(尚未执行的)事件处理函数的执行。</p>
+            <a href="../demo/js-04-event-stream/demo1.html"></a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>事件处理程序类别？</p>
+
+        </section>
+        <section>
+            <h3>html事件处理程序</h3>
+            <p style="text-indent: 2em;text-align: justify">某个元素支持的某个事件可以用与事件处理程序同名的html特性来指定，该特性的值是能够执行的JavaScript代码,这也是我们最初学js，最开始的方法。</p>
+            <a href="../demo/js-04-event-stream/demo2.html">html事件处理程序</a>
+            <p>
+                优点：简单明了，省去获取元素等一系列前提操作<br>
+                缺点：html代码与js代码高度耦合，不符合分离原则</p>
+        </section>
+        <section>
+            <h3>DOM0级别事件处理函数</h3>
+            <p style="text-indent: 2em;text-align: justify">使用 element.on[eventname]=fn的方式给元素添加事件</p>
+
+
+    <pre>
+        <code>
+          <input type="button" value="点击" id="click" />
+           <script>
+                    var oBtn=document.getElementById('click');
+                    //该方式被认为是元素的方法，即事件处理程序在元素的作用域中进行，this即该元素本身
+                    oBtn.onclick=function(){
+                        alert(this.id);//click
+                    }
+                    //注意：删除该事件处理程序可以用如下方法
+                    oBtn.onclick=null;//即点击后不再有任何反应
+           </script>
+    </code>
+    </pre>
+
+        </section>
+
+
+        <section >
+            <p style="text-indent: 2em;text-align: justify">添加事件处理函数addEventListener<br>
+                参数1 指定事件名称...click mouseover mouseout<br>
+                参数2 事件处理程序（匿名函数或者有名函数）<br>
+                参数3 true（捕获阶段发生） or false（冒泡阶段发生）<br>
+            </p>
+            <pre>
+                <code>
+                   <input type="button" value="点击" id="click" />
+                <script>
+                var oBtn=document.getElementById('click');
+                oBtn.addEventListener('click',function(){
+                    alert(this.id)//click  this指的是该元素作用域内
+                },false)
+                //注意该种方式可以给一个函数添加多个事件处理函数，执行顺序与添加顺序相同
+                oBtn.addEventListener('click',function(){
+                    alert('Hello World')//click
+                },false)
+            </script>
+
+            </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/christine95/article/details/50719435" target="_blank">理解dom事件流的概念</a></p>
+            <p>参考二：<a href="http://www.w3school.com.cn/jsref/event_stoppropagation.asp" target="_blank">stopPropagation() 方法</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+
+            <p >有哪些常见的事件?</p>
+        </section >
+        <section >
+            <h4>鸣谢</h4>
+            <p style="text-align:center;">感谢大家观看</p>
+            <p style="text-align:center;">
+            <h4>BY :王力/h4>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
