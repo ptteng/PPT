@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>一份规范的接口文档应该包括什么内容，衡量接口（API）设计好和坏的准则是什么？</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：杨舜</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+
+        <section>
+ 	<P>什么是接口文档？</P>
+
+  
+      <p align="left">在项目开发中，web项目的前后端分离开发，APP开发，需要由前后端工程师共同定义接口，编写接口文档，之后大家都根据这个接口文档进行开发，到项目结束前都要一直维护。
+    </p>
+ 
+    </section>
+
+        <section>
+        	<h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+        <p>为什么要写接口文档？</p>
+        	<p align="left">1、项目开发过程中前后端工程师有一个统一的文件进行沟通交流开发</p>
+            <p> </p>
+        	<p align="left">2、项目维护中或者项目人员更迭，方便后期人员查看、维护</p>
+</section>
+			
+
+
+			<section>
+			<p>接口规范是什么？</p>
+        	<p align="left">首先接口分为四部分：方法、url、请求参数、返回参数</p>
+        	<p align="left">一、方法:新增(post) 修改(put) 删除(delete) 获取(get)</P>
+        	<p align="left">二、url：以/a开头，如果需要登录才能调用的接口(如新增、修改；前台的用户个人信息，资金信息等)后面需要加/u，即：/a/u；中间一般放表名或者能表达这个接口的单词；</p>
+        	</section>
+        	<section>
+            <P align="left">三、请求参数和返回参数，都分为5列：字段、说明、类型、备注、是否必填。</P>
+
+
+        	<p align="left">字段是类的属性；</p>
+        	<p align="left">说明是中文释义；</p>
+        	<p align="left">类型是属性类型，只有String、Number、Object、Array四种类型；</p>
+        	<p align="left">备注是一些解释，比如表示0表示上架1表示下架，好让前端更好 的理解；</p>
+
+            <p align="left">是否必填就是该字段在界面中是否是必填内容</p>
+
+</section>
+<section>
+
+           <p align="left">四、返回参数结构有几种情况： </p>
+
+            <p align="left">1、如果只返回接口调用成功还是失败（如新增、删除、修改等），则只有一个结构体：code和message两个参数； </p>
+
+            <p align="left">2、如果要返回某些参数，则有两个结构体：1).是code/mesage/data，2).是data里写返回的参数<!-- ,data是object类型 -->；</p>
+
+            <p align="left">3、如果要返回列表，那么有三个结构体，1).是code/mesage/data,2).data是object，里面放置page/size/total/list 4个参数，其中list是Arrary类型，3).list里放object，object里是具体的参数</p>
+
+
+<!--             <p align="left">4、返回参数结构有几种情况： </p>
+
+            <p align="left">4、返回参数结构有几种情况： </p>
+
+            <p align="left">4、返回参数结构有几种情况： </p>
+
+            <p align="left">4、返回参数结构有几种情况： </p>
+
+            <p align="left">4、返回参数结构有几种情况： </p>
+
+            <p align="left">4、返回参数结构有几种情况： </p>
+            <p align="left">4、返回参数结构有几种情况： </p> -->
+
+
+
+
+        	
+ <!--        </section>
+
+    <section>
+             <p align="left">4、返回参数结构有几种情况： </p>
+             <P align="left">URL定位资源，用HTTP动词（GET,POST,DELETE,PUT）描述操作。</P>
+    </section>
+
+       <section>
+      
+     <p>1. REST描述的是在网络中client和server的一种交互形式；REST本身不实用，实用的是如何设计 RESTful API（REST风格的网络接口）；
+
+</p>
+     <p>2. Server提供的RESTful API中，URL中只使用名词来指定资源，原则上不使用动词。“资源”是REST架构或者说整个网络处理的核心。</p>
+     <p>3. 用HTTP协议里的动词来实现资源的添加，修改，删除等操作。</p>
+     <p>4. Server和Client之间传递某资源的一个表现形式，比如用JSON，XML传输文本，或者用JPG，WebP传输图片等。当然还可以压缩HTTP传输时的数据（on-wire data compression）。</p> 
+     <p>5. 用 HTTP Status Code传递Server的状态信息。比如最常用的 200 表示成功，500 表示Server内部错误等。
+
+</p>   
+ -->
+ 
+
+</section>
+
+
+
+       <section>
+            <h3>3.常见问题</h3>
+       </section>
+        <section>
+       <p>衡量接口（API）设计好和坏的准则是什么？</p>
+       
+
+
+		</section>
+        <section>
+        <h3>4.解决方案</h3>
+         </section>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+
+<section>
+
+<p align="left">单词拼写要准确,接口一旦发布就不能改了，要保持兼容性，拼写错误也不能改了，所以要仔细检查拼写，否则会被同行嘲笑很多年。</p>
+<p align="left">方法名称是否可以自描述，即看到方法的名字就能知道方法的作用、看到参数名就知道需要传递什么样的数据（比如getUserById(String userId)） </p>
+<p align="left"> API一定要便于使用者理解，这样才是广泛传播的基础。如果有些API需要用户掌握特定的概念、定义，那么就要保持这个API的一致性，不能轻易的改变API，否则会给使用者带来很大的麻烦。</p>
+<p align="left">接口参数验证必不可少，同时异常等返回信息得全面，让调用者明确异常原由； </p>
+<p align="left"> </p>
+
+        </section>
+
+   <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+<!--         <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+ -->
+<!--         <section>
+
+
+</p>
+       <p>
+</p>
+        </section> -->
+  
+        <section>
+            <h3>6.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+            <p></p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 杨舜</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
