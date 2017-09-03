@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title></title>
+    <script src="http://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/angular.js/1.6.0/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular-ui-router/1.0.0/angular-ui-router.min.js"></script>
+</head>
+<body data-ng-app="myApp">
+<h1>AngularJS Home Page (Ui-router Demonstration)</h1>
+<div ui-view></div>
+
+<script>
+    var myApp = angular.module("myApp", ["ui.router"]);
+    myApp.config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.when("", "/PageTab");
+        $stateProvider
+                .state("PageTab", {
+                    url: "/PageTab",
+                    templateUrl: "PageTab.html"
+                })
+                .state("PageTab.Page1", {
+                    url:"/Page1",
+                    templateUrl: "Page1.html"
+                })
+                .state("PageTab.Page2", {
+                    url:"/Page2?message&great",
+                   /* params:{message:null},*/
+                    templateUrl: "Page2.html"
+                })
+                .state("PageTab.Page3", {
+                    url:"/Page3",
+                    templateUrl: "Page3.html"
+                });
+    });
+    myApp.controller("myCtrl",function($stateParams){
+        console.log("哈哈哈");
+        console.log($stateParams.message);
+        console.log($stateParams.great);
+    })
+</script>
+</body>
+<html>

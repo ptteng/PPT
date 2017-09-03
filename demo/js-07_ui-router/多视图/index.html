@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/angular.js/1.6.0/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular-ui-router/1.0.0/angular-ui-router.min.js"></script>
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl">
+<button type="button" data-ng-click="go_header()">加载头部</button>
+<button type="button" data-ng-click="go_main()">加载主体</button>
+<button type="button" data-ng-click="go_footer()">加载底部</button>
+<div data-ui-view="header"></div>
+<div data-ui-view="main"></div>
+<div data-ui-view="footer"></div>
+
+<script>
+    var app=angular.module('myApp',["ui.router"])
+            .config(function($stateProvider){
+                $stateProvider
+                        .state("header", {
+                            url:"/header",
+                            views:{
+                                "header":{
+                                    templateUrl:"header.html"
+                                }
+                            }
+                        })
+                        .state("main",{
+                            url:"/main",
+                            views:{
+                                "header":{
+                                    templateUrl:"header.html"
+                                },
+                                "main":{
+                                    templateUrl:"main.html"
+                                }
+                            },
+                            controller:("myCtrl")
+                        })
+                        .state("footer",{
+                            url:"/footer",
+                            views:{
+                                "header":{
+                                    templateUrl:"header.html"
+                                },
+                                "main":{
+                                    templateUrl:"main.html"
+                                },
+                                "footer":{
+                                    templateUrl:"footer.html"
+                                }
+                            }
+                        })
+            });
+
+    app.controller("myCtrl",function($scope,$state){
+        $scope.go_header=function(){
+            $state.go("header")
+        };
+        $scope.go_main=function(){
+            $state.go("main")
+        };
+        $scope.go_footer=function(){
+            $state.go("footer")
+        }
+    });
+</script>
+</body>
+<html>
