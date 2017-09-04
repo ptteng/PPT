@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是http协议？Get和post请求有什么区别？http请求content-Type有几种?http适合什么场景？http状态码有哪些？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘家铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+			<p>什么是http协议?</p>
+			<p>http协议是一个属于应用层的面向对象协议,http是超文本传输协议的缩写,它是以传送www方式的传输超文本到本地浏览器的传送协议</p>
+			<p>http是一个基于TCP/IP通信协议来传递数据(html文件,图片文件,查询结果等)
+http协议工作于客户端-服务端架构上,浏览器通过http客户端通过URL向HTTP服务器即web服务器发送所有请求.web服务器根据接收到的请求,向客户端发送响应信息</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>http协议特点</p>
+			<p>1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+			<p>2、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+		</section>
+		<section>
+			<p>3、无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+			<p>4、无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+		</section>
+			
+		<section>
+			<p>get和post请求有什么区别?</p>
+			<p>get和post是http协议的两种不同的实现方式,get是指server从url取得所需参数,get可以看到参数,post是主动向server发送参数,所以一般看不到这些参数.</p>
+			<p>get方法通常用于请求服务器发送某个资源,post方法通常用来支持html的表单,表单中填好的数据通常会被发送给服务器,然后服务器将其发送到他要去的地方</p>
+		</section>
+		
+		<section>
+			<p>http请求content-Type有几种?</p>
+			<p>Http Header里的Content-Type一般有这三种：</p>
+			<p>application/x-www-form-urlencoded:数据被编码为名称/值对,这是标准的编码格式</p>
+			<p>multipart/form-data:数据被编码为一条消息,页上的每个控件对应消息中的一个部分</p>
+			<p>text/plain:数据以纯文本形式进行编码,其中不含任何空间或格式字符,在postman软件里标的是RAW</p>
+			<!img src="D:\QQ图片20170819141251.png">
+		</section>
+		
+		<section>
+			<p>http适合什么场景？</p>
+			<p>公司OA服务,互联网服务</p>
+			
+		
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1:http的优缺点有哪些?</p>
+			<p>2:http的状态码有哪些</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>http的优点:</p>
+			<p>1:基于应用级的接口,使用方便</p>
+			<p>2:要求的开发水平不高,容错性强</p>
+			<p>http的缺点:</p>
+			<p>1:传输速度慢,数据包大</p>
+			<p>2:如果要实现实时交互,服务器性能压力大</p>
+			<p>3:数据传输安全性差</p>
+        </section>
+		<section>
+			<p>http状态码有哪些？</p>
+			<p>http状态码有很多,就不一一举例了,说一个大概概念</p>
+			<p>1字头代表消息,代表请求已被接收,需要继续处理,这类响应只是临时响应</p>
+			<p>2字头代表成功,这一类型的状态码代表请求已成功被服务器接收,理解</p>
+			<p>3字头代表重定向.这类状态码代表需要客户端采取进一步的操作才能完成请求,通常,这些状态码用来重定向,后续的地址(重定向目标)在本次响应的location域中指明</p>
+			<p>4字头代表请求错误,这类状态码代表客户端看起来可能发生了错误,妨碍了服务器的处理</p>
+			<p>5字头代表服务器在处理请求的过程有错误或者异常状态发生</p>
+		</section>
+	
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		
+		
+        <!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\1.png">
+		<!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\2.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>我们常遇到的状态码的含义分别是哪些?</p>
+        </section>
+        <section>
+			<p>200:请求已成功，请求所希望的响应头或数据体将随此响应返回。</p>
+			<p>403:服务器已经理解请求，但是拒绝执行它。</p>
+			<p>404:请求失败，请求所希望得到的资源未被在服务器上发现.404这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。出现这个错误的最有可能的原因是服务器端没有这个页面。</p>
+			
+		</section>
+		<section>
+			<p>405:请求行中指定的请求方法不能被用于请求相应的资源。该响应必须返回一个Allow 头信息用以表示出当前资源能够接受的请求方法的列表。鉴于 PUT，DELETE 方法会对服务器上的资源进行写操作，因而绝大部分的网页服务器都不支持或者在默认配置下不允许上述请求方法，对于此类请求均会返回405错误。</p>
+			<p>500:服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器端的源代码出现错误时出现。</p>
+			<p>503:由于临时的服务器维护或者过载，服务器当前无法处理请求。这个状况是临时的，并且将在一段时间以后恢复。</p>
+			
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘家铭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
