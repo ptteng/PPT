@@ -1,0 +1,204 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JAVA中的异常处理机制</h2>
+            <p></p>
+           
+            <p>李亚衡</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+         <p>可能每一只程序猿都有这样一个梦想</p>
+         <p>程序永远不会出现问题，用户输入的数据永远是正确的，逻辑一定没有任何问题 ，选择打开的资源也一定是存在的，连接永远是OK的，内存永远是够用的…… </p>
+         </section>
+        <section>
+            <p>简单来说就是：0 error(s), 0 warning(s)</p>
+        </section>
+		<section>
+            <p>但是，不存在的...</p>
+        </section>
+		 
+		<section>
+        	<p>异常处理机制</p>
+            <p>天有不测风云，人有旦夕祸福，Java的程序代码也如此,JAVA远在设计之初就考虑到了这个问题，于是就设计了JAVA的异常处理机制。而发展至今的异常处理机制现在也已经非常的完善。</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+		 <section>
+		  <p>什么是异常处理？</p>
+            <p>如果某个方法不能按照正常的途径完成任务，
+			就可以通过另一种路径退出方法。
+			在这种情况下会抛出一个封装了错误信息的对象。
+			此时，这个方法会立刻退出同时不返回任何值。
+			另外，调用这个方法的其他代码也无法继续执行，
+			异常处理机制会将代码执行交给异常处理器。</p>
+        </section>
+        
+		 <section>
+            <p>异常的分类</p>
+			<p>java中的异常机制包括Error和Exception两个部分。他们都继承自一个共同的基类Throwable</p>
+			<p>Error属于JVM运行中发生的一些错误，虽然并不属于开发人员的范畴，但是有些Error还是由代码引起的，比如StackOverflowError经常由递归操作引起</p>
+            <P>Exception分为两种，检查类型（checked）和未检查类型（unchecked）。检查类型的异常就是说要程序员明确的去声明或者用try..catch语句来处理的异常，而非检查类型的异常则没有这些限制</P>
+        </section>
+		
+        
+
+        <section>
+           <p>换一种说法</p>
+     <p>对于严重的，java通过Error类来描述</p>
+     <p>对于Error一般不编写针对性的代码对其进行处理</p>
+     <p>对于非严重的，java通过Exception类来描述</p>
+     <p>对于Exception可以使用针对性的处理方式进行处理</p>    
+        </section>
+	     
+        <section>
+          <p>Java异常处理涉及到五个关键字，分别是：try、catch、finally、throw与throws，每个关键字不能被单独使用</p>
+		  <p> 1.try：它里面放置可能引发异常的代码</p>	   
+          <p> 2.catch：后面对应异常类型和一个代码块，用于表明该catch块用于处理这种类型的代码块，可以有多个catch块。</p>
+          <p> 3.finally：主要用于回收在try块里打开的物力资源（如数据库连接、网络连接和磁盘文件），异常机制总是保证finally块总是被执行。</p>
+          <p> 4.throw：用于抛出一个实际的异常，可以单独作为语句使用，抛出一个具体的异常对象。</p>
+          <p>5.throws：用在方法签名中，用于声明该方法可能抛出的异常。</p>
+        </section>
+		 
+
+
+       <section>
+            <h3>3.常见问题</h3>
+       </section>
+       		
+		<section>
+              <p>注意点1：只有try块是必须的，也就是说如果没有try块，则不可能有后面的catch块和finally块；</p>
+              <p>注意点2：catch块和finally块都是可选的，但catch块和finally块至少出现其中之一，也可以同时出现；</p>
+              <p>注意点3：可以有多个catch块，捕获父类异常的catch块必须位于捕获子类异常的后面；</p>
+              <p>注意点4：不能只有try块，既没有catch块，也没有finally块；</p>
+              <p> 注意点5：多个catch块必须位于try块之后，finally块必须位于所有catch块之后。</p>
+        </section>
+	    
+		<section>
+          <p>一般情况下，不要再finally块中使用renturn或throw等导致方法终止的语句，因为一旦使用，将会导致try块、catch块中的return、throw语句失效。</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		
+
+		
+		
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>错误处理代码和业务实现代码混杂严重影响程序的可读性，会增加程序维护的难度。在代码健壮性和代码可读性上如何抉择？</p>
+        </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度	</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p>无法穷举所有异常情况，因为人类的知识是有限的，异常情况总比可以考虑到的情况多，总有漏网之鱼，怎么办？</p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:李亚衡</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
