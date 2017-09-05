@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -19,110 +20,102 @@
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
+
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
-<map name="pttmap">
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
-<div class="reveal">
-    <div class="slides">
-        <section>
-            <h3>【css-08】margin负值在页面布局中有哪些应用？</h3>
-            <h3>小课堂【深圳-181期】</h3>
-            <p>分享人：郭俊伟</p>
-        </section>
-        <section>
-            <p>目录</p>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.常见问题</p>
-            <p>4.解决方案</p>
-            <p>5.编码实战</p>
-            <p>6.扩展思考</p>
-            <p>7.参考文献</p>
-            <p>8.更多讨论</p>
-        </section>
-        <section>
+    <div class="reveal">
+        <div class="slides">
             <section>
-                <h3>1.背景介绍</h3>
-            </section>
-            <section>
-                <p> CSS盒模型中，margin是我们非常熟悉的一个属性，但是它的负值你用过吗？</p>
-            </section>
-        </section>
-
-        <section>
-            <section>
-                <h3>2.知识剖析</h3>
-
-
-            </section>
-            <section>
-                <p>1一个负margin应该是这样设置的：</p>
-                <pre>
-                        <code>#content {margin-left:-100px;} 或者使用百分比 #content{margin-left:-100%;}</code>
-                    </pre>
-
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                    <p> A、负margin是绝对标准的CSS，W3C标准对于margin属性来说，负值是合法的。<br><br>
-                        B、不脱离文档流，不使用float的话，负margin元素是不会破坏页面的文档流。所以如果你使用负margin上移一个元素，所有跟随它的元素都会被上移。 <br><br>
-                        C、完全兼容，所有现代浏览器都完全支持负margin（IE6在大多数情况下也支持）。 <br><br>
-                        D、浮动会影响负margin的使用，负margin不是你每天都用的CSS属性，应用时应小心谨慎。
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>如果使用得当，负margin是非常强大的属性，以下是几种可以使用margin的场景。</p>
-                </div>
-            </section>
-            <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>1、使用margin水平垂直居中</p>
-                    <p>
-                    	<pre>
-                    		<code>
-    body{margin:0;padding:0;}
-    #test{
-          width:200px;
-          height:200px;
-          background:#F60;
-          position:absolute;
-          left:50%;
-          top:50%;
-          margin-left:-100px;
-          margin-top:-100px;
-    }
-                    		</code>
-                    	</pre>
-                    </p>
-                  
-                </div>
+                <h3>【css-08】margin负值在页面布局中有哪些应用？</h3>
+                <h3>小课堂【武汉-224期】</h3>
+                <p>分享人：熊凡</p>
             </section>
 
             <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>2、实现圣杯布局，双飞翼布局等 </p>
-                </div>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
             </section>
+
             <section>
-                <div style="text-align:left ; padding:0% 12% ;font-size:35px">
-                    <p>3、实现元素位置偏移效果，以达到页面布局目的</p>
-                </div>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p> CSS盒模型中，margin是我们非常熟悉的一个属性，大多数情况下，我们采用的都是正数的 margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的
+                            hack 一样，不被人接受。但是，本文要说明的就是，负的 margin 值并不是 hack，这是正常范围内的写法。</p>
+                        <p>根据 W3C，margin 是能够接受负值的，只是在具体实现上有一些区别。那么，设置margin为负值究竟会是什么样的效果呢？</p>
+                    </div>
+                </section>
             </section>
-        </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <h4>margin为负值时产生的影响</h4>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h5>1、对于自身的影响</h5>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo1.html">当元素不存在width属性或者(width:auto;)时，左右负margin会增加元素的宽度</a></p>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo2.html">margin-top为负值不会增加高度，只会产生向上位移,当元素有宽度时，margin-left会产生像左的位移</a></p>
+                        <p>负值的 margin 的方向为 bottom 或者 right 的时候，元素本身并不会移动，元素后面的其他元素会往该元素的方向移动相应的距离，并且覆盖在该元素上面。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h5>2、对文档流的影响</h5>
+                        <p>元素如果用了margin-left:-20px;毋庸置疑的自身会向左偏移20px和定位（position：relative）有点不一样的是，在其后面的元素会补位，也就是后面的行内元素会紧贴在此元素的之后，如果你使用负margin上移一个元素，所有跟随的元素都会被上移。总结，不脱离文档流不使用float的话，负margin元素是不会破坏页面的文档流。</p>
+                        <a href="../demo/css-08-margin apply/margin-demo3.html"><img src="../img/css-08-margin apply/wendang.png" alt=""></a>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h5>3、对浮动元素的影响</h5>
+                        <p>负margin会改变浮动元素的显示位置，即使元素写在DOM的后面，也能让它显示在最前面。圣杯布局、双飞翼布局啊什么的，都是利用这个原理实现的。</p>
+                        <a href="../demo/css-08-margin apply/margin-demo4.html"><img src="../img/css-08-margin apply/float.png" alt=""></a>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h5>4、对绝对定位的影响</h5>
+                        <pre style="font-size: 20px;">
+                            <a href="../demo/css-08-margin apply/margin-demo5.html">
+                            <code>
+                                <div class="absolute"></div>
+                            </code>
+                            </a>
+                        </pre>
+
+                    </div>
+                </section>
+            </section>
 
             <section>
                 <section>
                     <h3>3.常见问题</h3>
                 </section>
                 <section>
-                        <p>经典的圣杯布局是怎么通过margin负值来实现的？</p>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>margin负值在页面布局中有哪些应用？</p>
+                    </div>
                 </section>
             </section>
 
@@ -131,93 +124,101 @@
                     <h3>4.解决办法</h3>
                 </section>
                 <section>
-                    <p style="text-align: left">
-                        曾经有这样一个经典的需求： <br>
-                        1、两栏抑或三栏布局，主体自适应宽度;<br>
-                        2、一个或两个侧边栏固定宽度;<br>
-                        3、主体部分HTML结构在最前面（网速慢时可以优先显示，对SEO有利）;<br>
-                        4、自适应高度，且不影响等高;<br>
-                        5、兼容IE6+，firefox，chrome，opera。
-                        于是乎margin负值便大放光彩，首先是国外出现的圣杯布局，掀起一股margin负值热潮。
-                    </p>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo6.html">1、左右固定，中间自适应（双飞翼）</a></p>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo7.html">2、去除列表右边框</a></p>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo8.html">3、多列等高</a></p>
+                        <p>3、负边距+定位：水平垂直居中</p>
+                    </div>
                 </section>
             </section>
 
 
             <section>
-                    <h3>5、编码实战</h3>
+                <h3>5、编码实战</h3>
             </section>
 
             <section>
                 <section>
-                    <p>6、扩展思考</p>
+                    <h3>6、扩展思考</h3>
                 </section>
                 <section>
                     <p>1、margin负值是否会改变元素的宽度？</p>
                 </section>
             </section>
-			<section>
-				<p>7、参考文献：</p>
-                <p><a href="http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html" target="_blank">CSS布局骚操作之-强大的负边距</a></p>
-				<p><a href="http://www.jianshu.com/p/f9bcddb0e8b4" target="_blank">圣杯布局和双飞翼布局</a></p>
-				<p><a href="http://www.cnblogs.com/jscode/archive/2012/08/28/2660078.html" target="_blank">负margin在页面布局中的应用</a></p>
-			</section>
-			<section>
-                8、更多讨论
-                <p>1、margin负值还能运用到哪些地方？</p>
-                <p>2、margin负值对浮动元素有什么影响？</p>
-                <p>3、margin负值对元素宽度是否有影响？</p>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+                <section>
+                    <p>琦乐无穷<a href="http://www.jianshu.com/p/549aaa5fabaa" target="_blank">margin为负值产生的影响和常见布局应用</a></p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+                <section>
+                    <p>1、margin负值还能运用到哪些地方？</p>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人：庄引 | 先小波 | 郭俊伟 | 熊凡</p>
             </section>
 
-			<section>
-				<p>谢谢大家</p>
-				<p>制作人：庄引 | 先小波 | 郭俊伟</p>
-			</section>
+        </div>
+    </div>
 
-</div>
-</div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
 
-<script src="../lib/reveal/js/head.min.js"></script>
-<script src="../lib/reveal/reveal.js"></script>
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
 
-<script>
-
-    // 以下为常见配置属性的默认值
-    // {
-    // 	controls: true, // 是否在右下角展示控制条
-    // 	progress: true, // 是否显示演示的进度条
-    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-    // 	keyboard: true, // 是否启用键盘快捷键来导航
-    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-    // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
-    // 	loop: false, // 是否循环演示
-    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
-    // 	fragments: true, // 全局开启和关闭碎片。
-    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
-    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
-    // }
-
-    // 初始化幻灯片
-    Reveal.initialize({
-        history: true,
-        transition: 'convex',
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
 
 
-        dependencies: [
-            {src: '../plugin/markdown/marked.js'},
-            {src: '../plugin/markdown/markdown.js'},
-            {src: '../plugin/notes/notes.js', async: true},
-            {
-                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
-        ]
-    });
-</script>
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
 </body>
+
 </html>
