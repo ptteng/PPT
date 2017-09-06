@@ -74,15 +74,16 @@
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
                         <h5>1、对于自身的影响</h5>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo1.html">当元素不存在width属性或者(width:auto;)时，左右负margin会增加元素的宽度</a></p>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo2.html">margin-top为负值不会增加高度，只会产生向上位移,当元素有宽度时，margin-left会产生像左的位移</a></p>
-                        <p>负值的 margin 的方向为 bottom 或者 right 的时候，元素本身并不会移动，元素后面的其他元素会往该元素的方向移动相应的距离，并且覆盖在该元素上面。</p>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo1.html">当static(非浮动、非定位）元素的margin-top/margin-left被赋予负值时，元素将被拉进指定的方向。</a></p>
+                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo2.html">但如果你设置margin-bottom/right为负数，元素并不会如你所想的那样向下/右移动，而是将后续的元素拖拉进来，覆盖本来的元素。</a></p>
+                        <p>如果没有设定width属性，设定负margin-left/right会将元素拖向对应的方向，并增加宽度，此时的margin的作用就像padding一样。</p>
                     </div>
                 </section>
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
                         <h5>2、对文档流的影响</h5>
-                        <p>元素如果用了margin-left:-20px;毋庸置疑的自身会向左偏移20px和定位（position：relative）有点不一样的是，在其后面的元素会补位，也就是后面的行内元素会紧贴在此元素的之后，如果你使用负margin上移一个元素，所有跟随的元素都会被上移。总结，不脱离文档流不使用float的话，负margin元素是不会破坏页面的文档流。</p>
+                        <p>元素如果用了margin-left/margin-top时，元素自身会被拉向左/向上进行偏移，效果类似与position：relative。与之不同的是，在其后面的元素会补位，也就是后面的行内元素会紧贴在此元素的之后。</p>
+                        <p>元素如果用了margin-right/margin-bottom时，元素视觉位置不变，但其后（下面/右边）的元素会被拉向此元素，相对此元素进行偏移并覆盖此元素。</p>
                         <a href="../demo/css-08-margin apply/margin-demo3.html"><img src="../img/css-08-margin apply/wendang.png" alt=""></a>
                     </div>
                 </section>
