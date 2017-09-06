@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【css-1】九宫格还有哪些布局方法？各有什么优劣势？</h2>
+            <h3>武汉分院小课堂第225期</h3>
+            <p>分享人：聂义中</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;">
+            我们在布局的时候经常会使用到九宫格的模型，那么如何排布九宫格就成了一个常见的问题，
+            那么我们有哪些九宫格的排布方式呢？
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+        <h3>盒子模型的概念</h3>
+            盒子的基本要素<br>
+            content-内容<br>
+            padding-内边距(填充）<br>
+            border-边框<br>
+            margin-外边距<br>
+        </section>
+        <section style="text-align: left">
+            一个盒子实际所占有的宽度（或高度）是由”内容+内边距+边框+外边距“组成的
+            content是元素的实际内容，也就是元素框。当元素为块级元素或内联块级元素时，
+            可以设置width，height属性来设定内容区的宽高。而内联非替换元素设置width,height
+            属性无效，其宽度随元素的内容而变化。 当默认情况下，块级元素宽度自动填满其父元素宽度。
+        </section>
+        <section style="text-align: left">
+            Padding属性定义了元素边框与元素内容之间的空间。其值不可为负值，背景图与背景
+        色可以显示在padding上。 当在内联非替换元素上设置padding时，不会影响行高计算,
+        但背景色可以显示。
+        </section>
+        <section style="text-align: left">
+            border指盒模型的边框，边框的相关的属性:宽度(border-width)、样式(border-style)、
+            颜色(border-color)。 在默认情况下，背景会延伸到边框所在的区域下面。如果不希望
+            背景侵入边框所在的范围，我们要做的就是把它的值设置为background-clip;padding-box.
+            </section>
+        <section style="text-align: left">
+            margin是外边距,与padding不同的是，margin可以为负。两个上下方向相邻的元素框垂直
+            相遇时，外边距会合并。
+        </section>
+        <section style="text-align: left">
+            <h3>布局方法</h3>
+            我们布局九宫格的难点在于如何让相同大小的三个正方行的块等间距的排布在同一行，因此
+            这三块必须为inline-block，或者是其他的方法允许三个block块布置在同一行。
+        </section>
+        <section style="text-align: left">
+        <h3>用inline-block来布局</h3>
+        </section>
+        <section style="text-align: left">
+        <h3>利用div＋css来布局</h3>
+        此种办法的有点是：<br>
+            1.网页载入比较快，由于DIV+CSS中的CSS富含丰富的样式，表现更加灵活。<br>
+            2.页面内容与样式分离可以是网页代码减少，使页面的样式的调整变得更加方便。<br>
+            3.表现和结构分离，在团队开发中更容易分工合作而减少相互关联性。<br>
+            它的缺点是：<br>
+            浏览器兼容性 。DIV+CSS更容易出现多种浏览器不兼容的问题，主要原因是不同的浏览器对web标准默认值不同。<br>
+            <a href=" https://slashnie.github.io/task/normal.html">normal.html</a>
+        </section>
+        <section style="text-align: left">
+            <h3>利用ul+li来布局</h3>
+            ul,li布局和div布局很像，同样使用9个li，将li标签inline-block化。
+            然后对li标签设置背景色，使用padding内边距来撑开li标签宽高，控制好外边距，
+            使得li标签之间的间距相等。<br>
+            这种方法的优点是层次分明，不易混乱；<br>
+            缺点是ul,li标签是有默认的margin和padding.<br>
+            <a href=" https://slashnie.github.io/task/ul.html">ul.html</a>
+        </section>
+        <section style="text-align: center">
+        <h3>css方法</h3>
+       </section>
+       <section  style="text-align: left">
+        <h3>利用float布局</h3>
+         优点： 使用简单方便，不涉及到inline-block间距问题。<br>
+         缺点：<br>
+         每个列表元素的高度必须要一致，否则就会像是俄罗斯方块一样，“锯齿相错”<br>
+         例如一个左浮动列表布局，如果第一行有个列表高度高于其他列表，<br>
+         那就在第二行，第一个元素会沿着最高元素的右侧对齐 <br>
+           <a href=" https://slashnie.github.io/task/float.html">float.html</a>
+        </section>
+        <section style="text-align: left">
+            <h3>利用flex布局</h3>
+            优点：没有边距的问题，不用害怕浮动，不用考虑子元素是<br>
+            块级元素还是行内元素布局简单，实用性强。<br>
+            缺点：兼容性不太好，比较老的浏览器版本不兼容。<br>
+            <a href=" https://slashnie.github.io/task/flex.html">flex.html</a>
+        </section>
+            <section style="text-align: left">
+                <h3>3.常见问题</h3>
+               1 如果代码书写的时候inline-block元素之间有空格的话，页面上
+                显示的那两个元素之间也会有间距。<br>
+               2 用height设置元素百分比高的时候，不能产生九宫格的效果。
+            </section>
+            <section style="text-align: left">
+                <h3>4.解决方案</h3>
+                产生原因：代码里两个内联元素之间的换行或者空格也会占据空间，其占据空间的大小与字体大小有关。<br>
+                1 可以在写代码的时候将两个内联元素紧挨着写在一起，消除间距。<br>
+                2 给内联元素的父级设置font-size:0;letter-spacing：-4px;<br>
+                当两个内联元素之间的间距小于4px的情况下，他们也不会发生重叠的现象。<br>
+                问题二
+                产生原因：
+                height的百分比取值是相对于其父元素的高度，而这里块的父元素为html，而html的高度是可以被其子元素撑大的，
+                所以，为了达到自适应的效果应该让其高度的百分比是相对于其父级的宽度，padding-top、padding-bottom
+                或者是用vw为单位。
+            </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            还有哪些布局九宫格的方法？
+        </section>
+        <section >
+            <h3>7.参考文献</h3>
+           <a href="http://www.zhangxinxu.com/wordpress/2010/11/%E6%8B%9C%E6%8B%9C%E4%BA%86%E6%B5%AE%E5%8A%A8%E5%B8%83%E5%B1%80-%E5%9F%BA%E4%BA%8Edisplayinline-block%E7%9A%84%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" >
+               张鑫旭的一篇博文</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section style="text-align: left">
+            <h3>利用table布局</h3>
+            优点：<br>
+            不用担心列表元素高度不一会错位的问题，表格中的单元格(td标签)自动回等高关联，<br>
+            且水平列表项还包裹在tr等标签中，所以，不可能发生错位。<br>
+            缺点：IE6/7对这些display属性不支持，兼容性不太好。<br>
+            <a href=" https://slashnie.github.io/task/table.html">table.html</a>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>特别鸣谢 张增锋 李玺</p>
+            <p>BY聂义中</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
