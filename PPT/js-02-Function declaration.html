@@ -1,0 +1,333 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>函数表达式和函数声明有什么区别？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align: center;">【js-02】函数表达式和函数声明有什么区别？</h2>
+            <p style="text-align: center;">分享人：张雪飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+             <h3>什么是Function Declaration（函数声明）？</h3>
+            <p style="text-align: left">
+                Function Declaration 可以定义命名的函数变量，而无需给变量赋值。Function Declaration 是一种独立的结构，不能嵌套在非功能模块中。<br><br>
+                就是使用function关键字声明一个函数，再指定一个函数名，叫函数声明
+            </p>
+        </section>
+        <section>
+            <h3>什么是Function Expression（函数表达式）？</h3>
+            <p style="text-align: left">
+                Function Expression 将函数定义为表达式语句（通常是变量赋值）的一部分。通过 Function Expression 定义的函数可以是命名的，也可以是匿名的。Function Expression 不能以“function”开头。<br><br>
+               使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">
+                函数表达式存储在变量后，变量也可作为一个函数使用：
+            </p>
+            <pre>
+            <code>
+                var x = function (a, b) {return a * b};
+                alert= x(4, 3);
+            </code>
+            </pre>
+            <p>以上函数实际上是一个 匿名函数 (函数没有名称)。
+                函数存储在变量中，不需要函数名称，通常通过变量名来调用。</p>
+            <pre>
+                    <code>
+                        var x = function (a, b) {return a * b};
+                        var z = x(4, 3);
+                        alert= z;
+                    </code>
+            </pre>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+    // 函数声明
+    function funDeclaration(type){
+        return type==="Declaration";
+    }
+                </code>
+            </pre>
+            <pre>
+                <code>
+     // 函数表达式
+    var funExpression = function(type){
+        return type==="Expression";
+    }
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h2>
+                一、什么是JavaScript函数？
+            </h2>
+        </section>
+        <section>
+            <h2>
+                二、两者具体有哪些区别呢？
+            </h2>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">
+                一、JavaScript函数。
+            </p>
+            <p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。</p>
+            <p>JavaScript 函数语法
+                函数就是包裹在花括号中的代码块，使用了关键词 function：</p>
+            <pre><code>
+                function functionname()
+                {
+                执行代码
+                }
+            </code></pre>
+
+        </section>
+        <section>
+            <p>
+                当调用该函数时，会执行函数内的代码。
+                可以在某事件发生时直接调用函数（比如当用户点击按钮时），并且可由 JavaScript 在任何位置进行调用。
+                JavaScript 对大小写敏感。关键词 function 必须是小写的，并且必须以与函数名称相同的大小写来调用函数。
+
+            </p>
+        </section>
+        <section>
+            <p style="text-align:left">
+                调用带参数的函数,在调用函数时，您可以向其传递值，这些值被称为参数。
+                这些参数可以在函数中使用。
+                您可以发送任意多的参数，由逗号 (,) 分隔：
+            </p>
+            <pre>
+                <code>
+                myFunction(argument1,argument2)
+                </code>
+            </pre>
+
+        </section>
+        <section>
+            <p>当声明函数时，把参数作为变量来声明：</p>
+            <pre>
+                <code>
+                function myFunction(var1,var2)
+                {
+                代码
+                }
+                </code>
+            </pre>
+           
+
+            <pre>
+                <code>
+                    <p>点击这个按钮，来调用带参数的函数。</p>
+                    <button onclick="myFunction('Harry Potter','Wizard')">点击这里</button>
+                    <script>
+                    function myFunction(name,job){
+                        alert("Welcome " + name + ", the " + job);
+                    }
+                    </script>
+                </code>
+            </pre>
+            <a href="http://www.runoob.com/try/try.php?filename=tryjs_function2">demo</a>
+        </section>
+        <section>
+            <p style="text-align:left">
+                二、函数声明中函数名是必须的；函数表达式中则是可选的
+            </p>
+        </section>
+        <section>
+            <pre>
+                <code>
+    //函数声明
+    function sum(a, b) {
+        return a + b;
+    }
+    alert(sum(1, 2));
+                </code>
+            </pre>
+            <a href=""></a>
+        </section>
+        <section>
+            <pre>
+                <code>
+    //函数表达式
+    var s = function sum(a, b) {
+        return a + b;
+    }
+    alert(s(1, 2));
+
+    var s = function(a, b) {
+        return a + b;
+    }
+    alert(s(1, 2));
+    //以上两种都可以
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align:left">
+                二、用函数声明定义的函数,函数可以在函数声明之前调用,而用函数表达式定义的函数只能在声明之后调用。
+            </p>
+
+            <pre>
+                <code>
+    //函数声明
+    alert(sum(1, 2));//3
+    function sum(a, b) {
+        return a + b;
+    }
+                </code>
+            </pre>
+        </section>
+         <section>
+            <pre>
+                <code>
+    //函数表达式：发生错误
+    try {
+        alert(s(1, 2));
+        var s = function sum(a, b) {
+            return a + b;
+        }
+    }
+    catch (e) {
+        alert("wrong!");
+    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>使用function关键字声明一个函数，再指定一个函数名，叫函数声明。</p>
+            <h3>function fn(){……}</h3>
+
+            <p>使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式。</p>
+            <h3>var fn=function(){……}</h3>
+
+            <p>使用function关键字声明一个函数，但未给函数命名,这个又称之为什么呢？是属于以上两种类型的哪一种？</p>
+            <h3>function(){……}</h3>
+
+        </section>
+        <section>
+            <p>
+                匿名函数属于函数表达式，匿名函数有很多作用，赋予一个变量则创建函数，赋予一个事件则成为事件处理程序或创建闭包等等.
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">参考一：<a href="http://blog.csdn.net/u013344815/article/details/55506939">函数声明与函数表达式以及立即执行函数的讨论</a></p>
+            <p style="text-align: left">参考二：<a href="http://www.cnblogs.com/feile/p/5325125.html">雨落川下雪</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h2>
+                关于立即执行函数的讨论
+            </h2>
+        </section>
+        <section>
+            <p>
+                也就是说只有函数表达式才能实现立即执行，匿名函数也是函数表达式为何不能立即执行呢，
+                因为匿名函数开始的function会被JavaScript引擎识别为函数声明的开始，所以加上括号也不会被执行了，
+                而加上()，！，+，- 等符号为什么就可以了呢，因为加上这些符号就可以告诉JavaScript引擎这不是函数声明了。
+            </p>
+        </section>
+        
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 孙剑立</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
