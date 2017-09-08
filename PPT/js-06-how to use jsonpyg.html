@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angular有哪些优缺点？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .a {
+            text-align: left;
+            text-indent: 2em;
+        }
+
+        pre{
+            background-color: black;
+            /*color: #fff;*/
+        }
+    </style>
+</head>
+<body>
+<!--<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>跨越解决方案之jsonp</h2>
+
+            <!--<h3>小课堂【武汉第206期】</h3>-->
+
+            <p style="text-align: center;">分享人：杨刚</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p class="a">
+                所有支持Javascript的浏览器都会使用同源策略这个安全策略。导致我们无法直接访问非同源的链接，无法取得非同源的数据，但在项目中我们的数据经常写在另一个源中，于是我们需要突破同源限制，取得其他源的数据，这就叫跨域。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h4 class="a">常见的跨域方法有:</h4>
+            <ul>
+                <li>jsonp,利用了src属性可以跨域的特性</li>
+                <li>document.domain跨子域</li>
+                <li>Access Control,服务器端发送Access-Control-Allow-Origin响应头，规定请求的域名的访问权限</li>
+                <li>nginx反向代理，客户端nginx拦截代码中虚假的http请求，替换成正确的http</li>
+            </ul>
+        </section>
+        <section>
+            <h4 class="a">如何算不同的域？</h4>
+            <ul class="a">
+                <li>不同域名</li>
+                <li>同一域名，不同端口</li>
+                <li>同一域名，不同协议</li>
+                <li>域名和域名对应ip</li>
+                <li>主域相同，子域不同</li>
+                <li>同一域名，不同二级域名</li>
+            </ul>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <h4>jsonp是如何实现跨域的</h4>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h4 class="a">有两个文件处于不同域中：</h4>
+            <p class="a">A.html</p>
+            <pre>
+                <code>
+<script type="text/javascript">
+//回调函数
+function callback(data) {
+    alert(data.message);
+}
+</script>
+<script type="text/javascript" src="http://localhost:20002/B.js"></script>
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p class="a">B.js</p>
+            <pre>
+                <code>
+//调用callback函数，并以json数据形式作为阐述传递，完成回调
+callback({message:"success"});
+                </code>
+            </pre>
+            <p class="a">结果会alert“success”，这就是jsop的基本原理</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="../demo/js-06-how%20to%20use%20jsonp/test1.html">DEMO</a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h4>jsonp跨域有什么优缺点？</h4>
+        </section>
+        <section>
+            <p class="a">优点：兼容性很好好，可以在古老的浏览器中运行，</p>
+            <p class="a">缺点：它只支持GET请求而不支持POST等其它类型的HTTP请求。</p>
+        </section>
+        <section>
+            <p class="a">jsonp和ajax有什么关系？</p>
+            <p class="a">ajax是通过操作XMLHttpRequest对象发送请求，获取返回的数据。JSONP的全称为JSON with Padding，Padding 指的就是包裹在JSON 外层的回调函数。从刚才的例子中，咱们发现JSONP并没有操作XMLHttpRequest，因此jsonp和ajax没有任何关系。</p>
+        </section>
+        <section>
+            <h4 class="a">如何用 jQuery 实现 JSONP</h4>
+        </section>
+        <section>
+            <p class="a">前端代码：</p>
+            <pre>
+                <code>
+$.ajax({
+  url: "http://tonghuashuo.github.io/test/jsonp.txt",
+  dataType: 'jsonp',
+  jsonp: "callback",
+  jsonpCallback: "dosomething"
+})
+.done(function(res) {
+  console.log("success");
+  console.log(res);
+})
+.fail(function(res) {
+  console.log("error");
+  console.log(res);
+});
+                </code>
+            </pre>
+            <p class="a">这里使用了ajax这个方法，但实际上jsonp和ajax没有任何关系，只是因为jsonp请求和ajax请求相似，jquery在这里有误导之嫌。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p class="a">参考一：<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html">跨域资源共享 CORS 详解</a></p>
+            <p class="a">参考二：<a href="https://tonghuashuo.github.io/blog/jsonp.html">5 分钟彻底明白 JSONP</a></p>
+            <p class="a">参考三：<a href="http://www.cnblogs.com/chopper/archive/2012/03/24/2403945.html">深入浅出JSONP--解决ajax跨域问题</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 肖浩宇|杨刚</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

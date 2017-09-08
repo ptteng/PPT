@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>npm与package.json</h2>
+            <p>分享人：伊文秋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <p>NPM是随同NodeJS一起安装的包管理工具，能解决NodeJS代码部署上的很多问题，常见的使用场景有以下几种：<br><p>
+                    1-允许用户从NPM服务器下载别人编写的第三方包到本地使用。<br>
+                    2-允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。<br>
+                    3-允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</p>
+
+            </section>
+            <section style="text-align: left;">
+                <p >简单的说 Node.js 就是运行在服务端的 JavaScript。<br>
+                    Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。<br>
+                    Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。</p>
+
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;">
+            Node.js安装包及源码下载地址为：<a href="https://nodejs.org/en/download/" target="_blank">https://nodejs.org/en/download/</a>
+            <br>
+            <img src="../zhazha-img/download-page.jpg">
+
+        </section>
+            <section style="text-align: left;">
+                <p >通过homebrew安装（推荐方式） <br>
+                    1、首先需要安装homebrew，可以通过brew -v来看是否安装了homebrew，如果能正确显示版本号，说明homebrew已安装<br>
+                    <img src="../zhazha-img/node1.png"><br>
+                    2、如果没有安装homebrew，下发命令安装即可</p>
+                <pre ><code style="height: 5rem">
+                    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+</code></pre><br><p>
+                homebrew： <a href="http://brew.sh/index_zh-cn.html" target="_blank">官网</a>
+            </p>
+
+            </section>
+            <section>
+                <p>2、安装homebrew后，下发命令安装node：</p>
+                <pre>
+                    <code>
+                        brew link node
+                        brew uninstall node
+                        brew install node
+                    </code>
+                </pre>
+            </section>
+
+            <section style="text-align: left;">
+                <h4>验证是否安装成功？</h4>
+                <p>下发命令npm -v、node -v，如果能正确显示版本号即表示node.js安装成功，如果是通过homebrew安装的，下发命令brew list会显示node</p><br>
+                <img src="../zhazha-img/node2.png">
+            </section>
+            <section style="text-align: left;">
+                <h4>删除已安装的node</h4>
+                <p>如果之前已经手动安装过node，再次通过homebrew安装往往产生冲突，可以尝试先删除<br>
+                    1、如果是通过homebrew安装的，下发命令brew uninstall node即可<br>
+                    2、如果是通过安装包安装的，手动删除node的安装文件即可</p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>npm安装太慢总报错</p>
+                npm由于源服务器在国外，下载node包速度较慢
+            </section>
+            <section>
+                <p>报错：校验和失败，网上说这种校验和失败，大多数原因是网络不好。
+                </p>
+                <img src="../zhazha-img/demo3.png">
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left;">
+                <p>使用国内镜像<br>有2种方法：</p>
+                    一、直接修改镜像地址；<br>
+                    二、用封装好的cnpm命令
+
+            </section>
+            <section>
+                <h2>国内镜像</h2>
+                <p>cnpm镜像地址：<a href="http://registry.cnpmjs.org">http://registry.cnpmjs.org</a> <br>淘宝镜像地址：<a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a></p>
+            </section>
+            <section>
+                <h4>直接设置镜像有3种方法：</h4>
+                <p>1.npm config set key value 命令，设置指定的镜像地址</p>
+                <pre><code>npm config set registry https://registry.npm.taobao.org
+npm info underscore （这个只是为了检验上面的设置命令是否成功，若成功，会返回[指定包]的信息）
+</code></pre>
+                <p>2.npm --registry命令</p>
+                <pre><code> npm --registry https://registry.npm.taobao.org info underscore （npm info underscore依然是为了检验是否设置成功）
+</code></pre>
+                <p>3.修改配置文件~/.npmrc  （win系统在C:\Users\用户名.npmrc） 加入下面内容</p>
+                <pre><code>registry = https://registry.npm.taobao.org
+</code></pre>
+                <p>其实1,2，3都是修改npm的配置文件.npmrc </p>
+            </section>
+            <section style="text-align: left;">
+                <h2>cnpm</h2>
+                <p>如果觉得直接修改比较麻烦的话，就用<code>cnpm</code>命令吧，先用</p>
+                <pre><code>$ npm install -g cnpm --registry=https://registry.npm.taobao.org</code></pre>
+                <p>安装cnpm包，然后就可以敲<code>cnpm install [name]</code>命令了，很方便~~</p>
+                <p>如果网络状况不好，或者觉得npm install慢的可以换成国内的镜像试下~~~</p>
+            </section>
+
+            <section style="text-align: left;">
+                <p>
+                    或者你直接通过添加 npm 参数 alias 一个新命令:
+                </p>
+                <pre><code>alias cnpm="npm --registry=https://registry.npm.taobao.org \
+--cache=$HOME/.npm/.cache/cnpm \
+--disturl=https://npm.taobao.org/dist \
+--userconfig=$HOME/.cnpmrc"
+
+# Or alias it in .bashrc or .zshrc
+$ echo '\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"' >> ~/.zshrc && source ~/.zshrc</code></pre>
+            </section>
+            <section style="text-align: left;">
+                <p>参考链接：<a href="http://npm.taobao.org/" target="_blank">淘宝 NPM 镜像</a></p>
+            </section>
+
+
+
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p><a href="packageDemo.json" target="_blank">package.json</a> </p>
+                <p><a href="packageDemo1.json" target="_blank">package1.json</a> </p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                package.json文件
+            </section>
+            <section style="text-align: justify;word-break: break-all">
+                <p>每个项目的根目录下面，一般都有一个package.json文件，定义了这个项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据）。npm install命令根据这个配置文件，自动下载所需的模块，也就是配置项目所需的运行和开发环境。
+                </p>
+                <a href="http://javascript.ruanyifeng.com/nodejs/packagejson.html" target="_blank">
+                    package.json文件</a>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <ul>
+                    <li>
+                        <a href="http://javascript.ruanyifeng.com/nodejs/packagejson.html">
+                            package.json文件</a>
+                    </li>
+                    <li>
+                        <a href="https://blog.skyx.in/archives/206/">博客
+                        </a></li>
+                    <li><a href="https://segmentfault.com/a/1190000007829080">
+                        segmentfault</a> </li>
+                    <li><a href="http://www.jianshu.com/p/3b30c4c846d1">简书</a></li>
+                    <li><a href="http://www.cnblogs.com/tzyy/p/5193811.html">
+                        npm package.json属性详解</a>
+                    </li>
+                </ul>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
+            <p>感谢大家观看</p>
+            <p><small>BY : 伊文秋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../../lib/reveal/js/head.min.js"></script>
+<script src="../../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

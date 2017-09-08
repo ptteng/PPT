@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>如何使用ui-router</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        p {
+            text-align: left
+        }
+
+        .a > p {
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Task-07】如何使用ui-router？</h2>
+            <h3>小课堂【成都第218期】</h3>
+            <p style="text-align: center">分享人：赵绪琦</p>
+        </section>
+        <section class="a">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: justify">
+                单页面应用、路由？</p>
+            <p style="text-indent: 2em;text-align: justify">
+                当我们的应用越来越多时，切换起来没那么流畅。又是碍于网速，页面加载进来有点慢。这时候以angular等框架开发的单页面应用的优势就体现出来了。
+                特点是加载次数少，加载以后性能较高，不利于seo（搜索引擎优化）。
+            </p>
+            <p  style="text-indent: 2em;text-align: left">路由就是用来定义切换的规则，不用再发起HTTP请求。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left">UI-Router注入与配置</p>
+            <pre style="font-size: 14px;">
+                <code style="white-space: pre">
+var app=angular.module('myApp',["ui.router"])
+    .config(function($stateProvider,$urlRouterProvider){//两个子对象作为参数添加到config对象中去
+        $urlRouterProvider.when("","/mainll");//默认路径配置
+
+        /*$urlRouteProvider.when(whenPath, toPath)
+         $urlRouterProvider.otherwise(path)
+         $urlRouteProvider.rule(handler)*/
+
+        /*$stateProvider.state(stateName, stateConfig);* /  //前一个参数为字符串，后一个为对象
+
+        $stateProvider//应用状态配置
+            .state("main", {//状态名
+                url:"/mainll",//路径
+                templateUrl:"main.html"//HTML模板的路径或者返回HTML模板路径的函数
+                controller()//控制器
+            })
+            .state("main_page",{
+                url:"/main_page",
+                templateUrl:"main_page.html",
+                controller:("myCtrl")
+            });
+    })
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align: left">UI-Router注入与配置</p>
+                <p>html标签中设置视图插入位置: 如</p>
+            <pre>
+                <code><div ui-view=""></div></code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>多视图、视图嵌套具体是如何实现的？？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <p style="text-align: center">见编码实战</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+            <p style="text-align: center">演示如何实现多视图、路由嵌套</p>
+        </section>
+
+        <section>
+           <section>
+               <h3>6.扩展思考</h3>
+               <p class="fragment" style="text-align: center">路由间如何传递参数？</p>
+           </section>
+            <section>
+                <p style="text-align: center">首先定义要接收的参数</p>
+                <img src="http://images2015.cnblogs.com/blog/337212/201603/337212-20160318181804412-426985465.png">
+            </section>
+
+            <section>
+                <p style="text-align: center">ui-sref方式传参</p>
+                <img src="http://images2015.cnblogs.com/blog/337212/201603/337212-20160318182142693-1979913166.png">
+            </section>
+
+            <section>
+                <p style="text-align: center">state.go()方式传参</p>
+                <img src="http://images2015.cnblogs.com/blog/337212/201603/337212-20160318182359646-1518874208.png">
+            </section>
+
+            <section>
+                <p style="text-align: center">在目标页面的controller里注入$stateParams，然后 "$stateParams.参数名" 获取</p>
+                <img src="http://images2015.cnblogs.com/blog/337212/201603/337212-20160318183345115-400547056.png">
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/01-02/p/6071392.html" target="_blank">angular中的路由</a></p>
+            <p>参考二：<a href="https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stateprovider-1"
+                      target="_blank">uiroueter官方文档</a></p>
+            <p>参考三：<a href="https://www.oschina.net/translate/angularjs-ui-router-nested-routes" target="_blank">AngularJS
+                ui-router (嵌套路由）</a></p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align:center;">感谢大家观看</p>
+            <p style="text-align:center;">
+                <small>BY :赵绪琦 | somebody</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
