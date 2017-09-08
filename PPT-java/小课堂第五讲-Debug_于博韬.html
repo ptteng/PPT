@@ -1,0 +1,228 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>调试</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 于博韬</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>我们程序员一生与Bug纠缠不清，自然一辈子离不开调试</p>
+            <p>今天的话题就讲程序员与Debug不得不说的故事</p>
+        </section>
+        <section>
+            <p>首先我们看调试</p>
+			 <p> 百度上讲，调试是保证所提供的设备能够正常运行的必须程序，所有费用由设备提供商负担。</p>
+            </p>
+            <p>
+            编好程序后，用各种手段进行查错和排错的过程。作为程序的正确性不仅仅表现在正常功能的完成上，
+			更重要的是对意外情况的正确处理。从心理学的角度考虑，开发人员和调试人员不应该是同一个人。
+            </p>
+		</section>
+			<section>
+           
+			 <p> 说道调试一定离不开Debug</p>
+            </p>
+            <p>
+            今天就重点讲讲Debug的故事
+            </p>
+		</section>
+		
+        <section>
+            <h3>2.知识剖析</h3>
+			</section>
+			<section>
+            <p>DEBUG是一种计算机程序。</p>
+			<p>那我们就先讲一个趣味的小故事</p>
+        </section>
+		<section>
+		    <p>马克2号（Harvard Mark II）编制程序的葛丽丝·霍波（Grace Hopper）是一位美国海军准将及计算机科学家，同时也是世界最早的一批程序设计师之一。
+			有一天，她在调试设备时出现故障，拆开继电器后，发现有只飞蛾被夹扁在触点中间，从而“卡”住了机器的运行。
+			于是，霍波诙谐的把程序故障统称为“臭虫（BUG）”，把排除程序故障叫DEBUG，而这奇怪的“称呼”，竟成为后来计算机领域的专业行话。</p>
+			
+		</section>
+		<section>
+		    <p>但是Debug其实是DOS系统中的一个程序，而且比较底层，涉及汇编，不是我们想要的
+			</p>
+		</section>
+		<section>
+		    <p>那我们想要的是什么？
+			</p>
+			<p>Debugger
+			</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		
+            <p>那么问题来了</p>
+		</section>
+	   <section>
+            <p>Debugger是什么？干什么的？怎么用？</p>
+        </section>
+      
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+		 <section>
+		<p> 先说是什么以及干什么？</p>
+        
+		</section>
+
+        <section>
+            <p>我们经常使用到的“Debugger”只是用来帮助我们进行Debug的工具，“Debugger”本身不能自动完成“Debug”。
+                  </p>
+            <p>我们可以回想一下我们是如何进行Debug的，在进行Debug的过程中，我们通过Debugger来完成以下工作：</p>
+            <p>（1）监视“Debug对象”的状态；</p>
+            <p>（2）控制“Debug对象”的运行；</p>
+        </section>	
+
+		<section>
+		<p>这些工作可以为“发现Debug对象中存在的问题”以及“对解决问题方案的检验”提供有用的信息。
+          监控工作有时只需要由软件就可以完成，有时不仅需要软件支持，还需要硬件的支持。
+          Debugger除了被用来Debug，还被用来帮助我们理解“Debug的对象”内部结构，因为我们用到的Debugger能够完成对“Debug对象”的监控工作，
+          在监控的过程中可以获取“Debug对象”动态特征的信息，这对我们理解其结构是非常有用的。
+		</p>
+		
+         </section>
+         <section>
+          <p>接下来说怎么用</p>
+
+         </section>
+
+         <section>
+         <p>首先我是用的IDEA编译工具，所以这次小课堂只讲解IDEA自带的Debug工具，其他工具请自行了解</p>
+         <p>然后，我们再说下Debug常用的按键（仅限IDEA）</p>
+
+
+        </section>
+		
+		<section>
+          <p>F7:单步调试，会进入方法体，如果该方法体还有方法，则不会进入该内嵌的方法中 </p>
+		  <p>F8:单步调试，不会进入</p>
+		  <p>F9:跳至下一断点</p>
+		  <p>Shift+F8:跳出</p>
+		  <p>Alt+F8:可以通过在 Debug 的状态下，选中对象，弹出可输入计算表达式调试框，查看该输入内容的调试结果 。</p>
+		  <p>暂时知道这么多就已经可以了</p>
+
+         </section>
+
+	<section>
+            <h3>5.编码实战</h3>
+        </section>
+		<section>
+        <p>憋说话，用心感受我的操作~
+		</p>
+		</section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>畅所欲言</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+			<p>各种blog</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 于博韬</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
