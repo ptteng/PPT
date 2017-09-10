@@ -41,15 +41,15 @@
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
-<div class="reveal">
-    <div class="slides">
-        <section>
-            <h2>【JS-04】</h2>
-            <h3>主题：in,typeof,instanceof,===运算符分别是干什么的？</h3>
-            <h3>小课堂【武汉第167期】</h3>
-            分享人：冯强
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.936);">
+        <section class="past" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+
+            <h3>in,typeof,instanceof,===运算符分别是干什么的？</h3>
+
+            分享人：马靖哲
         </section>
-        <section style="line-height: 76px;">
+        <section style="line-height: 76px; top: 0px; display: none;" class="past" hidden="" aria-hidden="true">
             目录<br>
 
             1.背景介绍<br>
@@ -68,124 +68,112 @@
 
             8.更多讨论<br>
         </section>
-        <section>
-            <section>
+        <section class="stack past" style="top: 0px; display: none;" data-previous-indexv="1" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: none;" class="past" hidden="" aria-hidden="true">
                 <h3>1.背景介绍</h3>
             </section>
-            <section>
-                <P>
+            <section class="" style="top: 215.5px; display: none;" aria-hidden="true">
+                <p>
                     在JavaScript中，有很多常见的运算符和关键字，这次我们来看看其中的 in，typeof，instanceof，还有===，分别是干什么的，有什么用，和什么情况下可能会用到
-                </P>
+                </p>
             </section>
 
         </section>
 
-        <section>
-            <section>
+        <section class="stack past" style="top: 0px; display: none;" data-previous-indexv="6" hidden="" aria-hidden="true">
+            <section style="top: 267px; display: none;" class="past" hidden="" aria-hidden="true">
                 <h3>2.知识剖析</h3>
             </section>
-            <section>
+            <section class="past" style="top: 5px; display: none;" hidden="" aria-hidden="true">
                 <h2>2.1、in运算符</h2>
-                <P>
-                <pre>
-                    <code>
-                        // in 运算符作用：
-                        // 就是判断 属性是否存在于对象中，如果存在，返回值为：true
-                        // 如果不存在，则为：false
-                        // 语法：属性 in 对象
-                         var obj = {
-                         name1: "jack",
-                         age: 9,
-                         abc: undefined
-                        };
+                <p>
+                </p><pre>                    <code class="hljs typescript">
+            <span class="hljs-comment">// in 运算符作用：</span>
+            <span class="hljs-comment">// 就是判断 属性是否存在于对象中，如果存在，返回值为：true</span>
+            <span class="hljs-comment">// 如果不存在，则为：false</span>
+            <span class="hljs-comment">// 语法：属性 in 对象</span>
+             <span class="hljs-keyword">var</span> obj = {
+             name1: <span class="hljs-string">"jack"</span>,
+             age: <span class="hljs-number">9</span>,
+             abc: <span class="hljs-literal">undefined</span>
+            };
 
-                        // 如果是name，要注意：window有name属性
-                        console.log("name1" in obj);   // true
-                        console.log("age" in obj);     // true
-                        console.log("age123" in obj);  // false
+            <span class="hljs-comment">// 如果是对象中存在的成员或者是原型中的成员，此时，返回的结果就是 true</span>
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"name1"</span> <span class="hljs-keyword">in</span> obj);   <span class="hljs-comment">// true</span>
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"age"</span> <span class="hljs-keyword">in</span> obj);     <span class="hljs-comment">// true</span>
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"age123"</span> <span class="hljs-keyword">in</span> obj);  <span class="hljs-comment">// false</span>
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"abc"</span> <span class="hljs-keyword">in</span> obj);      <span class="hljs-comment">// true</span>
 
-                        // 如果是对象中存在的成员或者是原型中的成员，此时，返回的结果就是 true
-                        console.log("toString" in obj); // true
-                        console.log(obj.toString());    // object
-                        console.log("abc" in obj);      // true
+
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"toString"</span> <span class="hljs-keyword">in</span> obj); <span class="hljs-comment">// true</span>
+                <!--<span class="hljs-built_in">console</span>.log(obj.toString());    <span class="hljs-comment">// object</span>-->
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
 
-            <section>
+            <section class="past" style="top: 54.5px; display: none;" hidden="" aria-hidden="true">
                 <h2>in运算符判断数组</h2>
-                <P>
-                <pre>
-                    <code>
-                        // in运算符判断数组
-                        // 对于数组来说，索引号 就是属性
-                        var arr = [1];
-                        console.log("1" in arr); // false
-                        console.log("0" in arr); // true
-                        console.log(0 in arr);   // true
+                <p>
+                </p><pre>                    <code class="hljs typescript">
+        <span class="hljs-comment">// in运算符判断数组</span>
+        <span class="hljs-comment">// 对于数组来说，索引号 就是属性</span>
 
-                        // 访问数组的成员：
-                        // 可以使用 数组索引 也可以使用 字符串
-                        console.log(arr[0]);    //1
-                        console.log(arr["0"]);  //1
+        var arr = ["one","two","three","four"];
+        arr.five = "5";
+
+        consol.log(0 in arr);//true
+        consol.log("one" in arr); //false,只可判断数组的键值
+        consol.log("five" in arr);//true,'five'是arr对象的属性
+        consol.log("length" in arr);//true
+                <!--<span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>];-->
+                <!--<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"1"</span> <span class="hljs-keyword">in</span> arr); <span class="hljs-comment">// false</span>-->
+                <!--<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"0"</span> <span class="hljs-keyword">in</span> arr); <span class="hljs-comment">// true</span>-->
+                <!--<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> <span class="hljs-keyword">in</span> arr);   <span class="hljs-comment">// true</span>-->
+
+                <!--<span class="hljs-comment">// 访问数组的成员：</span>-->
+                <!--<span class="hljs-comment">// 可以使用 数组索引 也可以使用 字符串</span>-->
+                <!--<span class="hljs-built_in">console</span>.log(arr[<span class="hljs-number">0</span>]);    <span class="hljs-comment">//1</span>-->
+                <!--<span class="hljs-built_in">console</span>.log(arr[<span class="hljs-string">"0"</span>]);  <span class="hljs-comment">//1</span>-->
+
+
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
-            <section>
-                <h2>for in组合遍历大法</h2>
-                <P>
-                <pre>
-                    <code>
-                        var x
-                        var mycars = new Array()
-                        mycars[0] = "Saab"
-                        mycars[1] = "Volvo"
-                        mycars[2] = "BMW"
+            <section class="past" style="top: 66px; display: none;" hidden="" aria-hidden="true">
+                <h2>for in语句</h2>
+                <p>
+                </p><pre>                    <code class="hljs typescript">
+        for-in语句是一种精准的迭代语句，可以用来枚举对象的属性
+        <span class="hljs-keyword">var</span> mycars = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();
+        mycars[<span class="hljs-number">0</span>] = <span class="hljs-string">"Bens"</span>;
+        mycars[<span class="hljs-number">1</span>] = <span class="hljs-string">"Volvo"</span>;
+        mycars[<span class="hljs-number">2</span>] = <span class="hljs-string">"BMW"</span>;
 
-                        for (x in mycars)
-                        {
-                        console.log(mycars[x])
-                        }
+        <span class="hljs-keyword">for</span> (var x <span class="hljs-keyword">in</span> mycars)
+        {
+        <span class="hljs-built_in">console</span>.log(mycars[x])
+        }
+        for-in循环输出的属性名顺序是不可预测的，所有属性都会被返回一次，
+        但返回的先后顺序可能会因浏览器而异
+
+        迭代对象变量值是null或undefined，语句会抛出错误
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
             <!--in运算符结束-->
 
-            <section>
+            <section class="past" style="top: 5px; display: none;" hidden="" aria-hidden="true">
                 <h2>2.2、typeof</h2>
-                <P>
-                <pre>
-                    <code>
-typeof在js中是一个一元操作符，可以判断操作数的类型，
-      其返回值有number、string、object、boolean、function、undefined。
-      使用方式可以是typeof 操作数或typeof(操作数)，下面是几个实例，
+                <p>
+                </p><pre>                    <code class="hljs livescript">
+<span class="hljs-keyword">typeof</span>在js中是一个一元操作符，可以判断操作数的类型，
+其返回值有number、string、object、boolean、<span class="hljs-keyword">function</span>、<span class="hljs-literal">undefined</span>。
+使用方式可以是<span class="hljs-keyword">typeof</span> 操作数或<span class="hljs-keyword">typeof</span>(操作数)
 
-typeof NaN  返回值：number  NaN特殊的非数字值
-
-typeof Infinity  返回值：number  Infinity无穷大特殊值
-
-typeof 123  返回值：number
-
-typeof '123'  返回值：string
-
-typeof(true)  返回值：boolean
-
-typeof(Date)  返回值：function
-
-typeof(s)  返回值：undefined  因为s作为一个变量未被定义，所以这里的返回值是undefined
-
-typeof(undefined)  返回值：undefined
-
-typeof(document)  返回值：object  document是DOM下的一个对象
-
-typeof(null)  返回值：object
-
-
-
-typeof就是来判断变量是什么类型的，对返回值做以下说明，
+<span class="hljs-keyword">typeof</span>检测变量的数据类型，对返回值做以下说明，
 
 number 变量是数字类型
 
@@ -193,78 +181,101 @@ string  变量是字符串类型
 
 boolean 变量是布尔类型
 
-object  变量是对象或者null
+object  变量是对象或者<span class="hljs-literal">null</span>
 
-function  变量是函数
+<span class="hljs-keyword">function</span>  变量是函数
 
-undefined  变量未定义
+<span class="hljs-literal">undefined</span>  变量未定义
+
+下面是几个实例
+
+<span class="hljs-keyword">typeof</span> NaN  返回值：number  NaN特殊的非数字值
+
+<span class="hljs-keyword">typeof</span> Infinity  返回值：number  Infinity无穷大特殊值
+
+<span class="hljs-keyword">typeof</span> <span class="hljs-number">123</span>  返回值：number
+
+<span class="hljs-keyword">typeof</span> <span class="hljs-string">"123"</span>  返回值：string
+
+<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">true</span>)  返回值：boolean
+
+<span class="hljs-keyword">typeof</span>(Date)  返回值：<span class="hljs-keyword">function</span>
+
+<span class="hljs-keyword">typeof</span>(s)  返回值：<span class="hljs-literal">undefined</span>  因为s作为一个变量未被定义，所以这里的返回值是<span class="hljs-literal">undefined</span>
+
+<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">undefined</span>)  返回值：<span class="hljs-literal">undefined</span>
+
+<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">document</span>)  返回值：object  <span class="hljs-built_in">document</span>是DOM下的一个对象
+
+<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">null</span>)  返回值：object
+
+
+
+
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
 
-            <section>
+            <section class="past" style="top: 43px; display: none;" hidden="" aria-hidden="true">
                 <h2>2.3、instanceof</h2>
-                <P>
-                <pre>
-                    <code>
-instanceof 运算符与 typeof
-运算符相似，用于识别正在处理的对象的类型。与 typeof 方法不同的是，
-instanceof 方法要求开发者明确地确认对象为某特定类型。
-通常来讲，使用 instanceof 就是判断一个实例是否属于某种类型。
-另外，更重要的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。
+                <p>
+                </p><pre>                    <code class="hljs javascript">
+<span class="hljs-keyword">instanceof</span> 运算符与 <span class="hljs-keyword">typeof</span>
+运算符相似，用于识别正在处理的对象的类型。与 <span class="hljs-keyword">typeof</span> 方法不同的是，
+<span class="hljs-keyword">instanceof</span> 方法要求开发者明确地确认对象为某特定类型。
+通常来讲，使用 <span class="hljs-keyword">instanceof</span> 就是判断一个实例是否属于某种类型。
+另外，更重要的一点是 <span class="hljs-keyword">instanceof</span> 可以在继承关系中用来判断一个实例是否属于它的父类型。
 
                         例如：
 
-                        function Person(){};
-                        var p =new Person();
-                        console.log(p instanceof Person);//true
+                        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params"></span>)</span>{};
+                        <span class="hljs-keyword">var</span> p =<span class="hljs-keyword">new</span> Person();
+                        <span class="hljs-built_in">console</span>.log(p <span class="hljs-keyword">instanceof</span> Person);<span class="hljs-comment">//true</span>
 
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
 
-            <section>
+            <section class="" style="top: 5px; display: none;" aria-hidden="true">
                 <h2>2.4、===</h2>
-                <P>
-                <pre>
-                    <code>
+                <p>
+                </p><pre>                    <code class="hljs typescript">
   “===”用于严格比较,只要数据类型不匹配就返回flase。
 
-1、如果类型不同，就[不相等]
-2、如果两个都是数值，并且是同一个值，那么[相等]；
-  (！例外)的是，如果其中至少一个是NaN，那么[不相等]。
-  (判断一个值是否是NaN，只能用isNaN()来判断）
-3、如果两个都是字符串，每个位置的字符都一样，那么[相等]；否则[不相等]。
-4、如果两个值都是true，或者都是false，那么[相等]。
-5、如果两个值都引用同一个对象或函数，那么[相等]；否则[不相等]。
-6、如果两个值都是null，或者都是undefined，那么[相等]。
+<span class="hljs-number">1</span>、如果类型不同，就[不相等]
+<span class="hljs-number">2</span>、如果两个都是数值，并且是同一个值，那么[相等]；
+  (！例外)的是，如果其中至少一个是<span class="hljs-literal">NaN</span>，那么[不相等]。
+  (判断一个值是否是<span class="hljs-literal">NaN</span>，只能用<span class="hljs-built_in">isNaN</span>()来判断）
+<span class="hljs-number">3</span>、如果两个都是字符串，每个位置的字符都一样，那么[相等]；否则[不相等]。
+<span class="hljs-number">4</span>、如果两个值都是<span class="hljs-literal">true</span>，或者都是<span class="hljs-literal">false</span>，那么[相等]。
+<span class="hljs-number">5</span>、如果两个值都引用同一个对象或函数，那么[相等]；否则[不相等]。
+<span class="hljs-number">6</span>、如果两个值都是<span class="hljs-literal">null</span>，或者都是<span class="hljs-literal">undefined</span>，那么[相等]。
 
-                        var a = 3;
-                        var b = "3";
-                        console.log(a===b) //返回 false;
-                        //因为a,b的类型不一样;
+                        <span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>;
+                        <span class="hljs-keyword">var</span> b = <span class="hljs-string">"3"</span>;
+                        <span class="hljs-built_in">console</span>.log(a===b) <span class="hljs-comment">//返回 false;</span>
+                        <span class="hljs-comment">//因为a,b的类型不一样;</span>
 
                     </code>
                     </pre>
-                </P>
+                <p></p>
             </section>
 
 
         </section><!--剖析完毕-->
 
 
-        <section>
+        <section class="past" style="top: 232px; display: none;" hidden="" aria-hidden="true">
             <h3>3.常见问题</h3>
             <p>JS运算符 == 和 === 之间有什么不一样？</p>
         </section>
 
 
-        <section>
+        <section class="past" style="top: 17px; display: block;" hidden="" aria-hidden="true">
             <h3>4.解决方案</h3>
-            <pre>
-                    <code>
+            <pre>                    <code class="hljs typescript">
 ===用于严格比较,只要数据类型不匹配就返回flase。
 首先，== equality 等同，=== identity 恒等。
 ==， 两边值类型不同的时候，要先进行类型转换，再比较。
@@ -272,42 +283,41 @@ instanceof 方法要求开发者明确地确认对象为某特定类型。
 
 下面分别说明：
 先说 ===，这个比较简单。下面的规则用来判断两个值是否===相等：
-1、如果类型不同，就[不相等]
-2、如果两个都是数值，并且是同一个值，那么[相等]；
-   (！例外)的是，如果其中至少一个是NaN，那么[不相等]。
-   （判断一个值是否是NaN，只能用isNaN()来判断）
-3、如果两个都是字符串，每个位置的字符都一样，那么[相等]；否则[不相等]。
-4、如果两个值都是true，或者都是false，那么[相等]。
-5、如果两个值都引用同一个对象或函数，那么[相等]；否则[不相等]。
-6、如果两个值都是null，或者都是undefined，那么[相等]。
+<span class="hljs-number">1</span>、如果类型不同，就[不相等]
+<span class="hljs-number">2</span>、如果两个都是数值，并且是同一个值，那么[相等]；
+   (！例外)的是，如果其中至少一个是<span class="hljs-literal">NaN</span>，那么[不相等]。
+   （判断一个值是否是<span class="hljs-literal">NaN</span>，只能用<span class="hljs-built_in">isNaN</span>()来判断）
+<span class="hljs-number">3</span>、如果两个都是字符串，每个位置的字符都一样，那么[相等]；否则[不相等]。
+<span class="hljs-number">4</span>、如果两个值都是<span class="hljs-literal">true</span>，或者都是<span class="hljs-literal">false</span>，那么[相等]。
+<span class="hljs-number">5</span>、如果两个值都引用同一个对象或函数，那么[相等]；否则[不相等]。
+<span class="hljs-number">6</span>、如果两个值都是<span class="hljs-literal">null</span>，或者都是<span class="hljs-literal">undefined</span>，那么[相等]。
 再说 ==，根据以下规则：
-1、如果两个值类型相同，进行 === 比较。
-2、如果两个值类型不同，他们可能相等。根据下面规则进行类型转换再比较：
-a、如果一个是null、一个是undefined，那么[相等]。
+<span class="hljs-number">1</span>、如果两个值类型相同，进行 === 比较。
+<span class="hljs-number">2</span>、如果两个值类型不同，他们可能相等。根据下面规则进行类型转换再比较：
+a、如果一个是<span class="hljs-literal">null</span>、一个是<span class="hljs-literal">undefined</span>，那么[相等]。
 b、如果一个是字符串，一个是数值，把字符串转换成数值再进行比较。
-c、如果任一值是 true，把它转换成 1 再比较；如果任一值是 false，把它转换成 0 再比较。
+c、如果任一值是 <span class="hljs-literal">true</span>，把它转换成 <span class="hljs-number">1</span> 再比较；如果任一值是 <span class="hljs-literal">false</span>，把它转换成 <span class="hljs-number">0</span> 再比较。
 d、如果一个是对象，另一个是数值或字符串，把对象转换成基础类型的值再比较。
   对象转换成基础类型，利用它的toString或者valueOf方法。
   js核心内置类，会尝试valueOf先于toString；
-  例外的是Date，Date利用的是toString转换。
-  非js核心的对象，令说（比较麻烦，我也不大懂）
+  例外的是<span class="hljs-built_in">Date</span>，<span class="hljs-built_in">Date</span>利用的是toString转换。
 e、任何其他组合，都[不相等]。
 
-                        //举例：
-                        "1" == true
-                        //类型不等，true会先转换成数值 1，现在变成 "1" == 1，
-                        //再把"1"转换成 1，比较 1 == 1， 相等。
+                        <span class="hljs-comment">//举例：</span>
+                        <span class="hljs-string">"1"</span> == <span class="hljs-literal">true</span>
+                        <span class="hljs-comment">//类型不等，true会先转换成数值 1，现在变成 "1" == 1，</span>
+                        <span class="hljs-comment">//再把"1"转换成 1，比较 1 == 1， 相等。</span>
 
-                        //= 赋值运算符
-                        //== 等于
-                        //=== 严格等于
-                        //例：
-                        var a = 3;
-                        var b = "3";
-                        a==b 返回 true
-                        console.log(a===b) //返回 false
-                        //因为a,b的类型不一样
-                        //===用来进行严格的比较判断
+                        <span class="hljs-comment">//= 赋值运算符</span>
+                        <span class="hljs-comment">//== 等于</span>
+                        <span class="hljs-comment">//=== 严格等于</span>
+                        <span class="hljs-comment">//例：</span>
+                        <span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>;
+                        <span class="hljs-keyword">var</span> b = <span class="hljs-string">"3"</span>;
+                        a==b 返回 <span class="hljs-literal">true</span>
+                        <span class="hljs-built_in">console</span>.log(a===b) <span class="hljs-comment">//返回 false</span>
+                        <span class="hljs-comment">//因为a,b的类型不一样</span>
+                        <span class="hljs-comment">//===用来进行严格的比较判断</span>
 
                     </code>
                     </pre>
@@ -315,15 +325,13 @@ e、任何其他组合，都[不相等]。
         </section>
 
 
-        <section>
+        <section class="past" style="top: 200.5px; display: block;" hidden="" aria-hidden="true">
             <h3>5.编码实战</h3>
-            <br>
-            <h3>以上！</h3>
         </section>
 
 
-        <section>
-            <section>
+        <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="1">
+            <section style="top: 33.5px; display: block;" class="past" hidden="" aria-hidden="true">
                 <h3>6.扩展思考</h3>
                 <p>大家都知道js中可以使用typeof来判断变量的基本类型，如：<br>
                     <span style="color: #0f0f0f">console.log(typeof '111'); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// "string"</span><br>
@@ -334,21 +342,28 @@ e、任何其他组合，都[不相等]。
                     但是这个方法不适用于来判断数组，因为不管是数组还是对象，都会返回object，这就需要我们需求其他的方法,辣么判断数组可以用什么方法呢？</p>
 
             </section>
-            <section>
-                <pre>
-                    <code>
-//1、constructor  属性
-//这个属性在我们使用js系统或者自己创建的对象的时候，会默认的加上，例如：
-  var arr = [1,2,3];  //创建一个数组对象
-  arr.prototype.constructor = Array;  //这一句是系统默认加上的,指向这个对象的原型方法
-//所以我们就可以这样来判断：
-     alert(arr.constructor === Array);   // true
-//2、instanceof
-//instanceof是检测对象的原型链是否指向构造函数的prototype对象的，
+            <section class="present" style="top: 87.5px; display: block;">
+                <pre>                    <code class="hljs delphi">
+<span class="hljs-comment">//1、constructor  属性</span>
+<span class="hljs-comment">//这个属性在我们使用js系统或者自己创建的对象的时候，会默认的加上，
+    保存着用于创建当前对象的函数，例如：</span>
+  <span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];  <span class="hljs-comment">//创建一个数组对象</span>
+  arr.prototype.<span class="hljs-keyword">constructor</span> = <span class="hljs-keyword">Array</span>;  <span class="hljs-comment">//这一句是系统默认加上的,指向这个对象的原型方法</span>
+<span class="hljs-comment">//所以我们就可以这样来判断：</span>
+     alert(arr.<span class="hljs-keyword">constructor</span> === <span class="hljs-keyword">Array</span>);   <span class="hljs-comment">// true</span>
+<span class="hljs-comment">//2、instanceof</span>
+<span class="hljs-comment">//instanceof是检测对象的原型链是否指向构造函数的prototype对象的，</span>
   所以我们也可以用它来判断：
 
-     var arr = [1,2,3];
-     alert(arr instanceof Array);   // true
+
+     <span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+     alert(arr instanceof <span class="hljs-keyword">Array</span>);   <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">//3.Array.isArray()方法
+ECMAScript5新增了Array.isArray()方法，
+支持这个方法发的浏览器有IE9+,Firefox4+,Safari5+,Opera10.5+和Chrome</span>
+if (Array.isArray(value)){
+}
                     </code>
                 </pre>
 
@@ -356,15 +371,15 @@ e、任何其他组合，都[不相等]。
         </section>
 
 
-        <section>
+        <section class="future" style="top: 200.5px; display: block;" hidden="" aria-hidden="true">
             <h3>7.参考文献</h3>
             <br>
-            <h3>搜索引擎</h3>
+            <p style="text-align: center">JavaScript高级程序设计</p>
         </section>
 
 
-        <section>
-            <section>
+        <section class="stack future" style="top: 0px; display: block;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section style="top: 243.5px; display: block;" class="" aria-hidden="true">
                 <h3>8.更多讨论</h3>
                 在日常编程中，你还使用过别的有意思的运算符吗？<br>
             </section>
@@ -372,16 +387,32 @@ e、任何其他组合，都[不相等]。
         </section>
 
 
-        <section>
+        <section class="future" style="top: 223.5px; display: none;" hidden="" aria-hidden="true">
             <h4>鸣谢</h4>
             <h4>感谢大家观看</h4>
-            <small>BY : 郭俊伟|冯强</small>
+            <small>BY : 马靖哲|冯强</small>
         </section>
 
 
     </div>
-</div>
+    <div class="backgrounds"><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background stack past" data-loaded="true" style="display: none;"><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack past" style="display: none;" data-loaded="true"><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background stack present" style="display: block;" data-loaded="true"><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background present" style="display: block;" data-loaded="true"></div></div><div class="slide-background future" style="display: block;" data-loaded="true"></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background present" style="display: block;" data-loaded="true"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"></div></div><div class="progress" style="display: block;"><span style="width: 1280px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up enabled" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
 
+    //1、constructor  属性
+    //这个属性在我们使用js系统或者自己创建的对象的时候，会默认的加上，例如：
+    var arr = [1,2,3];  //创建一个数组对象
+    arr.prototype.constructor = Array;  //这一句是系统默认加上的,指向这个对象的原型方法
+    //所以我们就可以这样来判断：
+    alert(arr.constructor === Array);   // true
+    //2、instanceof
+    //instanceof是检测对象的原型链是否指向构造函数的prototype对象的，
+    所以我们也可以用它来判断：
+
+    var arr = [1,2,3];
+    alert(arr instanceof Array);   // true
+
+
+
+</div></div>
 <script src="../lib/reveal/js/head.min.js"></script>
 <script src="../lib/reveal/reveal.js"></script>
 
