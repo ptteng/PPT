@@ -1,0 +1,235 @@
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么使用json-taglib处理json数据</h2>
+            <h3>小课堂</h3>
+            <p>分享人: 张鑫</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+       
+        <section>
+            <p>json因为其高效,易读的原因而成为前后端交互数据的主要方式.而我们在项目中都是通过json-taglib标签实现从java的各种对象到json的转换.
+            </p>
+            <p>json-taglib最早是在2007年2月发布第一版,最近一次发布是在2008年1月,是一个比较成熟的技术</p>
+        </section>
+        <section>
+               <p>那么为什么我们要在项目中使用json-taglib来获取json数据呢?</p>
+        </section> 
+        <section>
+            <p>The JSON taglib has been designed to be as easy to use as possible. It does only one thing - renders JSON data from within a JSP.</p>
+            <p>上面这段话是Json-taglib官网主页上的一句话,它实际上已经给出了刚才那个问题的答案.它的意思就是该标签被设计的初衷就是使用简单.它只做一件事,那就是从jsp中提取json数据.</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>  如何使用json-taglib标签。</p>
+        </section>
+        <section>
+             <p>首先,要下载jar包到你的项目中.该标签的jar包在maven仓库中没有,我们需要手动将它添加进项目中.</p>
+             <p> 其次,在jsp页面中声明标签</p>
+             <p>"<%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>"</p>
+        </section>
+        <section>
+             <p>该标签包含了三个简单的标签,json:object,表示json数据对象;json:property,表示json对象中的属性;json:array,表示json数组,对象中可以有数组,数组中也可以有对象,可以使用这三个标签的嵌套生成各种格式的json数据,完全可以满足我们开发的需求</p>
+             <p>这里可以看一下官网给出的示例</p>
+        </section>
+    
+        <section>  
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在此之前我们是使用哪种方式在前后端传递json数据呢?</p>
+            <p>几种方式到底有何区别,官网说json-taglib简单,那么到底简单在哪里?</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>写一个demo,来实际感受一下几种方式的区别</p>
+        </section>
+         <section>
+           <p>在代码实战之前,先了解一下如果不用json-taglib,那么我们使用哪种方式向前端传递json数据呢?</p>
+        </section>
+         <section>
+           <p>通过@ResponseBody注解的方式</p>
+           <p>如果在控制器方法上标注该注解,那么方法返回的对象不会经过视图解析器的渲染,而是根据HTTP Request Header的Accept字段的内容,转换为指定的格式,写入到Response对象的body数据区中,如果没有额外的配置,那么就会返回json格式的数据</p>
+            <p>这段话是是从参考文献三中直接拷贝过来的</p>
+        </section>
+        <section>
+            <h3>5.实战</h3>
+        </section>
+        <section>
+            <p>1.使用json-taglib,在控制器中的代码更加简洁,易读</p>
+            <p>2.使用json-taglib更加灵活,如果以后需要更改json数据格式,只需要更改jsp页面即可,不需要改动控制器代码</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <section>
+                <p>1.还有没有其他的java对象转换为json格式的方式</p>
+                <p>这两种方式的效率如何?</p>
+            </section>
+            <section>
+                <p>我们通过Jmeter测试一下接口来判断</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://json-taglib.sourceforge.net/index.html">官方文档</a></p>
+            <p>参考二：<a href="http://www.cnblogs.com/chentingk/p/6073963.html">SpringMVC前后端数据交互总结</a></p>
+            <p>参考三：<a href="http://www.jianshu.com/p/7097fea8ce3f">SpringMVC @ResponseBody和@RequestBody使用</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>1.还有没有其他的生成json的方式</p>
+            <p>2.为什么使用json-taglib的效率要低于@ResponseBody这种方式呢</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 张鑫</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
