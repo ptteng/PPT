@@ -1,0 +1,220 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring依赖注入和控制反转</h2>
+                   <p>李亚衡</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+         <p>Spring是什么？</p>
+         <p>Spring是一个开源的轻量级开发应用框架</p>
+		 <p>最早由Rod Johnson 创建，并在《Expert One-on-One：J2EE Design and Development》这本著作中进行了介绍。</p>
+		 <p>Spring是为了解决企业级应用开发的复杂性创建的，Spring可以让简单的JavaBean实现之前只有EBJ才能完成的事情。</p>
+		 <p>但Spring不仅仅局限于服务器端开发，任何JAVA应用都能在简单性，可测试性和松耦合的方面从Spring中获益。</p>
+         </section>
+        <section>
+            <p>Spring的不同之处就在于许多其他框架都声明在“某些”方面做了简化，但Spring是致力于“全方位的简化JAVA的开发，那么这势必会引出一些疑问。</p>
+        </section>
+		<section>
+            <p>Spring为什么这么牛X ？</p>
+        </section>
+		 
+		<section>
+        	<p>为了降低JAVA开发的复杂性，Spring采取了4中关键策略：</p>
+            <p>1.基于POJO的轻量级和最小侵入性编程</p>
+			<p>2.通过依赖注入和面向接口实现松耦合</p>
+			<p>3.基于切面和惯例进行声明式编程</p>
+			<p>4.通过切面和模板减少板式代码</p>
+        </section>
+        <section>
+            <p>依赖注入(DI)和控制反转(IOC)</p>
+        </section>
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+		 <section>
+		  <p>什么是IOC？</p>
+            <p>Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，
+			Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。</p>
+        </section>
+        
+		 <section>
+            <p>如何理解好控制反转(IOC)呢？</p>
+			<p>谁控制谁，控制了什么?</p>
+			<p>为何是反转，有哪些方面反转了?</p>
+        </section>
+		
+        
+
+        <section>
+           <p>谁控制谁，控制什么</p>
+		   <p>传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对象的创建；</p>
+		   <p>谁控制谁？当然是IoC 容器控制了对象；控制什么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）。</p>  
+        </section>
+	     
+        <section>
+          <p>为何是反转，哪些方面反转了？</p>
+		  <p>了解反转先认识一下正转，传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；
+		  而反转则是由容器来帮忙创建及注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；</p>	   
+          <p>哪些方面反转了？依赖对象的获取被反转了</p>
+        </section>
+		
+		<section>
+            <p>什么是DI?</p>
+			<p>DI—Dependency Injection，即“依赖注入”：是组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。
+			依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置
+			，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。</p>
+        </section>
+        
+		<section>
+            <p>如何理解好依赖注入(DI)呢？</p>
+			<p>谁依赖谁，为什么需要依赖</p>
+            <p>谁注入谁，注入了什么</p>			
+        </section>
+        
+		<section>
+           <p>谁依赖于谁：当然是应用程序依赖于IoC容器；</p>
+		   <p>为什么需要依赖：应用程序需要IoC容器来提供对象需要的外部资源；</p>
+		   <p>谁注入谁：很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象；</p>
+		   <p>注入了什么：就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。</p>
+        </section>
+       
+	   <section>
+            <h3>3.常见问题</h3>
+       </section>
+       		
+		<section>
+              <p>IoC和DI之间有什么关系呢？</p>
+              <p>其实它们是同一个概念的不同角度描述，由于控制反转概念比较含糊（可能只是理解为容器控制对象这一个层面，很难让人想到谁来维护对象关系），
+			  所以2004年大师级人物Martin Fowler又给出了一个新的名字：“依赖注入”，相对IoC 而言，“依赖注入”明确描述了“被注入对象依赖IoC容器配置依赖对象”。</p>
+
+        </section>
+
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		
+
+		
+		
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>我们现在使用的是Spring的依赖注入，
+		   前面也说到Spring是全方位的简化JAVA开发，
+		   那Spring还有什么是我们没有体会到但是却是出了冰山一角之外的冰山呢？
+		 </p>
+        </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>《Spring实战》</p>
+			<p>http://sishuok.com/forum/blogPost/list/2427.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:李亚衡</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

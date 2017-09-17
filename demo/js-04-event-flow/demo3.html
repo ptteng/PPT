@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css" rel="stylesheet">
+        li{
+            cursor:pointer;
+            margin:30px;
+        }
+    </style>
+</head>
+<body>
+<ul id="ul1">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+</ul>
+<!--<ul id="color-list">-->
+    <!--<li>red</li>-->
+    <!--<li>yellow</li>-->
+    <!--<li>blue</li>-->
+    <!--<li>green</li>-->
+    <!--<li>black</li>-->
+    <!--<li>white</li>-->
+<!--</ul>-->
+</body>
+<script>
+//    window.onload = function(){
+//        var oUl = document.getElementById("ul1");
+//        var aLi = oUl.getElementsByTagName('li');
+//        for(var i=0;i<aLi.length;i++){
+//            aLi[i].onclick = function(){
+//                alert(123);
+//            }
+//        }
+//    }
+//    window.onload = function(){
+//        var oUl = document.getElementById("ul1");
+//        oUl.onclick = function(){
+//
+//            alert(123);
+//        }
+//    }
+
+
+//上面用父级ul做事件处理，当li被点击时，由于冒泡原理，事件就会冒泡到ul上，因为ul上有点击事件，所以事件就会触发，
+//当然，上面在当点击ul的时候，也是会触发的，那么问题就来了，如果我想让事件代理的效果跟直接给节点的事件效果一样怎么办，
+//比如说只有点击li才会触发
+//Event对象提供了一个属性叫target，可以返回事件的目标节点
+//也就是说，target就可以表示为当前的事件操作的dom，但是不是真正操作dom，
+//此时只是获取了当前节点的位置，并不知道是什么节点名称，
+//这里我们用nodeName来获取具体是什么标签名，这个返回的是一个大写的，我们需要转成小写再做比较
+
+window.onload = function(){
+    var oUl = document.getElementById("ul1");
+    oUl.onclick = function(a){
+        var x = a.target ;
+        if(x.nodeName.toLowerCase() === 'li'){
+            alert(123);
+            alert(x.innerHTML);
+            console.log(a)
+        }
+    }
+}
+
+
+
+//(function(){
+//    var color_list = document.getElementById('color-list');
+//    var colors = color_list.getElementsByTagName('li');
+//    for(var i=0;i<colors.length;i++){
+//        colors[i].addEventListener('click',showColor,false);
+//    };
+//    function showColor(e){
+//        var x = e.target;
+//        alert("The color is " + x.innerHTML);
+//    };
+//})();
+//(function(){
+//    var color_list = document.getElementById('color-list');
+//    color_list.addEventListener('click',showColor,false);
+//    function showColor(e){
+//        var x = e.target;
+//        if(x.nodeName.toLowerCase() === 'li'){
+//            alert('The color is ' + x.innerHTML);
+//        }
+//    }
+//})();
+</script>
+</html>

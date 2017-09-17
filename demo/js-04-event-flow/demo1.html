@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    #outer{
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        top:0;
+        left: 0;
+        bottom:0;
+        right: 0;
+        margin: auto;
+        background-color: #f449ba;
+    }
+    #middle{
+        position: absolute;
+        width: 300px;
+        height:300px;
+        top:50%;
+        left: 50%;
+        margin-left: -150px;
+        margin-top: -150px;
+        background-color: #7d5dd9;
+    }
+    #inner{
+        position: absolute;
+        width: 100px;
+        height:100px;
+        top:50%;
+        left:50%;
+        margin-left: -50px;
+        margin-top: -50px;;
+        background-color: #0aece9;
+        text-align: center;
+        line-height: 100px;
+        color:white;
+    }
+    #outer,#middle,#inner{
+        border-radius:100%;
+    }
+</style>
+<body>
+<div id="outer">
+    <div id="middle">
+        <div id="inner">
+            click me!
+        </div>
+    </div>
+</div>
+<script>
+    var innerCircle= document.getElementById("inner");
+    innerCircle.onclick= function () {
+        alert("innerCircle");
+        event.cancelBubble = true
+    };
+    var middleCircle= document.getElementById("middle");
+    middleCircle.onclick=function(){
+        alert("middleCircle");
+        event.stopPropagation();
+    };
+    var outerCircle= document.getElementById("outer");
+    outerCircle.onclick= function () {
+        alert("outerCircle");
+    }
+</script>
+</body>
+</html>

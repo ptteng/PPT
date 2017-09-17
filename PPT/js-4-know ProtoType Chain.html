@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-04-简述原型链】</h2>
+            <h3>成都小课堂</h3>
+            <p>分享人：韩建名</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    JavaScript对象是一个属性的集合，另外有一个隐式的对象：原型对象。原型的值可以是一个对象或者null。一般的引擎实现中，JS对象会包含若干个隐藏属性，对象的原型由这些隐藏属性之一引用，我们在本文中讨论时，将假定这个属性的名称为"__proto__"(事实上，SpiderMonkey内部正是使用了这个名称，但是规范中并未做要求，因此这个名称依赖于实现)。
+                    由于原型对象本身也是对象，根据上边的定义，它也有自己的原型，而它自己的原型对象又可以有自己的原型，这样就组成了一条链，这个链就是原型链。</p>
+            </section>
+            <section>
+            	<p>先来看看有什么用处</p>
+            	<code>
+            	function Foo(){
+    this.y=2;
+}
+Foo.prototype.x=1;
+var obj3 = new Foo();
+
+obj1.y;//2
+obj1.x://1
+</code>
+<p>
+这里就是用原型链继承了Foo的属性
+obj1的原型（proto）会指向Foo的prototype属性
+
+
+当函数声明的时候——function Foo（）{}
+
+实质上在做：
+这个函数会有一个prototype属性，且默认会有两个属性
+Foo.prototype
+{
+constructor:Foo,
+__proto__:Object.prototype
+}
+
+prototype是函数对象上的预设的对象属性，而原型通常都是其构造器的prototype属性
+
+实例的__proto__属性会指向构造函数的prototype属性
+</p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+
+            </section>
+            <section>
+                <p>ECMAScript中描述了原型链的概念，并将原型链作为实现继承的主要方法。<b>其基本思想就是利用原型让一个引用类型继承另一个引用类型的属性和方法。</b></p>
+                <p>JavaScritp引擎在访问对象的属性时，如果在对象本身中没有找到，则会去原型链中查找，如果找到，直接返回值，如果整个链都遍历且没有找到属性，则返回undefined.原型链一般实现为一个链表，这样就可以按照一定的顺序来查找。</p>
+                <p>原型的动态性：对原型对象所做的实时修改都能从实例上立即反应出来。（注意区别添加修改和重写了原型对象）</p>
+            </section>
+            <section>
+                <p>
+                    原型对象包含指向构造函数的指针。a实例包含指向a原型对象内部的指针，使得我们可以访问原型对象的属性。如果让b原型对象等于a对象的实例那我们就可以访问a对象的原型对象及其属性和方法了。同理a的原型对象也可以是通过该种方法从c继承过来...
+                </p>
+            </section>
+            <section>
+            	1.概念
+				ECMAScript中描述了原型链的概念，并将原型链作为实现继承的主要方法。其基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。在JavaScript中，用 __proto__ 属性来表示一个对象的原型链。当查找一个对象的属性时，JavaScript 会向上遍历原型链，直到找到给定名称的属性为止！
+            </section>
+            <section>
+            	（1）原型：创建的每一个函数都有一个prototype（原型）属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按字面意思来理解，那么prototype就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。换句话说，不必在构造函数中定义对象实例的信息，而是可以将这些信息直接添加到原型对象中。
+				（2）原型对象：无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个constructor（构造函数）属性，这个属性是一个指向prototype属性所在函数的指针。
+            </section>
+            <section>
+            	<h2>普通对象和函数对象</h2>
+				<p>JS中万物皆对象，但对象也是有区别的，分为普通对象和函数对象，Object、Function是JS自带的函数对象，上栗子</p>
+					<code>				
+					var o1 = {}; 
+					var o2 =new Object(); 
+					var o3 = new f1(); 
+					function f1(){}; 
+					var f2 = function(){};
+					 var f3 = new Function('str','console.log(str)');
+					 console.log(typeof Object); //function 
+					console.log(typeof Function); //function 
+					console.log(typeof f1); //function 
+					console.log(typeof f2); //function 
+					console.log(typeof f3); //function 
+					console.log(typeof o1); //object 
+					console.log(typeof o2); //object 
+					console.log(typeof o3); //object
+					</code>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+                <p>原型链怎样实现继承</p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                原型对象包含指向构造函数的指针，这使得子类可以访问到构造函数中的属性。实例包含指向原型对象的内部的指针。
+            </p>
+            <br>
+            ex:<br>
+            a实例包含指向a原型对象内部的指针，使得我们可以访问原型对象的属性。如果让b原型对象等于a对象的实例那我们就可以访问a对象的原型对象及其属性和方法了。同理a的原型对象也可以是通过该种方法从c继承过来...
+            </p>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>先给大家引入一个例子：组合使用构造函数模式和原型模式创建自定义类型</p>
+                <pre>
+                <code>
+                    <!--构造函数部分：添加实例的属性-->
+                    function Person(name,age,job){
+                         this.name = name;
+                         this.age = age;
+                         this.job = job;
+                         this.friends = ["Lance","Alice"];
+                    }
+                    <!--原型对象部分：定义方法和共享属性-->
+                    Person.prototype = {
+                          constructor : Person;
+                          sayName : function() {
+                               alert(this.name);
+                    }
+                    }
+                </code>
+                </pre>
+            </section>
+            <section>
+               实现原型链的基本模式举例：
+                <pre>
+                    <code>
+                        function SuperType (){
+                            this.property = true;
+                        }
+                        SuperType.prototype.getSuperValue = function(){
+                            return this.property;
+                        }
+                        function SubType() {
+                           this.subproperty = false ;
+                        }
+                        <!--继承SuperType-->
+                        SubType.prototype = new SuperType();
+                        <!--从这里可以看出实现的本质是:!!!重写原型对象-->
+                        <!--往原型里面添加新的方法。这里要注意一个问题-->
+                        SubType.prototype.getSubValue = function(){
+                             return this.subproperty;
+                        };
+                        var instance = new SubType();
+                        alert(instance.getSuperValue());     //true
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>原型链继承方式存在的问题。以及怎样解决</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>《JavaScript高级程序设计》</p>
+        </section>
+        <section>
+            <h3>8.扩展思考</h3>
+            <p>其他实现继承的方法还有哪些？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 韩建名 </small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
