@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="../ppt-css.css">
+
+    <style>
+        p{
+            margin: 0 auto!important;
+            font-size: 30px!important;
+            letter-spacing: 2px;
+            line-height: 50px!important;
+            text-indent:2em;
+            text-align: left;
+        }
+        a{
+            color: #fff!important;
+        }
+        B{
+            text-align: center;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <!--<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>-->
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <!--<h2>【CSS-15】</h2>-->
+            <h3>浏览器如何渲染页面？</h3>
+            <!--<h3>小课堂【武汉198期】</h3>-->
+            分享人：王振
+        </section>
+        <section style="line-height: 70px;">
+            目录<br>
+
+            1.背景介绍<br>
+
+            2.知识剖析<br>
+
+            3.常见问题<br>
+
+            4.解决方案<br>
+
+            5.编码实战<br>
+
+            6.扩展思考<br>
+
+            7.参考文献<br>
+
+            8.更多讨论<br>
+        </section>
+        <section >
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section >
+                <p>浏览器渲染页面的大致过程：</p>
+                <p style="text-indent: 2em;text-align: left">从浏览器地址栏的请求链接开始，浏览器通过DNS解析查到域名映射的IP地址，成功之后浏览器端向此IP地址取得连接，成功连接之后，浏览器端将请求头信息 通过HTTP协议向此IP地址所在服务器发起请求，服务器接受到请求之后等待处理，最后向浏览器端发回响应，此时在HTTP协议下，浏览器从服务器接收到 text/html类型的代码，浏览器开始显示此html，并获取其中内嵌资源地址，然后浏览器再发起请求来获取这些资源，并在浏览器的html中显示</p>
+            </section>
+        </section>
+        <section style="text-indent: 2em;text-align: left">
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>浏览器解析的大概的工作流程可以归纳为以下几个步骤</p>
+                <p>1. 用户输入网址（假设是个 HTML 页面，第一次访问，无缓存情况），浏览器向服务器发出HTTP请求，服务器返回 HTML 文件； （善用缓存，减少HTTP请求，减轻服务器压力）</p>
+                <p>  2. 浏览器载入 HTML 代码，发现 head 内有一个 link 引用外部 CSS 文件,则浏览器立即发送CSS文件请求，获取浏览器返回的CSS文件；  （CSS文件合并，减少HTTP请求）</p>
+              <p>3. 浏览器继续载入 HTML 中 body 部分的代码，并且 CSS 文件已经拿到手了，可以开始渲染页面了；CSS文件需要放置最上面，避免网页重新渲染。</p>
+                <p> 4. 浏览器在代码中发现一个 img 标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码；（图片文件合并，减少HTTP请求）</p>
+            </section>
+              <section>
+                  <p>5. 服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码；   （最好图片都设置尺寸，避免重新渲染）</p>
+                    <p>    6. 浏览器发现了一个包含一行 JavaScript 代码的 script  标签，会立即运行该js代码；（script最好放置页面最下面）</p>
+                <p>7.js脚本执行了语句，它令浏览器隐藏掉代码中的某个 div,突然就少了一个元素，浏览器不得不重新渲染这部分代码；   （页面初始化样式不要使用js控制） </p>
+                <p>8.终于等到了 /html 的到来，浏览器泪流满面……</p>
+
+              </section>
+
+    <section>
+        <p>9. 当用户点了一下界面中的“换肤”按钮，JavaScript 让浏览器换了一下 link 标签的 CSS 路径；</p>
+        <p> 10. 浏览器召集了在座的各位 div span ul li 们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。</p>
+        <p>浏览器每天就这么来来回回跑着，要知道不同的人写出来的 HTML 和 CSS 代码质量参差不齐，说不定哪天跑着跑着就挂掉了。</p>
+        <p>好在这个世界还有这么一群人——页面重构工程师，平时挺不起眼，也就帮视觉设计师们切切图啊改改字，其实背地里还是干了不少实事的。</p>
+
+    </section>
+
+            </section>
+
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <B>什么是repain（重绘）和reflow（回流）？</B>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>说到页面为什么会慢？那是因为浏览器要花时间、花精力去渲染，尤其是当它发现某个部分发生了点变化影响了布局，需要倒回去重新渲染， 该过程称为reflow（回流）。</p>
+                <p>reflow 几乎是无法避免的。现在界面上流行的一些效果，比如树状目录的折叠、展开（实质上是元素的显 示与隐藏）等，都将引起浏览器的 reflow。鼠标滑过、点击……只要这些行为引起了页面上某些元素的占位面积、定位方式、边距等属性的变化，都会引起它内部、周围甚至整个页面的重新渲 染。通常我们都无法预估浏览器到底会 reflow 哪一部分的代码，它们都彼此相互影响着。</p>
+            </section>
+            <section>
+                <p>   如果只是改变某个元素的背景色、文 字颜色、边框颜色等等不影响它周围或内部布局的属性，将只会引起浏览器 repaint（重绘）。</p>
+                <p>repaint 的速度明显快于 reflow（在IE下需要换一下说法，reflow 要比 repaint 更缓慢）。</p>
+            </section>
+            <section>
+                <p>为什么reflow 要比 repaint 更缓慢？</p>
+                <p>repaint(重绘) ，repaint发生更改时，元素的外观被改变，且在没有改变布局的情况下发生，如改变outline,visibility,background color，不会影响到dom结构渲染。</p>
+                <p> reflow(回流)，与repaint区别就是他会影响到dom的结构渲染，同时他会触发repaint，他会改变他本身与所有父辈元素(祖先)，这种开销是非常昂贵的，导致性能下降是必然的，页面元素越多效果越明显。</p>
+                <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p>
+            </section>
+            </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <B>引起repain（重绘）和reflow（回流）的一些操作？</B>
+            </section>
+            <section style="text-indent: 2em;text-align: left">
+                <p>reflow 的成本比 repaint 的成本高得多的多。DOM Tree 里的每个结点都会有 reflow 方法，一个结点的 reflow 很有可能导致子结点，甚至父点以及同级结点的 reflow。<br>
+                当你增加、删除、修改 DOM 结点时，会导致 reflow 或 repaint。<br>
+                当你移动 DOM 的位置，或是搞个动画的时候。<br>
+                当你修改 /删除CSS 样式的时候。<br>
+                当你 Resize 窗口的时候，或是滚动的时候。<br>
+                当你修改网页的默认字体时。<br>
+                当你设置 style 属性的值 （Setting a property of the style attribute）。<br>
+                注：display:none 会触发 reflow，而 visibility:hidden 只会触发 repaint，因为没有发现位置变化。<br></p>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://blog.csdn.net/ClaireKe/article/details/51375622" target="_blank">reflow（回流）和repaint（重绘）及其优化</a></p>
+                <p>参考二：<a href="http://www.cnblogs.com/xuan52rock/p/4662237.html" target="_blank">浏览器加载渲染网页过程解析？</a></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+
+                <h6>如何减少repain（重绘）和reflow（回流）？</h6>
+
+            </section>
+            <section style="text-indent: 2em;text-align: left">
+                <p>reflow是不可避免的，只能将reflow对性能的影响减到最小,给出下面几条建议： </p>
+                <p>1. 不要一条一条地修改 DOM 的样式。通过设置style属性改变结点样式的话，每设置一次都会导致一次reflow。所以最好通过设置class的方式，这样可以将多次改变样式属性的操作合并成一次操作。</p>
+                <p>2. 让要操作的元素进行”离线处理”，处理完后一起更新；<br>
+                    - 使用DocumentFragment进行缓存操作,引发一次回流和重绘；<br>
+                    <pre>
+                <code>var fragment = document.createDocumentFragment();
+fragment.appendChild(document.createTextNode('keenboy test 111'));
+fragment.appendChild(document.createElement('br'));
+fragment.appendChild(document.createTextNode('keenboy test 222'));
+document.body.appendChild(fragment);</code>
+            </pre>
+            </section>
+            <section>
+                <p>- 使用display:none技术，只引发两次回流和重绘;</p>
+               <p>原理：由于display属性为none的元素不在渲染树中，对隐藏的元素操 作不会引发其他元素的重排。如果要对一个元素进行复杂的操作时，可以先隐藏它，操作完成后再显示。这样只在隐藏和显示时触发2次重排。</p>
+                <p>3.设置元素的position为absolute或fixed；</p>
+                <p>元素脱离标准文档流，也从DOM树结构中脱离出来，在需要reflow时只需要reflow自身与下级元素。</p>
+            </section>
+
+
+            <section style="text-indent: 2em;text-align: left">
+
+                <p>4.不要用tables布局；</p>
+                <p>tables中某个元素一旦触发reflow就会导致table里所有的其它元素reflow。在适合用table的场合，可以设置table-layout为auto或fixed，这样可以让table一行一行的渲染，这种做法也是为了限制reflow的影响范围。</p>
+                <p>5.避免使用CSS的JavaScript表达式，如果css里有expression，每次都会重新计算一遍。</p>
+
+            </section>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <h4>感谢大家观看</h4>
+            <small>BY: 王力/王振</small>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

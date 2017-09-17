@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-4】JS中this的指向</h2>
+            <h3>小课堂【深圳第227期】</h3>
+            <p>分享人：孙剑立</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <p>JS中的this指向一直以来都是很多初学者烦恼，大部分时候this都会伴随着闭包出现，也增加this指向的理解问题，这节课时中我将会使用通俗的例子帮助大家理解JS中关于this的指向。</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify">
+            <h3>首先javascript中this指的是什么？</h3>
+            <p class="fragment">this是Javascript语言的一个关键字。
+                它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。</p>
+        </section>
+        <section>
+            <h3>那什么this的指向又是什么呢？</h3>
+            <p class="fragment">在面向对象的语言中，this含义是明确且具体的，即指向当前对象。一般在编译期绑定。而在javascript中，this是动态绑定的，它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。这就导致了this具备了多重含义，可以使得javascript更灵活的使用。但是，带来了灵活性的同时也会给我们初学者带来不少困惑。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>关于全局环境中this的指向</p>
+            <pre>
+                <code>
+                  console.log(this);
+                </code>
+                </pre>
+            <p class="fragment">总结：在全局作用域中它的 this 执行当前的全局对象（浏览器端是 Window，node 中是 global）</p>
+        </section>
+        <section>
+            例子1：
+            <pre>
+        <code>
+        var name = "people";
+        function a(){
+        var name = "xiuzhenyuan";
+        console.log(this.name); //undefined
+        console.log(this); //Window
+        }
+        a();
+        </code>
+        </pre>
+            <strong class="fragment">this最终指向的是调用它的对象</strong>
+            <p class="fragment">由上面的例子可以看到，最终打印的name并不是函数里声明的name的值，而是全局变量name的值，这里是因为，调用a函数是全局调用的，因此this指向的是window。</p>
+        </section>
+        <section>
+        <p>例子2：</p>
+        <pre>
+        <code>
+        var name = "people";
+        var obj = {
+            name: "xiuzhenyuan",
+            fn: function() {
+                console.log(this.name);    //打印xiuzhenyuan
+            }
+        };
+        obj.fn();
+        </code>
+        </pre>
+        <p class="fragment">这里的打印的结果是打印xiuzhenyuan，调用fn函数的是obj，因此this指向的是obj，由上面两个例子可以得出一个初步结论：</p>
+        </section>
+        <section>
+            <p>this的指向在函数定义的时候是确定不了的，只有函数执行的时候才能确定this到底指向谁，实际上this的最终指向的是那个调用它的对象。</p>
+            <p class="fragment">           其实例子1和例子2说的并不够准确，下面这个例子就可以推翻上面的理论。<br/>
+                如果要彻底的搞懂this必须看接下来的几个例子。<br/></p>
+        </section>
+        <section style="text-align: left">
+            例子3:
+            <pre>
+        <code>
+            var name = "people";
+            var obj = {
+                name: "xiuzhenyuan",
+                fn: function() {
+                    console.log(this.name);    //打印xiuzhenyuan
+                }
+            };
+            window.obj.fn();
+        </code>
+        </pre>
+            <p class="fragment">这段代码和上面的那段代码几乎是一样的，这里最终是由window调用的,但是这里的this为什么不是指向window，如果按照上面的理论，最终this指向的是调用它的对象。上面的结果是错的吗？别着急我们接着往下看：</p>
+        </section>
+        <section>
+        <pre>
+        <code>
+            var obj = {
+                a: 10,
+                b: {
+                    a: 12,
+                    fn: function() {
+                        console.log(this.a);    //打印12
+                    }
+                }
+            };
+            obj.b.fn();
+        </code>
+        </pre>
+            <p class="fragment">这里的话最终是由obj调用的，按照上面的结论，理应打印出10，但是结果却是12。其实上面的结果并不是错误，只是不那么准确，一般分为三种情况：</p>
+        </section>
+        <section style="text-align: left">
+            1.如果一个函数有this，但是它没有被上一级对象所调用，那么它指向的就是window。在严格模式下指向的是undefined。<br>
+            2.如果一个函数中有this，这个函数有被上一级所调用，那么它指向的就是调用它的对象。<br>
+            3.如果一个函数中有this，且这个函数外层被多个对象包含，尽管最终这个函数是被最外层的对象所调用，this指向的也只是函数上一级的对象。
+        </section>
+        <section>
+            证明情况3的说法：
+            <pre>
+        <code>
+        var o = {
+            a:10,
+            b:{
+            // a:12,
+            fn:function(){
+               console.log(this.a); //undefined
+               }
+            }
+        }
+        o.b.fn();
+        </code>
+        </pre>
+            <p class="fragment">虽然函数fn最终是被obj调用，哪怕对象b中没有a这个属性，this指向的依然是对象b，所以打印的结果为undefined。</p>
+        </section>
+        <section style="text-align: left">
+            特殊情况例子4：
+            <pre>
+        <code>
+            var obj = {
+                a: 10,
+                b: {
+                    a: 12,
+                    fn: function() {
+                        console.log(this.a);
+                        console.log(this);
+                    }
+                }
+            };
+            var j = obj.b.fn;
+            j();
+        </code>
+        </pre>
+            <p class="fragment">这里的话this最终打印的是undefined，却不是我们想象中的12，这是因为我们重新声明变量j，并把fn函数赋值给它，最后执行函数j()的时候，调用j()是window对象。<br></p>
+            <strong class="fragment">this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的。</strong><br>
+        </section>
+        <section>
+            <h3>jq中的this和$(this):</h3>
+            <p>$(this)是jquery对象，能调用jquery的方法，例如click(), keyup()。
+                而this,则是html元素对象，能调用元素属性，例如this.id,this.value。
+                例如假设已经使得this和$(this)都指向了input对象了，若要获得input的值,可以this.value，但$(this)就得$(this).val()。
+            </p>
+        </section>
+        <section>
+            <h3>3、常见问题</h3>
+        </section>
+        <section>
+                <pre>
+                <code>
+                  var obj = {
+                   name: 'qiutc',
+                   foo: function() {
+                     console.log(this);
+                   },
+                   foo2: function() {
+                     console.log(this);
+                     setTimeout(this.foo, 1000);
+                   }
+                 }
+
+                 obj.foo2();
+                </code>
+                </pre>
+            <p>现象：两次打印的this不一样</p>
+        </section>
+
+        <section>
+            <h3>4、解决方案</h3>
+        </section>
+        <section>
+            <p>可以这么这么解决：利用 闭包 的特性来处理</p>
+            <pre>
+                <code>var obj = {
+                      name: 'qiutc',
+                      foo: function() {
+                        console.log(this);
+                      },
+                      foo2: function() {
+                        console.log(this);
+                        var _this = this;
+                        setTimeout(function() {
+                          console.log(this);  // Window
+
+                          console.log(_this);  // Object {name: "qiutc"}
+                        }, 1000);
+                      }
+                    }
+
+                    obj.foo2();</code>
+                </pre>
+            <p>可以看到直接用 this 仍然是 Window；因为 foo2 中的 this 是指向 obj，我们可以先用一个变量 _this 来储存，然后在回调函数中使用 _this，就可以指向当前的这个对象了</p>
+        </section>
+        <section>
+            执行这段代码我们会发现两次打印出来的 this 是不一样的：<br>
+
+            第一次是 foo2 中直接打印 this，这里指向 obj 这个对象，我们毋庸置疑；<br>
+
+            但是在 setTimeout 中执行的 this.foo ，却指向了全局对象，这里不是把它当作函数的方法使用吗？这一点经常让很多初学者疑惑；<br>
+            其实，setTimeout 也只是一个函数而已，函数必然有可能需要参数，我们把 this.foo 当作一个参数传给 setTimeout 这个函数，就像它需要一个 fun 参数，在传入参数的时候，其实做了个这样的操作 fun = this.foo，看到没有，这里我们直接把 fun 指向 this.foo 的引用；执行的时候其实是执行了 fun() 所以已经和 obj 无关了，它是被当作普通函数直接调用的，因此 this 指向全局对象。<br>
+
+            这个问题是很多异步回调函数中普遍会碰到的；
+        </section>
+
+        <section>
+            <h3>5、编码实战</h3>
+        </section>
+        <section>
+            <p>前文的几个小demo为编码实战内容</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>问题：当this遇到return时会发生什么？</p>
+            <p class="fragment">如果返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：
+                <a href="http://www.cnblogs.com/pssp/p/5216085.html">彻底理解JS中this的指向</a>
+            </p>
+            <p>参考二：
+                <a href="http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html">阮一峰的博客</a>
+            </p>
+        </section>
+        <section>
+            <h3>8、更多讨论</h3>
+        </section>
+        <section>
+            <p>如何解决this的指向问题？</p>
+            <p>call、apply、bing如何使用？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                BY: 孙剑立<br>
+
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [{
+            src : '../plugin/markdown/marked.js'
+        }, {
+            src : '../plugin/markdown/markdown.js'
+        }, {
+            src : '../plugin/notes/notes.js',
+            async : true
+        }, {
+            src : '../plugin/highlight/highlight.js',
+            async : true,
+            callback : function(){
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>

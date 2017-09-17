@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="../ppt-css.css">
+
+    <style>
+        p{
+            font-size: 30px!important;
+            letter-spacing: 2px;
+            line-height: 50px!important;
+            text-indent:2em;
+            text-align: left;
+        }
+        a{
+            color: #fff!important;
+        }
+        B{
+            text-align: center;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【CSS-09】：如何使用bootstrap栅格系统？</h3>
+            <h3>小课堂【武汉第226期】</h3>
+            分享人：余佳贝
+        </section>
+        <section style="line-height: 70px;">
+            目录<br>
+
+            1.背景介绍<br>
+
+            2.知识剖析<br>
+
+            3.常见问题<br>
+
+            4.解决方案<br>
+
+            5.编码实战<br>
+
+            6.扩展思考<br>
+
+            7.参考文献<br>
+
+            8.更多讨论<br>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>Bootstrap 是由 Twitter 公司(全球最大的微博)的两名技术工程师研发的一个基于
+                    HTML、CSS、JavaScript 的开源框架。该框架代码简洁、视觉优美，可用于快速、简单地
+                    构建基于 PC 及移动端设备的 Web 页面需求。</p>
+                <p>Bootstrap 最为重要的部分就是它的响应式布局也就是我今天要分享的栅格系统（网格系统），通过这种布局可以兼容 PC 端、PAD
+                    以及手机移动端的页面访问。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <B>2.1 原理</B>
+                <p>  网格系统的实现原理非常简单，它会随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。</p>
+                <b><a href="../demo/css-09-bootstrap grid system/demo.html">demo</a></b>
+            </section>
+            <section>
+                <B>2.2 使用规则</B>
+                <P>1 行(.row)必须包含在容器（.container）中，以便为其赋予合适的对齐方式和内距(padding)。</P>
+                <p>2 在行(.row)中可以添加列(.column)，最多分配12。</p>
+                <p>3 具体内容应当放置在列容器（column）之内，而且只有列（column）才可以作为行容器(.row)的直接子元素</p>
+                <p>4 类似 .row 和 .col-sm-4 这种预定义的类，可以用来快速创建栅格布局。</p>
+                <p>5 通过为“列（column）”设置 padding 属性，从而创建列与列之间的间隔</p>
+            </section>
+            <section>
+                <B>2.3 栅格选项</B>
+                <img src="../img/CSS-09-How to use the bootstrap grid system/1.png" alt="">
+                <p>如上图所示，栅格系统最外层区分了四种宽度的浏览器：超小屏(<768px)、小屏
+                    (>=768px)、中屏(>=992px)和大屏(>=1200px)。而内层.container 容器的自适应宽度
+                    为：自动、750px、970px 和 1170px。自动的意思为，如果你是手机屏幕，则全面独占一
+                    行显示。</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <B>如何使用bootstrap栅格系统？</B>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>网格系统用来布局，其实就是列的组合。Bootstrap框架的网格系统中有四种基本的用法。由于Bootstrap框架在不同屏幕尺寸使用了不同的网格样式，在这一节中所涉及到的示例，我们都以中屏为例进行介绍，其他屏幕的使用也类似这一种。</p>
+            </section>
+            <section>
+                <B>1 列组合</B>
+                <p>列组合简单理解就是更改数字来合并列（原则：列总和数不能超12）</p>
+                <pre>
+                    <code>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-8">.col-md-8</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4">.col-md-4</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">.col-md-3</div>
+            <div class="col-md-6">.col-md-6</div>
+            <div class="col-md-3">.col-md-3</div>
+        </div>
+    </div>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <B>2 列偏移</B>
+                <p>有时我们可以设置列偏移，让中间保持空隙 ,通过 col-md-offset-来实现</p>
+                <pre>
+                    <code>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-2 col-md-offset-4">列向右移动四列的间距</div>
+            <div class="col-md-2">.col-md-3</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4 col-md-offset-4">列向右移动四列的间距</div>
+        </div>
+    </div>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <B>3.排序</B>
+                <p>可以把两个列交换位置，push 向左移动，pull 向右移动</p>
+                <pre>
+                    <code>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-3 col-md-push-3">col-md-3</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-3 col-md-pull-2">col-md-3</div>
+        </div>
+    </div>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <B>4 列嵌套</B>
+                <p>也可以嵌套，嵌满也是 12 列</p>
+                <pre>
+                    <code>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+            我的里面嵌套了一个网格
+                <div class="row">
+                    <div class="col-md-6">col-md-6</div>
+                    <div class="col-md-6">col-md-6</div>
+                </div>
+            </div>
+            <div class="col-md-4">col-md-4</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-8">
+                我的里面嵌套了一个网格
+                <div class="row">
+                    <div class="col-md-4">col-md-4</div>
+                    <div class="col-md-4">col-md-4</div>
+                    <div class="col-md-4">col-md-4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <B>Bootstrap 有哪些缺点？</B>
+                <P>虽然bootstrap自适应效果很好，但是缺点是不方便修改样式，对细节的不好把握，而且Bootstrap 是由 Twitter 的开发者开发来系统化他们网站应用的样式。
+                    当你的网站应用的样式和他们不一样，这意味着你不得不覆盖掉他们的样式来。
+                    大多数网站的样式并不像 Twitter 那样。因此，如果他们用Bootstrap来布局 ，他们会覆盖掉很多样式 ，也不太好维护</P>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考文献：<a href="https://www.w3cschool.cn/bootstrap/" target="_blank">W3C Bootstrap 教程</a></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>1.bootstrap有哪些常用组件？</p>
+                <p>2.bootstrap的栅格系统为什么最多12列，采用12列有什么好处吗？</p>
+            </section>
+        </section>
+
+        <section>
+            <h4>鸣谢 陈中彬</h4>
+            <h4>感谢大家观看</h4>
+            <small>by：余佳贝</small>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

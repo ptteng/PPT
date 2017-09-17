@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>margin负值在页面布局中有哪些应用？</title>
+    <title>什么是浮动？有哪些清除浮动的方法？</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
@@ -34,8 +34,8 @@
     <div class="reveal">
         <div class="slides">
             <section>
-                <h3>【css-08】margin负值在页面布局中有哪些应用？</h3>
-                <h3>小课堂【武汉-224期】</h3>
+                <h3>【CSS-task7】什么是浮动？有哪些清除浮动的方法？</h3>
+                <h3>小课堂【武汉-230期】</h3>
                 <p>分享人：熊凡</p>
             </section>
 
@@ -57,9 +57,9 @@
                 </section>
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <p> CSS盒模型中，margin是我们非常熟悉的一个属性，大多数情况下，我们采用的都是正数的 margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的
-                            hack 一样，不被人接受。但是，本文要说明的就是，负的 margin 值并不是 hack，这是正常范围内的写法。</p>
-                        <p>根据 W3C，margin 是能够接受负值的，只是在具体实现上有一些区别。那么，设置margin为负值究竟会是什么样的效果呢？</p>
+                        <p>什么是浮动？</p>
+                        <p>浮动float出现的本意是用来实现文字像流水一样环绕元素的效果。但CSS是门相当灵活的语言。某个CSS属性被用于的场景，可能会完全违背当初创造该CSS属性的本意。比如今天我们要讲的float，由于可以很简单的实现多列而常被用作布局。</p>
+                        <img src="../img/css-07-float/1959053-acc412156899b746.png" alt="float">
                     </div>
                 </section>
             </section>
@@ -69,42 +69,18 @@
                     <h3>2.知识剖析</h3>
                 </section>
                 <section>
-                    <h4>margin为负值时产生的影响</h4>
-                </section>
-                <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <h5>1、对于自身的影响</h5>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo1.html">当static(非浮动、非定位）元素的margin-top/margin-left被赋予负值时，元素将被拉进指定的方向。</a></p>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo2.html">但如果你设置margin-bottom/right为负数，元素并不会如你所想的那样向下/右移动，而是将后续的元素拖拉进来，覆盖本来的元素。</a></p>
-                        <p>如果没有设定width属性，设定负margin-left/right会将元素拖向对应的方向，并增加宽度，此时的margin的作用就像padding一样。</p>
+                        <h4>浮动的特性</h4>
+                        <p>包裹性：浮动属性可以使block元素产生类inline-block的状态使其拥有包裹内容的效果</p>
+                        <p>破坏性（欺骗性）：对行内盒inline-boxs设置浮动会破坏其所在line-boxs模型。</p>
+                        <a href="../demo/css-07-float/demo1.html"><img src="../img/css-07-float/QQ截图20170911173016.png" alt=""></a>
                     </div>
                 </section>
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <h5>2、对文档流的影响</h5>
-                        <p>元素如果用了margin-left/margin-top时，元素自身会被拉向左/向上进行偏移，效果类似与position：relative。与之不同的是，在其后面的元素会补位，也就是后面的行内元素会紧贴在此元素的之后。</p>
-                        <p>元素如果用了margin-right/margin-bottom时，元素视觉位置不变，但其后（下面/右边）的元素会被拉向此元素，相对此元素进行偏移并覆盖此元素。</p>
-                        <a href="../demo/css-08-margin apply/margin-demo3.html"><img src="../img/css-08-margin apply/wendang.png" alt=""></a>
-                    </div>
-                </section>
-                <section>
-                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <h5>3、对浮动元素的影响</h5>
-                        <p>负margin会改变浮动元素的显示位置，即使元素写在DOM的后面，也能让它显示在最前面。圣杯布局、双飞翼布局啊什么的，都是利用这个原理实现的。</p>
-                        <a href="../demo/css-08-margin apply/margin-demo4.html"><img src="../img/css-08-margin apply/float.png" alt=""></a>
-                    </div>
-                </section>
-                <section>
-                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <h5>4、对绝对定位的影响</h5>
-                        <pre style="font-size: 20px;">
-                            <a href="../demo/css-08-margin apply/margin-demo5.html">
-                            <code>
-                                <div class="absolute"></div>
-                            </code>
-                            </a>
-                        </pre>
-
+                        <h5>浮动在文档流的影响</h5>
+                        <p>假如某个div元素A是浮动的，如果A元素上一个元素也是浮动的，那么A元素会跟随在上一个元素的后边(如果一行放不下这两个元素，那么A元素会被挤到下一行)；如果A元素上一个元素是标准流中的元素，那么A的相对垂直位置不会改变，也就是说A的顶部总是和上一个元素的底部对齐。</p>
+                        <a href="../demo/css-07-float/demo2.html"><img src="../img/css-07-float/float.png" alt=""></a>
                     </div>
                 </section>
             </section>
@@ -115,7 +91,7 @@
                 </section>
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <p>margin负值在页面布局中有哪些应用？</p>
+                        <p>有哪些清除浮动的方法？</p>
                     </div>
                 </section>
             </section>
@@ -126,14 +102,16 @@
                 </section>
                 <section>
                     <div style="text-align:left ; padding:0% 12% ;font-size:30px">
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo6.html">1、左右固定，中间自适应（双飞翼）</a></p>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo7.html">2、去除列表右边框</a></p>
-                        <p><a style="color: #fff;" href="../demo/css-08-margin apply/margin-demo8.html">3、多列等高</a></p>
-                        <p>3、负边距+定位：水平垂直居中</p>
+                        <p>1、使用clear</p>
+                        <p>clear : none | left | right | both</p>
+                        <p>2、增加一个清除浮动的子元素</p>
+                        <p>3、用:after伪元素</p>
+                        <p>4、父元素设置 overflow:hidden</p>
+                        <p>5、父元素也设成float</p>
+                        <p>6、父元素设置display:table。</p>
                     </div>
                 </section>
             </section>
-
 
             <section>
                 <h3>5、编码实战</h3>
@@ -144,7 +122,23 @@
                     <h3>6、扩展思考</h3>
                 </section>
                 <section>
-                    <p>1、margin负值是否会改变元素的宽度？</p>
+                    <p>什么是BFC？</p>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>BFC就是“块级格式化上下文”的意思，创建了 BFC的元素就是一个独立的盒子，不过只有Block-level box可以参与创建BFC， 它规定了内部的Block-level Box如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <ul>BFC有以下特性：
+                            <li>内部的Box会在垂直方向，从顶部开始一个接一个地放置。</li>
+                            <li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生叠加</li>
+                            <li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
+                            <li>BFC的区域不会与float box叠加。</li>
+                            <li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。 计算BFC的高度时，浮动元素也参与计算。</li>
+                        </ul>
+                    </div>
                 </section>
             </section>
             <section>
@@ -152,7 +146,12 @@
                     <h3>7、参考文献：</h3>
                 </section>
                 <section>
-                    <p>琦乐无穷<a href="http://www.jianshu.com/p/549aaa5fabaa" target="_blank">margin为负值产生的影响和常见布局应用</a></p>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p><a href="http://www.zhangxinxu.com/wordpress/2010/01/css-float%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6%E3%80%81%E8%AF%A6%E8%A7%A3%E5%8F%8A%E6%8B%93%E5%B1%95%E4%B8%80/"
+                                target="_blank">CSS float浮动的深入研究、详解及拓展</a></p>
+                        <p><a href="http://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html">经验分享：CSS浮动(float,clear)通俗讲解</a></p>
+                        <p><a href="http://www.jianshu.com/p/07eb19957991">CSS浮动float详解</a></p>
+                    </div>
                 </section>
             </section>
             <section>
@@ -160,12 +159,12 @@
                     <h3>8、更多讨论</h3>
                 </section>
                 <section>
-                    <p>1、margin负值还能运用到哪些地方？</p>
+                    <p>还有哪些清除浮动的方法？</p>
                 </section>
             </section>
             <section>
                 <p>谢谢大家</p>
-                <p>制作人：庄引 | 先小波 | 郭俊伟 | 熊凡</p>
+                <p>制作人： 熊凡</p>
             </section>
 
         </div>

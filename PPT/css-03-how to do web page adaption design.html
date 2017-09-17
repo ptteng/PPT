@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <style>
+        .text-justify{
+            text-align: justify;
+        }
+    </style>
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<section class="reveal">
+    <section class="slides">
+        <section>
+            <h2>【css-03】如何进行自适应网页设计？</h2>
+            <h3>武汉分院小课堂第231期</h3>
+            <p>分享人：聂义中</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: justify;">
+            随着笔记本的普及，显示器分辨率越来越多，一些针对固定分辨率而设计的页面出现在不同分辨
+            率设备上打开出现了问题，于是出现了一种新的布局方式：宽度自适应布局。我们平时谈论的自适应布局，大
+            多指的就是宽度自适应布局。
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+            <h3>自适应的概念</h3>
+          自适应通俗的说就是让同一个html文件能够在不同大小不同分辨率的设备上的显示相同的效果。<br>
+            <a href="http://m.ctrip.com/html5/ ">自适应网站</a>
+        </section>
+        <section style="text-align: center">
+            <h3>如何实现自适应</h3>
+        </section>
+        <section style="text-align: left">
+
+            【1】允许网页宽度根据屏幕宽度自动调整<br>
+            首先，在网页代码的头部，加入一行viewport标签。
+            <pre>
+            <div>meta name="viewport" content="width=device-width, initial-scale=1" </div>
+            </pre>
+            viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度
+            （width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。
+        </section>
+        <section style="text-align: left">
+           【2】尽量少使用绝对宽度<br>
+
+            由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。这一条非常重要。
+            具体说，CSS代码不能指定像素宽度,通过指定百分比宽度来替代：同时还可以配合css的cal，进行计算宽度.<br>
+            width: xx%;  width:auto;
+        </section>
+        <section style="text-align: left">
+           【3】相对大小的字体<br>
+
+            字体也不能使用绝对大小（px），而只能使用相对大小（em）或者高清方案（rem）,rem不局限于字体大小，
+            前面的宽度width也可以使用，代替百分比。
+            <pre>
+                body {
+　　　　font: normal 100% Helvetica, Arial, sans-serif;
+　　                  }
+            </pre>
+            上面的代码指定，字体大小是页面默认大小的100%，即16像素。
+            <pre>
+                h1 {
+　　　　font-size: 1.5em;
+　　}
+            </pre>
+            然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。
+        </section>
+        <section style="text-align: left">
+          【4】  流动布局（fluid grid）
+
+            "流动布局"的含义是，各个区块的位置都是浮动的，不是固定不变的。
+            <pre>
+
+            [html] view plain copy
+            .main {
+            　　　float: right;
+            　　　　width: 70%;
+            　　}
+            　　.leftBar {
+            　　　　float: left;
+            　　　　width: 25%;
+            　　}
+                   </pre>
+            float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。
+
+            另外，绝对定位（position: absolute）的使用，也要非常小心。
+
+        </section>
+        <section style="text-align: left">
+            【5】选择加载CSS <br>
+            "自适应网页设计"的核心，就是CSS3引入的Media Query模块。
+            它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。
+            <pre>
+            link rel="stylesheet" type="text/css"
+                  media="screen and (max-device-width: 400px)"
+                  href="tinyScreen.css" />
+            </pre>
+            上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。
+            <pre>
+            link rel="stylesheet" type="text/css"
+                  media="screen and (min-width: 400px) and (max-device-width: 600px)"
+                  href="smallScreen.css" />
+             </pre>
+            如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。
+            除了用html标签加载CSS文件，还可以在现有CSS文件中加载。
+        </section>
+        <section style="text-align: left">
+            【6】CSS的@media规则 <br>
+            同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。
+            <pre>
+            @media  screen and (max-device-width: 400px) {
+            　　　　.column {
+            　　　　　　float: none;
+            　　　　　　width:auto;
+            　　　　}
+            　　　　#sidebar {
+            　　　　　　display:none;
+            　　　　}
+            　　}
+             </pre>
+            上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、
+            宽度自动调节（width:auto），sidebar块不显示（display:none）。
+        </section>
+        <section style="text-align: left">
+           【7】 图片的自适应（fluid image）<br>
+            除了布局和文本，"自适应网页设计"还必须实现图片的自动缩放。
+            这只要一行CSS代码：
+          <pre>
+            img { max-width: 100%;}
+         </pre>
+            这行代码对于大多数嵌入网页的视频也有效，所以可以写成：
+            <pre>
+            img, object { max-width: 100%;}
+           </pre>
+            老版本的IE不支持max-width，所以只好写成：
+            <pre>
+            img { width: 100%; }
+            </pre>
+            此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令：
+            <pre>
+            img { -ms-interpolation-mode: bicubic; }
+             </pre>
+        </section>
+          <section>
+            <h3>3.常见问题</h3>
+         <h3> 自适应与响应式布局有什么区别？</h3>
+        </section>
+        <section style="text-align: left">
+            <h3>4.解答</h3>
+            <a href="https://www.tmall.com/#/main">自适应的体验</a>
+           <a href=" http://www.jnshu.com/home"> 响应式的体验</a>
+            响应式的概念应该覆盖了自适应，而且涵盖的内容更多。<br>
+            自适应还是暴露出一个问题，如果屏幕太小，即使网页能够根据屏幕大小进行适配，
+            但是会感觉在小屏幕上查看，内容过于拥挤，响应式正是为了解决这个问题而衍生出来的概念。
+            它可以自动识别屏幕宽度、并做出相应调整的网页设计，布局和展示的内容可能会有所变动。
+            响应式布局被大家熟知的一个重要原因就是 twitter 开源了 bootstrap。
+
+            相比自适应网站，响应式网站省去了很多的控件，同时也省去了不少建立和维护的功夫。
+            响应式布局就是一种流体，在按百分比缩放时也能相当的流畅。
+            </section>
+
+        <section  style="text-align: left">
+        使用响应式设计，你要记住所有的布局。这当然可能会使过程混乱，并且使设计更加复杂。
+        这就意味着你应该专注于中等分辨率的视图，然后再用media querie调整为更低或更高的分辨率。
+        所以通常的做法是，在一个新的项目中使用响应式设计，在后期的改造中使用自适应设计。
+
+        自适应可用于改造现有的网站使其更好地适应移动端。这使你的设计可控制和开发多个特定的视图。
+        你开发视图的数量完全取决于你，你的公司和全面的预算。然而，它也提供了一定量的控件
+        （例如在内容和布局上），如此你便无须使用响应式设计。
+        自适应网站可以用于设计和开发一个拥有多个自适应视图的网站。所以这种设计通常用于改造网站。
+    </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+
+        </section>
+        <section >
+            <h3>7.参考文献</h3>
+            <a href="http://blog.csdn.net/zxl1033394132/article/details/50574382">
+                zxl1033394132的专栏</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>还有哪些自适应布局需要注意的点？</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p>特别鸣谢 小路alice</p>
+            <p>BY聂义中</p>
+        </section>
+    </section>
+</section>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

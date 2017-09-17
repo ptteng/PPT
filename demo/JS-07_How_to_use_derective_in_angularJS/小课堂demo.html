@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>小课堂demo</title>
+    <style>
+        .sky {
+            color:white;
+            background-color:lightblue;
+            padding:20px;
+            font-family:"Courier New";
+        }
+        .tomato {
+            background-color:coral;
+            padding:40px;
+            font-family:Verdana;
+        }
+        .a{
+            width: 200px!important;
+            height: 60px!important;
+        }
+        .b{
+            margin: 2rem;
+        }
+        .c{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body data-ng-controller="myCtrl">
+
+<!--ng-if-->
+<div data="ng-if的演示" style="border: solid 1px;margin: 50px 0;">
+    <h4>ng-if演示</h4>
+    保留 HTML: <input type="checkbox" data-ng-model="myVar" data-ng-init="myVar = true">
+    <div data-ng-if="myVar">
+        <h1>Welcome</h1>
+        <p>Welcome to my home.</p>
+    </div>
+</div>
+
+
+<!--ng-class-->
+<div data="双向绑定方式" style="border: solid 1px;margin: 50px 0;">
+    <h4>ng-class双向绑定方式演示</h4>
+    <p>选择一个类:</p>
+    <select ng-model="home">
+        <option value="sky">天空色</option>
+        <option value="tomato">番茄色</option>
+    </select>
+    <div ng-class="home">
+        <h1>Welcome Home!</h1>
+        <p>I like it!</p>
+    </div>
+</div>
+
+
+<div data="对象数组方式" style="border: solid 1px;margin: 50px 0;">
+    <h4>ng-class数组对象方式演示</h4>
+    <div data-ng-class="{true:'sky',false:'tomato'}[className]" style="border: solid 1px;margin: 20px 0;"></div>
+</div>
+
+
+<div data="键值对方式" style="border: solid 1px;margin: 50px 0;padding: 10px;">
+    <h4>ng-class双向绑定方式演示</h4>
+    <div data-ng-class="{a:isA,b:isB,c:isC}" style="width: 100px;height: 30px;border: solid 1px;"></div>
+    <input type="checkbox" data-ng-model="isA" >
+    <input type="checkbox" data-ng-model="isB" >
+    <input type="checkbox" data-ng-model="isC" >
+</div>
+
+
+<!--ng-option-->
+<div data="ng-option演示" style="border: solid 1px;margin: 50px 0;padding: 10px;">
+    <h4>ng-option演示</h4>
+    <select ng-model="selected" ng-options="o.id for o in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+</div>
+
+
+<!--ng-click-->
+<div data="ng-click演示" style="border: solid 1px;margin: 20px 0;padding: 10px;">
+    <h4>ng-click演示</h4>
+    <button data-ng-click="myFunc()">ng-click</button>
+    <button onclick="angular.element(this).scope().myFunc()">onclick</button>
+</div>
+
+
+<script src="https://cdn.staticfile.org/angular.js/1.6.0/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myApp",[]);
+    app.controller("myCtrl",function($scope){
+        $scope.className=true;
+
+        $scope.myFunc=function(){
+            alert("已调用此函数");
+        };
+        $scope.selected = '';
+        $scope.optData = [{
+            id: 10001,
+            MainCategory: '男',
+            ProductName: '水洗T恤',
+            ProductColor: '白'
+        },{
+            id: 10002,
+            MainCategory: '女',
+            ProductName: '圆領短袖',
+            ProductColor: '黃'
+        },{
+            id: 10003,
+            MainCategory: '女',
+            ProductName: '圆領短袖',
+            ProductColor: '黃'
+        }];
+    })
+</script>
+</body>
+</html>

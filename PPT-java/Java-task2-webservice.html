@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是WEBService，实现WEBService有哪些框架，为什么WEBService经常被认为太重了，只有银行和大型国企才会使用的更多有一些？  </h2>
+
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 胡凯博</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 <section>
+            <p>什么是webservice<br>Web service是一个平台独立的，低耦合的，自包含的、基于可编程的web的应用程序，可使用开放的XML（标准通用标记语言下的一个子集）标准来描述、发布、发现、协调和配置这些应用程序，用于开发分布式的互操作的应用程序。</p>
+            <p> </p>
+        </section>
+			<section>
+            <h3>2.知识剖析 </h3>
+        </section>
+		<section>
+            <p>webservice分类</p>
+<p>在SOA的基础技术实现方式中WebService占据了很重要的地位，通常我们提到WebService第一想法就是SOAP消息在各种传输协议上交互。近几年REST的思想伴随着SOA逐渐被大家接受，同时各大网站不断开放API提供给开发者，也激起了REST风格WebService的热潮。  </br>
+</p>
+        </section>
+		<section>
+            <p>基于soap的webservice</p>
+<p>SOAP 
+       其实SOAP最早是针对RPC的一种解决方案，简单对象访问协议，很轻量，同时作为应用协议可以基于多种传输协议来传递消息（Http,SMTP等）。但是随着SOAP作为WebService的广泛应用，不断地增加附加的内容，使得现在开发人员觉得SOAP很重，使用门槛很高。在SOAP后续的发展过程中，WS-*一系列协议的制定，增加了SOAP的成熟度，也给SOAP增加了负担。  </br>
+</p>
+        </section>
+		<section>
+            <p>rest式的webservice</p>
+<p>REST 
+       REST其实并不是什么协议也不是什么标准，而是将Http协议的设计初衷作了诠释，在Http协议被广泛利用的今天，越来越多的是将其作为传输协议，而非原先设计者所考虑的应用协议。SOAP类型的WebService就是最好的例子，SOAP消息完全就是将Http协议作为消息承载，以至于对于Http协议中的各种参数（例如编码，错误码等）都置之不顾。其实，最轻量级的应用协议就是Http协议。对于各种资源的操作最后总是能抽象成为这四种基本操作，在定义了定位资源的规则以后，对于资源的操作通过标准的Http协议就可以实现，开发者也会受益于这种轻量级的协议。   </br>
+</p>
+        </section>
+        <section>
+      <p>那该如何选择？</p>
+<p>		REST对于资源型服务接口来说很合适，同时特别适合对于效率要求很高，但是对于安全要求不高的场景。SOAP的成熟性可以给需要提供给多开发语言的，对于安全性要求较高的接口设计带来便利。 
+  </br>
+  总的来说，基于soap协议的webservice由于有历史包袱，在安全性和扩展性上增强了很多，而且使用xml解析。相应地效率也不如rest式的。但restful的webservice速度虽然可以，但安全性上远不如上一个。所以没必要一定分是非高下，关键还是看应用场景。比如银行国企自然走soap协议的，对安全要求不高的web项目自然去追求速度。
+</p>
+
+        </section>
+		<section>
+
+<p>
+      restful不一定就要用json，xml同样可以，不过是类似去掉header的soap webservice。要注意的是，就算是restful，大多数公司也没有完全遵守，而且在复杂的业务接口设计下，要通过RUCD来抽象所有的接口作为资源基本是不实际的。很多公司只是套了个rest的壳子，自己在内部实现了别的协议，所以只要能达到目的，无论是基于soap的还是restful的webservice，并不一定都是泾渭分明的。</br>
+</p>
+        </section>
+		<section>
+            <p>常用的webservice框架</p>
+<p>
+       如cfx、jwx、XFire与Axis2，jwx也就是jax-ws，是java6提供的对webservice的一种实现。cxf框架则简化了服务发布过程。Axis与XFire已随着技术不断的更替慢慢落幕，而目前也只有axis2和cxf官方有更新，Axis与XFire都已不再更新。</br>
+</p>
+        </section>
+		<!-- <section>
+            <h3>3.常见问题</h3>
+			<section><p>该如何在spring里加载注解？</p>
+			</section>
+			<section><p>在spring中，每使用一个注解就要声明一个bean</br>
+				  比如 ：使用@Autowired注解，必须事先在Spring容器中声明AutowiredAnnotationBeanPostProcessor的Bean：</br>
+				  使用 @Required注解，就必须声明RequiredAnnotationBeanPostProcessor的Bean：
+				  </p>
+			</section>
+			      <section>   <p>类似地，使用@Resource、@PostConstruct、@PreDestroy等注解就必须声明 CommonAnnotationBeanPostProcessor；使用@PersistenceContext注解，就必须声明 PersistenceAnnotationBeanPostProcessor的Bean。</p>
+					   <p>样的声明未免太不优雅，所以Spring为我们提供了一种极为方便注册这些BeanPostProcessor的方式，即使用context:annotation- config标签，隐式地向 Spring容器注册各种bean</p>
+			</section>
+				    <section>     <p>　另外，在我们使用注解时一般都会配置扫描包路径选项：context:component-scan base-package="pack.pack"/
+						</br>　该配置项其实也包含了自动注入上述processor的功能，因此当使用context:component-scan后，即可将context:annotation-config标签省去。</p>
+			</section>
+			       
+
+        </section>
+	
+		
+        <section>
+            <p>@autowired注解是如何加载的？自动注入是怎样实现的？？</p>
+			<p>@autowired是通过动态代理和反射，在类加载过程中动态生成代理类，当初始化全局变量时，代理类跳到invoke方法，然后通过反射获取field字段对象，在method.invoke()的调用前即可实现注入。aop和拦截器以及常用注解等功能的实现都是基于动态代理实现的。</p>
+        </section> -->
+		        <section>
+            <h3>5.编码实战</h3>
+       
+
+        </section>
+		<!-- <section>
+            <h3>6.扩展思考</h3>
+		<p>为什么每次执行main函数，控制台信息的输出顺序会发生变化？</p>
+
+        </section> -->
+
+		<section>
+		<h3>7.参考文献</h3>
+		            <p>http://www.cnblogs.com/iuranus/archive/2012/07/19/2599084.html</p>
+			<p>百度</p>
+		</section>	
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 胡凯博</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

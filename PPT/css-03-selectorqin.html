@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【CSS-task3】</h2>
+            <h3>小课堂</h3>
+            <h4>css有哪些选择器，优先级如何计算</h4>
+            <p>分享人：秦栩章</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>为何会有CSS选择器？</p>
+        </section>
+        <section>
+            <p>HTML页面中元素的尺寸大小，颜色，状态等是可以通过CSS选择器进行控制的。</p>
+            <p>要想使用CSS将样式应用于特定的HTML元素，我们就需要想办法找到这个元素。</p>
+            <p>而在CSS中，执行这一个任务的样式规则任务的部分称之为
+                <span style="color: red">选择器(Selector)</span>[1]</p>
+        </section>
+        
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                2.1常用的选择器
+            </section>
+            <section>
+            <p>最常用的选择器类型是：类型选择器和后代选择器。</p>
+            <p>适用于应用那些使用范围广的一般性样式</p>
+            </section>
+            <section>
+                <p>
+                    <span style="color: red">类型选择器</span>：是用来寻找特定类型的元素，譬如段落或者标题元素。
+                </p>
+                <p>类型选择器也称之为 元素选择器 或 简单选择器</p>
+                <pre>
+                    <code>
+                        p{color:black}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    <span style="color: red">后代选择器</span>：可用来寻找特定元素或元素组的后代。
+                </p>
+                <p>后代选择器由其他两个选择器之间的空格表示,后代选择器作用于所有子后代元素。</p>
+                <pre>
+                    <code>
+                       div p{color:green}
+                    </code>
+                </pre>
+            </section>
+              </section>
+        <section>
+            2.2特定元素选择器
+        </section>
+        <section>
+            <section>
+                ID选择器以及类选择器
+            </section>
+            <section>
+                ID选择器由一个#字符表示
+                <pre>
+                    <code>
+                        #card{background-color:green}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                类选择器由一个.点号表示
+                <pre>
+                    <code>
+                        .foot{font-weight:bold}
+                    </code>
+                </pre>
+            </section>
+        </section>
+     <section>
+        <section>
+            2.3伪类
+        </section>
+        <section>
+            有时候我们需要根据文档结构之外的其他条件对元素应用样式，譬如表单元素或者链接的状态
+            这就需要使用伪类选择器来完成
+            <pre>
+                    <code>
+                        a:hover{color:blue}
+                    </code>
+                </pre>
+        </section>
+      </section>
+    <section>
+        <section>
+            2.4通用选择器
+        </section>
+        <section>
+            通用选择器可能是所有选择器中最强大却最少使用的，通用选择器的作用就像是通配符，它可以匹配所有可用的元素。
+            起作用主要在实际中的使用是删除每个元素上默认的浏览器内外边距。
+            通过*号来表示
+            <pre>
+                    <code>
+                        * {margin: 0; padding:0}
+                    </code>
+                </pre>
+        </section>
+    </section>
+   <section>
+       <section>
+           2.5高级选择器
+       </section>
+       <section>
+           <p>子选择器
+           <span style="color: #ff6666">#nav>li</span>
+           </p>
+           <p>子选择器只是选择元素的直接后代，即子元素。它表示“父>子”的直属关系。</p>
+       </section>
+       <section>
+           <p>
+               相邻同胞选择器
+               <span style="color: #ff6666">h2 + p</span>
+           </p>
+           <p>相邻同胞选择器可用于定位同一个父元素下某个元素之后相邻的元素</p>
+       </section>
+       <section>
+           <p>
+               属性选择器
+               <span style="color: #ff6666">[title]</span>
+             <pre>
+               <code>
+                   [title] {margin-left: 10px}
+               </code>
+             </pre>
+       </section>
+   </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>问题一: 对多个选择器使用的优先级是怎么进行计算的？
+                如何合理的使用类型选择器？</p>
+            <p>问题二：对于伪类中的链接选择器的顺序是怎样的？
+                应该如何执行？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+        <section>
+            <p>问题1：解决方案</p>
+        </section>
+        <section>
+            选择器的特殊性分为4个等级
+            <br/>
+            内联样式表的权值为 1000
+            <br/>
+            ID 选择器的权值为 100
+            <br/>
+            Class 类选择器的权值为 10
+            <br/>
+            HTML 标签选择器的权值为 1
+        </section>
+      </section>
+        <section>
+           <section>
+            <p>
+                问题2：对于伪类中的链接选择器的顺序是怎样的？
+                应该如何执行？
+            </p>
+           </section>
+           <section>
+               伪类的执行顺序为：
+            <pre>
+               <code>
+               a:link {color: #000;} /* 未访问的链接 */
+               a:visited {color: #F00;} /* 已访问的链接 */
+               a:hover{color: #0F0;} /* 鼠标在链接上 */
+               a:active {color: #00F;} /击激活链接——在你点击该链接之后，
+                   页面正在转向新地址的时候，链接显示此颜色；
+                   当你已经到了要链接的页面，然后再返回，原页面上的此链接仍是此颜色
+               </code>
+            </pre>
+           </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    a {color:#fff;text-decoration: none;}
+                    a:hover{color: #f00;}
+                    #links a {color:red;}
+                    #links > a {color:blue;}
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p class="fragment">问题一:子选择器和后代选择器的区别？</p>
+            <p class="fragment">问题二：如何引用外部选择器？</p>
+            
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.baidu.com" target="_blank">Baidu</a></p>
+            <p>参考二：<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank">W3School</a></p>
+             <p>参考三：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank">菜鸟教程</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>讨论点一：在选择器的样式中添加“!important”后的优先级是如何筛选的？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 高雪峰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
