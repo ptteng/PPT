@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是REST风格？</h3>
+            <h3>小课堂【北京】</h3>
+            <p>分享人：曾添</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>REST是什么单词的缩写</h3>
+            <p>Representational State Transfer<br>
+                翻译：具象状态传输
+            </p>
+        </section>
+        <section>
+            <h3>REST概念本身和REST风格接口</h3>
+            <p>
+                REST接口对应的英文是RESTful API
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h3>Representation</h3>
+            <p>
+                Representation：表现——<br>
+                资源是如何被表现出来的（例如列表，或用户的地址）<br>
+                资源的表现形式通常是JSON或XML
+
+            </p>
+        </section>
+        <section>
+            <h3>在RESTful风格接口使用之前，常用的协议是SOAP</h3>
+            <p>
+                <img src="http://zt1106.oss-cn-zhangjiakou.aliyuncs.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-09-19%2015.50.55.png">
+                SOAP是一个基于xml格式的协议<br>
+                SOAP依赖于HTTP协议，逐渐被REST取代
+            </p>
+        </section>
+        <section>
+            <h3>RESTful是基于资源的，而非动作的
+            </h3>
+            <p>
+                RESTful关注对象，而非具体行为<br>
+                在接口中使用名词，而非动词<br>
+                /user 而非 /getuser <br>
+                一个uri对应一个资源，多个行为，通过请求方法区分
+
+            </p>
+        </section>
+        <section>
+            <h3>RESTful是基于URI的
+            </h3>
+            <p>
+                客户端通过访问某接口唯一的URI访问接口
+            </p>
+        </section>
+        <section>
+            <h3>RESTful是基于服务端和客户端的
+            </h3>
+            <p>
+                项目的客户端（界面）和服务端（业务）分离<br>
+                客户端不直接操作数据库<br>
+                即前后端分离，全栈项目不需要RESTful接口
+            </p>
+        </section>
+       <section>
+            <h3>RESTful API的结构
+            </h3>
+            <p>
+                使用HTTP请求方法代表动作(GET, PUT, POST, DELETE)<br>
+                使用URI代表资源<br>
+                从HTTP状态码和响应体中获得数据
+            </p>
+        </section>
+        <section>
+            <h3>RESTful API是无状态的
+            </h3>
+            <p>
+                RESTful接口基于HTTP协议，是无状态的<br>
+                服务端没有客户端的信息，不知道某个请求是哪个客户端发过来的<br>
+                做登录时，服务端有客户端信息，这时理论上不算RESTful
+            </p>
+        </section>
+
+        <section>
+            3.常见问题
+        </section>
+        <section>
+            <h3>RESTful风格有什么好处</h3>
+            <p>
+                利于前后端人员更好分工<br>
+                适用于大项目<br>
+                适合加缓存<br>
+            </p>
+        </section>
+        <section>
+            <h3>RESTful接口的参数</h3>
+            <p>
+                直接在url中——http://myserver.com/catalog/item/1729<br>
+                放在请求参数中——http://myserver.com/catalog?item=1729<br>
+                放在请求体中<br>
+                把参数放在JSON中<br>
+            </p>
+        </section>
+        <section>
+            4.解决方案
+        </section>
+        <section>
+            5.编码实战
+        </section>
+        <section>
+            6.扩展思考
+        </section>
+        <section>
+            <h3>RESTful接口不是标准，是规范，如何统一URI写法</h3>
+            <p>
+                取得用户列表：<br>
+                /user<br>
+                /users<br>
+                /userlist<br>
+                /userList<br>
+                /user/list<br>
+                /userAll<br>
+
+            </p>
+        </section>
+        <section>
+            7.参考文献
+        </section>
+        <section>
+            <p>
+                《RESTful Service 权威指南》<br>
+                部分博客
+            </p>
+        </section>
+        <section>
+            8.更多讨论
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 曾添</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
