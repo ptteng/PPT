@@ -64,7 +64,7 @@
 			<p align="left">2、使用memcache之后：把每一个使用了缓存的服务器称作节点，memcache则是把这些节点组成一个节点池。</p>
 			<p align="left">1）容量增大，总的容量是所有服务器缓存容量的总和。</p>
 			<p align="left">2）一个指定的数据的将在同一个节点上进行读写，不需要保持节点间的数据一致</p>
-			<img src="../img-java/java-task6-memcache/B.png">
+			<img src="../img-java/memcache/B.png">
 		</section>
         <section>
             <h3>2.知识剖析</h3>
@@ -75,7 +75,7 @@
         </section>
         <section>
             <h4> memcache的访问模型</h4>
-			<img src="../img-java/java-task6-memcache/C.png">
+			<img src="../img-java/memcache/C.png">
 		</section>
 		<section>
 			<p align="left">看图说话</p>
@@ -108,7 +108,7 @@
             <p align="left"> 算法简单，能满足绝大多数的缓存路由需求。</p>
             <p align="left"> 3）缺点</p>
 			<p align="left"> 扩容会导致get命中率大幅度下降。</p>
-			<img src="../img-java/java-task6-memcache/D.png">
+			<img src="../img-java/memcache/D.png">
 		</section>
 		<section>
 			<p align="left"> 4）解决方案</p>
@@ -119,12 +119,12 @@
             <h4>2.一致性Hash算法</h4>
 			<p align="left">1）原理</p>
 			<p align="left"> 先构造一个长度为232的证书换（这个环被称为一致性Hash环），根据节点名称的Hash值（值的分布范围为[0,232-1]）把MemCache服务器节点放在这个Hsah环上，接着根据需要缓存的数据的Key对应的Hash值（值的分布范围也是[0,232-1]），然后在Hash环上顺时针查找距离这Key的Hash值最近的服务器节点，完成一次写操作。</p>
-            <img src="../img-java/java-task6-memcache/E.png">
+            <img src="../img-java/memcache/E.png">
         </section>
 		<section>
 			<p align="left">2）优点</P>
 			<p align="left">扩容方便,get命中率下降的不是很厉害。而且，节点数越多，每次扩容后get命中率下降越小。也就是说，你不用熬夜加班扩容、预热缓存。也就是说，你没有加班费了。</p>
-			<img src="../img-java/java-task6-memcache/F.png">
+			<img src="../img-java/memcache/F.png">
         </section>
 
         <section>  
@@ -137,7 +137,7 @@
 			<p align="left">5）有相同大小chunk的slb被组织在一起，被称为slab_class。</p>
         </section>
         <section>
-            <img src="../img-java/java-task6-memcache/G.png">
+            <img src="../img-java/memcache/G.png">
         </section>
 		<section>
 			<p align="left">详细的过程：</p>
@@ -150,11 +150,11 @@
             <h4>memcache常用命令</h4>
             <p align="left">1.安装命令</p>
 			<p align="left">memcache依赖于libevent，要先安装libevent才能安装memcache</p>
-			<img src="../img-java/java-task6-memcache/H.png">
+			<img src="../img-java/memcache/H.png">
         </section>
 		<section>
             <p align="left">2.启动命令</p>
-            <img src="../img-java/java-task6-memcache/I.png">
+            <img src="../img-java/memcache/I.png">
         </section>	
         <section>
             <p align="left">3.查看命令</P>
