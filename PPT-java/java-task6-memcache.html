@@ -102,12 +102,9 @@
         </section>
         <section>
             <h4> 1.余数Hash算法</h4>
-            <p align="left"> 1）原理</p>
-            <p align="left"> 假设key对应的HashCode是50，memcache服务器数目为3，取余数2，那么这个key对应节点node2。</p>
-            <p align="left"> 2）优点</p>
-            <p align="left"> 算法简单，能满足绝大多数的缓存路由需求。</p>
-            <p align="left"> 3）缺点</p>
-			<p align="left"> 扩容会导致get命中率大幅度下降。</p>
+            <p align="left"> 1）原理 假设key对应的HashCode是50，memcache服务器数目为3，取余数2，那么这个key对应节点node2。</p>
+            <p align="left"> 2）优点 算法简单，能满足绝大多数的缓存路由需求。</p>
+            <p align="left"> 3）缺点 扩容会导致get命中率大幅度下降。</p>
 			<img src="../img-java/memcache/D.png">
 		</section>
 		<section>
@@ -143,6 +140,8 @@
 			<p align="left">详细的过程：</p>
 			<p align="left">1）MemCache中的value过来存放的地方是由value的大小决定的，value总是会被存放到与chunk大小最接近的一个slab中;</p>
 			<p align="left">2）比如slab[1]的chunk大小为80字节、slab[2]的chunk大小为100字节、slab[3]的chunk大小为128字节（相邻slab内的chunk基本以1.25为比例进行增长，MemCache启动时可以用-f指定这个比例），那么过来一个88字节的value，这个value将被放到2号slab中；</p>
+	</section>
+	<section>
 			<p align="left">3）放slab的时候，首先slab要申请内存，申请内存是以page为单位的，所以在放入第一个数据的时候，无论大小为多少，都会有1M大小的page被分配给该slab；</p>
 			<p align="left">4）申请到page后，slab会将这个page的内存按chunk的大小进行切分，这样就变成了一个chunk数组，最后从这个chunk数组中选择一个用于存储数据。</p>
 		</section>
@@ -165,8 +164,8 @@
 		
 		<section>
             <h3>3.常见问题</h3>
-            <p align="left">1）memcache和memcached的区别？</p>
-			<p align="left">2）memcache无可用连接？</p>
+            <p>1）memcache和memcached的区别？</p>
+			<p>2）memcache无可用连接？</p>
         </section>
 
 		<section>
@@ -180,12 +179,12 @@
 		
 		<section>
             <h3>5.代码实战</h3>
-            <p align="left"></p>
+            <p></p>
         </section>
 		
 		<section>
             <h3>6.拓展思考</h3>
-            <p align="left">缓存到底是什么？</p>
+            <p>缓存到底是什么？</p>
         </section>
 		<section>
 			<p align="left">1）许多人认为，“缓存”是内存的一部分。许多技术文章都是这样教授的，但是还是有很多人不知道缓存在什么地方，缓存是做什么用的？其实，缓存是CPU的一部分，它存在于CPU中。</p>
@@ -206,19 +205,19 @@
 		
         <section>
             <h3>7.参考文献</h3>
-            <p align="left">参考1：<a href="http://memcached.org/" target="_blank">MemCache官网</a></p>
-			<p align="left">参考2：<a href="http://www.csdn.net/article/2016-03-16/2826609" target="_blank">MemCache超详细解读</a></p>
+            <p>参考1：<a href="http://memcached.org/" target="_blank">MemCache官网</a></p>
+		<p>参考2：<a href="http://www.csdn.net/article/2016-03-16/2826609" target="_blank">MemCache超详细解读</a></p>
         </section>
 
         <section>
             <h3>8.更多讨论</h3>
-            <p align="left"></p>
+            <p></p>
         </section>
 
         <section>
             <h4>鸣谢</h4>
-            <p align="left">感谢大家观看</p>
-            <p align="left"><small>BY : 韦杰</small></p>
+            <p>感谢大家观看</p>
+            <p><small>BY : 韦杰</small></p>
         </section>
     </div>
 </div>
