@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：蒋新益</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>
+                众所周知，对于刚刚接触java的新手来说，创建类的对象是通过在代码里new一个对象来实现的，但是这样的方式就会造成代码耦合度过高的问题，虽说程序功能实现没有问题，但是不方便修改，就是在这样的环境下，IOC应运而生
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                首先带大家认识一下IOC
+            </p>
+
+        </section>
+        <section>
+            <p>
+                Ioc—Inversion of Control，即“控制反转”
+            </p>
+            <p>
+                Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制
+            </p>
+        </section>
+
+        <section>
+            下面我们来讲讲Ioc的底层实现原理
+        </section>
+        <section>
+            <p>主要用到的有以下几种技术</p>
+            <p>1.xml配置文件</p>
+            <p>2.dom4j解析xml文件</p>
+            <p>3.工厂设计模式</p>
+            <p>4.反射</p>
+        </section>
+
+        <section>
+            <p>
+                属性注入的三种方法
+            </p>
+            <p>1.set方法注入</p>
+            <p>2.有参构造方法注入</p>
+            <p>3.接口注入</p>
+        </section>
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.IOC有哪些缺点？</p>
+			<p>2.IOC和DI有什么不同之处？</p>
+            <p>3.控制反转是控制什么反转?</p>
+            <p>4.依赖注入,谁依赖谁,注入了什么?</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+
+            <p>
+                1.通过反射来创建对象，会造成效率上的损耗，但是相对IOC的优点灵活性和可维护性来说不值一提，并且缺少IDE重构的支持，如果修改了类名，需要到xml文件里手动修改
+            </p>
+            <p>
+                2.其实是一会事，只是强调的内容不同。IOC控制反转，强调容器的作用，用于组织或控制容器内bean的运行。DI依赖注入，强调Bean需要外部注入才能正常运转。
+            </p>
+            <p>
+                3.它把传统上由程序代码直接操控的对象的调用权交给容器
+            </p>
+            <p>
+                4.依赖注入就是把有依赖关系的类放入IOC容器中，然后解析出这个类的实例
+            </p>
+
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>在SpringMVC项目中，Spring创建的容器与SpringMVC创建的容器有什么关系？它们分别负责哪些bean的注册？</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一:百度</p>
+            <p>参考二:<a href="https://www.bilibili.com/video/av14839030" target="_blank">https://www.bilibili.com/video/av14839030/</a></p>
+            <p>参考三:<a href="https://www.zhihu.com/question/32108444" target="_blank">知乎</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 蒋新益</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
