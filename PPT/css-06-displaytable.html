@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>display:table有那些应用？ </title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>display:table有那些应用？</h2>
+
+            <p style="text-align: center;">分享人：马靖哲 </p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">当IE8发布时，它将支持很多新的CSS display属性值，包括与表格相关的属性值：table、table-row和table-cell，（ie6.7不支持）
+                。它标志着复杂CSS布局技术的结束，同时也给了HTML表格布局致命一击。最终，使用CSS布局来制作出类似于table布局的栅格将会变得十分迅速和简单。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>给HTML元素指定与表格相关的display属性值，使得它们像表格元素那样渲染。以下是这些可用的display属性值：</p>
+            <p style="text-align: left">
+                table<br>
+                使该元素按table样式渲染<br>
+                table-row<br>
+                使该元素按tr样式渲染<br>
+                table-cell<br>
+                使该元素按td样式渲染<br>
+                table-row-group<br>
+                使该元素按tbody样式渲染<br>
+                table-header-group<br>
+                使该元素按thead样式渲染<br>
+        </section>
+        <section>
+            <p style="text-align: left">
+                table-footer-group<br>
+                使该元素按tfoot样式渲染<br>
+                table-caption<br>
+                使该元素按caption样式渲染<br>
+                table-column<br>
+                使该元素按col样式渲染<br>
+                table-column-group<br>
+                使该元素按colgroup样式渲染</p>
+        </section>
+        <section>
+            <p style="text-align: center">table-cell特性</p>
+            <p style="text-align: left">对宽度高度敏感</p>
+            <p style="text-align: left">响应padding属性</p>
+            <p style="text-align: left">内容溢出时会自动撑开父元素</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <P style="text-align: left">1.大小不固定元素的垂直居中</P>
+            <p style="text-align: left">2.两列自适应布局</p>
+            <P style="text-align: left">3.等高布局</P>
+            <P style="text-align: left">4.和inline-block组合使用</P>
+            <P style="text-align: left">5.列表布局</P>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">1.大小不固定元素的垂直居中</p>
+            <p style="text-align: left">display：table-cell 加上 vertical-align：middle 使高度不同的
+                元素都垂直居中，其中div的display：inline-block使几个div在同一行显示。</p>
+        </section>
+        <section>
+            <p style="text-align: left">2.两列自适应布局</p>
+            <p style="text-align: left">display:table-cell 元素生成的匿名table默认table-layout:auto。宽度将
+                基于单元格内容自动调整。当内容足够多将宽度完全撑开时，再让某个元素（例如关闭按钮）右侧
+                定位就会有问题。所以设置width:3000px的用途是尽可能的宽的意思。</p>
+        </section>
+        <section>
+            <p>3.等高布局</p>
+        </section>
+        <section>
+            <p style="text-align: left">4.和inline-block组合使用</p>
+            <p style="text-align: left">A和B的父元素均设置了display：table-cell属性，所以
+                它们均匀占据设置了display：table的div元素。而A和B元素设置display：inline-block是为了让它们相应text-align的属性设置。
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left">5.列表布局</p>
+            <p style="text-align: left">这类布局常用浮动布局（给每个li加上float：left属性）实现，但这样做有明显不足：</p>
+            <p style="text-align: left">需要清除浮动</p>
+            <p style="text-align: left">不支持不定高列表的浮动</p>
+            <p style="text-align: left">display：table-cell可以代替浮动布局，但是其不是最好的方法。其他方法有待进一步学习！</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>table布局有什么缺点，为什么渐渐被淘汰？</p>
+        </section>
+        <section>
+            <p style="text-align: left">Table会阻挡浏览器渲染引擎的渲染顺序。(会延迟页面的生成速度，让用户等待更久的时间。)</p>
+            <p style="text-align: left">Table里显示图片时需要你把单个、有逻辑性的图片切成多个图。(增加设计的复杂度，增加页面加载时间，增加HTTP会话数。)</p>
+            <p style="text-align: left">在某些浏览器中Table里的文字的拷贝会出现问题</p>
+            <p style="text-align: left">Table会影响其内部的某些布局属性的生效(比如<td>里的元素的height:100%)</p>
+            <p style="text-align: left">Table对对于页面布局来说，从语义上看是不正确的。</p>
+            <p style="text-align: left">table一旦设计完成就变成死的，很难通过CSS让它展现新的面貌。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                <a href="http://www.jianshu.com/p/700ede25d0bc" target="_blank">
+                    布局神器(一)display:table-cell</a></p>
+            <p style="text-align: left">
+                <a href="http://www.zhangxinxu.com/wordpress/2010/10/%E6%88%91%E6%89%80%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E7%A7%8Ddisplaytable-cell%E7%9A%84%E5%BA%94%E7%94%A8/" target="_blank">
+                    我所知道的几种display:table-cell的应用</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 杨梓雄 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Nginx以及反向代理</h2>
+                   <p>李亚衡</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+         <p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。
+		  由俄罗斯的程序设计师Igor Sysoev所开发，最初是供俄国大型的入口网站及搜索引擎Rambler使用。
+          Nginx完全用C语言写成，具有内存占用少，并发能力强的特点。官方号称最多能够支撑5万并发连接。</p>
+         </section>
+         <section>
+            <p>Nginx于其他web服务器巨头（Apache服务器和IIS服务器）相比，运行更快，更灵活。
+			国内很多知名网站比如:度娘，某宝，狗东，企鹅，等等都使用的是Nginx</p>
+         </section>
+		<section>
+            <p>什么是代理服务器？</p>
+			<p>代理服务器是介于客户端和Web服务器之间的另一台服务器，
+			有它之后，浏览器不是直接到Web服务器去取回网页而是向代理服务器发出请求，
+			信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器。</p>
+			</section>
+			<section>
+			<p>一个完整的代理请求过程</p>
+			<p>客户端首先与代理服务器创建连接，
+			接着根据代理服务器所使用的代理协议，请求对目标服务器创建连接、
+			或者获得目标服务器的指定资源，然后代理服务器再将拿到的资源返回给客户端。
+            可是，我们的请求为啥不直来直往，而要多此一举通过代理服务器来转达呢？</p>
+        </section>
+		 
+		<section>
+        	<h4>代理服务器的主要功能</h4>
+            <ul>
+			<li>共享IP地址         </li>
+			<li>高速缓存           </li>
+			<li>过滤器             </li>
+			<li>突破自身IP的访问限制           </li>
+			</ul>
+        </section>
+        <!-- <section> -->
+            <!-- <p>注意：以上内容只是为了引出反向代理的概念。</p> -->
+        <!-- </section> -->
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        		
+		 <section>
+		  <p>正向代理以及反向代理</p>
+            <p>我们来看一张图</p>
+			<img src="./test.jpg">
+        </section>
+        
+		 <section>
+            <p>负载均衡</p>
+			<p>负载均衡有两方面的含义:首先,大量的并发访问或数据流量分担到多台节点设备上分别处理,减少用户等待响应的时间;
+			其次,单个重负载的运算分担到多台节点设备上做并行处理,每个节点设备处理结束后
+			,将结果汇总,返回给用户,系统处理能力得到大幅度提高</p>
+			<p></p>
+        </section>
+		<section>
+        	<h4>Nginx的一些优点</h4>
+            <ul>
+			<li>作为Web服务器，Nginx处理静态文件、索引文件，自动索引的效率非常高</li>
+			<li>作为代理服务器，Nginx可以实现无缓存的反向代理加速，提高网站运行速度</li>
+			<li>作为负载均衡服务器，Nginx既可以在内部直接支持Rails和PHP，也可以支持HTTP代理服务器对外进行服务，同时还支持简单的容错和利用算法进行负载均衡</li>	
+			</ul>
+        </section>
+	    
+		<section>
+            <!-- <h4>Nginx的一些优点</h4> -->
+            <ul>
+			<li>在性能方面，Nginx是专门为性能优化而开发的，实现上非常注重效率。它采用内核Poll模型，可以支持更多的并发连接，最大可以支持对5万个并发连接数的响应，而且只占用很低的内存资源</li>		
+			<li>Nginx官方表示，Nginx保持1万个没有活动的连接，而这些连接只占用2.5MB内存</li>
+			<li>在高可用性方面，Nginx支持热部署，可以在不间断服务的情况下，对软件版本或者配置进行升级，即使运行数月也无需重新启动，几乎可以做到7x24小时不间断地运行</li>
+			</ul>
+        </section>
+       
+	    <section>
+            <h3>3.常见问题</h3>
+        </section>
+       		
+		<section>
+           
+			 <P>访问高峰期服务端过载，导致响应速度慢，甚至服务瘫痪</p>
+			 <P>正向代理把服务端暴露给用户，安全性较低</p>
+        </section>
+
+		
+        <section>
+            <h3>4.解决方案</h3>
+			  <p>负载均衡和高并发的特性，可以分配流量到多台设备节点，所以即使高峰期出现也能轻松应对</p>
+			  <P>反向代理可以隐藏服务端，在一定程度上提高了安全性<P>
+        </section>
+		
+		
+
+		
+		
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>到底是公网IP还是127.0.0.1？</p>
+        </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/liutengteng130/article/details/46700939</p>
+			<p>http://blog.csdn.net/u012152619/article/details/53821518</p>
+			<p>知乎</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p>使用域名访问的实质是什么？</p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:李亚衡</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用MemCache？</h2>
+            <h3>小课堂</h3>
+            <p>分享人: 韦杰</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section> 
+			<h4>为什么要使用缓存?</h4>
+            <p align="left">在大多数Web应用都将数据保存到关系型数据库中，WWW服务器从中读取数据并在浏览器中显示。但随着数据量的增大、访问的集中，就会出现关系型数据的负担加重、数据库响应缓慢、网站打开延迟等问题。</p>
+		<p align="left">通过在内存中缓存数据库的查询结果，减少数据访问次数，以提高动态Web应用的速度，提高网站架构的并发能力和可扩展性。</p>
+		</section>
+		<section> 
+			<h4>使用memcache作为缓存又有什么优点？</h4>
+			<p align="left">1、使用memcache之前，每个服务器的缓存是分开的，总的容量等于单个服务器的缓存容量，还要分出精力去维护所有服务器上缓存的数据，让它们保存一致。</p>
+			<img src="../img-java/memcache/A.png">
+		</section>
+		<section>
+			<p align="left">2、使用memcache之后：把每一个使用了缓存的服务器称作节点，memcache则是把这些节点组成一个节点池。</p>
+			<p align="left">1）容量增大，总的容量是所有服务器缓存容量的总和。</p>
+			<p align="left">2）一个指定的数据的将在同一个节点上进行读写，不需要保持节点间的数据一致</p>
+			<img src="../img-java/memcache/B.png">
+		</section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<h4>memcache到底是什么？</h4>
+            <p align="left">MemCache是一个自由、源码开放、高性能、分布式的分布式内存对象缓存系统，用于动态Web应用以减轻数据库的负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。 MemCaChe是一个存储键值对的HashMap，在内存中对任意的数据（比如字符串、对象等）所使用的key-value存储。</p>
+        </section>
+        <section>
+            <h4> memcache的访问模型</h4>
+			<img src="../img-java/memcache/C.png">
+		</section>
+		<section>
+			<p align="left">看图说话</p>
+            <p align="left"> 1）可以在同一个服务器上分出多个端口作为一个memcached节点</p>
+            <p align="left"> 2）图中分为应用程序服务器和memcache服务器，也就是说，我们可以专门准备一个服务器，不装应用程序，只作为memcache服务器使用。</p>
+        </section>
+		<section>
+			<p align="left"> 3）理一下MemCache一次写缓存的过程</p>
+			<p align="left"> A）service方法里传入需要写缓存的数据并规定key==》</p>
+			<p align="left"> B）客户端将key传到内部的路由算法模块==》</p>
+			<p align="left"> C）得到key对应HashCode==》</p>
+			<p align="left"> D）路由算法根据Key和Memcache几圈服务器列表得到一台服务器编号==》</p>
+			<p align="left"> E）由服务器编号得到MemCache的IP地址和端口号==》</p>
+			<p align="left"> F）客户端调用通信模块和指定编号的服务器通信，将数据写入该服务器。</p>
+        </section>
+		<section>
+			<p align="left"> 4）MemCache的一次读缓存的过程</p>
+			<p align="left"> 读缓存跟写缓存的步骤差不多。</p>
+		</section>
+        <section>
+            <h4> MemCache的路由算法</h4>
+            <p> 1.余数Hash算法</p>
+            <p> 2.一致性Hash算法</p> 
+        </section>
+        <section>
+            <h4> 1.余数Hash算法</h4>
+            <p align="left"> 1）原理 假设key对应的HashCode是50，memcache服务器数目为3，取余数2，那么这个key对应节点node2。</p>
+            <p align="left"> 2）优点 算法简单，能满足绝大多数的缓存路由需求。</p>
+            <p align="left"> 3）缺点 扩容会导致get命中率大幅度下降。</p>
+			<img src="../img-java/memcache/D.png">
+		</section>
+		<section>
+			<p align="left"> 4）解决方案</p>
+			<p align="left">A.在网站访问量低估，通常是深夜，你加班，扩容，重启服务器</p>
+			<p align="left">B.你再加班，通过模拟请求的方式逐渐预热缓存，使服务器中的数据重新分布</p>
+        </section>
+        <section>
+            <h4>2.一致性Hash算法</h4>
+			<p align="left">1）原理</p>
+			<p align="left"> 先构造一个长度为232的证书换（这个环被称为一致性Hash环），根据节点名称的Hash值（值的分布范围为[0,232-1]）把MemCache服务器节点放在这个Hsah环上，</p>
+	</section>
+	<section>
+		<p>接着根据需要缓存的数据的Key对应的Hash值（值的分布范围也是[0,232-1]），然后在Hash环上顺时针查找距离这Key的Hash值最近的服务器节点，完成一次写操作。</p>
+            <img src="../img-java/memcache/E.png">
+        </section>
+		<section>
+			<p align="left">2）优点</P>
+			<p align="left">扩容方便,get命中率下降的不是很厉害。而且，节点数越多，每次扩容后get命中率下降越小。也就是说，你不用熬夜加班扩容、预热缓存。也就是说，你没有加班费了。</p>
+			<img src="../img-java/memcache/F.png">
+        </section>
+
+        <section>  
+            <h4>MemCache实现原理</h4>
+            <p align="left">首先要理解下面的一些概念：</p>
+			<p align="left">1）MemCache的数据是存放在内存中的；</p>
+			<p align="left">2）这里面涉及4个概念：slab_class，slab，page，chunk</p>
+			<p align="left">3）MemCache将内存分为一组slab，每个slab下又有若干个page，每个page大小都是固定的1M；</p>
+			<p align="left">4）每个page里面包含一组chunk，chunk是真正存放数据的地方，同一个slab里面的chunk大小是固定的；</p>
+			<p align="left">5）有相同大小chunk的slb被组织在一起，被称为slab_class。</p>
+        </section>
+        <section>
+            <img src="../img-java/memcache/G.png">
+        </section>
+		<section>
+			<p align="left">详细的过程：</p>
+			<p align="left">1）MemCache中的value过来存放的地方是由value的大小决定的，value总是会被存放到与chunk大小最接近的一个slab中;</p>
+			<p align="left">2）比如slab[1]的chunk大小为80字节、slab[2]的chunk大小为100字节、slab[3]的chunk大小为128字节（相邻slab内的chunk基本以1.25为比例进行增长，MemCache启动时可以用-f指定这个比例），那么过来一个88字节的value，这个value将被放到2号slab中；</p>
+	</section>
+	<section>
+			<p align="left">3）放slab的时候，首先slab要申请内存，申请内存是以page为单位的，所以在放入第一个数据的时候，无论大小为多少，都会有1M大小的page被分配给该slab；</p>
+			<p align="left">4）申请到page后，slab会将这个page的内存按chunk的大小进行切分，这样就变成了一个chunk数组，最后从这个chunk数组中选择一个用于存储数据。</p>
+		</section>
+        <section>
+            <h4>memcache常用命令</h4>
+            <p align="left">1.安装命令</p>
+			<p align="left">memcache依赖于libevent，要先安装libevent才能安装memcache</p>
+			<img src="../img-java/memcache/H.png">
+        </section>
+		<section>
+            <p align="left">2.启动命令</p>
+            <img src="../img-java/memcache/I.png">
+        </section>	
+        <section>
+            <p align="left">3.查看命令</P>
+            <p align="left">1）stats              返回MemCache通用统计信息</p>
+			<p align="left">2）stats items        返回各个slab中item的数目和最老的item的年龄（最后一次访问举例现在的秒数）</p>
+			<p align="left">3）statsslabs         返回MemCache运行期间创建的每个slab的信息</p>
+        </section>
+		
+		<section>
+            <h3>3.常见问题</h3>
+            <p>1）memcache和memcached的区别？</p>
+			<p>2）memcache无可用连接？</p>
+        </section>
+
+		<section>
+            <h3>4.解决方案</h3>
+            <p align="left">1）memcache是项目的名称，memcached是memcache服务器端可执行文件的名称。</p>
+			<p align="left">2）解决思路</p>
+			<p align="left">A.确认服务器上的memcached服务有没有打开==》服务器用telnet看能不能连上memcached</p>
+			<p align="left">B.本地用telnet连接服务器的memcached</p>
+			<p align="left">C.重启服务器</p>
+        </section>
+		
+		<section>
+            <h3>5.代码实战</h3>
+            <p></p>
+        </section>
+		
+		<section>
+            <h3>6.拓展思考</h3>
+            <p>缓存到底是什么？</p>
+        </section>
+		<section>
+			<p align="left">1）许多人认为，“缓存”是内存的一部分。许多技术文章都是这样教授的，但是还是有很多人不知道缓存在什么地方，缓存是做什么用的？其实，缓存是CPU的一部分，它存在于CPU中。</p>
+			<p align="left">2）CPU存取数据的速度非常的快，一秒钟能够存取、处理十亿条指令和数据（术语：CPU主频1G），而内存就慢很多，快的内存能够达到几十兆就不错了，可见两者的速度差异是多么的大 .</p>
+			<p align="left">3）缓存是为了解决CPU速度和内存速度的速度差异问题。内存中被CPU访问最频繁的数据和指令被复制入CPU中的缓存，这样CPU就可以不经常到象“蜗牛”一样慢的内存中去取数据了，CPU只要到缓存中去取就行了，而缓存的速度要比内存快很多 。</p>
+		</section>
+		<section>
+			<h4>关于一级缓存和二级缓存 </h4>
+			<p align="left">1）为了分清这两个概念，我们先了解一下RAM。RAM和ROM相对的，RAM是掉电以后，其中才信息就消失那一种，ROM在掉电以后信息也不会消失那一种。</p>
+			<p align="left">2）RAM又分两种，一种是静态RAM，SRAM；一种是动态RAM，DRAM。前者的存储速度要比后者快得多，我们现在使用的内存一般都是动态RAM。 </p>
+			<p align="left">3）缓存通常都是静态RAM，速度是非常的快，但是静态RAM集成度低（存储相同的数据，静态RAM的体积是动态RAM的6倍），价格高（同容量的静态RAM是动态RAM的四倍）。</p>
+		</section>
+		<section>
+			<p align="left">4）由此可见，扩大静态RAM作为缓存是一个非常愚蠢的行为，由此可见，扩大静态RAM作为缓存是一个非常愚蠢的行为，这样就有了一个折中的方法，不扩大原来的静态RAM缓存，而是增加一些高速动态RAM做为缓存。</p>
+			<p align="left">5）这些高速动态RAM速度要比常规动态RAM快，但比原来的静态RAM缓存慢，我们把原来的静态ram缓存叫一级缓存，而把后来增加的动态RAM叫二级缓存。</p>
+			<p align="left">6）一级缓存和二级缓存中的内容都是内存中访问频率高的数据的复制品（映射），它们的存在都是为了减少高速CPU对慢速内存的访问。通常CPU找数据或指令的顺序是：先到一级缓存中找，找不到再到二级缓存中找，找不到再到内存中找了，再找不到就要去硬盘找了。</p>
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考1：<a href="http://memcached.org/" target="_blank">MemCache官网</a></p>
+		<p>参考2：<a href="http://www.csdn.net/article/2016-03-16/2826609" target="_blank">MemCache超详细解读</a></p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 韦杰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //     controls: true, // 是否在右下角展示控制条
+    //     progress: true, // 是否显示演示的进度条
+    //     slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //     history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //     keyboard: true, // 是否启用键盘快捷键来导航
+    //     overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //     center: true, // 是否将幻灯片垂直居中
+    //     touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //     loop: false, // 是否循环演示
+    //     rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //     fragments: true, // 全局开启和关闭碎片。
+    //     autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //     transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //     transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //     mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
