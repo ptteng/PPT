@@ -1,0 +1,359 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【cookies，sessionStorage和localStorage的区别】</h2>
+            <h3>小课堂js-task02【深圳第241期】</h3>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>SessionStorage, LocalStorage, Cookie这三者都可以被用来在浏览器端存储数据，而且都是字符串类型的键值对。
+                    区别在于前两者属于WebStorage，创建它们的目的便于客户端存储数据。 而Cookie早在网景公司的浏览器中就开始支持，最初目的是为了保持HTTP的状态。</p>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h3>Cookie?</h3>
+                <p>HTTP Cookie（也叫Web cookie或者浏览器Cookie）是服务器发送到用户浏览器并保存在浏览器上的一块数据，它会在浏览器下一次发起请求时被携带并发送到服务器上。比较经典的，可以它用来确定两次请求是否来自于同一个浏览器，从而能够确认和保持用户的登录状态。Cookie的使用使得基于无状态的HTTP协议上记录稳定的状态信息成为了可能。 </p>
+            </section>
+            <section>
+                <h3>sessionStorage</h3>
+                <p>sessionStorage 属性允许你访问一个 session Storage 对象。它与 localStorage 相似，不同之处在于 localStorage
+                    里面存储的数据没有过期时间设置，而存储在 sessionStorage
+                    里面的数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的页面会话。在新标签或窗口打开一个页面会初始化一个新的会话，这点和 session
+                    cookies 的运行方式不同。 </p>
+            </section>
+            <section>
+                <h3>localStorage</h3>
+                <p>localStorage 属性允许你访问一个 local Storage 对象。localStorage 与 sessionStorage 相似。不同之处在于，存储在 localStorage
+                    里面的数据没有过期时间（expiration time），而存储在 sessionStorage 里面的数据会在浏览器会话（browsing session）结束时被清除，即浏览器关闭时。 </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+
+            <section>
+                <h3>问题：Cookie是如何工作的？</h3>
+                <p>
+                    Cookie可用于客户端数据的存储，在没有其它存储办法时，使用这种方式是可行的，但随着现在浏览器开始支持各种各样的存储方式而逐渐被废弃。
+                    由于服务器指定Cookie以后浏览器的每次请求都会携带Cookie数据，这会带来额外的性能负担（尤其是在移动环境下）。
+                    新的浏览器API已经允许开发者直接在本地存储数据，如可以使用Web storage API （本地存储和会话存储）和IndexedDB（索引数据库）。
+                </p>
+            </section>
+            <section>
+                <h3>Cookie主要用在以下三个方面:</h3>
+                <ol>
+                    <li>
+                        会话状态管理（如用户登录状态、购物车）
+                    </li>
+                    <li>
+                        个性化设置（如用户自定义设置）
+                    </li>
+                    <li>
+                        浏览器行为跟踪（如跟踪分析用户行为）
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h3>Cookie的缺陷 </h3>
+                <ol>
+                    <li>每个 HTTP 请求中都包含 Cookies，从而导致传输相同的数据减缓我们的 Web 应用程序。</li>
+                    <li>每个 HTTP 请求中都包含 Cookies，从而导致发送未加密的数据到互联网上。（除非用HTTPS）</li>
+                    <li>Cookies 只能存储有限的 4KB 数据，对于复杂的存储需求来说是不够用的。</li>
+                </ol>
+            </section>
+            <section>
+                <h3>LocalStorage和SessionStorage?</h3>
+                <p> html5中的Web Storage包括了两种存储方式：sessionStorage和localStorage。 不会被发送到服务器上。同时空间比Cookie大很多，一般支持5-10M。
+                    与Cookie类似，每个域名下会有不同的localStorage和SessionStorage实例。</p>
+            </section>
+            <section>
+                <ul>
+                    <li>
+                        sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后（关闭标签页，不包括刷新和跳转）
+                        数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。
+                    </li>
+                    <li>
+                        localStorage可以在多个标签页中互相访问用于持久化的本地存储，可以在多个标签页中互相访问,除非主动删除数据，否则数据是永远不会过期的。
+                    </li>
+                    <li>
+                        注意SessionStorage中的Session指的是浏览器会话，而非服务器端通过Cookie实现的Session。
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Storage的使用</h3>
+                <p>LocalStorage/SessionStorage也是基于字符串的键值对存储。可以通过setItem，getItem,clear,removeIteml来存取控制数据：</p>
+            </section>
+            <section>
+                <ol>
+                    <li>
+                        clear()：删除所有值。
+                    </li>
+                    <li>
+                        getItem(name)：根据指定的名字name获取对应的值
+                    </li>
+                    <li>
+                        key(index)：在指定的数字位置获取该位置的名字。
+                    </li>
+                    <li>
+                        removeItem(name)：删除由name指定的名值对
+                    </li>
+                    <li>
+                        setItem(name,value)：为指定名字设置一个对应的值
+                    </li>
+                </ol>
+                <pre>
+                    <code>
+    localStorage.setItem("name","wangerxiao");
+    //这样就用localStorage存储了一个名字为name的数据，数据的内容为 “wangerxiao"
+    localStorage.getItem("name");
+    //这样就读取了名字为“name”的数据的值。
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>但是，storage只能存储字符串的数据，对于JS中常用的数组或对象却不能直接存储。</p>
+                <pre><code>
+            var obj = { name:'Jim' };
+            sessionStorage.obj = obj;
+            localStorage.obj = obj;
+
+            var arr = [1,2,3];
+            sessionStorage.obj = arr;
+            localStorage.obj = arr;
+                    </code></pre>
+                <p style="color:red" class="fragment">注意：上面这种写法是错误的</p>
+            </section>
+            <section>
+                <p>但我们可以通过JSON对象提供的parse和stringify将其他数据类型转化成字符串，再存储到storage中就可以了。</p>
+                <pre>
+                    <code>
+                        var obj = { name:'Jim' };
+                        var str = JSON.stringify(obj);
+
+                        //存入
+                        sessionStorage.obj = str;
+
+                        //读取
+                        str = sessionStorage.obj;
+
+                        //重新转换为对象
+                        obj = JSON.parse(str);
+                    </code>
+                </pre>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <h3>总结：sessionStorage 、localStorage 和 cookie 之间的异同</h3>
+            </section>
+            <section>
+                <p>共同点：都是保存在浏览器端，且同源的。</p>
+            </section>
+            <section>
+                <p>不同点：</p>
+                <ul>
+                    <li>1.cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递。
+                        而sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下。
+                    </li>
+                    <li>2.存储大小限制也不同，cookie数据不能超过4k，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如会话标识。
+                        sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。
+                    </li>
+
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>
+                        3.数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；
+                        cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。
+                    </li>
+                    <li>
+                        4.作用域不同，sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>
+                        5.Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。
+                    </li>
+                    <li>
+                        6.Web Storage 的 api 接口使用更方便。
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>如何在浏览器上查看sessionStorage 、localStorage 和 cookie？</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+               <p>修真院官网对于localStorage的应用</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <ol>
+                    <li>
+                        参考<a href="http://www.cnblogs.com/st-leslie/p/5617130.html">谢灿勇的博客</a>
+                    </li>
+                    <li>
+                        参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage">Window.sessionStorage
+                        - Web API 接口 | MDN</a>
+                    </li>
+                    <li>
+                        参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage">Window.localStorage
+                        - Web API 接口 | MDN</a>
+                    </li>
+                    <li>
+                        参考<a href="http://www.cnblogs.com/ranyonsue/p/6402687.html">使用sessionStorage、localStorage存储数组与对象</a>
+                    </li>
+                    <li>
+                        参考<a href="http://blog.csdn.net/you23hai45/article/details/49052251">请描述一下 cookies，sessionStorage 和 localStorage 的区别？</a>
+                    </li>
+                </ol>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>问题一、如何修改sessionStorage里存的值?</p>
+                <p>问题二、如果是将对象转换成json字符串后存储到sessionStorage的值，那该如何更改？</p>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p class="text-center">
+                    <small>BY : 庄引/包腾飞</small>
+                </p>
+            </section>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        },
+            {
+                src: '../plugin/markdown/markdown.js'
+            },
+            {
+                src: '../plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
+Contact GitHub API Training Shop Blog About © 2016 GitHub, Inc. Terms Privacy Security Status He

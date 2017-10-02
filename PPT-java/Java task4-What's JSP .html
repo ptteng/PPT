@@ -1,0 +1,184 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是JSP</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">Java Server pages是一种帮助软件开发人员根据HTML、XML或者其他文档类型来创建动态WEB页面的技术，
+			由Sun Microsystems于1999年发布；目前最新版本是2.3，符合JSR245标准。JSP类似PHP（Personal Home Page）和ASP（Active Server Pages），
+			但是它使用Java语言编写。
+			</p>
+			<p style="text-align:left">部署和运行JSP需要一台安装servlet container的可兼容的web服务器，常用的servlet container包括Apache Tomcat、
+			Jetty和Resin等。
+			</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.JSP的工作原理</p>
+	    <img src="..\img-java\Java task4-What-s JSP\How dose JSP work.png" alt="JSP的工作原理">
+        </section>
+		<section>
+            <p style="text-align:left">当客户端浏览器向服务器请求一个 JSP 页面时，服务器收到该请求后，首先检查所请求的这个JSP 文件内容 
+			( 代码 ) 是否已经被更新，或者是否该JSP 文件创建后的第一次被访问；如果是，那么这个 JSP 文件就会在服务器端的 JSP 引擎作用下
+			转化为一个 Servlet 类的 Java 源代码文件。紧接着，这个 Servlet 类会在 Java 编译器的作用下被编译成一个字节码文件，并装载到JVM
+			解释执行。剩下的就等同于 Servlet 的处理过程了。</p>
+			<p style="text-align:left">如果被请求的 JSP 文件内容 ( 代码 ) 没有被修改，那么它的处理过程也等同于一个 Servlet 的处理过程。
+			即直接由服务器检索出与之对应的 Servlet 实例来处理。</p>
+        </section>
+		<section>
+            <p style="text-align:left">需要注意的是，JSP 文件不是在服务器启动的时候转换成 Servlet 类的。而是在被客户端访问的时候才可能发
+			生转换的 ( 如 JSP 文件内容没有被更新等，就不再发生 Servlet 转换 )。</p>
+			<p style="text-align:left">就 Tomcat 而言，打开目录%Tomcat% \work\Catalina\localhost\project name \%然后会看到里面有 3个子目录：
+			org/apache/jsp，若没有这 3 个目录，说明项目的JSP文件还没有被访问过；在jsp 目录下，会看到一些 *_jsp.java 和 *_jsp.class 文件，
+			这就是 JSP 文件被转换成Servlet 类的源文件和字节码文件了。</p>
+        </section>
+		<section>
+            <p style="text-align:left">2.JSP的特点</p>
+			<p style="text-align:left">（1）JSP 继承了Java 的“ Write once ,Run anywhere”的特点。</p>
+			<p style="text-align:left">（2）可重用组件技术。</p>
+			<p style="text-align:left">（3）标记化页面开发。</p>
+			<p style="text-align:left">（4）对大型复杂 Web 应用支持良好。</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">JSP页面有时候出现乱码，如何解决？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.没有在页面里指定使用的字符集编码，JSP页面中出现了中文字符，而默认的ISO-8859-1字符集中无中文字符，在JSP页面头部作如下声明，即可</p>
+            <p style="text-align:left"><%@ page contentType="text/html; charset=utf-8"%></p>
+            <p style="text-align:left">2. 编码字符集设置不一致导致乱码</p>
+			<p style="text-align:left"><%@ page language="java" pageEncoding="utf-8"%>指定jsp文件的存储格式。</p>
+			<p style="text-align:left"><%@ page contentType="text/html;charset= utf-8"%>指定jsp文件的解码格式。</p>
+			<p style="text-align:left">两处必须保持一致，且指定支持中文的字符集。</p>
+		</section>
+		<section>
+			<p style="text-align:left">3. 数据库连接出现乱码</p>
+			<p style="text-align:left">在数据库连接字符串中加入编码字符集：</p>
+			<p style="text-align:left">JdbcUrl=jdbc:mysql://localhost:3306/fortask?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull</p>
+		</section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:center">JSP与Servlet</p>
+            <p style="text-align:left">JSP 本质是一个 Servlet，它的运行也需要容器的支持。在 JSP 和 Servlet 文件中都可以编写 
+			Java 和 HTML 代码，不同的是，Servlet 虽然也可以动态的生成页面内容，但更加偏向于逻辑的控制。JSP 最终被转换成
+			Servlet 在 jvm 中解释执行，在 JSP 中虽然也可以编写 Java 代码，但它更加偏向于页面视图的展现。
+			</p>
+			<p style="text-align:left">在 MVC 架构模式中，就 JSP 和 Servlet 而言，C 通常由 Servlet 充当，V 通常由 JSP 来充当。</p> 			
+		 </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:left">1.JSP 应用开发技术，贾素玲 王强 张成 编著，清华大学出版社</p>
+			<p style="text-align:left">2.维基百科——<a href="https://en.wikipedia.org/wiki/JavaServer_Pages" target="_blank">JavaServer Pages</a></p>
+			<p style="text-align:left">3.博客——<a href="http://www.blogjava.net/fancydeepin/archive/2013/09/30/fan_servlet.html" target="_blank">JSP/Servlet 工作原理</a></p>	
+            <p style="text-align:left">4.博客——<a href="http://www.cnblogs.com/chengkai/articles/2171848.html" target="_blank">解决JSP中文乱码问题</a></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

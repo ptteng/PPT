@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-02】什么是自执行函数？</h2>
+            <h3>小课堂【武汉第238期】</h3>
+            <p>分享人：冯强</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在详细讲解自执行函数之前，我们先来说一下这个函数在叫法上的争议。实际上不同的人对自执行函数的理解不太一样，
+                第一种理解是，自执行即自动执行，也就是大家平时所谓的立即执行函数</p>
+        </section>
+        <section>
+            <p>
+                还有一种理解，即自执行函数是在函数内部执行函数本身，即我们平时常说的递归函数。不管是
+                哪种理解，我们都没必要去纠结叫法上的准确与否，因为相比于自执行函数，立即执行函数和递归函数
+                这两种叫法是我们更加熟悉的，实际上平时也很少会看到自执行函数这种叫法。立即执行函数和递归函数
+                都很重要，因此今天打算对两种函数都做一下介绍。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>知识点1：直接在函数后面加（）就可以立即执行吗？在函数声明后面加括号为什么会报错？</p>
+            <p>知识点2：如何实现立即执行函数</p>
+            <p>知识点3：递归函数的几种用法</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>对函数声明和函数表达式不能正确区分</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            1.对于函数表达式，在后面加括号即可以让函数立即执行；例如下面这个函数，至于为什么加了括号就可以立即执行，我们可以这么理解，就是像fn1()；这样写的话，函数 可以立即执行是没问题的，我们在经常会用到，那么对于函数表达式来说，fn1就是对后面的匿名函数的一个引用，因此在后面的匿名函数后直接加括号，自然也就可以立即执行
+
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-67b3919e4894ea73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+        </section>
+        <section>
+            <p>2但是对于下面这个函数，如果直接加()就会报错；如果按照上面的思路去理解，在匿名函数后面直接加上()应该是可以立即执行的，但是下面这个函数之所以会报错，而且会报两个错误，是因为js引擎在解析js代码的时候，遇到以function打头的函数会当做函数声明，然后会检查语法错误，那么第一个括号处的语法错误在于函数声明是必须要有函数名字的，而()前面没有所以报错；第二个括号处的语法错误在于函数声明到第二个花括号处，就已经算是结尾了，后面的()会被当作分组操作符，这个()实际上已经和函数声明没关系了，但是既然有了分组操作符，那就要有表达式，不然会报错；
+
+                <img src="http://upload-images.jianshu.io/upload_images/6023043-cd384219040d3929.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                     alt="">
+        </section>
+        <section>
+
+            <p>按照上面的分析，我们如果在第一个()前面加上函数名称，在第二个()里面加入表达式，那么久不会报错了，我们来看一下效果</p>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-c228a448dab79a49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+            <p>可以看到修改了那两处的问题以后，报错消失了，但是这个时候函数并没有执行，原因上面也已经提到了，就是一旦被当作函数声明，那么到花括号处就算为止了，后面的()就只当作一个分组操作符，和函数没有任何关系了
+            </p>
+        </section>
+        <section>
+            <p>3那么想让这种匿名函数直接执行应该怎么办呢，其实很简单，就是在function前面加上一些操作符，这样js引擎在解析的时候就不会把它当成是函数声明了
+            </p>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-0686dcc17718d340.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>什么是递归函数</p>
+        </section>
+        <section>
+            <p>以下为最简单的递归函数，即在函数内部调用函数本身。</p>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-e46eaf5e3678e125.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+            <p>这种函数有个问题，就是当函数被其他变量引用，而原函数名又被设置为空对象后，递归函数就会报错
+            </p>
+        </section>
+        <section>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-9df49a79b0041f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+            <p>此时fun为空，但gun函数内部还会调用fun，这样就会导致报错</p>
+        </section>
+        <section>
+            <p>利用argumens.callee来解决这个问题，argumens.callee指向当前的函数；</p>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-aa682db9c42f3552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+            <p>但是这个方法在严格模式下是不可使用的，因此还不够完美</p>
+        </section>
+        <section>
+            <p>利用函数表达式构造递归函数</p>
+            <img src="http://upload-images.jianshu.io/upload_images/6023043-41b19127bfea672a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                 alt="">
+            <p>函数不会随着fun的改变而改变，而且在严格模式下可用</p>
+        </section>
+        <!--<section>-->
+            <!--<p>立即执行函数有哪些用处？</p>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--立即执行函数有很多用处，下面举一个例子：-->
+
+            <!--在下面这个函数中，result是一个函数数组，希望达到的效果应该执行数组中的任何一个函数，得到的值都应该和该函数在数组中的索引值是一样的，但是实际情况是所有函数执行后得到的值都是10。之所以会这样是因为result数组取值的时候，是通过内部函数去返回外部变量i的值来取得的，由于内部函数会创造一个自己的作用域链，作用域链中存放的是i这个外部变量对象，这个变量对象对内部函数来说只有一个，for循环执行完成后的最后的值，即10；-->
+            <!---->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="http://upload-images.jianshu.io/upload_images/6023043-8d67142e6d48de83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"-->
+                 <!--alt="">-->
+            <!--<p>这个问题可以通过在给result数组取值外面加立即执行函数来解决，立即执行函数外面的()里面是可以传参的，下面这个用法中就是把外部变量i的值通过传参传给了num，然后把num的值又传给了result，这样最后函数数组result中每一个函数都是返回当时具体的值，即i当时的值，而不是i最后的值。-->
+
+            <!--</p>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="http://upload-images.jianshu.io/upload_images/6023043-95155c0973e90658.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"-->
+                 <!--alt="">-->
+        <!--</section>-->
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/TomXu/archive/2011/12/31/2289423.html" target="_blank">汤姆大叔的博客之立即调用的函数表达式</a>
+            </p>
+            <p>
+                参考二：<a>Javascript高级程序设计</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :景鑫|冯强</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
