@@ -32,8 +32,8 @@
     <div class="slides">
         <section>
             <h2>去除inline-block间距有哪几种方法？</h2>
-            <h3>【深圳173期】小课堂-csstask06</h3>
-            <p>分享人：黄源志</p>
+            <h3>【深圳307期】小课堂-csstask06</h3>
+            <p>分享人：颜彦</p>
         </section>
         <section>
             <p>目录</p>
@@ -66,36 +66,32 @@
             </section>
             <section>
                 <p>2、inline-block为什么会有间距？</p>
-                <p>这个元素的属性很奇特，刚出现的时候用得却不多，因为当初它在IE上的兼容性不好</p>
-                <img src="../img/css-08-inlineblockSpace/pic3.png">
+                <p>归根结底这是一个西文排版的问题。举一个很简单的例子：</p>
+                <p>I am very happy</p>
+                <p>南京市长江大桥欢迎您</p>
+                <p>英文有空格作为词分界，而中文则没有。（这背后延伸出一个中文分词的问题）</p>
+                <p>这个问题的原因可以上述到SGML和TeX，它实际上是一个行内（inline）的问题，它由空格、换行或回车所产生空白符所致</p>
             </section>
         </section>
         <section>
             <h3>二.知识剖析</h3>
         </section>
         <section>
-            <section>
-                1、版本兼容性
-            </section>
-            <section>
-                <p style="text-align: left">inline-block 内联块状元素，可以水平排版。但我们发现inline-block元素间在换行显示或空格分隔的情况下会出现空白间隙。 这种表现是符合规范的应该有的表现，而不是bug。但是有时候会对我们的布局造成影响，所以有时候我们需要想办法去除它</p>
-                <p>demo1</p>
-
-            </section>
+                <p>既然知道问题产生的原因，解决方法就由此得出。</p>
+                <p>1、改变代码书写方式。</p>
+                <p>2、改变字符大小。</p>
+                <p>3、改变元素间距。</p>
         </section>
         <section>
-            <h3>3.常见问题</h3>
+            <h3>三.常见问题</h3>
             <p>常见去除inline-block间距的方法有哪些？</p>
         </section>
         <section>
-            <h3>4.解决方案</h3>
-            <p>方法一:改变书写方式</p>
+            <h3>四.解决方案</h3>
+            <p>方法一: 改变书写方式</p>
             <p>方法二：font-size</p>
             <p>方法三：使用margin负值</p>
             <p>方法四：使用word-spacing或letter-spacing</p>
-        </section>
-        <section>
-            <p>方法五:直接压缩成一行，利用方法1的特性。</p>
         </section>
         <section>
             <section>
@@ -103,42 +99,42 @@
                 <p style="text-align: left">元素间留白间距出现的原因就是标签段之间的空格，因此，去掉HTML中的空格，自然间距就消失了。</p>
                 <pre>
                 <code>
-                    <div class="parent">
-                        <div class="ib">aa</div><div class="ib">bb</div><div class="ib">cc</div><div class="ib">dd</div>
-                    </div>
+                    <span class="space">人造盒1号</span><span class="space">人造盒1号</span><span class="space">人造盒1号</span>
                 </code>
                 </pre>
-                <p>demo2</p>
+
             </section>
             <section>
                 <p style="text-align: left">我们可以把inline-block元素写在同一行，这种方案是最直接的解决方案，但却也是最不靠谱的方案，存在很多不可控因素。 很多场景会让你崩溃：前后端协同；版本更迭；他人接手；自己忘了...，太多一不小心都可能让这个方案失效。</p>
             </section>
             <section>
-                <p style="text-align: left">考虑到代码可读性，显然连成一行的写法是不可取的，我们可以进行改进，如下面几种写法：</p>
-                <img src="../img/css-08-inlineblockSpace/pic3.png">
-                <img src="../img/css-08-inlineblockSpace/pic4.png">
-                <img src="../img/css-08-inlineblockSpace/pic5.png">
+                <p style="text-align: left">考虑到代码可读性，显然连成一行的写法是不可取的，我们可以进行改进，还有下面这些非人类的写法：</p>
+                <code>
+                    <span class="space">人造盒1号</span
+                    ><span class="space">人造盒1号</span
+                ><span class="space">人造盒1号</span>
+                </code>
             </section>
             <section>
-                <p style="text-align: left">对于某些元素可以将中间的结束标签去掉</p>
-                <img src="../img/css-08-inlineblockSpace/pic6.png">
-                <p>demo3</p>
+                <code>
+                    <span class="space">人造盒1号</span><!--
+    --><span class="space">人造盒1号</span><!--
+    --><span class="space">人造盒1号</span>
+                </code>
             </section>
         </section>
         <section>
             <section>
                 <p>方法二：font-size</p>
-                <p style="text-align: left">这个方法，基本上可以解决大部分浏览器下inline-block元素之间的间距(IE7等浏览器有时候会有1像素的间距)。</p>
-                <img src="../img/css-08-inlineblockSpace/pic7.png">
-                <p>demo4</p>
+                <p style="text-align: left">这个方法，基本上可以解决大部分浏览器下inline-block元素之间的间距。</p>
+                <img src="../img/css-06-inline-block-yy/font.png">
             </section>
         </section>
         <section>
             <section>
                 <p>方法三：使用margin负值</p>
                 <p style="text-align: left">margin负值的大小与上下文的字体和文字大小相关，Arial字体的margin负值为-3像素，Tahoma和Verdana就是-4像素，而Geneva为-6像素。由于外部环境的不确定性，以及最后一个元素多出的父margin值等问题，这个方法不适合大规模使用。</p>
-                <img src="../img/css-08-inlineblockSpace/pic8.png">
-                <p>demo5</p>
+                <img src="../img/css-06-inline-block-yy/margin.png">
             </section>
         </section>
         <section>
@@ -146,30 +142,41 @@
                 <p>方法四：使用word-spacing或letter-spacing</p>
                 <p style="text-align: left">一个是字符间距(letter-spacing)一个是单词间距(word-spacing)，大同小异。
                     父元素letter-spacing负值只要大到一定程度，其兼容性上的差异就可以被忽略。因为，即使父元素letter-spacing负值很大，也不会发生重叠。但是子元素要设置letter-spacing为0，不然会继承父元素的值；使用word-spacing时，只需设置父元素word-spacing为合适值即可。</p>
-                <img src="../img/css-08-inlineblockSpace/pic9.png">
-                <p>demo6</p>
+                <img src="../img/css-06-inline-block-yy/letter-word.png">
             </section>
             <section>
-                <p>使用letter-spacing和word-spacing时， 其在不同浏览器下效果不同，在Opera浏览器下最小间距1像素，然后，letter-spacing再小就还原了。</p>
+                <p>使用letter-spacing和word-spacing时，其在不同浏览器下效果不同。</p>
             </section>
         </section>
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
+            <section>
             <h3>6.扩展思考</h3>
             <p>上面使用到的几种方法都存在一定的缺陷，怎样兼容尽可能多的浏览器？</p>
             <p class="fragment" style="text-align: left">在不同情况下选用不同的方法，font-size基本上可以解决大部分浏览器下inline-block元素之间的间距。或者可以同时写多种方法，这样就可以兼容不同浏览器</p>
             <img class="fragment" src="../img/css-08-inlineblockSpace/pic10.png">
-
+            </section>
+            <section>
+                <p>这个元素的属性很奇特，刚出现的时候用得却不多，因为当初它在IE上的兼容性不好</p>
+                <img src="../img/css-06-inline-block-yy/inline-block.png">
+                <p>window7上运行的IE版本是IE8，微软已经在2015年终止了对Windows 7的主流支持，准备到2020年停止对window7的所有技术支持</p>
+                <p>现在全浏览器对inline-block兼容性都很好，CSS任务很多布局也是利用这个元素的特殊属性来布局。再加上CSS压缩成一行完全解决空白字符间距问题。有点得心应手的感觉。但是！</p>
+                <p>但是自提出这个元素过去10多年，现在更是出现flex、Grid这类好用的排版布局方式。他们确实有一些兼容性问题。好消息是2017年9月27日CSS弹性盒子布局规范已处于最终征求意见稿阶段，各大浏览器也渐渐支持弹性盒子的所有功能。</p>
+                <p>相信各位在css任务中刚接触flex的时候惊为天人，以后它的应用会越来越多，连B/S的4.0版也要加入flex属性，这个蛋疼的应用问题会随着时间消失。</p>
+            </section>
+            <section>
+                <p>四种方法哪种更为实用呢？</p>
+                <p>全都不实用，第一种不方便书写，后几种会导致内容和格式的强耦合，完全违背了内容与样式分离的要求。在实际布局中很少单纯用inline-block排版，经常和float、position、flex配合使用。</p>
+                <p>我暂时知道的实用方法是用代码压缩，原理是方法1的特性，将代码压缩到一行。工具有Uglify等。或者使用不产生额外空白节点或者支持空白控制的模板语言。比如Jade、Smarty（{strip} | Smarty）等</p>
+            </section>
+            <section>
+                <p>这些方法都是在CSS控制空白字符压缩特性尚未得到普遍支持之前使用的。在网上搜索的信息都是2012年、2013年的内容。如果项目还要考虑兼容IE8以下或者奇奇怪怪浏览器的话，了解一下这个问题也未尝不可，至少遇到问题知道怎么找解决方法。</p>
+            </section>
         </section>
         <section>
             <h3>7.更多讨论</h3>
-            <p>四种方法哪种更为实用呢？</p>
-            <p>还有哪些方法可以去除inline-block间距？</p>
-            <p>INLINE-BLOCK空隙产生的原因？</p>
-            <p class="fragment" style="text-align: left">通过前面的列子我们可以看到当没有换行或者回车时，空隙就不存在了，所以说间隙是由换行或者回车导致的。 其实space是由换行或回车所产生空白符所致，解决办法：就是去掉空白符。为什么font-size会对间隙有影响。 space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱font的控制。</p>
-
         </section>
         <section>
             <h3>8.参考文献</h3>
@@ -177,12 +184,16 @@
         <section>
             <p>参考一：<a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">张鑫旭-鑫空间-鑫生活</a></p>
             <p>参考二：<a href="http://demo.doyoe.com/css/inline-block-space/">inline-block元素间间隙产生及去除详解</a></p>
-
+            <p>参考三：<a href="https://drafts.csswg.org/css-flexbox/">CSS Flexible Box Layout Module Level 1</a></p>
+            <p>参考四：<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">使用CSS弹性盒子</a></p>
+            <p>参考五：<a href="https://www.zhihu.com/question/21468450">有哪些好方法能处理 display: inline-block 元素之间出现的空格？</a></p>
+            <p>参考六：<a href="http://wiki.jikexueyuan.com/project/symfony-cookbook/minify-cssjs.html">如何裁剪 CSS/JS 文件(使用 UglifyJS 和 UglifyCSS)</a></p>
+            <p>参考七：<a href="http://www.jianshu.com/p/ece740688a01">代码压缩UglifyJS ——解决了display:inline-block之间留白问题</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>胡嘉杰|黄源志</small></p>
+            <p><small>黄源志 | 颜彦</small></p>
         </section>
 
     </div>
