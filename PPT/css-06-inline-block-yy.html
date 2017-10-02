@@ -53,10 +53,10 @@
 
         <section>
             <section>
-                1、inline-block到底是什么？
-                2、inline-block为什么会有间距？
+                <p>1、inline-block到底是什么？</p>
+                <p>2、inline-block为什么会有间距？</p>
             </section>
-            <section>
+            <section style="float: left">
                 <p>1、inline-block到底是什么？</p>
                 <p>关于inline-block在display里的英文解释：</p>
                 <p>This value causes an element to generate an inline-level block container. The inside of an inline-block is formatted as a block box, and the element itself is formatted as an atomic inline-level box.</p>
@@ -70,7 +70,7 @@
                 <p>I am very happy</p>
                 <p>南京市长江大桥欢迎您</p>
                 <p>英文有空格作为词分界，而中文则没有。（这背后延伸出一个中文分词的问题）</p>
-                <p>这个问题的原因可以上述到SGML和TeX，它实际上是一个行内（inline）的问题，它由空格、换行或回车所产生空白符所致</p>
+                <p>这个问题的原因可以上述到SGML(标准通用标记语言)和TeX(排版工具)，它实际上是一个行内（inline）的问题，它由空格、换行或回车所产生空白符所致</p>
             </section>
         </section>
         <section>
@@ -86,7 +86,7 @@
             <h3>三.常见问题</h3>
             <p>常见去除inline-block间距的方法有哪些？</p>
         </section>
-        <section>
+        <section style="float: left">
             <h3>四.解决方案</h3>
             <p>方法一: 改变书写方式</p>
             <p>方法二：font-size</p>
@@ -99,7 +99,7 @@
                 <p style="text-align: left">元素间留白间距出现的原因就是标签段之间的空格，因此，去掉HTML中的空格，自然间距就消失了。</p>
                 <pre>
                 <code>
-                    <span class="space">人造盒1号</span><span class="space">人造盒1号</span><span class="space">人造盒1号</span>
+<span class="space">人造盒1号</span><span class="space">人造盒1号</span><span class="space">人造盒1号</span>
                 </code>
                 </pre>
 
@@ -108,19 +108,11 @@
                 <p style="text-align: left">我们可以把inline-block元素写在同一行，这种方案是最直接的解决方案，但却也是最不靠谱的方案，存在很多不可控因素。 很多场景会让你崩溃：前后端协同；版本更迭；他人接手；自己忘了...，太多一不小心都可能让这个方案失效。</p>
             </section>
             <section>
-                <p style="text-align: left">考虑到代码可读性，显然连成一行的写法是不可取的，我们可以进行改进，还有下面这些非人类的写法：</p>
-                <code>
-                    <span class="space">人造盒1号</span
-                    ><span class="space">人造盒1号</span
-                ><span class="space">人造盒1号</span>
-                </code>
+                <p style="text-align: left">考虑到代码可读性，显然连成一行的写法是不可取的，我们可以进行改进，还有下面非人类的写法：</p>
+                <img src="../img/css-06-inline-block-yy/1.png">
             </section>
             <section>
-                <code>
-                    <span class="space">人造盒1号</span><!--
-    --><span class="space">人造盒1号</span><!--
-    --><span class="space">人造盒1号</span>
-                </code>
+                <img src="../img/css-06-inline-block-yy/2.png">
             </section>
         </section>
         <section>
@@ -141,7 +133,7 @@
             <section>
                 <p>方法四：使用word-spacing或letter-spacing</p>
                 <p style="text-align: left">一个是字符间距(letter-spacing)一个是单词间距(word-spacing)，大同小异。
-                    父元素letter-spacing负值只要大到一定程度，其兼容性上的差异就可以被忽略。因为，即使父元素letter-spacing负值很大，也不会发生重叠。但是子元素要设置letter-spacing为0，不然会继承父元素的值；使用word-spacing时，只需设置父元素word-spacing为合适值即可。</p>
+                    letter-spacing子元素要设置letter-spacing为0，不然会继承父元素的值；使用word-spacing时，只需设置父元素word-spacing为合适值即可。</p>
                 <img src="../img/css-06-inline-block-yy/letter-word.png">
             </section>
             <section>
@@ -161,14 +153,17 @@
             <section>
                 <p>这个元素的属性很奇特，刚出现的时候用得却不多，因为当初它在IE上的兼容性不好</p>
                 <img src="../img/css-06-inline-block-yy/inline-block.png">
+            </section>
+            <section>
                 <p>window7上运行的IE版本是IE8，微软已经在2015年终止了对Windows 7的主流支持，准备到2020年停止对window7的所有技术支持</p>
                 <p>现在全浏览器对inline-block兼容性都很好，CSS任务很多布局也是利用这个元素的特殊属性来布局。再加上CSS压缩成一行完全解决空白字符间距问题。有点得心应手的感觉。但是！</p>
                 <p>但是自提出这个元素过去10多年，现在更是出现flex、Grid这类好用的排版布局方式。他们确实有一些兼容性问题。好消息是2017年9月27日CSS弹性盒子布局规范已处于最终征求意见稿阶段，各大浏览器也渐渐支持弹性盒子的所有功能。</p>
                 <p>相信各位在css任务中刚接触flex的时候惊为天人，以后它的应用会越来越多，连B/S的4.0版也要加入flex属性，这个蛋疼的应用问题会随着时间消失。</p>
             </section>
+            </section>
             <section>
                 <p>四种方法哪种更为实用呢？</p>
-                <p>全都不实用，第一种不方便书写，后几种会导致内容和格式的强耦合，完全违背了内容与样式分离的要求。在实际布局中很少单纯用inline-block排版，经常和float、position、flex配合使用。</p>
+                <p>全都不实用，第一种不方便书写，后几种会导致内容和格式的依赖性较强，违背内容与样式分离的要求。在实际布局中很少单纯用inline-block排版，经常和float、position、flex配合使用。</p>
                 <p>我暂时知道的实用方法是用代码压缩，原理是方法1的特性，将代码压缩到一行。工具有Uglify等。或者使用不产生额外空白节点或者支持空白控制的模板语言。比如Jade、Smarty（{strip} | Smarty）等</p>
             </section>
             <section>
