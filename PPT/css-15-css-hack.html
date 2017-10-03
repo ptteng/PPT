@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【CSS-task15】经常遇到的浏览器的兼容性有哪些？常用的hack技巧！</h3>
+            <h4>小课堂【武汉第239期】</h4>
+            <p>分享人：余佳贝</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <p>所谓的浏览器兼容性问题，是指因为不同的浏览器对同一段代码有不同的解析，造成页面显示效果不统一的情况。在大多数情况下，我们的需求是，无论用户用什么浏览器来查看我们的网站或者登陆我们的系统，都应该是统一的显示效果。所以浏览器的兼容性问题是我们web前端开发人员经常会碰到和必须要解决的问题。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+                <p>解决浏览器兼容的主要方法是css hack 那么到底什么是 <br>  css hack呢？</p>
+            </section>
+            <section>
+                <p>由于不同厂商的流览器或某浏览器的不同版本（如IE6-IE11,Firefox/Safari/Opera/Chrome等），对CSS的支持、解析不一样，导致在不同浏览器的环境中呈现出不一致的页面展现效果。这时，我们为了获得统一的页面效果，就需要针对不同的浏览器或不同版本写特定的CSS样式，我们把这个针对不同的浏览器/不同版本写相应的CSS code的过程，叫做CSS hack!</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h3>3.1 默认的内外边距不同</h3>
+            </section>
+            <section>
+                <h3>解决方法</h3>
+                <p>一.直接用*{margin:0;padding:0;}</p>
+                <p>二.单独清除需要清除的元素 比如 body, h1, h2, h3, h4, h5, h6, p, 　列表元素 dl, dt, dd, ul, ol, li  表单元素 form, fieldset, legend, button, input, textarea 等等   </p>
+            </section>
+            <section>
+                <h3>3.2 水平居中的问题 </h3>
+                <p>设置 text-align: center
+                    ie6-7文本居中，嵌套的块元素也会居中
+                    Chrome /opera /safari /ie8文本会居中，嵌套块不会居中</p>
+            </section>
+            <section>
+                <h3>解决方法</h3>
+                <p>给块元素设置margin:0 auto 和div align=center</p>
+            </section>
+            <section>
+                <h3>3.3 块元素中含有图片时，ie6-7中会出现图片下有空隙</h3>
+            </section>
+            <section>
+                <h3>解决方法</h3>
+                <p> 1、在源代码中让div和img在同一行 </p>
+                <p> 2、将图片转换为块级对象display:block;</p>
+                <p> 3、设置图片的垂直对齐方式  vertical-align:top/middle/bottom</p>
+                <p> 4、设置图片的浮动属性  float:left;</p>
+            </section>
+            <section>
+                <h3>3.4 ul和ol列表缩进问题</h3>
+                <p>在IE中，设置margin:0px可以去除列表的上下左右缩进、空白以及列表编号或圆点，设置padding对样式没有影响；</p>
+                <p>在 Firefox 中，设置margin:0px仅仅可以去除上下的空白，设置padding:0px后仅仅可以去掉左右缩进，还必须设置list- style:none才能去除列表编号或圆点。也就是说，在IE中仅仅设置margin:0px即可达到最终效果，而在Firefox中必须同时设置margin:0px、 padding:0px以及list-style:none三项才能达到最终效果。</p>
+            </section>
+        </section>
+        <section>
+           <section>
+               <h3>4.解决方案</h3>
+               <p>刚才我们用的都是比较通用的做法  那么用hack方法呢？</p>
+           </section>
+            <section>
+                <p>我们也可以看一下其他浏览器的识别符</p>
+                <p>Firefox: -moz-</p>
+                <p>Chrome、Safari: -webkit-</p>
+                <p>Opera: -o-</p>
+                <p>IE: -ms-</p>
+            </section>
+        </section>
+        <section>
+           <h3>编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.拓展思考</h3>
+            <section>
+                <p>还有其他的hack技巧吗吗？</p>
+            </section>
+            <section>
+                <p>1, ul 标签在 FF 下面默认有 list-style 和 padding . 最好事先声明, 以避免不必要的麻烦. (常见于导航标签和内容列表)</p>
+                <p>2, 若需给 a 标签内内容加上 样式, 需要设置 display: block;(常见于导航标签)</p>
+                <p>3, 关于手形光标. cursor: pointer. 而hand 只适用于 IE.</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="https://www.bbsmax.com/A/kvJ3eY3Odg/">css-hack</a></p>
+            <p><a href="https://www.bbsmax.com/A/n2d9Djno5D/">关于浏览器兼容及hack写法</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>大家遇到过哪些常见的兼容性问题，是怎么看待他们的呢？个人觉得 解决好兼容的问题还是挺麻烦的</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY :余佳贝</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [
+                {src: '../plugin/markdown/marked.js'},
+                {src: '../plugin/markdown/markdown.js'},
+                {src: '../plugin/notes/notes.js', async: true},
+                {
+                    src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+                }
+            ]
+        });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
