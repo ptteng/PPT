@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>什么时候用margin？什么时候用padding？</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【css-03】什么时候用Margin？什么时候用Padding？</h3>
+            <h3>小课堂【深圳301期】</h3>
+            <p>分享人：蓝裕伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                margin和padding是盒子模型的两个重要概念，这两个属性在进行页面布局的时候有很重要的作用。
+                要理解padding 和 margin ，首先要从盒子模型开始。</p>
+            <p style="text-align: left">
+                盒子模型由块级元素构成，也可以说成一个 block 元素是一个盒子。一个盒子模型有五个属性：
+                width、height、padding、border、margin。</p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">
+                   组成盒子模型的块级元素由content(内容),padding(内边距), border(边框), margin(外边距)四个部分组成</p>
+                <p style="text-align: left">
+                    其中padding 是内边距，就是内容content 与边框之间的距离。padding与内容包含在border内，padding有和内容区相同的背景是色。</p>
+                <p style="text-align: left">
+                    margin 是外边距，是边框border与其他元素间的距离，margin没有背景色，是透明的。</p>
+            </section>
+            <section>
+                <img src="http://img.smyhvae.com/20170727_2128.png?_=7256371" alt="">
+            </section>
+            <section>
+                <img src="../img/css-03-margin%20or%20padding/boxk.png">
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="font-size: 3rem;">基本语法</p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">margin(padding):10px;上下左右统一</p>
+                <p style="text-align: left">margin(padding):10px 5px;上下、左右</p>
+                <p style="text-align: left">margin(padding):10px 5px 15px;上、左右、下</p>
+                <p style="text-align: left">margin(padding):10px 5px 15px 20px;上、右、下、左</p>
+                <p style="text-align: left">
+                    可能取的值 <br>（1）length 规定具体单位记的内边距长度（2）% 基于父元素的宽度的内边距的长度（3）auto 浏览器计算内边距（4）inherit 规定应该从父元素继承内边距
+                    <br>浏览器兼容问题 <br>（1）所有浏览器都支持padding属性（2）任何版本IE都不支持属性值“inherit”</p>
+            </section>
+            <section>
+                <img src="../img/css-03-margin%20or%20padding/boxk2.png">
+                <img src="http://img.smyhvae.com/20170728_1100.png?_=7256371">margin(padding):40px 50px 30px 50px;
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <section>
+                <p style="font-size: 3rem" >什么时候用padding？什么时候用margin？</p>
+            </section>
+            <section>
+                <a href="../demo/css-03-margin%20or%20padding/demo.html">
+                    <img src="../img/css-03-margin%20or%20padding/demo.png" alt=""></a>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left">
+                margin是透明的,是用来隔开元素与元素的间距；padding是用来填充元素与内容的间隔。</p><br>
+            <p style="text-align: left">
+                margin在布局中用于分开元素使元素与元素的间距；padding用于元素与内容之间的填充，在不固定高度布局中，padding用来撑起元素高度。</p><br>
+        </section>
+        <section>
+            <p style="font-size: 3rem;">总结</p>
+            <p style="text-align: left">
+                使用margin的几种情况：
+                1.在border外侧添加空白。 空白处不需要背景。
+                2.用于上下相连的两个盒子之间的空白，需要相互抵消。需要用负值margin扩展盒子宽度。
+                3.用于block元素水平居中
+            </p>
+            <p style="text-align: left">
+                使用padding的几种情况：
+                1.border内侧与内容间添加空白。
+                2.不固定高度布局，用于撑起父元素高度
+                3.用于等比例自适应布局</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="http://localhost:49347/xiuzhen/demo.html?_ijt=srbrqjo4eis5t6p4hr5f7qssqu"><img src="../img/css-03-margin%20or%20padding/demo.png" alt=""></a>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>
+                什么是margin折叠？
+            </p>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <a style="display: block; text-align: left;" href="http://leepiao.blog.163.com/blog/static/485031302010427113653/">css中padding、margin属性的区别和详解  </a>
+                <a style="display: block; text-align: left;" href="http://www.hujuntao.com/web/css/css-margin-overlap.html">CSS 外边距(margin)重叠及防止方法</a>
+                <a style="display: block; text-align: left;" href="http://www.jianshu.com/p/549aaa5fabaa">margin为负值产生的影响和常见布局应用</a>
+                <a style="display: block; text-align: left;" href="http://www.cnblogs.com/smyhvae/p/7256371.html">css样式---盒子模型</a>
+                <a style="display: block; text-align: left;" href="http://www.zhangxinxu.com/wordpress/2017/08/css-percent-padding-image-layout/">CSS百分比padding实现比例固定图片自适应布局</a>
+            </section>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>
+                margin和padding还有哪些不同？
+            </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 陈璐瑶 | 景鑫 | 熊凡|蓝裕伟</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

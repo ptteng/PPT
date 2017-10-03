@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <link rel="stylesheet" href="../ppt-css.css">
+
+    <style>
+        p{
+            margin: 0 auto!important;
+            font-size: 30px!important;
+            letter-spacing: 2px;
+            line-height: 50px!important;
+            text-indent:2em;
+            text-align: left;
+        }
+        a{
+            color: #fff!important;
+        }
+        B{
+            text-align: center;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+
+            <h3>主题：如何理解JS中的call和apply？</h3>
+            分享人：张雪飞
+        </section>
+        <section style="line-height: 70px;">
+            目录<br>
+
+            1.背景介绍<br>
+
+            2.知识剖析<br>
+
+            3.常见问题<br>
+
+            4.解决方案<br>
+
+            5.编码实战<br>
+
+            6.扩展思考<br>
+
+            7.参考文献<br>
+
+            8.更多讨论<br>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>call 和 apply 都是为了改变某个函数运行时的 context 即上下文而存在的，换句话说，就是为了改变函数体内部 this 的指向。因为 JavaScript 的函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <B>2.1 apply:</B>
+                <p> 方法能劫持另外一个对象的方法，继承另外一个对象的属性.</p>
+                <p>Function.apply(obj,args)方法能接收两个参数</p>
+                <p>obj：这个对象将代替Function类里this对象</p>
+                <p>args：这个是数组，它将作为参数传给Function（args-->arguments）</p>
+            </section>
+            <section>
+                <B>2.2 call</B>
+                <P>和apply的意思一样,只不过是参数列表不一样</P>
+                <p> Function.call(obj,[param1[,param2[,…[,paramN]]]])</p>
+                <p>obj：这个对象将代替Function类里this对象</p>
+                <p>params：这个是一个参数列表</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <B>如何使用call和apply？</B>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section>
+                <p>call 和 apply 的作用基本类似， 都是去执行function并将这个function 的context替换成第一个参数带入。
+                    两者的不同是call 必须将function 的参数一一带入，而 apply  只要在第二个参数带入一个数列。</p>
+                <pre>
+                    <code>
+    function fn( arg1, arg2,... ){
+    // do something
+    }
+    fn( arg1, arg2,... );
+    fn.call( context, arg1, arg2,... );
+    fn.apply( context, [ arg1, arg2,... ]);
+                    </code>
+                </pre>
+
+            </section>
+            <section>
+                call 方法
+                调用一个对象的一个方法，以另一个对象替换当前对象。
+
+                call([thisObj[,arg1[, arg2[,   [,.argN]]]]])
+
+                参数
+                thisObj
+                可选项。将被用作当前对象的对象。
+
+                arg1, arg2,  , argN
+                可选项。将被传递方法参数序列。
+
+                说明
+                call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。
+
+                如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。
+            </section>
+            <section>
+                <pre>
+                    <code>
+
+var func=new function(){this.a="func"}
+var newfunc=function(x){
+    var a="newfunc";
+    alert(this.a);
+    alert(x);
+}
+newfunc.call(func,"inputParameter1");
+/*alert are
+ * func/inputParameter1; not newfunc/inputParameter1
+ */
+
+                </code>
+                </pre>
+                <p>从以上的例子可以看出， alert(this.a), 返回的是并不是当前函数里的值。
+                    使用call 执行的速度会稍微快一些， 不过差异不大。</p>
+            </section>
+            <section>
+                <p>demo1：</p>
+                <pre>
+                    <code>
+    /*定义一个人类*/
+    function Person(name,age)
+    {
+        this.name=name;
+        this.age=age;
+    }
+    /*定义一个学生类*/
+    function Student(name,age,grade)
+    {
+        Person.apply(this,arguments);
+        //Person.call(this,name,age);
+        this.grade=grade;
+    }
+    //创建一个学生类
+    var student=new Student("zhangsan",21,"一年级");
+    //测试
+    alert("name:"+student.name+"\n"+"age:"+student.age+"\n"+"grade:"+student.grade);
+    //大家可以看到测试结果name:zhangsan age:21  grade:一年级
+    //学生类里面我没有给name和age属性赋值啊,为什么又存在这两个属性的值呢,这个就是apply的神奇之处.
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>Person.apply(this,arguments);</p>
+                <p>this:在创建对象在这个时候代表的是student；</p>
+                <p>arguments:是一个数组,也就是[“zhangsan”,”21”,”一年级”];</p>
+                <p>也就是通俗一点讲就是:用student去执行Person这个类里面的内容,在Person这个类里面存在this.name等之类的语句,这样就将属性创建到了student对象里面</p>
+            </section>
+            <section>
+                <B>demo2</B>
+                <pre>
+                    <code>
+    function Animal(){
+        this.name = "Animal";
+        this.showName = function(){
+            alert(this.name);
+        }
+    }
+
+    function Cat(){
+        this.name = "Cat";
+    }
+
+    var animal = new Animal();
+    var cat = new Cat();
+
+    //通过call或apply方法，将原本属于Animal对象的showName()方法交给对象cat来使用了。
+    //输入结果为"Cat"
+    animal.showName.call(cat,",");
+    //animal.showName.apply(cat,[]);
+                    </code>
+                </pre>
+                <p>call 的意思是把 animal 的方法放到cat上执行，原来cat是没有showName() 方法，现在是把animal 的showName()方法放到 cat上来执行，所以this.name 应该是 Cat</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <B>call()和apply()两种方法的区别？</B>
+            </section>
+            <section>
+                <P>相同点:两个方法产生的作用是完全一样的</P>
+                <p>不同点:方法传递的参数不同</p>
+                <p>call()接受的是一个参数列表，而apply()接受一个参数数组。</p>
+                <p>func.call(this, arg1, arg2);</p>
+                <p>func.apply(this, [arg1, arg2])</p>
+                <p>其中 this 是你想指定的上下文，他可以是任何一个 JavaScript 对象(JavaScript 中一切皆对象)，call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里。因此要说适用条件的话，当你的参数是明确知道数量时用 call 。 而不确定的时候用 apply，然后把参数 push 进数组传递进去。</p>
+            </section>
+            <section>
+                <p>举个小栗子来区别call和apply</p>
+                <p>获取数组中的最大值和最小值</p>
+                <pre>
+                    <code>
+                        var  numbers = [5, 458 , 120 , -215 ];
+                        Math.max.apply(Math, numbers);
+                        Math.max.call(Math,5, 458 , 120 , -215);
+                    </code>
+                </pre>
+
+
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                    <p>参考一：<a href="http://rangercyh.blog.51cto.com/1444712/1615809" target="_blank">js中bind、call、apply函数的用法</a></p>
+                <p>参考二：<a href="http://blog.csdn.net/myhahaxiao/article/details/6952321" target="_blank">Js apply 方法 详解</a></p>
+
+                <p>参考三：<a href="http://www.cnblogs.com/libin-1/p/5823025.html">Javascript中call，apply，bind方法的详解与总结</a></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>1.什么情况下用apply,什么情况下用call？</p>
+                <p>2.还有哪些和call，apply类似的方法？</p>
+                <p>3.js 里函数调用除了apply/call 调用还有哪些？</p>
+            </section>
+            <section>
+                <p>1.什么情况下用apply,什么情况下用call？</p>
+                <p>调用一些无法直接调用的使用apply,其它的使用call</p>
+            </section>
+            <section>
+                <p>2.还有哪些和call，apply类似的方法？</p>
+                <p>还有bind方法，来切换/固定this的指向。</p>
+                <p>　bind方法用于指定函数内部的this指向（执行时所在的作用域），然后返回一个新函数。bind方法并非立即执行一个函数。</p>
+
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        var keith = {
+                             a: 1,
+                             count: function() {
+                                 console.log(this.a++);
+                             }
+                         };
+
+                         keith.count(); //1
+                         keith.count(); //2
+                         keith.count(); //3
+                    </code>
+                </pre>
+                <p>　上面代码中，如果this.a指向keith对象内部的a属性，如果这个方法赋值给另外一个变量，调用时就会出错。</p>
+                </section>
+            <section>
+                <per>
+                    <code>
+                         var f = keith.count.bind(keith);
+                         f(); //1
+                         f(); //2
+                         f(); //3
+                         keith.count.bind(keith)() //1
+                         keith.count.bind(keith)() //2
+                         keith.count.bind(keith)(
+                    </code>
+                </per>
+                <p>this也可以绑定到其他对象上。</p>
+
+            </section>
+            <section>
+                <per>
+                    <code>
+                        var obj = {
+                                 a: 100
+                             };
+                             var f = keith.count.bind(obj);
+                             f(); //100
+                             f(); //101
+                             f(); //10
+                    </code>
+                </per>
+                <p>给bind方法传递参数，第一个参数如果为null或者undefined或者this，会将函数内部的this对象指向全局环境；
+                    第二个为调用时需要的参数，并且传递参数的形式与call方法相同。</p>
+            </section>
+            <section>
+                <per>
+                    <code>
+                        function keith(a, b) {
+                                return a + b;
+                            }
+                            console.log(keith.apply(null,[1,4])); //5
+                            console.log(keith.call(null,1,4)); //5
+                            console.log(keith.bind(null, 1, 4)); //keith()
+                            console.log(keith.bind(null, 1, 4)()); /
+                    </code>
+                </per>
+                <p>可以看出call，apply，bind三者的区别：call和apply方法都是在调用之后立即执行的。
+                    而bind调用之后是返回原函数，需要再调用一次才行.</p>
+            </section>
+                <section>
+                <pre>
+                    <code>
+                         var keith = {
+                              a: 1,
+                              count: function() {
+                                  console.log(this.a++);
+                              }
+                          };
+                          var f = keith.count;
+                          f();
+                    </code>
+                </pre>
+                <p>上面代码中，如果把count方法赋值给f变量，那么this对象指向不再是keith对象了，而是window对象。
+                    而window.a默认为undefined，进行递增运算之后undefined++就等于NaN。
+                    　　为了解决这个问题，可以使用bind方法，将keith对象里的this绑定到keith对象上，或者是直接调用。</p>
+            </section>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <h4>感谢大家观看</h4>
+            <small>BY: 陈中彬</small>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

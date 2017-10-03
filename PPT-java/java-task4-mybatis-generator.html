@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>数据库逆向生成代码</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：姚远</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+			<section>
+            <p>做项目必然要先进行数据库表设计，然后根据数据库设计建立实体类，这是理所当然的。</p>
+			<p>但是一般公司里做项目时，没有说既进行完数据库设计后还要再“自己”建立一遍实体类</p>
+			<p>意思是，在项目设计时，要么根据需求分析建立实体类，由正向生成数据库表；要么就先进行数据库表设计，再逆向生成实体类。没有说进行完任意一方的设计后再去花时间去自己匹配建立另一方的设计。</p>
+			</section>
+			
+			<section>
+			<p>原因：</p>
+			<p>1、2倍工作量，浪费时间。（时间对公司来说很重要）</p>
+			<p>2、无法保证两边映射一致。因为两边都是自己设计的，那么就需要人为保证映射关系统一，会有隐患。</p>
+			<p>3、开发、维护上都不利。因为如果任意一方因某些原因需要改用，那么经常要两边都要改，这样的话映射不一致的可能性不仅更大，而且效率低下。而如果利用正逆向工程的话，则很容易解决。</p>
+			</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+            <p>MyBatis Generator (MBG)是一个专门为Mybatis和iBATIS写的代码生成器。它可以为所有版本的Mybatis和2.2.0之后版本的iBATIS生成代码。</p>
+			<p>MBG可以生成一些简单的CRUD的数据库操作，但稍微复杂的sql仍需要自己写</p>
+			<p></p>
+			<p></p>
+			<p></p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+		<p>MBG都生成了些什么？</p>
+        <p></p>
+		<p></p>
+		</section>
+		
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		<section>
+            <p>Java Pojo</p>
+			<p>匹配的主键的类</p>
+			<p>匹配非主键字段的类（除了BLOB字段）</p>
+			<p>匹配BLOB字段的类</p>
+			<p>用来处理动态SELECT,DELETE,UPDATE的类</p>
+		</section>
+		
+		<section>
+		<p>XML文件</p>
+        <p>insert</p>
+		<p>update by primary key</p>
+		<p>update by example (using a dynamic where clause)</p>
+		<p>delete by primary key</p>
+		<p>delete by example (using a dynamic where clause)</p>
+		<p>select by primary key</p>
+		<p>select by example (using a dynamic where clause)</p>
+		<p>count by example</p>
+		</section>
+	
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+		
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>其他的框架，例如hibernate怎么使用代码逆向生成？</p>
+        </section>
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.mybatis.org/generator/quickstart.html</p>
+		
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+			<p>有什么问题吗？</p>
+		</section>		
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 姚远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

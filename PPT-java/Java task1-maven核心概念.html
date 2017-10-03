@@ -1,0 +1,195 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Clean,Install,Package,Deploy的区别</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>maven的用途：</p>
+            <p>
+            1.maven是一个项目构建和管理的工具，提供了帮助管理构建、文档、报告、依赖、scms、发布、分发的方法。可以方便的编译代码、进行依赖管理、管理二进制库等等。
+            </p>
+            <p>2.maven的好处在于可以将项目过程规范化、自动化、高效化以及强大的可扩展性</p>
+            <p>3.利用maven自身及其插件还可以获得代码检查报告、单元测试覆盖率、实现持续集成等等</p>
+        </section>
+        <section>
+            <p>maven的核心概念介绍</p>
+            <p>1.Pom</p>
+            <p>2.Artifact</p>
+            <p>3.Repositories</p>
+            <p>4.Build Lifecycle</p>
+            <p>5.Goal</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                maven的生命周期
+            </p>
+            <p>1.maven的生命周期就是对所有构建过程抽象与统一</p>
+            <p>2.生命周期包含项目的清理、初始化、编译、测试、打包、集成测试、验证、部署、站点生成等几乎所有的过程</p>
+            <p>3.maven有三套相互独立的生命周期，而初学者一般都会将maven的生命周期看成一个整体</p>
+        </section>
+        <section>
+            <p>CleanLifecycle（清理生命周期）: 在进行真正的构建之前进行一些清理工作</p>
+            <p>(1)pre-clean:执行一些需要在clean之前完成的工作</p>
+            <p>(2)clean:移除所有上一次构建生成的文件</p>
+            <p>(3)post-clean:执行一些需要在clean之后立刻完成的工作</p>
+        </section>
+        <section>
+            <p>DefaultLifecycle（部署生命周期）构建的核心部分，编译，测试，打包，部署等等。</p>
+            <p>(1)compile:编译项目的源代码</p>
+            <p>(2)test:使用合适的单元测试框架运行测试。</p>
+            <p>(3)package:将编译好的代码打包成可分发的格式，如JAR，WAR，或者EAR</p>
+            <p>(4)install:安装包至本地仓库，以备本地的其它项目作为依赖使用</p>
+            <p>(5)deploy:复制最终的包至远程仓库，共享给其它开发人员和项目</p>
+        </section>
+        <section>
+            <p>SiteLifecycle（生成生命周期）生成项目报告，站点，发布站点。</p>
+            <p>(1)pre-site:执行一些需要在生成站点文档之前完成的工作</p>
+            <p>(2)site:生成项目的站点文档</p>
+            <p>(3)post-site:执行一些需要在生成站点文档之后完成的工作，并且为部署做准备</p>
+            <p>(4)site-deploy:将生成的站点文档部署到特定的服务器上</p>
+        </section>
+        <section>
+            <img src="/Users/guoweijie/Desktop/Lifecycle.png" width="783" height="636" >
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.maven package install deploy区别</p>
+			<p>2:mvn clean install 与 mvn install 的区别</p>
+            
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>1.maven package：打包（jar等）到本项目的target下</p>
+            <p>maven install：把target下打的包（jar等）安装到本地仓库，可以供其他项目使用</p>
+            <p>maven deploy：将打包的文件发布到远程参考,提供其他人员进行下载依赖</p>
+        </section>
+        <section>
+            <p>2.用mvn install后，新改的内容不生效，一定要后来使用mvn clean install 才生效</p>
+            <p>maven在执行一个生命周期的命令的是时候将会执行之前的所有生命周期操作，比如执行mvn install，会执行前面一系列的动作包括 compile , package , test 等</p>
+            <p>而执行mvn package 会调用 maven-jar-plugin 这个插件进行打包</p>
+            <p>
+            理论上来讲不做mvn clean得到的jar包应该是最新的,然而在打包结束后修改了代码内容，导致打出来的jar包没有更新，从而没有生效
+            </p>
+            <p>所以使用mvn clean install对target文件清除后再进行打包</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>有时候会根据需求，要跳过某些阶段。比如有时在打包过程中由于单元测试中任何一条没通过，maven就会终止后续的工作，所以这个时候我们需要跳过测试阶段</p>
+            <P></P>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.trinea.cn/android/maven/" target="_blank">http://www.trinea.cn/android/maven/</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/moshenglv/article/details/52027085" target="_blank">http://blog.csdn.net/moshenglv/article/details/52027085</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭伟杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

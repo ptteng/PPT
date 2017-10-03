@@ -1,0 +1,220 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>查询SELECT * 弊端分析</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：杜腾飞</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>先介绍下背景</p>
+			<p> “数据库” ---起源于 20 世经 90 年代，当时美国为了战争的需要，把各种情报收集在一起，存储隐藏在计算机内，叫做 Data Base(DB)现在，一切活动都离不开数据。</p>
+			<p>“SQL” ----是用于访问和处理数据库的标准的计算机语言，简称结构化查询语言</p>
+			<p>“SELECT 语句”----用于从表中选取数据，结果被存储在一个结果表中（称为结果集）。</p>
+			</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+				<section>
+            <p>Mysql执行查询的原理</p>
+				</section>
+					<section>
+            <p>客户端发送一条查询给服务器</p>
+			 <p>服务器先检查查询缓存，如果命中了缓存，则立刻返回存储在缓存中的结果。否则进入下一阶段;</p>
+			  <p>服务器端进行SQL解析，预处理，再由优化器生成对应的执行计划；</p>
+			   <p>MySql根据优化器生成的执行计划，调用存储引擎的API执行查询;</p> 
+			   <p>返回结果给客户端</p>
+			    <p></p>
+				 <p></p> 
+				 <p></p>
+				 
+				</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        
+		<section>
+            <p>select * 为什么会降低查询效率？</p>
+			</section>
+		<section>
+             <p>获取数据&传输结果</p>
+        </section>
+		
+        <section>
+		 <p>分析原因</p>
+			</section>			
+		<section>
+		<p>1，数据库需要知道*等于什么，查数据字典（进行数据库设计的时候，对数据库元素进行的解释说明），这在分析阶段就会增大开销。</p>
+		 <p>2，select *最大的问题是可能会多出一些不用的列，这就杜绝了索引覆盖的可能性，导致查询的成本几何级增高（索引覆盖：就是select的数据列只用从索引中就能够取得，不必从数据表中读取，换句话说查询列要被所使用的索引覆盖。）</p> 
+				   <p></p>
+				   
+        </section>
+
+		 <section>
+		<p>3，网络开销，不需要的字段会增加数据传输的时间，在本地客户端连的是本地mysql服务器，TCP协议传输数据会增加额外的时间；数据量越大这种这种劣势就会越明显；如果db和客户端不在同一台机器，那这种开销就更加明显 </p>
+		 <p>4，mysql拿到一条命令，会去解析命令、优化查询，然后去存储引擎执行查找，
+               Select*数据库会解析更多的 对象，字段，权限，属性相关，在 SQL 语句复杂，会对数据库造成沉重的负担。</p>
+					 <p></p> 
+				   
+        </section>
+			 
+			 
+	    <section>
+		<p>5，从另外一个角度来看；当查询进行的时候，多取了不必要的列，数据字段比较多，mysql并不是把所有结果全部得到后再进行一次性保存，而是每次分配一块大小的内存空间保存结果集，使用完后，接着再分配一个这样的块，如果还不不够，接着再分配一个块，依此类推，也就是说，有可能在一次查询中mysqI要进行多次内存分配的操作，频繁操作内存都是要耗费时间的。</p>
+		<p>6，原则上讲作为有着良好编程习惯的程序员，也不应该获取自己不需要的东西，若是执行select*，以后表结构修改了，如原表加减了某些列，对代码影响也很大。</p>
+        </section>
+		
+        <section>
+	    7，当然，若是你想在select出所有的column时,倒是一个方便的方法，毫无疑问！
+        </section>  
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+        <section>
+		 <p>NO；优秀的程序猿，不会获取自己不需要的东西。</p>
+			</section>	
+		
+
+        <section>
+            <h3>5.编码实战</h3>
+		</section>
+
+        <section>
+        <p>navicat for mysql</p>
+        </section>
+
+        <section>
+		<p>查看时间论证结论</p>
+        <img src="">
+		<img src="">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>缓存机制</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+<p>1，http://www.cnblogs.com/xinye/p/3823461.html
+      https://www.zhihu.com/question/37777220</p>
+<p>2，http://www.cnblogs.com/xinye/p/3823461.html</p>
+<p>3，http://bbs.csdn.net/topics/390302591?page=1#post-393091122</p>
+
+<p>4，http://blog.csdn.net/wujizkm/article/details/50497642</p>
+
+<p>5，http://blog.csdn.net/beauty_1991/article/details/51160072</p>
+
+<p>6，http://blog.csdn.net/li563868273/article/details/51254907</p>
+			
+		
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            
+        </section>
+
+		<section>
+        
+            <p>唯一索引</p>
+        </section>
+        
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : Bigdudada</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
