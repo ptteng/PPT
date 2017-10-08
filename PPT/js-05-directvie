@@ -1,0 +1,243 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>
+                Angular Component组件介绍
+            </h2>
+            <p>分享人：郭婷婷</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: center;">
+            <p style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+                在angular1.5的版本之前，都是以directive作为组件化的形式，所以根据官网任务的设置和目前的学习进度，
+                今天给大家主要介绍一下directive（指令）。
+            </p>
+            <p style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+            Directive（指令）是AngularJS中非常强大而有用的功能之一。它就相当于为我们写了公共的自定义DOM元素或CLASS属性或ATTR属性，并且它不只是单单如此，
+                你还可以在它的基础上来操作scope、绑定事件、更改样式等。通过这个Directive，我们可以封装很多公共指令，比如分页指令、自动补全指令等等。
+                然后在HTML页面里只需要简单的写一行代码就可以实现很多强大的功能。一般情况下，需要用Directive有下面的情景：<br/>
+            1. 使你的Html更具语义化，不需要深入研究代码和逻辑即可知道页面的大致逻辑。<br/>
+            2. 抽象一个自定义组件，在其他地方进行重用。
+            </p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section >
+            <section style="text-align: center">
+                <h4>Directive的定义</h4>
+                <pre>
+                <code>
+                    angular.module("app",[]).directive("helloWorld",function(){
+                        return{
+                         //通过设置项来定义
+                         };
+                    })
+                </code>
+                </pre>
+                <p style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+                directive()方法接收两个参数：第一个参数为指令名称，采用驼峰式命名法；
+                第二个为指令定义方法，需要返回一个对象（称为指令定义对象DDO），用于描述指令的特征及指令对应的处理逻辑。
+                我们可以向指令定义方法中注入一些依赖，例如$http、$rootScope等。
+                </p>
+            </section>
+            <section>
+                <div style="overflow-y: auto;height:500px;">
+                    <p style="text-align: left;text-indent: 60px;font-size: 27px;line-height: 60px;">
+                        当指令名称采用驼峰式命名法后，在指令使用时可以使用“-”或者“：”将多个单词隔开，例如
+                        上面自定义的helloWorld指令使用方法可以为：
+                    </p>
+                    <pre>
+                        <code>
+                            <hello-world></hello-world>
+                            <hello:world></hello:world>
+                            <span hello-world></span>
+                            <span hello:world></span>
+                        </code>
+                    </pre>
+                    <p style="text-align: left;text-indent: 60px;font-size: 27px;line-height: 60px;">
+                        为了符合HTML5命名规范，可以在指令名称前加上“x-”或“data-”，例如：
+                    </p>
+                    <pre>
+                        <code>
+                             <x-hello-world></x-hello-world>
+                             <data-hello-world></data-hello-world>
+                        </code>
+                    </pre>
+                    <p style="text-align: left;text-indent: 60px;font-size: 27px;line-height: 60px;">
+                        当AngularJS框架匹配到自定义指令时，会自动将指令前缀“-x”或“data-”去除，
+                        并将指令名称中的“-”或者“：”分隔符去掉，转换为驼峰式命名。
+                    </p>
+                </div>
+            </section>
+
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h4 style="text-align: center">Directive的使用方法</h4>
+
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section style="overflow-y: auto;font-size: 25px">
+                <p style="text-align: left;font-size: 30px;line-height: 60px;">
+                </p>
+                <ul>
+                    <ol>restrict属性，（字符串）可选参数，该属性用于约束我们自定义的指令可以以什么形式出现；
+                        取值有：E(元素),A(属性),C(类),M(注释)，其中默认值为A；这些标志可以组合一起用，比如EA.表示即可以是元素也可以是属性。</ol>
+                    <pre>
+                        <code>
+                            <hello-world></hello-world>
+                            <div hello-world></div>
+                            <div class="hello-world"></div>
+                            <!--hello-world-->
+                        </code>
+                    </pre>
+                    <ol>
+                        replace属性：（布尔值），默认值为false，该属性用于指定是否使用template属性定义的HTML模板内容替换指令所在的HTML元素。
+                    </ol>
+                    <ol>
+                        template属性：该属性用于指定AngularJS指令被替换成的HTML模板
+                    </ol>
+                    <ol>
+                        templateUrl属性：指定一个HTML文件作为指令模板，效果和template属性一致。
+                    </ol>
+                </ul>
+
+            </section>
+
+
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+            </section>
+
+            <section style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+               指令定义对象的属性template属性可指定AngularJS指令被替换成的HTML模板，在HTML模板中如何使用AngularJS表达式。
+
+            </section>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考1：<a href="http://www.jb51.net/article/83051.htm">学习AngularJs:Directive指令用法</a></p>
+            <p>参考2：《AgularJS入门与进阶》</p>
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭婷婷</small></p>
+        </section>
+
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
