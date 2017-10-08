@@ -6,8 +6,8 @@
 require.config({
     paths: {
         "jquery": "node_modules/jquery/dist/jquery.min",
-        "math": "math",
-        "math2": "math2",
+        // "math": "math",
+        // "math2": "math2",
     }
 })
 
