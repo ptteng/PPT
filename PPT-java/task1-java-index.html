@@ -1,0 +1,214 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>PRIMARY KEY & UNIQUE（主键、唯一索引）</h3>
+            <p>小课堂</p>
+            <h3></h3>
+            <p>分享人：李会强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+        <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>概念</p>
+            索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。
+            MySQL索引的建立对于MySQL的高效运行是很重要的，索引可以大大提高MySQL的检索速度。
+            不建立索引的话，MySQL执行查询会从数据表的第一行开始查直到查询想要的数据结果。
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>索引的分类--单列来区分</p>
+            <p>1.普通索引--这是最基本的索引，它没有任何限制</p>
+            <p>2.唯一索引--索引列的值必须唯一，但允许有空值;如果是组合索引，则列值的组合必须唯一</p>
+            <p>3.主键索引--列值唯一，非空，一个数据表只能有一个主键</p>
+        </section>
+        <section>
+            <p>4.组合索引：将数据表中多个列建到一个索引中，MySQL组合索引遵循“最左前缀”原则，
+                就是说你的查询条件语句里必选包含组合索引第列的值才能使用
+                改组合索引，例如在某个数据表中为user,name,age三个列建立组合索引，
+                查询语句里必须有where user*才会调用这个索引。
+            </p>
+        </section>
+        <section>
+            <p>索引的分类（存储结构）（InnoDB）</p>
+            <p>B-tree</p>
+            <p>mysql数据库中主键、唯一、普通、全文都是采用b-tree数据结构 </p>
+            <p>在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，
+                这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，
+                因此InnoDB表数据文件本身就是主索引，InooDB必须要求主键，没有显示声明，系统会默认添加</p>
+            <p>除了主键索，其它都是辅助索引，辅助索引也会包含主键列，因此主键列最好不要设置太大的列值
+            因为是聚簇索引方式，聚簇索引的顺序就是数据的物理存储顺序，叶节点就是数据节点。主键最好是单调的。
+            </p>
+
+
+        </section>
+        <section>
+            <p>hash索引</p>
+            <p>简单地说，哈希索引就是采用一定的哈希算法，把键值换算成新的哈希值，检索时不需要类似B树那样从根节点到叶子节点逐级查找，
+                只需一次哈希算法即可立刻定位到相应的位置，速度非常快</p>
+        </section>
+        <section>
+            <p>
+                如果是等值查询，那么哈希索引明显有绝对优势，
+                因为只需要经过一次算法即可找到相应的键值；
+                当然了，这个前提是，键值都是唯一的。如果键值不是唯一的，就需要先找到该键所在位置，然后再根据链表往后扫描，直到找到相应的数据；
+                在大多数场景下，都会有范围查询、排序、分组等查询特征，用B+树索引就可以了。
+            </p>
+        </section>
+        <section>
+            1.可以通过建立唯一索引或者主键索引,保证数据库表中每一行数据的唯一性.<br>
+            2.建立索引可以大大提高检索的数据,以及减少表的检索行数<br>
+            3.在表连接的连接条件 可以加速表与表直接的相连<br>
+            4.在分组和排序字句进行数据检索,可以减少查询时间中 分组 和 排序时所消耗的时间(数据库的记录会重新排序)<br/>
+            5.建立索引,在查询中使用索引 可以提高性能<br/>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        <p>1.索引可以提高查询效率，数据表每个列都建索引,这样可行吗？</p>
+        </section>
+
+        <section>
+        <p  align="left">
+            1.在创建索引和维护索引 会耗费时间,随着数据量的增加而增加<br>
+            2.索引文件会占用物理空间,除了数据表需要占用物理空间之外,每一个索引还会占用一定的物理空间<br>
+            3.当对表的数据进行 INSERT,UPDATE,DELETE 的时候,索引也要动态的维护,
+            这样就会降低数据的维护速度,(建立索引会占用磁盘空间的索引文件。
+            一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快)。
+        </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>建索引的几点原则 </p><br>
+            <p align="left">
+                1.在经常需要搜索的列上,可以加快索引的速度<br/>
+                2.主键列上可以确保列的唯一<br/>
+                3.在经常需要排序(order by),分组(group by)和的distinct 列上加索引 可以加快排序查询的时间<br/>
+                4.在一些where 之后的 < <= > >= BETWEEN IN 以及某个情况下的like 建立字段的索引(B-TREE)<br/>
+                5.选择越小的数据类型越好,因为通常越小的数据类型通常在磁盘,内存,cpu,缓存中 占用的空间很少,处理起来更快<br>
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        <p >
+            1.什么情况不要建索引？
+        </p>
+        </section>
+        <section>
+            <p align="left">
+                1.查询中很少使用到的列 不应该创建索引,如果建立了索引然而还会降低mysql的性能和增大了空间需求.<br/>
+                2.很少数据的列也不应该建立索引,比如 一个性别字段 0或者1,在查询中,结果集的数据占了表中数据行的比例比较大,mysql需要扫描的行数很多,增加索引,并不能提高效率<br/>
+                3.当表的修改(UPDATE,INSERT,DELETE)操作远远大于检索(SELECT)操作时不应该创建索引,这两个操作是互斥的关系</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="http://blog.csdn.net/u010003835/article/details/51563348" target="_blank">1. 由浅入深理解索引的实现</a><br/>
+            <a href="http://www.cnblogs.com/heiming/p/5865101.html" target="_blank">2.MySql数据库索引原理</a>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>如何合理使用索引？</p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+   a();
+    function a(x){//arguments赋值完成，由于没有实参，于是arguments参数列表为空。
+        // 同时判断关联信息，显然形参有，arguments空，两者相互独立，以后都不会再关联
+        var x = 3;//x赋值为3，x与arguments[0]相互独立，arguments[0]还是为undefined
+        console.log(x,arguments[0]);//打印x=3，arguments[0]为undefined
+        arguments[0] = 2;//arguments被赋值，x与arguments[0]相互独立。因此x=3不改变
+        console.log(x,arguments[0]);//打印x = 3，arguments[0]=2
+    }
+
+
+   b(1);
+   function b(x){//arguments赋值完成，arguments[0]=1。同时形参x有值，两者相关联，永结同心。
+       var x = 3;//x赋值为3，x与arguments[0]关联，于是arguments[0]被赋值为3，。
+       console.log(x,arguments[0]);//打印x=3，arguments[0] = 3
+       arguments[0] = 2;//arguments[0]被赋值2，由于x与arguments[0]已经关联到一起，于是x同时改变
+       console.log(x,arguments[0]);//打印x = 2，arguments[0]=2
+   }
+
+
+   c();
+   function c(x){//不关联
+       arguments[0] = 2;//找不到对应的x(undefined),相互独立
+       console.log(x,arguments[0]);//undefined，2
+       x = 3;//相互独立，快照。虽然arguments动态添加了，老死不相往来，所以依旧失败
+       console.log(x,arguments[0]);//3,2
+   }
+
+   d(1);
+   function d(x){
+       arguments[0] = 2;//关联
+       console.log(x,arguments[0]);//2，2
+       x = 3;//关联
+       console.log(x,arguments[0]);//3,3
+   }
+</script>
+</body>
+</html>

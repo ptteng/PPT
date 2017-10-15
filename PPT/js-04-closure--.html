@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+    <script src="../../WebstormProjects/test/test.js"></script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.936);">
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>闭包是什么？用处如何? </h3>
+            <p>分享人：马靖哲</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+
+        <section hidden="" aria-hidden="true" class="stack past" style="top: 330px; display: none;">
+            <section style="top: 330px; display: none;">
+                <h2>1.背景介绍</h2>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        闭包是指有权访问另一个函数作用域中的变量的函数。<br>
+                        创建闭包的常见方式，就是在一个函数内部创建另一个函数。<br>
+                    </p>
+                </div>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。
+
+                        JS函数的执行依赖于变量作用域， 函数对象的内部状态包含函数自身的逻辑，还必须引用当前的作用域链。 函数对象可以相互关联起来，函数体内部的变量可以保存在函数作用域内， 具有这种特性的函数称为闭包。
+                    </p>
+                </div>
+            </section>
+        </section>
+
+
+        <section hidden="" aria-hidden="true" class="stack past" style="top: 0px; display: block;">
+            <section style="top: 267px; display: block;">
+                <h3>2.知识剖析</h3>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <h4>2.1</h4>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="0">
+                    闭包可以用在许多地方。它的最大用处有两个：<br><br>
+
+                    1.可以读取函数内部的变量<br><br>
+
+                    2.让这些变量的值始终保存在内存中
+                </p>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <h4>2.2</h4>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="0">
+                    变量的作用域<br><br>
+
+                    变量的作用域无非就是两种：全局变量和局部变量。
+                </p>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="1">
+                    Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。
+                </p>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="2">
+                    值得注意的是在局部变量中定义变量的时候要使用var ,不然你声明的其实是一个全局变量
+                </p>
+            </section>
+            <section class="future" aria-hidden="true" hidden="" style="top: 123px; display: block;">
+                <div class="fragment" data-fragment-index="0">
+                    <pre><code class="hljs armasm">
+                        <span class="hljs-meta">function</span> <span class="hljs-built_in">f1</span>(){
+        　　　　            var x<span class="hljs-number">=666</span><span class="hljs-comment">;</span>
+        　　　　            <span class="hljs-meta">function</span> <span class="hljs-built_in">f2</span>(){
+        　　　　　　              alert(x)<span class="hljs-comment">; // 666</span>
+        　　　　            }
+        　　          }
+        在上面的代码中，函数<span class="hljs-built_in">f2</span>就被包括在函数<span class="hljs-built_in">f1</span>内部，
+        这时<span class="hljs-built_in">f1</span>内部的所有局部变量，对<span class="hljs-built_in">f2</span>都是可见的。
+        但是反过来就不行，<span class="hljs-built_in">f2</span>内部的局部变量，对<span class="hljs-built_in">f1</span>就是不可见的。
+        这就是Javascript语言特有的<span class="hljs-string">"作用域链"</span>结构（chain scope），
+        子对象会一级一级地向上寻找所有父对象的变量。
+        所以，父对象的所有变量，对子对象都是可见的，反之则不成立。
+                    </code></pre>
+
+                </div>
+            </section>
+
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <p style="text-align: left">读取函数内部的变量的例子：</p>
+                <pre>            <code class="hljs nimrod">
+                    /*使用闭包读取函数内部的变量*/
+                    function f1(){
+                        var x = <span class="hljs-number">666</span>;
+                        function f2(){
+                            alert(x);
+                        }
+                        <span class="hljs-keyword">return</span> f2;
+                    }
+                    var <span class="hljs-literal">result</span> = f1();
+                    <span class="hljs-literal">result</span>(); //<span class="hljs-number">666</span>
+            </code>
+            </pre>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <h4></h4>
+                <p>
+                    在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的"链式作用域"结构（chain
+                    scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们就可以在f1外部读取它的内部变量了
+                </p>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <p style="text-align: left">变量的值始终保存在内存的例子：</p>
+                <pre>            <code class="hljs php">
+    function f1(){
+　　　　var n=999;
+　　　　nAdd=function(){n+=1}
+　　　　function f2(){
+　　　　　　alert(n);
+　　　　}
+　　　　return f2;
+　　}
+　　var result=f1();
+　　result(); // 999
+　　nAdd();
+　　result(); // 1000
+            </code>
+            </pre>
+            </section>
+            <section class="future" aria-hidden="true" style="top: 330px; display: none;">
+                <p style="text-align: left;text-indent: 2rem">
+                    在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。因为f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被
+                    <a href="http://eatpockyboy.blog.163.com/blog/static/1167346402011321423929/" target="_blank">垃圾回收机制（garbage
+                        collection）</a>回收。这段代码中另一个值得注意的地方，就是"nAdd=function(){n+=1}"这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个
+                    <a href="http://www.itxueyuan.org/view/6314.html" target="_blank">匿名函数（anonymous function）</a>，而这个匿名函数本身也是一个闭包，所以可以在函数外部对函数内部的局部变量进行操作。
+                </p>
+            </section>
+        </section>
+
+
+        <section hidden="" aria-hidden="true" class="stack past" style="top: 0px; display: block;">
+            <section style="top: 267px; display: block;">
+                <h3>3.常见问题</h3>
+            </section>
+            <section class="" style="top: 0px; display: block;" aria-hidden="true">
+                <pre><code class="hljs actionscript">
+                <span class="hljs-keyword">var</span> name = <span class="hljs-string">"The Window"</span>;
+　　<span class="hljs-keyword">var</span> object = {
+　　　　name : <span class="hljs-string">"My Object"</span>,
+　　　　getNameFunc : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+　　　　　　};
+　　　　}
+　　};
+　　alert(object.getNameFunc()());
+                    </code></pre>
+
+                <pre><code class="hljs actionscript">
+               <span class="hljs-keyword">var</span> name = <span class="hljs-string">"The Window"</span>;
+　　<span class="hljs-keyword">var</span> object = {
+　　　　name : <span class="hljs-string">"My Object"</span>,
+　　　　getNameFunc : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　<span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　　　<span class="hljs-keyword">return</span> that.name;
+　　　　　　};
+　　　　}
+　　};
+　　alert(object.getNameFunc()());
+                    </code></pre>
+
+            </section>
+        </section>
+        </section>
+
+
+        <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="1">
+            <section class="past" style="top: 267px; display: block;" hidden="" aria-hidden="true">
+                <h3>4.解决方案</h3>
+            </section>
+
+            <section class="future" aria-hidden="true" hidden="" style="top: 99px; display: block;">
+
+
+            </section>
+        </section>
+
+
+        <section class="stack future" style="top: 0px; display: block;" data-previous-indexv="2" hidden="" aria-hidden="true">
+            <section class="past" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+
+
+
+
+        <section class="stack future" style="top: 0px; display: block;" data-previous-indexv="2" hidden="" aria-hidden="true">
+            <section class="past" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>6.扩展思考</h3>
+            </section>
+            <section class="past" style="top: 124.5px; display: none;" hidden="" aria-hidden="true">
+            <pre>            <code class="hljs javascript">
+                <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                    <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"id"</span>);
+                    el.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                        alert(el.id);
+                    }
+                }
+            </code>
+            </pre>
+                <p>
+                    这段代码为什么会造成内存泄露？
+                </p>
+            </section>
+            <section class="" style="top: 21.5px; display: block;" aria-hidden="true">
+                <p style="text-align: left">
+                    内存泄漏的原因：执行这段代码的时候，将匿名函数对象赋值给el的onclick属性；然后匿名函数内部又引用了el对象，存在循环引用，所以不能被垃圾回收机制回收；
+                </p>
+                <p style="text-align: left">修改后：</p>
+                <pre>            <code class="hljs javascript">
+                <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                    <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"id"</span>);
+                    <span class="hljs-keyword">var</span> id = el.id; <span class="hljs-comment">//解除循环引用</span>
+                    el.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                        alert(id);
+                    }
+                    el = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 将闭包引用的外部函数中活动对象清除</span>
+                }
+            </code>
+            </pre>
+            </section>
+        </section>
+
+
+        <section class="stack future" style="top: 0px; display: none;" data-previous-indexv="1" hidden="" aria-hidden="true">
+            <section hidden="" aria-hidden="true" class="past" style="top: 267px; display: none;">
+                <h3>7.参考文献</h3>
+            </section>
+            <section class="" style="top: 233.5px; display: none;" aria-hidden="true">
+                <p>参考一：<a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">(转)学习JavaScript闭包(阮一峰)</a></p>
+                <p>参考二：Javascript高级程序设计</p>
+            </section>
+        </section>
+
+
+        <section class="stack future" style="top: 0px; display: none;" data-previous-indexv="1" hidden="" aria-hidden="true">
+            <section class="past" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>8.更多讨论</h3>
+            </section>
+
+
+        </section>
+
+
+        <section class="future" style="top: 179px; display: none;" hidden="" aria-hidden="true">
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>本期小课堂到此结束</p>
+            <p>
+                <small>BY : 郭俊伟</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

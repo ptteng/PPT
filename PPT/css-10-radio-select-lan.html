@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何改变默认radio和select的样式？<br>
+            </h2>
+            <h3>深圳313期小课堂</h3>
+            <p>分享人：蓝裕伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>单选按钮 && 下拉列表</h3>
+            <img src="../img/css-10-radio-select/test1.png" height="206" width="609"/>
+            <p style="text-align: left;text-indent: 60px">
+               以上分别是一个简单的下拉列表和单选按钮。下拉列表由select 标签实现，单选按钮由表单元素 input 的type属性 radio 定义。
+            </p>
+            <a href="../demo/demo.html">demo</a>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section >
+            <section >
+                <h3>一、form元素</h3>
+                <p style="text-align: left;text-indent: 60px;font-size: 30px">
+                    form元素定义 HTML 表单,HTML 表单是一个包含表单元素的区域。<br/>HTML 表单包含表单元素。
+                    而表单元素指的是不同类型的 input 元素、复选框、单选按钮、提交按钮等等。input 元素是最重要的表单元素。
+                    表单元素是允许用户在表单中输入内容。input 元素有很多形态，有不同的 type 属性，而radio 是其中一个属性，用于
+                定义单选按钮。
+                <pre><code>
+                  <form>
+                    .<form>
+                 <input type="radio" name="" value="" >
+
+                 <input type="radio" name="" value="">
+
+                  </form>
+                 </code></pre>
+                </p>
+            </section>
+            <section>
+                <h3>二、radio</h3>
+                <p style="text-align: left;text-indent: 60px;">
+                    input元素在 form元素中使用，用来声明允许用户输入数据的 input 控件。
+                    输入类型是由类型属性（type）定义的，输入类型至少包含23种，大多数经常被用到的输入类型如下：
+                    text（文本输入）、password（密码输入）、submit（提交按钮）、button（按钮）、image（图像作为提交按钮）
+                    以及checkbox（复选框）和radio（单选按钮）。
+                    Radio 对象代表 HTML 表单中的单选按钮。
+                    在 HTML 表单中	&#60; input type="radio"	&#62;  每出现一次，一个 Radio 对象就会被创建。
+                    单选按钮是表示一组互斥选项按钮中的一个。当一个按钮被选中，之前选中的按钮就变为非选中的。
+                </p>
+            </section>
+            <section>
+                <pre><code>
+                  <input type="radio" name="powder" id="pastel" checked >
+                 </code></pre>
+            </section>
+            <section>
+                <h3>三、label</h3>
+                <p >
+                    label 标签为 input 元素定义标注（标记）。label 元素不会向用户呈现任何特殊效果。
+                    "for" 属性可把 label 绑到另外一个元素。只需把 "for" 属性的值设置为相关元素的 id 属性的值。
+                    给raido和后面的文字外面加个label标签的，这样的话点文字就能选上radio,改善用户体验。
+                    看一下demo。
+                </p>
+            </section>
+            <section>
+                <h3>四、select</h3>
+                <p >
+                    select标签用来创建下拉列表。select标签中的 option 标签定义了列表中的可用选项。
+                    select 元素用来创建下拉列表,是一种表单控件，可用于在表单中接受用户输入,
+                    select元素通过 option 标签定义列表中的可用选项，
+                    也就是下拉菜单选项。
+                </p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h3 style="text-align: center"> 如何修改radio和select的默认样式</h3>
+                <p>下拉列表和单选按钮,有原始的默认样式，有时候为了美观，这些样式并不能达到我们的要求。因此需要更改样式，
+                达到设计要求。一般的方法是使用css进行清除覆盖原有默认样式，然后添加我们想要的样式。</p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section>
+                <h3>4.1 修改radio默认样式</h3>
+                <p>
+                    需要用到的工具如下：<br/>
+                    label标签；<br/>
+                    :checked 选择器,匹配每个已被选中的 input 元素（只用于单选按钮和复选框）。<br/>
+                    兄弟选择器：<br/>
+                    1、+ 选择器（相邻兄弟选择器），可选择紧接在另一元素后的元素，且二者有相同父元素。<br/>
+                    2、~ 选择器，作用是查找某一个指定元素的后面的所有兄弟结点。
+                </p>
+
+            </section>
+            <section>
+                <h3>4.2 修改select默认样式</h3>
+                <img src="../img/css-10-radio-select/test2.png" width="650" height="270">
+            </section>
+            <section>
+                <p>使用appearance改变下拉列表的原有默认属性</p>
+                <p>
+                    -webkit-appearance属性是一个可以改变按钮和其他控件的外观的属性，使其类似于原生控件。
+                    -webkit-appearance 是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。
+                    此属性非标准且渲染效果在不同浏览器下不同，有些属性值不支持，所以使用时要慎用。
+                </p>
+                <p>
+                    所有主流浏览器都不支持 appearance 属性。<br>
+                    Firefox 支持替代的 -moz-appearance 属性。<br/>
+                    Safari 和 Chrome 支持替代的 -webkit-appearance 属性。<br/>
+                </p>
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+                <p style="text-align: center">checkbox怎么修改默认样式？</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p style="text-align: left;">
+                1：<a href="http://http://www.w3school.com.cn/index.html">W3school</a><br>
+                2: <a href="http://uplifted.net/programming/change-default-select-dropdown-style-just-css/">How to Change the Default Select Drop-Down List with CSS</a>
+                3：<a href="http://www.css88.com/book/css/webkit/visual/appearance.htm">-webkit-appearance</a>
+            </p>
+
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭婷婷/蓝裕伟</small></p>
+        </section>
+
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

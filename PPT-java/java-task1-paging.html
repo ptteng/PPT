@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>怎么进行分页数据的查询，如何判断是否有下一页？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>李林朋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在网站建设中网页的排列方式一般有两种,一种是一个页面能把所有内容显示完的,另一种就是不能在一个页面里全部显示完的,像网站新闻经常会更新,那么显然一页显示不完要分多页来显示</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么是分页</p>
+			<p>分页,是一种将所有数据分段展示给用户的技术.用户每次看到的不是全部数据,而是其中的一部分,如果在其中没有找到自习自己想要的内容,用户可以通过制定页码或是翻页的方式转换可见内容,直到找到自己想要的内容为止.</p>
+		</section>
+		<section>
+			<p>哪里进行分页</p>
+			<p>1.客户端:数据库->服务器端->客户端->分页</p>
+			<p>2.服务器端:数据库->服务器端->分页->客户端</p>
+            <p>3.数据库端:数据库->分页->服务器端->客户端</p>
+
+		</section>
+		
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在客户端进行分页，需要进行传输的数据量很大，必然加大了服务器内存的负载,降低了系统的运行速度</p>
+			<p>在服务器端进行分页，大部分的被过滤掉的数据还是被传输到了Web应用服务器端,与其这样还不如直接在数据库端进行分页.</p>
+        </section>
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>比较好的分页做法应该是每次翻页的时候只从数据库里检索页面大小的块区的数据，这样虽然每次翻页都需要查询数据库，但查询出的记录数很少，网络传输数据量不大。
+        
+        </p>
+        <p>利用sql语句："select * from table_name order by id desc limit ?,? "</p>
+        </section>
+	  <section>
+			<p>1定义页面显示数量</p>
+			<p>2.下一页</p>
+			<p>3.上一页</p>
+			<p>4.第一页</p>
+			<p>5.最后一页</p>
+			<p>6.边界处理</p>
+			
+		</section>
+
+		 
+    <section>
+            <h3>5.编码实战</h3>
+      </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>搜索引擎是怎么进行分页的</h3>
+        </section>
+        <section>
+		<p>1.首次查询的时候缓存结果。这样情况就变得简单了，无论是结果条目的数量，总共的页面数量，还是取出其中的部分条目。</p>
+        <p>2.不显示总共有多少条目。Google搜索结果的分页显示就用了这个特性。很多时候用户可能看了前几页，就够了。那么可以每次都把结果限制在500条</p>
+        <p>3.不显示总页面数</p>
+
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>博客：分页技术原理与实现，http://blog.csdn.net/xiaoyousifang/article/details/5659667</p>
+            <p>博客：分页优化的四种方式，http://www.orczhou.com/index.php/2009/03/four-way-pager-display/</p>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看</p>
+            <p><small>BY : 李林朋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
