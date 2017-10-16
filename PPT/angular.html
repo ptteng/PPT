@@ -1,0 +1,217 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>angularjs双向绑定</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<!--<map name="pttmap">-->
+    <!--<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>-->
+<!--</map>-->
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>angularjs双向绑定后，发生了什么事情？是什么可以让view层和controller层进行绑定的？</h3>
+            <p>分享人：伊文秋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.如何绑定</p>
+            <p>3.如何实现</p>
+            <p>4.常见问题</p>
+            <p>5.解决方案</p>
+            <p>6.更多讨论</p>
+            <p>7.参考文献</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <p>Angular实现了双向绑定机制</p>
+            <p style="text-align: left">所谓的双向绑定，无非是从界面的操作能<span style="color: red;">实时</span>反映到数据，数据的变更能<span
+                    style="color: red;">实时</span>展现到界面</p>
+            <a href="../DEMO/demo3-1.html" target="_blank">bind-show</a>
+        </section>
+        <section>
+            <h3>2.如何绑定</h3>
+        </section>
+        <section>
+            <a href="../DEMO/demo3-2.html" target="_blank">Demo：如果我们自己实现双向数据绑定该怎么写？</a>
+        </section>
+        <section>
+            <section>
+                <h3>3.如何实现</h3>
+            </section>
+            <section>
+                <img src="../img/zhazha-img/tree.png" alt="">
+            </section>
+            <section>
+                <p>众所周知，angular是一个MVVM（Model-View，View-Model）模式的框架，可以实现数据和视图数据绑定。MVVM把数据加工的任务从Controller中解放了出来。使得Controller只需专注于数据调配的工作。</p>
+                <p>View是angularjs编译html后呈现出来的，需要编译的是controller中的定义的属性和方法以及directive中定义的指令。</p>
+                <p>View和controller是独立开来的，他们之间的纽带就是图中间的胶水——scope。Controller负责向scope中提供属性和方法，便于和view层面的html进行交互。</p>
+
+            </section>
+            <section>
+                <p>Angular双向绑定通过$watch,$digest，$apply实现的。</p>
+            </section>
+            <section>
+                <h3>watch序列</h3>
+                <p>watch监控model中是否有变化，会记录last值，也就是改变后的值，每一个model都会增加一个watch到watch队列中。</p>
+            </section>
+            <section>
+                <h3>digest循环</h3>
+                <p>当浏览器接收到可以被angular context处理的事件时，$digest循环就会触发，这个循环有两个子循环，一个处理evalAsync队列，另一个处理watch队列，$digest会遍历$watch,然后询问：</p>
+                <img src="../img/zhazha-img/digest.png" alt="">
+            </section>
+            <section>
+                <p>何时触发脏值检查</p>
+                <ul>
+                    <li>DOM事件，譬如用户输入文本，点击按钮等。(ng-click)</li>
+                    <li>XHR响应事件 ($http)</li>
+                    <li>浏览器Location变更事件 ($location)</li>
+                    <li>Timer事件($timeout, $interval)</li>
+                    <li>执行$digest()或$apply()</li>
+                </ul>
+            </section>
+            <section style="text-align: left;">
+                <p>既然所有的$watch都检查完了，那就要问了：有没有$watch更新过？如果有至少一个更新过，这个循环就会再次触发，直到所有的$watch都没有变化。这样就能够保证每个model都已经不会再变化。记住如果循环超过数据最大长度的话，它将会抛出一个异常，防止无限循环。 当$digest循环结束时，DOM相应地变化。</p>
+                <p>这个就是所谓的dirty-check，angular实际会引入了一个初始值为false的dirty变量作为循环条件，如果有改变过（也就是新旧值不相等），dirty变为true，循环继续。这里很重要的（也是许多人的很蛋疼的地方）是每一个进入angular context的事件都会执行一个$digest循环，也就是说每次我们输入一个字母循环都会检查整个页面的所有$watch。</p>
+            </section>
+            <section style="text-align: left;">
+                <p>那是什么决定一个事件是否进入angular context呢？</p>
+                <p>答案是$apply</p>
+                <p>在angular中使用普通的事件，无法双向绑定的事情。</p>
+                <pre>
+                <code>
+app.directive('clickable', function() {
+return {
+  restrict: "E",
+  scope: false,
+  template: '<ul style="background-color: lightblue"><li>{{foo}}</li><li>{{bar}}</li></ul>',
+  link: function(scope, element, attrs) {
+    element.bind('click', function() {
+      scope.foo++;
+    });
+  }
+}
+});
+app.controller('MainCtrl', function($scope) {
+  $scope.foo = 0;
+});
+                </code>
+              </pre>
+            </section>
+            <section>
+                <a href="../DEMO/demo3-3.html" target="_blank">demo-apply</a>
+                <p>这里值虽然改变了，但是没有强制执行$degest,监视foo和bar的watch根本没有执行，执行一次apply之后，watch就会知道这些变化，更新dom了。</p>
+                <p>这里只需要加上scope.$apply()就行了。</p>
+                <p>一般带ng的事件angular都会给你自动添加好了apply，所以你要操纵事件的时候加上apply才能实现数据输出到view层中。</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+            <p>$digest和$apply有何区别？干嘛不直接使用$digest?</p>
+        </section>
+        <section>
+            <section>
+            <h3>5.解决方法</h3>
+            <p>1.$apply可以带参数，它可以接受一个函数，然后在应用数据之后，调用这个函数。</p>
+            <p>2.当调用$digest的时候，只触发当前作用域和它的子作用域上的监控，但是当调用$apply的时候，会触发作用域树上的所有监控。</p>
+            <a href="../DEMO/demo3-4.html">demo</a>
+        </section>
+        <section>
+            <p>
+                因此，从性能上讲，如果能确定自己作的这个数据变更所造成的影响范围，应当尽量调用$digest，只有当无法精确知道数据变更造成的影响范围时，才去用$apply，很暴力地遍历整个作用域树，调用其中所有的监控。
+<br>
+                从另外一个角度，我们也可以看到，为什么调用外部框架的时候，是推荐放在$apply中，因为只有这个地方才是对所有数据变更都应用的地方，如果用$digest，有可能临时丢失数据变更。
+            </p>
+        </section>
+        </section>
+        <section style="text-align: left">
+            <h3>6.更多讨论</h3>
+            <p>提问环节</p>
+            <p>1、$watch是循环触发的吗？</p>
+            <p>不会，只有当触发了了特定时间才会触发$watch，并不是按时间轮询触发</p>
+            <p>2、双向绑定有什么作用</p>
+            <p>双向绑定最大的好处是我们不再需要用jQuery去查询表单的状态，而是直接获得了用JavaScript对象表示的Model。</p>
+            <p>3、可以手动设定$apply的运行吗</p>
+            <p>可以的，angular里可以直接调用$applay（）方法实现</p>
+        </section>
+        <section style="text-align: left">
+            <h3>7.参考文献</h3>
+            <a href="http://www.cnblogs.com/bigdataZJ/p/AngularjsInAction2.html">view和controller的那些事儿</a>
+            <a href="https://github.com/xufei/blog/issues/10">Angular沉思录（一）数据绑定</a>
+            <a href="http://www.angularjs.cn/A0a6">理解$watch ，$apply 和 $digest --- 理解数据绑定过程</a>
+        </section>
+        <section>
+            <h2>鸣谢</h2>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 王野</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
