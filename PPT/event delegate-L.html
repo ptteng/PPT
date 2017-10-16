@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JS中的事件委托</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        pre {
+            margin: 0 auto !important;
+        }
+        p {
+            text-align: left;
+            white-space: pre-line !important;
+        }
+        .text-center {
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task4】简述JS中的事件委托</h2>
+            <h3>成都小课堂</h3>
+            <p style="text-align: center">分享人：刘夏阳</p>
+        </section>
+
+        <section>
+            <p style="text-align: center">目录</p>
+            <p style="text-align: center">1.背景介绍</p>
+            <p style="text-align: center">2.知识剖析</p>
+            <p style="text-align: center">3.常见问题</p>
+            <p style="text-align: center">4.解决方案</p>
+            <p style="text-align: center">5.编码实战</p>
+            <p style="text-align: center">6.扩展思考</p>
+            <p style="text-align: center">7.参考文献</p>
+            <p style="text-align: center">8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <h4>什么是事件委托？</h4>
+            <p>事件委托还有一个名字叫事件代理，JS高程上讲：事件委托就是利用事件冒泡，只制定一个时间处理程序，就可以管理某一类型的所有事件。我用取快递来解释这个现象：
+                有三个同事预计会在周一收到快递。为签收快递，有两种办法：一是三个人在公司门口等快递；二是委托给前台代为签收。现实当中，我们大都采用委托的方案。前台收到快递后，她会判断收件人是谁，然后按照收件人的要求签收，甚至代为付款。这种方案还有一个优势，那就是即使公司里来了新员工（不管多少），前台也会在收到寄给新员工的快递后核实并代为签收。</p>
+        </section>
+
+        <section style="text-align: left">
+            这里其实还有2层意思的：<br><br>
+            第一，现在委托前台的同事是可以代为签收的，即程序中的现有的dom节点是有事件的；
+            <br>
+            <br>
+            第二，新员工也是可以被前台代为签收的，即程序中新添加的dom节点也是有事件的。
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h4>2.1为什么要用事件委托</h4>
+            <p>在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能，因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，这就是为什么性能优化的主要思想之一就是减少DOM操作的原因；每个函数都是一个对象，是对象就会占用内存，对象越多，内存占用率越大，100个li就要占用100个内存空间。如果要用事件委托，就会将所有的操作放到js程序里面，只对它的父级(如果只有一个父级)这一个对象进行操作，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能；</p>
+        </section>
+
+        <section>
+            <h4>2.2事件委托的原理</h4>
+            <p>事件委托是利用事件的冒泡原理来实现的，何为事件冒泡呢？就是事件从最深的节点开始，然后逐步向上传播事件，举个例子：页面上有这么一个节点树，div>ul>li>a;比如给最里面的a加一个click点击事件，那么这个事件就会一层一层的往外执行，执行顺序a>li>ul>div，有这样一个机制，那么我们给最外面的div加点击事件，那么里面的ul，li，a做点击事件的时候，都会冒泡到最外层的div上，所以都会触发，这就是事件委托，委托它们父级代为执行事件。</p>
+        </section>
+
+        <section>
+            子节点实现相同的功能：实现功能是点击li，弹出123
+            <pre ><code>
+                <ul id="ul1">
+                    <li>111</li>
+                    <li>222</li>
+                    <li>333</li>
+                    <li>444</li>
+                    <li>555</li>
+                    <li>666</li>
+                </ul>
+                <script>
+                  window.onload = function(){
+                      var oUl = document.getElementById("ul1");
+                      var aLi = oUl.getElementsByTagName('li');
+                      for(var i=0;i<aLi.length;i++){
+                          aLi[i].onclick = function(){
+                              alert(123);
+                          }
+                      }
+                  }
+                </script>
+            </code></pre>
+            我们看看有多少次的dom操作，首先要找到ul，然后遍历li，然后点击li的时候，又要找一次目标的li的位置，才能执行最后的操作，每次点击都要找一次li；
+        </section>
+
+        <section>
+            <h4>那么我们用事件委托的方式做又会怎么样呢？</h4>
+            <pre ><code>
+                <script>
+                    window.onload = function(){
+                        var oUl = document.getElementById("ul1");
+                        oUl.onclick = function(){
+                            alert(123);
+                        }
+                    }
+                </script>
+                </code></pre>
+            <p>
+                这里用父级ul做事件处理，当li被点击时，由于冒泡原理，事件就会冒泡到ul上，因为ul上有点击事件，所以事件就会触发，当然，这里当点击ul的时候，也是会触发的.
+            </p>
+        </section>
+
+        <section>
+            <h3>2.3 事件冒泡及捕获</h3>
+            <p>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：
+            </p>
+            <img src="https://ptteng.github.io/PPT/img/js-06-EventDelegate/demo1.png" >
+        </section>
+
+        <section>
+            <p>事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。
+                事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。
+                事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被触发。
+            </p>
+        </section>
+
+        <section>
+            <h4>
+                2.4事件委托的优点
+            </h4>
+            <p>
+                通过刚才的对比介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点：
+                1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。
+                2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。
+                3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。
+            </p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>如果我想让事件代理的效果跟直接给节点的事件效果一样怎么办?<br>比如说只有点击li才会触发?</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>Event对象提供了一个属性叫target，可以返回事件的目标节点，我们成为事件源，也就是说，target就可以表示为当前的事件操作的dom，但是不是真正操作dom。标准浏览器用ev.target，IE浏览器用event.srcElement，此时只是获取了当前节点的位置，并不知道是什么节点名称，这里我们用nodeName来获取具体是什么标签名。这样改下就只有点击li会触发事件了，且每次只执行一次dom操作</p>
+            <pre><code>
+                <script>
+                    window.onload = function(){
+                        var oUl = document.getElementById("ul1");
+                        oUl.onclick = function(ev){
+                            var ev = ev || window.event;
+                            var target = ev.target || ev.srcElement;
+                            if(target.nodeName.toLowerCase() == 'li'){
+                                alert(123);
+                                alert(target.innerHTML);
+                            }
+                        }
+                    }
+                </script>
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <p>现在讲的都是document加载完成的现有dom节点下的操作，那么如果是新增的节点，新增的节点会有事件吗？现在是移入li，li变红，移出li，li变白，这么一个效果，然后点击按钮，可以向ul中添加一个li子节点</p>
+            <pre><code>
+                <input type="button" name="" id="btn" value="添加" />
+                <ul id="ul1">
+                    <li>111</li>
+                    <li>222</li>
+                    <li>333</li>
+                    <li>444</li>
+                </ul>
+                <script>
+                   window.onload = function(){
+                       var oBtn = document.getElementById("btn");
+                       var oUl = document.getElementById("ul1");
+                       var aLi = oUl.getElementsByTagName('li');
+                       var num = 4;
+                       //鼠标移入变红，移出变白
+                       for(var i=0; i<aLi.length;i++){
+                           aLi[i].onmouseover = function(){
+                               this.style.background = 'red';
+                           };
+                           aLi[i].onmouseout = function(){
+                               this.style.background = '#fff';
+                           }
+                       }
+                       //添加新节点
+                       oBtn.onclick = function(){
+                           num++;
+                           var oLi = document.createElement('li');
+                           oLi.innerHTML = 111*num;
+                           oUl.appendChild(oLi);
+                       };
+                   }
+                </script>
+                </code></pre>
+        </section>
+
+        <section>
+            <pre><code>
+                <script>
+                    window.onload = function(){
+                        var oBtn = document.getElementById("btn");
+                        var oUl = document.getElementById("ul1");
+                        var aLi = oUl.getElementsByTagName('li');
+                        var num = 4;
+                        //事件委托，添加的子元素也有事件
+                        oUl.onmouseover = function(ev){
+                            var ev = ev || window.event;
+                            var target = ev.target || ev.srcElement;
+                            if(target.nodeName.toLowerCase() == 'li'){
+                                target.style.background = "red";
+                            }
+                        };
+                        oUl.onmouseout = function(ev){
+                            var ev = ev || window.event;
+                            var target = ev.target || ev.srcElement;
+                            if(target.nodeName.toLowerCase() == 'li'){
+                                target.style.background = "#fff";
+                            }
+                        };
+                        //添加新节点
+                        oBtn.onclick = function(){
+                            num++;
+                            var oLi = document.createElement('li');
+                            oLi.innerHTML = 111*num;
+                            oUl.appendChild(oLi);
+                        };
+                    }
+                </script>
+                </code></pre>
+            我们可以发现，当用事件委托的时候，根本就不需要去遍历元素的子节点，只需要给父级元素添加事件就好了，其他的都是在js里面的执行，这样可以大大的减少dom操作，这才是事件委托的精髓所在。
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>
+                什么样的事件可以用事件委托，什么样的事件不可以用呢？
+                适合用事件委托的事件：click，mousedown，mouseup，keydown，keyup，keypress。（所有用到按钮的事件，多数的鼠标事件和键盘事件）
+                值得注意的是，mouseover和mouseout虽然也有事件冒泡，但是处理它们的时候需要特别的注意，因为需要经常计算它们的位置，处理起来不太容易。
+                不适合的就有很多了，举个例子，mousemove，每次都要计算它的位置，非常不好把控，在不如说focus，blur之类的，本身就没用冒泡的特性，自然就不能用事件委托了。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html">陈鑫伟的博客</a></p>
+            <p>参考二：<a
+                    href="http://ithelp.ithome.com.tw/articles/10120565">tony1223 </a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p style="text-align: center">感谢大家观看</p>
+            <p style="text-align: center">
+                特别鸣谢：周恒光
+            </p>
+            <p style="text-align: center">
+                <small>BY : 刘夏阳</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

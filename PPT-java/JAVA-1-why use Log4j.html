@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【Java-TASK1】为什么要用Log4j来替代System.out.println？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：蒋新益</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p align="left">
+                在应用程序中添加日志记录总的来说基于三个目的 ：监视代码中变量的变化情况，周期性的记录到文件中供其他应用进行统计分析工作；跟踪代码运行时轨迹，作为日后审计的依据；担当集成开发环境中的调试器的作用，向文件或控制台打印代码的调试信息。　　　　
+            </p>
+            <p align="left">
+                最普通的做法就是在代码中嵌入许多的打印语句，这些打印语句可以输出到控制台或文件中，比较好的做法就是构造一个日志操作类 来封装此类操作，而不是让一系列的打印语句充斥了代码的主体。
+            </p>
+        </section>
+        <section>
+            <p align="left">
+                在强调可重用组件开发的今天，除了自己从头到尾开发一个可重用的日志操作类外， Apache 为我们提供了一个强有力的日志操作包 -Log4j
+            </p>
+        </section>
+        <section>
+            <p align="left">
+                Log4j 是 Apache 的一个开放源代码项目，通过使用 Log4j ，我们可以控制日志信息输送的目的地是控制台、文件、 GUI 组件、甚至是套接口服 务器、 NT 的事件记录器、 UNIX Syslog 守护进程等；我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。最令人感兴趣的就 是，这些可以通过一个配置文件来灵活地进行配置，而不需要修改应用的代码。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                关于log4j需要知道以下几点
+            </p>
+
+        </section>
+        <section>
+            <p align="left">
+                log4j的配置文件有以下三个方面的内容
+            </p>
+            <p align="left">
+                1 、根目录（级别和目的地）；
+            </p>
+            <p align="left">
+                2 、目的地（控制台、文件等等）；
+            </p>
+            <p align="left">
+                3 、输出样式
+            </p>
+        </section>
+
+        <section>
+            <p>根目录(级别和目的地)</p>
+            <p> log4j.rootLogger = [ level ] , appenderName, appenderName, …</p>
+            <p>官方推荐使用的level有四种,从低到高分别是debug,info,warn,error</p>
+            <p>appenderName是目的地的参数名</p>
+        </section>
+        <section>
+            <p>目的地（控制台、文件等等）</p>
+            <p> log4j.appender.appenderName = fully.qualified.name.of.appender.class</p>
+            <p>log4j提供了5种输出目的地</p>
+            <img src="QQ截图20171010102245.jpg">
+        </section>
+        <section>
+            <p>配置日志信息的格式</p>
+            <p> log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class</p>
+            <P>log4j提供以下四种格式</P>
+            <img src="layout.jpg">
+        </section>
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.log4j是通过什么加载的?</p>
+			<p>2.为什么error了还不停止</p>
+            <p>3.为什么要用Log4j来替代System.out.println</p>
+            <p>4.rootcategory和rootLogger有什么区别</p>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>log4j是通过什么加载的?</h3>
+        </section>
+        <section>
+            <p align="left">应用程序启动时，默认情况下会到src目录下寻找log4j.xml配置文件，若不存在，会继续寻找log4j.properties文件，只要找到其中一个就会加载该配置文件内容</p>
+        </section>
+        <section>
+            <p align="left">当然也可以手动加载,因为自动加载只会加载log4j.xml或者log4j.properties,如果有不是这个名字或者没有放在根目录中的配置文件需要手动加载</p>
+        </section>
+
+        <section>
+            <h3>为什么error了还不停止</h3>
+        </section>
+
+        <section>
+            <p>log4j中其实不止4种级别,而是7种</p>
+        </section>
+        <section>
+            <img src="Log4j的8种level.jpg" height="350" width="900">
+        </section>
+
+        <section>
+            <h3>为什么要用Log4j来替代System.out.println</h3>
+        </section>
+
+        <section>
+            <p align="left">程序员经常会遇到脱离java ide环境调试程序的情况，这时大多数人会选择使用System.out.println语句输出某个变量值的方法进行调试。这样会带来一个非常麻烦的问题：一旦哪天程序员决定不要显示这些System.out.println的东西了就只能一行行的把这些垃圾语句注释掉。若哪天又需调试变量值，则只能再一行行去掉这些注释恢复System.out.println语句,调试代码充斥在逻辑代码中间,既不美观也不利于查找</p>
+        </section>
+
+        <section>
+            <p align="left">log4j很好地处理了这一问题,并且system.out只能输出到控制台，而log4j之类的日志工具可以配置输出目标，输出等级,减少输出形式与程序的耦合</p>
+        </section>
+
+        <section>
+            <h3>rootcategory和rootLogger有什么区别</h3>
+        </section>
+
+        <section>
+            <p align="left">
+                其实rootLogger是rootcategory的子类,rootcategory是旧的写法
+            </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>为什么要使用SLF4J而不是Log4J</p>
+        </section>
+
+        <section>
+            <p align="left">SLF4J：即简单日志门面（Simple Logging Facade for Java），不是具体的日志解决方案，它只服务于各种各样的日志系统。按照官方的说法，SLF4J是一个用于日志系统的简单Facade，允许最终用户在部署其应用时使用其所希望的日志系统。</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考三:<a href="http://www.cnblogs.com/haoqipeng/p/5300376.html" target="_blank">博客</a></p>
+            <p>参考二:<a href="http://blog.csdn.net/anlina_1984/article/details/5313023" target="_blank">csdn anlina_1984</a></p>
+            <p>参考三:<a href="https://www.zhihu.com/question/46007364" target="_blank">知乎</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 蒋新益</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

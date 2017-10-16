@@ -1,0 +1,217 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是tcp/ip协议？TCP的三次握手指的是什么，为什么一定要三次握手，而不是四次或者是两次？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：宋哲明</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+       <section> 
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        为什么会有TCP/IP协议?
+
+        </section>
+        </section>
+         <section>
+           <p>在世界上各地，各种各样的电脑运行着各自不同的操作系统为大家服务，这些电脑在表达同一种信息的时候所使用的方法是千差万别。就好像圣经中上帝打乱了各地人的口音，让他们无法合作一样。计算机使用者意识到，计算机只是单兵作战并不会发挥太大的作用。只有把它们联合起来，电脑才会发挥出它最大的潜力。于是人们就想方设法的用电线把电脑连接到了一起。
+
+但是简单的连到一起是远远不够的，就好像语言不同的两个人互相见了面，完全不能交流信息。因而他们需要定义一些共通的东西来进行交流，TCP/IP就是为此而生。TCP/IP不是一个协议，而是一个协议族的统称。里面包括了IP协议，IMCP协议，TCP协议，以及我们更加熟悉的http、ftp、pop3协议等等。电脑有了这些，就好像学会了外语一样，就可以和其他的计算机终端做自由的交流了。</p>
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+			<p>什么是TCP/IP?</p>
+			<p>TCP/IP也称"国际协议簇"， 即不仅指 TCP/IP协议本身，而且包括与其有关的协议。 TCP为传输控制协议，IP为网际协议，是网络层最重要的协议。采用TCP/IP协议通过互联网传送信息可减少网络中的传输阻塞，方便大批量的数据在网上传输，从而提高网络的传输效率。  TCP/IP协议族中包括上百个互为关联的协议，其中有：Telnet（Remote Login）： 提供远程登录功能； FTP （FileTransfer Protocol)：远程文件传输协议，允许用户将远程主机上的文件拷贝到自己的计算机上； SMTP （Simple Messagetransfer Protocol)：简单信息传输协议，主要用于传输电子邮件；NFS(Network File Server)：网络文件服务器，可使多台计算机透明地访问彼此的目录 ； UDP （ User DatagramProtocol)：用户数据包协议。</p>
+
+        </section>
+	       <section>
+			<p>先来看看今天的主角</p>
+			<p>TCP/IP协议的四层结构</p>
+			<p>请看图例</P>
+			<p></p>
+        </section>
+		 <section>
+			<p>第一层：链路层</p>
+			<p>包括操作系统中的设备驱动程序、计算机中对应的网络接口卡</P>
+			<p></p>
+        </section>
+		 <section>
+			<p>第二层：网络层</p>
+			<p>网络互连层是整个TCP/IP协议栈的核心。它的功能是把分组发往目标网络或主机。同时，为了尽快地发送分组，可能需要沿不同的路径同时进行分组传递。因此，分组到达的顺序和发送的顺序可能不同，这就需要上层必须对分组进行排序。　　
+　　网络互连层定义了分组格式和协议，即IP协议（Internet Protocol）。　　</P>
+			<p>特别注意：此时的IP包是不安全的，IP协议不会管送没送到</p>
+        </section>
+		<section>
+			<p>第三层：传输层</p>
+			<p>在TCP/IP模型中，传输层的功能是使源端主机和目标端主机上的对等实体可以进行会话。在传输层定义了两种服务质量不同的协议。即：传输控制协议TCP和用户数据报协议UDP.</P>
+			<p>TCP协议是一个面向连接的、可靠的协议。它将一台主机发出的字节流无差错地发往互联网上的其他主机。在发送端，
+			它负责把上层传送下来的字节流分成报文段并传递给下层。在接收端，它负责把收到的报文进行重组后递交给上层。
+			TCP协议还要处理端到端的流量控制，以避免缓慢接收的接收方没有足够的缓冲区接收发送方发送的大量数据.</p>
+			<p>UDP协议是一个不可靠的、无连接协议，主要适用于不需要对报文进行排序和流量控制的场合。</P>
+        </section>
+		<section>
+			<p>第四层：应用层</p>
+			<p>TCP/IP模型将OSI参考模型中的会话层和表示层的功能合并到应用层实现。这一层主要的作用有DNS域名解析</P>
+			<p></p>
+        </section>
+        <section>
+        <p>第五层：物理层</p>
+        <p>        物理层中，将数据的0,1转换为电压和脉冲传输给物理的传输介质，而相互直连的设备之间使用地址实现传输。这种地址被称为MAC地址，也可称为物理地址或硬件地址。
+采用MAC地址，目的是为了识别连接到同一个传输介质上的设备。因此，在这一层中将包含MAC地址信息的首部附加到从网络层转发过来的
+数据上，将其发送到网络。</p>
+        </section>
+
+			
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+   
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <img src="D:\Java\小课堂\img\小课堂2.png">
+        </section>
+        <section>
+        序号：本报文段发送的数据的第一个字节的序号。
+
+确认号：是“确认报文”中期望收到对方下一个报文的第一个数据字节的序号。
+若确认号 = N，表明到N-1为止的所有数据都已正确收到。
+
+数据偏移：指的是首部长度，单位是4字节。
+控制位：
+
+--紧急URG：TCP会把紧急数据放在发送缓存的最前面，同时也置于报文数据的最前面。
+--推送PSH：使接收方尽快将数据交付应用程序，不必等缓存填满后再交付。
+
+--复位RST：TCP连接中出现严重差错，必须释放连接，然后重新建立。
+
+--同步SYN：SYN置1表明这是一个“连接请求”或“连接接受”报文。
+
+--终止FIN：用来释放一个连接。
+
+窗口：指明现在允许对方发送的数据量，因为接收方的缓存是有限的。窗口值是动态变化的。
+
+紧急指针：指出报文段中紧急数据的字节数。
+        </section>
+<section>
+ 
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		
+		
+
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>为什么要用三次握手</p>
+        </section>
+   <section><p>为什么需要采用三次握手?</p>
+    主要是为了防止两次握手情况下已失效的连接请求报文段突然又传送到服务端,而产生的错误。举例如下:
+    客户A向服务器B发出TCP连接请求,第一个连接请求报文在网络的某个节点长时间滞留,A超时后认为报文丢失,于是再重传一次连接请求,B收到后建立连接。数据传输完毕后双方断开连接。而此时,前一个滞留在网络中的连接请求到达了服务端B,而B认为A又发来连接请求,若采用的是“两次握手”,则这种情况下B认为传输连接已经建立,并一直等待A传输数据,而A此时并无连接请求,因此不予理睬,这样就造成了B的资源白白浪费了;但此时若是使用“三次握手”,则B向A返回确认报文段,由于是一个失效的请求,因此A不予理睬,建立连接失败。第三次握手的作用:防止已失效的连接请求报文段突然又传送到了服务器。
+</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>计算机网络</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+   </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 宋哲明</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

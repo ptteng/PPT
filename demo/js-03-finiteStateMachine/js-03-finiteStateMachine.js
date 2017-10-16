@@ -1,6 +1,4 @@
-/**
- * Created by 1 on 2017/3/31.
- */
+
 
 //定义一个有限状态机
 var switchstate = {
@@ -58,32 +56,16 @@ $("#switchButton3").on("click",function () {
 });//给按钮添加点击事件，绑定状态机
 
 
+
+
+
+
+
+
+
 //红绿灯--三个状态的状态机--通行--警告--停止
 
 var trafficLight={//"red""green""yellow"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: "red",
     lastState:"yellow",
     trans:function(){

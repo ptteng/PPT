@@ -1,0 +1,271 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,400,200" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>tcp/ip</h2>
+            <h3>小课堂</h3>
+            <p>分享人：严恒</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>网络协议为计算机网络中进行数据交换而建立的规则、标准或约定的集合。通俗地说，网络协议就是网络之间沟通、交流的桥梁，只有相同网络协议的计算机才能进行信息的沟通与交流。这就好比人与人之间交流所使用的各种语言，只有使用相同语言才能正常地、顺利进行交流。从专业角度定义，网络协议是计算机在网络中实现通信时必须遵守的约定，也即通信协议。主要是对信息传输的速率、传输代码、代码结构、传输控制步骤、出错控制等作出规定，制定标准。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+		<img src="http://upload-images.jianshu.io/upload_images/852671-b87bf0e1f55cf530.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" >
+		
+            
+
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1:什么是tcp/ip协议</p>
+			<p>2:什么是三次握手</p>
+			<p>3:什么是四次握手</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>1:什么是tcp/ip协议</h3>
+            <p>TCP是一种面向连接的保证可靠传输的协议。通过TCP协议，得到的是一个顺序的无差错的数据流。发送方和接收方的成对的两个Socket之间必须建立连接，以便在TCP协议的基础上进行通信，当一个Socket(通常都是Server Socket)等待建立连接时，另一个Socket可以要求进行连接，一旦这两个Socket连接起来，它们就可以进行双向数据传输，双方都可以进行发送和接收操作。</p>
+            
+			</section>
+		<section>
+            <h3>2:什么是三次握手</h3>
+            <p>在TCP/IP协议中，TCP协议通过三次握手建立一个可靠的连接：
+
+第一次握手：客户端发送一个带SYN标志的TCP报文到服务器。这是三次握手过程中的报文1。
+
+第二次握手： 服务器端回应客户端的，这是三次握手中的第2个报文，这个报文同时带ACK标志和SYN标志。因此它表示对刚才客户端SYN报文的回应；同时又标志SYN给客户端，询问客户端是否准备好进行数据通讯。
+
+第三次握手： 客户必须再次回应服务段一个ACK报文，这是报文段3。</p>
+            
+			</section>
+			<section>
+            <h3>3:什么是四次握手</h3>
+            <p>在TCP/IP协议中，TCP协议断开连接要进行4次
+
+由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。
+
+第一次握手： TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送
+第二次握手： 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号
+第三次握手： 服务器关闭客户端的连接，发送一个FIN给客户端
+第四次握手：客户段发回ACK报文确认，并将确认序号设置为收到序号加1</p>
+            
+			</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <pre>
+            <code>public class client {
+    public static void main(String[] args) {
+        try {
+            //创建socket指定服务器地址和端口
+            Socket client = new Socket("127.0.0.1",8001);
+            //客户端向服务器发送登陆信息
+            OutputStream os = client.getOutputStream();//字节输出流
+            PrintWriter pw = new PrintWriter(os);
+            pw.write("用户名:严恒;密码:123");
+            pw.flush();
+            client.shutdownOutput();
+            //获取输出流
+            InputStream is = client.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String info = null;
+            while ((info = br.readLine())!=null) {
+                System.out.println("服务器说:"+info);
+            }
+            //关闭其他资源换
+            pw.close();
+            os.close();
+            is.close();
+            isr.close();
+            br.close();
+            client.close();
+        }catch (UnknownHostException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+</code>
+        </pre>
+		
+
+        </section>
+		<section>
+        <pre>
+            <code>public class Server {
+    public static void main(String[] args) {
+        try {
+            //创建一个服务端的Socket,指定绑定的端口,并且监听
+            ServerSocket server = new ServerSocket(8001);
+            //调用accept方法开始监听,等待客户端连接
+            System.out.println("服务启动,等待客户端上线");
+            Socket socket = server.accept();
+            //获取一个输入流,用来读取客户端所发送的登陆信息
+            InputStream is = socket.getInputStream();//字节输入
+            InputStreamReader isr = new InputStreamReader(is);//将字节流转换
+            BufferedReader br = new BufferedReader(isr);//为输入流添加缓冲
+            String info = null;
+            while ((info = br.readLine()) !=null){
+                System.out.println("我是服务器,客户端说:"+info);
+            }
+            socket.shutdownInput();
+            //获取输出流
+            OutputStream os = socket.getOutputStream();
+            PrintWriter pw = new PrintWriter(os);//包装打印流
+            pw.write("国庆节快乐~");
+            pw.flush();
+            socket.shutdownOutput();
+            //关闭资源(连接)
+            pw.checkError();
+            br.close();
+            isr.close();
+            is.close();
+            server.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+</code>
+        </pre>
+		
+
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>tcp和udp的区别</p>
+            <P>TCP是面向流字符的，数据流间无边界；UDP是面向分组的，分组间有明确的边界。
+
+对于TCP，发送一串数字（1，2，3，4，5），接收时有可能变成两次（1，2）和（2，4，5），或者变成任意接收方式，协议栈只保证接收顺序正确；UDP发送一个分组，接收方或者接收完全失败，如果成功整个分组都会接收到。
+
+TCP是面向连接的，UDP是无连接的。类比于打电话和发电报的关系。
+
+TCP建立一个连接需要3次握手IP数据包，断开连接需要4次握手。另外断开连接时发起方可能进入TIME_WAIT状态长达数分钟，在此状态下连接（端口）无法被释放
+
+TCP是可靠的，通过数据校验保证发送和接收到的数据是一致的；UDP是不可靠的，发送一串数字分组（1，2，3）可能接收到时就变成（1，0，0）了，做UDP连接时需要自己做数据校验。
+
+TCP数据是有序的，以什么顺序发送的数据，接收时同样会按照此顺序；UDP是无序的，发出（1，2，3），有可能按照（1，3，2）的顺序收到。应用程序必须自己做分组排序。
+
+TCP因为建立连接、释放连接、IP分组校验排序等需要额外工作，速度较UDP慢许多。TCP适合传输数据，UDP适合流媒体。
+
+
+</P>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.jianshu.com/p/b8cbe903a5c0" target="_blank">http://www.jianshu.com/p/b8cbe903a5c0</a></p>
+            <p>参考二：<a href="http://www.jianshu.com/p/8b605de1e491" target="_blank">http://www.jianshu.com/p/8b605de1e491</a></p>
+			<p>参考三：<a href="https://zh.wikipedia.org/zh/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank">https://zh.wikipedia.org/zh/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 严恒</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
