@@ -1,0 +1,183 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>端口是什么含义，怎么判断一个端口是否被占用了，怎么用Telnet判断端口号是否打开？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘家铭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+			<p>什么是端口?</p>
+			<p>端口是port的意译,可以认为是设备与外界通讯交流的出口.</p>
+			<p>端口分为虚拟端口和物理端口
+其中虚拟端口指计算机内部或交换机路由器内的端口,不可见.例如计算机内,80端口,21端口等
+物理端口又称为接口,是可见接口</p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>端口的类型</p>
+			<p>一个ip地址的端口可以有65536个,端口是通过端口号来标记的,端口号只有整数,范围是从0到65535</p>
+			<p>1:周知端口:周知端口是众所周知的端口,范围从0到1023,其中80端口分配给www服务,21端口分配给FTP服务</p>
+			<p>2:动态端口:动态端口的范围是49152到65535,之所以称为动态端口,是因为一般不固定分配某种服务,而是动态分配</p>
+			<p>3:注册端口:端口1024到49151,分配给用户进程或应用程序,这些进程主要是用户选择安装的一些应用程序,而不是已经分配好了公认端口的常用程序.这些端口在没有被服务器资源占用的时候,可以用用户端动态选用为源端口</p>
+		</section>
+		
+			
+		<section>
+			<p>协议端口</p>
+			<p>本地操作系统会给那些有需求的进程分配协议端口,每个协议端口由一个正整数标识,如:80,135,445等.当目的主机接收到数据包后,将根据报文首部的目的端口号,把数据发送到相应端口,而与此端口相对应的那个进程将会领取数据并等待下一组数据的到来.</p>
+			<p>简单说端口就是队,操作系统为各个进程分配了不同的队,数据包按照目的端口被推入相应的队中,等待被进程取用</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1:端口是否占用</p>
+			<p>2:如何查看一个机器上的某一个端口是否可以访问</p>
+			<p>3:如何查看某一个地址的ip是否能够连通</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>端口是否占用</p>
+			<p>进入doc命令行,输入netstat -n</p>
+			<p>确认需要查询的端口号:netstat -aon|findstr 8080</p>
+        </section>
+		<section>
+			<p>如何查看某一个机器上的某一个端口是否可以访问</p>
+			<p>cmd上输入telnet IP地址 端口号,如果能够访问会变成黑屏,如果不能则显示连接失败</p>
+		</section>
+		<section>
+			<p>如何查看某一个地址的ip是否能够连通</p>
+			<p>ping ip地址</p>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		
+		
+        <!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\1.png">
+		<!img src="D:\QQwenjian\286683815\FileRecv\myppt\myPPT_files\2.png">
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>如何退出telnet的黑屏模式</p>
+        </section>
+        <section>
+			<p>当输入的端口能访问时,telnet会进入黑屏.这时候按ctrl+]之后再按q就能够退出telnet界面</p>
+			<p>再拓展一些其他的退出命令:exit多用于退出doc窗口,q!,wq用来退出linux下的vi编辑器,quit用来退出mysql</p>
+			
+		</section>
+		<section>
+			
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/nanfeng1686/article/details/45477637</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>TCP端口和UDP端口</p>
+			<p>TCP是传输控制协议,是一种面向连接的,可靠的,基于字节流的传输层通信协议
+UDP是用户数据报协议,是OSI参考模型中的一种无连接的传输层协议,提供面向事务的简单的不可靠的信息传送服务.UDP协议基本上是IP协议与上层协议的接口.分别运行在同一设备上的多个应用程序</p>
+			<p>TCP端口和UDP端口,由于这两个协议是独立的,因此各自端口号也相互独立,比如TCP有235端口,UDP也可以有235端口,两者并不冲突</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘家铭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

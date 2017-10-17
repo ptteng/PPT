@@ -1,0 +1,280 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>jsp有几个内置对象？</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+			<time>2017-10-10</time>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">JJSP 所包含的元素，包括JSP 注释、声明、表达式、程序段、JSP 指令（Directive Elements）、
+			JSP 动作（Action Elements）以及JSP 异常处理。
+			</p>
+			<p style="text-align:left">JSP 的内置对象是指在JSP 页面系统中已经默认内置的Java 对象，这些对象不需要开发人员显式
+			声明即可使用，也被称为隐式对象（Implicit Objects）或预定义变量（pre-defined variables）。
+			</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left"><b>1.内置对象的作用范围(Scope)</b></p>
+            <p style="text-align:left">作用范围指每个内置对象的某个实例在多长的时间和多大的范围内有效，即在什么样的范围内可以
+			有效地访问同一个对象实例。在JSP 中，定义了四种作用范围，即：Application、Session、Page 和Request，它们代表了对象各
+			自的“生命周期”。
+			</p>
+			<p style="text-align:left">（1）Application Scope ：起始于服务器开始运行，application对象被创建之时；终止于服务器关闭之时。
+			</p>
+			<p style="text-align:left">（2）Session Scope ：用户请求访问服务器时session 对象开始生效，用户断开退出时session 对象失效。
+			</p>
+			<p style="text-align:left">（3）Request Scope ：在一个JSP 页面向另一个JSP 页面提出请求到请求完成之间，在完成请求后此范围即结束。（使用<jsp:forward>或者<jsp:include>实现在页面跳转中共享request 对象的数）。
+			</p>
+			<p style="text-align:left">（4）Page Scope ：仅限于获取本页的数据。
+			</p>
+        </section>
+		<section>
+            <p style="text-align:left"><b>2.内置对象</b></p>
+			<img src="imag\JSP内置对象.png" alt="JSP内置对象">		
+        </section>
+		<section>
+            <p style="text-align:left">（1）application 对象</p>
+			<p style="text-align:left">application 对象拥有 application 的范围，也就是说application 用于在多个用户间保存
+			数据，所有用户都共享同一个application，因此从中读取和写入的数据都是共享的。</p>
+			<p style="text-align:left">服务器启动后，一旦创建了application 对象，那么这个application 对象将会永远保持下去，直到服务器关闭为止。
+			由于 application 对象具有在所有客户端共享数据的特点，因此经常用于记录所有客户端公用的一些数据，例如页面访问次数。
+			</p>
+		</section>
+		<section>
+			<img src="imag\application.PNG" alt="application对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">（2）config 对象</p>
+			<p style="text-align:left">config 对象中存储着一些servlet 初始的数据结构，它跟page 对象一样，很少被用到。
+			config 对象实现了javax.servlet.ServletConfig 接口，它提供两个方法来让config 对象获取Servlet 初始参数值：
+			<p style="text-align:center">config.getInitParamenterNames()</p>
+			<p style="text-align:center">config.getInitParamenter (String name)</p>
+			<p style="text-align:left">另外，也可以利用config.getServletName()来获取JSP 页面被编译后的Servlet 名称。</p>
+			</p>
+			</section>
+			<section>
+			<img src="imag\config.PNG" alt="config对象的主要方法">
+			</section>
+			<section>
+            <p style="text-align:left">（3）exception对象</p>
+			<p style="text-align:left">当JSP 页面发生错误时，会产生异常。而exception 就是用来针对异常作出相应处理的对象。要使用该内置对象，必须在page 命令中设定<%@ page isErrorPage=”true”%>，否则编译会出现错误。
+			</p>
+			<img src="imag\exception.PNG" alt="exception对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">(4)out对象</p>
+			<p style="text-align:left">out 是用于向客户端输出的PrinterWriter 对象。这里的out 实际上是带有缓冲特性的PrinterWriter，可以称之为JspWriter。缓冲区容量是可以设置的，甚至也可以关闭，只要通过page 指令的buffer 属性就可以达到此目的。
+			</p>
+		</section>
+		<section>
+			<img src="imag\out.PNG" alt="out对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">（5）page对象</p>
+			<p style="text-align:left">page 对象代表JSP 本身，或者说它代表了被转换后的Servlet，因此它可以调用任何被Servlet 类所定义的方法。
+			</p>
+		</section>
+		<section>
+            <p style="text-align:left">（6）pageContext对象</p>
+			<p style="text-align:left">pageContext 能够存取其他内置对象，当内置对象包括属性时，pageContext 也支持对这些属性的读取和写入。</p>
+			<img src="imag\pageContext.PNG" alt="pageContext对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">（7）request 对象</p>
+			<p style="text-align:left">与request 相联系的是HttpServletRequest 类。通过getParameter 方法可以得到request的参数，通过GET、POST、HEAD 等方法可以得到request 的类型，通过cookies，Referer，等可以得到引入的HTTP 头。
+			</p>
+		</section>
+		<section>
+		<img src="imag\request1.PNG" alt="request对象的主要方法">
+		</section>
+		<section>
+		<img src="imag\request2.PNG" alt="request对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">（8）response 对象</p>
+			<p style="text-align:left">与response 相联系的是HttpServletResponse 类，用于控制HTTP 连接。因为输出流是放入缓冲的，所以可以设置HTTP状态码和response 头。主要用于向客户端发送数据，如Cookie、HTTP 文件头等信息。
+			</p>
+		</section>
+		<section>
+		<img src="imag\response1.PNG" alt="response对象的主要方法">
+		</section>
+		<section>
+		<img src="imag\response2.PNG" alt="response对象的主要方法">
+		</section>
+		<section>
+            <p style="text-align:left">（9）session 对象</p>
+			<p style="text-align:left">session 用来分别保存每一个用户的信息，使用session，可以轻易的识别每一个用户，然后针对每个用户的要求，给予正确的响应。因此，在网上购物时购物车中最常使用的就是session。当用户把物品放入购物车时，就可以将用户选定的商品信息存放在session 中，当需要进行付款等操作时，又可以将session 中的信息取出来。
+			</p>
+			<p style="text-align:left"><%@page %>指令有session=”true|false”属性指明 session 对象是否可用，如果指定为false 就无法创建session 对象，当然也无法定义 session 相关属性。默认值为true。
+			</p>
+		</section>
+		<section>
+		<img src="imag\session.PNG" alt="session对象的主要方法">
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">用户关闭浏览器是否就结束了session scope?</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">当首次请求服务器上的JSP页面时，服务器会生成一个
+			session对象，具有一个服务器上唯一的ID号——session ID ，同时这个ID号会被发送
+			到客户端，存放到客户的cookie中。session的创建和销毁由服务器端控制。当浏览器
+			关闭后，session还停留在服务器端；当浏览器重新发送请求到服务器，会创建另一个
+			session,这个时候的session ID已经不一样了，也就不能访问上一次的session里的内容。
+			</p>
+            <p style="text-align:left">如果一定的时间内客户端没有反应，则认为会话结束。Tomcat
+			的默认session有效期是30分钟。
+			</p>
+		</section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:center">内置对象中response 的sendRedirect()方法，在使用中同<jsp:forward/>
+			实现页面跳转的方法有什么区别？
+			</p>
+		</section>
+		<section>
+            <p style="text-align:left">使用<\jsp:forward>对浏览器来说是透明的，浏览器并不知道为其服务的Servlet
+			已经换成Servlet2了，它只知道发出了一个请求，获得了一个响应。显示的URL始终是原始请求的URL。
+			</p>
+			<p style="text-align:left">调用response.sendRedirect()方法，实际上是告诉浏览器Servlet2所在的位置，
+			让浏览器重新访问Servlet2。调用sendRedirect()方法，会在响应中设置Location响应报头。这个过程对于用
+			户来说是透明的，浏览器会自动完成新的访问。浏览器的地址栏中，显示的URL是重定向之后的URL。
+			</p> 
+		 </section>
+		  <section>
+		 <img src="imag\transfer.png" alt="transfer流程">
+		 </section>
+		 <section>
+			<p style="text-align:left">response.sendRedirect（）特点</p>
+			<p style="text-align:left">（1）地址栏内容有变化。</p>
+			<p style="text-align:left">（2）sendRedirect（）方法后的语句继续执行，
+			所以在此语句后面的有向客户端传送信息的语句时候会出现闪烁现象。</p>
+			<p style="text-align:left">（3）sendRedirect（）方法参数可以是URL地址也可以是jsp页面名称。</p>
+			<p style="text-align:left">（4）如果写成sendRedirect（“/a.jsp”），'/'表示http://127.0.0.1/，
+			该路径并不包含在当前页面所在的webapp目录下；而sendRedirect（“a.jsp”）表示转到webapp目录
+			下的其他页面。</p>
+		</section>
+		<section>
+			<p style="text-align:left"><\jsp:forward>特点</p>
+			<p style="text-align:left"><jsp:forward>是服务器端内部进行跳转。而且只能在服务器的内部转换，
+			并将跳转到最后一个页面的执行结果返回给客户端，运行速度快。</p>
+			<p style="text-align:left">（1）地址栏内容没有变化。</p>
+			<p style="text-align:left">（2）<jsp:forward page=""/>后面的语句不会被执行的。</p>
+			<p style="text-align:left">（3）如果写成<jsp:forward page=“/a.jsp”/>，'/'表示http://127.0.0.1/<i>projectname</i>，</p>
+			<p style="text-align:left">（4）包含此跳转指令的页面可以向要跳转到的页面传递参数。</p>
+		</section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:left">JSP 应用开发技术. 贾素玲 王强 张成 编著. 清华大学出版社</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里,感谢诸君围观!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

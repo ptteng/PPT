@@ -1,0 +1,186 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>jdbcTemplate和jdbc</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：上海-Java-李会强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>1.概念:</p>
+			<p> JDBC（Java Data Base Connectivity,数据库连接）是一种用于执行SQL语句的Java API，
+			可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。JDBC提供了一种基准，
+			据此可以构建更高级的工具和接口。</p>
+			<p>2.由来：</p>
+			<p>主流的数据有MySQL，oracle,sqlserver等，他们都有自己的访问协议，
+				Java程序想要跟这些数据库进行数据访问，每种数据库的代码都不通用
+				，这样不利于代码的可复用性。为此jdk提供了数据库访问的规范即JDBC。
+				Jdbc是一种api，接口的实现交由各个数据库厂商来实现，做成数据库的驱动。
+			</p>
+			
+		</section>
+			<section>
+			<p>jdbcTemplate</p>
+			<p>Spring对数据库的操作在jdbc上面做了深层次的封装，使用spring的注入功能，可以把DataSource注册到JdbcTemplate之中。</p>
+			</section>
+		
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+            <p>jdbc使用步骤</p>
+			<p>1.加载JDBC驱动</p>
+			<p>2.建立数据库连接Connection</p>
+			<p>3.创建执行SQL语句的statement</p>
+			<p>4.处理执行的结果ResultSet</p>
+			<p>5.释放资源</p>
+		</section>
+		<section>
+            <p>jdbcTemplate使用步骤</p>
+			<p>1.注入dataSource</p>
+			<p>2.启动IOC容器</p>
+			<p>3.获取jdbcTemplate实例</p>
+			<p>4.调用方法执行SQL语句</p>
+			<p>5.释放资源</p>
+		</section>			
+           
+         <section>
+            <h3>3.常见问题</h3>
+			<p>SQL注入错误?</p>
+        </section>
+				
+		<section>
+            <p>什么是SQL注入错误?</p>
+			<p>用户输入的参数含有SQL关键字的时候有可能引起拼接的SQL语句含义发生
+			改变，从而执行了一些特殊的操作。</p>
+		</section>
+		
+		
+        
+		
+        <section>
+            <h3>4.解决方案</h3>
+			<p>使用PreparedStatement替代Statement</p>
+			<p>优势：</p>
+			<p>（1）语法不同：PreparedStatement可以使用预编译的sql，而Statment只能使用静态的sql</p>
+			<p>（2）效率不同： PreparedStatement可以使用sql缓存区，效率比Statment高</p>
+			<p>（3）安全性不同： PreparedStatement可以有效防止sql注入，而Statment不能防止sql注入。</p>
+        </section>
+				
+		<section>
+		
+            <h3>5.编码实战</h3>
+			<p></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>jdbcTemplate是对jdbc的一种二次封装，那么在实际的应用中能否具体问题具体分析自定义封装来提高代码效率
+			如果可以从那几个方面来入手？
+			</p>
+        </section>
+        
+        <section>
+            <h3>7.参考资料</h3>
+            <p>1.http://www.cnblogs.com/best/p/5638827.html</p>
+			<p>2.http://www.cnblogs.com/xinye/p/3823461.html</p>
+			<p>3.http://www.cnblogs.com/caoyc/p/5630622.html</p>
+			
+		
+        </section>
+   
+	
+        <section>
+            <h4>结束</h4>
+            
+            <p><small>BY : TechMessage</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
