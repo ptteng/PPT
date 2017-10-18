@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>angularJS中的依赖注入</h2>
+                <h3>小课堂【成都】</h3>
+                <p>分享人：韩建名</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <p>以前原始社会，我们需要斧子，然后由于还没有社会分工，只能自己打磨一把来使用，对应在程序上是我们需要一个功能的时候只能自己创建，然后使用new等关键字来调用方法。
+                        然后工业社会阶段，我们需要使用斧子的时候，只需要找到工厂，购买斧子就可以使用，共产主义社会，需要斧子的时候甚至不需要购买，直接坐等社会提供。
+                        依赖注入的意思就是我们需要的东西不是我们自己创建的，而是第三方提供的，我们只需要引用就可以使用了。
+                        不需要的时候就不引用它。</p>
+                </section>
+                <section>
+                    依赖注入产生的背景：
+                </section>
+                <section>
+                    传统应用程序通常是在类内部执行代码中主动创建这个类所依赖的其它对象，
+                    从而导致类与类之间发生紧密耦合，使得类难于测试和隔离，最终导致系统的扩展和维护异常困难。
+                </section>
+                <section>
+                    解决方案：
+                </section>
+                <section>
+                    <p>依赖注入用来解决组件之间依赖关系、配置及生命周期管理，
+                        通过转移对象控制权，可以解决类之间的耦合问题，
+                        对象与对象之间是松散耦合关系，更重要的是使得应用程序体系结构变得非常灵活，
+                        很好的体现了面向对象的设计法则之一---依赖设计原则</p>
+                </section>
+                <section>
+                    <p> 了解了什么是依赖注入，就是说高层类(5岁小孩)应该依赖底层基础设施(家长)来提供必要的服务。
+                        依赖注入不是目的，它是一系列工具和手段，最终的目的是帮助我们开发出松散耦合(loose coupled)、
+                        可维护、可测试的代码和程序</p>
+                </section>
+
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    依赖注入的原理：
+                </section>
+                <section>
+                    程序运行过程中，如需另一个对象协作(调用它的方法、访问他的属性)时，无须在代码中创建被调用者，而是依赖于外部容器的注入，
+                    调用者仅通过声明某个组件就可以获得组件的控制权，而对该组件的依赖关系管理、查找、加载由外部完成。
+                </section>
+                <section>
+                    依赖注入有什么用
+                </section>
+                <section>
+                    <p>作用一：可以使我们能够轻松对组件进行测试</p>
+                    <p>作用二：降低代码的逻辑复杂度</p>
+
+                </section>
+                <section>
+                    <p>angular提供了几种很好的依赖注入机制，以下5个核心组件用来作为依赖注入
+                        value、factory、service、provider、constant、
+                        值  	工厂     服务 	  提供者     常值</p>
+
+                </section>
+                <section>
+                    值是简单的JavaScript对象，它是用来将值传递过程中的配置相位控制器。
+                    <pre>
+                <code>
+
+mainApp.value("defaultInput", 5);
+mainApp.controller('CalcController', function( defaultInput) {
+
+});
+                </code>
+                </pre>
+                </section>
+                <section>
+                    工厂是用于返回函数的值。它根据需求创造值，每当一个服务或控制器需要。它通常使用一个工厂函数来计算并返回对应值
+                    <pre>
+                <code>
+.factory('HelloAngular',function () {//factory方法要简单一点
+    var name = '锤子';
+    function getName() {//函数
+        return name;
+    }
+    return{
+        getName:getName
+    }
+}
+                </code>
+                </pre>
+                </section>
+                <section>提供者所使用的AngularJS内部创建过程中配置阶段的服务，工厂等(相AngularJS引导自身期间
+                    )。下面提到的脚本，可以用来创建，我们已经在前面创建MathService。提供者是一个特殊的工厂方法以及
+                    get()方法，用来返回值/服务/工厂。<pre>
+                <code>
+   $provide.provider('MathService', function() {
+      this.$get = function() {
+         var factory = {};
+         factory.multiply = function(a, b) {
+            return a * b;
+         }
+         return factory;
+      };
+   });
+                </code>
+                </pre>
+                </section>
+                <section>
+                    服务是一个单一的JavaScript包含了一组函数对象来执行某些任务。服务使用service()函数，然后注入到控制器的定义。
+                    <pre>
+                <code>
+
+    //服务
+    .service('service',function () {
+        return [1,2,3,4]  //只能定义对象，不能定义基本的如数字，字符串
+            // 1111
+
+    })
+                </code>
+                </pre>
+                </section>
+            </section>
+
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+
+                <section>
+                    <p>1、依赖注入的几种方法如何使用</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>4.解决方案</h3>
+                </section>
+                <section>
+                    1.推断式注入声明
+                    如果没有明确的声明， AngularJS会假定参数名称就是依赖的名称。
+                    请注意，这个过程只适用于未经过压缩和混淆的代码，因为AngularJS需要原始未经压缩的参数列表来进行解析
+                    当AngularJS实例化这个模块时，会查找greeter并自然而然地把对它的引用传递进去
+                    这里我们先看一个简单的依赖注入的例子。
+                </section>
+                <section>
+                    2、显式注入声明
+                    AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。
+                    通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。
+                </section>
+                <section>
+                    3 行内注入声明
+                    AngularJS提供的注入声明的最后一种方式，是可以随时使用的行内注入声明。
+                    允许我们在函数定义时从行内将参数传入。此外，它可以避免在定义过程中使用临时变量。
+                    这种方式其实是一个语法糖，它同前面提到的通过$inject属性进行注入声明的原理是完全一样的
+                </section>
+
+            </section>
+            <section>
+                <section>
+                    <h3>5.编码实战</h3>
+                </section>
+                <section>
+                    通过工厂可以让两个不同的controller里面的值双向绑定<br/>
+                </section>
+                <section>
+            <pre>
+                <code>
+
+angular.module('App',[])
+    //服务
+    .service('service',function () {
+        return [1,2,3,4]  //只能定义对象，不能定义基本的如数字，字符串
+            // 1111
+
+    })
+    //工厂 都可以定义
+    .factory('factory',function () {
+        return'李四'
+    })
+    //通过工厂使他们共享
+    .factory('Data',function () {
+        return{
+            ssss:'共享'
+        }
+    })
+.controller('firstcontroller',['$scope','factory','service','Data',function ($scope,factory,service,Data) {
+    console.log(service)
+    console.log(factory)
+    $scope.name='张三'
+    $scope.Data= Data
+}])
+.controller('datacontroller',['$scope','Data',function ($scope,Data) {
+    $scope.Data= Data
+}])
+                </code>
+            </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    <p class="fragment">这些依赖组件的本质是啥？</p>
+                    <p class="fragment">factory，service以及value全部都是用来定义一个provider的简写，
+                        它们提供了一种方式来定义一个provider而无需输入所有的复杂的代码。</p>
+                </section>
+
+            </section>
+            <section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section>
+                       <p>参考：<a href="http://blog.csdn.net/luo_xinran/article/details/52153830" target="_blank">深究依赖注入</a></p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8.更多讨论</h3>
+                </section>
+                <section>
+                    <p>AngularJS中的依赖注入组件的应用场景？</p>
+                    <p>AngularJS中的依赖注入与不用依赖注入的其他框架相比，有何优点？</p>
+                </section>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p>鸣谢</p>
+                <p>汤金鑫|韩建名</p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>
