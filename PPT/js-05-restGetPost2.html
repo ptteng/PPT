@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>get 与 post的区别?application json 与form表单的区别</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+        .left{
+            text-align: left
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>get与post的区别?application json 与form表单的区别?</h2>
+            <h3>小课堂【深圳第323期】</h3>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+          <section>
+            <h4>基本概念</h4>
+            <p class="left">
+              HTTP：在Web应用中，服务器把网页传给浏览器，实际上就是把网页的HTML代码发送给浏览器，让浏览器显示出来。而浏览器和服务器之间的传输协议是HTTP。HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。
+              工作原理：HTTP协议工作于客户端-服务端,浏览器作为HTTP客户端通过URL(统一资源定位符)向HTTP服务端发送请求,服务器接收到请求后,向客户端发送响应信息。<br><br>
+              三大特点：1.无连接 2.灵活快速 3.无状态
+            </p>
+            </section>
+            <section>
+              <h4>消息结构</h4>
+             <p class="left">客户端请求消息：由请求行、请求头部、空行、请求数据组成。</p>
+             <p class="left">GET：请求指定的页面信息，并返回实体主体</p>
+             <p class="left">POST：向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</p>
+            </section>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+              <p>get与post的区别</p>
+            </section>
+            <section >
+                <h4> 1、GET方式</h4>
+                <ol>
+                    <li>
+                       GET方式是通过URL请求传递用户所输入的内容，其提交的内容会全部显示的浏览器的地址栏中；其安全性很低。如果用户输入的内容包含密码之类的私人信息时很容易被其他人获取。
+                    </li>
+                    <li>
+                        GET方式提交需要用到Request.QueryString来取得变量的值。
+                    </li>
+                    <li>
+                        GET提交具有长度限制，最长不能超过2048字节。
+                    </li>
+                    <li>
+                        GET是从服务器上获取数据。
+                    </li>
+                    <li>
+                        GET是把参数数据队列加到提交表单的action属性所指的URL中，值和表单内容一一对应，在URL中可以看到。
+                    </li>
+                    <li>
+                        在页面重新刷新载入时，没有提示框询问“是否重新发送请求”。
+                    </li>
+                    <li>
+                        在做请求时，GET是将表单内容放到信息的请求头中。
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h4> 2.POST方式</h4>
+                <ol>
+                    <li>
+                        POST提交不会将用户所输入的个人信息显示在浏览器的地址栏中且地址栏中没有什么变化。
+                    </li>
+                    <li>
+                        POST方式提交需要用到Request.Form来取得变量的值。
+                    </li>
+                    <li>
+                        POST没有提交长度限制。
+                    </li>
+                    <li>
+                        POST是向服务器传送数据。
+                    </li>
+                    <li>
+                        POST是通过HTTP post机制，将表单内容 中各个字段与其内容旋转在HTML HEADER内一起传送到action属性所批的URL地址。用户是看不到这一过程的。
+                    </li>
+                    <li>
+                        在页面重新刷新载入时，会有提示框询问“是否重新发送请求”。
+                    </li>
+                </ol>
+
+            </section>
+            <section>
+                <h4>幂等</h4>
+                <P class="left">先介绍下幂等的概念：如果一个操作没有副作用，或者多次操作对资源产生的副作用相同，我们就说这个操作是幂等的。</P>
+                <p class="left">get方法用户获取资源，没有副作用，所以是幂等的；post用于创建资源，是有副作用的，且副作用不同，所以post不是幂等的。（两次相同的POST请求会在服务器端创建两份资源，它们具有不同的URI）</p>
+            </section>
+            <section>
+                <img src="../img/js-05-rest%20get%20post/rest.png">
+                <p class="middle">上图是在W3C上找到的答案。</p>
+            </section>
+            <section>
+              <ul>
+                  <li>
+                      GET在浏览器回退时是无害的，而POST会再次提交请求。
+                  </li>
+                  <li>
+                      GET产生的URL地址可以被Bookmark，而POST不可以。
+                  </li>
+                  <li>
+                      GET请求会被浏览器主动cache，而POST不会，除非手动设置。
+                  </li>
+                  <li>
+                      GET请求只能进行url编码，而POST支持多种编码方式。
+                  </li>
+                  <li>
+                      GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。
+                  </li>
+                  <li>
+                      GET请求在URL中传送的参数是有长度限制的，而POST没有。
+                  </li>
+                  <li>
+                     对参数的数据类型，GET只接受ASCII字符，而POST没有限制。
+                  </li>
+                  <li>
+                      GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。
+                  </li>
+                  <li>
+                      GET参数通过URL传递，POST放在Request body中。
+                  </li>
+              </ul>
+            </section>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>GET和POST使用环境?</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section class="left">
+            <p>应该符合语义的使用;即获取数据使用GET，增加数据使用POST。</p>
+            <p>当请求无副作用时（如进行搜索），便可使用GET方法；当请求有副作用时（如添加数据行），则用POST方法。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>application json 与form表单的区别？</p>
+        </section>
+        <section>
+            <p class="left">   application/json，随着json规范的越来越流行，并且浏览器支持程度原来越好，
+                许多开发人员以application/json作为请求content-type，告诉服务器请求的主题内容是json格式的字符串，
+                服务器端会对json字符串进行解析，这种方式的好处就是前端人员不需要关心数据结构的复杂度，
+                只要是标准的json格式就能提交成功，application/json数据格式越来越得到开发人员的青睐。
+            </p>
+        </section>
+        <section>
+            <p class="left">
+                application/x-www-form-urlencoded方式是Jquery的Ajax请求默认方式，这种方式的好处就是浏览器都支持，
+                在请求发送过程中会对数据进行序列化处理，以键值对形式？key1=value1&key2=value2的方式发送到服务器，
+                如果用Jquery，它内部已经进行了处理，如果自己写原生的Ajax请求，就需要自己对数据进行序列化。
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section class="left">
+            <p>参考一：<a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank">W3C</a></p>
+            <P>参考二：<a href="https://www.zhihu.com/question/28586791" target="_blank"> 知乎——get和post区别？ </a></P>
+            <P>参考三：<a href="http://www.cnblogs.com/Guazi-JS/archive/2010/05/05/1727966.html" target="_blank"> AJAX和表单提交中GET与POST的区别 </a></P>
+            <P>参考四：<a href="https://www.oschina.net/news/77354/http-get-post-different" target="_blank"> 99%的人理解错 HTTP 中 GET 与 POST 的区别  </a></P>
+            <P>参考五：<a href="https://zhuanlan.zhihu.com/p/25028045" target="_blank"> 听说『99% 的人都理解错了 HTTP 中 GET 与 POST 的区别』？？  </a></P>
+            <p>参考六：<a href="http://blog.csdn.net/mm_gg_201512/article/details/72830000" target="_blank"> application/json 和 application/x-www-form-urlencoded的区别</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>分别在什么情况下运用post和get？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 彭勇|王峰|张珺琢|王奎智|包腾飞</small></p>
+        </section>
+
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <style>
+        .ct {
+            text-align: center
+        }
+    </style>
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides" style="font-family: 微软雅黑 ">
+        <section>
+            <h2>【JS-task06】继承有几种方式，分别是什么？想要实现继承可以使用什么方法？</h2>
+            <h3>小课堂【深圳第317期】</h3>
+            <h3 style="font-weight: 700"></h3>
+            <p></p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>起源：Simula67语言</p>
+            <p>对象：“无序属性的结合，其属性值可以包含基本值、对象或者函数”。</p>
+            <p>面向对象编程（OOP）：核心思想是将各种复杂关系，抽象成一个个对象，然后由对象之间的分工合作，完成对真实世界的模拟。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            JavaScript语言的对象体系，不是基于“类”，而是基于构造函数（constructor）和原型（prototype）
+        </section>
+        <section>
+            <blockquote>
+                原型对象：只要创建一个新函数，就会根据特定的规则为该函数创建一个prototype属性指向其原型对象，默认情况下原型对象会自动获得一个constructor属性，该属性包含一个指向prototype属性所在函数的指针
+            </blockquote>
+            <pre><code>
+                Function.prototype.constructor===Function //true
+            </code></pre>
+        </section>
+        <section>
+            <p>构造函数：本身是一个函数，出于创建特定类型新对象的目的而定义的，内部使用this变量，需要和new配合使用来创建实例，this变量会绑定在实例对象上。</p>
+        </section>
+        <section>
+            <p>封装模式：将“属性”和“方法”封装成对象的模式，即创建对象的方式</p>
+        </section>
+        <section>
+            <section>
+
+                <pre>
+                    <code>
+                    1.Object构造函数或对象字面量创建
+
+            　　      var Cat = {
+            　　　 　name : '',
+            　　　　    color : ''
+            　　      }
+
+                     根据该对象的规格封装，生成两个实例对象
+                    var cat1 = {}; // 创建一个空对象
+            　　　　cat1.name = "大毛"; // 按照原型对象的属性赋值
+            　　　　cat1.color = "黄色";
+            　　      var cat2 = {};
+            　　　　cat2.name = "二毛";
+            　　　　cat2.color = "黑色";
+
+                    </code>
+                </pre>
+            </section>
+
+            <section>
+
+                <pre>
+                    <code>
+                    原始模式的改进
+                    　　function Cat(name,color) {
+                    　　　　return {
+                    　　　　　　name:name,
+                    　　　　　　color:color
+                    　　　　}
+                    　　}
+
+                    　　var cat1 = Cat("大毛","黄色");
+　　                    var cat2 = Cat("二毛","黑色");
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                <code>
+                    构造函数模式
+                    　　function Cat(name,color){
+                    　　　　this.name=name;
+                    　　　　this.color=color;
+                    　　}
+
+                    　　var cat1 = new Cat("大毛","黄色");
+                    　　var cat2 = new Cat("二毛","黑色");
+                    　　alert(cat1.name); // 大毛
+                    　　alert(cat1.color); // 黄色
+                     这是cat1、cat2会自动含有一个constructor属性，指向构造函数
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                    构造函数方法很好用，但是存在一个浪费内存的问题
+                    　　function Cat(name,color){
+                    　　　　this.name = name;
+                    　　　　this.color = color;
+                    　　　　this.type = "猫科动物";
+                    　　　　this.eat = function(){alert("吃老鼠");};
+                    　　}
+
+                    　　var cat1 = new Cat("大毛","黄色");
+                    　　var cat2 = new Cat ("二毛","黑色");
+                    　　alert(cat1.type); // 猫科动物
+                    　　cat1.eat(); // 吃老鼠
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                    prototype模式
+                    　　function Cat(name,color){
+                    　　　　this.name = name;
+                    　　　　this.color = color;
+                    　　}
+                    　　Cat.prototype.type = "猫科动物";
+                    　　Cat.prototype.eat = function(){alert("吃老鼠")};
+
+                    　　var cat1 = new Cat("大毛","黄色");
+                    　　var cat2 = new Cat("二毛","黑色");
+                    　　alert(cat1.type); // 猫科动物
+                    　　cat1.eat(); // 吃老鼠
+
+                    </code>
+                </pre>
+            </section>
+
+            <section>
+
+                <pre>
+                    <code>
+                最常见方式，组合使用构造函数与原型模式
+                function Person(name, age, job){
+                 this.name = name;
+                 this.age = age;
+                 this.job = job;
+                 this.friends = ["Shelby", "Court"];
+                }
+                Person.prototype = {
+                 constructor : Person,
+                 sayName : function(){
+                 alert(this.name);
+                 }
+                }
+                var person1 = new Person("Nicholas", 29, "Software Engineer");
+                var person2 = new Person("Greg", 27, "Doctor");
+                person1.friends.push("Van");
+                alert(person1.friends); //"Shelby,Count,Van"
+                alert(person2.friends); //"Shelby,Count"
+                alert(person1.friends === person2.friends); //false
+                alert(person1.sayName === person2.sayName); //true
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <p>继承概念 </p>
+            <p>许多OO语言都支持两种继承方式：接口继承和实现继承，接口继承只继承方法签名，实现继承则继承实际的方法</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>js如何实现继承？</p>
+        </section>
+        <section><h3>4.解决方案</h3></section>
+        <section>
+
+            <section>
+
+            <pre>
+                  <code>
+                      比如现在有一个动物对象的构造函数：
+                      　　function Animal(){
+                        　　　　this.species = "动物";
+                        　}
+
+                            现在有一个猫的构造函数
+                        　　function Cat(name,color){
+                        　　　　this.name = name;
+                        　　　　this.color = color;
+                        　　}
+                    </code>
+                </pre>
+            </section>
+            <section>
+
+                <pre>
+                    <code>
+                prototype模式
+
+                　　Cat.prototype = new Animal();
+                　　Cat.prototype.constructor = Cat;
+                　　var cat1 = new Cat("大毛","黄色");
+                　　alert(cat1.species); // 动物
+
+                主要的问题是包含引用类型的值的原型属性会被所有实例共享无
+                        法独立修改，并且无法想超类型中的构造函数传参。
+
+                    </code>
+                </pre>
+            </section>
+            <section>
+
+                <pre>
+                    <code>
+                    构造函数绑定
+
+                    function Cat(name,color){
+                　　　　Animal.apply(this, arguments);
+                　　　　this.name = name;
+                　　　　this.color = color;
+                　　}
+                　　var cat1 = new Cat("大毛","黄色");
+                　　alert(cat1.species); // 动物
+
+                    主要的问题是如果有公用方法属性，会都被实例化，浪费内存
+                    </code>
+                </pre>
+
+            </section>
+            <section>
+
+                <pre>
+                    <code>
+                    直接继承prototype
+
+                    　　function Animal(){ }
+　　                          Animal.prototype.species = "动物";
+
+                    Cat.prototype = Animal.prototype;
+                　　Cat.prototype.constructor = Cat;
+                　　var cat1 = new Cat("大毛","黄色");
+                　　alert(cat1.species); // 动物
+
+                    缺点是任何对Cat.prototype的修改都会反应到Animal.prototype,
+                    并且Animal.prototype.constructor也被改变了
+                    </code>
+                </pre>
+
+            </section>
+            <section>
+
+                <pre>
+                    <code>
+                        利用空对象作为中介
+
+                    　   var F = function(){};
+                    　　F.prototype = Animal.prototype;
+                    　　Cat.prototype = new F();
+                    　　Cat.prototype.constructor = Cat;
+
+
+                        F是空对象，几乎不占内存
+                    </code>
+
+                </pre>
+
+            </section>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>ES6中JavaScript拥有类的概念了，参考java等语言思考JavaScript如何使用类来简化封装、继承。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考：<a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></p>
+            <p>参考：JavaScript高级程序设计第三版</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>继承一般用到什么地方</h3>
+        </section>
+        <section>
+            <p>通常在一般的项目里不需要，因为应用简单，但你要用纯js做一些复杂的工具或框架系统就要用到了，比如webgis、或者js框架如jquery、angular、vue什么的，不然一个几千行代码的框架不用继承得写几万行，甚至还无法维护</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY:郭俊伟 | somebody</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        mouseWheel: true,
+        transition: 'fade',
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
