@@ -53,113 +53,113 @@
         </section>
         <section> 
 			<h4>SLF4J是怎么诞生的?</h4>
-            <p>很久很久以前，Apache说服log4j以及其他的日志按照commons-logging的标准编写，但是由于commons-logging的类加载器有点问题，实现起来也不友好，因此log4j的作者创作了SLF4J，也因此与commons-logging平分天下。到底使用哪一个，由开发者自己决定。</p>
+            <p align="left">很久很久以前，Apache说服log4j以及其他的日志按照commons-logging的标准编写，但是由于commons-logging的类加载器有点问题，实现起来也不友好，因此log4j的作者创作了SLF4J，也因此与commons-logging平分天下。到底使用哪一个，由开发者自己决定。</p>
 		</section>
 		
         <section>
             <h3>2.知识剖析</h3>
-			<p>1）SLF4J到底是什么？</p>
-			<p>2）SLF4J的实现原理什么？</p>
+			<p align="left">1）SLF4J到底是什么？</p>
+			<p align="left">2）SLF4J的实现原理什么？</p>
         </section>
 		<section>
-            <p>1）SLF4J到底是什么？</p>
-			<p>commons-logging和slf4j都是日志的接口，供用户使用，而没有提供实现。log4j、logback、java.logging才是日志的真正实现。当我们调用接口时，接口的工程会自动寻找恰当的实现，返回一个实现的实例。</p>
+            <p align="left">1）SLF4J到底是什么？</p>
+			<p align="left">commons-logging和slf4j都是日志的接口，供用户使用，而没有提供实现。log4j、logback、java.logging才是日志的真正实现。当我们调用接口时，接口的工程会自动寻找恰当的实现，返回一个实现的实例。</p>
 			<img src="../img-java/logger/A.png"/>
         </section>
 		<section>
-			<p>2）SLF4J的实现原理什么？</p>
+			<p align="left">2）SLF4J的实现原理什么？</p>
             <img src="../img-java/logger/B.png"/>
         </section>
 
         <section>  
             <h3>3.常见问题</h3>
-            <p>1）Log4j怎么结合SLF4J？</p>
-			<p>2）Log4j结合SLF4J有什么优势？</p>
+            <p align="left">1）Log4j怎么结合SLF4J？</p>
+			<p align="left">2）Log4j结合SLF4J有什么优势？</p>
         </section>
 
         <section>
             <h3>4.解决方案</h3>
-            <p>1）Log4j怎么结合SLF4J？</p>
-			<p>A.添加SLF4J的jar包</p>
-			<p>B.添加适配器jar包：slf4j-log4j12</p>
-			<p>tip：实际只添加适配器jar包就可以了。</p>
+            <p align="left">1）Log4j怎么结合SLF4J？</p>
+			<p align="left">A.添加SLF4J的jar包</p>
+			<p align="left">B.添加适配器jar包：slf4j-log4j12</p>
+			<p align="left">tip：实际只添加适配器jar包就可以了。</p>
         </section>
 		<section>
-			<p>2）Log4j结合SLF4J有什么优势？</p>
-			<p>有数据表明，一个应用程序中大约有4%的代码用来打日志。在代码中，我们经常需要把一些参数作为Debug级别的日志打印出来，方便我们进行调试。项目部署之前我们会把日志的级别调到INFO，项目正式运转的时候就不会打印Debug级别的日志。</p>
-			<p>但Log4j在这方面做的不太好，用到了isDebugEnable()并在项目刚运行时就拼接字符串存到内存里，这样不仅检查了两次日志级别，并占用了内存资源，导致性能比其他日志实现要差。这种操作会使得我们的代码看起来更像是在打日志而不是在实现某种功能。</p>
-			
+			<p align="left">2）Log4j结合SLF4J有什么优势？</p>
+			<p align="left">有数据表明，一个应用程序中大约有4%的代码用来打日志。在代码中，我们经常需要把一些参数作为Debug级别的日志打印出来，方便我们进行调试。项目部署之前我们会把日志的级别调到INFO，项目正式运转的时候就不会打印Debug级别的日志。</p>
+			<p align="left">但Log4j在这方面做的不太好，用到了isDebugEnable()并在项目刚运行时就拼接字符串存到内存里，这样不仅检查了两次日志级别，并占用了内存资源，导致性能比其他日志实现要差。这种操作会使得我们的代码看起来更像是在打日志而不是在实现某种功能。</p>
         </section>
-	<section>
-		<p>通过结合SLF4J，Log4j也可使用参数替代字符串拼接，这样只会检查一次日志级别，且只在需要输出日志的时候才会拼接字符串。代码更优雅、性能也有提升。</p>	
-	</section>
+		<section>
+			<p align="left">通过结合SLF4J，Log4j也可使用参数替代字符串拼接，这样只会检查一次日志级别，且只在需要输出日志的时候才会拼接字符串。代码更优雅、性能也有提升。</p>	
+		</section>
+		
         <section>
             <h3>5.实战</h3>
-            <p>1）Log4j结合SLF4J</p>
-			<p>2）Log4j结合SLF4J前后的性能对比</p>
-			<p>3）Log4j2怎么使用</p>
-			<p>4）Log4j和Log4j2的性能对比</p>
+            <p align="left">1）Log4j结合SLF4J</p>
+			<p align="left">2）Log4j结合SLF4J前后的性能对比</p>
+			<p align="left">3）Log4j2怎么使用</p>
+			<p align="left">4）Log4j和Log4j2的性能对比</p>
         </section>
 
         <section>
             <h3>6.扩展思考</h3>
-            <p>1）为什么要以类名作为logger的名字？</p>
-			<p>2）Log4j 怎么迁移到 Log4j2？</p>
+            <h4>1）为什么要以类名作为logger的名字？</h4>
+			<p align="left">2）Log4j 怎么迁移到 Log4j2？</p>
         </section>
 		<section>
-            <p>1）为什么要以类名作为logger的名字？</p>
-			<p>首先我们要知道，类通常以类代表的对象或者类可以实现的功能来命名，这种命名方式提高了可读性，易于他人 识别。同样的，以类名作为logger的名字可以快速定位产生日志的类，还可以更精确地对每个类的日志级别、输出目的地和输出样式进行调整。</p>
+            <p align="left">1）为什么要以类名作为logger的名字？</p>
+			<p align="left">首先我们要知道，类通常以类代表的对象或者类可以实现的功能来命名，这种命名方式提高了可读性，易于他人 识别。同样的，以类名作为logger的名字可以快速定位产生日志的类，还可以更精确地对每个类的日志级别、输出目的地和输出样式进行调整。</p>
         </section>
 		<section>
             <img src="../img-java/logger/C.png"/>
         </section>
 		<section>
-            <p>这种命名方式实际有什么作用呢？</p>
-			<p>A.同名Logger</p>
-			<p>B.父类Logger</p>
-			<p>C.Root Logger</p>
+            <p align="left">这种命名方式实际有什么作用呢？</p>
+			<p align="left">A.同名Logger</p>
+			<p align="left">B.父类Logger</p>
+			<p align="left">C.Root Logger</p>
         </section>
 		<section>
             <h4>2）Log4j 怎么迁移到 Log4j2？</h4>
-			<p>A.前提条件</p>
-			<p>没有调用Log4j-1.x的内部方法，比如Appenders（），LoggerRepository（）</p>
-			<p>没有使用代码的方式配置Log4j</p>
-			<p>没有调用DOMConfigurator或PropertyConfigurator这两个类</p>
-			<p>B.替换jar包</p>
-			<p>把 Log4j-1.x.jar 换成 log4j-1.2-api.jar（这个jar包内有log4j-api、log4j-core两个jar包）</P>
+			<p align="left">A.前提条件</p>
+			<p align="left">没有调用Log4j-1.x的内部方法，比如Appenders（），LoggerRepository（）</p>
+			<p align="left">没有使用代码的方式配置Log4j</p>
+			<p align="left">没有调用DOMConfigurator或PropertyConfigurator这两个类</p>
+			<p align="left">B.替换jar包</p>
+			<p align="left">把 Log4j-1.x.jar 换成 log4j-1.2-api.jar（这个jar包内有log4j-api、log4j-core两个jar包）</P>
         </section>
 		<section>
-            <p>C.修改代码</p>
-			<p>首先要清楚，jar包前缀不一样，版本1是org.apache.log4j，版本2是org.apache.logging.log4j</p>
-			<p>a.版本1是Logger.getLogger( )，改成版本2的LoggerManager.getLogger( )</p>
-			<p>b.版本1是Logger.getRootLogger( )，改成版本2的LoggerManager.getRootLogger( )</p>
+            <p align="left">C.修改代码</p>
+			<p align="left">首先要清楚，jar包前缀不一样，版本1是org.apache.log4j，版本2是org.apache.logging.log4j</p>
+			<p align="left">a.版本1是Logger.getLogger( )，改成版本2的LoggerManager.getLogger( )</p>
+			<p align="left">b.版本1是Logger.getRootLogger( )，改成版本2的LoggerManager.getRootLogger( )</p>
         </section>
 		<section>
 			<img src="../img-java/logger/D.png"/>
 		</section>
 		<section>
-			<p>D.配置文件</p>
-			<p>log4j.properties换成log4j2.xml</p>
+			<p align="left">D.配置文件</p>
+			<p align="left">log4j.properties换成log4j2.xml</p>
 		</section>
 		
 		
         <section>
             <h3>7.参考文献</h3>
-            <p>参考一：<a href="http://logging.apache.org/log4j/2.x/" target="_blank">Log4j2 官网</a></p>
-			<p>参考二：<a href="https://logging.apache.org/log4j/2.x/manual/migration.html" target="_blank">Log4j 迁移到 Log4j2</a></p>
-			<p>参考三：<a href="https://my.oschina.net/kkrgwbj/blog/734530" target="_blank">Log4j2 高级配置以及简单的示例</a></p>
-			<p>参考四：<a href="https://www.slf4j.org/manual.html" target="_blank">SLF4J 官网</a></p>
+            <p align="left">参考一：<a href="http://logging.apache.org/log4j/2.x/" target="_blank">Log4j2 官网</a></p>
+			<p align="left">参考二：<a href="https://logging.apache.org/log4j/2.x/manual/migration.html" target="_blank">Log4j 迁移到 Log4j2</a></p>
+			<p align="left">参考三：<a href="https://my.oschina.net/kkrgwbj/blog/734530" target="_blank">Log4j2 高级配置以及简单的示例</a></p>
+			<p align="left">参考四：<a href="https://www.slf4j.org/manual.html" target="_blank">SLF4J 官网</a></p>
         </section>
 
         <section>
             <h3>8.更多讨论</h3>
-            <p></p>
+            <p align="left"></p>
         </section>
 
         <section>
             <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p><small>BY : 韦杰</small></p>
+            <p align="left">感谢大家观看</p>
+            <p align="left"><small>BY : 韦杰</small></p>
         </section>
     </div>
 </div>
