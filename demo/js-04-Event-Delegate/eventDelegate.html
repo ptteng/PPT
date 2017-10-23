@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            margin: 100px;
+            background-color: #e8e8e8;
+            text-align: center;
+            padding: 0;
+        }
+
+        li {
+            line-height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="parent-list">
+        <li id="post-1">Item 1</li>
+        <li id="post-2">Item 2</li>
+        <li id="post-3">Item 3</li>
+
+        <li id="post-4">Item 4</li>
+        <li id="post-5">Item 5</li>
+        <li id="post-6">Item 6</li>
+
+    </ul>
+    <script>
+        // document.getElementById("post-1").onclick = function () {
+        //     if (this.style.backgroundColor !== "red") {
+        //         this.style.backgroundColor = "red";
+        //     } else {
+        //         this.style.backgroundColor = "#e8e8e8";
+        //     }
+        // }
+        // document.getElementById("post-2").onclick = function () {
+        //     if (this.style.backgroundColor !== "red") {
+        //         this.style.backgroundColor = "red";
+        //     } else {
+        //         this.style.backgroundColor = "#e8e8e8";
+        //     }
+        // }
+        // document.getElementById("post-3").onclick = function () {
+        //     if (this.style.backgroundColor !== "red") {
+        //         this.style.backgroundColor = "red";
+        //     } else {
+        //         this.style.backgroundColor = "#e8e8e8";
+        //     }
+        // }
+
+
+
+
+
+        for (var i = 0; i < document.querySelectorAll("LI").length; i++) {
+            document.querySelectorAll("LI")[i].addEventListener("click", function () {
+                if (this.style.backgroundColor !== "red") {
+                    this.style.backgroundColor = "red";
+                } else {
+                    this.style.backgroundColor = "#e8e8e8";
+                }
+            }, false)
+        }
+
+
+
+
+
+        document.getElementById("parent-list").addEventListener("click", function (e) {
+              console.log(e.currentTarget);
+              console.log(e.target);
+            if (e.target && e.target.nodeName == "LI") {
+
+                if (e.target.style.backgroundColor !== "red") {
+                    e.target.style.backgroundColor = "red";
+                } else {
+                    e.target.style.backgroundColor = "#e8e8e8";
+                }
+            }
+        });
+    </script>
+</body>
+
+
+</html>
