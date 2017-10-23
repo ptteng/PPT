@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class=" js no-mobile desktop no-ie ff ff56 ppt-section ppt-section w-1360 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 lt-1440 lt-1680 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="js-04-closure%20in%20js-page"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="%E8%91%A1%E8%90%84%E8%97%A4PPT_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.768857);">
+        <section style="top: 192.5px; display: none;" class="past" aria-hidden="true" hidden="">
+            <p style="font-size: 50px">闭包是什么？用处如何? </p>
+            <h4>小课堂【上海第3期】</h4>
+            <p>分享人：孙伟淳</p>
+        </section>
+        <section style="top: 0px; display: none;" class="past" aria-hidden="true" hidden="">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+
+        <section style="top: 0px; display: block;" class="stack past" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 254.5px; display: block;" class="" aria-hidden="true">
+                <h2>1.背景介绍</h2>
+            </section>
+            <section class="future" style="top: 56px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        闭包是指有权访问另一个函数作用域中的变量的函数。<br>
+                        创建闭包的常见方式，就是在一个函数内部创建另一个函数。<br>
+                        闭包就是能够读取其他函数内部变量的函数,可以把闭包简单理解成&nbsp;&nbsp;‘定义在一个函数内部的函数’<br>
+                        先抛开对于两个出处的具体描述，至少两者对于闭包的定义可以简化为:<br>
+                        “闭包是一种函数”，而且闭包是一种特殊的函数。<br>
+                        以上两个出处涉及到了一些概念（或名词）：函数、内部变量、函数内部、函数作用域
+                    </p>
+                </div>   
+            </section>
+            <section class="future" style="top: 32.5px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。<br><br>
+                        JS函数的执行依赖于变量作用域， 函数对象的内部状态包含函数自身的逻辑，还必须引用当前的作用域链。<br><br>
+                        闭包是「函数」和「函数内部能访问到的变量」（也叫环境）的总和。<br><br>
+                        函数对象可以相互关联起来，函数体内部的变量可以保存在函数作用域内， 具有这种特性的函数称为闭包。
+                    </p>
+                </div>
+            </section>
+        </section>
+
+
+        <section style="top: 0px; display: block;" class="stack past" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: block;" class="" aria-hidden="true">
+                <h3>2.知识剖析</h3>
+            </section>
+            <section class="future" style="top: 151.5px; display: block;" aria-hidden="true" hidden="">
+                <h4>2.1</h4>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="0">
+                    闭包可以用在许多地方。它的最大用处有两个：<br><br>
+
+                    1.可以读取函数内部的变量<br><br>
+
+                    2.让这些变量的值始终保存在内存中
+                </p>
+            </section>
+            <section class="future" style="top: 84.5px; display: none;" aria-hidden="true" hidden="">
+                <h4>2.2</h4>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="0">
+                    变量的作用域<br><br>
+
+                    变量的作用域无非就是两种：全局变量和局部变量。
+                </p>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="1">
+                    Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。
+                </p>
+                <p class="fragment visible" style="text-align: left" data-fragment-index="2">
+                    值得注意的是在局部变量中定义变量的时候要使用var ,不然你声明的其实是一个全局变量
+                </p>
+            </section>
+            <section class="future" style="top: 73.5px; display: none;" aria-hidden="true" hidden="">
+                <p style="text-align: left">例一：读取函数内部的变量</p>
+                <pre>            <code class="hljs nimrod">
+                    /*使用闭包读取函数内部的变量*/
+                    function f1(){
+                        x = <span class="hljs-number">666</span>;
+                        function f2(){
+                            alert(x);
+                        }
+                        <span class="hljs-keyword">return</span> f2;
+                    }
+                    <span class="hljs-keyword">var</span> <span class="hljs-literal">result</span> = f1();
+                    <span class="hljs-literal">result</span>(); //<span class="hljs-number">666</span>
+            </code>
+            </pre>
+            </section>
+            <section class="future" style="top: 103px; display: none;" aria-hidden="true" hidden="">
+                <h4></h4>
+                <p>
+                    
+在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不
+可见的。这就是Javascript语言特有的"链式作用域"结构（chain
+                    
+scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。既然f2可以读取f1中的局部
+变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗
+                </p>
+            </section>
+             <section class="future" style="top: 56px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        js的变量作用域是函数级的，在js里没有类似c语言的块级作用域。<br>
+                        js编程环境的顶级作用域是window对象下的范围，称为全局作用域，全局作用域中的变量称为全局变量。<br>
+                        js函数内的变量无法在函数外面访问，在函数内却可以访问函数外的变量，函数内的变量称为局部变量。<br>
+                        js函数可以嵌套，多个函数的层层嵌套构成了多个作用域的层层嵌套，这称为js的作用域链。<br>
+                    </p>
+                </div>   
+            </section>
+            <section class="future" style="top: 56px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    <p style="text-align: left">
+                        js作用域链的变量访问规则是：如果当前作用域内存在要访问的变量，则使用当前作用域的变量，否则到上一层作用域内寻找，直到全局作用域，如果找不到，则该变量为未声明。<br>
+                    </p>
+                </div>   
+            </section>
+            <section class="future" style="top: 56px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    <h3>例二</h3>
+                </div>   
+            </section>
+            <section class="future" style="top: 56px; display: none;" aria-hidden="true" hidden="">
+                <div class="fragment visible" data-fragment-index="0">
+                    注意，变量的声明在代码解析期完成，如果当前作用域的变量的声明和赋值语句写在变量访问语句后面，js函数会认为当前作用域已经存在要访问的变量不再向上级作用域查找，但是，由于变量的赋值发生的代码运行期，访问的到变量将是undefined.<br>
+                </div>   
+            </section>
+            <section class="future" style="top: 16px; display: none;" aria-hidden="true" hidden="">
+                <p style="text-align: left">例三：变量的值始终保存在内存的例子</p>
+                <pre>            <code class="hljs php">
+                <span class="hljs-comment">/*使用闭包让函数内部的变量储存在内存中*/</span>
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>{
+                    <span class="hljs-keyword">var</span> x = <span class="hljs-number">666</span>;
+                    nAdd = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+                        x+=<span class="hljs-number">666000</span>;
+                    };
+                    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>{
+                        alert(x);
+                    }
+                    <span class="hljs-keyword">return</span> f2;
+                }
+                <span class="hljs-keyword">var</span> result = f1();
+                f1();<span class="hljs-comment">//666</span>
+                nAdd();
+                f1();<span class="hljs-comment">//666666</span>
+            </code>
+            </pre>
+            </section>
+            <section class="future" style="top: 0px; display: none;" aria-hidden="true" hidden="">
+                <p style="text-align: left;text-indent: 2rem">
+                    
+在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一
+直保存在内存中，并没有在f1调用后被自动清除。因为f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于
+f1，因此f1也始终在内存中，不会在调用结束后，被
+                    <a href="http://eatpockyboy.blog.163.com/blog/static/1167346402011321423929/" target="_blank">垃圾回收机制（garbage
+                        collection）</a>回收。这段代码中另一个值得注意的地方，就是"nAdd=function(){n+=1}"这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个
+                    <a href="http://www.itxueyuan.org/view/6314.html" target="_blank">匿名函数（anonymous function）</a>，而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。
+                </p>
+            </section>
+        </section>
+        <section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: block;" class="past" aria-hidden="true" hidden="">
+                <h3>3.常见问题</h3>
+            </section>
+            <section style="top: 266.5px; display: block;" class="past" aria-hidden="true" hidden="">
+                <h3>例四</h3>
+            </section>
+        </section>
+        <section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: block;" class="past" aria-hidden="true" hidden="">
+                <h3>4.解决方法</h3>
+            </section>
+        </section>
+
+
+
+        <section style="top: 0px; display: block;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: block;" class="past" aria-hidden="true" hidden="">
+                <h3>5.编码实战</h3>
+            </section>
+            <section class="past" style="top: 266.5px; display: none;" aria-hidden="true" hidden="">
+                <p>深入理解闭包</p>
+
+            </section>
+
+            <section class="" style="top: 0px; display: none;" aria-hidden="true">
+                <pre><code class="hljs actionscript">
+                <span class="hljs-keyword">var</span> name = <span class="hljs-string">"The Window"</span>;
+　　<span class="hljs-keyword">var</span> object = {
+　　　　name : <span class="hljs-string">"My Object"</span>,
+　　　　getNameFunc : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+　　　　　　};
+　　　　}
+　　};
+　　alert(object.getNameFunc()());
+                    </code></pre>
+
+                <pre><code class="hljs actionscript">
+               <span class="hljs-keyword">var</span> name = <span class="hljs-string">"The Window"</span>;
+　　<span class="hljs-keyword">var</span> object = {
+　　　　name : <span class="hljs-string">"My Object"</span>,
+　　　　getNameFunc : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　<span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+　　　　　　<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+　　　　　　　　<span class="hljs-keyword">return</span> that.name;
+　　　　　　};
+　　　　}
+　　};
+　　alert(object.getNameFunc()());
+                    </code></pre>
+
+            </section>
+        </section>
+
+
+        <section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: none;" class="past" aria-hidden="true" hidden="">
+                <h3>6.扩展思考</h3>
+            </section>
+            <section class="past" style="top: 121px; display: none;" aria-hidden="true" hidden="">
+            <pre>            <code class="hljs javascript">
+                <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                    <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"id"</span>);
+                    el.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                        alert(el.id);
+                    }
+                }
+            </code>
+            </pre>
+                <p>
+                    这段代码为什么会造成内存泄露？
+                </p>
+            </section>
+            <section class="" style="top: 17px; display: none;" aria-hidden="true">
+                <p style="text-align: left">
+                    内存泄漏的原因：执行这段代码的时候，将匿名函数对象赋值给el的onclick属性；然后匿名函数内部又引用了el对象，存在循环引用，所以不能被垃圾回收机制回收；
+                </p>
+                <p style="text-align: left">修改后：</p>
+                <pre>            <code class="hljs javascript">
+                <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                    <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"id"</span>);
+                    <span class="hljs-keyword">var</span> id = el.id; <span class="hljs-comment">//解除循环引用</span>
+                    el.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                        alert(id);
+                    }
+                    el = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 将闭包引用的外部函数中活动对象清除</span>
+                }
+            </code>
+            </pre>
+            </section>
+        </section>
+
+
+        <section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: none;" class="past" aria-hidden="true" hidden="">
+                <h3>7.参考文献</h3>
+            </section>
+            <section class="" style="top: 233px; display: none;" aria-hidden="true">
+                <p>参考一：<a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank">(转)学习JavaScript闭包(阮一峰)</a></p>
+                <p>参考二：<a href="">作用域链与闭包</a></p>
+            </section>
+        </section>
+
+
+        <section style="top: 0px; display: none;" class="stack future" data-previous-indexv="0" aria-hidden="true" hidden="">
+            <section style="top: 266.5px; display: none;" class="past" aria-hidden="true" hidden="">
+                <h3>8.更多讨论</h3>
+            </section>
+            <section class="" style="top: 200px; display: none;" aria-hidden="true">
+                <p>一、闭包与内存泄漏</p>
+                <p>二、在闭包中的this指向问题</p>
+                <p>三、闭包的利与弊主要指什么</p>
+            </section>
+
+        </section>
+
+
+        <section style="top: 178px; display: none;" class="future" aria-hidden="true" hidden="">
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>本期小课堂到此结束</p>
+            <p>
+                <small>BY : 李博宇 | 韩建名 | 郭俊伟 | 孙伟淳</small>
+            </p>
+        </section>
+
+    </div>
+<div class="backgrounds"><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background stack past" style="display: block;" data-loaded="true"><div class="slide-background present" style="display: block;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack past" style="display: block;" data-loaded="true"><div class="slide-background present" style="display: block;" data-loaded="true"></div><div class="slide-background future" style="display: block;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div><div class="slide-background future" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack present" style="display: block;" data-loaded="true"><div class="slide-background present" style="display: block;" data-loaded="true"></div><div class="slide-background future" style="display: block;" data-loaded="true"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack future" style="display: block;" data-loaded="true"><div class="slide-background past" style="display: block;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background stack future" style="display: none;" data-loaded="true"><div class="slide-background past" style="display: none;" data-loaded="true"></div><div class="slide-background present" style="display: none;" data-loaded="true"></div></div><div class="slide-background future" style="display: none;" data-loaded="true"></div></div><div class="progress" style="display: block;"><span style="width: 582.857px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down enabled" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+                3.常见问题
+            </div></div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+
+</body></html>

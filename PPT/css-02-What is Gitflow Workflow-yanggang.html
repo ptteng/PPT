@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>什么是Gitflow工作流？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是Gitflow工作流？</h3>
+
+            <h4>小课堂【北京】</h4>
+
+            <p>分享人：杨刚</p>
+        </section>
+        <section>
+            <p>目录</p>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>
+                    什么是Git工作流？<br>
+                    Git工作流你可以理解为工作中团队成员遵守的一种代码管理方案，在Git中有以下几种工作流方案作为方案指导
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    1、集中式工作流<br>
+                    2、功能分支工作流<br>
+                    3、Gitflow工作流<br>
+                    4、Forking工作流
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    集中式工作流:<br>
+                    这种工作方式跟svn类似，它只有一个master分支，开发者会先把远程的仓库克隆到本地，之后的修
+                    改和提交都在本地操作，直到在某个合适的时间点将本地的代码合入到远程master。这种工作流比
+                    较适合小团队，因为小团队可能不会太多的协作和合流的动作。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    功能分支工作流:<br>
+                    这种工作流关注功能开发，不直接往master提交代码保证它是稳定并且干净的，而是从master拉
+                    取feature分支进行功能开发，团队成员根据分工拉取不同的功能分支来进行不同的功能开发，这样
+                    就可以完全隔离开每个人的工作。当功能开发完成后，会向master分支发起Pull Request，只有审
+                    核通过的代码才真正允许合入master，这样就加强了团队成员之间的代码交流。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Gitflow工作流:<br>
+                    它会相对复杂一点，但它非常适合用来管理大型项目的发布和维护，后面也会详细讲下这一块。
+                    贯穿整个开发周期，master和develop分支是一直存在的，master分支可以被视为稳定的分支，
+                    而develop分支是相对稳定的分支，特性开发会在feature分支上进行，发布会在release分支上
+                    进行，而bug修复则会在hotfix分支上进行。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Forking工作流:<br>
+                    Forking工作流对于开源项目贡献者一定不陌生了，它有一个公开的中央仓库，其他贡献
+                    者可以Fork（克隆）这个仓库作为你自己的私有仓库，开源项目维护者可以直接往中央仓库
+                    push代码，而代码贡献者只能将代码push到自己的私有仓库，只有项目维护者接受代码贡献
+                    者往中央仓库发起的pull request才会真正合入。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>
+                    Gitflow工作流的工作方式?
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section  style="text-align: left">
+                <p>
+                    Gitflow工作流是经典模型，处于核心位置，体现了工作流的经验和精髓。
+                </p>
+                <p>
+                    Gitflow工作流通过为功能开发、发布准备和维护分配独立的分支，让发布迭代过程更流畅。严格的分支模型也为大型项目提供了一些非常必要的结构。
+                </p>
+            </section>
+            <section>
+                <p>
+                    历史分支
+                </p>
+                <p>
+                    相对使用仅有的一个master分支，Gitflow工作流使用2个分支来记录项目的历史。
+                    master分支存储了正式发布的历史，而develop分支作为功能的集成分支。
+                    这样也方便master分支上的所有提交分配一个版本号。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-1historical.png" alt="" >
+            </section>
+            <section>
+                <p>
+                    功能分支
+                </p>
+                <p style="font-size: 30px">
+                    每个新功能位于一个自己的分支，这样可以push到中央仓库以备份和协作。
+                    但功能分支不是从master分支上拉出新分支，而是使用develop分支作为父分支。
+                    当新功能完成时，合并回develop分支。 新功能提交应该从不直接与master分支交互。
+                    从各种含义和目的上来看，功能分支加上develop分支就是功能分支工作流的用法。但Gitflow工作流没有在这里止步。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-2feature.png" alt="" >
+            </section>
+            <section>
+                <p>
+                    发布分支
+                </p>
+                <p style="font-size: 24px;text-align: left">
+                    一旦develop分支上有了做一次发布（或者说快到了既定的发布日）的足够功能，就从develop分支上checkout一个发布分支。
+                    新建的分支用于开始发布循环，所以从这个时间点开始之后新的功能不能再加到这个分支上——
+                    这个分支只应该做Bug修复、文档生成和其它面向发布任务。 一旦对外发布的工作都完成了，
+                    发布分支合并到master分支并分配一个版本号打好Tag。 另外，这些从新建发布分支以来的做的修改要合并回develop分支。<br>
+                    使用一个用于发布准备的专门分支，使得一个团队可以在完善当前的发布版本的同时，另一个团队可以继续开发下个版本的功能。 这也打造定义良好的开发阶段。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-3release.png" alt="" >
+            </section>
+            <section>
+                <p>
+                    维护分支
+                </p>
+                <p style="font-size: 24px;text-align: left">
+                    维护分支或说是热修复（hotfix）分支用于生成快速给产品发布版本（production releases）打补丁，
+                    这是唯一可以直接从master分支fork出来的分支。 修复完成，修改应该马上合并回master分支和dev
+                    elop分支（当前的发布分支），master分支应该用新的版本号打好Tag。<br>
+                    为Bug修复使用专门分支，让团队可以处理掉问题而不用打断其它工作或是等待下一个发布循环。 你可以把维护分支想成是一个直接在master分支上处理的临时发布。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-4maintenance.png" alt="" >
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>由于本次均为理论性内容，所以以示例为主</p>
+                <p>
+                    下面的示例演示本工作流如何用于管理单个发布循环。假设你已经创建了一个中央仓库。
+                </p>
+            </section>
+            <section>
+                <p>创建开发分支</p>
+                <p>
+                    1、第一步为master分支配套一个develop分支。简单来做可以本地创建一个空的develop分支，push到服务器上。
+                    以后这个分支将会包含了项目的全部历史，而master分支将只包含了部分历史。
+                    其它开发者这时应该克隆中央仓库，建好develop分支的跟踪分支：
+                    现在每个开发都有了这些历史分支的本地拷贝。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-5createdev.png" alt="">
+            </section>
+            <section>
+                <p>小红和小明开始开发新功能</p>
+                <p>
+                    这个示例中，小红和小明开始各自的功能开发。他们需要为各自的功能创建相应的分支。<br>
+                    新分支不是基于master分支，而是应该基于develop分支，<br>
+                    他们用老套路添加提交到各自功能分支上：编辑、暂存、提交。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-6maryjohnbeginnew.png" alt="">
+            </section>
+            <section>
+                <p>小红完成功能开发</p>
+                <p>
+                    添加了提交后，小红觉得她的功能OK了。如果团队使用Pull Requests，这时候可以发起一个用于合并到develop分支。
+                    否则她可以直接合并到她本地的develop分支后push到中央仓。
+                    在合并功能前确保develop分支是最新的。注意，功能决不应该直接合并到master分支。冲突解决方法和集中式工作流一样。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-7maryfinishes.png" alt="">
+            </section>
+            <section>
+                <p>小红开始准备发布</p>
+                <p style="text-align: left">
+                    这个时候小明正在实现他的功能，小红开始准备她的第一个项目正式发布。
+                    像功能开发一样，她用一个新的分支来做发布准备。这一步也确定了发布的版本号。<br>
+                    这个分支是清理发布、执行所有测试、更新文档和其它为下个发布做准备操作的地方，像是一个专门用于改善发布的功能分支。
+                    只要小红创建这个分支并push到中央仓库，这个发布就是功能冻结的。任何不在develop分支中的新功能都推到下个发布循环中。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-8maryprepsrelease.png" alt="">
+            </section>
+            <section >
+                <p>小红完成发布</p>
+                <p style="text-align: left;font-size: 30px">
+                    一旦准备好了对外发布，小红合并修改到master分支和develop分支上，删除发布分支。<br>
+                    合并回develop分支很重要，因为在发布分支中已经提交的更新需要在后面的新功能中也要是可用的。<br>
+                    发布分支是作为功能开发（develop分支）和对外发布（master分支）间的缓冲。
+                    只要有合并到master分支，就应该打好Tag以方便跟踪。<br>
+                    Git有提供各种勾子（hook），即仓库有事件发生时触发执行的脚本。 可以配置一个勾子，在你push中央仓库的master分支时，自动构建好对外发布。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-release-cycle-9maryfinishes.png" alt="">
+            </section>
+            <section>
+                <p>最终用户发现Bug</p>
+                <p style="text-align: left">
+                    对外发布后，小红回去和小明一起做下个发布的新功能开发，直到有最终用户开了一个Ticket抱怨当前版本的一个Bug。
+                    为了处理Bug，小红（或小明）从master分支上拉出了一个维护分支，提交修改以解决问题，然后直接合并回master分支。
+                    就像发布分支，维护分支中新加这些重要修改需要包含到develop分支中，所以小红要执行一个合并操作。
+                    然后就可以安全地删除这个分支了。
+                </p>
+                <img src="../img/css-02-What-is-Gitflow-Workflow/git-workflow-gitflow-enduserbug.png" alt="">
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>SourceTree里GitFlow的使用</p>
+            </section>
+            <section style="text-align: left">
+                <p>1、初始化</p>
+                <p>SourceTree会自动化进行一些操作，最明显的变化是项目代码库里自动增加了一个develop的分支。</p>
+                <p>将新创建的develop分支推送到远端仓库。</p>
+                <p>从此，代码库里就存在了两个永久性的分支：master和develop，未来所有的开发工作都围绕这两个分支进行派生跟合并。</p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 30px">
+                    之前提到，项目里有两个永久的分支：master和develop。这两个分支也被称为“历史性”分支，在其后的开发工作中，
+                    Gitflow模型支持在feature、release、hotfix分支上折腾，这样也有效避免了不同类型的开发工作在代码层级的耦合和干扰。<br>
+                    这三个分支的用途、派生来源分支和合并目标分支如下：<br>
+                    feature，功能开发分支，用于承接具体功能需求的开发<br>
+                    派生于develop<br>
+                    合并于develop<br>
+                    hotfix，bug修复分支，用于解决线上运行环境发现的bug<br>
+                    派生于master<br>
+                    合并于master、develop<br>
+                    release，版本发布分支，用于完成发布准备的<br>
+                    派生于develop<br>
+                    合并于master、develop<br>
+                    跟“历史性”分支相反，这三类分支都是短期分支，针对他们的工作内容完成后，一般都要进行删除。工作内容完成的标识有两个：开发完成、合并完成，缺一不可。
+                </p>
+            </section>
+            <section>
+                <p>我们使用sourcetree来实际演示一下</p>
+            </section>
+            <section>
+                <p>
+                    三类临时性分支中，hotfix和release的结果都要合并到master和develop中，为什么？因为它们的修改结果持续影响这后续的开发和维护，必须合并以保证代码的一致性。
+                    如果你没有认识到这个特性很有用，那是因为你的开发工作还没有复杂到一个程度，一个必须要规避代码干扰、保证并行推进的程度。
+                    对于小型项目和团队来说，基于GIT的中心式协作模型和特性分支模型就足够了；GitFlow模型适合中型、大型项目和团队。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md#231-工作方式" target="_blank">Git工作流指南</a></p>
+                <p>参考二：<a href="http://blog.csdn.net/wwj_748/article/details/55226044" target="_blank"> Git 工作流的一些经验分享</a></p>
+                <p>参考三：<a href="http://www.cnblogs.com/niwanglong385/articles/5645835.html" target="_blank">SourceTree里GitFlow的使用</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    一定要按照上述几种工作流来进行开发吗？
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    git工作流是作为方案指导而不是条例规定。在展示了各种工作流可能的用法后，你可以从不同的工作流中挑选或揉合出一个满足你自己需求的工作流。<br>
+                    只有选用最合适自己团队的工作流才能有效的提高开发效率，上面提到的一些工作流模式都有各自
+                    的适用场景，如何选用适合自己团队的工作流得结合团队成员的实际情况，看团队成员对于工作流的理解程度，还有对于工作流的执行程度。
+                </p>
+                <p style="text-align: left">
+                    编码实战演示的工作流只是可能用法的例子，而不是在实际工作中使用Git不可违逆的条例。
+                    所以不要畏惧按自己需要对工作流的用法做取舍。不变的目标就是让Git为你所用。
+                </p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 朱芳山</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+<!--<script>-->
+    <!--//过滤掉小于 10 的数组元素：-->
+    <!--//代码：-->
+    <!--document.getElementById("a").onclick = isBigEnough();-->
+    <!--function isBigEnough(element, index, array) {-->
+        <!--return (element >= 10);-->
+    <!--}-->
+    <!--var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);-->
+    <!--// 12, 130, 44-->
+    <!--//结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44-->
+    <!--console.log(filtered);-->
+    <!--///11111111111-->
+    <!--//检查是否有数组元素大于等于10：-->
+    <!--document.getElementById("b").onclick = isBigEnoug();-->
+    <!--function isBigEnoug(element, index, array) {-->
+        <!--return (element >= 10);-->
+    <!--}-->
+    <!--var passed = [2, 5, 8, 1, 4].some(isBigEnoug);-->
+    <!--// passed is false-->
+    <!--passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);-->
+    <!--// passed is true-->
+    <!--//结果：-->
+    <!--//[2, 5, 8, 1, 4].some(isBigEnough) ： false-->
+    <!--//[12, 5, 8, 1, 4].some(isBigEnough) ： true-->
+    <!--console.log(passed);-->
+    <!--console.log(passed2);-->
+    <!--////2222222222222222222222-->
+    <!--//将所有的数组元素转换为大写：-->
+    <!--document.getElementById("c").onclick = makeUpperCase();-->
+    <!--var strings = ["hello", "Array", "WORLD"];-->
+    <!--function makeUpperCase(v) {-->
+        <!--return v.toUpperCase();-->
+    <!--}-->
+    <!--var uppers = strings.map(makeUpperCase);-->
+    <!--// uppers is now ["HELLO", "ARRAY", "WORLD"]-->
+    <!--// strings is unchanged-->
+    <!--//结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD-->
+    <!--console.log(uppers);-->
+    <!--/////333333333333333333-->
+    <!--document.getElementById("d").onclick = printElt();-->
+    <!--//打印数组内容：-->
+    <!--function printElt(element, index, array) {-->
+        <!--document.writeln("[" + index + "] is " + element + "<br />");-->
+    <!--}-->
+    <!--[2, 5, 9].forEach(printElt);-->
+    <!--// Prints:-->
+    <!--// [0] is 2-->
+    <!--// [1] is 5-->
+    <!--// [2] is 9-->
+    <!--//结果：-->
+    <!--//[0] is 2-->
+    <!--//[1] is 5-->
+    <!--//[2] is 9-->
+    <!--/////////44444444444444-->
+<!--</script>-->
+</body>
+</html>

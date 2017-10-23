@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【跨域解决方案之JSONP】</h3>
+            <p>分享人：赵绪琦</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">
+                    什么是同源政策？
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的 Cookie，会发生什么？
+                    很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，
+                    如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。
+                    由此可见，"同源政策"是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    1995年，网景公司将同源策略这一安全策略引入浏览器，规定不同的‘域’之间的数据相互不可访问。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;">
+                    什么算是同源？
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    同一协议，同一域名，同一端口
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    举例来说，http://www.example.com/dir/page.html这个网址，协议是http://，
+                    域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下：
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    http://www.example.com/dir2/other.html：同源<br>
+                    http://example.com/dir/other.html：不同源（域名不同）<br>
+                    http://v2.www.example.com/dir/other.html：不同源（域名不同）<br>
+                    http://www.example.com:81/dir/other.html：不同源（端口不同）
+                </p>
+                <p style="text-align: left;font-size: 20px;">
+                    请求不同‘源’的数据就算是跨域。
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">
+                    实现跨域的常见方法有以下几种
+                </p>
+
+                <p style="text-align: left;font-size: 20px;">
+                    1.nginx反向反向代理<br>
+                    2.JSONP跨域<br>
+                    3.通过修改document.domain来跨子域<br>
+                    4.。。。
+                </p>
+                <p style="text-align: left;font-style: italic;font-size: 20px;">
+                    想多说也没用，反正我只会前两种
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;">JSONP就是为了便于客户端使用数据，<br>
+                    逐渐形成了的一种非正式传输协议，人们把它称作JSONP</p>
+            </section>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+            JSONP实现跨域原理?<br>
+            代码中如何实现?
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left;">
+                    先说说cdn，大家在任务中肯定是用过<br><br>
+                    <a href="http://www.jnshu.com/home">修真院官网</a>
+                </p>
+
+                <p style="text-align: left;font-size: 20px;">
+                    HTML中的src具有跨域能力
+                </p>
+            </section>
+            <section>
+                <a href="../10月19成都demo.html">demo1</a>
+            </section>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <a href="../10月19成都demo.html">demo2</a>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>JSONP跨域有什么优缺点？</p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 30px">优点：兼容性很好好，可以在古老的浏览器中运行，<br><br>
+                    缺点：它只支持GET请求而不支持POST等其它类型的HTTP请求。
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="text-align: left;font-size: 25px">
+            <p>参考一 :
+                <a href="http://kb.cnblogs.com/page/139725/">&ensp;好评率超高的博客文章</a>
+            </p>
+            <br>
+            <p>参考二 :
+                <a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html">&ensp;软某峰—浏览器同源政策及其规避方法</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 赵绪琦 | someone</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history : true,
+        dependencies : [
+            {src : '../plugin/markdown/marked.js'},
+            {src : '../plugin/markdown/markdown.js'},
+            {src : '../plugin/notes/notes.js', async : true},
+            {
+                src : '../plugin/highlight/highlight.js',
+                async : true,
+                callback : function(){ hljs.initHighlightingOnLoad(); }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

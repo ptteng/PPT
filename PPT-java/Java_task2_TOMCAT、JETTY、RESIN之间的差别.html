@@ -1,0 +1,210 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>TOMCAT、JETTY、RESIN之间的差别</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>一、什么是Tomcat</p>
+            <p>Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p>
+        </section>
+        <section>
+            <p>二、什么是Jetty</p>
+            <p>Jetty 是一个开源的servlet容器，它为基于Java的web容器，例如JSP和servlet提供运行环境。Jetty是使用Java语言编写的，它的API以一组JAR包的形式发布。开发人员可以将Jetty容器实例化成一个对象，可以迅速为一些独立运行（stand-alone）的Java应用提供网络和web连接。</p>
+        </section>
+        <section>
+            <p>三、什么是Resin</p>
+            <p>Resin是CAUCHO公司的产品，是一个非常流行的application server，对servlet和JSP提供了良好的支持，性能也比较优良，resin自身采用JAVA语言开发。</p>
+            <p>Resin提供了最快的jsp/servlets运行平台。在java和javascript的支持下，Resin可以为任务灵活选用合适的开发语言。Resin的一种先进的语言XSL(XML stylesheet language)可以使得形式和内容相分离。 如果您选用jsp平台作为internet商业站点的支持，那么速度、价格和稳定性都是要考虑到的，resin十分出色，表现更成熟，很具备商业软件的要求。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+              一、tomcat和jetty的区别
+            </p>
+        </section>
+        <section>
+            <p>1.相同点：</p>
+            <p>Tomcat和Jetty都是一种Servlet引擎，他们都支持标准的servlet规范和JavaEE的规范。</p>
+        </section>
+        <section>
+            <p>2.不同点：</p>
+        </section>
+        <section>
+            <p>（1）架构方面</p>
+            <p>Jetty的架构比Tomcat的更为简单</p>
+            <p>Jetty的架构是基于Handler来实现的，主要的扩展功能都可以用Handler来实现，扩展简单。</p>
+            <p>Tomcat的架构是基于容器设计的，进行扩展是需要了解Tomcat的整体设计结构，不易扩展。</p>
+        </section>
+        <section>
+            <p>(2）性能方面</p>
+            <p>Jetty可以同时处理大量连接而且可以长时间保持连接，适合于web聊天应用等等。</p>
+            <p>Jetty的架构简单，因此作为服务器，Jetty可以按需加载组件，减少不需要的组件，减少了服务器内存开销，从而提高服务器性能。</p>
+            <p>Jetty默认采用NIO在处理I/O请求上更占优势，在处理静态资源时，性能较高</p>
+            <p>Tomcat适合处理少数非常繁忙的链接，也就是说链接生命周期短的话，Tomcat的总体性能更高。</p>
+            <p>Tomcat默认采用BIO处理I/O请求，在处理静态资源时，性能较差。</p>
+        </section>
+        <section>
+            <p>（3）其它方面</p>
+            <p>Jetty的应用更加快速，修改简单，对新的Servlet规范的支持较好。</p>
+            <p>Tomcat目前应用比较广泛，对JavaEE和Servlet的支持更加全面，很多特性会直接集成进来。</p>
+        </section>
+        <section>
+            <p>所以，相对于tomcat来说，</p>
+            <p>首先,Jetty更轻量级。由于Tomcat除了遵循Java Servlet规范之外，自身还扩展了大量JEE特性以满足企业级应用的需求，所以Tomcat是较重量级的，而且配置较Jetty亦复杂许多。但对于大量普通互联网应用而言，并不需要用到Tomcat其他高级特性，所以在这种情况下，使用Tomcat是很浪费资源的。这种劣势放在分布式环境下，更是明显。换成Jetty，每个应用服务器省下那几兆内存，对于大的分布式环境则是节省大量资源。而且，Jetty的轻量级也使其在处理高并发细粒度请求的场景下显得更快速高效。</p>
+        </section>
+        <section>
+            <p>其次,Jetty更灵活，体现在其可插拔性和可扩展性，更易于开发者对Jetty本身进行二次开发，定制一个适合自身需求的Web Server。相比之下，重量级的Tomcat原本便支持过多特性，要对其瘦身的成本远大于丰富Jetty的成本。</p>
+            <p>然而，当支持大规模企业级应用时，Jetty也许便需要扩展，在这场景下Tomcat便是更优的。</p>
+        </section>
+        <section>
+            <p>二、tomcat和resin的区别</p>
+        </section>
+        <section>
+            <p>1.相同点</p>
+            <p>都是web服务器，并且支持集群部署。</p>
+        </section>
+        <section>
+            <p>2.不同点</p>
+        </section>
+        <section>
+            <p>（1）速度方面</p>
+            <p>resin的速度要比tomcat快</p>
+            <p>（2）机制方面</p>
+            <p>resin的启动与关闭机制以及报错机制都比tomcat好，tomcat则相对臃肿一些。</p>
+        </section>
+        <section>
+            <p>（3）开发环境热部署支持方面</p>
+            <p>tomcat较好，可根据需要配置。修改Jsp或java文件时，可配置是否重启服务。</p>
+            <p>resin较差，更新class及jsp文件，系统都会自动重新部署，并重启，配置了Session会话时开发比较麻烦。</p>
+        </section>
+        <section>
+            <p>（4）生产环境下热部署支持</p>
+            <p>tomcat一般。更新配置文件时，必须手动重启。更新其他文件时，大部分不用重启。但一次性更新太多文件时，经常会造成Tomcat重启失败。</p>
+            <p>resin较好。更新配置文件时，Resin会自动重启。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在线上服务应该选择哪一种WEB服务器？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>根据它们之间的区别，选择适合自己的服务器。</p>
+            <p>好比Jetty更满足公有云的分布式环境，即云环境的需求，而Tomcat更符合企业级环境。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>这几个服务器各有优缺点，那一个网站部署服务器时，应该怎么选择才可以保证更加高效的运行呢？</p>
+        </section>       
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.cnblogs.com/fengli9998/p/7247559.html" target="_blank">http://www.cnblogs.com/fengli9998/p/7247559.html</a></p>
+            <p>参考二：百度</p>
+            <p>参考三：<a href="http://www.linuxidc.com/Linux/2014-07/104764.htm" target="_blank">http://www.linuxidc.com/Linux/2014-07/104764.htm</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 郭伟杰</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
