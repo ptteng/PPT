@@ -1,0 +1,220 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>rmi底层实现原理</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：姚远</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+			<section>
+            <p>远程方法调用（RMI）顾名思义是一台机器上的程序调用另一台机器上的方法，其主要目的就是要使运行在不同的计算机中的对象之间的调用表现得像本地调用一样。从而可以实现分布式计算。</p>
+			<p>简单来说，用户知道工匠的名字，知道工匠的地址，然后用户通过工匠的地址和名字去找到工匠，让工匠干活。</p>
+			<p></p>
+			</section>
+			
+			
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+            <p>RMI应用程序通常包含两个单独的程序，一个服务器和一个客户机。典型的服务器程序创建一些远程对象，使对这些对象的引用可访问，并等待客户端调用这些对象上的方法。典型的客户端程序获取对服务器上的一个或多个远程对象的远程引用，然后调用它们上的方法。RMI提供了服务器和客户端来回传递信息的机制。这种应用有时被称为分布式对象应用。</p>
+			<p>在 RMI 中, 远程服务的定义是存放在继承了 Remote 的接口中。远程服务的实现代码存放在实现该定义接口的类中。</p>
+			
+			
+			<p></p>
+			<p></p>
+		</section>
+		
+		<section>
+		<p>RMI 支持两个类实现一个相同的远程服务接口: 一个类实现行为并运行在服务器上, 而另一个类作为一个远程服务的代理运行在客户机上。</p>
+		<p>客户程序发出关于代理对象的调用方法, RMI 将该调用请求发送到远程 JVM 上, 并且进一步发送到实现的方法中。实现方法将结果发送给代理, 再通过代理将结果返回给调用者。</p>
+		<p></p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+		<p>stubs和skeletons起到了什么作用？</p>
+        <p>RMIRegistry的作用是什么？</p>
+		<p></p>
+		</section>
+		
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		<section>
+		<img src="c:/Users/Hp/Pictures/123.jpeg">
+		</section>
+		
+		<section>
+            <p>存根( Stub) 和骨架( Skeleton) 合在一起形成了 RMI 构架协议，负责网络通信相关的功能</p>
+			<p>stub担当远程对象的客户本地代表或代理人角色，负责把要调用的远程对象方法的方法名及其参数编组打包,并将该包转发给远程对象所在的服务器</p>
+			<p>调用stub的方法时将执行下列操作：</p>
+			<p>(1)与服务端的skeleton建立socket连接(2) 对参数进行打包（写入并传输）</p>
+			<p>(3) 等待方法调用结果</p>
+			<p>(4) 解包（读取）返回值或返回的异常</p>
+			<p>(5) 结果返回给客户端</p>
+			<p></p>
+		</section>
+		
+		<section>
+		<p>Skeleton运行服务端上，接受来自stub对象的调用。当skeleton接收到来自stub对象的调用请求后，skeleton会作如下工作：</p>
+        <p>(1) 解包（读取）stub传来的参数</p>
+		<p>(2) 调用匹配实现上的方法</p>
+		<p>(3) 打包返回值或错误发送给stub对象</p>
+		</section>
+		
+		<section>
+		<p>java.rmi.Naming类提供存储和获得“远程对象注册表”上远程对象的引用的方法。Naming类的每个方法都使用URL格式的参数，一个//ip:port/name可以唯一定位一个RMI服务器上的发布了的对象</p>
+		<p>服务端运行public static void bind(String name, Remote obj)这个方法会传入一个实现类的引用作为第二参数，此时Naming会使用getClass来获取类的名字，并构建成stub（Impl_stub）</p>
+		<p>运行public static Remote lookup(String name)方法的时候，会传入name作为参数，RMIRegistry就会返回stub给客户端调用</p>
+		<p>从实体类中获取RemoteRef对象，这个对象中就封装了服务端的细节，包括服务端的hostname、port。RMIRegistry会储存stub对象，并提供给客户端使用</p>
+		</section>
+	
+		<section>
+		<img src="c:/Users/Hp/Pictures/456.png">
+		</section>
+	
+		<section>
+        <p>RMIRegistry 是必须的吗？</p>
+        </section>
+		
+        <section>
+        <p>No，RMIRegistry起到的作用只是为了方便client获取到stub对象，如果还有其他的方法让client拿到stub就不需要RMIRegistry了，因为client一旦拿到了stub就不需要RMIRegistry了</p>
+        </section>
+		
+		<section>
+        <p>直接在client new一个stub对象不就可以了？</p>
+        </section>
+		
+		<section>
+        <p>No，stub构造函数中需要一个RemoteRef对象，这个对象只能在server端获取。</p>
+        </section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+		
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>我已经放弃思考了</p>
+        </section>
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://docs.oracle.com/javase/tutorial/rmi/</p>
+			<p>http://blog.csdn.net/xinghun_4/article/details/45787549</p>
+		
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+			<p>有什么问题吗？</p>
+		</section>		
+		
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 姚远</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
