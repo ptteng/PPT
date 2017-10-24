@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>简述JS中的event delegate</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>【JS-task04】简述JS中的event delegate</h3>
+                <h3>小课堂【武汉-250期】</h3>
+                <p>分享人：熊凡</p>
+            </section>
+
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="text-align: left">在javasript中delegate这个词经常出现，看字面的意思，代理、委托。</p>
+                        <p style="text-align: left">什么是delegate？我们为什么要使用delegate？</p>
+                        <p style="text-align: left">它究竟在什么样的情况下使用？它的原理又是什么？</p>
+                        <p style="text-align: left">这次就针对javascript delegate的用法和原理进行介绍。</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>什么是事件委托：</h4>
+                        <p>事件委托，通俗地来讲，就是把一个元素响应事件（click、keydown……）的函数委托到另一个元素 </p>
+                        <p>一般会把事件委托到它的父层或者更外层DOM树中较高的元素节点，真正绑定事件的是父元素或外层元素而不是其本身</p>
+                        <p>当事件响应到需要绑定的元素上时，会通过事件冒泡机制从而触发它的外层元素的绑定事件上，然后在外层元素上去执行函数；</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+
+                        <p>一个网上流传的例子</p>
+                        <p style="font-size: 24px">有三个同事预计会在周一收到快递。为签收快递，有两种办法：</p>
+                        <p style="font-size: 24px">一是三个人在公司门口等快递</p>
+                        <p style="font-size: 24px">二是委托给前台MM代为签收。</p>
+                        <p style="font-size: 24px">现实当中，我们大都采用委托的方案（公司也不会容忍那么多员工站在门口就为了等快递）。前台MM收到快递后，她会判断收件人是谁，然后按照收件人的要求签收，甚至代为付款。这种方案还有一个优势，那就是即使公司里来了新员工（不管多少），前台MM也会在收到寄给新员工的快递后核实并代为签收。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>为什么要用事件委托</h4>
+                        <p style="font-size: 28px">事件委托减少了dom操作，提高性能</p>
+                        <p style="font-size: 26px">在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能，因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，这就是为什么性能优化的主要思想之一就是减少DOM操作的原因；如果要用事件委托，就会将所有的操作放到js程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能；</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>事件委托的原理</h4>
+                        <p style="font-size: 28px">事件委托的实践是利用事件冒泡的机制来实现的</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>事件委托怎么实现？</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>4.解决办法</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>我们具体举个例子来解释如何使用这个特性。这个例子主要取自
+                            <a href="https://davidwalsh.name/" style="cursor:pointer">David Walsh</a>的相关文章
+                            <a href="http://davidwalsh.name/event-delegate" style="cursor:pointer">（How JavaScript Event Delegation Works）</a>。</p>
+                    </div>
+                </section>
+                <section>
+                    <a href="../demo/js-04-Event-Delegate/eventDelegate.html">
+                        <pre><code style="background-color: #1c1e20; font-size:24px;">
+<ul id="parent-list">
+
+	<li id="post-1">Item 1</li>
+	<li id="post-2">Item 2</li>
+	<li id="post-3">Item 3</li>
+	<li id="post-4">Item 4</li>
+	<li id="post-5">Item 5</li>
+	<li id="post-6">Item 6</li>
+</ul>
+	</code></pre>
+                    </a>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>5、编码实战</h3>
+                </section>
+                <section>
+                    <a href="">
+                        <img src="../demo/js-04-Event-Delegate/T4.png" alt="">
+                    </a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6、扩展思考</h3>
+                </section>
+                <section>
+                    <p>什么是事件冒泡</p>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>事件冒泡（dubbed bubbling）：通俗的理解就是，当鼠标点击或者触发dom事件时，浏览器会从所点击的dom节点开始由内到外进行事件传播，即点击了子元素，如果父元素注册了对应的事件的话，在子元素触发后会接着触发父元素绑定的事件。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:center ; padding:0% 12% ;font-size:30px">
+                        <a href="../demo/js-04-Event-Delegate/dubbed-bubbling.html">
+                            <img src="../demo/js-04-Event-Delegate/maopao.png" alt="">
+                        </a>
+                    </div>
+                </section>
+                <section id="parent">
+                    <pre><code id = "child" style="background-color: #1c1e20; font-size:24px;">
+<script type="text/javascript">
+        var parent = document.getElementById("parent");
+        var child = document.getElementById("child");
+
+        parent.addEventListener("click", function (e) {
+            alert("click-parent");
+        }, false);
+
+        child.addEventListener("click", function (e) {
+            alert("click-child");
+        }, false);
+    </script>
+    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                        <p>参考一：
+                            <a href="https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html" target="_blank">(转)陈鑫伟的博客</a>
+                        </p>
+                        <p>参考二：
+                            <a href=" " target="_blank">(转)tony1223 </a>
+                        </p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人： 熊凡</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
+
+
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
