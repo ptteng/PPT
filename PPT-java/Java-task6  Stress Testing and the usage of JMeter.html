@@ -1,0 +1,276 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是压测，为什么要进行压力测试？JMeter工具的使用</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+			<time>2017-10-28</time>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">性能测试是通过自动化的测试工具模拟多种正常峰值和异常负载条件来对系统的各项性能指标进行测试。
+			性能测试包括<u>负载测试</u>,<u>强度测试</u>和<u>容量测试</u>等.
+			</p>
+			<p style="text-align:left">通过负载测试,确定在各种工作负载下系统的性能,目标是当负载逐渐增加时,测试系统各项性能指标的变
+			化的情况.</br>压力测试是通过确定一个系统的瓶颈或者不能接受的性能点,来获得系统能提供的最大服务级别的测试.
+			</p>
+			<p style="text-align:left">在Web性能测试领域,有两种工具广泛使用:LoadRunner和JMeter.
+			</p>
+        </section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:center"><b>1.性能测试的目的</b></p>
+            <p style="text-align:left">性能测试的目的是验证软件系统能否达到用户提出的性能指标,同时发现软件系统中存在的性能瓶颈,
+			以优化软件,最后起到优化系统的目的.包括以下结构方面:
+				<ol>
+					<li>评估系统的能力;</li>
+					<li>识别系统中的弱点;</li>
+					<li>系统调优;</li>
+					<li>测试软件中的问题;</li>
+					<li>验证稳定性(Resilience)和可靠性(Reliability);</li>
+				</ol>			
+			</p>
+        </section>
+		<section>
+            <p style="text-align:center"><b>2.性能测试的常见指标</b></p>
+			<p style="text-align:left">对于B/S架构,一般关注Web服务器性能指标:
+				<ul>
+					<li>avg rps:平均每秒钟的响应次数=总次数/秒数</li>
+					<li>avg time to last byte per terstion(mstes):平均每秒业务脚本的迭代次数</li>
+					<li>successful rounds:成功的请求</li>
+					<li>failed rounds:失败的请求</li>
+					<li>successful hits:成功的点击次数</li>
+					<li>failed hits:失败的点击次数</li>
+					<li>hits per second:每秒点击次数</li>
+					<li>successful hits per second:每秒成功的点击次数</li>
+					<li>failed hits per second:每秒失败的点击次数</li>
+					<li>attempted connections:尝试连接数</li>
+					<li>throughput:吞吐率</li>
+				</ul>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left">对于C/S架构,由于后台通常为数据库,一般关注数据库的性能测试:
+				<ul>
+					<li>user connections:数据库连接数量</li>
+					<li>number of deadlock:数据库死锁</li>
+					<li>butter cache hits:数据库cache的命中情况</li>
+				</ul>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:center"><b>3.JMeter GUI 基本操作</b>
+			<ol>
+				<li>添加/移除测试原件,其中打开,合并命令,从外部文件中加载和添加测试单元;</li>
+				<li>加载和移除测试单元;</li>
+				<li>配置测试树中的测试单元;</li>
+				<li>保存测试计划(非必需);</li>
+				<li>运行测试计划;</li>
+				<li>加载和移除测试单元;</li>
+				<li>终止测试或者测试自行结束,查看结果;</li>
+				<li>错误报告,JMeter会把日志信息记录到jmeter.log文件,同时也会输出到控制台.</li>
+			</ol>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:center"><b>4.JMeter常用测试单元</b></p>
+			<p>
+			<ol>
+				<li>线程组,所有测试计划的起点,所有的逻辑控制器和采样器都必须放在线程组之下.常用参数:</li>
+					<ul>
+						<li>设置线程数量(Numbers of Threads)</li>
+						<li>设置线程启动周期(Ramp-Up Period)</li>
+						<li>设置执行测试脚本的循环次数(Loop Count)</li>
+					</ul>
+				<li>控制器</li>
+					<ul>
+						<li>采样器,被JMeter用来向服务器发送请求,并等待响应;</li>
+						<li>逻辑控制器,控制JMeter的测试逻辑,特别是何时发送请求.</li>
+					</ul>
+				<li>监听器,提供了对JMeter在测试期间收集到的信息的访问方法.</li>
+			<ol>
+			</p>
+		</section>
+		<section>
+			<p style="text-align:left">4.定时器,默认情况下,线程在发送请求之间没有间隔,添加一种定时器,以便设定请求之间间隔多长时间.
+			</p>
+			<p style="text-align:left">5.断言,检查从服务器获取的响应内容.
+			</p>
+			<p style="text-align:left">6.Sample与采样器紧密相连,不发送请求,可以添加或者修改请求.
+			</p>
+			<p style="text-align:left">7.前置处理器,在采样器发出请求之前做一些特殊操作.
+			</p>
+			<p style="text-align:left">8.后置处理器,在采样器发出请求之后做一些特殊操作,常用来从响应中提取数据.
+			</p>
+		</section>
+		<section>
+			<p style="text-align:center"><b>5.JMeter执行顺序规则</b>
+			<p style="text-align:left">配置元件----前置处理器----定时器----采样器----
+			后置处理器(除非服务器响应为空)-----断言(除非服务器响应为空)----监听器(除非服务器响应为空)
+			</p>
+		</section>
+		<section>
+			<p style="text-align:center"><b>6.JMeter测试结果</b>
+			<ul>
+				<li>label:定义HTTP请求名称</li>
+				<li>samples:表示这次测试中一共发出了多少个请求</li>
+				<li>average:平均响应时长,默认情况下是单个request的平均响应时长</li>
+				<li>median:中位数,50%用户的响应时长(50%阈值)</li>
+				<li>90%line:90%用户的响应时长(90%阈值)</li>
+				<li>min:访问页面的最小响应时长</li>
+				<li>max:访问页面的最大响应时长</li>
+				<li>error%:错误请求数量/请求总数</li>
+				<li>throughput:默认情况下表示每秒完成的请求数</li>
+				<li>KB/sec:每秒从服务器接收到的数据量</li>
+			</ul>
+			</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">为什么常用Badboy录制Web性能测试脚本,而不是选择JMeter代理录制?
+			</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">JMeter代理不支持HTTPS协议,原因在于代理无法破译HTTPS通信内容,
+			并录制请求参数或者Cookie. 只有设置密钥库后，JMeter代理才可以录制HTTPS请求。而Badboy作为
+			一种自动化测试工具,不仅支持对HTTPS协议的录制,本身也具有许多丰富且强大的功能, 简化开发人
+			员的测试工作.
+			</p>
+            <p style="text-align:left"><i>Badboy is a powerful tool designed to aid in testing and development 
+			of complex dynamic applications. Badboy makes web testing and development easier with dozens of 
+			features including a simple yet comprehensive capture/replay interface, powerful load testing 
+			support, detailed reports, graphs and much more!</i>
+			</p>
+		</section>
+
+		<section>
+			<h3>5.编码实战</h3>
+        </section>
+		<section>
+			<p style="text-align:center"><b>创建Web测试计划.</b>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:left">性能测试结果的分析在完成JMeter测试脚本执行后.首先要做的就是判断收集到的测试数据是否真实有效,对无效的测试数据进行分析,
+			无端了浪费时间和精力.通常判断测试数据是否有效的方法如下:
+			<ol>
+				<li>分析在整个测试执行期间,测试环境是否稳定正常.
+				常见异常:CPU占用达到100%,内存占用很高,测试网络出现拥塞导致响应延迟,待测系统参数配置错误(JDBC连接池等);</li>
+				<li>检查JMeter测试脚本参数是否设置合理,建行擦JMeter运行模式是否合理,如Ramp-Up Period参数设置.</li>
+				<li>检查测试结果是否暴露了系统瓶颈.重点关注异常的测试结果,如果测试结果一切正常,首先需要考虑的是并发数是否足够多,压测是否足够大,或者待测系统是否存在压力屏蔽机制等.</li>
+			</ol>
+			</p>
+		</section>
+
+		<section>
+			<h3>7.参考文献</h3>
+			<p style="text-align:left">
+			<ol>
+				<li>零成本实现Web性能测试-----基于Apache JMeter.</br>温素剑&nbsp;&nbsp;编著.&nbsp;&nbsp;北京.&nbsp;&nbsp;电子工业出版社&nbsp;&nbsp;2012</li>
+				<li>博客&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://leafwf.blog.51cto.com/872759/1107079"><i><b>BadBoy自动化测试工具</b></i></a></li>
+				</ol>
+			</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里,感谢诸君围观!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
