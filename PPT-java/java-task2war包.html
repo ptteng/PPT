@@ -1,0 +1,170 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>War包是什么，为什么WEB服务通常打出来的都是War包？除了War包，还有几种打包格式，他们之间的区别呢？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘子源</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+           <p>WAR是Sun提出的一种Web应用程序格式，是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类。</p>
+			
+
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+			<p>一个war包有什么样的结构</p>
+			<p>war包就是一个web应用的打包格式，一个web应用，需要一个用户交互的界面，负责给用户提供信息输入的地方，即jsp页面。数据需要保存下来，jsp把网页上的数据穿送给后台的java类，java类在得到这些数据之后再进行数据相关的工作，如存入数据库，给出相关统计数据等等。</p>
+			   </section>
+			  <section>
+            <p>一个基本的war包的目录结构，根目录下有一个index.jsp文件，是应用的界面，然后有一个WEB-INF文件夹，这个是war包的核心，在WEB-INF文件夹有web.xml文件，lib文件夹下存的是需要用到的外部依赖的jar包，classes下存的是带包名结构的java类，因为包名和文件目录是一一对应的关系，所以在classes文件夹下就会看到和包名一致的目录结构，最后一层就是编译好的class文件。</p>
+			 </section>
+			 
+			  <section>
+       <div style="text-align:center">
+       <img src="img/1.png">
+       </div>
+       </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p></p>
+			<p>为什么WEB服务通常打出来的都是War包？</p>
+			<p>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。</p>
+			</section>
+		 <section>
+		 <p>除了War包，还有几种打包格式，他们之间的区别呢？</p>	
+		 </section>
+		 <section>
+       <div style="text-align:center">
+       <img src="img/2.png">
+       </div>
+       </section>
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+       
+       <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>第一，怎么运行一个war包。第二，Tomcat服务器是怎么样解析这个war包的。</p>
+
+<p>对于第一个问题，我们只需要把打好的war包拷贝到Tomcat的webapps目录下，Tomcat服务器会自行解压这个包。</p>
+<p>第二个问题，如图。</p>
+        </section>
+    
+        		
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.jianshu.com/p/ad644c5b6426</p>
+            <p>http://blog.csdn.net/kingmax54212008/article/details/52316250</p>
+        </section>
+    
+        <section>
+            <h3>8.更多讨论</h3>
+   		</section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘子源</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
