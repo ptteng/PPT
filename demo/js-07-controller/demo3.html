@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo3</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<body ng-app="spicyApp1">
+<div ng-controller="SpicyController">
+    <button ng-click="x2()">x2</button>
+    <button ng-click="x3()">x3</button>
+    <p>The number is {{spice}} </p>
+</div>
+<script src="https://cdn.bootcss.com/angular.js/1.4.2/angular.min.js"></script>
+<script type="text/javascript">
+    var myApp = angular.module('spicyApp1', []);
+    myApp.controller('SpicyController', ['$scope', function($scope) {
+        $scope.spice = 10;
+        $scope.x2 = function() {
+            $scope.spice = 10*2;
+        };
+        $scope.x3 = function() {
+            $scope.spice = 10*3;
+        };
+    }]);
+</script>
+</body>
+</html>

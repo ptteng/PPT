@@ -1,161 +1,151 @@
-
 <!doctype html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
+  <title>葡萄藤PPT</title>
 
-    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
 
-    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
 
-    <!-- syntax highlighting 代码高亮主题 -->
-    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
 
-    <!-- 打印和PDF输出样式 -->
-    <script>
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
-	
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
 </head>
+
 <body>
-<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
-<map name="pttmap">
+  <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+  <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
-<div class="reveal">
+  <div class="reveal">
     <div class="slides">
-        <section>
-            <h2>自增ID有什么坏处？什么样的场景下不使用自增ID？</h2>
-			<p></p>
-            <h3>java小课堂</h3>
-            <p>马正</p>
-        </section>
-        <section>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.常见问题</p>
-            <p>4.解决方案</p>
-            <p>5.编码实战</p>
-            <p>6.扩展思考</p>
-            <p>7.参考文献</p>
-            <p>8.更多讨论</p>
-        </section>
-        <section>
-            <h3>1.背景介绍</h3>
-        </section>
-        <section>
-            <p>在数据库中对ID字段应用自增会出现一些问题，也就表明了某些场景下是不推荐自增ID的</p>
-			
-        </section>
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-        <section>
-            <h4>什么是自增ID</h4>
-			<p>
-                自增ID在MySQL数据库中，可通过sql语句AUTO_INCREMENT来对特定的字段启用自增赋值
-                使用自增ID作为主键，能够保证字段的原子性.
-            </p>
-		</section>
-        <section>
-            <h4>自增ID的好处</h4>
-            <p>
-                1.在添加一行时无需对自增id列赋值<br/>
-                2.单个表中能够唯一标识该字段，保证原子性
-            </p>
-        </section>
-
-        <section>
-            <h4>自增ID的坏处</h4>
-            <p>1.不存在连续性</p>
-            <p>2.想要手动插入/更新指定id很繁琐</p>
-            <p>3.在面向对象时无法保证完整性</p>
-            <p>4.合并表会出现ID重复的情况</p>
-        </section>
-
-        <section>
-            <h4>什么场景下不使用自增ID</h4>
-            <p>1.其他字段能唯一标识该行数据时无需自增ID</p>
-            <p>2.分布式数据库不可使用自增ID</p>
-            <p>3.需要在一定范围内保证ID唯一</p>
-        </section>
-
-         <section>
-            <h3>3.常见问题</h3>
-        </section>
-
-        <section>
-            <p> <p>1.多表合并时id会出现重复的情况</p>
-            <p>2.分布式数据库环境下无法保证唯一性</p>
-        </section>
-
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
-
-        <section>
-            <h4>UUID替代自增ID</h4>
-        </section>
-
-        <section>
-            <h4>什么是UUID</h4>
-            <p>
-                UUID含义是通用唯一识别码 (Universally Unique Identifier)，指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。通常平台会提供生成的API。
-            </p>
-        </section>
-
-        <section>
-            <h4>UUID存在的目的</h4>
-            <p>UUID的目的，是让分布式系统中的所有元素，都能有唯一的辨识信息，而不需要通过中央控制端来做辨识信息的指定。如此一来，每个人都可以创建不与其它人冲突的UUID。在这样的情况下，就不需考虑数据库创建时的名称重复问题。</p>
-        </section>
-
-    <section>
-            <h3>5.编码实战</h3>
-            <p></p>
+      <section>
+        <h3>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h3>
+        <p>小课堂</p>
+        <h3></h3>
+        <p>分享人：杜腾飞</p>
+      </section>
+      <section>
+        <p>1.背景介绍</p>
+        <p>2.知识剖析</p>
+        <p>3.常见问题</p>
+        <p>4.解决方案</p>
+        <p>5.编码实战</p>
+        <p>6.扩展思考</p>
+        <p>7.参考文献</p>
+        <p>8.更多讨论</p>
+      </section>
+      <section>
+        <h3>1.背景介绍</h3>
       </section>
 
-        <section>
-            <h3>Java生成UUID实例</h3>
-        </section>
+
+      <section>
+        <p>先简单介绍下背景</p>
+        <p>Spring是一个基于IOC和AOP结构的开源轻量级开发应用框架，Rod Johnson大神是为了解决企业级应用开发复杂性创建的，因此spring也说是J2EE系统的框架</p>
+      </section>
+
+      <section>
+        <h3>2.知识剖析</h3>
+      </section>
+      <section>
+        <p>Inversion of control</p>
+        <p>IOC控制反转是Spring的基础,简单说就是创建对象由以前的程序员自己new， 变成了交由Spring创建对象。这就是平常的java开发中， 我们在某个类中需要依赖其它类的方法，通常是new一个依赖类然后再调用类实例的方法，但是 new 的类实例不便于统一管理，耦合性更高； 这个时候IOC的思想就凸显出来了:由 Spring容器来实现这些相互依赖对象的创建、协调工作， 对象只需要关系业务逻辑本身就可以了； 这样理解的话，对象如何得到他的协作对象的责任被反转了。
+        </p>
+      </section>
+      <section>
+        <p>Dependency Injection</p>
+        <p>DI 依赖注入 . 简单地说就是拿到的对象的属性，已经被注入好相关属性值了，直接使用即可，当然还可以像上面提到反转，也就是注入一个对象 就像jdbc里面，对象A需要操作数据库,以前首先需要A自己编写代码来获得一个Connection对象， 有了spring我们就只需要告诉spring,A需要一个Connection,在系统运行时，spring会在适当的时候制造一个Connection,注射到 A中,这样就完成了对两个对象之间关系的控制。A需要依赖Connection才能正常运行，而这个Connection是由spring注入到A中的,
+          依赖注入的名字就这么来的。
+        </p>
+      </section>
 
 
-        <section>
-            <h3>6.扩展思考</h3>
-        </section>
+      <section>
+        <h3>3.常见问题</h3>
+      </section>
 
+      <section>
+        <p>什么是依赖？什么是注入？</p>
 
-        <section>
-            <h3>7.参考文献</h3>
-            <p>Java UUID Demo: http://blog.csdn.net/carefree31441/article/details/3998553</p>
-            <p>UUID: http://www.jianshu.com/p/d77f3ef0868a</p>
-        </section>
+      </section>
 
-        <section>
-            <h3>8.更多讨论</h3>
-            <p></p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢观看</p>
-            <p><small>BY : 马正</small></p>
-        </section>
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+        <p>
+          通过编码来看效果
+        </p>
+      </section>
+
+      <section>
+        <h3>5.编码实战</h3>
+      </section>
+
+      <section>
+        <p>
+          使用ref；
+        </p>
+        <p>
+          使用autowire；
+        </p>
+      </section>
+
+      <section>
+        <h3>6.扩展思考</h3>
+      </section>
+
+      <section>
+
+        <p>上面是注入对象行为属性的注解，那么bean对象本身，比如student，school可不可以移出applicationContext.xml 配置文件，也通过注解进行呢？
+        </p>
+
+      </section>
+
+      <section>
+        <h3>7.参考文献</h3>
+        <p>1，https://ptteng.github.io/PPT/PPT-java/java_task1_14_SpringIOC.html#/5 </p>
+        <p>2，https://ptteng.github.io/PPT/PPT-java/java-IOC-task1.html#/9</p>
+        <p>3，http://www.yiibai.com/spring/</p>
+        <p>4，https://baike.baidu.com/item/spring/85061?fr=aladdin</p>
+      </section>
+
+      <section>
+        <h3>8.更多讨论</h3>
+
+      </section>
+
+      <section>
+        <p>什么是AOP</p>
+      </section>
+
+      <section>
+        <h4>Thanks</h4>
+        <p></p>
+        <p><small>By : dtf</small></p>
+      </section>
 
     </div>
-</div>
+  </div>
 
-<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
-<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+  <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+  <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
-<script>
-
+  <script>
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -177,14 +167,27 @@
 
     // 初始化幻灯片
     Reveal.initialize({
-        history: true,
-        dependencies: [
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
-            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
-            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-        ]
+      history: true,
+      dependencies: [{
+          src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+          async: true
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        }
+      ]
     });
-</script>
+  </script>
 </body>
+
 </html>

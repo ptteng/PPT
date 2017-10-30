@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是restful？rest的请求方法有哪些，有什么区别？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：马正</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p align="left">
+                restFul是符合rest架构风格的网络API接口,完全承认Http是用于标识资源。restFul URL是面向资源的，可以唯一标识和定位资源。
+                对于该URL标识的资源做何种操作是由Http方法决定的。
+
+                rest请求方法有4种，包括get,post,put,delete.分别对应获取资源，添加资源，更新资源及删除资源
+            </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                如何编写符合rest架构风格的restful?
+            </p>
+        </section>
+        <section>
+            <p>
+                1.URL中不可出现动词<br/>
+                2.URL能够唯一地标识单个或一类资源<br/>
+                3.通过Http动词去操作URL标识的资源(get(获取),pst(添加),put(更新),delete(删除))<br>
+            </p>
+        </section>
+        
+        <section>
+            <p>错误写法示例</p>
+            <img src="/home/himly/Desktop/taskData/images/badconfig.png">
+            该网络API接口URL中使用了动词，并没有做到只标识和定位资源
+        </section>
+
+        <section>
+            <p>
+                正确写法示例
+                <img src="/home/himly/Desktop/taskData/images/config.png">
+                该网络API接口URL仅标识和定位资源,通过Http方法Post表明是一个添加资源的处理器
+            </p>
+        </section>
+
+        <section>
+            <h3>Rest请求方法解析</h3>
+        </section>
+
+        <section>
+            <h4>Get</h4>
+            <p>get方法在Rest中主要用于获取资源，能够发送参数，不过有限制，且参数都会以?开头的形
+                式附加在URL尾部
+                <img src="/home/himly/Desktop/taskData/images/URL.png">
+                <br>
+                因为参数信息会完全暴露，因此是不推荐发送重要信息的。get方法产生一个tcp数据报一次发送完毕。
+                <br>
+                规范的get方法处理器应该是幂等的，也就是说对一个资源不论发送多少次get请求都不会更改数据或造成破坏。
+                <br>
+                应该在编写处理器的时候保证幂等从而提高安全性
+            </p>
+        </section>
+
+        <section>
+            <h4>Post</h4>
+            <p>
+                post方法在Rest请求中主要用于添加资源，参数信息存放在请求报文的消息体中相对安全，且可发送较大信息
+                <br>
+                post因为参数信息存在方消息体中相对安全，一般用于发送重要数据，且post产生两个tcp数据报需要发送两次完成
+                <br>
+                对于get和post的本质区别该博客写的非常好 <br>
+                <br>
+                规范化的post方法处理器是不幂等的，因此如果用户重复对一个资源进行post应该在处理器中做出限制和处理保证对数据不造成破坏和更改
+                从而提高安全性
+                <br>
+                <a  href="https://juejin.im/entry/57597bd45bbb500053c88b4c">get和post本质区别</a>
+                <br>
+            </p>
+        </section>
+
+        <section>
+            <h4>Put</h4>
+            <p>
+                put方法在Rest中主要用于更新资源，因为大多数浏览器不支持put和delete，会自动将put和delete请求转化为get和post.
+                因此为了使用put和delete方法,需要以post发送请求，在表单中使用隐藏域发送真正的请求。
+                <br>
+                put方法的参数是同post一样是存放在消息中的，同样具有安全性，可发送较大信息。
+                <br>
+                put方法是幂等的，对同一URL资源做出的同一数据的任意次put请求其对数据的改变都是一致的。比如更新/student/2的name值为bobdylan
+                <br>
+                不论提交该请求多少次，/student/2资源的name值会于提交一次请求无异
+            </p>
+        </section>
+
+        <section>
+            <h3>Delete</h3>
+            <p>Delete在Rest请求中主要用于删除资源，因为大多数浏览器不支持put和delete，会自动将put和delete请求转化为get和post.
+                因此为了使用put和delete方法,需要以post发送请求，在表单中使用隐藏域发送真正的请求。
+                <br>
+                Delete方法的参数同post一样存放在消息体中,具有安全性，可发送较大信息
+                Delete方法是幂等的，不论对同一个资源进行多少次delete请求都不会破坏数据
+            </p>
+        </section>
+
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+           <h3>浏览器自动转化put和delete为get和post,容器找不到对应的处理器报错</h3>
+            <p>
+                rest风格规定URL标识资源，使用Http的四个方法对资源进行操作。但在浏览器发送请求时会自动将put和post
+                转化为get和post.
+                <br>
+                这样rest风格就成了鸡肋，且发送请求会报错说找不到get方法或post方法。
+            </p>
+        </section>
+        <select>
+            <h3>为什么不支持delete和put方法</h3>
+            <p>
+                是因为html4官方在表单中仅支持get和post方法,忽略了Put和Delete以及其他Http方法.
+                <br>
+                尽管在html5和一些新的浏览器支持所有的http方法，但不可能所有用户都使用最新的浏览器。
+            </p>
+        </select>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                1.首先第一种是前端人员通过ajax发送，因为不懂前端所以不详述
+                <br>
+                2.通过在form表单中使用隐藏域在服务器端配置过滤器来发送真实请求
+                <br>
+                3.使用Spring的sf:form表单来提交
+                <br>
+                <br>
+                第一种就不详述了
+                <br>
+                第二种在编码实战中进行演示
+                <br>
+                第三种方法因为资料不全，是在Spring实战这本书中看到的，自己尝试实现失败了。
+            </p>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+
+        </section>
+
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一:<a href="" target="_blank">
+                get和post的本质区别
+            </a>
+            </p>
+            <p>参考二:
+                <a href="http://www.jianshu.com/p/c2ba80b1815d" target="_blank">
+                    SpringMvc中发送put和Delete请求
+                </a>
+            </p>
+
+            <p>参考三:
+                Spring实战第11章305页《提交RestFul表单》
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 马正</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

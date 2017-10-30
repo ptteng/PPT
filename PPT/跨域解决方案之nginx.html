@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>跨域解决方案之nginx</h2>
+            <p>分享人：濮力钒</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.下载安装</p>
+            <p>3.测试方法</p>
+            <p>4.修改配置</p>
+            <p>5.操作演示</p>
+            <p>6.手机访问</p>
+            <p>7.常见问题</p>
+            <p>8.参考文献</p>
+            <p>9.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。
+                其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布
+                Nginx——Ngine X，是一款自由的、开源的、高性能HTTP服务器和反向代理服务器；也是一个IMAP、POP3、SMTP代理服务器；也就是说Nginx本身就可以托管网站（类似于Tomcat一样），进行Http服务处理，也可以作为反向代理服务器使用。
+</p>
+        </section>
+        <section>
+            <ul>
+<p>
+    Nginx 解决了服务器的C10K（就是在一秒之内连接客户端的数目为10k即1万）问题。它的设计不像传统的服务器那样使用线程处理请求，而是一个更加高级的机制—事件驱动机制，是一种异步事件驱动结构。
+
+    虽然目前Nginx的份额在市场上只占很少部分，但是其高性能和低消耗内存的结构，使得其越来越普遍，典型的一个应用就是我们可以使用Nginx作为反向代理进行网站的负载均衡器。例如：Wordpress、GitHub等知名的网站都使用到了Nginx。</p>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h4>Nginx的特点</h4>
+                <ul>
+                    <li> 跨平台：可以在大多数Unix like 系统编译运行。而且也有Windows的移植版本。 </li>
+                    <li>配置异常简单：非常的简单，易上手。</li>
+                    <li>非阻塞、高并发连接：数据复制时，磁盘I/O的第一阶段是非阻塞的。官方测试能支持5万并发连接，实际生产中能跑2~3万并发连接数（得益于Nginx采用了最新的epoll事件处理模型（消息队列）。 </li>
+                    <li>Nginx代理和后端Web服务器间无需长连接</li>
+                    <li>Nginx接收用户请求是异步的，即先将用户请求全部接收下来，再一次性发送到后端Web服务器，极大减轻后端Web服务器的压力。 </li>
+                </ul>
+            </section>
+
+            <section>
+                <h4>Nginx的优势</h4>
+                <ol>
+                    <li>跨平台：能在大多数Unix like os编译运行，而且也有Windows移植版本</li>
+                    <li>配置简单：非常容易上手，配置风格跟程序开发一样</li>
+                    <li>非阻塞、高并发连接：官方测试支撑5万，实际环境也能到2~3万</li>
+                    <li>事件驱动：采用epoll模型，支持更大的并发连接</li>
+                    <li>Master/Worker进程：一个master进程，生成一个或者多个worker进程</li>
+                </ol>
+            </section>
+            <section>
+                <ol>
+                    <li>内存消耗小：3万并发，开10个Nginx进程才消耗150M内存</li>
+                    <li>内置的健康检查功能：Nginx代理的后端的某台Web服务器宕机时不影响前端访问</li>
+                    <li>节省宽带：支持GZIP压缩，可以添加浏览器本地的Header头</li>
+                    <li>稳定性高：用于反向代理，宕机概率微乎其微<li>
+                </ol>
+            </section>
+            <section>
+                <h4>BSD协议</h4>
+                <p><所有人> = 加州大学董事</p>
+                    <p><机构> = 加州大学伯克利分校</p>
+                        <p><年份> = 1998</p>
+            </section>
+        </section>
+        <section>
+        <section>
+            <h3>2.下载安装</h3>
+        </section>
+        <section>
+            <a href="https://www.baidu.com/link?url=-MP-EhC8lwo_e22IJGbHgqj0bE-8DdXyL0iXQKaKxsjRAlx4yEO96X0fXWsQn8Hf&wd=&eqid=e452265400000ad80000000559f034c2">官方网址</a>
+            <p>下载后直接点击nginx.exe程序，你会发现有个黑色弹出框一闪即逝；说明成功启动；
+                然后随便打开一个浏览器；输入localhost
+            会出现welcome的标示。
+
+        </section>
+        <section>
+            <h3>3.具体测试方法</h3>
+        </section>
+        <section>
+        <p> Nginx的配置文件是文件夹中的conf文件下的nginx.conf，其实配置文件默认不修
+            改也是可有用的；如果你通过浏览器输入localhost出现的页面即为文件夹下HTML文件中的index.html；所以你可以将你想要检测的产品放
+            到HTML文件夹中，并将原本的index.html文件给删了，这个时候打开网页输入localhost，使用ctrl+F5清下浏览器缓存即出现你产
+            品中的index.html(产品的首页都会命名为index.html）页面，然后进行一系列测试看看是否OK</p>
+        </section>
+        <section>
+            <h3>3.修改配置</h3>
+        </section>
+        <section>
+            <p>实际的测试过程中，一般不大可能会将产品放入nginx文件里的html文件夹中，这个时候就需要修改配置，使匹配的路径改为我们想要的文件夹</p>
+        </section>
+        <section>
+            <h3>4.操作演示</h3>
+        </section>
+        <section>
+            <h3>5.我们的任务中为什么要用nginx呢？</h3>
+        </section>
+        <section>
+            <h3>6.常见问题</h3>
+        </section>
+        <section>
+            <p>nginx对文件夹英文取名不敏感，对中文敏感，路径中不能存在中文字符</p>
+            <p>出现报错，nginx路径下的\logs\error.log就是错误日志，复制里面的内容去百度就行</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://blog.csdn.net/xlgen157387/article/details/49781487">徐刘根的博客</a></p>
+            <p>参考二：<a href="https://baike.baidu.com/item/nginx/3817705?fr=aladdin" >百度百科</a></p>
+            <p>参考四：<a href="https://developer.mozilla.org/zh-CN/search?q=nginx&topic=apps&topic=html&topic=css&topic=js&topic=api&topic=canvas&topic=svg&topic=webgl&topic=mobile&topic=webdev&topic=http&topic=webext">MDN文档</a> </p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :濮力钒</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

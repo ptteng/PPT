@@ -1,0 +1,190 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>TOMCAT、JETTY之间的差别</h2>
+            <h3>小课堂</h3>
+            <p>分享人：魏振恒</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>一、什么是Tomcat</p>
+            <p>
+            Tomcat 是在SUN 公司的JSWDK（JavaServer Web DevelopmentKit ,是SUN公司推出的小型Servlet/JSP调试工具）的基础上发展起来的一个优秀的Servlet容器，Tomcat本身完全用java语言编写。</p>
+        </section>
+        <section>
+            <p>Tomcat特点</p>
+            <p>
+                1、提供了可被服务器加载并执行的程序代码，并服务于来自客户端的请求。<br>
+                2、Servlet服务器必须支持java。<br>
+                3、Servlet不依赖浏览器，是允许在服务器端，所以不管浏览器是否支持java，都能请求访问servlet。
+            </p>
+        </section>
+        <section>
+            <p>二、什么是Jetty</p>
+            <p>Jetty是一个开源、基于标准、全功能实现的JAVA服务器。它在Apache2.0协议下发布，因此可以自由的用于商业用途和发行。首创于1995年，Jetty受益于一个广大的用户社区，有一个稳定的核心开发者来持续专著的开发。有很多正在运行的使用Jetty的例子，这也不过是千分之十的Jetty实例。 虽然Jetty的目标很低调, 无数的站点和产品使用Jetty,但是Jetty无处不见! </p>
+        </section>
+        <section>
+            <p>Jetty特点</p>
+            <p><h4>易用性：<h4>一般来说，此服务器的默认配置便可以满足日常大部分需求，
+            但就算你想去配置它也是比较容易的，只需修改相关的xml文件。jetty的嵌入当然也只需少量的代码就可以做到(在项目pom文件中通过修改plugin内容实现热部署)。
+            <br>
+            <h4>扩展性：<h4>即使在有大量服务请求的情况下，系统的性能也能保持在一个可以接受的状态。利用 Continuation 机制来处理大量的用户请求以及时间比较长的连接。 另外 Jetty 设计了非常良好的接口，因此在 Jetty 的某种实现无法满足用户的需要时，用户可以非常方便地对 Jetty 的某些实现进行修改，使得 Jetty 适用于特殊的应用程序的需求。
+            </p>
+        </section>
+        <section>
+            <p>
+                
+            <h4>易嵌入性：<h4><br>Jetty 设计之初就是作为一个优秀的组件来设计的，这也就意味着 Jetty 可以非常容易的嵌入到应用程序当中而不需要程序为了使用 Jetty 做修改。<br>
+            但以我目前的使用经历来说，嵌入jetty的步骤就是百度导入plugin的数据粘贴到maven的配置文件中，甚至在一些流行框架(GWT,scala/lift,grails,Jruby...)中已经把Jetty内置了
+            ，从某种程度上理解，Jetty就是一个嵌入式的Web服务器。
+            Jetty 可以作为嵌入式服务器使用，Jetty的运行速度较快，而且是轻量级的，可以在Java中可以从test case中控制其运行。从而可以使自动化测试不再依赖外部环境，顺利实现自动化测试。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+              一、tomcat和jetty的区别
+            </p>
+        </section>
+        <section>架构比较
+            <p style="font-size: 30px">
+                Jetty 的架构从前面的分析可知，它的所有组件都是基于 Handler 来实现，当然它也支持 JMX。但是主要的功能扩展都可以用 Handler 来实现。可以说 Jetty 是面向 Handler 的架构，就像 Spring 是面向 Bean 的架构，iBATIS 是面向 statement 一样，而 Tomcat 是以多级容器构建起来的，它们的架构设计必然都有一个“元神”，所有以这个“元神“构建的其它组件都是肉身。
+                <br>
+                而Tomcat 要臃肿很多，Tomcat 的整体设计上很复杂，前面说了 Tomcat 的核心是它的容器的设计，从 Server 到 Service 再到 engine 等 container 容器。作为一个应用服务器这样设计无口厚非，容器的分层设计也是为了更好的扩展，这是这种扩展的方式是将应用服务器的内部结构暴露给外部使用者，使得如果想扩展 Tomcat，开发人员必须要首先了解 Tomcat 的整体设计结构，然后才能知道如何按照它的规范来做扩展。这样无形就增加了对 Tomcat 的学习成本。<br>
+                表面上看，Tomcat 的功能要比 Jetty 强大，因为 Tomcat 已经帮你做了很多工作了，而 Jetty 只告诉，你能怎么做，如何做，有你去实现。
+            </p>
+        </section>
+        <section>
+           性能比较
+            <p style="font-size: 30px">单纯比较Tomcat与Jetty的性能意义不是很大，只能说在某种使用场景下，它表现的各有差异。因为它们面向的使用场景不尽相同。<br>
+            从架构上来看 Tomcat 在处理少数非常繁忙的连接上更有优势，也就是说连接的生命周期如果短的话，Tomcat 的总体性能更高。
+            而 Jetty 刚好相反，Jetty 可以同时处理大量连接而且可以长时间保持这些连接。例如像一些 web 聊天应用非常适合用 Jetty 做服务器，像淘宝的 web 旺旺就是用 Jetty 作为 Servlet 引擎。<br>
+            另外由于 Jetty 的架构非常简单，作为服务器它可以按需加载组件，这样不需要的组件可以去掉，这样无形可以减少服务器本身的内存开销，处理一次请求也是可以减少产生的临时对象，这样性能也会提高。另外 Jetty 默认使用的是 NIO 技术在处理 I/O 请求上更占优势，Tomcat 默认使用的是 BIO，在处理静态资源时，Tomcat 的性能不如 Jetty。
+            </p>
+        </section>
+        <section>
+            特性比较
+            <p style="font-size: 30px">作为一个标准的 Servlet 引擎，它们都支持标准的 Servlet 规范，还有 Java EE 的规范也都支持，由于 Tomcat 的使用的更加广泛，它对这些支持的更加全面一些，有很多特性 Tomcat 都直接集成进来了。<br>但是 Jetty 的应变更加快速，这一方面是因为 Jetty 的开发社区更加活跃，另一方面也是因为 Jetty 的修改更加简单，它只要把相应的组件替换就好了，而 Tomcat 的整体结构上要复杂很多，修改功能比较缓慢。所以 Tomcat 对最新的 Servlet 规范的支持总是要比人们预期的要晚。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在线上服务应该选择哪一种WEB服务器？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>根据项目情况而定</p>
+            <p>Jetty更满足公有云的分布式环境的需求，而Tomcat更符合企业级环境。
+            <br>Jetty更轻量级。在服务器实例较多的情况下选择Jetty，体现在各个服务器按需装配应用，以达到更少的配置浪费。在实例少的情况下这个优势还不明显，当实例到达上万的数量级时，每个应用服务器省下那几兆内存，对于大的分布式环境则是节省大量资源,这样给其他应用剩余的内存就更多了。
+            <br>而Tomcat除了遵循Java Servlet规范之外，自身还扩展了大量JEE特性以满足企业级应用的需求，所以Tomcat是较重量级的，而且配置较Jetty亦复杂许多。
+            大规模企业级选择服务器时需要上述需求，而Jetty通常需要扩展，所以在这场景下Tomcat便是更优的。</p>
+        </section>
+        <section>
+            <h3>5.扩展思考</h3>
+            <p>tomcat与jetty的默认编码是什么？如何解决乱码问题</p>
+        </section>
+        <section>
+            <h3>6.编码实战</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>网络</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 魏振恒</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

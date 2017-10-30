@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>demo5</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.4.2/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+<div ng-controller="nameCtrl" style="margin-bottom: 20px;">
+    名: <input type="text" ng-model="firstName"><br>
+    姓: <input type="text" ng-model="lastName"><br>
+    <br>
+    姓名: {{fullName()}}
+</div>
+<div ng-controller="sportCtrl">
+    运动: <input type="text" ng-model="sport"><br>
+    <br>
+    信息: {{sportText()}}
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.service("demoService",function(){
+        this.student={
+            firstname:"John",
+            lastname:"Doe",
+            sport:"足球"
+        };
+
+    });
+    app.controller('nameCtrl', function($scope,demoService) {
+        $scope.firstName = demoService.student.firstname;
+        $scope.lastName = demoService.student.lastname;
+        $scope.fullName = function () {
+            return $scope.firstName + " " + $scope.lastName;
+        };
+    });
+    app.controller('sportCtrl', function($scope,demoService) {
+        $scope.sport = demoService.student.sport;
+        $scope.sportText = function() {
+            return demoService.student.firstname + " " + demoService.student.lastname +" "+ "like" +$scope.sport;
+        };
+    });
+</script>
+
+</body>
+</html>

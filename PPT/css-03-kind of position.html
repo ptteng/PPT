@@ -1,0 +1,271 @@
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>position定位的种类以及特点</h2>
+            <h3>小课堂【郑州成都小课堂】</h3>
+            <p>分享人：王栋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>浏览器在渲染页面时是根据元素在代码出现的先后顺序读取，元素最终的呈现方式是根据元素的
+                盒子模型来决定的。行内元素是从左到右，块状元素是从上到下。
+                如果不改变元素的默认样式，元素在HTML的文档流中会占用一个位置，而占用位置大小，位置所在
+                是由position属性决定的。
+            </p>
+        </section>
+        <section>
+            <p>
+                position在css中是一个很常见的属性，我们很多时候都需要对元素进行定位，让他们确定一个位
+                置，这个位置根据需求的不同可能是相对于自己原来的位置，也有可能是相对于自己的父元素，其他元素，
+                或者窗口本身。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                CSS的position属性设置元素的定位方式，为将要定位的元素定义定位规则。
+                position的属性值有以下四种
+            </p>
+        </section>
+        <section>
+            <p>1.position:static;</p>
+            <p>2.position:relative;</p>
+            <p>3.position:absolute;</p>
+            <p>4.position:fixed;</p>
+        </section>
+        <section>
+            <p><code>position:static;</code>这是position属性的默认值，元素属性没有写这个
+                值的话，会按照正常的文档流排列。</p>
+        </section>
+        <section>
+            <p><code>position:relative;</code>这个定位是相对定位。
+                在没有给予元素相对定位属性以前，元素在文档流中有一个位置。在赋予元素relative属性后
+                ，元素会有对应的偏移，此时元素原来的位置为空白，其他元素不会占用这个位置。元素本身仍
+                保持其定位前的形状和所占用的空间。
+                relative一般伴随着top,left,bottom,right出现。
+            </p>
+        </section>
+
+        <section>
+            <p><code>position:absolute;</code>这是绝对定位，元素被设置为absolute，它就会
+                脱离文档流，紧挨着它的子元素就会占据它原来的空间。</p>
+        </section>
+        <section>
+            <p>absolute是生成绝对定位的元素，
+                可以选取具有定位的父级对象或者body坐标原点进行定位，也可以通过z-index进行层次分级。
+                absolute在没有设定TRBL值时是根据自己在父级元素的原来的位置作为参考始点的，也就是待着不动
+                当设定TRBL值后则开始往上级查找定位的参考对象，一直查找到body级。
+            </p>
+        </section>
+
+        <section>
+            <p>
+                讲到绝对定位就就不得不提浮动。
+                一旦给元素加上absolute或float就相当于给元素加上了display:block;什么意思呢？
+                比如内联元素span默认宽度是自适应的，你给其加上width是不起作用的。要想width定宽，你需要将span设成display:block。
+                但如果你给span加上absolute或float，那span的display属性自动就变成block，就可以指定width了。
+                因此如果看到CSS里absolute/float和display:block同时出现，那display:block就是多余的CSS代码。
+            </p>
+        </section>
+        <section>
+            <p>
+               position：absolute与position：relative的配合使用，当我们使用position:absolute的时候一般会给它的父级元素加上一句
+                position：relative，给定位一个参考对象，一般情况下是这么用的，也没什么毛病，但是万一父级元素不方便设置position：relative时怎么办
+                怎么单独让子元素绝对定位到父元素的某个位置，跟父元素一起飞呢？
+            </p>
+        </section>
+        <section>
+            <p>
+               答案就是：用position：absolute，然后用margin调整位置而不用top bottom left right 。子元素的定位对象点还是父元素，
+                但是父元素不用写position：relative
+                ，是不是很机智
+            </p>
+        </section>
+        <section>
+            <p><code>position:fixed;</code>这是固定定位，元素表现与<code>position:absolute;</code>相同
+                但是参考对象是以浏览器视窗为参考对象。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.position的各种属性值都如何表现的。</p>
+            <p>2.position：absolute怎么水平垂直居中比较快</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+          <p>1.通过设置TBRL（top bottom right left）值</p>
+           <p>   2.用margin：auto，也就是所谓的绝对居中，注意设置BTLR为0</p>
+        </section>
+        <section>
+            <h3>5.实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>1.fixed属性一般都用来做什么？</p>
+            <p>2.position：absolute还有什么常见用法？</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank">position-MDN</a></p>
+            <p>参考二：<a href="http://zh.learnlayout.com/position.html" target="_blank">学习CSS布局</a></p>
+            <p>参考三：css权威指南</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>绝对定位absolute能否有什么非绝对定位的应用</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY :沁修| 王栋</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script>
+    //过滤掉小于 10 的数组元素：
+    //代码：
+    document.getElementById("a").onclick = isBigEnough();
+    function isBigEnough(element, index, array) {
+        return (element >= 10);
+    }
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    // 12, 130, 44
+    //结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+    console.log(filtered);
+    ///11111111111
+    //检查是否有数组元素大于等于10：
+    document.getElementById("b").onclick = isBigEnoug();
+    function isBigEnoug(element, index, array) {
+        return (element >= 10);
+    }
+    var passed = [2, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is false
+    passed2 = [12, 5, 8, 1, 4].some(isBigEnoug);
+    // passed is true
+    //结果：
+    //[2, 5, 8, 1, 4].some(isBigEnough) ： false
+    //[12, 5, 8, 1, 4].some(isBigEnough) ： true
+    console.log(passed);
+    console.log(passed2);
+    ////2222222222222222222222
+    //将所有的数组元素转换为大写：
+    document.getElementById("c").onclick = makeUpperCase();
+    var strings = ["hello", "Array", "WORLD"];
+    function makeUpperCase(v)
+    {
+        return v.toUpperCase();
+    }
+    var uppers = strings.map(makeUpperCase);
+    // uppers is now ["HELLO", "ARRAY", "WORLD"]
+    // strings is unchanged
+    //结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+    console.log(uppers);
+    /////333333333333333333
+    document.getElementById("d").onclick = printElt();
+    //打印数组内容：
+    function printElt(element, index, array) {
+        document.writeln("[" + index + "] is " + element + "<br />");
+    }
+    [2, 5, 9].forEach(printElt);
+    // Prints:
+    // [0] is 2
+    // [1] is 5
+    // [2] is 9
+    //结果：
+    //[0] is 2
+    //[1] is 5
+    //[2] is 9
+    /////////44444444444444
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help

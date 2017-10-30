@@ -1,0 +1,199 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>BFC是什么？有什么用？怎么用？</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <style>
+        p {
+            text-align: left;
+            text-indent: 100px;
+            margin: 15px;
+            text-shadow: -1px -1px 2px #333;
+        }
+        .black{
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ?
+            'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' :
+            'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>BFC？</h2>
+
+                <h3>小课堂【武汉第249期】</h3>
+
+                <p style="text-align: center;">分享人：邱天成</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p> 在解释BFC之前，先说一下文档流。我们常说的文档流其实分为定位流、浮动流和普通流三种。而普通流其实就是指BFC中的FC。FC是formatting context的首字母缩写，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。</p>
+                <p>常见的FC有BF C、IFC，还有GFC和FFC。BFC是block formatting context，也就是块级格式化上下文，是用于布局块级盒子的一块渲染区域。</p>
+            </section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h4>BFC内部规则。</h4>
+                <ol>
+                    <li>BFC是一块独立规则的区域，不受外部影响，而内部元素也不会影响到外部。</li>
+                    <li>清除浮动。触发BFC后能感知到浮动元素的存在，能感知到浮动元素的高度。</li>
+                </ol>
+                <p class="black">BFC就是一个有特定规则的区域，这块区域内的元素只遵循特定规则，不受外部影响。</p>
+            </section>
+            <section>
+                <h4>如何触发BFC</h4>
+                <ol>
+                    <li>根元素</li>
+                    <li>float属性不为none</li>
+                    <li>position为absolute或fixed</li>
+                    <li>display为inline-block, table-cell, table-caption, flex, inline-flex</li>
+                    <li>overflow不为visible（常用）</li>
+                </ol>
+            </section>
+            <section>
+                <h4>接下来是一些经典的应用场景。</h4>
+            </section>
+            <section>
+                 <h3>布局的浮动清除：规则二</h3>
+                 <h4>未触发BFC前</h4>
+                 <img src="../img/css-15-bfc/wuhan-qiiutiancheng/befor-bfc.png" alt="img">
+                </section>
+            <section>
+                <h4>触发BFC后：</h4>
+                <img src="../img/css-15-bfc/wuhan-qiiutiancheng/after-BFC.png" alt="img">
+            </section>
+            <section>
+                <h4>这里我们介绍一下使用BFC清除浮动和用clear清除浮动的区别：</h4>
+                <p>二者都能达到浮动的效果，不同的是，BFC清除浮动是因为触发到BFC能感知得到浮动元素，计算高度时候浮动元素。而clear清除浮动时候，父元素只计算到.clear的div的高度，但是.clear感知得到浮动元素。当我们添加clear:both的时候，.clear的就被浮动元素挤下去了。</p>
+            </section>
+            <section>
+                <h4>清除外边距。规则二</h4>
+                <p>未清除边距合并前：</p>
+                <img src="../img/css-15-bfc/wuhan-qiiutiancheng/clear-margin.png" alt="img">
+            </section>
+            <section>
+                <p>给其中一个添加一个warp并且触发warp的BFC：</p>
+                <img src="../img/css-15-bfc/wuhan-qiiutiancheng/wrap-BFC.png" alt="img">
+            </section>
+            <section>
+                <p>父子元素边距合并</p>
+                <p>算了。。留给扩展思考吧</p>
+            </section>
+            <section>
+                <img src="../img/css-15-bfc/wuhan-qiiutiancheng/father.png" alt="img">
+            </section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考链接http://www.jianshu.com/p/bf927bc1bed4</p>
+            </section>
+            <section>
+                <h3>8.更多讨论</h3>
+                <p>父子元素边距合并</p>
+            </section>
+            <section>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p>
+                    <small>BY : 邱天成</small>
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触
+        Reveal.initialize({
+            history: true,
+            dependencies: [{
+                    src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'
+                },
+                {
+                    src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'
+                },
+                {
+                    src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>

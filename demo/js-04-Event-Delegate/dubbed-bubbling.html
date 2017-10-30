@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js事件机制</title>
+    <style>
+        #ancestor {
+            margin: 0 auto;
+            width: 400px;
+            height: 400px;
+            text-align: center;
+            line-height: 3;
+            background: green;
+        }
+
+        #parent {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            margin-top: 50px;
+            background: orange;
+        }
+        #child {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            margin-top: 15px;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ancestor">
+        祖先元素
+        <div id="parent">
+            父元素
+            <div id="child">
+                子元素
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ancestor = document.getElementById("ancestor")
+        var parent = document.getElementById("parent");
+        var child = document.getElementById("child");
+
+        document.body.addEventListener("click", function (e) {
+            alert("click-body");
+        }, false);
+
+        ancestor.addEventListener("click", function (e) {
+            alert("click-ancestor");
+        }, false);
+
+        parent.addEventListener("click", function (e) {
+            alert("click-parent");
+        }, false);
+
+        child.addEventListener("click", function (e) {
+            alert("click-child");
+        }, false);
+    </script>
+</body>
+
+</html>
