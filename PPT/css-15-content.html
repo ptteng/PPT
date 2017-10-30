@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -25,16 +24,14 @@
     </script>
 </head>
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【CSS-task15】	知道css有个content属性吗？有什么作用？有什么应用？</h2>
-            <h3>小课堂【北京】</h3>
-            <p>分享人：李仁</p>
+            <h2>知道css有个content属性吗？有什么作用？有什么应用？</h2>
+            <p>分享人：伊文秋</p>
         </section>
         <section>
             <p>目录</p>
@@ -47,58 +44,117 @@
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
         </section>
-        <section style="font-size: 1.5rem">
-            <h3>1.背景介绍</h3>
-            <p>css有一个属性叫做content。content只能使用在:after和:before之中。它用于在元素之前或者元素之后加上一些内容</p>
-             <p>content属性早在CSS2.1的时候就被引入了，可以使用:before以及:after伪元素生成内容。此特性目前已被大部分的浏览器支持</p>
-            <p>在CSS 3 Generated Content工作草案中，content属性添加了更多的特征，例如：插入以及移除文档内容的能力，以创建脚注，结语，及段落注释。但是目前还没有浏览器支持content的扩展功能。</p>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <p style="text-align: left">
+                    css有一个属性叫做content。content只能使用在:after和:before之中。它用于在元素之前或者元素之后加上一些内容<br>
+
+                    content属性早在CSS2.1的时候就被引入了，可以使用:before以及:after伪元素生成内容。此特性目前已被大部分的浏览器支持<br>
+
+                    在CSS 3 Generated Content工作草案中，content属性添加了更多的特征，例如：插入以及移除文档内容的能力，以创建脚注，结语，及段落注释。但是目前还没有浏览器支持content的扩展功能。
+                </p>
+            </section>
 
 
         </section>
         <section>
-            <h3>2.知识剖析</h3>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section >
+                <p>before和after是什么呢？</p>
+            </section>
+            <section >
+                <p style="text-align: left">:before和:after的作用就是在指定的元素内容（而不是元素本身）之前或者之后插入一个包含content属性指定内容的行内元素.需要注意的是如果没有content属性，伪类元素将没有任何作用。但是可以指定content为空，插入的内容默认是一个行内元素，并且在HTML源代码中无法看到，这就是为什么称之为伪类元素的理由，所以也就无法通过DOM对其进行操作。伪类元素也会像其他子元素一样正常继承父元素的一些CSS属性，比如字体等。</p>
+            </section>
         </section>
         <section>
-            <p> before和after是什么呢？</p>
-        </section>
-        <section>
-            <p>:before和:after的作用就是在指定的元素内容（而不是元素本身）之前或者之后插入一个包含content属性指定内容的行内元素</p>
-            <p>需要注意的是如果没有content属性，伪类元素将没有任何作用。但是可以指定content为空，插入的内容默认是一个行内元素，并且在HTML源代码中无法看到，这就是为什么称之为伪类元素的理由，所以也就无法通过DOM对其进行操作。</p>
-            <p>伪类元素也会像其他子元素一样正常继承父元素的一些CSS属性，比如字体等。</p>
-        </section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>如何使用:after和:before中的content属性呢？</p>
+            </section>
 
-         <section>
-            <h3>常见问题</h3>
-             如何使用:after和:before中的content属性呢？
-         </section>
-        <section>
-            <h3>4.解决方案</h3>
-             <p><a href="https://segmentfault.com/a/1190000002750033">https://segmentfault.com/a/1190000002750033</a></p>
-        </section>
-         <section>
-             <h3>5.编码实战</h3>
-         </section>
-        <section>
-            <h3>6.更多讨论</h3>
-            <p>强大的CSS3 attr()方法。</p>
         </section>
         <section>
-            <p>CSS3 Values and Units草案扩展了attr()表达式的范围，除了返回字符串，还可以返回诸如CSS colors, CSS integer, length, angle, time, frequency以及其他一些单元。</p>
-            <p>通过使用自定义的data属性，可以实现一些非常强大的效果，诸如简单图表图形的渲染，动画效果的实现。例如我们可以设置根据元素的attribute值设定background-color的颜色值，这在显示在线调色板上会大放异彩；我们还可以根据attribute值指定元素的大小，就像定义图表每个条形的长度一样。总之，attr()的潜力惊人。</p>
-        </section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>1.content属性与 :before 及 :after 伪元素配合使用生成文本内容</p>
+                <pre>
+                <code>
+                  h1:before {
+                    content: "添加到h1前面！";
+                  }
+                    h1:after {
+                    content: "添加到h1后面！";
+                  }
+                  <h1>我是标题h1！</h1>
+                </code>
+              添加到h1前面！我是标题h1！添加到h1后面！
+            </pre>
+            </section>
 
-
-        <section>
-            <h3>7.参考文献</h3>
-            <p><a href="https://segmentfault.com/a/1190000002750033">https://segmentfault.com/a/1190000002750033</a></p>
-            <p><a href="http://www.zhangxinxu.com/wordpress/2010/04/css-content%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8/">张鑫旭CSS content内容生成技术以及应用</a></p>
         </section>
         <section>
-            <h4>鸣谢</h4>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p><a href="../DEMO/demo-content.html" target="_blank">demo </a> </p>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>强大的CSS3 attr()方法。</p>
+            </section>
+            <section>
+                <p>通过attr()将选择器对象的属性作为字符串进行显示</p>
+                <pre>
+            <code>
+              a:after {
+                 content: attr(href);//当使用attr()获取标签属性名的时候，千万不要添加引号!
+              }
+              <a href="http://www.jnshu.com">此标签的href值是：</a>
+            </code>
+            此标签的href值是：http://www.jnshu.com
+          </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section style="text-align: left">
+                <p>参考一：<a href="https://segmentfault.com/a/1190000002750033" target="_blank">segmentfault上的css3 content详解</a></p>
+                <p>参考二：<a href="http://www.zhangxinxu.com/wordpress/2010/04/css-content%E5%86%85%E5%AE%B9%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8/" target="_blank">张鑫旭 CSS content内容生成技术以及应用</a></p>
+                <p>参考三：<a href="http://www.zhangxinxu.com/wordpress/2014/08/css-counters-automatic-number-content/" target="_blank">CSS counter计数器</a></p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p> content实际上很少的使用，它不可通过DOM使用，它只是纯粹的表象。</p>
+            </section>
+
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
             <p>感谢大家观看</p>
-            <p><small>BY :  黄志波|罗宇|冯馨雨|李仁 </small></p>
+            <p><small>BY : 伊文秋</small></p>
         </section>
-
     </div>
 </div>
 
