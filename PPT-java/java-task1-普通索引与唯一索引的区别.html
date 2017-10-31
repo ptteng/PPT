@@ -1,0 +1,444 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>任务一：普通索引和唯一索引的思考</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+            <p>
+
+                索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。
+				从数据搜索实现的角度来看，索引也是另外一类文件/记录，它包含着可以指示出相关数据记录的各种记录。 	 	
+
+            </p>
+
+        </section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+
+        <section>
+
+            <p>
+				在了解数据库索引之前，首先了解一下数据库索引的数据结构基础：B+tree
+            </p>
+			
+
+        </section>
+		<section>
+			<img src="C:\Users\mmy\Pictures\1.png">
+		</section>
+		<section>
+			<p>
+				说一下重点，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示）。
+			</p>
+		</section>
+		<section>	
+			<p>
+				B＋tree的性质：
+			</p>
+			<p>
+				1.n棵子tree的结点包含n个关键字，不用来保存数据而是保存数据的索引。
+			</p>
+			<p>
+				2.所有的叶子结点中包含了全部关键字的信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。
+			</p>
+			<p>
+				3.所有的非终端结点可以看成是索引部分，结点中仅含其子树中的最大（或最小）关键字。
+			</p>
+		</section>
+		<section>
+			<p>
+				mysql的索引分为单列索引(主键索引,唯一索引,普通索引)和组合索引。
+			</p>
+			<p>
+				单列索引:一个索引只包含一个列,一个表可以有多个单列索引。
+			</p>
+			<p>
+				组合索引:一个组合索引包含两个或两个以上的列。
+			</p>
+		</section>
+		<section>
+			<p>
+				普通索引,这个是最基本的索引。
+			</p>
+			<p>
+				 唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样，允许有空值。
+				建立唯一索引一个比较重要的作用是避免数据出现重复。
+			</p>
+			<p>
+				主键索引,不允许有空值。主键索引建立的规则是 int优于varchar,一般在建表的时候创建,
+				最好是与表的其他字段不相关的列或者是业务不相关的列。一般会设为 int 而且是 AUTO_INCREMENT自增类型的。
+			</p>
+		</section>
+		<section>
+			<p>
+				索引的优点：
+			</p>
+			<p>
+			1.可以通过建立唯一索引或者主键索引,保证数据库表中每一行数据的唯一性
+			</p>
+			<p>
+			2.建立索引可以大大提高检索的数据,以及减少表的检索行数
+			</p>
+			<p>
+			3.在表连接的连接条件，可以加速表与表直接的相连 
+			</p>
+			<p>
+			4.在分组和排序字句进行数据检索,可以减少查询时间中 分组 和 排序时所消耗的时间(数据库的记录会重新排序)
+			</p>
+			<p>
+			5.建立索引,在查询中使用索引，可以提高性能
+			</p>
+		</section>
+		<section>
+			<p>
+			索引的缺点：
+			</p>
+			<p>
+			1.在创建索引和维护索引，会耗费时间,随着数据量的增加而增加
+			</p>
+			<p>
+			2.索引文件会占用物理空间,除了数据表需要占用物理空间之外,每一个索引还会占用一定的物理空间
+			</p>
+			<p>
+			3.当对表的数据进行 INSERT,UPDATE,DELETE 的时候,索引也要动态的维护,这样就会降低数据的维护速度,(建立索引会占用磁盘空间的索引文件)。
+			</p>
+		</section>
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>1:如何创建索引？</p>
+
+			<p>2:隐式类型转换对MySQL选择索引的影响？</p>
+
+			<p>3:什么情况下建索引？</p>
+			<p>4.什么情况不建索引？</p>
+			<p>5:索引对查询提高多少性能？</p>
+
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+
+
+            <p>sql插入索引语句：</p>
+			<p>普通索引：ALTER TABLE `table_name` ADD INDEX index_name ( `column` ) </p>
+			<p>唯一索引：ALTER TABLE `table_name` ADD UNIQUE ( `column` )</p>
+			<p>主键索引：ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` ) </p>
+
+        </section>
+
+		<section>
+
+            <p>
+				当文本字段与数字进行比较时，由于类型不同，MySQL 需要做隐式类型转换才能进行比较。
+            </p>
+		</section>
+		<section>
+			<p>
+				默认转换规则是：
+			</p>
+			<p>
+				不同类型全都转换为浮点型m,
+			</p>
+			<p>
+				如果字段是字符，条件是整型，那么会把表中字段全都转换为整型
+			</p>
+
+        </section>
+
+        <section>
+
+            <p>
+				1.在经常需要搜索的列上,可以加快索引的速度。
+			</p>
+			<p>
+				2.主键列上可以确保列的唯一性（手机号，身份证号码，银行卡号）。
+			</p>
+			<p>
+				3.在表与表的而连接条件上加上索引,可以加快连接查询的速度。
+			</p>
+			<p>
+				4.在经常需要排序(order by),分组(group by)和的distinct 列上加索引 可以加快排序查询的时间,  
+				(单独order by 用不了索引，索引考虑加where 或加limit)。
+			</p>
+			<p>
+				5.尽量选择区分度高的列作为索引。
+			</p>
+			<p>
+				6.索引列不能参与计算，保持列“干净”。
+			</p>
+			<p>
+				7.尽量的扩展索引，不要新建索引。
+            </p>
+
+        </section>
+
+        <section>
+
+            <p>
+				1.查询中很少使用到的列 不应该创建索引,如果建立了索引然而还会降低mysql的性能和增大了空间需求。
+			</p>
+			<p>
+				2.很少数据的列也不应该建立索引,比如 一个性别字段 0或者1,在查询中,结果集的数据占了表中数据行
+				的比例比较大,mysql需要扫描的行数很多,增加索引,并不能提高效率。
+			</p>
+			<p>
+				3.定义为text和image和bit数据类型的列不应该增加索引。
+			</p>
+			<p>
+				4.当表的修改(UPDATE,INSERT,DELETE)操作远远大于检索(SELECT)操作时不应该创建索引,这两个操作是互斥的关系。
+            </p>
+
+        </section>
+
+        <section>
+
+            <p>
+				直接看代码
+            </p>
+
+        </section>
+
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+
+
+        <section>
+
+            <p>如果对学员QQ号做了一个唯一索引，在插入数据的时候，是否需要先判断这个QQ号已经存在了？ </p>
+        </section>
+
+        
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>参考一："http://blog.jobbole.com/86594/"</p><p>-- MySQL索引原理及慢查询优化</p>
+			<p>参考二："http://blog.csdn.net/hotdust/article/details/51525835" --类型转换对MySQL选择索引的影响</p>
+			<p>参考三："https://dev.mysql.com/doc/refman/8.0/en/" --MySQL8.0参考手册</p>
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>

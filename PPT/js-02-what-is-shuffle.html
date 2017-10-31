@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>洗牌算法具体指的是什么</h3>
+            <h3>小课堂【武汉第252期】</h3>
+            <p style="text-align: center;">分享人：聂义中</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section><h3>一、背景介绍</h3></section>
+        <section>
+            <p style="text-align:left;font-size: 31px">
+                洗牌算法是我们常见的随机问题，在玩游戏、随机排序时经常会碰到，本质是让一个数组内的元素随机排列。
+                类似于洗牌，将所有牌的位置打乱，让他们随机出现在任何位置。
+            </p>
+        </section>
+        <section><h3>二、知识剖析</h3></section>
+        <section>
+            <p>洗牌算法的原理是什么？</p>
+        </section>
+        <section>
+            <p>方法一：</p>
+            <p>从牌堆里随便抽一张出来，然后放在一边，之后从剩下的牌里重复之前的操作，直到所有牌都被抽出来放到了另一堆中。抽象到代码世界，
+                按相同的做法，就是随机从数组里取出一个元素，保存到另一个数组，然后重复之，直到原数组中所有元素都处理掉。</p>
+            <a href="http://sandbox.runjs.cn/show/1hylhpck">Demo</a>
+        </section>
+        <section>
+            <pre>
+                <code class="hljs actionscript">
+function shuffle(array) {
+    var copy = [],
+      n = array.length,
+      i;
+    // 如果还剩有元素则继续。。。
+    while (n) {
+        // 随机抽取一个元素
+        i = Math.floor(Math.random() * array.length);
+        // 如果这个元素之前没有被选中过。。
+        if (i in array) {
+            copy.push(array[i]);
+            delete array[i];
+            n--;
+        }
+    }
+    return copy;
+}
+                </code>
+            </pre>
+            <p>我们创建了一个copy数组，然后遍历目标数组，将其元素复制到copy数组里，同时将该元素从目标数组中删除，这样下次遍历的时候就可以跳过这个序号。</p>
+        </section>
+        <section>
+            <p>方法二：</p>
+            <p>随机从数组中抽出一个元素，然后与最后个元素交换，相当于把这个随机抽取的元素放到了数组最后面去，表示它已经是被随机过了，
+                同时被换走的那个元素跑到前面去了，会在后续的重复操作中被随机掉。一轮操作过后，下一轮我们只在剩下的n-1个元素也就是数组的前n-1个元素中进行相同的操作，直到进行到第一个。</p>
+            <a href="http://sandbox.runjs.cn/show/jabgttzr">Demo</a>
+        </section>
+        <section>
+            <pre>
+                <code class="hljs actionscript">
+  Array.prototype.shuffle = function() {
+    var input = this;
+    for (var i = input.length - 1; i >= 0; i--) {
+      var randomIndex = Math.floor(Math.random() * (i + 1));//获取小于this.length的随机整数
+      var itemAtIdex = input[randomIndex];
+      input[randomIndex] = input[i];
+      input[i] = itemAtIdex;//input[randomIndex]和input[i]交换值
+    }
+    return input;
+  }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>shuffle 函数挂载在 Array 对象的原型之下，便于数组直接调用该函数。在 shuffle 函数内部，this 引用的就是调用该 shuffle 的数组。
+                用一个新的变量引用 this，也就是调用 shuffle 函数的数组。接下来的for循环用于遍历所有数组内的所有元素，并进行随机交换。
+                注意，遍历顺序是从后往前进行的，也就是说从 input.length-1 位置的元素开始，知道遍历到数组中的第一个元素。遍历过程中的位置由变量 i 指定。
+                接下来，使用了两行代码在指定范围内挑选一个随机元素。 变量randomIndex存储了一个随机数，该随机数可以用作数组的索引，进而提取一个随机元素。注意，该随机数的最大值并不是数组的长度，而是变量i的值。
+                确定了随机元素的索引之后，用新的变量保存该元素的值，然后交换选中元素和随机元素的值。
+            </p>
+        </section>
+        <section><h3>三、常见问题</h3></section>
+        <section>
+            <h3>
+                洗牌算法是否真的实现了完全随机？
+            </h3>
+           </section>
+        <section>
+            <h3>四、解决方案</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+  if (!Array.prototype.shuffle) {
+    Array.prototype.shuffle = function() {
+        for(var j, x, i = this.length; i; j = parseInt(Math.random() * i),
+                    x = this[--i], this[i] = this[j], this[j] = x);
+        return this;
+    };
+}
+var arr = [1,2,3,4,5,6,7,8,9,10]
+var x = 0;
+for(var i = 0; i<100000 ; i++){
+    shuffle(arr);
+    if(arr[0] == 1){
+        x++;
+    }
+}
+console.log(x);
+                </code>
+            </pre>
+        </section>
+        <section><h3>五、编码实战</h3></section>
+        <section><h3>六、拓展思考</h3></section>
+        <section>
+            <h4>还有什么比较实用的乱序方法？</h4>
+        </section>
+        <section>
+            <h3>利用sort函数</h3>
+            <pre>
+                <code>
+           arr.sort(function(){ return 0.5-Math.random()});
+                </code>
+                <p>一行代码就可以实现，相对而言比较简单，但是他并不能实现真正意义的随机。</p>
+            </pre>
+        </section>
+        <section>
+        <h3>各种洗牌算法的效率比较</h3>
+        <a href="https://slashnie.github.io/task/demo/shuffle%E6%96%B9%E6%B3%95%E8%80%97%E6%97%B6%E6%AF%94%E8%BE%83.html">耗时比较</a>
+        </section>
+        <section>
+            <h3>七、参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.w3cplus.com/javascript/shuffling-array-js.html">洗牌算法：给数组随机排序</a></p><br>
+            <p>参考二： <a href="http://www.cnblogs.com/Wayou/p/fisher_yates_shuffle.html">由乱序播放说开了去</a></p><br>
+            <p>参考三： <a href="http://blog.jobbole.com/64897/">当随机不够随机：一个在线扑克游戏的教训</a></p><br>
+            <p>参考四： <a href="http://www.cnblogs.com/jkisjk/archive/2012/04/23/javascript_shuffle.html">随机问题之--洗牌算法</a>
+            </p>
+        </section>
+        <section>
+            <h3>八、更多讨论</h3>
+        </section>
+        <section>
+            <p>还有没有更好用的洗牌算法</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h3>感谢观看</h3>
+            <small>BY 聂义中</small>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+
+</html>
