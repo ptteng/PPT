@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://ptteng.github.io/PPT/PPT/css-15-how%20to%20use%20manifest.html#/ -->
+<html class=" js no-mobile desktop no-ie chrome chrome61 ppt-section ppt-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch retina fontface domloaded w-1536 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 gt-1440 lt-1680 lt-1920 no-portrait landscape" id="css-15-how%20to%20use%20manifest-page"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./PPT2_files/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./PPT2_files/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./PPT2_files/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script><link rel="stylesheet" type="text/css" href="./PPT2_files/paper.css">
+    <style>
+        .a {
+            text-indent: 2em;
+            text-align: left;
+        }
+    </style><script type="text/javascript" src="./PPT2_files/marked.js.下载"></script><script type="text/javascript" src="./PPT2_files/markdown.js.下载"></script><script type="text/javascript" src="./PPT2_files/notes.js.下载"></script><script type="text/javascript" src="./PPT2_files/highlight.js.下载"></script>
+</head>
+<body>
+<img src="./PPT2_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.897429);">
+        <section class="present" style="top: 133px; display: block;">
+            <h2>HTML5的离线储存怎么使用？</h2>
+            <h3>【成都小课堂】</h3>
+            <p>分享人：童海琴</p>
+        </section>
+        <section class="future" style="top: 34.5px; display: block;" hidden="" aria-hidden="true">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.编码实战</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section class="future" style="top: 267px; display: block;" hidden="" aria-hidden="true">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section class="future" style="top: 199px; display: none;" hidden="" aria-hidden="true">
+            <p class="a">随着Web App的发展，越来越多的移动端App使用HTML5的方式来开发，除了一些HybridApp以外，
+                其他一部分Web App还是通过浏览器来访问的，通过浏览器访问就需要联网发送请求，这样就使得用户在离线
+                的状态下无法使用App，同时Web App中一部分资源并不是经常改变，并不需要每次都向服务器发出请求，出于
+                这些原因，HTML5提出的一个新的特性：离线存储。通过离线存储，我们可以通过把需要离线存储在本地的文件
+                列在一个manifest配置文件中，这样即使在离线的情况下，用户也可以正常使用App。</p>
+        </section>
+        <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+            <h3>2.知识剖析</h3>
+        </section>
+        <section class="stack future" style="top: 0px; display: none;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section class="" style="top: 161px; display: none;" aria-hidden="true">
+                <h4>使用方法:</h4>
+                <p class="a">在html标签中引入manifest文件:</p>
+                <pre>                <code class="hljs stylus">
+                &lt;<span class="hljs-selector-tag">html</span> manifest=<span class="hljs-string">"test.appcache"</span>&gt;
+                </code>
+                 </pre>
+                    <p class="a">
+                        HTML5的离线存储是基于一个新建的.appcache文件的，通过这个文件上的解析清单离线存储资源
+                        ，这些资源就会像cookie一样被存储了下来。之后当网络在处于离线状态下时，浏览器会通过被离线存储的数据
+                        进行页面展示
+                    </p>
+
+            </section>
+            <section class="future" aria-hidden="true" hidden="" style="top: 330px; display: none;">
+                <h4>缓存流程:</h4>
+                <ul>
+                    <li>利用一个manifest清单文件告知服务器需要离线的网页文件。</li>
+                    <li>在第一次访问网站时服务器响应manifest文件进行缓存。</li>
+                    <li>在第二次访问该网址时，检测是否达到更新缓存的条件，否则直接使用缓存文件（即使你修改了服务器上的文件）。</li>
+                </ul>
+            </section>
+
+            <section class="future" aria-hidden="true" hidden="" style="top: 17px; display: none;">
+                <p class="a">这个文件中存储了服务器希望缓存的文件列表:</p>
+                <pre>                <code class="hljs stylus">
+CACHE MANIFEST
+上面一句必须
+#v1.0.1
+
+CACHE:当 manifest 文件加载后浏览器会从网站的根目录下载文件，无论用户何时与因特网断开连接，这些资源依然是可用的。
+test<span class="hljs-selector-class">.html</span>
+test<span class="hljs-selector-class">.js</span>
+doraemon<span class="hljs-selector-class">.jpg</span>
+
+NETWORK:
+#列出的文件需要与服务器的连接，且不会被缓存
+test<span class="hljs-selector-class">.css</span>
+
+FALLBACK:
+#规定当页面无法访问时的回退页面（比如 404 页面）
+<span class="hljs-number">404</span><span class="hljs-selector-class">.html</span>
+                </code>
+            </pre>
+
+            </section>
+            <section class="future" aria-hidden="true" hidden="" style="top: 175.5px; display: none;">
+                <h4>更新缓存:</h4>
+                <p class="">一旦应用被缓存，它就会保持缓存直到发生下列情况</p>
+                <ul>
+                    <li>用户清空浏览器缓存</li>
+                    <li>manifest 文件被修改</li>
+                    <li>由程序来更新应用缓存</li>
+                </ul>
+            </section>
+        </section>
+
+
+        <section class="stack future" style="top: 0px; display: none;" data-previous-indexv="0" hidden="" aria-hidden="true">
+            <section class="" style="top: 278.5px; display: none;" aria-hidden="true">
+
+                <h4>
+                    离线存储有什么优缺点？
+                </h4>
+            </section>
+            <section class="future" aria-hidden="true" hidden="" style="top: 185.5px; display: none;">
+                <h5>优点</h5>
+                <ul>
+                    <li>离线浏览 - 用户可在应用离线时使用它们</li>
+                    <li>速度 - 已缓存资源加载得更快</li>
+                    <li>减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。</li>
+                </ul>
+            </section>
+            <section class="future" aria-hidden="true" hidden="" style="top: 162.5px; display: none;">
+                <h5>缺点</h5>
+                <ul>
+                    <li>更新的资源，需要二次刷新才会被页面采用</li>
+                    <li>不支持增量更新，只有manifest发生变化，所有资源全部重新下载一次</li>
+                    <li>缺乏足够容错机制，如果manifest文件，或者内部列举的某一个文件不能
+                        正常下载，整个更新过程将视为失败，浏览器继续全部使用老的缓存</li>
+                </ul>
+            </section>
+        </section>
+        <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+            <h3>常见问题</h3>
+        </section>
+        <section class="future" aria-hidden="true" hidden="" style="top: 330px; display: none;">
+            <h4>注意</h4>
+            <p class="a">在此刻使用这里描述的应用程序缓存功能高度
+                正在处于从Web平台中被删除的过程。虽然一些浏览器
+                目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。</p>
+        </section>
+        <section class="future" style="top: 287px; display: none;" hidden="" aria-hidden="true">
+            存储网页数据的方式？
+        </section>
+        <section class="future" style="top: 147.5px; display: none;" hidden="" aria-hidden="true">
+            <ul>
+                <li>localStorage - 没有时间限制的数据存储(永久),对于同一个浏览，当用户关闭浏览器窗口后，数据不会被删除。</li>
+                <li>sessionStorage - 针对一个 session 的数据存储(sesion/),当用户关闭浏览器窗口后，数据会被删除。</li>
+                <li>cookie：不适合大量数据的存储，因为它们由每个对服务器的请求来传递，这使得 cookie 速度很慢而且效率也不高。</li>
+            </ul>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 267px; display: none;">
+            <h3>6.参考文献</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 177px; display: none;">
+            <p class="a">参考一:<a href="http://www.w3school.com.cn/html5/html_5_app_cache.asp">慕课网-manifest</a></p>
+            <p class="a">参考二:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">MDN-manifest</a>
+            <p class="a">参考三:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Using_the_application_cache">MDN-manifest</a>
+            </p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>浏览器对离线存储的大小有限制吗？</h4>
+            <p class="a">浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY</p>
+            <p>成都-童海琴</p>
+        </section>
+
+    </div>
+<script src="./PPT2_files/head.min.js.下载"></script>
+<script src="./PPT2_files/reveal.js.下载"></script>
+
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+
+
+
+</body></html>
