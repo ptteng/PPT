@@ -1,0 +1,275 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是session？什么是cookie？session和cookie有什么区别？
+			什么场景适用于session？什么场景适用于cookie？</h3>
+               <p>分享人:王鹏举</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+		<p>由于HTTP是一种无状态协议,服务器没有办法单单从网络连接上面知道访问者的身份,为了解决这个问题,就诞生了Cookie</p>
+		<p>Cookie实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie</p>
+		<p>客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，</p>
+		<p>以此来辨认用户状态。服务器还可以根据需要修改Cookie的内容。</p>
+         <p>实际就是颁发一个通行证，每人一个，无论谁访问都必须携带自己通行证。这样服务器就能从通行证上确认客户身份了。这就是Cookie的工作原理</p>
+		  </section>
+		 <section>
+		 <p>cookie 可以让服务端程序跟踪每个客户端的访问，但是每次客户端的访问都必须传回这些 Cookie，如果 Cookie 很多，这无形地增加了客户端与服务端的数据传输量，</p>
+		 <p>而 Session 的出现正是为了解决这个问题。同一个客户端每次和服务端交互时，不需要每次都传回所有的 Cookie 值，而是只要传回一个 ID，这个 ID 是客户端第一次访问服务器的时候生成的，
+		 而且每个客户端是唯一的。这样每个客户端就有了一个唯一的 ID，客户端只要传回这个 ID 就行了，这个 ID 通常是 NANE 为 JSESIONID 的一个 Cookie。</p>
+		 </section>
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+		<section>
+		
+		<p>cookie机制</p>
+	    <p><img src="4444657.png"></p>
+		</section>
+		<section>
+		<p>cookie的内容主要包括name(名字)、value(值)、maxAge(失效时间)、path(路径),domain(域)和secure</p>
+		<p>name：cookie的名字，一旦创建，名称不可更改。</p>
+		<p>value：cookie的值，如果值为Unicode字符，需要为字符编码。如果为二进制数据，则需要使用BASE64编码.</p>
+		<p>maxAge：cookie失效时间，单位秒。如果为正数，则该cookie在maxAge后失效。如果为负数，该cookie为临时cookie，关闭浏览器即失效，
+		浏览器也不会以任何形式保存该cookie。如果为0，表示删除该cookie。默认为-1</p>
+		<p>path：该cookie的使用路径。如果设置为"/sessionWeb/"，则只有ContextPath为“/sessionWeb/”的程序可以访问该cookie。如果设置为“/”，则本域名下ContextPath都可以访问该cookie。</p>
+		<p>domain:域.可以访问该Cookie的域名。第一个字符必须为".",如果设置为".google.com",则所有以"google.com结尾的域名都可以访问该cookie",如果不设置,则为所有域名</p>
+        <p>secure：该cookie是否仅被使用安全协议传输。</p>
+	   </section>
+   
+		 <section>
+			<p>Session机制</p>
+			<p>Session机制是一种服务端的机制，服务器使用一种类似散列表的结构来保存信息。</p>
+			<p>当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端里的请求里是否已包含了一个session标识--sessionID，</p>
+			<p>如果已经包含一个sessionID，则说明以前已经为此客户端创建过session，服务器就按照sessionID把这个session检索出来使用</p>
+		 </section>
+		<section>
+			<p>如果客户端请求不包含sessionID，则为此客户端创建一个session并且声称一个与此session相关联的sessionID，</p>
+			<p>sessionID的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串(服务器会自动创建),这个sessionID将被在本次响应中返回给客户端保存。</p>
+        </section>
+	
+	   <section>
+            <h3>3.常见问题</h3>
+       </section>
+       		
+		<section>
+		<p>使用cookie的弊端</p>
+        <p>使用session的弊端</p>
+		<p>cookie和session的区别</p>
+		</section>
+
+				
+        <section>
+            <h3>4.解决方案</h3>
+		<p>使用cookie的缺点</p>
+		<p>如果浏览器使用的是 cookie，那么所有的数据都保存在浏览器端，</p>
+		<p>cookie可以被用户禁止</p>
+		<p>cookie不安全(对于敏感数据，需要加密)</p>
+		<p>cookie只能保存少量的数据(大约是4k)，cookie的数量也有限制(大约是几百个)，不同浏览器设置不一样，反正都不多</p>
+		<p>cookie只能保存字符串</p>
+		 <p>对服务器压力小</p>
+		</section>
+		<section>
+		<p>使用session的缺点</p>
+		<p>一般是寄生在Cookie下的，当Cookie被禁止，Session也被禁止</p>
+		<p>当然可以通过url重写来摆脱cookie</p>
+		<p>当用户访问量很大时，对服务器压力大</p>
+		<p>我们现在知道session是将用户信息储存在服务器上面,如果访问服务器的用户越来越多,那么服务器上面的session也越来越多, session会对服务器造成压力，影响服务器的负载.如果Session内容过于复杂，当大量客户访问服务器时还可能会导致内存溢出。</p>
+		<p>用户信息丢失,  或者说用户访问的不是这台服务器的情况下,就会出现数据库丢失.</p>
+		</section>
+		<section>
+		<p>cookie和session的区别</p>
+		<p>具体来说cookie机制采用的是在客户端保持状态的方案，而session机制采用的是在服务器端保持状态的方案。同时我们也看到，
+		由于采用服务器端保持状态的方案在客户端也需要保存一个标识，所以session机制可能需要借助于cookie机制来达到保存标识的目的</p>
+		 <p>cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到安全应当使用session</p>
+		<p>	session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie</p>
+		<p>	单个cookie保存的数据不能超过4k,很多浏览器都限制一个站点最多保存20个cookie。</p>
+		<p>	可以将登陆信息等重要信息存放为session。</p>
+		</section>
+
+	
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+			<P>其他几种认证登录方式</p>
+			<P>HTTP Basic Auth</p>
+			<P> HTTP Basic Auth简单点说明就是每次请求API时都提供用户的username和password，简言之，Basic Auth是配合RESTful API 使用的最简单的认证方式，只需提供用户名密码即可，但由于有把用户名密码暴露给第三方客户端的风险，在生产环境下被使用的越来越少。因此，在开发对外开放的RESTful API时，尽量避免采用HTTP Basic Auth</p>
+			</section>
+			<section>
+			<p>OAuth</p>
+			<p>OAuth（开放授权）是一个开放的授权标准，允许用户让第三方应用访问该用户在某一web服务上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。</p>
+			<p>OAuth允许用户提供一个令牌，而不是用户名和密码来访问他们存放在特定服务提供者的数据。每一个令牌授权一个特定的第三方系统（例如，视频编辑网站)在特定的时段（例如，接下来的2小时内）内访问特定的资源（例如仅仅是某一相册中的视频）。</p>
+			<p>这样，OAuth让用户可以授权第三方网站访问他们存储在另外服务提供者的某些特定信息，而非所有内容</p>
+			</section>
+			<section>
+			<p><img src="123456.png"></p>
+			<p> OAuth的认证机制适用于个人消费者类的互联网产品，如社交类APP等应用，但是不太适合拥有自有认证权限管理的企业应用；</p>
+		</section>
+			 <section>
+			<p>JWT的Token认证</p>
+			<p><img src="12345.png"></p>
+			</section>
+			<section>
+			<p>一个JWT实际上就是一个字符串，它由三部分组成，头部、载荷与签名。</p>
+			<p>JWT的头部用于描述关于该JWT的最基本的信息，例如其类型以及签名所用的算法等。这也可以被表示成一个JSON对象。</p>
+			<p>"typ": "JWT",</p>
+			<p>"alg": "HS256"</p>
+			<p>当然头部要进行BASE64编码</p>
+			</section>
+			<section>
+			<p>签名（Signature）</p>
+			<p>将上面的两个编码后的字符串都用句号.连接在一起（头部在前）例如头部使用base64编码后为123.456 </p>
+			<p>我们将上面拼接完的字符串用HS256算法进行加密。在加密的时候，还需要我们自己提供一个密钥（secret)。 得到789.</p>
+			<p>将他们完全拼在一起,我们就得到了完整的JWT"123.456.789"   在我们的请求URL中会带上这串JWT字符串</p>
+			</section>
+			<section>
+			<p>载荷</p>
+		<p>iss: 该JWT的签发者，   是否使用是可选的；</p>
+		<p>sub: 该JWT所面向的用户，是否使用是可选的；</p>
+		<p>aud: 接收该JWT的一方， 是否使用是可选的；</p>
+		<p>exp(expires): 什么时候过期，这里是一个Unix时间戳，是否使用是可选的；</p>
+		<p>iat(issued at): 在什么时候签发的(UNIX时间)，是否使用是可选的；</p>
+		<p>nbf (Not Before)：如果当前时间在nbf里的时间之前，则Token不被接受；一般都会留一些余地，比如几分钟；，是否使用是可选的；</p>
+			 </section>
+			 <section>
+			<p>JWT机制实现认证</p>
+			<p><img src="1234.jpg"></p>
+			 </section>
+			 <section>
+			 <p>对Token认证的五点认识</p>
+			 <p> 对Token认证机制有5点直接注意的地方：</p>
+			 <p>一个Token就是一些信息的集合；</p>
+			 <p>在Token中包含足够多的信息，以便在后续请求中减少查询数据库的几率；</p>
+			 <p>服务端需要对cookie和HTTP Authrorization Header进行Token信息的检查；</p>
+			 <p>基于上一点，你可以用一套token认证代码来面对浏览器类客户端和非浏览器类客户端；</p>
+			 <p>因为token是被签名的，所以我们可以认为一个可以解码认证通过的token是由我们系统发放的，其中带的信息是合法有效的；</p>
+			</section>
+			 <section>
+			<p>Token机制相对于Cookie机制又有什么好处呢？</p>
+			<p>支持跨域访问:Cookie是不允许垮域访问,这一点对Token机制是不存在的,前提是传输的用户认证信息通过HTTP头传输.</p>
+			<p>无状态(也称：服务端可扩展行):Token机制在服务端不需要存储session信息，因为Token 自身包含了所有登录用户的信息，只需要在客户端的cookie或本地介质存储状态信息.</p>
+			<p>更适用CDN: 可以通过内容分发网络请求你服务端的所有资料（如：javascript，HTML,图片等），而你的服务端只要提供API即可.</p>
+			</section>
+			<section>
+			<p>去耦: 不需要绑定到一个特定的身份验证方案。Token可以在任何地方生成，只要在你的API被调用的时候，你可以进行Token生成调用即可.</p>
+			<p>更适用于移动应用: 当你的客户端是一个原生平台（iOS, Android，Windows 8等）时，Cookie是不被支持的（你需要通过Cookie容器进行处理），这时采用Token认证机制就会简单得多。</p>
+			<p>CSRF:因为不再依赖于Cookie，所以你就不需要考虑对CSRF（跨站请求伪造）的防范。</p>
+			<p>性能: 一次网络往返时间（通过数据库查询session信息）总比做一次HMACSHA256计算 的Token验证和解析要费时得多.</p>
+			</section>
+			<section>
+			<p>不需要为登录页面做特殊处理: 如果你使用Protractor 做功能测试的时候，不再需要为登录页面做特殊处理.</p>
+			<p>基于标准化:你的API可以采用标准化的 JSON Web Token (JWT). 这个标准已经存在多个后端库（.NET, Ruby, Java,Python, PHP）和多家公司的支持（如：Firebase,Google, Microsoft）.</p>
+			</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+			<p>http://blog.csdn.net/fangaoxin/article/details/6952954/</p>
+			<p>http://www.cnblogs.com/xiekeli/p/5607107.html</p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:王鹏举</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
