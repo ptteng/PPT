@@ -1,0 +1,218 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何写shell脚本？尝试自己编写一个简单脚本。</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>李林朋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>现在多数的服务器都是linux系统，需要通过shell来对其进行操作，而利用shell脚本，可以大大提高开发维护的效率</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>什么shell</p>
+			<p>shell是一个命令行解释器，它为用户提供了一个linux内核发送请求以便于运行程序的界面系统级程序，用户可以用shell来启动，挂起，停止甚至是编写一些程序</p>
+            <p>shell还是一个功能相当强大的编程语言，易编写，易调试，灵活性较强。shell是解释执行的脚本语言，在shell中可以直接调用linux系统命令。</p>
+		</section>
+        <section>
+            <p>shell的两种主要语法类型有bourne 和C，这两种语法彼此不兼容。bourne家族主要包括sh, ksh ,Bash， psh ,zsh，C家族主要用在unix，包括 csh ,tsh .</p>
+            <p>查看当前shell的类型： echo $SHELL   </p>
+        </section>
+		
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务</p>
+            <p>Shell 脚本（shell script），是一种为 shell 编写的脚本程序。 业界所说的 shell 通常都是指 shell 脚本，</p>
+        </section>
+        <section>
+            <p>Shell有两种执行命令的方式：</p>
+            <p>•交互式（Interactive）：解释执行用户的命令，用户输入一条命令，Shell就解释执行一条。</p>
+            <p>•批处理（Batch）：用户事先写一个Shell脚本（Script），其中有很多条命令，让Shell一次把这些命令执行完，而不必一条一条地敲命令。</p>
+        </section>
+        <section>
+            <p>在linux进行命令行操作，比较繁琐</p>
+        </section>
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>可以通过编写脚本，只需输入执行脚本这一个命令，来实现多条命令的执行，</p>
+        </section>
+
+		 
+    <section>
+            <h3>5.编码实战</h3>
+      </section>
+      <section>
+           <p>创建</p>
+            <p>执行</p>
+            <p>特殊符号</p>
+            <p>多命令顺序执行</p>
+            <p>管道符</p>
+            <p>输出输入重定向</p>
+            <p></p>
+            <p></p>
+      </section>
+      <section>
+          <p>脚本执行</p>
+            <p>1.赋予执行权限。直接运行chmod 755 xxxx.sh</p>
+            <p>./xxxx.sh</p>
+            <p>2.通过Bash调用执行脚本bash hello.sh</p>
+      </section>
+      <section>
+         <p>特殊符号</p>
+            <p>$  调用变量的值。</p>
+             <p> ` `  反引号，内容是系统命令</p>
+             <p> $( )   和反引号作用一样，引用系统命令。</p>
+            <p> \  转义符</p>
+            <p> ' '  单引号 ，在其中的特殊符号没有特殊含义。</p>
+            <p>" "  双引号，在其中的特殊符号没有特殊含义，但有三个除外，$ 美元符号，调用变量的值，  ` `  ，反引号，引用命令， \  反斜杠，转义符</p>
+            
+            <p></p>
+          
+      </section>
+      <section>
+          <p>多命令顺序执行</p>
+            <p>命令1 ; 命令2，多个命令顺序执行，命令之间没有逻辑关系</p>
+            <p>命令1 && 命令2  ，  逻辑与 ，    只有命令1 正确，命令2才执行</p>
+            <p>命令1 || 命令2  逻辑或    当命令1正确，命令2不执行，当命令1错误，执行命令2</p>
+            
+      </section>
+      <section>
+          <p>管道符</p>
+          <p>
+              命令1 | 命令2 ， 命令1的正确输出作为命令2的操作对象
+          </p>
+      </section>
+      <section>
+           <p>输入输出重定向</p>
+            <p>标准输出---->屏幕，输出重定向 ---->文件</p>
+            <p>命令 > 文件，以覆盖的方式，把命令输出到指定的文件中</p>
+            <p>命令 >> 文件，以追加的方式，把命令输出到指定的文件中</p>
+            <p></p>
+            <p>输入重定向</p>
+            <p>命令 < 文件</p>
+            <p>命令 << 标识符</p>
+      </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3>任务三中的脚本</h3>
+        </section>
+        <section>
+		
+
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>慕课网</p>
+            <p>百度</p>
+            <p>小课堂</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            
+            <p>感谢观看</p>
+            <p><small>BY : 李林朋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
