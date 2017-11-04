@@ -1,0 +1,495 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【如何理解angular的脏检查？】</h2>
+            <h3>小课堂js-task09【深圳第336期】</h3>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>什么是脏数据检查（Dirty checking）</p>
+                <p style="text-align:left">Angular 是一个 MVVM 前端框架，提供了双向数据绑定。所谓双向数据绑定（Two-way data binding）就是页面元素变化会触发
+                    View-model 中对应数据改变，
+                    反过来 View-model 中数据变化也会引发所绑定的 UI 元素数据更新。操作数据就等同于操作 UI。<br>
+                    看似简单，其实水很深。UI 元素变化引发 Model 中数据变化这个通过绑定对应 DOM 事件（例如 input 或 change）可以简单的实现；然而反过来就不是那么容易。</p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+                        <p ng-bind="content1"></p>
+                        <p ng-bind="content2"></p>
+                        <button ng-click="onClick()">Click Me</button>
+                    </code>
+                </pre>
+                <p style="text-align:left">
+                    用户点击了 button，angular 执行了一个叫 onClick 的方法。这个 onClick 的方法体对于 angular 来说是黑盒，
+                    它到底做了什么不知道。可能改了 $scope.content1 的值，可能改了 $scope.content2 的值，也可能两个值都改了，
+                    也可能都没改。
+                    那么 angular 到底应该怎样得知 onClick() 这段代码后是否应该刷新 UI，应该更新哪个 DOM 元素？
+                    angular 必须去挨个检查这些元素对应绑定表达式的值是否有被改变。这就是脏数据检查的由来。
+                </p>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>脏检查如何被触发?</p>
+                <p>angular 会在可能触发 UI 变更的时候进行脏检查。实际上，脏检查是$digest执行的，另一个更常用于触发脏检查的函数$apply
+                    其实就是$digest的一个简单封装。</p>
+            </section>
+            <section>
+                <p>通常写代码时我们无需主动调用 $apply 或 $digest 是因为 angular 在外部对我们的回调函数做了包装。例如常用的 ng-click，这是一个指令（Directive），内部实现则 类似
+                    于</p>
+                <pre>
+                    <code>
+                        DOM.addEventListener('click', function ($scope) {
+                            $scope.$apply(() => userCode());
+                        });
+                    </code>
+                </pre>
+                <p>可以看到：ng-click 帮我们做了 $apply 这个操作。类似的不只是这些事件回调函数，还有 $http、$timeout 等。</p>
+            </section>
+            <section>
+                <p>脏检查的范围</p>
+                <p style="text-align:left">
+                    前面说到：angular 会对所有绑定到 UI 上的表达式做脏检查。其实，在 angular 实现内部，所有绑定表达式都被转换为 $scope.$watch()。
+                    每个 $watch 记录了上一次表达式的值。有 ng-bind="a" 即有 $scope.$watch('a', callback)，而 $scope.$watch 可不会管被 watch
+                    的表达式是否跟触发脏检查的事件有关。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+
+            <section>
+                <h4>问题：脏检查慢吗？</h4>
+                <p>
+                    说实话脏检查效率是不高，但是也谈不上有多慢。简单的数字或字符串比较能有多慢呢？十几个表达式的脏检查可以直接忽略不计；上百个也可以接受；
+                    成百上千个就有很大问题了。绑定大量表达式时请注意所绑定的表达式效率。
+                </p>
+
+            </section>
+            <section>
+                <p>建议注意以下几点：</p>
+                <ol>
+                    <li>表达式（以及表达式所调用的函数）中少写太过复杂的逻辑</li>
+                    <li>不要连接太长的 filter（往往 filter 里都会遍历并且生成新数组）</li>
+                    <li>不要访问 DOM 元素。</li>
+                </ol>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <h4>1.使用单次绑定减少绑定表达式数量</h4>
+                <p>
+                    单次绑定（One-time binding） 是 Angular 1.3 就引入的一种特殊的表达式，它以 :: 开头，当脏检查发现这种表达式的值不为 undefined 时就认为此表达式已经稳定，
+                    并取消对此表达式的监视。这是一种行之有效的减少绑定表达式数量的方法，与 ng-repeat 连用效果更佳（下文会提到），但过度使用也容易引发 bug。
+                </p>
+            </section>
+            <section>
+                <h4>2.善用 ng-if 减少绑定表达式的数量</h4>
+                <p>如果你认为 ng-if 就是另一种用于隐藏、显示 DOM 元素的方法你就大错特错了。ng-if 不仅可以减少 DOM 树中元素的数量（而非像 ng-hide 那样仅仅只是加个 display:
+                    none），每一个 ng-if 拥有自己的 scope，ng-if 下面的 $watch 表达式都是注册在 ng-if 自己 scope 中。当 ng-if 变为 false，ng-if 下的
+                    scope
+                    被销毁，注册在这个 scope 里的绑定表达式也就随之销毁了。</p>
+            </section>
+            <section>
+                <p>考虑这种 Tab 选项卡实现：</p>
+                <pre>
+                    <code>
+                        <ul>
+                          <li ng-class="{ selected: selectedTab === 1 }">Tab 1 title</li>
+                          <li ng-class="{ selected: selectedTab === 1 }">Tab 2 title</li>
+                          <li ng-class="{ selected: selectedTab === 1 }">Tab 3 title</li>
+                          <li ng-class="{ selected: selectedTab === 1 }">Tab 4 title</li>
+                        </ul>
+                        <div ng-show="selectedTab === 1">[[Tab 1 body...]]</div>
+                        <div ng-show="selectedTab === 2">[[Tab 2 body...]]</div>
+                        <div ng-show="selectedTab === 3">[[Tab 3 body...]]</div>
+                        <div ng-show="selectedTab === 4">[[Tab 4 body...]]</div>
+                    </code>
+                </pre>
+                <p>
+                    对于这种会反复隐藏、显示的元素，通常人们第一反应都是使用 ng-show 或 ng-hide 简单的用 display: none 把元素设置为不可见。
+                </p>
+            </section>
+            <section>
+                <p>
+                    然而入上文所说，肉眼不可见不代表不会跑脏检查。如果将 ng-show 替换为 ng-if 或 ng-switch-when
+                </p>
+                <pre>
+                    <code>
+                        <div ng-if="selectedTab === 1">[[Tab 1 body...]]</div>
+                        <div ng-if="selectedTab === 2">[[Tab 2 body...]]</div>
+                        <div ng-if="selectedTab === 3">[[Tab 3 body...]]</div>
+                        <div ng-if="selectedTab === 4">[[Tab 4 body...]]</div>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>有如下优点：</p>
+                <ol>
+                    <li>首先 DOM 树中的元素个数显著减少至四分之一，降低内存占用</li>
+                    <li>其次 $watch 表达式也减少至四分之一，提升脏检查循环的速度</li>
+                    <li>如果这个 tab 下面有 controller（例如每个 tab 都被封装为一个组件），那么仅当这个 tab 被选中时该 controller 才会执行，可以减少各页面的互相干扰</li>
+                    <li>如果 controller 中调用接口获取数据，那么仅当对应 tab 被选中时才会加载，避免网络拥挤</li>
+                </ol>
+            </section>
+            <section>
+                <p>当然也有缺点：</p>
+                <ol>
+                    <li>DOM 重建本身费时间</li>
+                    <li>如果 tab 下有 controller，那么每次该 tab 被选中时 controller 都会被执行</li>
+                    <li>如果在 controller 里面调接口获取数据，那么每次该 tab 被选中时都会重新加载</li>
+                </ol>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>当脏检查遇上数组</p>
+                <p>
+                    通常的绑定只是去监听一个值的变化（绑定对象也是绑定到对象里的某个成员），而 ng-repeat 却要监视一整个数组对象的变化。例如有：
+                </p>
+                <pre>
+                    <code>
+                        <ul ng-init="array = [
+                          { value: 1 },
+                          { value: 2 },
+                          { value: 3 },
+                          { value: 4 },
+                        ]">
+                          <li ng-repeat="item in array" ng-bind="item.value"></li>
+                        </ul>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>会生成 4 个 li 元素</p>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+                <p>没有问题。如果我添加一个按钮如下：</p>
+                <pre>
+                    <code>
+                        <button ng-click="array.shift()">删除第一个元素</button>
+                    </code>
+                </pre>
+                <p>请考虑：当用户点击这个按钮会发生什么？</p>
+            </section>
+            <section>
+                <p>我们一步一步分析。开始的时候，angular 记录了 array 的初始状态为：</p>
+                <pre>
+                    <code>
+                        [
+                          { "value": 1 },
+                          { "value": 2 },
+                          { "value": 3 },
+                          { "value": 4 }
+                        ]
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>当用户点击按钮后，数组的第一个元素被删除了，array 变为：</p>
+                <pre>
+                   <code>
+                        [
+                          { "value": 2 },
+                          { "value": 3 },
+                          { "value": 4 }
+                        ]
+                   </code>
+                </pre>
+
+            </section>
+            <section>
+                <p>两者比较：</p>
+                <pre>
+                <code>
+                    array.length = 4 => array.length = 3
+                    array[0].value = 1 => array[0].value = 2
+                    array[1].value = 2 => array[1].value = 3
+                    array[2].value = 3 => array[2].value = 4
+                    array[3].value = 4 => array[3].value = undefined
+                    （array[3] 为 undefined，则 undefined.value 为 undefined）
+                </code>
+                </pre>
+            </section>
+            <section style="text-align: left;padding-left:200px;">
+                <p>如同你所见：angular 经过比较，看到的是：</p>
+                <ol>
+                    <li>数组长度减少了 1</li>
+                    <li>数组第 1 个元素的 value 被改为 2</li>
+                    <li>数组第 2 个元素的 value 被改为 3</li>
+                    <li>数组第 3 个元素的 value 被改为 4</li>
+                </ol>
+                <p>反应到 DOM 元素上就是：</p>
+                <ol>
+                    <li>第 1 个 li 内容改为 2</li>
+                    <li>第 2 个 li 内容改为 3</li>
+                    <li>第 3 个 li 内容改为 4</li>
+                    <li>第 4 个 li 删掉</li>
+                </ol>
+            </section>
+            <section>
+                <p>
+                    可以看到，删除一个元素导致了整个 ul 序列的刷新。要知道 DOM 操作要比 JS 变量操作要慢得多，类似这样的无用操作最好能想办法避免。
+                    那么问题出在哪里呢？用户删除了数组的第一个元素，导致了整个数组元素前移；然而 angular 没法得知用户做了这样一个删除操作，只能傻傻的按下标一个一个比。
+                    <br>那么只要引入一种机制来标记数组的每一项就好了吧。于是 angular 引入了 track by
+                </p>
+            </section>
+            <section>
+                <p>详解track by</p>
+                <p>用来标记数组元素的一定是数组里类似 ID 的某个值。这个值一定要符合以下这两个特点。</p>
+                <ol>
+                    <li>
+                        不能重复。ID 重复了什么鬼
+                    </li>
+                    <li>
+                        值一定要简单。ID 是用于比较相等的，有时候由于算法不同可能还要比较大小，处于速度考虑不能太复杂。
+                    </li>
+                </ol>
+
+            </section>
+            <section>
+                <p>
+                    基于这两个特点。如果用户没有给 ng-repeat 指定 track by 的表达式，则默认为内置函数 $id。$id 会检查 item 中有没有一个名为 $$hashKey 的成员。
+                    如有，返回其值；如没有，则生成一个新的唯一值写入。这就是数组中那个奇怪的 $$hashKey 成员来历，默认值是 "object:X"
+                </p>
+            </section>
+            <section>
+                <p>还是前面的问题，引入 track by 后再来看。因为没有指定 track by，则默认为 $id(item)，实际为 $$hashKey。</p>
+                <pre>
+                    <code>
+                        <ul ng-init="array = [
+                          { value: 1 },
+                          { value: 2 },
+                          { value: 3 },
+                          { value: 4 },
+                        ]">
+                          <li ng-repeat="item in array track by $id(item)" ng-bind="item.value"></li>
+                        </ul>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    开始的时候，$id(item) 给数组中所有项创建了 $$hashKey
+                    这时 angular 记录了 array 的初始状态为：
+                </p>
+                <pre>
+                    <code>
+                        [
+                          { "value": 1, "$$hashKey": "object:1" },
+                          { "value": 2, "$$hashKey": "object:2" },
+                          { "value": 3, "$$hashKey": "object:3" },
+                          { "value": 4, "$$hashKey": "object:4" }
+                        ]
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    当用户点击按钮后，数组的第一个元素被删除了，array 变为：
+                </p>
+                <pre>
+                    <code>
+                        [
+                          { "value": 2, "$$hashKey": "object:2" },
+                          { "value": 3, "$$hashKey": "object:3" },
+                          { "value": 4, "$$hashKey": "object:4" }
+                        ]
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    先比较 track by 的元素，这里为 $id(item)，即 $$hashKey
+                </p>
+                <ol>
+                    <li>"object:1" => "object:2"</li>
+                    <li>"object:2" => "object:3"</li>
+                    <li>"object:3" => "object:4"</li>
+                    <li>"object:4" => undefined</li>
+                </ol>
+                <p>两者对不上，说明数组被做了增删元素或者移动元素的操作。将其规整</p>
+                <ol>
+                    <li>"object:1" => undefined</li>
+                    <li>"object:2" => "object:2"</li>
+                    <li>"object:3" => "object:3"</li>
+                    <li>"object:4" => "object:4"</li>
+                </ol>
+            </section>
+            <section>
+                <p>
+                    那么显然，第一个元素被删除了。再比较剩余的元素
+                </p>
+                <ol>
+                    <li>array[0].value = 2 => array[0].value = 2</li>
+                    <li>array[1].value = 3 => array[1].value = 3</li>
+                    <li>array[2].value = 4 => array[2].value = 4</li>
+                </ol>
+            </section>
+            <section style="text-align: left;padding-left:100px;">
+                <p>
+                    结论是：
+                </p>
+                <ol>
+                    <li>原数组第一个元素被删除</li>
+                    <li>其他没变</li>
+                </ol>
+                <p>angular 通过将新旧数组的 track by 元素做 diff 猜测用户的行为，最大可能的减少 DOM 树的操作，这就是 track by 的用处。</p>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <ol>
+                    <li>
+                        参考<a href="https://segmentfault.com/a/1190000010433675#articleHeader0">Angular 1 深度解析：脏数据检查与 angular 性能优化</a>
+                    </li>
+                </ol>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>问题一、ng-if和ng-show该如何取舍？</p>
+                <p>问题二、track by有缺点吗？</p>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p class="text-center">
+                    <small>BY :包腾飞</small>
+                </p>
+            </section>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        },
+            {
+                src: '../plugin/markdown/markdown.js'
+            },
+            {
+                src: '../plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
+Contact GitHub API Training Shop Blog About © 2016 GitHub, Inc. Terms Privacy Security Status He

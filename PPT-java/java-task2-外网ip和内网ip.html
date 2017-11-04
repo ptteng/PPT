@@ -1,0 +1,180 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>外网ip 和 内网ip</h2>
+			<p></p>
+            <p>分享人：茹程远</p>
+			
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.配置展示</p>
+            <p>5.扩展思考</p>
+            <p>6.参考文献</p>
+            <p>7.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<p>ip的来源<p>
+		</section>
+		<section>
+			<p>物理层：对应于网络的基本硬件，这也是Internet物理构成，即我们可以看得见的硬设备，如PC机、互连网服务器、网络设备等，必须对这些硬设备的电气特性作一个规范，使这些设备都能够互相连接并兼容使用。<p>
+		</section>
+		<section>
+			<p>数据链路层：它定义了将资料组成正确帧的规程和在网络中传输帧的规程，帧是指一串资料，它是资料在网络中传输的单位。 </p>
+		</section>
+		
+		<section>
+			<p>网络层：本层定义了互联网中传输的“信息包”格式，以及从一个用户通过一个或多个路由器到最终目标的“信息包”转发机制。 </p>
+		</section>
+		<section>
+			<p>传输层：为两个用户进程之间建立、管理和拆除可靠而又有效的端到端连接。 </p>
+		</section>
+		<section>
+			<p>应用层：它定义了应用程序使用互联网的规程。 </p>
+		</section>
+		
+		
+		
+		<section>
+            <h3>2.知识剖析</h3>
+		</section>
+		 <section>
+			<p>网路层</p>
+			
+		</section>
+		
+	   <section>
+			<image src = "tcp-ip.gif"/>
+		</section>
+        <section>
+            <h3>3.常见问题</h3>
+		</section>
+		
+        <section>
+		   <p>内网ip 和 外网ip</p>		
+        </section>
+		<section>
+		   <p>这三个地址段分别位于A、B、C三类地址内：</p>	
+           <p> * A类地址：10.0.0.0--10.255.255.255   10.0.0.0/8</p>	
+	       <p> * B类地址：172.16.0.0--172.31.255.255  172.16.0.0/12</p>	
+		   <p> * C类地址：192.168.0.0--192.168.255.255  192.168.0.0/16</p>		
+        </section>
+	<section>
+		所以局域网在选取使用私有地址时，一般会按照实际需要容纳的主机数来选择私有地址段。常见的局域网由于容量小，一般选择C类的192.168.0.0作为地址段使用，一些大型企业就需要使用B类甚至A类地址段作为内部网络的地址段。
+最后需要补充说明的是，由于NAT和子网掩码的存在，实际在使用中，一个C类大小的局域网也可以选择A类的10.0.0.0网段作为自己的IP地址段。大多数局域网之所以仍然选择192.168.0.0/24或者192.168.1.0/24作为自己的IP地址段，更多的是因为约定成俗或者说网管个人习惯的关系
+    </section>
+		
+		
+        <section>
+            <h3>4.配置展示</h3>
+			<h3>tracert www.baidu.com   route print 和 Wireshark</h3>
+        </section>
+				
+        <section>
+            <h3>5.扩展思考</h3>
+			<p>ip的历史进程与解决的问题</p>
+
+        </section>
+
+        <section>
+            <p>分类的ip地址</p>
+			<p>子网的划分</p>
+			<p>构成超网</p>
+        </section>
+        
+        <section>
+            <h3>6.参考文献</h3>
+			<p>http://blog.csdn.net/zhaqiwen/article/details/7727031</p>
+			<p>知乎：  为什么常见路由器的网关默认 IP 都是 192.168.1.1？</p>
+			<p>知乎：  为什么局域网的IP普遍是192.168开头？</p>
+			<p>计算机网络（第六版） ---电子工业出版社</p>
+        </section>
+        <section>
+            <h3>7.超网</h3>
+            <p>读取，和计算网络号</p>
+        </section>
+		 <section>
+            <p>	</p>
+        </section>
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>
+            
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

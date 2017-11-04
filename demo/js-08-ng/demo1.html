@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+    <title>Title</title>
+</head>
+<body ng-app="app" ng-controller="myctr">
+<input type="button" ng-click="show()" value="show">
+<input type="button" ng-click="hide()" value="hide">
+
+<div ng-show="x">
+   看到了，我使用了ng-show
+</div>
+
+<div ng-if="x">
+    看到了,我使用了ng-if
+</div>
+
+<script>
+    var app=angular.module('app',[]);
+    app.controller("myctr",function($scope) {
+        $scope.show=function () {
+            $scope.x=true;
+        };
+        $scope.hide=function() {
+            $scope.x=false
+        }
+    });
+
+</script>
+</body>
+</html>
