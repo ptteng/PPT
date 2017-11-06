@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>小课堂【深圳第340期】</h3>
+            <h4>JavaScript中的基本包装类型？</h4>
+            <p>分享人：梁耀</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>为了便于对基本类型的操作，
+                JS提供3个特殊的引用类型：Boolean、Number、String；
+                这些类型与其他引用类型相似，但同时也具有相对的特殊行为。
+                每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，
+                从而能够调用一些方法来操作这些数据。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>Boolean类型</h3>
+                Boolean类型是和布尔值相应的引用类型。要创建一个Boolean对象，如下调用Boolean构造
+                函数并传入true或false值
+                <pre>
+                <code>
+                var Booleanobject=new Boolean（true）;
+                </code>
+                    </pre>
+            </section>
+            <section>
+                在使用布尔表达式中使用Boolean对象，经常会造成一些误解，如下
+                <pre>
+            		<code>
+            		var falseobject=new Boolean（false）;
+                    var result=falseobject && true;
+                    alert（result）;//true
+            		</code>
+            	</pre>
+                <p>在这例子中，我们使用了false值创建了一个Boolean对象。将这个对象
+                    与基本类型值true构成了逻辑与表达式。在布尔运算中，false && true等于false。
+                    但上面的结果为true，是因为对falseobject求值而不是（false）进行求值，在布尔运算中
+                    对象都为true，上述例子结果为true</p>
+
+            </section>
+            <section>
+                <h3>Number类型</h3>
+                <p>Number是与数字值对应的引用类型。要创建NUmber对象，可以在
+                    调用Number构造函数时向其中传递相应的数值。</p>
+                <pre>
+            		<code>
+            		var numberobject=new Number（10）;
+            		</code>
+            	</pre>
+
+            </section>
+            <section>
+                <p>numberobject.toFixed（）方法：会按照指定的小数位返回数值的字符串表示</p>
+                <pre>
+                    <code>
+                      var num=10;
+                        alert（num.toFixed（2））;//*10.00*
+                    </code>
+                </pre>
+                <p>这里给toFixed（）传入数值2，表示显示几位小数（四舍五入）;</p>
+            </section>
+            <section>
+                <h3>string类型</h3>
+                <p>string类型是字符串的对象包装类型，可以像下面这样使用string构造函数来创建。</p>
+                <pre>
+            		<code>
+                   var stringobject=new string（"gg simida"）；
+            		</code>
+            	</pre>
+                <p>string类型的每个实例都有一个length属性，表示字符串包含多个字符。（上面的例子就有9个字符)。</p>
+            </section>
+            <section>
+                <p>字符串的方法：</p>
+                <p>两个用于访问字符串中特定字符的方法是：charAt（）和charCodeAt（）；这两个方法都接受一个参数，即基于0的字符位置。charAt()方法以单字符串的形式返回给定位置的那个字符串。
+                </p>
+                <pre>
+                	<code>
+                        var svalue = "Hello";
+	        			var result = svalue.concat("Da Wa");
+	        			console.log(result);
+	        			console.log(svalue);
+	        			var b = svalue + 'Er Wa';
+	        		</code>
+                </pre>
+            </section>
+            <section>
+                <p>还有三种创建新字符串的方法：slice()、substr()、substring()。</p>
+                <pre>
+            		<code>
+            			var a = "tianqingle";
+            			console.log(a.slice(3));
+            			console.log(a.substring(3));
+            			console.log(a.substr(3));
+            			console.log(a.slice(3, 7));
+            			console.log(a.substring(3, 7));
+            			console.log(a.substr(3, 7));
+            		</code>
+            	</pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>如何替换子字符串的内容？</p>
+        </section>
+        <section>
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>这里使用了replace()的方法：</p>
+            <pre>
+            	<code>
+            		var h = "cat, bat, sat, fat";
+            		console.log(h.replace("at", "ond"));
+            		console.log(h.replace(/at/g, "end"));
+            	</code>
+            </pre>
+        </section>
+        <section>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>还有那些操作字符串的方法？</p>
+
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：JavaScript高级程序设计</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 梁耀、高雪峰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
