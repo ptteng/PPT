@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Flexbox（弹性盒布局模型）以及适用场景</h2>
+            <p>分享人：李浩</p>
+        </section>
+        <section>
+            <p>目录
+            </p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.拓展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">布局的传统解决方案，基于盒状模型，依赖 display 属性 + position属性 + float属性。它对于那些特殊布局非常不方便，比如，垂直居中就不容易实现。</p>
+            <p style="text-align: left;">2009年，W3C提出了一种新的方案----Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。(ie10及以上)</p>
+            <p style="text-align: left;">Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">采用 Flex 布局的元素，称为 Flex 容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称"项目"。</p>
+            <p style="text-align: left;">任何一个容器都可以指定成flex布局</p>
+            <pre>
+                <code>
+                    .box {
+                      display: flex;
+                    }
+                </code>
+            </pre>
+
+            <p style="text-align: left;">行内元素也可以使用 Flex 布局</p>
+            <pre>
+                <code>
+                    .box {
+                      display:inline-flex;
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align: left;">容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
+            <p style="text-align: left;">项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
+        </section>
+        <section>
+            <img src="../img/css-16-flexbox/img1.png" alt="">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>flex布局的兼容性</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">因为技术在不断的更新，有些旧的浏览器只支持旧语法的书写方式，所以就出现所谓的兼容性问题</p>
+            <p style="text-align: left;">主流的5大浏览器为Chrome，IE，Firefox，Safari，Opera</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    @mixin display ($flex) {
+                      display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+                      display: -moz-flex;   /* 老版本语法: Firefox */
+                      display: -ms-flex;  /* 混合版本语法: IE 10 */
+                      display: -o-flex;  /* 老版本语法: Opera */
+                      display: flex;   /* 新版本语法: Opera 12.1, Firefox 22+ */
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <ol style="width:500px!important;">
+                <li>flex-direction</li>
+                <li>flex-wrap</li>
+                <li>flex-flow</li>
+                <li>justify-content</li>
+                <li>align-items</li>
+                <li>align-content</li>
+                <li>flex-grow, flex-shrink, flex-basis</li>
+            </ol>
+        </section>
+        <section>
+            <h3>5.1  <span style="text-transform:lowercase;">flex-direction</span></h3>
+            <p style="text-align: left;">flex-direction属性决定主轴的方向（即项目的排列方向）</p>
+            <pre>
+                <code>
+                    .box {
+                      flex-direction: row;              /*默认值，主轴为水平方向，起点在左端*/
+                                      row-reverse;      /*主轴为水平方向，起点在右端*/
+                                      column;           /*主轴为垂直方向，起点在上沿*/
+                                      column-reverse;   /*主轴为垂直方向，起点在下沿*/
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p><img src="../img/css-16-flexbox/flex-direction.png" alt=""></p>
+        </section>
+        <section>
+            <h3>5.2  <span style="text-transform:lowercase;">flex-wrap</span></h3>
+            <p style="text-align: left;">默认情况下，项目都排在一条线（又称"轴线"）上，flex-wrap属性定义，如果一条轴线排不下，如何换行</p>
+            <pre>
+                <code>
+                    .box {
+                      flex-wrap: nowrap;         /*默认,不换行*/
+                                 wrap;           /*换行，第一行在上方*/
+                                 wrap-reverse;   /*换行，第一行在下方*/
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.3  <span style="text-transform:lowercase;">flex-flow</span></h3>
+            <p style="text-align: left;">flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap</p>
+            <pre>
+                <code>
+                    .box {
+                      flex-flow: flex-direction flex-wrap;
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>5.4&nbsp;&nbsp; <span style="text-transform:lowercase;">justify-content</span></h3>
+            <p style="text-align: left;">justify-content属性定义了项目在主轴上的对齐方式</p>
+            <pre>
+                <code>
+                    .box {
+                      justify-content: flex-start;      /*默认，左对齐*/
+                                       flex-end;        /*右对齐*/
+                                       center;          /*居中*/
+                                       space-between;   /*两端对齐，项目之间的间隔都相等*/
+                                       space-around;    /*每个项目两侧的间隔相等，所以，项目之间的间隔比项目与边框的间隔大一倍*/
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p><img style="height:35rem;" src="../img/css-16-flexbox/justify-content.png" alt=""></p>
+        </section>
+        <section>
+            <h3>5.5&nbsp;<span style="text-transform:lowercase;">align-items</span></h3>
+            <p style="text-align: left;">align-items属性定义项目在交叉轴上如何对齐</p>
+            <pre>
+                <code>
+                    .box {
+                      align-items: flex-start;  /*交叉轴的起点对齐*/
+                                   flex-end;    /*交叉轴的终点对齐*/
+                                   center;      /*交叉轴的中点对齐*/
+                                   baseline;    /*项目的第一行文字的基线对齐*/
+                                   stretch;     /*默认，如果项目未设置高度或设为auto，将占满整个容器的高度*/
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p><img style="height:35rem;" src="../img/css-16-flexbox/align-items.png" alt=""></p>
+        </section>
+
+        <section>
+            <h3>5.6&nbsp;<span style="text-transform:lowercase;">align-content</span></h3>
+            <p style="text-align: left;">align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用</p>
+            <pre>
+                <code>
+                    .box {
+                      align-content: flex-start;     /*主轴与交叉轴的起点对齐*/
+                                     flex-end;       /*主轴与交叉轴的终点对齐*/
+                                     center;         /*主轴与交叉轴的中点对齐*/
+                                     space-between;  /*主轴与交叉轴两端对齐，轴线之间的间隔平均分布*/
+                                     space-around;   /*主轴每根轴线两侧的间隔都相等，所以，轴线之间的间隔比轴线与边框的间隔大一倍*/
+                                     stretch;        /*主轴轴线占满整个交叉轴*/
+                    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p><img style="height:35rem;" src="../img/css-16-flexbox/align-content.png" alt=""></p>
+        </section>
+        <section>
+            <h3>3.5 <span style="text-transform:lowercase;">flex-grow, flex-shrink, flex-basis</span></h3>
+            <p style="text-align: left;">flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
+            <p style="text-align: left;">flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
+            <p style="text-align: left;">flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
+        </section>
+        <section>
+            <p style="text-align: left;">flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为flex: 0 1 auto。</p>
+            <p style="text-align: left;">该属性有两个快捷值：</p>
+            <ul>
+                <li>auto (1 1 auto；随着空间放大缩小而放大或缩小)</li>
+                <li>none (0 0 auto；空间放大缩小；而元素大小不改变)</li>
+            </ul>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">flex在圣杯布局中的应用：</p>
+            <p style="text-align: left;">圣杯布局（Holy Grail Layout）指的是一种最常见的网站布局。页面从上到下，分成三个部分：头部（header），躯干（body），尾部（footer）。其中躯干又水平分成三栏，从左到右为：导航、主栏、副栏。</p>
+            <img src="../img/css-16-flexbox/holycup.png" alt="">
+
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool">Flex 布局教程：语法篇</a></p>
+            <p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html">Flex 布局教程：实例篇</a> </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4></h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 李浩 </small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
