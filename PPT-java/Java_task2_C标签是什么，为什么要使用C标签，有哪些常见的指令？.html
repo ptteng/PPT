@@ -1,0 +1,180 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>C标签是什么，为什么要使用C标签，有哪些常见的指令？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>JSP标准标签库（JSTL）是一个JSP标签集合，它封装了JSP应用的通用核心功能。</p>
+            <p>JSTL是apache对EL表达式的扩展（也就是说JSTL依赖EL），JSTL是标签语言。</p>
+            <p>JSTL标签使用以来非常方便，它与JSP动作标签一样，只不过它不是JSP内置的标签，需要我们自己导包，以及指定标签库而已。</p>
+        </section>
+        <section>
+            <p>JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。</p>
+        </section>
+        <section>
+            <p>根据JSTL标签所提供的功能，可以将其分为5个类别。</p>
+            <p>（1）核心标签：core</p>
+            <p>（2）格式化标签：fmt</p>
+            <p>（3）数据库标签：sql</p>
+            <p>（4）XML 标签：xml</p>
+            <p>（5）JSTL 函数</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>JSTL 核心标签库(C标签)标签共有14个，功能上分为4类：</p>
+            <p>（1）表达式控制标签：</p>
+            <p>（2）流程控制标签：</p>
+            <p>（3）循环标签：</p>
+            <p>（4）URL操作标签：</p>
+        </section>
+        <section>
+            <p>表达式控制标签：</p>
+            <p>(1)c:out标签：用来显示一个表达式的结果，与<%= %>作用相似，它们的区别就是标签可以直接通过"."操作符来访问属性。</p>
+            <p>(2)c:set标签：用于设置变量值和对象属性。</p>
+            <p>(3)c:remove标签：用于移除一个变量，可以指定这个变量的作用域，若未指定，则默认为变量第一次出现的作用域。</p>
+            <p>(4)c:catch标签：主要用来处理产生错误的异常状况，并且将错误信息储存起来。</p>
+        </section>
+        <section>
+            <p>流程控制标签：</p>
+            <p>(1)c:if标签：判断表达式的值，如果表达式的值为 true 则执行其主体内容。</p>
+            <p>(2)c:choose标签：与Java switch语句的功能一样，用于在众多选项中做出选择。</p>
+            <p>(3)c:when标签：c:when在c:choose中，就相对于case在switch语句中。</p>
+            <p>(4)c:otherwise标签：c:otherwise在c:choose中，就相对于default在switch语句中。</p>
+        </section>
+        <section>
+            <p>循环标签：</p>
+            <p>它们封装了Java中的for，while，do-while循环。</p>
+            <p>(1)c:forEach标签：更加通用的标签，因为它迭代一个集合中的对象。</p>
+            <p>(2)c:forTokens标签：通过指定分隔符将字符串分隔为一个数组然后迭代它们。</p>
+        </section>
+        <section>
+            <p>URL操作标签：</p>
+            <p>(1)c:import标签：提供了所有<jsp:include>行为标签所具有的功能，同时也允许包含绝对URL</p>
+            <p>(2)c:url标签：将URL格式化为一个字符串，然后存储在一个变量中。</p>
+            <p>(3)c:redirect标签：通过自动重写URL来将浏览器重定向至一个新的URL，它提供内容相关的URL，并且支持c:param标签。</p>
+            <p>(4)c:param标签：用于在标签中指定参数，而且与URL编码相关。</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么使用c标签？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>JSTL的目标是为了简化JSP页面的设计。对于页面设计人员来说，使用脚本语言（默认值是JAVA语言）操作动态数据是比较困难的，而采用标签和表达式语言相对容易一些，JSTL的使用为页面设计人员和程序开发人员的分工协作提供了便利。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>JSTL函数一般在什么情况下使用？</p>
+            <P>作为一个JSTL标签里的一部分，JSTL函数也是为了简化JSP页面。所以在需要优化代码的时候使用就行。</P>
+        </section>       
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.runoob.com/jsp/jsp-jstl.html" target="_blank">http://www.runoob.com/jsp/jsp-jstl.html</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭伟杰</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
