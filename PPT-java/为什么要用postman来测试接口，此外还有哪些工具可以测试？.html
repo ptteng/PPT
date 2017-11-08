@@ -1,0 +1,167 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>PostMan是什么，为什么要使用他来测试接口，除了Postman，还有哪些工具可以测试？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：魏振恒</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>什么是API接口测试</h4>
+            <p>
+                API接口有多种，大约可划分为三类。
+第一种是函数级别的，测试需要对接口的各个参数进行测试，如：
+Int getResult（String key， String ID， Int ticket）。
+第二种是对象级别的，开发在使用API接口时，先引入包名，在使用之前声明一个对象，之后可以使用对象提供的方法，而测试时，需要测试的是API的功能及对数据输入的正确性。第二种和第一种的差别是，我们只需关注提供给用户使用的接口就可以了，不用关心接口调用其他函数情况，相对于第一种来说，测试的粒度要大一些，范围小一些。
+第三种是http协议的接口，App客户端和后端服务连接，一般采用的都是http协议，客户端通过get和post的方法从后端服务获取数据。第三种相对于第二种来说，粒度更大，我们关注的接口更少，但是这些接口都是核心功能。
+            </p>
+        </section>
+        <section>
+            <h4>如何测试API接口</h4>
+            <p>目前测试API接口的方法很多，如：使用fiddler的发送get、post的功能进行校验。缺点是，测试一遍后，在回归测试时，需要手动再执行一遍，非常耗时。
+有人建议使用python的request进行API接口测试时，通过编码方式进行API接口测试，的确是一个好的方法。但是问题是，时间。在有限的测试时间内，可能没有时间去做这个脚本。如果完成这个脚本，至少要进行一轮手工测试，从而才能了解到期望的返回值是什么样的。
+有没有这样一种工具，手动测试完成后，不需要写太多代码，立马可以用功能性测试的cases进行自动化回归呢？
+答案：有。PostMan就是这一款工具，既可以像使用Fiddler一样，也可以像使用脚本一样。</p>
+        </section>
+        <section>
+            <h4>为什么要测试API接口</h4>
+            <p>
+                App后端服务，在出现功能异常时，或者吐出异常数据时，可能会导致客户端功能异常，甚至出现崩溃的现象。而客户端由于数据的问题而崩溃，如果容错不到位，可能导致App永远无法启动。这种伤害，对用户，对公司来说，都是巨大的。因此有必要进行API接口的测试。
+            </p>
+        </section>
+        <section>
+            <p>一、postman说明</p>
+            <p style="text-align: left;">Postman是一种网页调试与发送网页http请求的chrome插件。我们可以用来很方便的模拟get或者post或者其他方式的请求来调试接口。<br>
+            安装方法:<br>
+            1.chrome插件
+            通过chrome浏览器打开chrome网上应用店直接添加到chrome插件中。需要翻墙，翻墙违规且收费，我选择第二种。<br>
+            2.直接下载windows客户端，百度可得。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>为什么要用postman测试接口</p>
+            <p>
+                首先在项目的初期，测试人员提前介入，进行接口测试模拟客户端与服务端的交互。有问题提前抛出来。保证接口调用是没问题的。其次，接口测试完成之后在进行系统测试，会轻松很多。明白了各个接口在做什么，各个参数的模拟实际上就是业务场景的模拟。系统测试出现一些问题更快速的定位是客户端还是服务端出问题。最后接口最省时，省力，而且收益很高。
+        </section>
+        <section>
+            <p>为什么要用postman测试接口</p>
+            <p>
+                另外，接口是获取和操作资源的方式，而大部分系统和产品中，资源一般都是产品的核心，比如微信核心资 源就是通讯录关系链和聊天记录等，因此资源是必测的。
+                而接口中大部分的内容是数据，通过数据的对比我们能推测到系统和产品的逻辑，测接口就是测逻辑。最后接口中的返回相对单纯，不像web页面，html代码中有太多ui的东西，ui最不稳定，变化太快，接口相对稳定一点点，但是里面的干扰信息更少，断言相对容易很多。
+            </p>
+        </section>
+        <section>
+            <p>界面介绍与演示</p>
+
+        </section>       
+        <section>
+            <h3>5.扩展思考</h3>
+            <p>除postman外，还有什么测试接口程序</p>
+        </section>
+        <section>
+            <h3>除postman外，还有什么测试接口程序</h3>
+            Jmeter：后置处理器配合断言基本上可以满足接口测试需求，就是测试报告要做二次开发。
+            <br>insomnia：postman的弱化版，基本功能免费，重要的是工具代码开源，可以自己改。
+            <br>paw: mac上最强，不过收费。
+            <br>自己撸代码：js和python等都可以实现。其实就是写个demo来发送请求接收响应，根据自己需要来编写。
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>网络</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 魏振恒</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
