@@ -1,0 +1,202 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么DB的设计中要使用Long来替换掉Date类型？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>李林朋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在对数据库中的记录进行操作的时候，需要牵涉到对时间数据的处理，如create_at,update_at等字段，数据库中有专门用于存储时间的类型，date，还可以将类型设置为long类型，那么两者的有何差异？</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>MySQL中的date类型</p>
+			<p>date:日期,占用三个字节，1000-01-01——9999-12-31</p>
+            <p>datetime:日期+时间，1000-01-01 00:00:00” 到“9999-12-31 23:59:59，占用8个字节，datetime类型适合用来记录数据的原始的创建时间，因为无论你怎么更改记录中其他字段的值，datetime字段的值都不会改变，除非你手动更改它。</p>
+            <p>timestamp:日期+时间，占用4个字节，“19700101080001——20380119111407，timestamp类型适合用来记录数据的最后修改时间，因为只要你更改了记录中其他字段的值，timestamp字段的值都会被自动更新。</p>
+		</section>
+        <section>
+            <p>MySQL中的bigint类型</p>
+            <p>bignit，表示从-2^63到2^63-1(即从-9,223,372,036,854,775,808到 9,223,372,036,854,775,807)之间的整数，它占用了八个字节的存储空间。</p>
+        </section>
+        <section>
+            <p>java中的long类型</p>
+            <p>基本数据类型，8个字节</p>
+        </section>
+		
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+       
+        <section>
+        
+            <p>3.java中对时间处理的类比较混乱：java.util.Date， 
+                java.sql.Date ，
+                java.sql.Time ，
+                java.sql.Timestamp， 
+                java.util.Calendar ，
+                java.util.TimeZone</p>
+                <p></p>
+           
+        </section>   
+        <section><p>2.时区</p>
+                <p>3.精度,将java.util.Date转为java.sql.Date时候，日期的时分秒会被去掉，数据的精度发生变化了。这是两个上下级类之间很不合理的问题。
+ 
+                而JDBC中定义接口时候，用的是java.sql.Date，而我们常常用到的Date都是java.util.Date，这往往导致一些转换过程中发生误差。</p>
+                <p>java.sql.Timestamp类，它保持了日期数据原有的精度。可以实现和java.util.Date的无损转换。但是Timestamp这个类在一些预定义SQL中常常会出问题，</p></section>
+                
+        <section>
+         
+        </section>
+
+        <section>
+            <p>java.sql.Date，在JDBC接口中使用了，如果对其进行修改，JDBC接口规范也要改，那么将引发各个数据库厂商对数据库驱动也要改，这是不可接受的。[1]</p>
+            
+        </section>
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>将date类型转换为long类型</p>
+        <p>1.有利于计算时间差</p>
+        <p>2.方便java与数据库之间的传输</p>
+        </section>
+        <section>
+            
+            <p>unix时间戳,unix时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数[2]</p>
+        </section>
+		 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+   
+        <section>
+            <p>mysql中获取时间</p>
+            <p>java中获取时间</p>
+            <p>转换</p>
+            <p></p>
+         </section>
+      
+      
+      
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <h3></h3>
+        </section>
+        <section>
+		
+
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p></p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>[1] http://lavasoft.blog.51cto.com/62575/224196/</p>
+            <p>[2] https://baike.baidu.com/item/unix时间戳/2078227?fr=aladdin</p>
+        </section>
+        <section>
+            
+            <p>感谢观看</p>
+            <p><small>BY : 李林朋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
