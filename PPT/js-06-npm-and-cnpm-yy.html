@@ -201,20 +201,22 @@
         </section>
         <section>
             Q:全局安装和本地安装的区别？
-
-            全局安装方式是键入命令：npm install gulp -g 或 npm install gulp --global，其中参数-g的含义是代表安装到全局环境里面，包安装在Node安装目录下的node_modules文件夹中，一般在 \Users\用户名\AppData\Roaming\ 目录下，可以使用npm root -g查看全局安装目录。
-
-            全局安装后可以供命令行(command line)使用，用户可以在命令行中直接运行该组件包支持的命令
+            因为全局模式安装,包可以供所有的程序使用。本地安装则不可以。
+            npm 默认会把包安装到当前目录下。这反映了 npm 不同的设计哲学。如
+            果把包安装到全局,可以提高程序的重复利用程度,避免同样的内容的多
+            份副本,但坏处是难以处理不同的版本依赖。如果把包安装到当前目录,
+            或者说本地,则不会有不同程序依赖不同版本的包的冲突问题,同时还减
+            轻了包作者的 API 兼容性压力,但缺陷则是同一个包可能会被安装许多次。
         </section>
         <section>
             本地安装方式是键入命令：npm install gulp 或 npm install gulp --save-dev等，其中参数--save-dev的含义是代表把你的安装包信息写入package.json文件的devDependencies字段中，包安装在指定项目的node_modules文件夹下。
 
-            本地安装后可以直接通过require()的方式引入项目中node_modules目录下的模块，如下示例，本地安装后直接在gulpfile.js中require('gulp')。
+            本地安装后可以直接通过require()的方式引入项目中node_modules目录下的模块。
         </section>
         <section>
             Q:为什么进行了全局安装还要进行本地安装
 
-            在js实例代码中，默认下node.js会在NODE_PATH和目前js所在项目下的node_modules文件夹下去寻找模块，因此，如果只是全局安装，不能直接通过require()的方式去引用模块，需要手动解决包路径的配置问题，当然你也可以复制全局安装的node_modules文件夹到项目下，还有办法可以选择将环境变量的NODE_PATH设置为C:\Program Files\nodejs。
+            1、在js实例代码中，默认下node.js会在NODE_PATH和目前js所在项目下的node_modules文件夹下去寻找模块，因此，如果只是全局安装，不能直接通过require()的方式去引用模块，需要手动解决包路径的配置问题，当然你也可以复制全局安装的node_modules文件夹到项目下，还有办法可以选择将环境变量的NODE_PATH设置为C:\Program Files\nodejs。
 
             2.对于包的更新不好管理，可能你需要为每个包重新命名，如gulp@3.8.1、gulp@3.9.1...，为了区别不同项目使用指定的包，保证模块之间的相互依赖（这块下面会介绍），区别每个项目正常运行
 
