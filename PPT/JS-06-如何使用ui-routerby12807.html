@@ -1,0 +1,250 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>如何使用ui-router？</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>如何使用ui-router？</h2>
+            <h3>小课堂【深圳第342期】</h3>
+            <p style="text-align: center;">分享人：郭健锋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    Angular.js 是一个用来构建“富客户端”的神奇JavaScript框架。但是事实却是许多开发者却不使用其内置的路由模块。反而使用AngularUI项目的
+                    UI-Router模块来代替之。
+                    这是因为UI-Router有两个重要的特性：
+                    <br>* 多样化视图
+                    <br>* 嵌入式视图
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    多样化视图
+                    <br>大多数的应用程序都可以分解为一个一个区块。最简单的情况，一个应用程序有头部（header）,主体内容（main content
+                    area），以及一个尾部（footer）。通常一个应用程序会有一个额外的侧边栏（sidebar ）在页面的左边或者右边,大多数用例中，这些区块将同时显示在页面上。
+                    <br>Angular.js 的内置路由ngRoute只允许一个视图（ng-view）出现在页面上。这样限制的情况下，人们可以使用包含页面（ng-include）或者
+                    其他的变通方法为应用创建一个布局（layout）或主页（master page）。
+                    <br>UI-Router支持多样化视图，并且每一个视图都有自己相应的控制，所以每个区块都是封装好，可以复用到整个应用程序需要的地方。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    嵌入式视图
+                    <br>常见的例子中，一个应用的嵌入式页面一般是主页的详情页面，更具体的说，就是列表的详情页面。许多应用程序，都有列表页面，点击其中一个列表元素，可以进入到列表的详情页面。更进一步说，你点击列表中一个行的连接，进入一个可查看详情页面或是一个可编辑的表单。
+                    <br>如果列表页面和详情页面是单独分开的（或者他们被Angujar.js回调），使用Angular.js的内置路由ngRoute
+                    是非常容易完成的。然而，如果你想要保持列表不变，而详情页面出现在列表的右边或者下面，这样就变得非常具有挑战性了。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    嵌入式视图
+                    <br>需要澄清的是，这样的要求可以使用ngRoute来完成。但是你需要让两个控制器（一个用于列表，一个用于显示和隐藏详情）共享一个视图。这样的结果不是理想的，因为我们想要列表和详情页面有各自的控制器和视图，并且职责单一（显示列表或者显示列表项目的详情）。封装这些用户接口模块到它们各自的视图，这样我们就有更多的“可组合UI”，允许我们将各个区块整合到一起，或者根据需求拆分。嵌入式视图，不仅能够让这些视图同时出现，还能让一个视图嵌入到另一个视图中。
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p style="text-align: left">第一行，声明AngularJS模块, 并把ui-router传入AngularJS主模块，所有的结合起来我们就得到了Angular模块。
+                <pre><code>
+            var myApp = angular.module("myApp", [ui.router]);
+            </code></pre>
+                </p>
+                <p style="text-align: left">
+                    与集成的ngRoute服务不同的是，UI-Router可以将视图嵌套，因为它基于的是操作状态而仅非URL。与传统做法使用ng-view不同的是，在ngRoute里需要使用ui-view服务。当在ui-router中处理路由和状态时，开发者的重心是当前的状态是什么以及在哪一个页面里。</p>
+                <p style="text-align: left">
+                    和ngRoute一样，为特定状态指定的模板将会放在ui-view元素中。在这些模板中也可以包含自己的ui-view,这就是在同一个路由下实现嵌套视图的方法。要定义一个路由，与传统的方法相同：使用.config方式，但使用的不是$routeProvider而是$stateProvider。</p>
+            </section>
+            <section>
+                <p style="text-align: left">$state /
+                    $stateProvider：管理状态定义、当前状态和状态转换。包含触发状态转换的事件和回调函数，异步解决目标状态的任何依赖项，更新$location到当前状态。由于状态包含关联的
+                    url，通过$urlRouterProvider生成一个路由规则来执行转换的状态。</p>
+                <p style="text-align: left">$urlRouter /
+                    $urlRouterProvider：管理了一套路由规则列表来处理当$location发生变化时如何跳转。最低级的方式是，规则可以是任意函数，来检查$location，并在处理完成时候返回true。支持正则表达式规则和通过$urlMatcherFactory编译的UrlMatcher对象的
+                    url 占位符规则。</p>
+                <p style="text-align: left">ui-view指示器：渲染状态中定义的视图，是状态中定义的视图的一个占位符。</p>
+            </section>
+
+            <section>
+                <p>模板，模板路径，模板Provider</p>
+                <pre><code>
+.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
+    $urlRouterProvider.when("","/pagedata");
+    $stateProvider
+    .state("pagedata",{
+        url:"/pagedata",
+        templateUrl:"pagedata.html"
+    })
+}]);
+            </code></pre>
+                <p style="text-align: left">
+                    上述代码在设置对象上定义了一个叫start的状态。设置对象stateConfig和路由设置对象的选项是非常相似的。开发者可以在每个视图下使用如下方式来设置模板template -
+                    HTML字符串，或者是返回HTML字符串的函数templateUrl - HTML模板的路径，或者是返回HTML模板路径的函数templateProvider,返回HTML字符串的函数
+                </p>
+            </section>
+            <section>
+                <section>
+                    <p style="text-align: left">
+                        url选项将会为该应用的状态指定一个URL基于用户浏览该应用所在的状态。这样当在浏览该应用的时候便能实现深度链接的效果。
+                    </p>
+                    <pre><code>
+                .state("pagedata",{
+                    url:"/pagedata",
+                    templateUrl:"pagedata.html"
+                    })
+            </code></pre>
+                </section>
+            </section>
+            <section>
+                <p>Views 视图</p>
+                <p style="text-align: left">
+                    开发者可以在同一个模板中改变和切换不同的视图。如果设置了视图选项，则该状态的‘template’，‘templateUrl’及‘templateProvider’将被忽略。如果想在路由里包含父级模板，就需要创建一个包含模板的抽象模板。例如:
+                </p>
+                <pre><code>
+    <div>
+        <div>
+            <span style="width:100px"><a ui-sref=".page1">Page-1</a></span>
+            <span style="width:100px"><a ui-sref=".page2">Page-2</a></span>
+            <span style="width:100px"><a ui-sref=".page3">Page-3</a></span>
+        </div>
+        <div>
+            <div ui-view=""></div>
+        </div>
+    </div>
+            </code></pre>
+            </section>
+            <section>
+                <p style="text-align: left">when()</p>
+                <p style="text-align: left">
+                    该函数需要两个参数：1.当前的路径，2.需要重定向到的路径（或者是需要在路径被访问是运行的函数）。设置重定向前需要为$urlRouterProvider设置when函数来接受一个字符串。例如，当希望重定向一个空的路由到/inbox：</p>
+                <pre><code>
+                $urlRouterProvider.when("","/pagedata");
+            </code></pre>
+            </section>
+            <section>
+                <p style="text-align: left">otherwise()</p>
+                <p style="text-align: left">和ngRoute的otherwise()函数相似，在用户提交的路径没有被定义的时候它将重定向到指定的页面。这是个创建’默认‘路径的好方法。
+                    otherwise()只接受一个参数，要么函数要么字符串，字符串必须为合法的url路由地址，函数则会在没有任何路径被匹配的时候被运行。</p>
+                <pre><code>
+                .config(function($urlRouterProvider) {
+                  $urlRouterProvider.otherwise('/');
+                  // or
+                  $urlRouterProvider.otherwise(
+                    function($injector, $location) {
+                      $location.path('/');
+                    });
+                });
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+                <p style="text-align: center">
+                    如何激活状态？</p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    激活状态
+                    <br>有三种方式来激活特定的状态
+                    <br>使用 ui-sref 绑定的连接
+                    <br>直接导航到与状态关联的 url
+                    <br>使用 $state.go() 方法
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="http://blog.csdn.net/limj625/article/details/51833317">AngularJS ui-router (嵌套路由)</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>感谢观看</h4>
+            <p><small>BY : 郭健锋</small></p>
+        </section>
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

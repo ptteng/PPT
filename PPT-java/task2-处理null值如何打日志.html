@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>葡萄藤PPT</title>
+
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+	<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+	<!-- syntax highlighting 代码高亮主题 -->
+	<link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+	<!-- 打印和PDF输出样式 -->
+	<script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+	<area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h3>对Service返回的结果是否要判空，为什么？是否要打日志，应该打什么样的日志，为什么？</h3>
+			<p></p>
+			<h4>java 分享会</h4>
+			<p>分享人:马正</p>
+		</section>
+		<section>
+			<p>1.背景介绍</p>
+			<p>2.知识剖析</p>
+			<p>3.常见问题</p>
+			<p>4.编码实战</p>
+			<p>5.扩展思考</p>
+			<p>6.参考文献</p>
+			<p>7.更多讨论</p>
+
+		</section>
+		<section>
+			<h3>1.背景介绍</h3>
+			<p>
+				大多数人可能都写过返回null值的方法,对于返回null值也没了解的过于深入.大多数人可能也因为偷懒或觉得麻烦而不去打日志,也可能没有切身地体会过日志的好处,也可能不知道如何去优雅地打日志.Today,让我为你一一分享.
+			</p>
+
+
+		</section>
+
+
+
+		<section>
+			<h3>2.知识剖析</h3>
+		</section>
+		<section>
+			<p>
+				什么是null?
+			</p>
+
+			<p>
+				表示这个指针并不指向任何的对象.这样的指针称之为Null指针.简单来说就是未被初始化
+				在c语言中如果定义了一个指针变量设置为null就表明没有该变量没有指向任何内存单元的地址
+			</p>
+		</section>
+
+		<section>
+			<p>
+				null应用在哪些地方?
+			</p>
+
+			<p>在c语言中,将指针设置为null来表明空指针,或释放指针变量指向的内存后将指针变量设置为null,防止成为野指针.在Java中将变量设置为null时有利于gc更早发现回收,能够减少程序占用内存的情况</p>
+		</section>
+
+		<section>
+			<p>
+				可以编写返回null值的方法吗,为什么?
+			</p>
+
+			<p>
+				返回null是没问题的,不过在编程中返回null是一个非常不好的习惯.首先如果A方法调用B方法,B方法返回一个null值
+				假设A方法没有进行检查直接传递给了调用它的C方法,C方法也没有检查直接装进model里返回给视图层了,视图层从model中
+				拿数据也没检查直接就调用属性造成该视图创建失败.
+
+				<br>
+				<br>
+				从以上我们可以看到一个方法返回一个null值,使用该null值的地方必须先进行检查.但是人无法保证时刻都做到正常检查后再使用
+				,如果某个重要的地方因为没有检查就使用,这就可能造成一些负面影响.如果超级大会上演示时,你的jsp视图没有检查使用而controller却返回的是一个null,那么你的这个页面就挂掉了.可能在一些小场合无足轻重,但类似apple全球发布会就不一样了.
+			</p>
+		</section>
+
+		<section>
+			<p>
+				用什么替代null?
+			</p>
+
+			<p>
+				首先让我们回答大多数人用null来代表什么?就我自己之前写过的方法来说,之所以返回null是因为不能返回给调用方期待的信息时.
+				我想大多数人也可能如此,也可能是简单想表示空.
+			</p>
+
+			<p>
+				知道了多数人用null表示什么,那么就能否有其他方式替代而消除null带来的负面影响呢?
+			</p>
+
+		</section>
+
+		<section>
+			<p>
+				1.使用Java8中的optional类
+				<br>
+				optional是Java8中新加入的特性,主要是为了解决NullException问题.上面说过绝大多人
+				使用null仅仅是为了表示空,而Java8的optional能够更好的表示这个概念还能避免NullException
+				<br>
+				因本人还未学习java8,故不演示,请自行查阅相关文档.
+			</p>
+		</section>
+
+		<section>
+			<p>
+				1.使用抛出异常替代返回null值
+				<br>
+				如果当前方法会出现没有数据可返回的情况时可抛出检查型异常(自定义),让调用方必须捕获该异常
+				调用方捕获到该异常就会知道没有值可以返回.可以自行做出相应的动作.
+			</p>
+		</section>
+
+		<section>
+			<p>
+				为什么要打日志?如何优雅地打日志?
+			</p>
+			<br>
+
+			<p>
+				打的优雅得当的日志是当应用出现问题时能够快速定位问题的绝佳途径,而糟糕笨拙的日志不仅仅让代码看起来非常糟糕还无法定位问题.
+			</p>
+		</section>
+
+		<section>
+			<h3>常见问题</h3>
+		</section>
+
+
+		<section>
+			<p>如何自定义异常</p>
+			<P>
+				为什么需要使用自定义异常,第一jdk提供的异常不利于表示业务情况,因此需要自定义异常.
+				自定义异常主要继承jdk的三大异常即可,runtimeException(非检查型异常),
+				Exception(检查型异常),Error(非检查型系统异常).
+				在实际中的自定义异常中一般普遍使用的是继承Exception(检查型异常).
+				RuntimeException因为是非检查型异常,表明可以捕捉处理也可以不处理,因此很少使用.
+				而Error表明系统级别错误,一般即使捕获也无法处理.
+			</P>
+		</section>
+
+		<section>
+			<p>如何优雅地打日志达到迅速定位问题的效果</p>
+			<P>
+				首先,因为日志属于样板式代码,所以如果不适用aop那么你的代码肯定会显得非常糟糕.
+				其次,日志如果打的位置不对,打出的信息不对那么即使打了日志也无法达到日志的目的
+			</P>
+
+		</section>
+
+		<section>
+			<h3>4、编码实战</h3>
+		</section>
+
+		<section>
+			<h3>5、扩展思考</h3>
+			<h1>部分方法为何无法使用aop</h1>
+		</section>
+
+	</div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

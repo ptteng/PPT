@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        *{
+            font-family: 'Microsoft JhengHei'!important;
+        }
+        .reveal pre code {
+            background-color: #120;
+        }
+
+        h5, h6 {
+            text-transform: none !important;
+        }
+
+        h6 {
+            text-align: start;
+            font-size: 22px !important;
+        }
+
+        xmp {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h4>小课堂【顺义】</h4>
+            <h4>【CSS-TASK3】js函数中的参数</h4>
+            <h4>分享人：任先阳</h4>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <h5>略过</h5>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h5>函数定义</h5>
+                <h6>
+                    【1】使用function声明的函数，必须定义函数名字，否则抛出一个错误。
+
+                    <xmp>
+function FNname (){};
+                    </xmp>
+                </h6>
+                <h6>
+                    使用表达式定义，函数名字可以省略。
+                    <xmp>
+var FNname=function (){};
+                    </xmp>
+                    【2】但是有很多例外情况，例如作为参数：
+                    <xmp>
+调用函数时，可以传入匿名函数
+
+function name (value,fn){fn(value)};
+name(1111,function(param){
+console.log(param);
+});
+
+自执行表达式（自执行函数）
+
+~function(){console.log(11)}();
+其实~function(){},这样也不会报错，但是没有标识符也使用不了~
+                    </xmp>
+                </h6>
+            </section>
+            <section>
+                <h6>【3】区别：在JS的预编译期，会对代码块中的所有var、function声明的变量进行处理（所谓的变量提升）。
+                    <xmp>
+fn1();// 'function'
+
+function fn1() {
+console.log('function');
+}
+
+var fn1= function () {
+console.log('var ');
+}
+                    </xmp>
+                    var声明虽然变量提升，但是赋值不提升。<br>
+                    这个过程就好像这样↓
+                </h6>
+                </section>
+                <section>
+                <h6>
+                    <xmp>
+function fn1() {
+console.log('function');
+}
+var fn1;
+
+//上面是预编译阶段，对var、function声明进行处理。
+//然后从上往下执行JS代码
+
+fn1(); // 'function'，
+
+//fn1()这段代码运行完之后，才运行下面的代码，重新赋值
+
+fn1 = function () {
+console.log('var ');
+}
+
+【2】如果这个时候再调用 fn1的话~
+fn1(); // 'var'
+                    </xmp>
+                    var声明虽然进行了变量提升，但是赋值没有提升。
+                </h6>
+            </section>
+            <section>
+                <h5>形参与实参</h5>
+                <h6>
+                    【2】函数有个arguments属性，包含了函数传入实参的个数，它是一个类数组。<br>
+                    【1】实参是调用函数时传入的变量,<br>
+                    可以通过定义形参，访问实参，然后就出现两种情况了~<br>
+                    如果形参的个数大于实参的个数，那么多余的形参值为undefined，<br>
+                    <xmp>
+function fun1(x,y){
+console.log(x,y)
+}
+fun1(1);// 1,undefined
+                    </xmp>
+                    如果形参的个数小于实参的个数，那么其他的实参只能通过arguments访问。<br>
+                    <xmp>
+function fun1(x){
+console.log(x,arguments[1]);
+}
+fun1(1,2);// 1,2
+                    </xmp>
+                    【3】ES6中有个展开运算符，可以定义形参的时候↓
+                </h6>
+            </section>
+            <section>
+                <h6>
+                    可以定义形参的时候使用
+                    <xmp>
+function iterate(a,b,...z){
+console.log(a,b);
+console.log(z);
+}
+
+iterate(1,2,3,5,6);
+// 1,2
+// [3,5,6]
+
+iterate(1);
+// 1,undefined
+// [] 注意这里是个空的数组
+                    </xmp>
+                    只能出现一个展开操作符，
+                    <xmp>
+function fun1(a,...b,...c){};// Rest parameter must be last formal parameter
+                    </xmp>
+                    并且只能出现在最后，
+                    <xmp>
+function fun1(a,...b,c){};// Rest parameter must be last formal parameter
+                    </xmp>
+                    否则就抛出一个错误。<br>
+                </h6>
+            </section>
+            <section>
+                <h6>
+                    把arguments转化为数组使用，<br>
+                    Array.prototype.slice.apply(arguments);<br>
+                    [].slice.apply(arguments),这个方法会生成一个多余的空数组。<br><br>
+                    一般拿Array的slice()方法，给arguments使用，<br>
+                    通过apply()、call()改变上下文，更改this指向，<br>
+                    <xmp>
+function fun1(a,b,c){
+var args=[].slice.apply(arguments);
+console.log(args);
+};
+fun1(1,2,3);// [1,2,3]
+                    </xmp>
+                    使用ES6的展开操作符的话~<br>
+                    <xmp>
+function fun1(){
+var args=[...arguments];
+console.log(args,arguments)
+};
+
+fun1(1,2,3,4,5);
+// [1,2,3,4,5] ==>通过展开操作符成功转为了数组~
+// [1, 2, 3, 4, 5, callee: ƒ, Symbol(Symbol.iterator): ƒ]，arguments类数组
+                    </xmp>
+                </h6>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h6>1、参数过多的时候怎么办？</h6>
+                <h6>2、以一个函数作为另一个函数的参数？回调函数经常用到（不讲回调函数）。</h6>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <h6>1、以对象作为参数的配置，搭配短路取值,【<a target="_blank" href="../demo/Acss-task3-js函数中的参数rxy/1.html">href</a>】</h6>
+                <h6>2、以函数作为参数，传入函数的引用，没什么好讲的。<br>
+                <xmp>
+到这里小课堂快讲完了，看2段代码吧。。
+
+function getValue (value){
+console.log(value);
+}
+
+function fun1(value,callback){
+callback(value);
+}
+
+function fun2(value,callback){
+     setTimeout(function(){
+     callback(value)
+     },2000);
+}
+
+fun1(111,getValue);// 111
+fun2(111,getValue);// 2s之后 111
+                </xmp>
+                    对于回调函数一直不太清楚，对于fn1这种方式我一直认为是一种特殊的调用，<br>
+                    fn2这种异步的，我认为才是回调函数，就好像网上看到的买东西的比喻：<br>
+                    ↓
+                </h6>
+            </section>
+            <section>
+                <h6>
+                你去买东西，三种情况：<br>
+                1、商品存在，直接带回家，【fn1这种情况】<br>
+                    2、 <span style="font-size: 0.8em">
+                                        商品不存在，等到商品存在，然后带回家【嗯~这种情况不好模拟，应该也不存在，忽略吧】<br>
+                    </span>
+                3、商品不存在，留下联系方式，有商品了通知你来取，你取了带回家【我认为这是回调函数】。<br>
+                </h6>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+                <h5>略过</h5>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <h5>在严格模式中的arguments对象</h5>
+                <h6>
+                    非严格模式下，允许重复定义形参，以最后一个为准，<br>
+                    严格模式下将会抛出一个错误，Duplicate parameter name not allowed in this context<br>
+                    关于重复的形参，这个就略过了，也不推荐这样写。<br><br>
+                    arguments的值由实参决定的，<br>
+                    而不是由定义的形参决定，<br>
+                    形参与arguments对象占用【独立的内存空间】。
+                </h6>
+            </section>
+            <section>
+                <h6>
+                    非严格模式：2种情况 <br>
+                    1、实参个数大于等于形参个数，改变参数，arguments随之改变
+                    <xmp>
+function fun1(x,y){
+x++;
+y++;
+console.log(x,y);
+console.log(arguments[0],arguments[1])
+console.log(arguments[0]===x,arguments[1]===y)
+}
+fun1(1,2);
+//2,3
+//2,3
+//true,true
+                    </xmp>
+                    2、实参个数小于形参个数，改变参数，arguments不再随之改变
+                    <xmp>
+function fun1(x,y,z){
+z=3;
+console.log(z);
+console.log(arguments[2]);
+console.log(z===arguments[2]);
+}
+fun1(1,2);
+//3
+//undefined
+//false
+                    </xmp>
+                </h6>
+            </section>
+            <section>
+                <h6>
+                    严格模式：改变参数，arguments不再随之改变
+                    <xmp>
+function fun1(x,y){
+"use strict";
+x++;
+y++;
+console.log(x,y);
+console.log(arguments[0],arguments[1]);
+console.log(arguments[0]===x,arguments[1]===y)
+}
+fun1(1,2);
+//2,3
+//1,2 不再随之改变
+//false,false 嗯~
+                    </xmp>
+                </h6>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+                <h5> 《深入理解ES6》 </h5>
+                <h5>解读JS中的arguments对象，来学习一下吧？<a target="_blank" href="https://baijiahao.baidu.com/s?id=1566336609390007&wfr=spider&for=pc">【href】</a></h5>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <h5>感谢大家观看</h5>
+            <h5>
+                By
+                <small style="vertical-align: middle">任先阳</small>
+            </h5>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: false,
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>任务四：EL表达式</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+            <p> 	 	
+				JSP2.0最重要的特性之一就是表达式语言EL（Expression Language），由于受到ECMAScript和Xpath表达式语言的启发，
+				EL也被设计成可以轻松地编写免脚本的JSP页面。使用EL表达式，JSP页面可以不再使用任何的JSP声明、脚本和表达式，就可以
+				轻松的访问应用程序的数据，这使得JSP页面写起来更加简单。
+            </p>
+
+        </section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+
+        <section>
+
+            <p>
+				EL表达式的主要作用：
+            </p>
+			<p>
+				获取数据
+			</p>
+			<p>
+				执行运算
+			</p>
+			<p>
+				获取Web开发常用对
+			</p>
+
+        </section>
+			
+		<section>
+			<p>
+				基本语法：
+			</p>
+			<p>
+				EL表达式以${开头，并以}结束。EL表达式的结构：${expression}
+			</p>
+		</section>
+		<section>
+			<p>
+			[]和.运算符：
+			</p>
+			<p>
+				EL表达式可以返回任意类型的值。如果EL表达式的结果是一个带有属性的对象，则可以利用[]或则.运算符来访问其属性。
+			</p>
+			<p>
+				访问对象的属性，可以使用任意一种形式：${object["propertyName"]}或者${object.propertyName}
+			</p>
+		</section>
+		<section>	
+			<p>
+				注意:如果propertyName不是有效的Java变量名，就只能使用[]运算符。
+			</p>
+			<p>
+				如果对象的属性返回的也是一个对象，并且也带有属性，此时既可以使用[]，也可以使用.运算符来访问第二个对象的属性。
+			</p>
+		</section>
+		<section>
+			<p>
+				取值规则：
+			</p>
+			<p>
+				EL表达式的取值是从左到右进行的。对于expr-a[expr-b]形式的表达式，其EL表达式的取值方法如下：
+			</p>
+			<p>
+				1）先计算expr-a得到value-a
+			</p>
+			<p>
+				2）如果value-a为null，则直接返回null
+			</p>
+			<p>
+				3）然后计算expr-b得到value-b
+			</p>
+			<p>
+				4）如果value-b为null，则返回null
+			</p>
+		</section>
+		<section>
+			<p>
+				5）如果value-a为Java.util.List，则要进行以下处理：
+			</p>
+			<p>
+				a.强制value-b为int，如果不是，则抛出异常
+			</p>
+			<p>
+				b.如果value-a.get(value-b)抛出IndexOutBoundsException，则返回null
+			</p>
+			<p>
+				c.返回value-a.get(value-b)的值
+			</p>
+			<p>
+				6）如果value-a为java.util.Map，则会查看value-b是否为Map中的一个key。如果是，则返回value-a.get(value-b)
+				，如果不是，则返回null
+			</p>
+		</section>
+		<section>
+			<p>
+				7）如果value-a不是一个集合，那么，value-a必须是一个JavaBean。在这种情况下，必须强制value-b为String类型。如果
+				value-b为String类型。如果value-b是value-a的一个可读属性，则会调用该属性的getter方法返回值。如果getter方法抛出
+				异常，则该表达式就是无效的。
+			</p>
+		</section>
+		<section>
+			<p>
+				EL表达式的运算符
+			</p>
+			<p>
+				empty运算符：${empty username}
+			</p>
+		</section>
+		<section>
+			<p>
+				EL表达式的隐式对象：
+			</p>
+			<p>
+				pageContext&nbsp&nbsp&nbsp&nbsp&nbsp;param&nbsp&nbsp&nbsp&nbsp&nbsp;paramValues
+			</p>
+			<p>
+				header&nbsp&nbsp&nbsp&nbsp;headerValues&nbsp&nbsp&nbsp&nbsp;cookie
+			</p>
+			<p>
+				initParam&nbsp&nbsp&nbsp&nbsp;pageScope&nbsp&nbsp&nbsp&nbsp;requestScope
+			</p>
+			<p>
+				sessionScope&nbsp&nbsp&nbsp&nbsp;applicationScope
+			</p>
+		</section>
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>隐式对象的作用？</p>
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+
+
+            <p>pageContext：JSP页面的上下文对象</p>
+			<p>param：一个包含所有请求参数，并用参数名作为key的Map</p>
+			<p>paramValues：一个包含所有请求参数，并用参数名作为key的Map</p>
+			<p>header：包含请求标题，并用标题名作为key的Map</p>
+			<p>headerValues：包含请求标题，并用标题名作为key的Map</p>
+        </section>
+
+		<section>
+            <p>
+				cookie：包含了当前请求对象中所有Cookie对象的Map。
+            </p>
+			<p>
+				initParam：包含所有环境初始化参数
+            </p>
+			<p>
+				pageScope：这是一个Map，其中包含了页面域内的所有属性
+            </p>
+			<p>
+				requestScope：这是一个Map，其中包含了请求域内的所有属性
+            </p>
+			<p>
+				sessionScope：这是一个Map，其中包含了会话域内的所有属性
+            </p>
+			<p>
+				applicationScope：这是一个Map，其中包含了应用程序上下文域内的所有属性
+            </p>
+		</section>
+		
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+			pageContex可以获得request对象，那么为什么会提供param、paramValues等隐式对象来获取请求参数呢？
+        </section>
+
+        
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>Spring+MyBatis企业应用实战</p>
+			
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>
