@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a target="_blank"
+   href="https://baike.baidu.com/pic/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/4752611/0/63d9f2d3572c11df57c9a205612762d0f703c2f8?fr=lemma&ct=single#aid=0&pic=63d9f2d3572c11df57c9a205612762d0f703c2f8">运算符优先级</a>
+</body>
+<script>
+    //假设有姓名，性别，年龄，爱好，姓名为必须， 有的参数是必须的
+    function printMsg(name, sex, age, fav) {
+        //code
+    }
+
+    //这么多的参数很难管理
+    //可以对象的方式传入。
+    function printMsg(config) {
+        function makeError() {
+            throw new Error('有些参数是必须的');
+        }
+
+        //这里用到小括号是因为，+ 的优先级大于 || 优先级，而()、[]的优先级最高，想象一下数学~
+        var res = '';
+        res += '姓名:' + (config.name || makeError()) + ',\n';
+        res += '性别:' + (config.sex || makeError()) + ',\n';
+        res += '年龄:' + (config.age || makeError()) + ',\n';
+        res += '爱好:' + (config.fav || '') + ',\n';
+        res += '住址:' + (config.ads || '未填写');
+        console.log(res);
+    }
+
+    printMsg({
+        name: 'rxy',
+        age: '20',
+        sex: '男',
+        fav: '玩'
+    })
+</script>
+</html>

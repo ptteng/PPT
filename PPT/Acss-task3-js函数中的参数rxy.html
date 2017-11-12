@@ -53,7 +53,7 @@
     <div class="slides">
         <section>
             <h4>小课堂【顺义】</h4>
-            <h4>【CSS-TASK4】js函数中的参数</h4>
+            <h4>【CSS-TASK3】js函数中的参数</h4>
             <h4>分享人：任先阳</h4>
         </section>
         <section>
@@ -80,7 +80,8 @@
             <section>
                 <h5>函数定义</h5>
                 <h6>
-                    使用关键字 function 定义函数，必须定义函数名字，否则抛出一个错误。
+                    【1】使用function声明的函数，必须定义函数名字，否则抛出一个错误。
+
                     <xmp>
 function FNname (){};
                     </xmp>
@@ -90,8 +91,24 @@ function FNname (){};
                     <xmp>
 var FNname=function (){};
                     </xmp>
+                    【2】但是有很多例外情况，例如作为参数：
+                    <xmp>
+调用函数时，可以传入匿名函数
+
+function name (value,fn){fn(value)};
+name(1111,function(param){
+console.log(param);
+});
+
+自执行表达式（自执行函数）
+
+~function(){console.log(11)}();
+其实~function(){},这样也不会报错，但是没有标识符也使用不了~
+                    </xmp>
                 </h6>
-                <h6>区别：在JS的预编译期，会对代码块中的所有var、function声明的变量进行处理（所谓的变量提升）。
+            </section>
+            <section>
+                <h6>【3】区别：在JS的预编译期，会对代码块中的所有var、function声明的变量进行处理（所谓的变量提升）。
                     <xmp>
 fn1();// 'function'
 
@@ -103,12 +120,12 @@ var fn1= function () {
 console.log('var ');
 }
                     </xmp>
-                    var声明虽然变量提升，但是赋值不提升。
+                    var声明虽然变量提升，但是赋值不提升。<br>
+                    这个过程就好像这样↓
                 </h6>
-            </section>
-            <section>
+                </section>
+                <section>
                 <h6>
-                    过程就像这样，嗯~
                     <xmp>
 function fn1() {
 console.log('function');
@@ -126,16 +143,18 @@ fn1 = function () {
 console.log('var ');
 }
 
+【2】如果这个时候再调用 fn1的话~
 fn1(); // 'var'
                     </xmp>
-                    var虽然进行了变量提升，但是赋值没有提升。
+                    var声明虽然进行了变量提升，但是赋值没有提升。
                 </h6>
             </section>
             <section>
                 <h5>形参与实参</h5>
                 <h6>
-                    函数有个arguments属性，包含了函数传入实参的个数，它是一个类数组。<br>
-                    通过定义形参，可以访问传入函数中的参数（实参），<br>
+                    【2】函数有个arguments属性，包含了函数传入实参的个数，它是一个类数组。<br>
+                    【1】实参是调用函数时传入的变量,<br>
+                    可以通过定义形参，访问实参，然后就出现两种情况了~<br>
                     如果形参的个数大于实参的个数，那么多余的形参值为undefined，<br>
                     <xmp>
 function fun1(x,y){
@@ -150,12 +169,12 @@ console.log(x,arguments[1]);
 }
 fun1(1,2);// 1,2
                     </xmp>
-                    ES6中有个展开运算符。
+                    【3】ES6中有个展开运算符，可以定义形参的时候↓
                 </h6>
             </section>
             <section>
                 <h6>
-                    可以定义形参的时候使用，它是一个数组
+                    可以定义形参的时候使用
                     <xmp>
 function iterate(a,b,...z){
 console.log(a,b);
@@ -179,15 +198,15 @@ function fun1(a,...b,...c){};// Rest parameter must be last formal parameter
 function fun1(a,...b,c){};// Rest parameter must be last formal parameter
                     </xmp>
                     否则就抛出一个错误。<br>
-                    然后呢，展开操作符有个小技巧吧。
                 </h6>
             </section>
             <section>
                 <h6>
-                    平常把arguments转化为数组的使用，一般拿数组的slice()方法，<br>
-                    通过apply()、call()改变上下文，把this指向arguments<br>
+                    把arguments转化为数组使用，<br>
                     Array.prototype.slice.apply(arguments);<br>
-                    [].slice.apply(arguments),这个方法会生成一个多余的空数组。<br>
+                    [].slice.apply(arguments),这个方法会生成一个多余的空数组。<br><br>
+                    一般拿Array的slice()方法，给arguments使用，<br>
+                    通过apply()、call()改变上下文，更改this指向，<br>
                     <xmp>
 function fun1(a,b,c){
 var args=[].slice.apply(arguments);
@@ -214,8 +233,8 @@ fun1(1,2,3,4,5);
                 <h3>3.常见问题</h3>
             </section>
             <section>
-                <p>
-                </p>
+                <h6>1、参数过多的时候怎么办？</h6>
+                <h6>2、以一个函数作为另一个函数的参数？回调函数经常用到（不讲回调函数）。</h6>
             </section>
         </section>
         <section>
@@ -223,8 +242,42 @@ fun1(1,2,3,4,5);
                 <h3>4.解决方案</h3>
             </section>
             <section>
-                <p>
-                </p>
+                <h6>1、以对象作为参数的配置，搭配短路取值,【<a target="_blank" href="../demo/Acss-task3-js函数中的参数rxy/1.html">href</a>】</h6>
+                <h6>2、以函数作为参数，传入函数的引用，没什么好讲的。<br>
+                <xmp>
+到这里小课堂快讲完了，看2段代码吧。。
+
+function getValue (value){
+console.log(value);
+}
+
+function fun1(value,callback){
+callback(value);
+}
+
+function fun2(value,callback){
+     setTimeout(function(){
+     callback(value)
+     },2000);
+}
+
+fun1(111,getValue);// 111
+fun2(111,getValue);// 2s之后 111
+                </xmp>
+                    对于回调函数一直不太清楚，对于fn1这种方式我一直认为是一种特殊的调用，<br>
+                    fn2这种异步的，我认为才是回调函数，就好像网上看到的买东西的比喻：<br>
+                    ↓
+                </h6>
+            </section>
+            <section>
+                <h6>
+                你去买东西，三种情况：<br>
+                1、商品存在，直接带回家，【fn1这种情况】<br>
+                    2、 <span style="font-size: 0.8em">
+                                        商品不存在，等到商品存在，然后带回家【嗯~这种情况不好模拟，应该也不存在，忽略吧】<br>
+                    </span>
+                3、商品不存在，留下联系方式，有商品了通知你来取，你取了带回家【我认为这是回调函数】。<br>
+                </h6>
             </section>
         </section>
         <section>
@@ -242,12 +295,16 @@ fun1(1,2,3,4,5);
                 <h6>
                     非严格模式下，允许重复定义形参，以最后一个为准，<br>
                     严格模式下将会抛出一个错误，Duplicate parameter name not allowed in this context<br>
-                    这个就略过了，也不推荐这样写。<br>
+                    关于重复的形参，这个就略过了，也不推荐这样写。<br><br>
+                    arguments的值由实参决定的，<br>
+                    而不是由定义的形参决定，<br>
+                    形参与arguments对象占用【独立的内存空间】。
                 </h6>
             </section>
             <section>
                 <h6>
-                    非严格模式：改变参数，arguments随之改变
+                    非严格模式：2种情况 <br>
+                    1、实参个数大于等于形参个数，改变参数，arguments随之改变
                     <xmp>
 function fun1(x,y){
 x++;
@@ -261,6 +318,23 @@ fun1(1,2);
 //2,3
 //true,true
                     </xmp>
+                    2、实参个数小于形参个数，改变参数，arguments不再随之改变
+                    <xmp>
+function fun1(x,y,z){
+z=3;
+console.log(z);
+console.log(arguments[2]);
+console.log(z===arguments[2]);
+}
+fun1(1,2);
+//3
+//undefined
+//false
+                    </xmp>
+                </h6>
+            </section>
+            <section>
+                <h6>
                     严格模式：改变参数，arguments不再随之改变
                     <xmp>
 function fun1(x,y){
@@ -278,27 +352,28 @@ fun1(1,2);
                     </xmp>
                 </h6>
             </section>
+
         </section>
 
         <section>
             <section>
                 <h3>7.参考文献</h3>
                 <h5> 《深入理解ES6》 </h5>
+                <h5>解读JS中的arguments对象，来学习一下吧？<a target="_blank" href="https://baijiahao.baidu.com/s?id=1566336609390007&wfr=spider&for=pc">【href】</a></h5>
             </section>
         </section>
         <section>
             <section>
                 <h3>8.更多讨论</h3>
-                <h5>好像是提问环节</h5>
             </section>
         </section>
         <section>
             <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p>
+            <h5>感谢大家观看</h5>
+            <h5>
                 By
                 <small style="vertical-align: middle">任先阳</small>
-            </p>
+            </h5>
         </section>
     </div>
 </div>
