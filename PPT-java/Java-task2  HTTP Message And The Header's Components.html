@@ -1,0 +1,351 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Http的Header里面包含哪些字段，每个字段都有哪些含义？</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+			<time>2017-11-12</time>
+        </section>
+        <section>
+            <p>一.背景介绍</p>
+            <p>二.知识剖析</p>
+            <p>三.常见问题</p>
+            <p>四.解决方案</p>
+            <p>五.编码实战</p>
+            <p>六.扩展思考</p>
+            <p>七.参考文献</p>
+            <p>八.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">HTTP(Hypertext Transfer Protocol,超文本传输协议)是在万维网上进行通信时所用的协议方案.
+			HTTP有很多应用,但最著名的是用于Web客户端和Web服务器之间的双工通信.因此HTTP被称为互联网的多媒体信使.
+			(HTTP/2，当前版本，于2015年5月作为互联网标准正式发布)
+			</p>
+			<p style="text-align:left">We服务器是Web资源(Web resources)的宿主,Web资源是Web内容的源头.Web服务器会为所有
+			的HTTP对象数据附加一个MIME type(Mutipurpose Internet Mail Extension),表示一种主要的对象类型和一个特定的子类型.
+			如:text/html,&nbsp;text/plain,&nbsp;image/jpeg.
+			</p>
+			</section>
+			
+			<section>
+			<p style="text-align:left">每个Web服务器资源都有一个名字,即URI(Uniform Resource Identifier),在世界范围内唯一标识并定位该资源.
+			<ol>
+					<li>URL: scheme+host+path</li>
+						<ul>
+								<li>http://www.jnshu.com/occupation/5/skillList</li>
+								<li>ftp://ftp.lots-o-books.com/pub/complete-price-list.xls</li>
+								<li>ssh://root:**********@39.108.61.3:22</li>
+						</ul>
+					<li>URN: urn:ietf:rfc:2141 </br>(URN是作为特定内容的唯一名称使用的,与目前的资源所在地无关)</li>
+				</ol>
+				</section>
+				
+			<section>
+			</p>
+			<p style="text-align:left">一个HTTP事务(transaction)由一条(从客户端发往服务器的)请求命令和一个(从服务器发回客户端的)响应结果组成.这种通信是通过
+			HTTP报文(HTTP message)的格式化数据块进行的.这些报文在客户端,服务器和代理之间流动.
+			</p>
+			<p style="text-align:left">HTTP支持几种不同的请求命令,称之为HTPP方法(HTTP method).每条HTTP请求报文都包含一个方法,告诉服务器执行什么动作.
+			(GET,PUT,DELETE,POST,HEAD).
+			</p>
+			<p style="text-align:left">每条HTTP响应报文返回时都会携带一个三位数的状态码,告知客户端请求是否成功或者需要采取其他动作.
+			</p>
+			</section>
+		
+		<section>
+            <h3>二.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:center"><b>1.HTTP请求和响应报文的结构</b></p>
+            <p style="text-align:left">HTTP报文是由一行行的简单字符串组成,不是二进制代码,便于开发者读写.从Web客户端发往Web服务器端的HTTP报文称为请求报文
+			(request message),从服务器端发往客户端的报文称为响应报文(response message).
+			</p>
+			</section>
+			
+		<section>
+			<p  style="text-align:left"><b>HTTP报文包括以下三部分:</b>
+				<ul>
+					<li><i>起始行(start line)</i></br>报文第一行就是起始行,在请求报文中用来说明要做些什么,在响应报文中说明出现什么情况.</li>
+					<li><i>首部字段(header)</i></br>起始行后有〇个或者多个首部字段.每个首部字段包含name/value,为了便于解析,两者之间用&nbsp;<b>:</b>&nbsp;来分隔.首部以一个空行结束.</li>
+					<li><i>主体(body)</i></br>空行之后就是主体,其中包含了所有类型的数据.起始行和首部都是文本形式且都是格式化的,而主体则不然.</li>
+				</ul>
+			</p>
+		</section>
+		
+		<section>
+			<p style="text-align:center"><b>2.连接</b></p>
+			<p style="text-align:left">HTTP是应用层协议,无需关心网络通信的具体细节,它把联网的细节交给了通用的.可靠的因特网传输协议TCP/IP协议.TCP/IP是全世界的计算机
+			和网络设备的常用的层次化分组交换网络协议,隐藏了各种网络和硬件的特点及弱点,使各种类型的计算机和网络都能够进行可靠的通信.
+			</p>
+			<p style="text-align:left">只要建立了TCP连接,客户端和服务器之间的报文交换就不会丢失,破坏或者在接收时出现错序.
+			</p>
+			</section>
+			
+			<section>
+			<p style="text-align:left">基本的浏览器连接处理:
+				<ul>
+					<li>浏览器从URL中解析出服务器的主机名</li>
+					<li>浏览器将主机名转换成服务器的IP地址</li>
+					<li>浏览器将端口号从URL中解析出来</li>
+					<li>浏览器建立一条与Web服务器的TCP连接</li>
+					<li>浏览器向服务器发送一条HTTP请求报文</li>
+					<li>服务器向浏览器发送一条HTTP响应报文</li>
+					<li>关闭连接,浏览器显示文档</li>
+				</ul>
+			</p>
+		</section>
+		
+		<section>
+			<p style="text-align:left"><b>3.首部 (header)</b></p>
+			<p style="text-align:left">HTTP首部可以分为以下几类:
+			<ul>
+				<li>通用首部</li>
+				<li>请求首部</li>
+				<li>响应首部</li>
+				<li>实体首部</li>
+				</ul>
+			</p>
+		</section>
+		
+		<section>
+			<p style="text-align:left"><b>(1)通用首部:即可以出现在请求报文中也可以出现在响应报文中</b></p>
+			<p>
+			<ul>
+				<li>Connection:允许客户端和服务器指定与请求/响应连接有关的选项</li>
+				<li>Date:提供日期和时间标志,说明报文是什么时间创建的</li>
+				<li>MIME-Version:给出了发送端使用的MIME版本</li>
+				<li>Trailer:如果报文采用了分块传输编码(chunked transfer encoding)方式,就可以用这个首部列
+				出位于报文拖挂(trailer)部分的首部集合</li>
+				<li>Transfer-Encoding:告知接收端为了保证报文的可靠传输,对报文采用了什么编码方式</li>
+				<li>Update:给出了发送器可能想要”升级”使用的新版本或协议</li>
+				<li>Via:显示了报文经过的中间节点(代理,网关)</li>
+			</ul>
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left">HTTP/1.0引入了第一个允许HTTP应用程序缓存对象本地副本的首部,这样就不需要总是从源端服务器获取了.</p>
+				<ul>
+						<li>Cache-Control:用于随报文传送缓存指示</li>
+						<li>Pragma:另一种随报文传送指示的方式,但并不专用于缓存.</li>
+				</ul>
+			</p>
+		</section>
+		
+		<section>
+			<p style="text-align:left"><b>(2)请求首部:只在请求报文中有意义的首部,提供更多有关请求的信息</b></p>
+			<p style="text-align:left"><b>请求的信息性首部</b>
+			<ul>
+				<li>Client-IP 提供了与你选哪个客户端的机器的IP地址</li>
+				<li>Prom 提供了客户端用户的E-mail地址</li>
+				<li>Host 给出了接收请求的服务器的主机名和端口号</li>
+				<li>Referer:提供了包含当前请求的URI的文档的URL</li>
+				<li>UA-Color:提供了与客户端显示器的显示颜色有关的信息</li>
+				<li>UA-CPU:给出了客户端CPU的类型或制造商</li>
+				<li>UA-Disp:提供了与客户端显示器(屏幕)能力有关的信息</li>
+				<li>UA-OS:给出了运行在客户端机器上的操作系统名称及版本</li>
+				<li>UA-Pixels:提供了客户端显示器的像素信息</li>
+				<li>User-Agent:将发起请求的应用程序名称告知服务器</li>
+			</ul>
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left">1)Accept首部</br>
+			<p style="text-align:left">Accept首部为客户端提供了一种将其喜好和能力告知服务器的方式,包括它们想要什么,
+			可以使用什么,以及最重要的,它们不想要的.Accept, Accept-Charset, Accept-ncoding, Accept-Language,TE
+			</P>
+			<p style="text-align:left">2)条件请求首部</br>
+			<p style="text-align:left">通过条件请求首部,客户端为请求加上限制,要求服务器在对请求进行响应之前,确保某个条件为真.
+			Expect,If-Match,If-Nodified-Since, If-None-Match, If-Range, If-Unmodified-Since,Range.
+			</P>
+		</section>
+			
+		<section>
+			<p style="text-align:left">3)安全请求首部</br>
+			<p style="text-align:left">HTTP本身支持一种简单的机制,可以对请求进行质询/响应.Authorization,Cookie,Cookie2
+			</P>
+			<p style="text-align:left">4)代理请求首部</br>
+			<p style="text-align:left">Max-Forward,Proxy-Authorization,Proxy_Connection
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left"><b>(3)响应首部:提供更多有关响应的信息</b></p>
+			<p style="text-align:left"><b>请求的信息性首部</b>
+			<ul>
+				<li>Age: 从最初创建开始响应持续时间</li>
+				<li>Public:服务器为其资源支持的请求方法列表</li>
+				<li>Retry-After:如果资源不可用的话,在此事件或日期重试.</li>
+				<li>Server:服务器应用程序软件的名称和版本</li>
+				<li>Title:对HTML文档来说,就是HTML文档的源端给出的标题</li>
+				<li>Warning:比原因短语更详细的警告报文</li>
+			</ul>
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left">1)协商首部</br>
+			<p style="text-align:left">如果资源有多种表示方法,比如服务器上有某文档的法语和德语译稿,HTTP/1.1可以为服务器和客户端提供
+			对资源进行协商的能力.Accept-Ranges,Vary.
+			</P>
+			<p style="text-align:left">2)安全协商首部</br>
+			<p style="text-align:left">HTTP的质询/响应认证机制的响应侧.Proxy-Authenticate,Set-Cookie,Set-Cookie2,WWW-Authenticate
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left"><b>(4)实体首部:描述实体的长度和内容或者资源本身,两种类型的报文中都可能出现实体首部.</b></p>
+			<p style="text-align:left"><b>请求的信息性首部</b>
+			<ul>
+				<li>Allow:列出可以对此实体执行的请求方法</li>
+				<li>Locaton:告知客户端尸体实际上处于何处用于将接收端定向到资源的位置上</li>
+			</ul>
+			</P>
+		</section>
+		
+		<section>
+			<p style="text-align:left">1)内容首部</br>
+			<p style="text-align:left">提供了与实体内容有关的特定信息,说明了其类型,尺寸以及处理它所需的其他有用信息.
+			Context-Base, Context-Encoding, Context-Language, Context-Length, Context-Location, Context-MDS, Context-Range, Context-Type
+			</P>
+			<p style="text-align:left">2)实体缓存首部</br>
+			<p style="text-align:left">通用的缓存首部说明了如何或者什么时候进行缓存.实体的缓存首部提供了与被缓存实体有关的信息.ETag,Expires,Last-Modified.
+			</P>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">HTTPS是什么,它与HHTP有什么联系与区别?
+			</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">HTTPS经由HTTP进行通信，但利用SSL/TLS来加密数据包。HTTPS开发的主要目的，是提供对网站服务器的身份认证，保护交换数据的隐私与完整性。
+			</p>
+			<p style="text-align:left"><b>与HTTP的差异:</b></br>与HTTP的URL由“http://”起始且默认使用端口80不同，HTTPS的URL由“https://”起始且默认使用端口443。
+			</p>
+			<p style="text-align:left">在HTTP中,客户端首先打开一条到Web服务器端口443的连接.一旦建立了TCP连接,客户端和服务器就会初始化SSL层,对加密参数进行沟通,并交换密钥.握手完成之后,SSL初始化就完成了.
+			</p>
+		</section>
+
+		<section>
+			<h3>5.编码实战</h3>
+        </section>
+		<section>
+			<p style="text-align:center"><b>Chrome 开发者工具查看HTTP报文.</b>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:left">常见状态码含义:
+			<ul>
+				<li>1xx消息——请求已被服务器接收，继续处理</li>
+				<li>2xx成功——请求已成功被服务器接收、理解、并接受</li>
+				<li>3xx重定向——需要后续操作才能完成这一请求</li>
+				<li>4xx请求错误——请求含有词法错误或者无法被执行</li>
+				<li>5xx服务器错误——服务器在处理某个正确请求时发生错误</li>
+			</ul>
+			</p>
+			<p style="text-align:left">
+			虽然 RFC 2616 中已经推荐了描述状态的短语，例如"200 OK"，"404 Not Found"，
+			但是WEB开发者仍然能够自行决定采用何种短语，用以显示本地化的状态描述或者自定义信息。
+			</p>
+		</section>
+
+		<section>
+			<h3>7.参考文献</h3>
+			<p style="text-align:left">
+			<ul>
+				<li>HTTP权威指南.&nbsp;&nbsp;David Gourley,&nbsp;Brian Totty,&nbsp;Marjorie Sayer,&nbsp;Sailu Reddy,&nbsp;Ansbu Aggarual &nbsp;&nbsp;著. &nbsp;&nbsp;陈涓,&nbsp;赵振平译. &nbsp;&nbsp;北京. &nbsp;人民邮电出版社&nbsp;&nbsp; 2012</li>
+			</ul>
+			</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里,感谢诸君围观!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
