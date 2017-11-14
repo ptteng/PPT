@@ -1,0 +1,59 @@
+<div class="add-body">
+
+    <form class="add-main" name="formdetail" novalidate>
+        <div class="add-list1 ">
+            <lable class="add-list1-1 ">标题名称</lable>
+            <input type="text" class="add-list1-2 " ng-model="params.title" name="title" required>
+            <div>
+                <span ng-show="formdetail.title.$error.required && submitted">*标题名称不能为空</span>
+            </div>
+        </div>
+
+        <div class="add-list2">
+            <lable class="add-list2-1">类型</lable>
+            <select class="add-list2-2" ng-model="params.type" name="type"  ng-options="x for (x,y) in types " required>
+                <option value="">请选择</option>
+            </select>
+            <select class="add-list2-2" name="company" ng-model="params.company"
+                    ng-options="x for (x,y) in company" required ng-if="params.type==3" required>
+                <option value="">请选择</option>
+            </select>
+            <div>
+                <span ng-show="formdetail.title.$error.required && submitted">*请选择类型</span>
+                <span ng-show="formdetail.title.$error.required && submitted">*请选择具体行业</span>
+            </div>
+        </div>
+
+        <div class="add-list3">
+            <lable class="add-list3-1">说明</lable>
+            <div id="editor" class="add-list3-2">
+                <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+            </div>
+        </div>
+        <div class="add-list4">
+            <lable class="add-list4-1">跳转链接</lable>
+            <input type="url" class="add-list4-2" name="url">
+            <div class="warning">
+                <span ng-show="formdetail.url.$error.required && submitted">*跳转链接不能为空</span>
+                <span ng-show="formdetail.url.$error.url && submitted">*请输入正确格式的网址</span>
+            </div>
+        </div>
+
+        <div class="add-list5">
+            <up-loader label-name="配&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp图" ng-model="params.img" tip="文章配图" class="add-list5-1"></up-loader>
+            <div class="warning-img">
+                <span ng-show="params.img==undefined && submitted">*请上传图片</span>
+            </div>
+        </div>
+
+        <div>
+            <button ng-click="online(1)" class="btn">立即上线</button>
+            <button ng-click="online(2)" class="btn">存为草稿</button>
+            <button ng-click="" class="btn">取消</button>
+        </div>
+    </form>
+</div>
+
+<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+
+

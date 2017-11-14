@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        [name=enrollForm] {
+            position: absolute;
+            /*  不需要设置宽度, 只需要设置居中,有类名container */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body ng-controller="myCtrl">
+<!-- 关闭默认验证 -->
+<form class="form-horizontal container" role="form" name="enrollForm" novalidate>
+    <div class="form-group">
+        <p class='text-center col-xs-10 lead'>注册</p>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="设置用户名" name='name' ng-model="params.name" minlength="4" maxlength="8"
+                   required ng-change="enrollForm.name.$valid&&printName()">
+        </div>
+        <div class="col-sm-4">
+            <span ng-if="enrollForm.name.$dirty&&enrollForm.name.$invalid">用户名最少4位,最多8位,汉字算1个字节.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">设置密码</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" placeholder="设置密码" name='pwd' ng-model="params.pwd" minlength="6" maxlength="18"
+                   required ng-blur="checkPwd()" ng-click="config.isPwdSame=false">
+        </div>
+        <div class="col-sm-4">
+            <span ng-if="enrollForm.pwd.$dirty&&enrollForm.pwd.$invalid">密码最少6位,最多18位.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">确认密码</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" placeholder="请确认密码" name='testPwd' ng-model="params.testPwd" minlength="6" maxlength="18" required
+                   ng-blur="checkPwd()" ng-click="config.isPwdSame=false">
+        </div>
+        <div class="col-sm-4">
+            <span ng-if="config.isPwdSame && enrollForm.testPwd.$dirty">密码输入不一致.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="config.isAgree"> 同意"服务条款",ng-disabled
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success"
+                    ng-disabled="!config.isAgree||!config.isAgree||enrollForm.name.$invalid||enrollForm.pwd.$invalid||enrollForm.testPwd.$invalid"
+                    ng-click="submit()">登录</button>
+        </div>
+    </div>
+</form>
+
+</body>
+<script src="//cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', ['$scope', function ($scope) {
+        $scope.params = {
+            name: '',
+            pwd: '',
+            testPwd: '',
+        }
+        $scope.config = {
+            /*  默认同意条款 */
+            isAgree: true,
+            isPwdSame: false,
+        }
+        $scope.checkPwd = function () {
+            //检测2次输入密码的,model值
+            if ($scope.params.pwd !== $scope.params.testPwd) {
+                $scope.config.isPwdSame = true;
+            } else {
+                $scope.config.isPwdSame = false;
+            }
+        }
+        $scope.printName = function () {
+            console.log('name合法,name是\n' + $scope.params.name);
+        }
+        $scope.submit=function () {
+            alert('ajax处理')
+        }
+    }])
+</script>
+
+</html>

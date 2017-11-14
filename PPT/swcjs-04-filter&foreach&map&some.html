@@ -1,0 +1,214 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>
+                对一个数组 filter、some、map、foreach的操作分别有什么作用？
+            </h2>
+            <h3>上海第12期小课堂</h3>
+            <p>分享人：孙伟淳</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section style="text-align: center;">
+                    <p style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+                        
+        循环（loop），指的是在满足条件的情况下，重复执行同一段代码。比如，while语句。
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;迭代（iterate），指的是按照某种顺序逐个访问列表中的每一项。比如，for语句。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遍历（traversal），指的是按照一定的规则访问树形结构中的每个节点，而且每个节点都只访问一次。<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;递归（recursion），指的是一个函数不断调用自身的行为。<br>
+
+                    </p>
+
+
+        </section>
+        <section style="text-align: center;">
+                    <p style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+                        数组，在编程语言中很重要，其中every()、filter()、some()、map()、forEach()是ECMAScript5为数组定义的5个迭代方法，是为了更方便的对数组进行操作。
+                    </p>
+
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section >
+            <section style="text-align: center">
+                <p style="text-align: left;font-size: 30px;line-height: 60px;margin:0 auto;width:650px;">
+
+                          首先，每个方法都接收两个参数：<br/>
+                        （1）要在每一项上运行的函数。<br/>
+                        （2）运行该函数的作用域对象—this（可选）
+
+                </p>
+            </section>
+            <section>
+                <div style="overflow-y: auto;height:300px;">
+                    <p style="text-align: left;text-indent: 60px;font-size: 27px;line-height: 60px;">
+                        其次，传入这些方法中的函数参数本身会接收三个参数：数组项的值；该项在数组中的位置；数组对象本身；
+                    </p>
+                </div>
+            </section>
+
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>3.常见问题</h3></section>
+            <section style="text-align: left">
+                <h4 style="text-align: center">every()、filter()、some()、map()、forEach()的用法?</h4>
+
+            </section>
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>4 解决方案</h3></section>
+            <section>
+                <p style="text-align: left;font-size: 30px;line-height: 60px;">
+                    every()：对数组的每一项运行给定函数，如果该函数对每一项都返回true，则返回true，否则返回false<br/>
+
+                    some()：对数组的每一项运行给定函数，如果该函数对任一项返回true，则返回true<br/>
+
+                    filter()：对数组的每一项运行给定函数，返回该函数会返回true的项组成的数组<br/>
+
+                    map()：对数组的每一项运行给定函数，返回每次函数调用的结果组成的数组<br/>
+
+                    forEach()：对数组的每一项运行给定函数，这个方法没有返回值
+                </p>
+
+            </section>
+
+
+        </section>
+        <section style="text-align: left">
+            <section style="text-align: center"><h3>5.编码实战</h3></section>
+
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h3 style="text-align: center">6.扩展思考</h3>
+            </section>
+                <section style="text-align: center">
+                    相对于for()，JS数组自定义的数组迭代方式有哪些好处？
+
+                </section>
+                <section style="text-align: left;overflow: auto;text-indent: 60px;font-size: 30px;line-height: 50px;">
+                    在实现相同功能的前提下，后者除了能够节省代码量外，在实现某些功能上的流程中存在很多有意思的优势，
+                    比如forEach相比普通的for循环的优势在于对稀疏数组的处理，会跳过数组中的空位。
+                    for+i在性能测试上是优越于后者，但是前提是，array的length要事先计算出来，而在处理非常大量的数据时候，
+                    后者的优势就显而易见了。
+
+                </section>
+
+            </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考1：<a href="http://www.cnblogs.com/xiao-hong/p/3194027.html">Js 数组——filter()、map()、some()、every()、forEach()、lastIndexOf()、indexOf()</a></p>
+            <p>参考2：《JS高级程序设计》</p>
+            <p>参考3：<a href=" https://segmentfault.com/a/1190000009870199">js数组操作--使用迭代方法替代for循环</a></p>
+        </section>
+        <section>
+            <h3>8 更多讨论</h3>
+        </section>
+        <section>
+
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 孙伟淳</small></p>
+        </section>
+
+    </div>
+</div>
+<script>
+    angular.module("myApp", [])
+        .controller('demoCtrl',function ($scope) {
+            $scope.aa='as111111'
+        })
+        .directive('demoOne',function () {
+
+            return{
+                restrict:"AECM",
+                template:'<input type="text" ng-model="aa">',
+                replace: true,
+                scope:{},
+                controller:['$scope',function ($scope) {
+                    $scope.aa='ss1212'
+                }]
+
+
+            }
+        })
+
+</script>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

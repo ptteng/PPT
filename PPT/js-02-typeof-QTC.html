@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>基本数据类型</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>【JS-task02】JavaScript中的数据类型及方法</h3>
+                <h3>小课堂【武汉-263期】</h3>
+                <p>分享人：邱天成</p>
+            </section>
+
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>JavaScript 是一种弱类型或者说动态语言。这意味着你不用提前声明变量的类型，在程序运行过程中，类型会被自动确定。这也意味着你可以使用同一个变量保存不同类型的数据：</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>原始类型</h4>
+                        <h3>undefined:</h3>
+                        <p>undefined类型就一个值——undefined。在使用var申明变量时未对其初始化，那这个变量就是undefined。</p>
+                        <img src="../img/QTC_ppt/undefined.png" alt="图飞到二次元去了">
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h3>Null:</h3>
+                        <p>Null类型也只有一个值——null。它表示一个空对象，一般用于确定要声明一个变量为对象，但是这个对象目前还不存在。</p>
+                        <img src="../img/QTC_ppt/null.png" alt="图飞到二次元去了">
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h3>boolean:</h3>
+                        <p>Boolean类型是ECMAScript中使用的最多的一种类型，该类型有两个字面值：true和false。</p>
+                        <img src="../img/QTC_ppt/boolean.png" alt="图飞到二次元去了">
+                        <h3>转换方法：Boolean（）</h3>
+                        <img src="../img/QTC_ppt/cg-Boolean.png" alt="图飞到二次元去了">
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h3>Number:</h3>
+                        <p>Number类型用来表示整数跟浮点数，还有一个特殊的数值NaN（非数值）。</p>
+                        <img src="../img/QTC_ppt/number.png" alt="图飞到二次元去了">
+                        <h3>数值转换：</h3>
+                        <p>有三种方法：Number（）、parseInt（）和parseFloat（）</p>
+                    </div>
+                </section>
+                <section>
+                    <p>由于Number（）函数在转换字符串的时候比较复杂，而且还不合理。因此在处理整数时更常用的是parseInt（）。</p>
+                    <p>parseInt(string, radix)函数，将字符串转换为整数类型的数值。它有以下规则：</p>
+                    <ul>
+                        <li>忽略字符串前面的空格，直至找到第一个非空字符</li>
+                        <li>如果第一个字符不是数字符号或者负号，返回NaN</li>
+                        <li>如果第一个字符是数字，则继续解析直至字符串解析完毕或者遇到一个非数字符号为止</li>
+                        <li>如果上步解析的结果以0开头，则将其当作八进制来解析；如果以0x开头，则将其当作十六进制来解析</li>
+                        <li>如果指定radix参数，则以radix为基数进行解析</li>
+                    </ul>
+                </section>
+                <section>
+                    <img src="../img/QTC_ppt/cg-number.png" alt="123">
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h3>string:</h3>
+                        <p>String类型用来表示所有用双引号引起来的数据，管它以前是什么妖魔鬼怪。</p>
+                        <img src="../img/QTC_ppt/string.png" alt="图飞到二次元去了">
+                        <img src="../img/QTC_ppt/string2.png" alt="图飞到二次元去了">
+                        <img src="../img/QTC_ppt/string3.png" alt="图飞到二次元去了">
+                    </div>
+                </section>
+                <section>
+                    <h4>转换字符串：</h4>
+                    <p>toString(radix)方法。除undefined和null之外的所有类型的值都具有toString()方法，其作用是返回对象的字符串表示。</p>
+                    <p>String(mix)函数，将任何类型的值转换为字符串.</p>
+                </section>
+                <section>
+                    <h3>object类型</h3>
+                    <p>在 Javascript 里，对象可以被看作是一组属性的集合。用对象字面量语法来定义一个对象时，会自动初始化一组属性。（也就是说，你定义一个var a = "Hello"，那么a本身就会有a.substring这个方法，以及a.length这个属性，以及其它；如果你定义了一个对象，vara
+                        = {}，那么a就会自动有a.hasOwnProperty及a.constructor等属性和方法。）而后，这些属性还可以被增减。属性的值可以是任意类型，包括具有复杂数据结构的对象。属性使用键来标识，它的键值可以是一个字符串或者符号值（Symbol）。</p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>4.解决方法</h3>
+                </section>
+
+            </section>
+
+            <section>
+                <section>
+                    <h3>5、编码实战</h3>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6、扩展思考</h3>
+                </section>
+                <section>
+                    <p>有哪些方法可以判断数据类型？</p>
+                </section>
+                <section>
+                    <p>判断数据类型的方法：</p>
+                    <ol>
+                        <li>typeof: 返回的是string类型 判断基本数据类型：string、number、boolean、function、undefined类型,对数组、对象、null类型都统统打印的是object类型
+                        </li>
+                        <li> instanceof: 返回的是boolean类型（可判断数组类型） 判断依据：检测对象的原型链上是否有构造函数的prototype属性。
+                        </li>
+                        <li>constructor: 返回的是boolean类型(可判断数组类型)任何一个对象都有constructor属性，指向创建这个对象的构造函数
+                        </li>
+                        <li>Object.prototype.toString.call: 方法比较通用，但是繁琐</li>
+                    </ol>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                        <p>参考一：
+                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures" target="_blank">Javascript数据类型和数据结构</a>
+                        </p>
+                        <p>参考二： 《JavaScript高级程序设计》
+                        </p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人： 邱天成</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
+
+
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
