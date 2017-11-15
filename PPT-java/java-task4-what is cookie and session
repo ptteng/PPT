@@ -1,0 +1,192 @@
+ 
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是session？什么是cookie？session和cookie有什么区别？什么场景适用于session？什么场景适用于cookie？  </h2>
+			<p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：李宁虎</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 
+		
+		 <section>
+           <p>
+             为什么要使用cookie和session? 很多时候客户端和服务器进行交互使用了HTTP协议，但是HTTP协议是无状态的；HTTP协议的请求过程，是基于 TCP/IP 的，当客户端请求服务器，服务器处理后，进行响应，该过程是无状态的。
+           </p>
+		</section>
+		<section>
+		   <p>
+				但是在有些时候是需要保存一些客户端的请求信息，识别客户端的某些状态，智能的、有针对性的去分析某些客户端的习惯。这些时候，就需要去记录客户端的连接状态，识别请求的状态等。所以为了解决类似的事情，就需要使用到了 Cookie 和 Session。	   
+		   </p>
+		   </section>
+		<section>
+		   <p>
+			比如，使用Cookie的场景：有些网站有记住用户名的功能，当你勾这个的时候，下次进入该网站时，就会保存上一次登录的用户名；使用Seesion的场景：利用Seesion来验证用户是否已登录，利用Session来保存验证码。
+		   </p>
+		</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+			
+
+			
+		</section>
+
+		<section>
+            <p>
+             Cookie：在客户端访问某个地址时，会将请求交到服务器进行处理，在发送请求的时候，浏览器会将页面的头部信息一并的交到服务器端进行处理。在处理的过程中，Cookie 在服务器端生成 ，在此同时，可以将一些需要保存的信息，存放到此 Cookie 中。生成 Cookie 对象时，需要确定具体的名称及具体的值，可以设置当前 Cookie 的过期时间，设置过期时间后，就相当于持久化了 Cookie 中的数据，此时的 Cookie 会以之前的 Cookie 名称，保存在客户端。
+			 </p>
+			 </section>
+			 <section>
+			 <p>
+如果不设置过期时间，则当前 Cookie 的生命期是浏览器会话期间，一旦关闭了该浏览器，当前的Cookie 就会不存在了，此时的 Cookie 信息是保存在内存中。在服务器端，处理完后，会将生成的 Cookie ，随着 Http 响应，会在 Http 响应头中，加上Cookie 信息，浏览器接受到响应后，会按照 Http 响应头里的 Cookie ，在客户端建立 Cookie 。在下次客户进行请求的时候，Http 会附带着已经存储过的 Cookie，一并发送到服务器。一个域，在客户端建立的所以 Cookie 都是可以共享的，只要 Cookie 没有过期。
+           </p>
+		   
+            
+			</section>
+		
+         <section><p>
+				Session：Session 是在服务器端生成的，存储在服务器端，即存在内存中。可以对生成的 Session 设置过期时间，如果不设置过期时间，默认的 Session 过期时间是30 分钟（在不同的服务器中，它的过期时间略有不同，本文是以 Tomcat 来说的）  但是，Sesssion 的生成的同时，会生成一个与之相关联的的 SessionID ，此 SessionID的存储是需要 Cookie 来完成的。 SessionID 是以名称为 JSESSIONID，其值应该是一个既不会重复，又不容易被找到规律以仿造的字符串。SessionID会随着此次 Http 响应，一并返回到客户端，并保存在客户端中。到当前请求再次发出后，该 SessionID会随着 Http 头部，传到服务器中，服务器依据当前 SessionID 得到与之对应的 Session.
+</p>
+</section>
+
+         <section>
+            <h3>3.常见问题</h3>
+         </section>
+         <section>
+			<p>禁用cookie之后，session不能用</p>
+		   
+		</section>
+
+       
+		
+
+        
+   
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+
+        <section>       	
+        	 <section>
+		<p>如果客户端禁用了 Cookie 的话，很多网站任然可以存储用户的信息。一种处理的方式是URL 重写，将 SesseionID 直接附加在请求地址的后面。另一种处理的方式是，使用隐藏自动的方式。就是服务器自动的在表单中，添加一个隐藏字段，以便在表单提交时，将 SesseionID 一起传到服务器，进行识别。
+		</p>
+		</section>
+        	
+        </section>
+		
+		
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+
+       
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 李宁虎</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
