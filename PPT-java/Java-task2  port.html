@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>端口是什么含义，怎么判断一个端口是否被占用了，如何判断一个端口是否被防火墙拦截，
+			怎么用Telnet判断端口号是否打开？</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+			<time>
+				<script type="text/javascript"> 
+						var today = new Date();
+						document.write(today.toLocaleDateString())
+				</script>
+			</time>
+        </section>
+        <section>
+            <p>一.背景介绍</p>
+            <p>二.知识剖析</p>
+            <p>三.常见问题</p>
+            <p>四.解决方案</p>
+            <p>五.编码实战</p>
+            <p>六.扩展思考</p>
+            <p>七.参考文献</p>
+            <p>八.更多讨论</p>
+        </section>
+        <section>
+            <h3>一.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left"><b><i>面向连接的服务：</i></b>就是通信双方在通信时，要事先建立一条通信线路，其过程有建立连接（通过三次握手的方式建立，建立连接是需要分配相应的资源如缓冲区，以保证通信能正常进行）、使用连接和释放连接三个过程。它可以保证数据以相同的顺序到达。面向连接的服务在端系统之间建立通过网络的虚链路。
+			</p>
+			<p style="text-align:left"><b><i>无连接的服务：</i></b>就是通信双方不需要事先建立一条通信线路，而是把每个带有目的地址的包（报文分组）送到线路上，由系统选定路线进行传输。它不要求发送方和接收方之间的会话连接，不保证数据以相同的顺序到达。
+			</p>
+			</section>
+
+		<section>
+            <h3>二.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:center"><b>1.端口广义概念</b></p>
+            <p style="text-align:left">端口(port)，可以认为是计算机与外界通讯交流的出口。其中硬件领域的端口又称接口，如：USB端口、串行端口等。软件领域的端口一般指网络中面向连接服务和无连接服务的通信协议端口，是一种抽象的软件结构，包括一些数据结构和I/O（基本输入输出）缓冲区。
+			</p>
+			</section>
+			
+		<section>
+			<p  style="text-align:center"><b>2.端口狭义概念</b></p>
+			<p style="text-align:left">网络中可以被命名和寻址的通信端口是操作系统的一种可分配资源。由网络OSI（开放系统互联参考模型，Open System Interconnection Reference Model）七层协议可知，传输层与网络层最大的区别是传输层提供进程通信能力， 网络通信的最终地址不仅包括主机地址，还包括可描述进程的某种标识。所以TCP/IP协议提出的协议端口，可以认为是网络通信进程的一种标识符。
+			</p>
+		</section>
+		
+		<section>
+			<p style="text-align:center"><b>3.端口与进程</b></p>
+			<p style="text-align:left">应用程序（调入内存运行后一般称为：进程）通过系统调用与某端口建立连接（binding）后，传输层传给该端口的数据都被相应的进程所接收，相应进程发给传输层的数据都从该端口输出。在TCP/IP协议的实现中，端口操作类似于一般的I/O操作，进程获取一个端口，相当于获取本地唯一的I/O文件，可以用一般的读写方式访问。 
+			</p>
+			</section>
+
+		<section>
+			<p style="text-align:center"><b>4.端口号</b></p>
+			<p style="text-align:left">类似于文件描述符，每个端口都拥有一个叫端口号的整数描述符，用来区别不同的端口。由于TCP/IP传输层的TCP和UDP两个协议是两个完全独立的软件模块，因此各自的端口号也相互独立。如TCP有一个255号端口，UDP也可以有一个255号端口，两者并不冲突。
+			</p>
+		</section>
+		
+		<section>
+		<p style="text-align:center"><b>5.端口分类</b></p>
+			<p style="text-align:left">
+			<ol>
+				<li>公认端口（Well Known Ports）：从0到1023，它们紧密绑定（binding）到一些服务。通常这些端口的通讯明确表明了某种服务的协议。例如：80端口实际上总是HTTP通讯。</li>
+				<li>注册端口（Registered Ports）：从1024到49151。它们松散地绑定到一些服务。也就是说有许多服务绑定于这些端口，这些端口同样用于许多其它目的。例如：许多系统处理动态端口从1024左右开始。 </li>
+				<li>动态或私有端口（Dynamicor or Private Ports）：从49152到65535。理论上，不应为服务分配这些端口。实际上，机器通常从1024起分配动态端口。但也有例外：SUN的RPC端口从32768开始。</li>
+			</ol>
+			</P>
+		</section>
+	
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">为什么使用浏览器访问网络资源很少指定端口号?
+			</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.公认端口策略:
+			<ul >
+					<li >HTTP:80</li>
+					<li>HTTPS:443</li>
+					<li>SSH:22</li>
+					<li>FTP:21</li>
+					<li>SMTP:25</li>
+			</ul>
+			</p>
+			<p style="text-align:left">2.使用端口重定向或者转发技术.(实现重定向是为了隐藏公认的默认端口，降低受破坏率.)
+			</p>
+		</section>
+
+		<section>
+			<h3>5.编码实战</h3>
+        </section>
+		<section>
+			<p style="text-align:center">
+				<ol>
+						<li>windows/linux查看端口占用情况;</li>
+						<li>如何判断一个端口是否被防火墙拦截;</li>
+						<li>使用Telnet判断端口号是否打开.</li>
+				</ol>
+			</p>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:left">端口在入侵中的作用: 入侵者通常会用扫描器对目标主机的端口进行扫描，以确定哪些端口是开放的，从开放的端口，入侵者可以知道目标主机大致提供了哪些服务，进而猜测可能存在 的漏洞，因此对端口的扫描可以帮助我们更好的了解目标主机，而对于管理员，扫描本机的开放端口也是做好安全防范的第一步。
+			</p>
+			<p style="text-align:center">保护策略:查看---判断---关闭.
+			</p>
+		</section>
+
+		<section>
+			<h3>7.参考文献</h3>
+			<p style="text-align:left">
+			<ul>
+				<li>博客:《计算机端口详解》(http://blog.csdn.net/freeking101/article/details/70174350)</li>
+			</ul>
+			</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里,感谢诸君围观!</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
