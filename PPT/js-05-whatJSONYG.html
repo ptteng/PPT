@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>JSON是什么，如何处理转义？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【JS-task04】JSON是什么，如何处理转义？</h3>
+            <!--<p>上海【第18期】</p>-->
+            <p>分享人：杨刚</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p style="text-align: left">数据传输是我们在编写代码时经常遇到的一个场景。给数据一个统一的格式有利于我们编写和解析数据。</p>
+                    <p style="text-align: left">在JSON出现之前，大家一直用XML来传递数据。XML本身不算复杂，但是，加上DTD、XSD、XPath、XSLT等一大堆复杂的规范使其变得繁琐，难以掌握。</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p style="text-align: left">JSON（JavaScript Object Notation）是一种用于数据交换的文本格式，2001年由 Douglas Crockford 提出，目的是取代繁琐笨重的 XML 格式。</p>
+                    <p style="text-align: left">相比 XML 格式，JSON 格式有两个显著的优点：书写简单，一目了然；符合 JavaScript 原生语法，可以由解释引擎直接处理，不用另外添加解析代码。所以，JSON迅速被接受，已经成为各大网站交换数据的标准格式。</p>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <h4>什么是JSON格式：</h4>
+                    <p>JSON 对json数据的类型和格式有严格的规定。</p>
+                    <p>1、复合类型的值只能是数组或对象，不能是函数、正则表达式对象、日期对象。 </p>
+                    <p>2、简单类型的值只有四种：字符串、数值（必须以十进制表示）、布尔值和null（不能使用NaN, Infinity, -Infinity和undefined）。</p>
+                    <p>3、字符串必须使用双引号表示，不能使用单引号。</p>
+                    <p>4、对象的键名必须放在双引号里面。</p>
+                    <p>5、数组或对象最后一个成员的后面，不能加逗号。</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <h4>json格式的对象与一般js对象语法上的区别？</h4>
+                    <table style="font-size: 18px">
+                        <thead>
+                        <tr>
+                            <th id="对比内容" style="text-align:left;"> 对比内容 </th>
+                            <th id="json" style="text-align:left;"> JSON </th>
+                            <th id="js对象" style="text-align:left;"> JS对象 </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td style="text-align:left;">
+                                <p>键名 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>必须是加双引号 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>可允许不加、加单引号、加双引号 </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:left;">
+                                <p>属性值 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>只能是数值（10进制）、字符串（双引号）、布尔值和null，
+                                    <br>也可以是数组或者符合JSON要求的对象，
+                                    <br>不能是函数、NaN, Infinity（存放表示正无穷大的数值）, -Infinity和undefined </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>任意属性值均可 </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:left;">
+                                <p>逗号问题 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>最后一个属性后面不能有逗号 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>可以有逗号 </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:left;">
+                                <p>数值 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>前导0不能用，小数点后必须有数字 </p>
+                            </td>
+                            <td style="text-align:left;">
+                                <p>无限制 </p>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p>什么是JSON对象？</p>
+                </div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>4.解决办法</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p>每个符合JSON格式的值就是一个JSON对象，也就是说，每个JSON对象，就是一个值。一个JSON对象对应且只对应一个值，要么是简单类型的值，要么是复合类型的值。</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p>ES5 新增了JSON对象，用来处理 JSON 格式数据。它有两个方法：JSON.stringify()和JSON.parse()。</p>
+                    <p>JSON.stringify()将js对象转化为符合json标准的字符串</p>
+                    <p>JSON.parse()将符合json标准的字符串转化为js对象</p>
+                </div>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p>JSON.stringify有三个参数 </p>
+                    <p>JSON.stringify(value [, replacer] [, space]) </p>
+                    <p>value：是必须要的字段。就是你输入的值，比如数组啊，对象啊等等。</p>
+                    <p>replacer：这个是可选的。它又分为2种方式，一种是方法，第二种是数组。 </p>
+                    <p>当replacer是数组时，其作用是对传入的对象值进行筛选</p>
+                    <p>当replacer是方法是，其作用类似给传入的对象的每一个值一个方法进行迭代</p>
+                </div>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>5、编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6、扩展思考</h3>
+            </section>
+            <section>
+                <p>由JSON字串生成JSON对象时的转义问题</p>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                    <p>在用JSON.parse解析JSON对象时会对其中的转义符进行两次解析</p>
+                    <p style="text-align: justify">参见：
+                        <a href="http://blog.csdn.net/robotech_er/article/details/40260377">转义字符，特殊字符的json转义</a>
+                    </p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7、参考文献：</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                    <p>参考一：
+                        <a href="http://javascript.ruanyifeng.com/stdlib/json.html">JSON对象</a>
+                    </p>
+                    <p>参考二：
+                        <a href="http://www.jb51.net/article/29893.htm">JSON.stringify 语法实例讲解 </a>
+                    </p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8、更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <p>谢谢大家</p>
+            <p>制作人： 杨涛</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        transition: 'convex',
+
+
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        },
+            {
+                src: '../plugin/markdown/markdown.js'
+            },
+            {
+                src: '../plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
