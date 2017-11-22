@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>position定位有几种，各有什么特点</h2>
+            <h3>小课堂【上海第20期】</h3>
+            <p>分享人：姚磊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+
+            <p>
+                position 是CSS用来为HTML文档的一些元素提供定位的属性,定位的基本思想很简单，它允许你定义元素框相对于其正常位置应该出现的位置，或者相对于父元素、另一个元素甚至浏览器窗口本身的位置。<br>
+                常规取值：&nbsp;&nbsp;
+                1.static(静态）&nbsp;&nbsp;
+                2.Relative(相对）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                3.Absolute(绝对)&nbsp;&nbsp;
+                4.fixed(固定)
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                static(静态）：HTML元素的默认值，不受top、bottom、left、right属性影响，元素出现在正常的文档流中。
+            </p>
+
+        </section>
+        <section>
+            <p>
+                Relative(相对）:相对定位。<br>
+                特点：不脱离文档流的布局，受top、bottom、left、right属性影响,只改变自身的位置，在文档流原先的位置遗留空白区域。定位的起始位置为此元素原先在文档流的位置。
+            </p>
+            <img src="../img/css-4-position/relative.png" alt=""> 
+        </section>
+        <section>
+            <p>
+                Absolute(绝对)：绝对定位<br>
+                特点:脱离文档流的布局，遗留下来的空间由后面的元素填充。定位的起始位置为最近的父元素(position不为static)，否则为html文档本身。
+            </p>
+            <img src="../img/css-4-position/absolute.png" alt="">
+        </section>
+        <section>
+            <p>
+                fixed(固定)：固定定位。<br>
+                特点：类似于absolute，但不随着滚动条的移动而改变位置。元素的位置相对于浏览器窗口是固定位置。
+
+            </p>
+            <img src="../img/css-4-position/fixed.png" alt="">
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>相对定位与绝对定位的搭配使用效果？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+
+            <p>父容器使用相对定位，子元素使用绝对定位后，这样子元素的位置不再相对于浏览器左上角，而是相对于父窗口左上角，若无非static祖先，以初始包含块定位，在浏览器里，根元素的包含块（HTML）为初始包含块，只是一般情况下看上去像是body区域。</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        <pre>
+            <code>
+
+<div class="box">
+        <div class="box1">框框1</div>
+        <div class="box1 box2">框框2</div>
+        <div class="box1 box2"><div class="box4"></div><div class="box3"></div></div>
+    </div>
+
+
+
+            </code>
+        </pre>
+<p><a href="../demo/css-04-position/css4-position-1.html">demo</a></p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>fixed属性都有哪些应用？</p>
+
+        </section>
+        <section>
+            <a href="https://www.taobao.com/">这里面有fixed的应用</a>
+
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://www.cnblogs.com/polk6/archive/2013/07/26/3214847.html#Menu1-JieShao" target="_blank">position定位属性</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 姚磊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

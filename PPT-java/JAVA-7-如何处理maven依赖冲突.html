@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>maven的依赖管理和怎么解决依赖冲突</h2>
+            <h3>小课堂</h3>
+            <p>分享人：蒋新益</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍 </h3>
+        </section>
+        <section>
+            <p align="left">有人认为Maven是一个依赖管理工具，当然这种想法是错误的(确切的说Maven是一个项目管理工具，贯穿了整个项目生命周期，编译，测试，打
+                包，发布...)，但Maven给人造成这种错误的印象也是有原因的，因为Maven的依赖管理十分强大，用好了Maven，你不再需要面对一大堆jar
+                感到头大，依赖冲突，无用依赖等问题也能够得到有效的防止和解决。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>maven在依赖管理中有以下几个原则</p>
+        </section>
+        <section>
+            <p>依赖是使用Maven坐标来定位的，而Maven坐标主要由GAV（groupId, artifactId, version）构成。如果两个相同的依赖包，如果groupId, artifactId, version不同，那么maven也认为这两个是不同的。</p>
+        </section>
+        <section>
+            <p>依赖会传递，A依赖了B，B依赖了C，那么A的依赖中就会出现B和C。</p>
+        </section>
+        <section>
+            <p>Maven对同一个groupId, artifactId的冲突仲裁，不是以version越大越保留，而是依赖路径越短越优先，然后进行保留。</p>
+        </section>
+        <section>
+            <p>依赖的scope会影响依赖的影响范围。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>怎么解决依赖冲突</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>以idea为例,在打开的pom.xml文件上右键Diagrams--Show Dependencies，就可以看到了。</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		<section>
+            <p>随着项目的增大，你的依赖越来越多，比如说你依赖了一堆spring的jar，有 org.spring.framework:spring-core, org.spring.framework:beans, org.spring.framework:spring-web， org.spring.framework:spring-mock。它们的groupId是相同的，artifactId不同。为了管理其版本，你对它 们进行过统一的升级，逐个的将version改成了最新版。但是，显然，当POM很大的时候你说不定会犯错误，而当版本不一致的时候，一些诡异的兼容性问 题就可能出现。</p>
+        </section>
+        <section>
+            <p>我们可以定义一个Maven属性，其名称为spring.version,值为4.1.3。在这个POM中，我们就能 用${spring.version}的方式来引用该属性。我们看到，所有spring相关的依赖的version元素现在都成 了${spring.version}，当Maven运行的时候，它会自动用值4.1.3来替换这个引用。</p>
+        </section>
+        <section>
+            <p>如果没有idea,我们怎么查看依赖关系</p>
+        </section>
+        <section>
+            <p>mvn dependency:tree</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一:<a href="http://blog.csdn.net/wangjun5159/article/details/49095547">maven 依赖调解 依赖冲突 排除</a></p>
+            <p>参考二:<a href="http://drizzlewalk.blog.51cto.com/2203401/665590/">maven scope含义的说明</a> </p>
+            <p>参考三:<a href="http://www.cnblogs.com/kevinhigher/archive/2011/07/02/2096533.html">Maven依赖管理</a> </p>
+            <p>参考四:<a href="https://www.cnblogs.com/dingyingsi/p/3725340.html">如何快速的解决Maven依赖冲突</a> </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 蒋新益</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

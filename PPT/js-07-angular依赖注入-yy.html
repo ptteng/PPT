@@ -1,0 +1,350 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>葡萄藤PPT</title>
+    
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+    <script src="../../WebstormProjects/test/test.js"></script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>angularJS中的依赖注入</h2>
+            <h3>小课堂【深圳】</h3>
+            <p>分享人：颜彦</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p>以前原始社会，我们需要斧子，然而由于还没有社会分工，只能自己打磨一把使用，对应在程序上是我们需要一个功能的时候只能自己创建，然后使用new等关键字来调用方法。</p>
+                <p>然后工业社会阶段，我们需要使用斧子的时候，只需要找到工厂，购买斧子就可以使用，共产主义社会，需要斧子的时候甚至不需要购买，直接坐等社会提供。</p>
+                <p>依赖注入的意思就是我们需要的东西不是我们自己创建的，而是第三方提供的，我们只需要引用就可以使用了。不需要的时候就不引用它。</p>
+            </section>
+            <section>
+                依赖注入产生的背景：
+            </section>
+            <section>
+                传统应用程序通常是在类内部执行代码中主动创建这个类所依赖的其它对象，
+                从而导致类与类之间发生紧密耦合，使得类难于测试和隔离，最终导致系统的扩展和维护异常困难。
+            </section>
+            <section>
+                <p>依赖注入用来解决组件之间依赖关系、配置及生命周期管理，
+                    通过转移对象控制权，可以解决类之间的耦合问题，
+                    对象与对象之间是松散耦合关系，更重要的是使得应用程序体系结构变得非常灵活，
+                    很好的体现了面向对象的设计法则之一---依赖设计原则</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                什么是依赖注入
+            </section>
+            <section>
+                wiki 上的解释是：依赖注入（Dependency Injection，简称DI）是一种软件设计模式，在这种模式下，一个或更多的依赖（或服务）被注入（或者通过引用传递）到一个独立的对象（或客户端）中，然后成为了该客户端状态的一部分。
+                该模式分离了客户端依赖本身行为的创建，这使得程序设计变得松耦合，并遵循了依赖反转和单一职责原则。与服务定位器模式形成直接对比的是，它允许客户端了解客户端如何使用该系统找到依赖。<br>
+                <b>一句话 --- 没事你不要来找我，有事我会去找你。</b>
+            </section>
+            <section>
+                依赖注入的原理：
+            </section>
+            <section>
+                程序运行过程中，如需另一个对象协作(调用它的方法、访问他的属性)时，无须在代码中创建被调用者，而是依赖于外部容器的注入，
+                调用者仅通过声明某个组件就可以获得组件的控制权，而对该组件的依赖关系管理、查找、加载由外部完成。
+            </section>
+            <section>
+                依赖注入的三个角色：
+                <p> 调用者(client)</p>
+                <p> 服务(service)</p>
+                <p> 注入者(injector)</p>
+            </section>
+            <section>
+                <p>一般来说，一个对象只能通过三种方法来得到它的依赖项目：</p>
+                    <p>1.我们可以在对象内部创建依赖项目</p>
+                    <p>2.我们可以将依赖作为一个全局变量来进行查找或引用</p>
+                    <p>3.我们可以将依赖传递到需要它的地方</p>
+            </section>
+            <section>
+                <p>在使用依赖注入时，我们采用的是第三种方式（另外两种方式都会引起其他困难的挑战，例如污染全局作用域以及使隔离变得几乎不可能）。依赖注入是一种设计模式，它移除了硬编码依赖，因此使得我们可以在运行中随时移除并改变依赖项目。</p>
+            </section>
+            <section>
+                依赖注入有什么用
+            </section>
+            <section>
+                <p>作用一：可以使我们能够轻松对组件进行测试</p>
+                <p>作用二：降低代码的逻辑复杂度</p>
+            </section>
+            <section>
+                <p>angular提供了几种很好的依赖注入机制，以下5个核心组件用来作为依赖注入：value、factory、service、provider、constant</p>
+            </section>
+            <section>
+                值(value)是简单的JavaScript对象，用于向控制器传递值（配置阶段）：
+                <pre>
+                <code>
+// 定义一个模块
+var myApp = angular.module("myApp", []);
+
+// 创建 value 对象 "defaultInput" 并传递数据
+myApp.value("defaultInput", 5);
+
+// 将 "defaultInput" 注入到控制器
+myApp.controller('MyController', function($scope,defaultInput) {
+    $scope.number = defaultInput;
+    console.log($scope.number);
+});
+                </code>
+                </pre>
+            </section>
+            <section>
+                factory 是一个函数用于返回值。在 service 和 controller 需要时创建。通常我们使用 factory 函数来计算或返回值。
+                <pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.factory('MathService', function() {
+   var factory = {};
+   factory.multiply = function(a, b) {
+      return a * b
+   }
+   return factory;
+});
+
+
+mainApp.service('CalcService', function(MathService){
+      this.square = function(a) {
+      return MathService.multiply(a,a);
+   }
+});
+                </code>
+                </pre>
+            </section>
+            <section>
+                在Angular中服务（Service）是一种单例对象。服务主要的功能是为实现应用的功能提供数据和对象。它又可以分为内置服务和自定义服务
+                <pre>
+                <code>
+
+var mainApp = angular.module("mainApp", []);
+
+mainApp.service('CalcService', function(MathService){
+      this.square = function(a) {
+      return MathService.multiply(a,a);
+   }
+});
+mainApp.controller('CalcController', function($scope, CalcService, defaultInput) {
+      $scope.number = defaultInput;
+      $scope.result = CalcService.square($scope.number);
+
+      $scope.square = function() {
+      $scope.result = CalcService.square($scope.number);
+   }
+});
+                </code>
+                </pre>
+            </section>
+            <section>AngularJS 中通过 provider 创建一个 service、factory等(配置阶段)。Provider 中提供了一个 factory 方法 get()，它用于返回 value/service/factory。<pre>
+                <code>
+var mainApp = angular.module("mainApp", []);
+
+mainApp.config(function($provide) {
+   $provide.provider('MathService', function() {
+      this.$get = function() {
+         var factory = {};
+         factory.multiply = function(a, b) {
+            return a * b;
+         }
+         return factory;
+      };
+   });
+});
+                </code>
+                </pre>
+            </section>
+            
+            <section>
+                constant(常量)用来在配置阶段传递数值，注意这个常量在配置阶段是不可用的。
+                <pre>
+                <code>
+
+mainApp.constant("configParam", "constant value");
+                </code>
+                </pre>
+            </section>
+        
+            
+            
+        </section>
+        
+        
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            
+            <section>
+                <p>AngularJS依赖注入的方法</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                1. 通过函数的参数进行推断式注入声明<br>
+                    如果没有明确的声明， AngularJS会假定参数名称就是依赖的名称。因此，它会在内部调用函数对象的toString()方法，分析并提取出函数的参数列表，然后通过 $injector将这些参数注入进对象实例。
+            </section>
+            <section>
+                我们先不去关心如何实现时间更新的，先看看我们是如何进行依赖注入的；我们在MyController这个函数中设置的参数名称分别是$scope和$timeout,所以在程序运行到这个函数的时候，AngularJS会在内部调用函数对象的toString()方法，假定参数的名称就是依赖的名称，分析并提取出函数的参数列表，然后通过$injector将这些参数注入进对象的实例。
+            </section>
+            <section>
+                2、显式注入声明
+                <p>AngularJS提供了显式的方法来明确定义一个函数在被调用时需要用到的依赖关系。</p>
+                <p>通过这种方法声明依赖，即使在源代码被压缩、参数名称发生改变的情况下依然能够正常工作。</p>
+            </section>
+            <section>
+                <p>对上面代码的解释：</p>
+                <p>我们给我们的函数设置的参数名称分别是s和t，然后我们在后面使用MyController["$inject"] = ["$scope", "$timeout"];显式的将我们需要的依赖注入到MyController函数中；所以在MyController函数中，s代表$scope,t代表$timeout。</p>
+            </section>
+            <section>
+                需要注意的地方:
+                <p>对于这种声明方式来讲，参数的顺序是十分重要的，因为$inject数组元素的顺序必须和注入的参数的顺序一一对应。</p>
+            </section>
+            <section>
+                3 行内注入声明
+                <p>AngularJS提供的行内注入方法实际上是一种语法糖，它与前面的提到的通过$inject属性进行声明的原理是一样的，但是允许我们在函数定义的时候从行内将参数传入，这种方法方便，简单，而且避免了在定义的过程中使用临时变量。</p>
+            </section>
+            <section>
+                需要注意的地方:
+                <p>行内声明的方式允许我们直接传入一个参数数组，而不是一个函数。数组的元素是字符串，它们代表的是可以被注入到对象中的依赖名字，最后一个参数就是依赖注入的目标函数对象本身。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>AngularJS中的依赖注入与不用依赖注入的其他框架相比，有何优点？</p>
+            </section>
+            <section>
+                <p>一、模板功能强大丰富，并且是声明式的，自带了丰富的Angular指令；</p>
+                <p>二、是一个比较完善的前端MVC框架，包含模板，数据双向绑定，路由，模块化，服务，过滤器，依赖注入等所有功能；</p>
+            </section>
+            <section>
+                <p>三、依赖注入简化了组件之间处理依赖的过程（即解决依赖）。没有依赖注入，就不得不以某种方式自己查找$scope，很可能得使用全局变量。这虽然能够工作，但是不如AngularJS的依赖注入技术这么简单。</p>
+                <p>四、在开发中使用依赖注入的主要好处是AngularJS负责管理组件并在需要的时候提供给相应函数。依赖注入还能够为测试带来好处，因为它允许你使用假的或者模拟的对象来代替真实的组件，从而让开发者专注于程序的特定部分。</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考：<a href="https://segmentfault.com/a/1190000002786133" target="_blank">玩转 AngualrJS 的依赖注入</a></p>
+                <p>参考：<a href="http://www.runoob.com/angularjs/angularjs-dependency-injection.html" target="_blank">AngularJS 依赖注入</a></p>
+                <p>参考：<a href="http://www.html-js.com/article/Injection-with-Angular-development-web-application-AngularJS-explain-only-dependence" target="_blank">详解AngularJS中的依赖注入</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>AngularJS中的依赖注入组件的应用场景？</p>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 余翼 | 颜彦</small>
+            </p>
+        </section>
+    
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>将图片上传封装成指令</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>怎么将图片上传封装成指令？</h2>
+            <h3>小课堂JS-task09【深圳】</h3>
+            <p>分享人：包腾飞</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>
+                在JS任务5-10中，会用到一个插件，用来实现图片上传功能。包含以下功能
+            </p>
+            <ul>
+                <li>点击按钮上传图片</li>
+                <li>图片能在本地预览</li>
+                <li>显示图片信息，显示上传进度</li>
+                <li>点击上传按钮上传到服务器</li>
+                <li>点击删除按钮，删除。</li>
+                <li>上传按钮只能按一次</li>
+            </ul>
+        </section>
+        <section>
+            <p>现在我们需要把它用directive自定义指令封装起来。
+                为什么要封装呢？我们先来看一下这个插件长什么样，以及实现的效果是什么样的。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>基础知识</h3>
+            <p style="font-size: 1.8rem;text-align:left;">关于指令，因为我们是有直接讲指令的小课堂的，所以这里就简单说一下。</p>
+            <ol>
+                <li>angular指令本质上就是AngularJs扩展具有自定义功能的html元素的途径。</li>
+                <li>内置指令，打包在AngularJs内部的指令，所有内部指令的命名空间 都使用ng作为前缀，所以在写自定义指令的时候，避免用ng作为指令命名的前缀。</li>
+                <li>创建指令的方式有四种，在指令里用 restrict属性控制:
+                    <ul>
+                        <li>E:元素</li>
+                        <li>A:属性</li>
+                        <li>C:css类</li>
+                        <li>M:注释</li>
+                    </ul>
+                </li>
+                <li>向指令中传递数据，用template属性</li>
+            </ol>
+        </section>
+        <section>
+            <p>directive 在使用隔离 scope 的时候，提供了三种方法同隔离之外的地方交互：</p>
+            <ul>
+                <li>@ 绑定一个局部 scope 属性到当前 dom 节点的属性值。结果总是一个字符串，因为 dom 属性是字符串。</li>
+                <li>= 通过 directive 的 attr 属性的值在局部 scope 的属性和父 scope 属性名之间建立双向绑定。</li>
+                <li>& 提供一种方式执行一个表达式在父 scope 的上下文中。如果没有指定 attr 名称，则属性名称为相同的本地名称。（其实说白了，就是可以使用在父scope中定义的函数。）</li>
+            </ul>
+        </section>
+        <section>
+            <p>replace：是否用模板替换当前元素。</p>
+            <ul>
+                <li>true : 将指令标签替换成temple中定义的内容,页面上不会再有标签；</li>
+                <li>false ：则append（追加）在当前元素上，即模板的内容包在标签内部。默认false。</li>
+            </ul>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如何实现封装？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>上代码</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>指令中controller跟link的区别?</p>
+            <p style="text-align: left">这两个都可以获取到作用域，元素，属性等引用，也都会执行一次。那当我们每次想要扩展个自定义指令时，应该用哪个？</p>
+            <ul>
+                <li>控制器可以暴露一个API，而link可以通过require与其他的指令控制器交互</li>
+            </ul>
+            <p style="text-align: left">所以如果要开放出一个API给其他指令用就写在controller中，否则写在link中。简单来说，优先使用link。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考</p>
+            <ol>
+                <li><a href="https://www.cnblogs.com/ermu-learn/p/5913760.html"
+                          target="_blank">angular自定义指令详解</a></li>
+                <li><a href="https://github.com/nervgh/angular-file-upload"
+                       target="_blank">Angular File Upload</a></li>
+                <li><a href="http://blog.csdn.net/lai_xu/article/details/49535847"
+                       target="_blank">angular-file-upload 中文API</a></li>
+                <li><a href="http://www.angularjs.cn/A0nR"
+                       target="_blank">ng指令中controller与link的区别</a></li>
+            </ol>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 刘思言|肖浩宇|包腾飞</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
