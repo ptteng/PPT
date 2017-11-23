@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx如何实现负载均衡</h2>
+			<p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：李宁虎</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 <section>
+            <p>
+				Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。
+			</p>
+        </section>
+		
+        <section>
+            <h3>2.知识剖析</h3>	
+		</section>
+
+		<section>
+            <p>
+				Nginx常用功能,作为web服务器尤其是反向代理，负载均衡，动静分离。
+			 </p>
+			 </section>
+
+			 <section>
+			 <p>
+				重点来说一下什么是负载均衡：我们知道单台服务器的性能是有上限的，当流量很大时，就需要使用多台服务器来共同提供服务，这就是所谓的集群。
+				负载均衡服务器，就是用来把经过它的流量，按照某种方法，分配到集群中的各台服务器上。这样一来不仅可以承担
+				更大的流量、降低服务的延迟，还可以避免单点故障造成服务不可用。一般的反向代理服务器，都具备负载均衡的功能。
+             </p>		        
+			 </section>
+			<section>
+				<p>
+					此时使用的HTTP反向代理模块是ngx_http_proxy_module。
+					一般在upstream配置块中要指明使用的负载均衡算法，比如hash、ip_hash、least_conn。
+					这里没有指定，所以使用了默认的HTTP负载均衡算法 - 加权轮询。
+				</p>
+			</section>
+			<section>
+				<p>
+					nginx 的 upstream目前支持 4 种方式的分配 
+						1)、轮询（默认） 
+							  每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。 
+						2)、weight 
+							  指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 
+						2)、ip_hash 
+							  每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。  
+						3)、fair（第三方） 
+							  按后端服务器的响应时间来分配请求，响应时间短的优先分配。  
+						4)、url_hash（第三方）
+				</p>
+			</section>
+			
+         <section>
+            <h3>3.常见问题</h3>
+         </section>
+         <section>
+			<p>http {  
+						upstream cluster {  
+							server srv1 down;  
+							server srv2 weight=2;  
+							server srv3;  
+							server srv3 backup;  
+						}  
+   
+						server {  
+							listen 80;  
+					  
+							location / {  
+								proxy_pass http://cluster;  
+							}  
+						} 
+					}
+			  </p>
+		   <p>
+				upstream 每个设备的状态:
+						down 表示单前的server暂时不参与负载 
+						weight  默认为1.weight越大，负载的权重就越大。 
+						max_fails ：允许请求失败的次数默认为1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误 
+						fail_timeout:max_fails 次失败后，暂停的时间。 
+						backup： 其它所有的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。
+		   </p>
+		</section>
+           
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+
+        
+		
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+
+       
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p></p>
+        </section>
+        
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 李宁虎</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
