@@ -1,0 +1,205 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>小课堂</h2>
+            <h3>say say JSON</h3>
+            <p>分享人：上海分院 唐坤</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>
+                <h3>什么是json</h3>
+                JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。 易于人阅读和编写。同时也易于机器解析和生成。 它基于JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999的一个子集。 JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, JavaScript, Perl, Python等）。 这些特性使JSON成为理想的数据交换语言。
+            
+            </p>
+        </section>
+ 
+        <section>
+            <h3>JSON建构于两种结构：</h3>
+            “名称/值”对的集合（A collection of name/value pairs）。不同的语言中，它被理解为对象（object），纪录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。</p>
+            值的有序列表（An ordered list of values）。在大部分语言中，它被理解为数组（array）。</p>
+        </section>  
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+               <section>
+            <h3>JSON究竟是什么东西？为什么JSON就是易于数据交换？</h3>
+        </section>
+        <section>
+           
+            <p>
+            <h3>一种数据格式</h3>  
+           
+
+什么是格式？就是规范你的数据要怎么表示，举个栗子，有个人叫“二百六”，身高“160cm”，体重“60kg”，现在你要将这个人的这些信息传给别人或者别的什么东西，你有很多种选择：</p>
+
+姓名“二百六”，身高“160cm”，体重“60kg”</p>
+name="二百六"&height="160cm"&weight="60kg"</p>
+{"name":"二百六","height":160,"weight":60}</p>
+... ...
+以上所有选择，传递的数据是一样的，但是你可以看到形式是可以各式各样的，这就是各种不同格式化后的数据，JSON是其中一种表示方式。  
+        </section>
+        <section>
+            <p>
+               <h3>基于文本的数据格式</h3> 
+               </p>
+JSON是基于文本的数据格式，相对于基于二进制的数据，所以JSON在传递的时候是传递符合JSON这种格式(至于JSON的格式是什么我们第二部分再说)的字符串，我们常会称为“JSON字符串”。 </p>
+        </section>
+        <section>
+            <h3>轻量级的数据格式</h3>
+在JSON之前，有一个数据格式叫xml，现在还是广泛在用，但是JSON更加轻量，如xml需要用到很多标签，像上面的例子中，你可以明显看到xml格式的数据中标签本身占据了很多空间，而JSON比较轻量，即相同数据，以JSON的格式占据的带宽更小，这在有大量数据请求和传递的情况下是有明显优势的。
+        </section>
+        <section>
+            <h3>被广泛地用于数据交换</h3>
+轻量已经是一个用于数据交换的优势了，但更重要的JSON是易于阅读、编写和机器解析的，即这个JSON对人和机器都是友好的，而且又轻，独立于语言（因为是基于文本的），所以JSON被广泛用于数据交换。</p>
+        </section>
+     <section>
+       以前端JS进行ajax的POST请求为例，后端PHP处理请求为例：</p>
+前端构造一个JS对象，用于包装要传递的数据，然后将JS对象转化为JSON字符串，再发送请求到后端；</p>
+后端PHP接收到这个JSON字符串，将JSON字符串转化为PHP对象，然后处理请求。</p>
+可以看到，相同的数据在这里有3种不同的表现形式，分别是前端的JS对象、传输的JSON字符串、后端的PHP对象，JS对象和PHP对象明显不是一个东西，但是由于大家用的都是JSON来传递数据，大家都能理解这种数据格式，都能把JSON这种数据格式很容易地转化为自己能理解的数据结构，这就方便啦，在其他各种语言环境中交换数据都是如此。</p>
+        </section>
+           <section>
+            <h3>json数据类型</h3>
+            Number  数字型
+String  字符串型
+Boolean 布尔型
+Array   数组
+Object  对象
+null    空值</p>
+            （1）json中不区分整数、小数等类型，而统一使用Number来存储数字。</p>
+            （2）Array表示数组，以中括号"[]"括起来，元素之间以逗号分隔，元素可以为任意类型。</p>
+            （3）Object表示对象，类似于C语言中的结构体，以花括号"{}"括起来，其元素要求为键值对，key必须为String类型的，而value则可为任意类型。key和value之间以":"表示映射关系，元素之间也是以逗号分隔。</p>
+
+        </section>
+         <section>
+            <h3>拓展思考</h3>
+        </section>
+         <section>
+            <h3>XML和JSON优缺点</h3>
+         </section>
+           <section>
+           <1>.XML的优点
+　　A.格式统一，符合标准；</p>
+　　B.容易与其他系统进行远程交互，数据共享比较方便。</p>
+<2>.XML的缺点
+　　A.XML文件庞大，文件格式复杂，传输占带宽；</p>
+　　B.服务器端和客户端都需要花费大量代码来解析XML，导致服务器端和客户端代码变得异常复杂且不易维护；</p>
+　　C.客户端不同浏览器之间解析XML的方式不一致，需要重复编写很多代码；</p>
+　　D.服务器端和客户端解析XML花费较多的资源和时间。</p>
+         </section>
+         <section>
+            <1>.JSON的优点：</p>
+　　A.数据格式比较简单，易于读写，格式都是压缩的，占用带宽小；</p>
+　　B.易于解析，客户端JavaScript可以简单的通过eval()进行JSON数据的读取；</p>
+　　C.支持多种语言，包括ActionScript, C, C#, ColdFusion, Java, JavaScript, Perl, PHP, Python, Ruby等服务器端语言，便于服务器端的解析；</p>
+　　D.在PHP世界，已经有PHP-JSON和JSON-PHP出现了，偏于PHP序列化后的程序直接调用，PHP服务器端的对象、数组等能直接生成JSON格式，便于客户端的访问提取；</p>
+　　E.因为JSON格式能直接为服务器端代码使用，大大简化了服务器端和客户端的代码开发量，且完成任务不变，并且易于维护。
+ </section> 
+<section>
+  <2>.JSON的缺点</p>
+　　A.没有XML格式这么推广的深入人心和喜用广泛，没有XML那么通用性；</p>
+　　B.JSON格式目前在Web Service中推广还属于初级阶段。
+         
+</section>
+
+       
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：百度</p>
+            <p>参考二：小课堂</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 唐坤</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

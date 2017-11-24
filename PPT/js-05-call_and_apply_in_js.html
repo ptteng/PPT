@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p style="font-size: 50px">如何理解call和apply？</p>
+            <h4>小课堂【成都】</h4>
+            <p>分享人：赵绪琦</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px">
+                    我们先来看一段代码:
+                </p>
+                <pre>
+                <code>
+var max=Math.max(10,5,7);//通过这种方法我们可快速得到几个数字中的最大值
+
+var arr=[10,5,7];//那么我们如何快速求出一个数组的最大值呢？？
+
+//以下是一种常规解法：
+var sortBy=function(a,b){
+  return b-a
+}
+arr.sort(sortBy);
+max=arr[0];
+                </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px">
+                    除此之外，我们还有其他简单点的办法吗？
+                    肯定是有的。现成的max方法啊，管他妈的，先试试再说。
+                </p>
+                <pre>
+                    <code>
+var arr=[10,5,7];
+console.log(arr.max());
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px">
+                    主角出场
+                </p>
+                <pre>
+                    <code>
+var arr=[10,5,7];
+Math.max.apply(arr,arr);
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px;line-height: 45px">
+                    JavaScript 的函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。
+                    call 和 apply 都是为了改变某个函数运行时的 context 即上下文而存在的，换句话说，就是为了改变函数体内部 this 的指向。
+                </p>
+                <p style="text-align: left;font-size: 25px;line-height: 45px">
+                    by-知乎用户赵望野
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px;line-height: 45px">
+                    call()和apply()在作用上其实没有什么区别，只是参数传递的形式不一样。
+                    func1.call(this, arg1, arg2);<br>
+                    或者&ensp;func1.apply(this, [arg1, arg2]);<br>
+                    其中 this 是你想指定的上下文，它可以是任何一个 JavaScript 对象，<br>
+                    call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里。
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>call()和apply()都有哪些用？</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    1、类的继承
+                </p>
+                <pre>
+                    <code>
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+function webDever(name, age, sex) {
+    Person.call(this, name, age);
+
+    this.sex = sex;
+}
+
+var test = new webDever("张三", 22, "男");
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    2、快速求出数组最大值、最小值
+                </p>
+                <pre>
+                    <code>
+var arr=[10,5,7];
+Math.max.apply(arr,arr);
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    3、判断数据类型
+                </p>
+                <pre>
+                    <code>
+var arr=[10,5,7];
+Object.prototype.toString.call(arr);
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <p>call、apply和bind()的区别？</p>
+            </section>
+            <section>
+                <p style="text-align: left;font-size: 25px;line-height: 45px;margin-top: 150px">
+                    说完了 apply 和 call ，再来说说bind。bind() 方法与 apply 和 call 很相似，也是可以改变函数体内 this 的指向。<br><br>
+
+                    MDN的解释是：bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，
+                    绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第
+                    二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
+                </p>
+            </section>
+            <section>
+                <pre>
+                    <code>
+var arr=[10,5,7];
+f=Math.max.bind(arr,arr);//返回的是一个函数，而不是直接返回结果
+f();
+                    </code>
+                </pre>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    参考一：<a href="https://www.cnblogs.com/libin-1/p/6069031.html" target="_blank">理解js中的call、apply和bind</a>
+                </p>
+                <p style="text-align: left">
+                    参考二：<a href="https://www.zhihu.com/question/20289071" target="_blank">如何理解和熟练运用js中的call及apply？</a>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p style="font-size: 25px;text-align: left">
+                    <a href="https://segmentfault.com/q/1010000002900795">
+                        一道稍微综合综合点的JS题，关于with, this, 和call用法？
+                    </a>
+                </p>
+                <pre>
+                    <code>
+var o={
+    x: 10,
+    foo: function () {
+        with (this) {
+            function bar() {
+                alert(x);
+                alert(this.x);
+            }
+            var x=20;
+            (function() {
+                bar();
+            })();
+            bar.call(this);
+       }
+   }
+}
+o.foo();
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 赵绪琦</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

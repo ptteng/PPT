@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>武汉小课堂</h2>
+            <h3>如何理解JS作用域与作用域链？</h3>
+            <p>分享人：余佳贝</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>什么是作用域呢，简单的说，作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的生命周期。在JavaScript中，变量的作用域有全局作用域和局部作用域两种。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>1.全局作用域(Global Scope)
+            <p>
+            <p style="text-align: left;"> 在代码中任何地方都能访问到的对象拥有全局作用域，一般来说一下几种情形拥有全局作用域：</p>
+        </section>
+        <section>
+            <p style="text-align: left;">(1)在函数外面定义的变量拥有全局作用域，例如：</p>
+            <pre>
+            <code>
+                var authorName = "山边小溪";
+                function doSomething() {
+                    alert(authorName);
+                }
+                doSomething();
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p style="text-align: left;">(2)所有末定义直接赋值的变量自动声明为拥有全局作用域，例如：</p>
+            <pre>
+                <code>
+                    function doSomething(){
+                        var authorName="山边小溪";
+                        blogName="梦想天空";
+                        alert(authorName);
+                    }
+                    doSomething(); //山边小溪
+                    alert(blogName); //梦想天空
+                    alert(authorName); //脚本错误
+                </code>
+            </pre>
+            <p>变量blogName拥有全局作用域，而authorName在函数外部无法访问到。</p>
+        </section>
+        <section>
+            <p>(3)所有window对象的属性拥有全局作用域</p>
+            <p style="text-align: left;">一般情况下，window对象的内置属性都都拥有全局作用域，例如window.name、window.top等等。</p>
+            <pre>
+                <code>
+                    var site = 'baidu.com';
+                    function getSite() {
+                      alert(this.site);
+                    }
+                    alert(window.site);  // 'baidu.com'
+                    getSite();	// 'baidu.com'
+                    window.getSite();	// 'baidu.com'
+                </code>
+            </pre>
+            <p>在上面示例中，site变量和getSite()方法没有指定上级对象，所在二者会被添加到window全局对象，所以直接访问二者与通过window访问本质相同（如，直接访问getSite()与使用window.getSite()访问一样）。</p>
+        </section>
+        <section>
+            <p>1. 局部作用域(Local Scope)</p>
+            <p style="text-align: left;">和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所有在一些地方也会看到有人把这种作用域成为函数作用域</p>
+        </section>
+        <section>
+            <p style="text-align: left;">例如下列代码中的bName和函数innerSay都只拥有局部作用域：</p>
+            <pre>
+            <code>
+function doSomething(){
+    var bName="双击99";
+    function innerSay(){
+        alert(bName);
+    }
+    innerSa();
+}
+alert(bName); //脚本错误
+innerSay(); //脚本错误
+            </code>
+            </pre>
+        </section>
+        <section>
+            <p>作用域链(Scope Chain)</p>
+            <p style="text-align: left;">
+                说完了作用域我们就可以接着来聊聊作用域链(Scope Chain)这个概念了.作用域链就是由多个作用域组成的
+                在JS中，函数的可以允许嵌套的。即，在一个函数的内部声明另一个函数.类似这样：
+                <pre>
+                    <code>
+                        function A(){
+                        var  a=1;
+                           function B(){  //在A函数内部，声明了函数B，这就是所谓的函数嵌套。
+                                var b=2;
+                           }
+                        }
+                    </code>
+                </pre>
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;"> 对于A来说，A函数在执行的时候，会创建其A函数的作用域， 那么函数B在创建的时候，会引用A的作用域，类似下面这样</p>
+            <img src="../img/js-04-what%20is%20scope/sp1.png">
+        </section>
+        <section>
+            <p style="text-align: left;">函数B在执行的时候，其作用域类似于下面这样：</p>
+            <img src="../img/js-04-what%20is%20scope/sp2.png">
+        </section>
+        <section>
+            <p style="text-align: left;">
+                从上面的两幅图中可以看出，函数B在执行的时候，是会引用函数A的作用域的。所以，像这种函数作用域的嵌套就组成了所谓的函数作用域链。当在自身作用域内找不到该变量的时候，会沿着作用域链逐步向上查找，若在全局作用域内部仍找不到该变量，则会抛出异常。
+            </p>
+        </section>
+        <section>
+            <h3>4.常见问题</h3>
+            如何更加直观的体现作用域链
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html">理解 Javascript的作用域链</a>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    var x = 10;
+                    function getX() {
+                    alert(x);
+                    }
+                    function foo() {
+                    var x = 20;
+                    getX();
+                    }
+                    foo();
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>如何运用作用域链的知识进行性能优化</p>
+            <p style="text-align: left;">
+                其实作用域链就是JS引擎查询数据的一个链表，后定义的覆盖先定义的，查询不到定义的数据就往深一层查询，一直到全局作用域为止
+                但是越往内层延伸，读写速度就会越慢，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。
+                如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。例如下面的代码：
+            </p>
+        </section>
+
+        <section>
+            <pre>
+                <code>
+function changeColor(){
+    document.getElementById("btnChange").onclick=function(){
+        document.getElementById("targetCanvas").style.backgroundColor="red";
+    };
+}
+                </code>
+            </pre>
+            <p style="font-size: 20px;">这个函数引用了两次全局变量document，查找该变量必须遍历整个作用域链，直到最后在全局对象中才能找到。这段代码可以重写如下：</p>
+            <pre>
+                <code>
+function changeColor(){
+    var doc=document;
+    doc.getElementById("btnChange").onclick=function(){
+        doc.getElementById("targetCanvas").style.backgroundColor="red";
+    };
+}
+                </code>
+            </pre>
+            <p style="font-size: 20px;">这段代码比较简单，但是如果程序中有大量的全局变量被从反复访问，那么重写后的代码性能会有显著改善。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一
+                <a href="http://developer.51cto.com/art/201109/289286.htm">51cto</a>
+            </p>
+            <p>参考二
+                <a href="http://blog.csdn.net/yueguanghaidao/article/details/9568071">博客</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>那么大家又是如何理解作用域与作用域链的呢？</p>
+        </section>
+        <section>
+            <p>感谢大家观看</p>
+            <p>BY : 余佳贝 </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

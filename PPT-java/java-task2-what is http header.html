@@ -1,0 +1,248 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Http的Header里面包含哪些字段，每个字段都有哪些含义？</h3>
+            <h3>小课堂【北京】</h3>
+            <p>分享人:白笑然</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>HTTP Header</h3>
+            <p>HTTP报文中定义请求和响应参数的区域。<br>
+        </section>
+        <section>
+            <h3>分类</h3>
+            <p>
+               请求头和响应头 </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <h3>Accept</h3>
+            <p>
+                客户端可以接收的Body格式<br>
+                application/json ——JSON格式<br>
+                text/plain——纯文本格式<br>
+                text/html——HTML文本<br>
+                */*——所有格式<br>
+                逗号隔开，有顺序。<br>
+                分号前是主类型，分号后是子类型。<br>
+                Accept:application/json, text/plain, */*<br>
+            </p>
+        </section>
+        <section>
+            <h3>Accept-Encoding&Content-Encoding：
+            </h3>
+            <p>
+                Accept-Encoding指定浏览器可以支持的web服务器返回内容压缩编码类型。<br>
+                服务器会通过Accept-Encoding得到客户端支持的压缩方式，如果服务器和浏览器同时支持某种压缩方式，服务器就会添加一种Content-Encoding，来进行压缩。<br>
+                如果服务器不支持客户端Accept-Encoding中的任何一个压缩方式，则会返回406错误。<br>
+                Accept-Encoding:gzip, deflate, br<br>
+                content-encoding:gzip<br>
+            </p>
+        </section>
+        <section>
+            <h3>Accept-Language：
+            </h3>
+            <p>
+                浏览器可接受的自然语言的类型。<br>
+                zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4<br>
+            </p>
+        </section>
+        <section>
+            <h3>cookie&set-cookie
+            </h3>
+            <p>
+                cookie是请求头参数，储存一个Cookie键值对和其他信息<br>
+                set-cookie是响应头参数，是服务器为客户端创建的cookie，及其他必要的信息<br>
+                cookie&set-cookie中可以携带多个cookie
+            </p>
+        </section>
+        <section>
+            <h3>User-Agent
+            </h3>
+            <p>
+                主要用于统计和追踪信息，用处不大。可以包含很多信息。<br>
+                User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36<br>
+            </p>
+        </section>
+        <section>
+            <h3>Content-Type
+            </h3>
+            <p>
+                表示请求或响应体的格式。<br>
+            </p>
+        </section>
+        <section>
+            <h3>Connection
+            </h3>
+            <p>
+                设置HTTP连接的持久化，通常都是Keep-Alive。<br>
+                Connection: close 表示在响应结束后，结束连接。<br>
+            </p>
+        </section>
+        <section>
+            <h3>WWW-Authenticate:
+            </h3>
+            <p>
+                WWW-Authenticate响应头必须包含在401授权错误中，表示通过什么方式进行身份验证。<br>
+                WWW-Authenticate: BASIC realm="application"<br>
+            </p>
+        </section>
+        <section>
+            <h3>"q"值的含义</h3>
+            <p>
+                优先级<br>
+                没有q值的优先级默认为1<br>
+                q值一样的，范围小的优先级高 <br>
+                格式：分号<br>
+            </p>
+        </section>
+        <section>
+            3.常见问题
+        </section>
+        <section>
+            <h3>如果没有Accept请求头？</h3>
+            <p>
+                相当于*/*<br>
+                任何格式都接收<br>
+            </p>
+        </section>
+        <section>
+            <h3>如果请求头中没有Accept-Encoding？</h3>
+            <p>
+                默认客户端支持任何方式<br>
+            </p>
+        </section>
+   
+
+
+
+
+
+
+   
+	
+       
+	     <section>
+            <h3>5.编码实战</h3>
+        </section>
+           
+        </section>
+        <section>
+            <h3>在Java中发送请求？</h3>
+            <p>
+              
+
+            </p>
+        </section>
+      
+         
+       
+        <section>
+            7.参考文献
+        </section>
+        <section>
+            <p>
+                HTTP协议<br>
+             
+            </p>
+        </section>
+        <section>
+            8.更多讨论
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 白笑然</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

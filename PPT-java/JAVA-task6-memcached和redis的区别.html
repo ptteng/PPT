@@ -1,0 +1,202 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要使用memcache？Memcached和redis的区别.</h3>
+               <p>分享人:王鹏举</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+   
+		 <section>
+		<p>在大多数Web应用都将数据保存到关系型数据库中，WWW服务器从中读取数据并在浏览器中显示。但随着数据量的增大、访问的集中，就会出现关系型数据的负担加重、数据库响应缓慢、网站打开延迟等问题。</p>
+		<p>通过在内存中缓存数据库的查询结果，减少数据访问次数，以提高动态Web应用的速度，提高网站架构的并发能力和可扩展性</p>
+		<p>传统开发中用的数据库最多的就是MySQL了，随着数据量上千万或上亿级后，它的关系型数据库的读取速度可能并不能满足我们对数据的需求，所以内存式的缓存系统就出现了</p>
+		 </section>
+		 
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+		<p>Memcache 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。</p>
+		<p>Memcache基于一个存储键/值对的hashmap。其守护进程（daemon ）是用C写的，但是客户端可以用任何语言来编写，并通过memcache协议与守护进程通信。</p>
+	
+		</section>
+		<section>
+		<p>Redis有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。Redis的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。</p>
+		<p>Redis运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，应用数据量不能大于硬件内存。</p>
+		<p>在内存数据库方面的另一个优点是， 相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样Redis可以做很多内部复杂性很强的事情。 </p>
+		<p>同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。</p>
+		</section>
+	   <section>
+            <h3>3.常见问题</h3>
+       </section>
+       		
+		<section>
+		<p>Redis与memcached有什么不同</p>
+        <p>什么是原子性,什么是原子性操作？</p>
+
+		</section>
+
+				
+        <section>
+            <h3>4.解决方案</h3>
+	
+		</section>
+		<section>	
+		<p>Memcached</p>
+		<p>内部的数据存储，使用基于Slab的内存管理方式，有利于减少内存碎片和频繁分配销毁内存所带来的开销。各个Slab按需动态分配一个page的内存</p>
+		<p>（和4Kpage的概念不同，这里默认page为1M），page内部按照不同slab class的尺寸再划分为内存chunk供服务器存储KV键值对使用</p>
+		<p>Redis内部的数据结构最终也会落实到key-Value对应的形式，不过从暴露给用户的数据结构来看，</p>
+		<p>要比memcached丰富，除了标准的通常意义的键值对，Redis还支持List，Set， Hashes，Sorted Set等数据结构</p>
+		</section>
+		<section>
+		<img src="111.jpg">
+	   </section>
+	   <section>
+	  <p> 基本命令</p>
+ 
+		<p>Memcached的命令或者说通讯协议非常简单，Server所支持的命令基本就是对特定key的添加，删除，替换，原子更新，读取等，具体包括 Set, Get, Add, Replace, Append, Inc/Dec 等等
+		Memcached的通讯协议包括文本格式和二进制格式，用于满足简单网络客户端工具（如telnet）和对性能要求更高的客户端的不同需求</p>
+		<p>Redis的命令在KV（String类型）上提供与Memcached类似的基本操作，在其它数据结构上也支持基本类似的操作（当然还有这些数据结构所特有的操作，如Set的union，List的pop等）而支持更多的数据结构，在一定程度上也就意味着更加广泛的应用场合
+		除了多种数据结构的支持，</p>
+		</section>
+		<section>
+		Redis相比Memcached还提供了许多额外的特性，比如Subscribe/publish命令，以支持发布/订阅模式这样的通知机制等等，这些额外的特性同样有助于拓展它的应用场景
+		Redis的客户端-服务器通讯协议完全采用文本格式（在将来可能的服务器间通讯会采用二进制格式）</p>
+		</section>
+		<section>
+		<p>分布式实现：</p>
+		<p>（1）memcached的分布式由客户端实现，通过一致性哈希算法来保证访问的缓存命中率；Redis的分布式由服务器端实现，通过服务端配置来实现分布式；</p>
+		<p>（2）事务性，memcached没有事务的概念，但是可以通过CAS协议来保证数据的完整性，一致性。Redis引入数据库中的事务概念来保证数据的完整性和一致性。</p>
+		<p>（3）简单性，memcached是纯KV缓存，协议简单，学习和使用成本比redis小很多</p>
+		</section>
+		<section>	
+		<p>Memcached也不做数据的持久化工作，但是有许多基于memcached协议的项目实现了数据的持久化，例如memcacheDB使用BerkeleyDB进行数据存储，但本质上它已经不是一个Cache Server，而只是一个兼容Memcached的协议key-valueData Store了</p>
+		<p>Redis可以以master-slave的方式配置服务器，Slave节点对数据进行replica备份，Slave节点也可以充当Read only的节点分担数据读取的工作</p>
+		<p>Redis内建支持两种持久化方案，snapshot快照和AOF 增量Log方式。快照顾名思义就是隔一段时间将完整的数据Dump下来存储在文件中。AOF增量Log则是记录对数据的修改操作（实际上记录的就是每个对数据产生修改的命令本身）.</p>
+	   </section>
+
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+			<p>JAVA中缓存的实质是什么？</p>
+			计算机缓存的定义 ：缓存是CPU的一部分，它存在于CPU中
+
+			就此可以说明 CPU中不可能存放大量的数据
+
+			所以java 的缓存 不是真正意义上的缓存
+	 
+			JAVA缓存有两种:
+			一、文件缓存,是指把数据存储在磁盘上，可以XML格式，也可以序列化文件DAT格式还是其它文件格式。
+
+			二、内存缓存，也就是实现一个类中静态Map,对这个Map进行常规的增删查。
+		</section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.redis.net.cn/tutorial/3512.html</p>
+			<p>http://blog.csdn.net/colorant/article/details/21089057</p>
+			<p>http://blog.csdn.net/wzqzhq/article/details/64920996</p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:王鹏举</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
