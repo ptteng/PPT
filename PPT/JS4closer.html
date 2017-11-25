@@ -226,33 +226,41 @@
                 <p>闭包保存在内存里的是我们需要的变量，不属于内存泄漏。IE 在我们使用完闭包之后，依然回收不了闭包里面引用的变量。</p>
             </section>
             <section>
-            <h3>经典题</h3>
-            <code>
-            　var name = "The Window";
-　　          var object = {
-　　　　              name : "My Object",
-　　　　              getNameFunc : function(){
-    　　　　　　      return function(){
-    　　　　　　　　      return this.name;
-    　　　　　　      };
-　　　　          }
-　　　　　　 };
-　　　　　　 alert(object.getNameFunc()());
-            </code>
-            <p>this的值取决于调用上下文，如果一个函数不是作为某个对象的方法被调用，那么this就是global object.否则就是该对象。</p>
-            <P>匿名函数的执行环境具有全局性，因此其 this 对象通常指向 window。</P>
+                <h3>经典题</h3>
+                <pre>
+                <code>
+                   var name = "The Window";
+                   var object = {
+                   name : "My Object",
+                   getNameFunc : function(){
+                   return function(){
+                   return this.name;
+                   };
+                   }
+                   };
+                   alert(object.getNameFunc()());
+                </code>
+                </pre>
+                <p>this的值取决于调用上下文，如果一个函数不是作为某个对象的方法被调用，那么this就是global object.否则就是该对象。</p>
+                <P>匿名函数的执行环境具有全局性，因此其 this 对象通常指向 window。</P>
+            </section>
         </section>
-            var name = "The Window";
-　　　　　　var object = {
-　　　　        name : "My Object",
-　　　　        getNameFunc : function(){
-　　　　　　        var that = this;
-    　　　　　　    return function(){
-    　　　　　　　　    return that.name;
-    　　　　　　    };
-　　　　        }
-　　        };
-　　　　　　alert(object.getNameFunc()());
+            <section>
+                <pre>
+                <code>
+                    var name = "The Window";
+                    var object = {
+                    name : "My Object",
+                        getNameFunc : function(){
+                          var that = this;
+                          return function(){
+                            return that.name;
+                          };
+                        }
+                    };
+                    alert(object.getNameFunc()());
+                </code>
+                </pre>
         <section>
             <h3>6.扩展思考</h3>
         </section>
