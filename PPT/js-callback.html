@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>js回调以及同步与异步</h2>
+            <p>分享人：杨梓雄</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.更多讨论</p>
+            <p>8.参考文献</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: left">
+                <h3>回调是什么?</h3>
+            </p>
+
+        </section>
+        <section>
+            <p style="text-align: left">
+            英语callback翻译过来称为回调，callback在英文中"call back"两个单词的合体，你应该有听过"call me back"的英文，字面理解就是有客户打来电话给你，可是你正在电话中，客户会留言说请你等会有空时候再"回电"给它，在编程中其实语境是一样的
+            </p>
+
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+               回调要追溯到两种编程风格,CPS风格与直接风格
+            </section>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">
+                    延续传递风格（continuation-passing style,CPS），它的对比是直接风格(Direct style),这两种是程序开发时所使用的风格，CPS早在1970年代就提出来了.CPS是明确的转移控制权到下一个函数中，也就是使用“延续函数”的方式，一般称它为“回调函数”或者“回调”，回调是一个可以作为传入参数的函数，用于在当前的函数被调用执行最后移交控制权，而不是使用函数返回传值的方式。直接风格的控制权移交是不明确的，它是用的返回值的方式，然后进行到下一段程序编码或者调用其他的函数。
+0                </p>
+            </section>
+        </section>
+        <section>
+            <section >
+                <img style="width: 100%; height: 100%" src="../img/yzx/callback/1.png" alt="">
+                <img style="width: 100%; height: 100%" src="../img/yzx/callback/2.png" alt="">
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                CPS风格在这里指的的回调函数有一些明显的缺点：
+                <ul>
+                    <li>
+                        在非常复杂的应用情况时，程序代码更发不易编写组织，代码也非常难以理解与维护
+                    </li>
+                    <li>
+                        在处理错误时候比较困难
+                    </li>
+                </ul>
+            </p>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                为什么在JavaScript中会经常见到回调？
+            </p>
+            <ul>
+                <li>
+                    javascript是单线程语音，在浏览器端只有一个使用者，但是事件或者ajax要求不能阻塞其他程序的进行。
+                </li>
+                <li>
+                    其一开始就是CPS风格设计事件异步处理的模型，用于配合异步回调函数的执行使用
+                </li>
+            </ul>
+        </section>
+        <section>
+            <p style="text-align: left;">
+                异步回调函数：并非所有使用callbacks(回调)函数都是异步执行的，在javasciprt中，除了DOM事件处理中的回调函数大部分都是异步执行的。
+
+            </p>
+            <p style="text-align: left">
+                要让自己定义的回调函数转变为异步，有以下几种方式
+            </p>
+            <ul>
+                <li>
+                    使用计时器：setTimeout 、setInterval
+                </li>
+                <li>
+                    执行I/O：监听网络、数据查询、以及读写外部资源
+                </li>
+                <li>
+                    特殊的函数：nextTick、setImmediate
+                </li>
+                <li>
+                    订阅事件
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>回调函数的复杂性</h3>
+        </section>
+        <section>
+            <span>先看看我平常经常用到的一些回调</span>
+            <img  style="width: 100%; height: 50%" src="../img/yzx/callback/3.png" alt="">
+            <span>也可以写成下面这样，看起来更清楚</span>
+            <img  style="width: 100%; height: 50%" src="../img/yzx/callback/4.png" alt="">
+        </section>
+        <section>
+            <p>"匿名函数"、"函数定义"、"函数声明"混合在一起</p>
+            <img  style="width: 100%; height: 100%" src="../img/yzx/callback/5.png" alt="">
+        </section>
+        <section>
+            <img  style="width: 100%; height: 100%" src="../img/yzx/callback/6.png" alt="">
+            <p>它代表了func函数执行完后要作的下一件事，这个定义事在func函数代码中最后一句被调用执行</p>
+            <p>所以回调函数的语法可以理解为：在函数调用时，要写出下一个要执行的函数定义，或者说反过来又调用下个执行函数</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p style="text-align: left">回调函数的名称，可以用匿名函数替代</p>
+            <p style="text-align: left">回调函数的定义中，传入的参数value的名称叫什么都可以</p>
+            <p style="text-align: left">回调函数有闭包结构特性，可以取到func中传入的参数</p>
+        </section>
+        <section>
+            <h3>7.更多讨论</h3>
+        </section>
+        <section>
+            <p>回调地狱</p>
+            <img  style="width: 100%; height: 100%" src="../img/yzx/callback/7.png" alt="">
+        </section>
+        <section>
+            <h3>8.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/callback.html">回调</a></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>杨梓雄</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+
+</script>
+</body>
+</html>

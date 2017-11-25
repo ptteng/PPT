@@ -1,0 +1,363 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>任务二：C标签</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+            <p>
+				在JSP页面编程中，使用标签库替代传统的Java片段语言来实现页面的显示逻辑是非常流行的做法。<br>
+				JSTL标签库是由SUN公司推出的JSP标准标签库，用来解决创建的页面操作问题。
+				JSTL是一个不断完善的开放源代码的JSP标签库，其由Apache的Jakarta小组维护。在JSP2.0中作为标准支持。
+            </p>
+
+        </section>
+		<section>
+			<P>
+				JSTL中的标签可以分为5大类：<br>
+				1）核心标签：作用：包含Web应用的常见工作，循环、输入输出等 URI：http://java.sun.com/jsp/jstl/core 前缀：c<br>
+				2）国际化标签：作用：语言区域、消息、数字和日期格式化 URI：http://java.sun.com/jsp/jstl/fmt 前缀：fmt<br>
+				3）XML标签：作用：访问XML文件 URI：http://java.sun.com/jsp/jstl/xml 前缀：x<br>
+				4）数据库标签 作用：访问数据库 URI：http://java.sun.com/jsp/jstl/sql 前缀：sql<br>
+				5）函数标签：作用：访问长度、字符串操作 URI：http://java.sun.com/jsp/jstl/functions 前缀：fn
+			</p>
+		</section>
+		<section>
+			<p>
+				在JSP页面中使用JSTL标签库，必须通过以下格式用taglib指令：<br>
+				<%@ taglib uri="uri" prefix="prefix"%><br>
+				前缀prifix可以是任意的，但是采用惯例能够使团队的其他开发人员更容易读懂代码。
+			</p>
+		</section>
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+        <section>
+
+            <p>
+				Core标签库，又被称为核心标签库，该标签库的工作是对于JSP页面一般梳理的封装。<br>
+				该标签库中一共有14个标签，被分为了4类：
+            </p>
+			<p>
+				多用途核心标签：&lt;c:out&gt;、&lt;c:set&gt;、&lt;c:remove&gt;、&lt;c:catch&gt;
+			</p>
+			<p>
+				条件控制标签：&lt;c:if&gt;、&lt;c:choose&gt;、&lt;c:when&gt;、&lt;c:otherwise&gt;
+			</p>
+			<p>
+				循环控制标签：&lt;c:forEach&gt;、&lt;c:forTokens&gt;
+			</p>
+			<p>
+				URL相关标签：&lt;c:import&gt;、&lt;c:url&gt;、&lt;c:redirect&gt;、&lt;c:param&gt;
+			</p>
+
+        </section>
+			
+		<section>
+			<p>
+				&lt;c:out&gt;标签是一个最常用的标签，用于在JSP中显示数据。
+			</p>
+			<p>
+				&lt;c:set&gt;标签用于为变量或JavaBean中的变量属性赋值。
+			</p>
+			<p>
+				&lt;c:remove&gt;标签用于删除存在于scope中的变量。
+			</p>
+			<p>
+				&lt;c:catch&gt;标签用于在JSP页面中捕获异常。
+			</p>
+		</section>
+		<section>
+			<p>
+				&lt;c:if&gt;标签用于对某一条件进行测试，假如结果为true，就处理它的body content。测试结果可以保持在
+				var变量当中，之后可以引用该变量。
+			</p>
+			<p>
+				JSTL没有提供else标签，复杂的条件判断使用&lt;c:choose&gt;、&lt;c:when&gt;、&lt;c:otherwise&gt;标签。
+			</p>
+			<p>
+				&lt;c:choose&gt;标签没有属性，只是作为父标签存在，&lt;c:when&gt;、&lt;c:otherwise&gt;作为子标签来使用。
+				&lt;c:choose&gt;标签中可以嵌套一个或者多个&lt;c:when&gt;标签，每个&lt;c:when&gt;标签都表示一种可以处理的情况。
+			</p>
+			<p>
+				&lt;c:when&gt;标签等价于if语句，它包含一个test属性，该属性表示需要判断的条件。
+			</p>
+			<p>
+				&lt;c:otherwise&gt;标签没有属性，它等价于else语句。
+			</p>
+		</section>
+		<section>	
+			<p>
+				&lt;c:forEach&gt;标签用于循环控制，可以遍历的对象包括Java.util.Collection和Java.util.Map的所有实现类以及数组。
+			</p>
+			<p>
+				&lt;c:forTokens&gt;标签可以使用某个分隔符分割指定的字符串。
+			</p>
+		</section>
+		<section>
+			<p>
+				&lt;c:import&gt;标签用于包含另一个JSP页面到本页面中来。
+			</p>
+			<p>
+				&lt;c:url&gt;标签用于组合一个正确的URL地址。
+			</p>
+			<p>
+				&lt;c:redirect&gt;标签通过自动重写URL来将浏览器重定向至一个新的URL。
+			</p>
+			<p>
+			&lt;c:param&gt;标签用于在&lt;c:url&gt;标签中指定参数，而且与URL编码相关。
+			</p>
+		</section>
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>C标签如何使用？</p>
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+            <p>1）导入相关的依赖。（jstl.jar和standard.jar）</p>
+			<p>2）在JSP页面引入taglib指令</p>
+        </section>
+		
+		</section>
+		
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+			<p>为什么使用C标签？</p>
+			<p>1）使用标签库替代传统的Java片段语言来实现页面的显示逻辑是一种非常流行的做法。<br>
+			2）使用自定义标签很容易造成重复定义和非标准的代码。
+			</p>
+        </section>
+
+        
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>Spring+MyBatis企业应用实战</p>
+			
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>maven常用的打包插件有哪些？有什么区别？如何使用 ？</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：张庆东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">打包是我们经常要使用的一个功能，但是maven或java本身的打包功能有的时候并不能满足我们的要求，例如我们想要得到一个使用“java -jar xxx.jar”命令就可以直接运行的包，这就是上述的打包功能所做不到的。这也就是我们今天小课堂的目的，打出一个可以满足自己需要的包</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p style="text-align:center">打包的用途</p>
+			<p style="text-align:center">从任务1~任务9，目前为止打包的用途有三个</p>
+			
+		</section>
+		<section>
+			<p style="text-align:left">1.专供依赖引用的jar包，也就是我们在maven的pom.xml引入的依赖包</p><br>
+			<p style="text-align:left">2.Web应用程序的war包，通常我们部署网站使用的都是war包</p><br>
+			<p style="text-align:left">3.可以直接执行的jar包，在任务8、任务9Web端和Service端分离，Service端的本体就是一个可执行jar包</p><br>
+        </section>
+		<section>
+			<p style="text-align:center">常用的打包工具</p>
+			<p style="text-align:center">非maven的有两个，在maven中配置的有三个</p>        
+		</section>
+		<section>
+			<p style="text-align:left">1.package，maven自带的命令打包，平时的打包基本够用，但不能打可执行的jar包</p><br>
+			<p style="text-align:left">2.IDEA自带的打包工具，不过打的包很容易出现冲突</p><br>
+			<p style="text-align:left">3.jar-dependency插件，繁琐，性能差，不建议使用</p><br>
+						
+		</section>
+		<section>
+			<p style="text-align:left">4.assembly插件，可以打多种格式的包，具有基本的解决所打jar包内依赖包冲突的问题，但一旦出现冲突则无法解决</p><br>
+			<p style="text-align:left">5.shade插件，终极杀器，jar包出现依赖包冲突可以通过调整配置解决</p><br>
+			
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">这五种打包工具，有什么区别？</p><br>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">打包工具虽多，但用途、性能是有所区别的</p><br>
+		</section>
+		<section>
+			<p style="text-align:center">按性能分类</p><br>
+			<p style="text-align:center">shade>assembly>IDEA自带>package>jar插件</p><br>
+		</section>
+		<section>
+			<p style="text-align:center">按用途分类</p><br>
+			<p style="text-align:left">1.打不依赖其他包的引用jar包：全部</p>
+			<p style="text-align:left">2.打依赖其他包的引用jar包：shade、assembly、IDEA自带</p>
+			<p style="text-align:left">3.不依赖其他包的可运行jar包：shade、assembly、IDEA自带、</p>
+			<p style="text-align:left">4.依赖其他包的可运行jar包：shade、assembly、IDEA自带</p>
+			<p style="text-align:left">5.需要将包打成各种格式如zip、tar.gz等格式：assembly</p>
+			<p style="text-align:left">6.当出现jar包冲突时：统一采用shade</p>
+		</section>
+		<section>
+			<h4>总结</h4>
+			<p style="text-align:left">懒得不想装插件使用package或IDEA自带，但是经常会出现冲突；需要打不同格式的包使用assembly；上述插件出现冲突使用终极大杀器shade</p><br>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.csdn博客：http://blog.csdn.net/xiao__gui/article/details/47341385</p>
+			<p style="text-align:center">2.shade官网：http://maven.apache.org/plugins/maven-shade-plugin/</p>
+			<p style="text-align:center">3.assembly官网：http://maven.apache.org/plugins/maven-assembly-plugin/index.html#</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

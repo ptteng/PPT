@@ -1,0 +1,215 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>jetty,resin,tomcat的差别在哪里，在线上服务应该选择哪一种WEB服务器？</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘子源</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+           <p>Tomcat服务器</p>
+
+<p>Tomcat是SUN公司推出的一个优秀的Servlet容器，由Apache、Sun 和其他一些公司及个人共同开发而成。
+Tomcat本身完全用java语言编写。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p>
+        </section>
+                <section>
+                <p>特点：</p>
+                <p>1、提供了可被服务器加载并执行的程序代码，并服务于来自客户端的请求。</p>
+
+
+
+<p>2、Servlet不依赖浏览器，是允许在服务器端，所以不管浏览器是否支持java，都能请求访问servlet。</p>
+                 </section>
+                 <section>
+           <p>Resin服务器</p>
+
+<p>Resin是CAUCHO公司的产品，是一个非常流行的application server，对servlet和JSP提供了良好的支持，性能也比较优良，resin同样也采用JAVA语言开发。
+Resin提供了最快的jsp/servlets运行平台。在java和javascript的支持下，Resin可以为任务灵活选用合适的开发语言。</p>
+        </section>
+                <section>
+                <p>特点：</p>
+                <p>1、Resin包含了很多可靠的特性，包括服务器自动重启、检测并重启死锁的服务器、管理JVM内存以防止内存泄露等。</p>
+
+<p>2、Resin可以将多个服务器作为一个服务器来对客户进行响应，从而增强服务器的扩展能力。</p>
+
+<p>3、Resin可实现持久和分布的sessions：持久的session能够在服务器重启的时候保持现有的Http会话，分布式的session可以在多个服务器之间共享Http会话的状态。</p>
+                 </section>
+                 <section>
+                 <p>Jetty服务器</p>
+                 <p>Jetty是一个开源、基于标准、全功能实现的JAVA服务器，Jetty也是使用Java语言编写的，
+                 它的API以一组JAR包的形式发布。开发人员可以将Jetty容器实例化成一个对象，可以迅速为一些独立运行的Java应用提供网络和web连接。</p>
+                 </section>
+                 <section>
+                <p>特点：</p>
+                <p>1、Jetty嵌入比较便利，它设计之初就是作为一个优秀的组件来设计的，因此Jetty可以非常容易的嵌入到应用程序当中而不需要程序为了使用Jetty做修改。</p>
+
+<p>2、Jetty是轻量的web服务器，一般来说，它的默认配置便可以满足日常大部分需求，
+如果要完成较为复杂的功能，只需修改相关的xml文件。jetty的嵌入只需少量的代码就可以做到。</p>
+
+<p>3、Jetty易拓展，有许多非常良好的接口，因此在Jetty的某种实现无法满足用户的需要时，用户可以非常方便地对Jetty的某些实现进行修改，使得Jetty适用于特殊的应用程序的需求。</p>
+                 </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+			<p>Tomcat和Resin的区别</p>
+			<p>相同点：他们都是用java编写的，都是web服务器，并且支持集群部署。</p>
+			<p>不同点：</p>
+			<p>1、速度方面，Resin比Tomcat快2倍以上，不过Tomcat也很快，所以这个差别几乎感受不到。</p>
+			<p>2、开关机制上方面，Resin要比Tomcat好，比如修改了配置文件之后，Resin是会自动重启的，而Tomcat需要人工手动关闭并重启。</p>
+			<p>3、报错方面，Tomcat比较详细，一个小小的错误也会用大篇幅来描述，而Resin则相对简洁明确一些。</p>
+			
+			 </section>
+			 <section>
+            <p>Tomcat和Jetty的区别</p>
+            <p>相同点：他们同样是用java编写，都是一种Servlet引擎，他们都支持标准的servlet规范和JavaEE的规范。</p>
+            <p>不同点：</p>
+            <p>1、架构方面，Jetty的架构是基于Handler来实现的，主要的扩展功能都可以用Handler来实现，扩展简单。
+Tomcat的架构是基于容器设计的，进行扩展是需要了解Tomcat的整体设计结构，不易扩展。</p>
+            <p>2、灵活性方面，Jetty更灵活，体现在其可插拔性和可扩展性，更易于开发者对Jetty本身进行二次开发，定制一个适合自身需求的Web Server。
+            相比之下，重量级的Tomcat因为本来就支持过多特性，要对其精简，比对jetty进行拓展都更难。</p>
+            </section>
+            <section>
+            <p>3、处理性能方面，Tomcat适合处理少数非常繁忙的链接，也就是说链接生命周期短的话，Tomcat的总体性能更高。另外，Jetty在处理静态资源时，性能优于Tomcat。</p>
+            
+        </section>
+		</section>
+
+
+         <section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在线上服务应该选择哪一种WEB服务器？</p>
+			
+</p>
+		
+        </section>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>这些服务器各有优劣，选择服务器时应该先参考项目，预估规模大小等。比如大规模的企业级应用，Tomcat自身扩展了大量JEE特性可满足企业级应用的需求，
+        所以这种情况下应选用Tomcat。</p>
+        </section>
+       <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+		
+		
+
+        </section>
+        <section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>
+</p>
+        </section>
+        </section>
+        		
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/lihua2915/article/details/5997105</p>
+        </section>
+    
+        <section>
+            <h3>8.更多讨论</h3>
+   		</section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘子源</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

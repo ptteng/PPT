@@ -1,0 +1,290 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>熟练使用c标签,el表达式</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>李林朋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>JSTL（JavaServerPages Standard Tag Library）JSP标准标签库
+JSTL通常会与EL表达式合作实现JSP页面的编码</p>
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>jsp的常用标签，可以简单的理解为JSTL，</p>
+			<p>什么是JSTL</p>
+            <p>JSTL是Java中的一个定制标记库集，所谓的定制标记库集，就是标记库不用自己去编写，是Java已经提供给我们，已经做好的一个标记库集。[1]</p>
+            <p></p>
+		</section>
+        <section>
+            <p>为什么要使用JSTL</p>
+            <p>1.实现了JSP页面中的代码复用。基于标签库的原理，重复率较高的代码块支持复用，提高效率</p>
+            <p>2.书写JSTL页面时，可读性更强</p>
+        </section>
+        <section>
+            <p>JSTL的四大分类</p>
+            <p>1.核心标签.最常用.core.也就是通常所说的C标签</p>
+            <p>2.格式化标签</p>
+            <p>3.SQL标签</p>
+            <p>4.XML标签</p>
+        </section>
+
+        <section>
+            <p>EL表达式.Expression Language.变量的获取</p>
+            <p>经常于JSTL配合使用，使得JSP页面更直观，写法更简单</p>
+            <p>EL表达式的格式</p>
+            <p>用美元符号$定界，内容包括在花括号中{}中</p>
+            <p>${表达式}</p>
+        </section>
+
+         <section>
+            <p>JSTL的四大分类</p>
+            <p>1.核心标签.最常用.core.也就是通常所说的C标签</p>
+            <p>2.格式化标签</p>
+            <p>3.SQL标签</p>
+            <p>4.XML标签</p>
+            <P>要使用JSTL，需要引入两个jar包：jstl.jar,standard.jar</P>
+            <p>还需要再jsp文件头加入：</p>
+            <p><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %></p>
+        </section>
+		
+		
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+       
+        <section>
+        
+            <p>EL表达式</p>
+            <p>"  .   "与  "  [   ]  "  运算符</p>
+            <p>通常情况下是通用的,如${user.sex} ，      ${user["sex"]}</p>
+            <p>[]还可以用来进行集合元素中的定位,如${booklist[0].price}，标识取第一个对象</p>
+           <p>两种情况下不能通用：</p>
+           <p>1.包含特殊字符，要用中括号</p>
+           <p>2.通过变量动态取值，去传入的参数</p>
+        </section>  
+
+        <section>
+        	<p>EL变量</p>
+            <p>JSP内置对象,Page,Request,Session,Application</p>
+            <p>EL名称</p>
+            <p>PageScope,RequestScope,SessionScope,ApplicationScope</p>
+            <p>也就是说，JSP的内置对象，要在EL中使用，需要在后面加上Scope</p>
+            <p>如果没有做限定，EL会先在Page中找，然后是Request，然后是Session，最后是Application
+如果都没有，EL会进行优化，本来是输出null，EL会输出为空的字符串。</p>
+         <p>EL会进行自动的类型转换，只需要直接写,如${param.count+20}</p>
+        </section>
+                
+       
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>常用核心标签介绍（C标签）</p>
+        <p>JSTL的核心标签共13个，从功能上可以分为4类</p>
+        <p>1.表达式控制标签，out,set,remove,catch</p>
+        <p>2.流程控制标签，if,choose,when,otherwise</p>
+        <p>3.循环标签，forEach,forTokens</p>
+        <p>4.URL操作标签，import,url,redirect</p>
+        </section>
+      		 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+   
+        <section>
+        	<p>表达式控制标签</p>
+            <p>out 标签的用法</p>
+            <p>1.输出常量，可在value属性中直接赋值</p>
+            <p>2.输出变量,变量不存在的时候可以配合default属性输出默认值，还可以通过escapeXML控制转移字符的输出方式</p>
+         </section>
+      
+       <section>
+            <p>set标签的用法</p>
+            <p>1.存值到scope中，可以将值以变量的形式存放在指定的范围中</p>
+            <p>2.存值到Javabean的属性中,需要配合target属性指定对象并且通过propety属性指定要赋值个对象中的哪个属性</p>
+         </section>
+
+          <section>
+            <p>remove标签的用法</p>
+            <p>去掉某个变量</p>
+           
+         </section>
+      
+       <section>
+            <p>catch标签的用法</p>
+            <p>catch标签中可以包含那些容易出错的JSTL标签</p>
+           
+         </section>
+
+        <section>
+        	<p>流程控制标签</p>
+            <p>if 标签的用法</p>
+            <p>用来实现分支条件控制</p>
+            <p>test属性用于存放判断的条件，一般用EL表达式来编写</p>
+           <p>var指定名称用来存放判断的结果类型为true或false</p>
+           <p>scope用来存放var属性存放的范围</p>
+         </section> 
+
+          <section>
+        	<p>流程控制标签</p>
+            <p>choose，when，otherwise标签的用法</p>
+            <p>通常这三个标签被放在一起配合使用</p>
+            <p>1.c:choose标签嵌套在c:when和c:otherwise标签的外面作为他们的付标签来使用</p>
+           <p>2.choose和when标签也可以一起组合使用</p>
+           
+         </section> 
+
+         <section>
+        	<p>forEach标签的用法</p>
+            <p>根据循环条件遍历集合中的元素</p>
+            <p>var,设定变量名用于存储从集合中取出的元素</p>
+            <p>items,指定要遍历的集合</p>
+            <p>begin，end用于只当遍历的起始位置和终止位置</p>
+           <p>step指定循环的步长</p>
+           <p>varStatus通过index，count，first，last几个状态值，描述brgin和end子集中的元素的状态</p>
+           
+        </section> 
+
+         <section>
+        	<p>forEach标签的用法</p>
+            <p>常用用法1，全部遍历</p>
+            <p>常用用法2，部分遍历</p>
+            <p>常用用法3，部分遍历中指定步长</p>
+            <p>常用用法4，部分遍历时输出元素的状态</p>
+          
+        </section> 
+
+         <section>
+        	<p>forTokens标签的用法</p>
+            <p>用于浏览字符串，并根据指定的字符将字符串截取</p>
+            <p>items，指定被迭代的字符串</p>
+            <p>delims，指定使用的分隔符</p>
+            <p>var，指定用来存放遍历到的成员</p>
+         
+        </section> 
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>URL操作标签</p>
+            <p>import标签的用法</p>
+            <p>可以把其他静态或动态文件包含到本JSP页面</p>
+            <p>-同jsp:include的区别为：只能包含同一个web应用中的文件,而c:import可以包含其他web应用中的文件，甚至时网络上的资源</p>
+        </section>
+
+        <section>
+        	<p>怎么区分EL和JSTL</p>
+			<p>像HTML标签 还带冒号的就是JSTL,带美元符号$和花括号的就是EL表达式。</p>
+
+		</section>
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>[1].http://www.imooc.com/learn/451</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+           
+        </section>
+        <section>
+            
+            <p>感谢观看</p>
+            <p><small>BY : 李林朋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Tiles框架</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<p>Tiles是一种JSP布局框架，主要目的是为了将复杂的jsp页面作为一个的页面的部分机能，然后用来组合成一个最终表示页面用的，这样的话，便于对页面的各个机能的变更及维护。</p>
+        </section>
+        <section>
+            <p>Tiles框架可以令我们组合可以复用的Tiles来搭建网页。每一个Tiles（header, menu, body,...）都是一个JSP页面，它们也可以通过组合其他的Tiles来搭建。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>Tiles框架应用Tiles就好比是应用Java的方法：需要你定义Tiles（方法体）</p>
+            <p>Tiles的方法体（也可以说是内容）可以是一个简单的JSP页面， 或者是一个动作（action），或者任何一个指向现存的网页资源的URI。</p>
+        </section>
+        <section>
+        	<p>插入或者调用Tiles可以通过在JSP中的任何位置放入“tiles:insertAttribute ”来完成页面插入。也可以通过指定一个路径的自定义名；或者指定一个input，forward或者include属性的自定义名。</p>
+        </section>
+        <section>Tiles的方法体是用来创建版面布局，可复用部分等的，而Tiles的插入操作是用来插入Tiles的。同一个Tiles可以在同一个站点甚至同一个页面被重用多次。
+        </section>
+        <section>
+        	<p>Tiles的插入可以与一个在Tiles中称作“definition”的逻辑名联系起来。一个Tiles的definition包含一个逻辑名，一个主体页面和一些属性值。定义并不插入Tiles。插入是在后来用definition的名字来完成的。</p>
+           <p>一个definition的逻辑名可以在站点中使用多次，实现对Tiles的轻松复用。 </p>
+        </section>
+        <section> 
+        	<p>Tiles的definition的定义可以在JSP页面中进行，也可以在一个或者多个中心控制文件中进行。Definition可以继承于另外一个Tiles的definition，重载一些属性，添加一些新的属性等等。这就允许“父类”的definition定义一些通用的header, menu, footer. 所有其他继承于该父类的definition可以简单地通过改变其definition来改变整个页面。</p>
+        </section>
+        <section>    
+            <p>为了使中心控制文件中定义的definitions有效，你需要初始化“定义池”，这个定义池能够解释文件中的definitions并把它们提供给Tiles框架。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>如果不使用tiles,还有什么办法来实现插入jsp页面</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>tiles框架刚开始主要是为了实现多个JSP页面共用一个JSP的内容。而以前JSP中可以通过include标签动态插入一个JSP页面。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>tiles框架有没有别的应用呢？</p>
+        </section>       
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="https://wenku.baidu.com/view/ce76b01248d7c1c708a14583.html" target="_blank">https://wenku.baidu.com/view/ce76b01248d7c1c708a14583.html</a></p>
+            <p>参考二：<a href="https://www.tuicool.com/articles/ZbMn2a" target="_blank">https://www.tuicool.com/articles/ZbMn2a</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 郭伟杰</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

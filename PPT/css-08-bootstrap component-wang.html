@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+                '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+                '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h3>【css-08】bootstrap有哪些常用组件</h3>
+
+                    <p style="text-align: center;">分享人：王栋</p>
+                </section>
+                <section>
+                    <p>目录</p>
+                    <p>1.背景介绍</p>
+                    <p>2.知识剖析</p>
+                    <p>3.常见问题</p>
+                    <p>4.解决方案</p>
+                    <p>5.编码实战</p>
+                    <p>6.扩展思考</p>
+                    <p>7.参考文献</p>
+                    <p>8.更多讨论</p>
+                </section>
+                <section>
+                    <h3>一、背景介绍</h3>
+                </section>
+                <section>
+                    <p style="text-align:left;font-size: 31px">
+                        Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。
+                        </br>Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。
+                        </br>Bootstrap中包含了丰富的Web组件，根据这些组件，可以快速的搭建一个漂亮、功能完备的网站。
+                    </p>
+                </section>
+                <section>
+                    <h3>二、知识剖析</h3>
+                </section>
+                <section>
+                    <p>什么是组件</p>
+                    <p style="text-align: justify">组件:一般是指软件系统的一部分，承担了特定的职责，可以独立于整个系统进行开发和测试，
+                        一个良好设计的组件应该可以在不同的软件系统中被使用(可复用)。</br>
+                        比如我们可以写一个官网的响应式导航栏组件，什么时候官网扩增页面了，可以直接拉过来重复使用。</p>
+                </section>
+                <section>
+                    <p>目前常用的bootstrap组件：</br>
+                        <ul>
+                            <li>轮播图</li>
+                            <li>下拉菜单</li>
+                            <li>响应式导航栏</li>
+                        </ul>
+</p>
+                </section>
+                <section>
+                    <p>为什么要使用bootstrap的下拉菜单</p>
+                    <p>
+                        因为…………方便啊！！！！！
+                        html的select下拉菜单不美观，而且自定义样式很麻烦。
+                        bootstrap的下拉菜单是用div+ul+li实现的，可以完全实现样式的自定义，而且使用多级下拉菜单的时候也很方便</p>
+                </section>
+                <section>
+                    <h3>三、常见问题</h3>
+                </section>
+                <section>
+                    <p>如何使用这些bootstrap组件？</p>
+                    <p>使用bootstrap是需要注意的问题</p>
+                </section>
+                <section>
+                    <h3>四、解决方案</h3>
+                </section>
+
+                <section>
+                    <h6>下拉菜单</h6>
+
+                    <p style="text-align:left;font-size:28px;">如需使用下拉菜单，首先要引入bootstrap文件，一般都是引入网上别人提供的cdn，当然，自己可以引入自己定制好的bootstrap文件。
+                        然后只需要在 class .dropdown 内加上下拉菜单即可。</br>
+                        给下拉按钮添加dropdown-toggle类和指向性用id，如id="menu1",data-toggle用来控制弹出框元素</br>
+                        给菜单列表添加dropdown-menu类和aria-labelledby="menu1"用来表示指向哪个菜单</p>
+                    <pre>
+		        <code>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+    Dropup
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+</div>
+		        </code>
+	        </pre>
+                </section>
+                <section>
+                    <h6>响应式导航条</h6>
+                    <p style="text-align:left;">
+                        创建一个默认的响应式导航条的步骤如下:</br>
+                        1.向nav标签添加 class .navbar、.navbar-default。</br>
+                        2.向上面的元素添加 navbar-header，navbar-header</br>
+                        3.给navbar-header的button添加data-toggle="collapse" data-target="#example-navbar-collapse"。</br>
+                        4.给下面的div添加class="collapse navbar-collapse" id="example-navbar-collapse"</br>
+                    </p>
+                </section>
+                <section>
+                    <h6>具体代码</h6>
+                    <pre>
+			    <code>
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+			        data-target="#example-navbar-collapse">
+				<!--<span class="sr-only">切换导航</span>-->
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">IT修真院</a>
+		</div>
+		<div class="collapse navbar-collapse" id="example-navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">iOS</a></li>
+				<li><a href="#">SVN <span class="glyphicon glyphicon-wrench"></span></a></li>
+				<li><a href="#">git</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+			    </code>
+		    </pre>
+                    <p style="text-align:left; font-size: 16px">
+                        1.navbar-toggle样式是控制3根斑马线的。</br>
+                        2.navbar-collapse 样式使导航链接可以在小屏幕状态下收纳到一个菜单按钮中</br>
+                        3.collapsed是为了响应折叠插件的</br>
+                        4.data-toggle=“collapse”表明这个button是一个折叠控件，其折叠的内容指向data-target="#navbar"，即是id为navbar的内容
+                    </p>
+                </section>
+                <section>
+                    <h3>使用bootstrap的注意事项</h3>
+                </section>
+                <section>
+                    <p>bootstrap文件里面有很多默认设置，可能会在页面上起作用，这个要注意一下。
+                        还有就是.当我们引入bootstrap.js和jquery.js文件时我们要注意引入该文件的先后顺序，要先引入jquery.js在引入bootstrap.js按照这样的顺序来引入文件，
+                        否则就会报错。
+                        因为bootstarp.js文件的开发是基于jquery开发的，所以要先引入jquery.js才可以使用bootstrap。
+                        而且引入网上cdn的话要注意http和https的区别，有时候应用不对的话也会报错
+                    </p>
+                </section>
+                <section>
+                    <h3>五、编码实战</h3>
+                </section>
+                <section>
+                    <h3>如上所述</h3>
+                </section>
+                <section>
+                    <h3>六、拓展思考</h3>
+                </section>
+                <section>
+                    <h4>如何处理现有插件不能满足需求的问题</h4>
+                    <p style="text-align: justify">bootstrap可以根据需要定制，BootStrap提供了根据自己需要的组件及jquery插件进行定制，使用者也可以直接修改Less源码。</p>
+                    <p style="text-align: justify">如果不想整体上修改，也可以在组件上直接添加一个自定义的类，来覆盖bootstrap的默认属性。
+                        需要注意的是bootstrap的样式权重很高，有可能需要我们使用!important来增加权重.</p>
+                </section>
+                <section>
+                    <h3>七、参考文献</h3>
+                </section>
+                <section>
+                    <p>参考一：<a href="http://how2j.cn/k/boostrap/boostrap-menu/485.html">入门 Hello bootstrap</a></p><br>
+                    <p>参考二： <a href="http://www.runoob.com/bootstrap/bootstrap-dropdowns.html">菜鸟教程</a></p><br>
+                </section>
+                <section>
+                    <h3>八、更多讨论</h3>
+                </section>
+                <section>
+                    <p>如何不使用bootstrap制作响应式导航栏</p>
+
+                </section>
+                <section>
+                    <h4>鸣写</h4>
+                    <h3>感谢观看</h3>
+                    <p><small>BY 叶紫阳︱熊凡|王栋</small></p>
+                </section>
+            </div>
+        </div>
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+        <script>
+            // 初始化幻灯片
+            Reveal.initialize({
+                history: true,
+                dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                }, {
+                    src: '../plugin/markdown/markdown.js'
+                }, {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                }, {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }]
+            });
+        </script>
+    </body>
+    </html>
