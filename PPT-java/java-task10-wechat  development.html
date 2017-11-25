@@ -1,0 +1,181 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>微信公众号的简单开发</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：张庆东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">复盘项目并不是所有的项目都是我们在任务中做的普通的WEB网站，有的项目是安装APP，有的项目是需要在微信公众号进行开发，今天我们就简单讲下微信公众号怎么开发</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p style="text-align:center">微信公众号开发的实质</p>
+			<p style="text-align:left">微信公众号的开发，实质上是一个只能运行在微信内置浏览器上的普通WEB项目，如果不在微信公众号上从菜单进行跳转，是不能正常打开网页的，要么直接提示，要么获取不到数据</p>
+			<p style="text-align:left">而我们项目中使用到微信的功能，就是从微信公众号的自定义菜单跳转到我们的WEB项目上，然后从微信拉取微信的用户信息，如微信昵称、微信头像、用户openid，性别、地址等</p>
+		</section>
+		<section>
+			<p style="text-align:center">微信公众号的分类</p>
+			<p style="text-align:left">分为两个类别，订阅号和服务号，而订阅号和服务号又分为已认证和未认证</p>
+			<p style="text-align:left">在这里我们只讲下在我们项目开发上的区别：无论是否经过认证，订阅号不能通过自定义菜单跳转到WEB项目并获取用户的信息，而已认证的服务号则可以做到</p>
+		</section>
+	    <section>
+            <p style="text-align:center">如何调用微信公众号接口</p>
+			<p style="text-align:left">微信公众号接口很多，例如自定义菜单、获取用户列表、获取用户信息，今天我们就来说一下复盘项目要使用哪些接口，以及这些接口是如何调用的</p>
+        </section>
+		<section>
+            <p style="text-align:center">我们需要调用的接口</p>
+			<p style="text-align:left">1. 基本配置接口</p>
+			<p style="text-align:left">2. 获取access_token，这是一个微信全局密匙，用以创建或删除菜单、获取openid等等</p>
+			<p style="text-align:left">3. 创建自定义菜单，并从自定义菜单跳转到WEB服务器</p>
+			<p style="text-align:left">4. 获取微信端CODE，然后使用CODE换取用户openid</p>
+			<p style="text-align:left">5. 使用openid拉取用户信息</p>
+			<p style="text-align:left">总结：获取access_token——》创建自定义菜单——》获取CODE——》使用CODE获取openid——》使用openid获取用户信息</p>
+        </section>
+		<section>
+            <p style="text-align:center">调用接口方法</p>
+			<p style="text-align:left">微信公众号接口调用皆为访问网址的方式，在开发文档上会给出具体网址，再将所需参数填入到上述网址中，若正确则返回你需要的信息，若错误则返回具体错误信息</p>
+        </section>
+		</section>
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.我一个WEB后端开发，怎么就会到微信公众号上开发了呢？</p><br>
+			<p style="text-align:left">2.在任务7中无论哪个API都会给一个JAR包引用，怎么在微信公众号的开发文档中找不到要引用的JAR包？</p><br>
+			<p style="text-align:left">3.个人订阅号无法认证，服务号需要企业才能申请，修真院微信公众号又不能乱用，那么我们怎么进行微信公众号的搭建测试呢？</p><br>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">1.我一个JAVA后端开发，怎么就到微信公众号上开发了呢？</p><br>
+			<p style="text-align:left">听到我的复盘项目要在微信上开发的时候，我也很慌，不知所措。不过后面读了一下微信公众号开发相关文章，我自己也写了一个小demo，发现微信公众号开发只是套着一个微信壳的WEB工程而已，所以莫须惊慌</p><br>
+		</section>
+		<section>
+			<p style="text-align:center">2.在任务7中无论哪个API都会给一个JAR包引用，怎么在微信公众号的开发文档中找不到要引用的JAR包？</p><br>
+			<p style="text-align:center">微信公众号的开发不需要JAR包，它的会在开发文档中给你一个网址，然后正确的将参数填入网址中，访问这个网址，它会将几个参数用JSON的形式返回</p><br>
+		</section>
+		<section>
+			<p style="text-align:center">3.个人微信订阅号无法认证，服务号需要企业才能申请，修真院微信公众号又不能乱用，那么我们怎么进行微信公众号的搭建测试呢？</p><br>
+			<p style="text-align:center">我们可以申请一个微信测试号，这个测试号可以对大部分接口进行测试，不过有一个缺点就是没有例如创建自定义菜单的可视操作界面，只能通过url或接口调试工具进行操作</p><br>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.微信开发文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842</p>
+			<p style="text-align:center">2.csdn博客之网页授权：http://blog.csdn.net/frankcheng5143/article/details/50005047</p>
+			<p style="text-align:center">3.csdn博客之自定义菜单：http://blog.csdn.net/u013239111/article/category/6120446</p>
+			<p style="text-align:center">3.简书之获取用户信息：http://blog.csdn.net/u013239111/article/category/6120446</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
