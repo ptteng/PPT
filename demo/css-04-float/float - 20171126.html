@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浮动及清除浮动</title>
+    <style>
+        .case1{
+            /*height: 600px;     */
+            /*（方法1：给父元素设置高度；）*/
+
+            background: gray;
+            border:2px solid red;
+            /*overflow: auto;    */
+            /*方法3：给父元素设置overflow*/
+        }
+        .case1 img{
+            float: left;
+        }
+        .case1 p{
+            /*float: right;*/
+            font-size: 30px;
+        }
+        .clear{
+            /*clear: both;    */
+            /*!*方法2：使用clear属性清除浮动*!*/
+        }
+        .clearfix:before, .clearfix:after {
+               display: table;
+               content: "";
+           }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix {
+            *zoom: 1;
+        }
+    </style>
+</head>
+<body>
+    <!--什么是浮动-->
+    <div class="case1 ">
+        <img src="cat.gif" >
+        <p>There are 6,909 languages actively being spoken in the world today. Only about six percent of them have more than a million speakers each. As globalization becomes more common so does the learning of languages. Many people see the value of learning a foreign language to improve their international business relations. Because of this, the number of people who speak certain languages will continue to rise.
+
+            There are 10 languages that dominate the globe. Here's a list of the 10 most popular languages spoken worldwide, along with the approximate number of primary or first language speakers for that language.</p>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

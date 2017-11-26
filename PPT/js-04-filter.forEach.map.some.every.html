@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2 style="text-align:left;">对一个数组 filter、some、map、foreach的操作分别有什么作用？</h2>
+
+            <h3>深圳web小课堂</h3>
+
+            <p style="text-align: center;">分享人：蓝裕伟</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align: left">ECMAScript5为数组定义了5个迭代方法。every()、filter()、forEach()、map（）、some（）。
+                这5个方法都接收两个参数：运行的函数和运行该函数的作用域对象this的值</p>
+            <p>迭代（iterate），指的是按照某种顺序逐个访问列表中的每一项。比如，for语句。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p style="text-align: left">every()：对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true。</p>
+                <p style="text-align: left">filter()：对数组中的每一项运行给定函数，返回该函数会返回true 的项组成的数组。</p>
+                <p style="text-align: left">forEach()：对数组中的每一项运行给定函数。这个方法没有返回值。</p>
+                <p style="text-align: left">map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</p>
+                <p style="text-align: left">some()：对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。</p>
+            </section>
+            <section>
+                <p style="text-align: left">some 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。
+                    如果找到了这样一个值，some 将会立即返回 true。否则，some 返回 false。</p>
+                <p>arr.some(callback[, thisArg])</p>
+                <pre>
+	<code style="background-color: #1c1e20">
+ var num = [1,2,3,5,6,7,8,9,10,11,12,13];
+
+var some = num.some(function (item,index,array) {
+    return (item > 1);
+});
+alert("some: "+ some);
+
+	</code>
+</pre>
+            </section>
+            <section>
+                <p style="text-align: left">every 方法为数组中的每个元素执行一次 callback 函数，直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素。
+                    如果发现了一个这样的元素，every 方法将会立即返回 false。否则，callback 为每一个元素返回 true，every 就会返回 true。</p>
+                <p>arr.every(callback[, thisArg])</p>
+                <pre>
+	<code style="background-color: #1c1e20">
+ var num = [1,2,3,5,6,7,8,9,10,11,12,13];
+var every = num.every(function (item,index,array) {
+    return (item > 1);
+});
+
+alert("every: "+ every);
+	</code>
+</pre>
+            </section>
+            <section>
+                <p style="text-align: left">filter()函数，它利用指定的函数确定是否在返回的数组中包含某一项,数组中的每个元素调用一次提供的函数，
+                    然后构造一个所有值的新数组，也就是会过滤出符合条件的项。</p>
+                    <p>var newArray = arr .filter（callback [，thisArg ]）</p>
+                <pre>
+	<code style="background-color: #1c1e20">
+   var num = [1,2,3,5,6,7,8,9,10,11,12,13];
+          var filter = num.filter(function (item,index,array) {
+        return (item > 4);
+    });
+
+    alert("filter: "+ filter);
+	</code>
+</pre>
+            </section>
+            <section>
+                <p style="text-align: left">map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+                    map 方法会给原数组中的每个元素都按顺序调用一次  callback 函数。
+                    callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。</p>
+                <p>let new_array = arr.map(function callback(currentValue, index, array) {
+                    // Return element for new_array
+                    }[, thisArg])</p>
+                <pre>
+	<code style="background-color: #1c1e20">
+ var num = [1,2,3,5,6,7,8,9,10,11,12,13];
+        var map = num.map(function (item,index,array) {
+    return item * 2;
+});
+    alert("map: " + map);
+	</code>
+</pre>
+            </section>
+            <section>
+                <p style="text-align: left">forEach 方法按升序为数组中含有效值的每一项执行一次callback 函数。与for 循环一样。</p>
+                <p>array.forEach(callback(currentValue, index, array){
+                    //do something
+                    }, this)
+
+                    array.forEach(callback[, thisArg])</p>
+                <pre>
+	<code style="background-color: #1c1e20">
+ var num = [1,2,3,5,6,7,8,9,10,11,12,13];
+
+function myFunction() {
+    var forEach = num.forEach(function (item,index,array) {
+
+        console.log(item * 2);
+    });
+
+}
+
+
+	</code>
+</pre>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            every()、filter()、some()、map()、forEach()的用法?
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考1：javascript高级程序设计</p>
+            <p>参考2：MDN web技术文档https://developer.mozilla.org/zh-CN/docs/Web</p>
+            <p>参考3：<a href=" https://segmentfault.com/a/1190000009870199">js数组操作--使用迭代方法替代for循环</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <!-- <section>
+        <p style="text-align: left">当我们需要设计更复杂的页面样式，例如导航条中，项目隐藏后的点击下拉显示功能，例如javascript插件中的模态框、轮播图等功能，就需要引用jquery.js和bootstrap.js文件。</p>
+        <p style="text-align: left">甚至需要调用bootstrap提供的方法接口，对目标进行适当的触发。</p>
+    </section> -->
+        <section>
+            <h4>感谢观看</h4>
+            <p>
+                <small>BY : 蓝裕伟 </small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        },
+            {
+                src: '../plugin/markdown/markdown.js'
+            },
+            {
+                src: '../plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>
