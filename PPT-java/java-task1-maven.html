@@ -1,0 +1,209 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>clean,install,package,deploy分别代表什么含义？</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：邹苏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+			<p>maven是什么？</p>
+            <p>首先，为什么有maven？构建是程序员每天要做的工作，而且相当长的时间花在了这上面，而maven使这系列的工作完全自动化。 我们一直在寻找避免重复的方法，设计的重复，文档的重复，编码的重复，构建的重复等，maven是跨平台的，最大的消除了构建的重复。</p>
+            <p>Maven是一个Java语言编写的开源项目管理工具，是Apache软件基金会的顶级项目。主要用于项目构建，依赖管理，项目信息管理。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>Maven特点:</p>
+
+
+               <p>1. maven不仅是构建工具，它还是依赖管理工具和项目管理工具，提供了中央仓库，能够帮我们自动下载构件。</p>
+
+               <p>2.为了解决的依赖的增多，版本不一致，版本冲突，依赖臃肿等问题，它通过一个坐标系统来精确地定位每一个构件（artifact）。</p>
+
+               <p>3.还能帮助我们分散在各个角落的项目信息，包括项目描述，开发者列表，版本控制系统，许可证，缺陷管理系统地址。</p>
+
+               
+		</section>
+        <section>
+
+            <p>4.maven还为全世界的java开发者提供了一个免费的中央仓库，在其中几乎可以找到任何的流行开源软件。通过衍生工具(Nexus),我们还能对其进行快速搜索</p>
+
+            <p>5.maven对于目录结构有要求，约定优于配置，用户在项目间切换就省去了学习成本。</p>
+        </section>
+		<section>
+		     <p>Maven的一些基础命令：</p>
+			    
+				<p>1、Mvn compile</p>
+				
+				<p>执行 mvn compile命令，完成编译操作，执行完毕后，会生成target目录，该目录中存放了编译后的字节码文件。</p>
+
+				<p>Mvn clean</p>
+				
+				<p>执行 mvn clean命令执行完毕后，会将target目录删除。</p>
+
+                <p>Mvn test</p>
+
+				<p>执行 mvn test命令，完成单元测试操作执行完毕后，会在target目录中生成三个文件夹：surefire、surefire-reports（测试报告）、test-classes（测试的字节码文件）</p>
+
+
+        </section>
+		<section>
+			    
+				<p>Mvn package</p>
+				
+				<p>执行 mvn package命令，完成打包操作执行完毕后，会在target目录中生成一个文件，该文件可以是jar、war等</p>
+
+				<p>Mvn install </p>
+				
+				<p>执行 mvn install命令，完成将打好的jar包安装到本地仓库的操作执行完毕后，会在本地仓库中出现安装后的jar包，方便其他工程引用</p>
+		
+				<p>Mvn deploy</p>
+
+                <p>将打好的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。</p>
+		</section>
+		
+		<section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+		<section>
+			    
+				<p>Maven中央仓库经常不稳定，下载速度慢</p>
+
+		</section>
+
+        <section>
+            <h3>4.解决方案</h3>
+            <p><repositories>
+                <repository>
+                    <id>nexus-aliyun</id>
+                    <name>nexus-aliyun</name>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories></p>
+            <p>也可以在settings中设置镜像</p>
+        </section>
+        
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+			<P>怎么样能让Maven跳过JUnit?</p>
+            <p></p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/woshixuye/article/details/8133050</p>
+            <p>https://www.cnblogs.com/fan-yuan/p/5008602.html</p>
+            <p>http://blog.csdn.net/iflow/article/details/46997315</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 邹苏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
