@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style type="text/css">
+        p{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-04】闭包是什么？用处如何?</h2>
+
+            <h3>小课堂【成都第297期】</h3>
+
+            <p style="text-align: center;">分享人：濮力钒</p>
+        </section>
+        <section>
+            <p style="text-align: center;">目录</p>
+
+            <p style="text-align: center;">1.背景介绍</p>
+
+            <p style="text-align: center;">2.知识剖析</p>
+
+            <p style="text-align: center;">3.常见问题</p>
+
+            <p style="text-align: center;">4.解决方案</p>
+
+            <p style="text-align: center;">5.编码实战</p>
+
+            <p style="text-align: center;">6.扩展思考</p>
+
+            <p style="text-align: center;">7.参考文献</p>
+
+            <p style="text-align: center;">8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前的词法作用域之外的执行的。
+</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+              
+       <p>上面这个概念是引申自《你所不知道的JavaScript》中，变量a定义在函数fn()的作用域中，并且函数fn()中含有一个内部函数func(),内部函数func()持有对变量a的引用。在正常情况下，当函数func执行后就，内部的变量就会被垃圾回收机制所回收(比如变量a)。但是函数fn()返回了内部函数func()，内部函数func()会随时访问变量a,所以垃圾回收机制是不会回收函数fn()的内部作用域的，这就是闭包的含义。也就是</p>
+
+                <p>实例：</p>
+            <pre>
+            <code>
+                function fn(){
+                    var a = 100;
+                    function func(){
+                        console.log(a);
+                    }
+                    return func;
+                }
+                
+                var func = fn();
+                func(); //100
+            </code>
+            </pre>
+            </section>
+            <section>
+               
+        <p>函数在定义的词法作用域以外的地方被调用，闭包使得函数可以继续访问定义时的词法作用域。</p>
+
+
+            </section>
+            <section>
+                <p>因为函数可以读取父元素的变量，不可以反过来，同级函数也是不可以相互读取内部变量的，但是闭包不一样，简单说就是可以读取其他函数内部的变量的函数。
+                    只要满足这个情况的应该都是叫闭包。
+                </p>
+         
+            </section>
+            <section>
+                <h4>执行顺序</h4>
+            <pre>
+            <code>
+                <pre>
+                    <code>
+                        function fn(){
+                            alert("hi1")
+                            var a = 100;
+                            alert("hi2")
+                            function func(){
+                                alert("hi3")
+                                console.log(a);
+                            }
+                            alert("hi4")
+                            return func;
+                        }
+                        alert("hi5")
+                        var func = fn();
+                        func(); 
+                    </code>
+                    </pre>
+            </code>
+            </pre>
+            </section>
+            <!--
+            <section>
+                <h4>数组</h4>
+
+                <p>数组用来在单独的变量名中存储一系列的值。</p>
+
+                <p>我们使用关键词 new 来创建数组对象。下面的代码定义了一个名为 myArray 的数组对象：</p>
+            <pre>
+            <code>
+                var myArray=new Array(); //定义一个名字为myArray的数组
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>有两种向数组赋值的方法（你可以添加任意多的值，就像你可以定义你需要的任意多的变量一样）。</p>
+
+                <p>1：</p>
+             <pre>
+            <code>
+                var mycars=new Array(); //定义一个名字为myArray的数组
+                mycars[0]="Saab"; //数组第一个值为Saab
+                mycars[1]="Volvo"; //数组第二个值为Volvo
+                mycars[2]="BMW"; //数组第三个值为BMW
+            </code>
+            </pre>
+                <p>也可以使用一个整数自变量来控制数组的容量：</p>
+                <pre>
+            <code>
+                var mycars=new Array(3); //定义一个名字为myArray的数组，数组中有3个值
+                mycars[0]="Saab"; //数组第一个值为Saab
+                mycars[1]="Volvo"; //数组第二个值为Volvo
+                mycars[2]="BMW"; //数组第三个值为BMW
+            </code>
+            </pre>
+            </section>
+            <section>
+                <p>2：</p>
+             <pre>
+            <code>
+                var mycars=new Array("Saab","Volvo","BMW"); 定义一个名字为myArray的数组，数组的值分别是Saab、Volvo、BMW
+            </code>
+            </pre>
+            </section>
+            -->
+            <section>
+                <h4>总结一下</h4>
+
+                <p>闭包作用：1.可以使用同级的作用域</p>
+                <p>闭包作用：2.读取其他元素的内部变量</p>
+                <p>闭包作用：3.延长作用域</p>
+               
+              
+            </section>
+            <section>
+                <p>  一般函数执行后，整个函数的内部作用域会被销毁（垃圾回收），
+                    这是因为js引擎认为该函数不会再被使用，所以去回收。
+                    当拥有内部作用域的函数，在作用域之外时就会形成闭包，阻止了回收释放。
+           
+        
+            </section>
+            <section>
+               
+
+              
+
+            </section>
+            <section>
+               
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+
+            <p style="text-align: center;">闭包有什么缺点呢？</p>
+            <p>闭包的缺点1，作用域没有那么直观</p>
+            <p>闭包的缺点2，因为变量不会被垃圾回收所以有一定的内存占用问题。</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            
+           
+        </section>
+        <!-- <section>
+            <p>然后这里就可以再引申出另一个灰常热门并且解决方法已普遍存在的问题，如何判断数据是个数组类型？</p>
+
+            <p>js判断数组类型的方法(这里只说一种最简单的方法)：</p>
+
+            <p>instance，故名思义，“实例”，所以instanceof 用于判断一个变量是否是某个对象的实例，是一个三元运算---和typeof最实质上的区别
+
+                a instanceof b?alert("true"):alert("false") //注意b值是你想要判断的那种数据类型，不是一个字符串，比如Array：</p>
+            <pre>
+            <code>
+                var a=[];
+                console.log(a instanceof Array) //返回true
+            </code>
+            </pre>
+        </section> -->
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        </p>
+        <pre>
+       <code>
+           (function() {
+               var a = 0;
+               setInterval(function(){
+                   console.log(a++);
+               }, 1000);
+           })();                
+       </code>
+       </pre>
+           <p>当函数内部的定时器引用了外部函数的变量对象时，该变量对象不会被销毁。</p>
+        </section>
+        <!--
+        <section>
+            <section>
+                <p>数据类型的转换：将数字转换成字符串</p>
+            </section>
+            <section>
+                <p>提示：全局方法 String() 可以将数字转换为字符串。</p>
+            </section>
+            <section>
+            <pre>
+            <code>
+                var x = 123;
+                document.getElementById("demo").innerHTML =
+                String(x) + "<br>" + // 将变量 x 转换为字符串并返回
+                String(123) + "<br>" + // 将数字 123 转换为字符串并返回
+                String(100 + 23); // 将数字表达式转换为字符串并返回
+            </code>
+            </pre>
+                <p>显示效果</p>
+
+                <p>123</p>
+
+                <p>123</p>
+
+                <p>123</p>
+            </section>
+        </section>
+        -->
+
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+
+
+            <p>更多请参考：<a href="http://www.runoob.com/js/js-type-conversion.html">http://www.runoob.com/js/js-type-conversion.html</a></p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+     
+
+            <p>w3c：<a href="http://www.w3school.com.cn/js/js_datatypes.asp">http://www.w3school.com.cn/js/js_datatypes.asp</a></p>
+
+            <p>微软Javascript开发者文档：<a href="https://msdn.microsoft.com/zh-cn/library/7wkd9z69(v=vs.94).aspx">https://msdn.microsoft.com/zh-cn/library/7wkd9z69(v=vs.94).aspx</a></p>
+            <p>重点推荐：<a href="http://javascript.ruanyifeng.com/#introduction">Javascript标准参考（阮一峰）</a></p>
+        </section>
+        <section>
+    
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+
+            <p style="text-align: center">感谢大家观看</p>
+
+            <p style="text-align: center">
+                <small>BY :濮力钒</small>
+            </p>
+        </section>
+
+        <script src="../lib/reveal/js/head.min.js"></script>
+        <script src="../lib/reveal/reveal.js"></script>
+    </div>
+</div>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
