@@ -1,0 +1,287 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3></h3>
+            <h4> F12Console的用法，以及如何Debug程序</h4>
+            <ul>
+             <li>小课堂B组22期</li>
+            <li>分享人：王栋</li>
+            </ul>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h3>什么是console？</h3>
+            <p>Console 是用于显示 JS和 DOM 对象信息的单独窗口。
+                并且向 JS 中注入1个 console 对象，使用该对象 可以输出信息到 Console 窗口中。
+                Chrome和FireFox都支持console。
+                控制台以及浏览器内置Console对象的出现，给前端开发调试带来了极大的便利。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <h3>console的用法</h3>
+                <ol>
+                    <li>console.log 用于输出普通信息</li>
+
+                    <li>console.info 用于输出提示性信息</li>
+
+                    <li>console.error用于输出错误信息</li>
+
+                    <li>console.warn用于输出警示信息</li>
+
+                    <li>console.groupEnd结束一组输出信息</li>
+
+                    <li>console.assert对输入的表达式进行断言，只有表达式为false时，才输出相应的信息到控制台。</li>
+
+                    <li>console.count当你想统计代码被执行的次数(经常用到)</li>
+
+                    <li>console.dir 直接将该DOM结点以DOM树的结构进行输出，可以详细查对象的方法发展等等。</li>
+
+                    <li>console.time/console.timeEnd用于函数的计时</li>
+
+                    <li>console.table 将传入的值以表格形式展示</li>
+                </ol>
+            </section>
+            <section>
+                <h3>如何使用断点调试？</h3>
+                <ul>
+                    <li> Pause/Resume script execution：暂停/恢复脚本执行（程序执行到下一断点停止）。</li>
+                    <li>Step over next function call：执行到下一步的函数调用（跳到下一行）。</li>
+                    <li> Step into next function call：进入当前函数。</li>
+                    <li>  Step out of current function：跳出当前执行函数。</li>
+                    <li> Deactive/Active all breakpoints：关闭/开启所有断点（不会取消）。</li>
+                    <li> Pause on exceptions：异常情况自动断点设置。</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>什么是断点调试？</p>
+            <p>如何Debug？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+
+        </section>
+        <section>
+            <h3>什么是断点调试</h3>
+            <br>断点，调试器的功能之一，可以让程序中断在需要的地方，从而方便其分析。也可以在一次调试中设置断点，
+            下一次只需让程序自动运行到设置断点位置，便可在上次设置断点的位置中断下来，
+            极大的方便了操作，同时节省了时间。
+            </br>——百度百科</br>
+            简单地说，断点调试是指自己在程序的某一行设置一个断点，调试时，程序运行到这一行就会停住，
+            然后你可以一步一步往下调试，调试过程中可以看各个变量当前的值，
+            出错的话，调试到出错的代码行即显示错误，停下。
+            </p>
+
+        </section>
+        <section>
+            <h3>如何Debug？</h3>
+            <p>使用cosole.log</p>
+            <p>使用断点调试</p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+         console
+            <pre>
+                <code>
+console.log("%c", "padding:200px 300px;line-height:120px;" +
+    "background:url('http://img.zcool.cn/community/012d6b573bc18d6ac7253f9adca1fd.gif') no-repeat;");
+
+console.error("error");
+console.warn("warn")
+
+var data = [{'品名': '面包', '数量': 4}, {'品名': '牛奶', '数量': 3}];
+console.table(data);
+
+(function() {
+    for (var i = 0; i < 5; i++) {
+        console.count('count');
+    }
+})();
+console.time('计时器1');
+
+for (var i = 0;
+     i < 100; i++) {
+
+    for (var j = 0; j < 100; j++) {}
+}
+
+console.timeEnd('计时器1');
+console.time('计时器2');
+
+for (var i = 0; i < 1000; i++) {
+
+    for (var j = 0; j < 1000; j++) {
+    }
+}
+console.timeEnd('计时器2');
+
+console.log('这是第一层');
+console.group();
+console.log('这是第二层');
+console.log('依然第二层');
+console.group();
+console.log('第三层了');
+console.groupEnd();
+console.log('回到第二层');
+console.groupEnd();
+console.log('回到第一层');
+
+console.groupCollapsed('第一层');
+console.groupCollapsed('第二层');
+console.log('error');
+console.error('error');
+console.warn('error');
+console.groupEnd();
+console.groupEnd();
+
+var obj = {
+    name: 'c',
+    age: '20',
+    type: '1'
+};
+console.dir(obj);
+var arr = [1,2,3]
+console.dir(arr)
+var s = 'sdfs'
+console.dir(s)
+var n = '123'
+console.dir(n)
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>为什么不用alert？（console的优点）</h3>
+
+        </section>
+        <section>
+            <h3>为什么不用alert？（console的优点）</h3>
+            <p>用alert调试方式对开发者太不友好；每次执行结束都需要点击一次弹窗；
+                而且有时候弹窗会遮住一些页面效果</br>
+                alert的调试信息会中断代码，阻碍页面的继续渲染。这就意味着开发人员调试完成后，必须手动清除这些调试代码，实在有些麻烦。
+                另外，如果在循环中使用alert，会弹出很多个窗口
+            </p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <a href="http://blog.csdn.net/yin767833376/article/details/51656402">
+                <p>前端开发中的JS调试技巧</p>
+            </a>
+            <a href="https://segmentfault.com/a/1190000000481884">
+                <p>你真的了解 console 吗</p>
+            </a>
+            <a href="http://web.jobbole.com/89344/?utm_source=blog.jobbole.com&utm_medium=relatedPosts">
+                <p>超完整的 Chrome 浏览器客户端调试大全</p>
+            </a>
+            <a href="https://www.cnblogs.com/yzg1/p/5578363.html">
+                <p>chrome developer tool—— 断点调试篇</p>
+            </a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <p>还有那些debug技巧？</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 梁耀|王栋</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
