@@ -1,0 +1,390 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>任务六：memcache的使用</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+            <p>Memcached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。</p>
+			<p>这些数据可以是数据库调用、API调用或者是页面渲染的结果。</p>
+			<p>Memcached简洁而强大。它的简洁设计便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题。它的API兼容大部分流行的开发语言。</p>
+			<p>本质上，它是一个简洁的key-value存储系统。</p>
+			<p>一般的使用目的是，通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度、提高可扩展性。</p>         
+        </section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+
+        <section>
+
+            <p>
+				为什么会有Memcache和memcached两种名称？
+            </p>
+			<p>
+				其实Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名。
+			</p>
+
+        </section>
+			
+		<section>
+			<p>
+				memcached运行：
+			</p>
+			<p>启动选项：</p>
+			<p>d是启动一个守护进程</p>
+			<p>m是分配给Memcache使用的内存数量，单位是MB</p>
+			<p>u是运行Memcache的用户</p>
+			<p>l是监听的服务器IP地址，可以有多个地址</p>
+			<p>p是设置Memcache监听的端口，，最好是1024以上的端口</p>
+			<p>c是最大运行的并发连接数，默认是1024</p>
+			<p>P是设置保存Memcache的pid文件</p>
+		</section>
+		<section>
+			<p>
+				java客户端的实现：XMemcached
+			</p>
+			<p>
+				XMemcached是一个新java memcached client。
+			</p>
+			<p>
+				XMemcached是基于java nio的客户端，java nio相比于传统阻塞io模型来说，有效率高（特别在高并发下）和
+				资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而nio仅需要一
+				个连接即可（当然,nio也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。
+			</p>
+		</section>
+		<section>	
+			<p>
+				XMemcached的使用：
+			</p>
+			<p>
+				1）导入xmemcached依赖
+			</p>
+			<p>
+				2）创建MemcachedClientBuilder，然后builder一个MemcachedClient 
+			</p>
+		</section>
+		<section>
+			<p>
+				Memcached 存储命令：
+			</p>
+			<p>
+				Memcached set 命令：用于将 value(数据值) 存储在指定的 key(键) 中。
+				如果set的key已经存在，该命令可以更新该key所对应的原来的数据，也就是实现更新的作用。
+			</p>
+			<p>
+				Memcached add 命令：Memcached add 命令用于将 value(数据值) 存储在指定的 key(键) 中。
+				如果 add 的 key 已经存在，则不会更新数据(过期的 key 会更新)，之前的值将仍然保持相同。
+			</p>
+			<p>
+				Memcached replace 命令：用于替换已存在的 key(键) 的 value(数据值)。
+				如果 key 不存在，则替换失败
+			</p>
+		</section>
+		<section>
+			<p>
+				Memcached append 命令：用于向已存在 key(键) 的 value(数据值) 后面追加数据 。
+			</p>
+			<p>
+				Memcached prepend 命令：用于向已存在 key(键) 的 value(数据值) 前面追加数据 。
+			</p>
+			<p>
+				Memcached CAS（Check-And-Set 或 Compare-And-Swap） 命令用于执行一个"检查并设置"的操作
+				它仅在当前客户端最后一次取值后，该key 对应的值没有被其他客户端修改的情况下， 才能够将值写入。
+				检查是通过cas_token参数进行的， 这个参数是Memcach指定给已经存在的元素的一个唯一的64位值。
+			</p>
+		</section>
+		<section>
+			<p>
+				Memcached 查找命令：
+			</p>
+			<p>
+				Memcached get 命令：获取存储在 key(键) 中的 value(数据值) ，如果 key 不存在，则返回空。
+			</p>
+			<p>
+				Memcached gets 命令：获取带有 CAS 令牌存 的 value(数据值) ，如果 key 不存在，则返回空。
+			</p>
+			<p>
+				Memcached delete 命令：用于删除已存在的 key(键)。
+			</p>
+			<p>
+				Memcached incr 与 decr 命令用于对已存在的 key(键) 的数字值进行自增或自减操作。
+				incr 与 decr 命令操作的数据必须是十进制的32位无符号整数。
+			</p>
+		</section>
+		<section>
+			<p>
+				Memcached 统计命令：
+			</p>
+			<p>
+				Memcached stats 命令：用于返回统计信息例如 PID(进程号)、版本号、连接数等。
+			</p>
+			<p>
+				Memcached stats items 命令：用于显示各个 slab 中 item 的数目和存储时长(最后一次访问距离现在的秒数)。
+			</p>
+			<p>
+				Memcached stats slabs 命令：用于显示各个slab的信息，包括chunk的大小、数目、使用情况等。
+			</p>
+			<p>
+				Memcached stats sizes 命令用于显示所有item的大小和个数。
+				该信息返回两列，第一列是 item 的大小，第二列是 item 的个数。
+			</p>
+			<p>
+				Memcached flushAll 命令：用于用于清理缓存中的所有 key=>value(键=>值) 对。
+			</p>
+		</section>
+		
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>Memcached本身并没有提供迭代所有key的方法,如何查看memcache中所有的key？</p>
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+            <p>想迭代所有的key，你只需要获取一个KeyIterator，然后遍历KeyIterator即可。</p>
+        </section>
+
+		
+		
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+			<p>为什么使用cas协议？</p>
+			<p>当我们的应用是分布式的，无状态的应用服务器通过负载均衡，部署到了多台。</p>
+			<p>如果不采用CAS，则有如下的情景： </p>
+			<p>第一步，A取出数据对象X； </p>
+			<p>第二步，B取出数据对象X； </p>
+			<p>第三步，B修改数据对象X，并将其放入缓存； </p>
+			<p>第四步，A修改数据对象X，并将其放入缓存。 </p>
+        </section>
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>参考一：Xmemcached 中文用户指南</p>
+			<p>参考二：memcached 菜鸟教程</p>
+			
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>
