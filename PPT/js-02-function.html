@@ -199,6 +199,48 @@
             </h2>
         </section>
         <section>
+            <pre>
+               <code>
+                    //情况1  
+                    //结果会被输出  
+                    var fn=function(){  
+                        console.log("函数表达式赋值给一个变量");  
+                    }();  
+                    //情况2  
+                    //结果不会被输出，JavaScript引擎只解析函数声明，忽略后面的括号，函数声明不会被调用  
+                    function fn(){  
+                        console.log("函数声明");  
+                    }();  
+                    //情况3  
+                    //语法错误，匿名函数属于函数表达式，未执行赋值操作，不能被调用  
+                    function(){  
+                        console.log("函数表达式");  
+                    }(); 
+                </code>
+            </pre>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    (function(a){  
+                console.log(a);  
+            })(123);  
+            (function(a){  
+                console.log(a);  
+            }(1234));  
+            !function(a){  
+                console.log(a);  
+            }(12345);  
+            +function(a){  
+                console.log(a);  
+            }(123456);  
+            -function(a){  
+                console.log(a);  
+            }(1234567);
+                </code>
+            </pre>
+        </section>
+        <section>
             <p>
                 也就是说只有函数表达式才能实现立即执行，匿名函数也是函数表达式为何不能立即执行呢，因为匿名函数开始的function会被JavaScript引擎识别为函数声明的开始，所以加上括号也不会被执行了，而加上()，！，+，-等符号为什么就可以了呢，因为加上这些符号就可以告诉JavaScript引擎这不是函数声明了，就这么简单。
             </p>
