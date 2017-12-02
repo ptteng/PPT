@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>微服务设计</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人：甘乐</p>
+			<time>
+				<script type="text/javascript"> 
+						var today = new Date();
+						document.write(today.toLocaleDateString())
+				</script>
+			</time>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">微服务(Microservices)是一种分布式系统解决方案,推动细粒度服务的使用,这些服务协同工作,且每个服务都有自己的生命周期.随着领域驱动设计,持续交付,按需虚拟化,
+			基础设施自动化,小型自治团队,大型集群系统这些实践的流行,微服务应运而生.它不是被发明出来的,而是从现实世界中总结出来的一种趋势或模式.
+			</p>
+		</section>
+        
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:left"><b>1.传统的web开发方式---Monolithic</b></p>
+            <p style="text-align:left">所有的功能打包在一个 WAR包里,基本没有外部依赖（除了容器）,部署在一个JEE容器（Tomcat,JBoss,WebLogic）里,包含了 DB/DAO,Service,UI等所有逻辑.</p>		
+        </section>
+		<section>
+            <p style="text-align:left"><b>Monolithic比较适合小项目,优点:</b>
+				<ul>
+						<li>开发简单直接,集中式管理</li>
+						<li>基本不会重复开发</li>
+						<li>功能都在本地,没有分布式的管理开销和调用开销</li>
+				</ul>
+			</p>
+			</section>
+			<section>
+			<p style="text-align:left"><b>Monolithic缺点也非常明显,特别对于互联网公司来说:</b>
+			<ul>
+						<li>开发效率低:所有的开发在一个项目改代码,递交代码相互等待,代码冲突不断</li>
+						<li>代码维护难:代码功能耦合在一起,新人不知道何从下手</li>
+						<li>部署不灵活:构建时间长,任何小修改必须重新构建整个项目,这个过程往往很长</li>
+						<li>稳定性不高:一个微不足道的小问题,可以导致整个应用挂掉</li>
+						<li>扩展性不够:无法满足高并发情况下的业务需求.</li>
+				</ul>
+			</p>
+        </section>
+		<section>
+            <p style="text-align:left"><b>2.微服务的内涵</b></p>
+			<p style="text-align:left">微服务的目的是有效的拆分应用,实现敏捷开发和部署.</p>
+			
+        </section>
+		<section>
+			<p style="text-align:left">X轴代表运行多个负载均衡器之后运行的实例,Y轴代表将应用进一步分解为微服务 （分库）,数据量大时,还可以用Z轴将服务按数据分区(分表).</p>
+			
+        </section>
+		<section>
+			<p style="text-align:left">基本内涵:</p>
+			<ul>
+						<li>分布式服务组成的系统</li>
+						<li>按照业务而不是技术来划分组织</li>
+						<li>做有生命的产品而不是项目</li>
+						<li>Smart endpoints and dumb pipes（强服务个体和弱通信）</li>
+						<li>自动化运维(DevOps)</li>
+						<li>容错</li>
+						<li>快速演化</li>
+				</ul>
+        </section>
+		<section>
+            <p style="text-align:left"><b>3.微服务的特征</b></p>
+			<p style="text-align:center">小型且专注于业务领域</p>
+			<p style="text-align:center">自治性</p>
+        </section>
+		<section>
+            <p style="text-align:left"><b>4.微服务优缺点</b></p>
+			<p style="text-align:left">优点:开发简单&emsp;技术栈灵活&emsp;服务独立无依赖&emsp;独立按需扩展&emsp;可用性高</p>
+			<p style="text-align:left">缺点:多服务运维难度&emsp;系统部署依赖&emsp;服务间通信成本&emsp;数据一致性&emsp;
+						系统集成测试&emsp;重复工作&emsp;性能监控
+        </section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">SOA vs Microservice</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align:left">Microservice是SOA的传承,一种细粒度的SOA;但最本质的区别就在于Smart endpoints and dumb pipes,或者说是真正的分布式的、去中心化的.Smart endpoints and dumb pipes本质就是去ESB(Enterprise Service Bus),把所有的“思考”逻辑包括路由、消息解析等放在服务内部（Smart endpoints）,去掉一个大一统的ESB,服务间轻通信（dumb pipes）,是比SOA更彻底的拆分.</p>
+		</section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+			<section>
+            <p style="text-align:center"><b>实践微服务</b></p>
+			<ul>
+						<li>客户端如何访问这些服务？</li>
+						<li>服务之间如何通信？</li>
+						<li>这么多服务,怎么找?</li>
+						<li>服务挂了怎么办？</li>
+				</ul>
+        </section>
+		<section>
+            <p style="text-align:left"><b>5.1客户端如何访问这些服务？</b></p>
+			<p style="text-align:left">一般在后台N个服务和前端间有一个API Gateway,为前台提供后台服务的聚合,提供统一的服务出口,解除耦合.作用包括:</p>
+			<ul>
+						<li>提供统一服务入口,让微服务对前台透明</li>
+						<li>聚合后台的服务,节省流量,提升性能</li>
+						<li>提供安全,过滤,流控等API管理功能</li>
+				</ul>
+			
+        </section>
+		<section>
+		 <p style="text-align:left"><b>5.2服务之间如何通信？</b></p>
+			<p style="text-align:left">因为所有的微服务都是独立的Java进程,跑在独立的虚拟机上,所以服务间的通行就是IPC（inter process communication）,已经有很多成熟的方案.现在基本最通用的有两种方式:</p>
+			<ol>
+						<li>同步调用
+							<ul>
+									<li>REST(JAX-RS,Spring Boot)</li>
+									<li>RPC(Thrift, Dubbo)</li>
+							</ul>
+						</li>
+						<li>异步消息调用
+								<ul>
+									<li>Kafka</li>
+									<li>Notify</li>
+									<li>MetaQ</li>
+								</ul>
+							</li>
+				</ol>
+        </section>
+		<section>
+		 <p style="text-align:left"><b>5.3这么多服务,怎么找?</b></p>
+			<p style="text-align:left">在微服务架构中,一般每一个服务都是有多个拷贝,来做负载均衡.一个服务随时可能下线,也可能应对临时访问压力增加新的服务节点.服务之间如何相互感知？服务如何管理？这就是服务发现的问题了.
+			<ul>
+						<li>客户端做:优点是架构简单,扩展灵活,只对服务注册器依赖.缺点是客户端要维护所有调用服务的地址,有技术难度,一般大公司都有成熟的内部框架支持,比如Dubbo.</li>
+						<li>服务端做:优点是简单,所有服务对于前台调用方透明,一般在小公司在云服务上部署的应用采用的比较多.</li>
+			</ul>
+			</p>
+        </section>
+		<section>
+		 <p style="text-align:left"><b>5.4这么多服务,服务挂了怎么办?</b></p>
+			<p style="text-align:left">分布式最大的特性就是网络是不可靠的.通过微服务拆分能降低这个风险,相应的手段有很多:
+			<ul>
+						<li>重试机制</li>
+						<li>限流</li>
+						<li>熔断机制</li>
+						<li>负载均衡</li>
+						<li>降级(本地缓存)</li>
+			</ul>
+			</p>
+        </section>
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:center"><b>微服务的前景</b></p>
+            <p style="text-align:left">对于大的互联网公司,微服务架构是血液,是习惯,每家公司都有自己的套路和架构,细节有不同,但是核心理念是通的.</p>
+			<p style="text-align:left">对于一般的公司而言,实践微服务有非常大的技术挑战,于是乎才有了这么多IT供应商考虑这里的商机.微服务比较适合未来有一定的扩展复杂度,且有很大用户增量预期的应用,说人话就是新兴的互联网公司.创业初期,不可能买大量的机器或者很贵的机器,但是又必须考虑应对成功后的巨量的用户,微服务架构 成了最好的选择.</p>
+		 </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:left">1.博客——<a href="http://www.oschina.net/news/70121/microservice" target="_blank">《微服务（Microservice）那点事》</a></p>
+			<p style="text-align:left">2.《微服务设计(Building Microservices)》.&ensp; Sam Newman著. &ensp;崔力强,张骏译. &ensp;北京. &ensp;人民邮电出版社.&ensp; 2016.&nbsp;04</p>
+			</section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦,欢迎大家提问和探讨~</p>
+        </section>
+				
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

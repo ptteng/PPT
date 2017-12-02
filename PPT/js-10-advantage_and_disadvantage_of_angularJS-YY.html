@@ -1,0 +1,433 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-10-angular有哪些优缺点?】</h2>
+            <p>web小课堂【A组24期】</p>
+            <p>分享人：颜彦</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <section>
+                <p>说angular有哪些优缺点之前，简单的介绍一下什么是angular。</p>
+                <p>记得在最开始学习前端知识的时候，了解到前端三个基础html、CSS、JavaScript，他们可以简单的
+                表示为结构、样式和行为。</p>
+                <p> jQuery实质上就是提供了一些前端常用的，针对元素的处理的简便写法，可以把它看作一个JS的工具包。</p>
+                <p>Angular则是一个MVVM框架。</p>
+                <p> 要说清楚什么是MVVM框架，需要了解MVC框架，了解MVC框架，需要了解一下前端开发的历史。</p>
+            </section>
+            <section>
+                <h3>前端开发的历史和趋势</h3>
+                <p>什么是前端？什么是后端？</p>
+                <p> 前端：针对浏览器的开发，代码在浏览器运行</p>
+                <p>后端：针对服务器的开发，代码在服务器运行</p>
+            </section>
+            <section>
+                <p> 互联网发展的早期，前后端开发是一体的，前端代码是后端代码的一部分。</p>
+                <p> 1、后端收到浏览器的请求</p>
+                <p>2、生成静态页面</p>
+                <p>3、发送到浏览器</p>
+                <p>所以最初的网站是没有样式，更没有行为互动，只有结构，光秃秃的html。但在那个时候已经是很伟大的很先进的东西。</p>
+            </section>
+            <section>
+                <img src="../img/Advantages-and-disadvantages/90web.jpg">
+            </section>
+            <section>
+                <p>那时的网站开发，采用的是后端 MVC 模式。</p>
+
+                <p> 1、Model（模型层）：提供/保存数据</p>
+                <p> 2、Controller（控制层）：数据处理，实现业务逻辑</p>
+                <p> 3、View（视图层）：展示数据，提供用户界面</p>
+
+                <p> 前端只是后端 MVC 的 V。（切图仔的由来？）</p>
+            </section>
+            <section>
+                <p>以 PHP 框架 Laravel 为例。</p>
+                <img src="../img/Advantages-and-disadvantages/laravel-mvc.png">
+            </section>
+            <section>
+                <p>那时的前端工程师，实际上是模板工程师，负责编写页面模板，比如我们现在写的静态页面。</p>
+
+                <p>后端代码读取模板，替换变量，渲染出页面。</p>
+            </section>
+            <section>
+                <p>Ajax 技术诞生，改变了一切。</p>
+                <p>2004年：Gmail</p>
+                <p>2005年：Google 地图</p>
+                <p>前端不再是后端的模板，可以独立得到各种数据。</p>
+                <p>因为Ajax 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
+            </section>
+            <section>
+                <p> Ajax 技术促成了 Web 2.0 的诞生。</p>
+                <p>  Web 1.0：静态网页，纯内容展示</p>
+                <p> Web 2.0：动态网页，富交互，前端数据处理</p>
+                <p> 从那时起，前端变得复杂了，对前端工程师的要求越来越高。</p>
+            </section>
+            <section>
+                <h4>前端 MVC 框架</h4>
+                <p>前端通过 Ajax 得到数据，因此也有了处理数据的需求。</p>
+                <p>前端代码变得也需要保存数据、处理数据、生成视图，这导致了前端 MVC 框架的诞生</p>
+                <p>2010年，Backbone.js</p>
+            </section>
+            <section>
+                <p>Backbone 将前端代码分成两个基本部分。</p>
+                <p>Model：管理数据</p>
+                <p>View：数据的展现</p>
+                <p>没有 C。因为，前端 Controller 与后端不同。</p>
+                <p>不需要，也不应该处理业务逻辑</p>
+                <p>只需要处理页面逻辑，响应用户的一举一动,也就是和用户的交互</p>
+
+                <p>所以，前端 Controller 相对比较简单。Backbone 没有 C，只用事件来处理页面逻辑。</p>
+            </section>
+            <section>
+                <h4>Router</h4>
+                <p>前端还有一种天然的方法，可以切换视图，那就是 URL。</p>
+                <p>通过 URL 切换视图，这就是 Router（路由）的作用。(html、js、angular）</p>
+                <img src="../img/Advantages-and-disadvantages/backbone-routing.png">
+            </section>
+            <section>
+                <h4>前端 MVVM 框架</h4>
+                <img src="../img/Advantages-and-disadvantages/mvvm.png">
+            </section>
+            <section>
+                <p>另一些框架提出 MVVM 模式，用 View Model 代替 Controller。</p>
+                <p>Model</p>
+                <p>View</p>
+                <p>View-Model：简化的 Controller，唯一作用就是为 View 提供处理好的数据，不含其他逻辑。</p>
+                <p>本质：view 绑定 view-model，视图与数据模型强耦合。数据的变化实时反映在 view 上，不需要手动处理。</p>
+            </section>
+            <section>
+                <p> MVC、MVVM、MVW，这里重点理解一下MVVM。</p>
+                <p> M model 模型</p>
+                <p> V view     视图</p>
+                <p>  VM view model 视图的模型</p>
+                <p>  P presenter 展示器</p>
+                <p>  C controller 控制器</p>
+                <p>   W whatever 随意</p>
+
+
+            </section>
+            <section>
+                <p> View 视图 通俗易懂。就是前端的 HTML， CSS 和 与 HTML CSS 有关的JS代码。 写一个Form 表格，由 HTML 架起，CSS 做美化，JS来进行动画控制。</p>
+                <p>Model 模型。简单说是起到连接服务器，和商业逻辑的形成。 这里面很多需要异步处理，并且有需求独立更新。因此，必须和视图分离。</p>
+                <p>而连接上面这两者的就是 View Modal 试图模型。 这里只做连接，并不起到控制。保证独立性。在多个 View 和多个 Modal 之前做到很好的桥梁的作用。</p>
+                <p>P 起到的作用更多是展示, 部分控制，换句话说 Angular 里面那么多 ng-show 后面的代码都可以理解为 P。</p>
+                <p>C 起到的主体控制。比如读取 M 的数据，然后插入一个模块到 V 视图里。 如果用 Angular 来解读, Controller 就是 C。</p>
+                <p>W 则不分的那么具体。更为灵活。</p>
+            </section>
+            <section>
+
+            </section>
+            <section>
+                <p> 前端可以做到：<p>
+                <p> 读写数据<p>
+                <p>切换视图<p>
+                <p>用户交互<p>
+                <p>这意味着，网页其实是一个应用程序。<p>
+                <p>SPA = Single-page application<p>
+                <p>2010年后，前端工程师从开发页面，变成了开发“前端应用”（跑在浏览器里面的应用程序）。<p>
+            </section>
+            <section>
+                传统的架构
+                <img src="../img/Advantages-and-disadvantages/architecture-old.png">
+            </section>
+            <section>
+                单页应用的架构
+                <img src="../img/Advantages-and-disadvantages/architecture-new.png">
+            </section>
+            <section>
+                <p>Angular</p>
+
+                <p> Google 公司推出的 Angular 是最流行的 MVVM 前端框架。</p>
+
+                <p>它的风格属于 HTML 语言的增强，核心概念是双向绑定。</p>
+                <img src="../img/Advantages-and-disadvantages/angular.png">
+                示例
+            </section>
+            <section>
+                <p> Vue</p>
+
+                <p>Vue.js 是现在很热门的一种前端 MVVM 框架。</p>
+
+                <p>它的基本思想与 Angular 类似，但是用法更简单，而且引入了响应式编程的概念。</p>
+                <img src="../img/Advantages-and-disadvantages/vue-logo.png">
+                示例
+            </section>
+            <section>
+                <p> React</p>
+                <p>React是从Facebook起源的最著名的库。它使你的前端非常舒适，是一个非常独特的客户端库。</p>
+
+                <p>React.JS的核心目标是使前端能够高效开发和重用声明的插件。</p>
+            </section>
+
+            <section>
+                回到angular
+                <p>Angular 目前有两个比较大的版本，一个是 1.X，一个是 5.0，对于 2.0 以下的版本统称为 AngularJS，从 2.0 版本开始称为 Angular。</p>
+
+                <p>那么AngularJS有哪些优点与缺点呢？</p>
+            </section>
+
+
+
+        </section>
+
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>AngularJS的优点与缺点</p>
+            <section>AngularJS的优点</section>
+            <section>
+                <p>1. 双向数据绑定</p>
+                <p>AngularJS 提供了强大的数据双向绑定功能，再也不需要使用 JS 或者 jQuery 来操作 DOM 元素，大大减少了前端的代码量。
+                </p>
+            </section>
+            <section>
+                <p>2. 完善的体系，提供一整套 WEB 开发的解决方案</p>
+                <p>包括模板、数据双向绑定、路由、指令、过滤器、模块化、服务(可复用)等特性，基本上前端需要用的东西都可以从这个框架里面找到，减少选择性疲劳。
+                </p>
+            </section>
+            <section>
+                <p>3. 引入后端语言的一些概念</p>
+                <p>单元测试、依赖注入等等，能够很容易的写出可复用的代码，对于敏捷开发的团队来说非常有帮助</p>
+            </section>
+            <section>AngularJS的缺点及Angular的改进</section>
+            <section>
+                <p>1.性能 </p>
+                <p>导致这个问题的主要原因是 AngularJS 的“双向数据绑定”，也是很多人吐槽的一个点，“双向数据绑定”是一把”双刃剑“，在 AngularJS 作用域里面的任何修改都会触发“脏值检测”，比如$scope.name = 'AngularJS'这段代码会触发“脏值检测”，AngularJS 会遍历作用域里面的所有变量，每一个变量都会被检测是否发生改变，有变化就会把值从视图同步到模型，或者模型到视图的同步，如果页面使用大量的双向数据绑定，页面就会可能出现卡顿现象，这个是历史遗留的原因，这样的做法的好处是可以兼容低版本浏览器，比如 IE8，不过 AngularJS 1.3 开始就不再支持 IE8；双向数据还会导致另一个问题，就是数据的流向很模糊，比如你就想把数据单向的从view同步到model，除非自己加注释明确说明，不然关从代码层面是看不出，这使得代码的后期维护成本非常高。
+                </p>
+            </section>
+            <section>
+                <p>2. 作用域 </p>
+                <p>什么是作用域？如果我把它说成是“上下文”不知道会不会好理解一点，用过 AngularJS 的人就会发现，AngularJS 几乎封装了所有原生的 JS API，使用它封装后的 API 才会触发“脏值检测”，比如使用原生setInterval(callback, time)定时器，不会触发“脏值检测”，导致开发者需要手动调用 AngularJS 底层的接口触发“脏值检测”，比如$scope.$apply()或者 $scope.digest()，这两个都是一样的，$scope.$apply()会调用 $scope.$digest()，因此 AngularJS 封装了$interval服务来解决这个问题，使用原生 JS 事件，都需要这么做。鉴于作用域的各种问题，在新版的 Angular 中，作用域（$scope）这个东西已经不复存在。</p>
+            </section>
+            <section>
+                <p>3.低配版路由 </p>
+                <p>页面只能配置一个 ng-view，这让 AngularJS  路由使用起来非常局限，导致很多人都使用第三方路由组件 ui-route 来替代官方的 ng-route，ui-route 通过嵌套视图来复用一些通用的部件，而第三方的 ui-route 个人觉得也不是很好用，别人的东西用起来就是不爽。新版 Angular 的路由已经解决了这个问题。
+                </p>
+            </section>
+            <section>
+                <p>4.JS 语言本身 </p>
+                <p>灵活又有很多坑的语言，又爱又恨难舍难分，网上有很多人讨论过 JavaScript，口水战也不少；Angular 选择使用微软的 TypeScript，TypeScript 是 JavaScript 的超集，是 JavaScript 的强类型版本，可以编译成 JavaScript，编译器将会去掉 JavaScript 本身没有的东西，所以 TypeScript  并不依赖于浏览器的支持，也并不会带来兼容性问题。与 TypeScript 结合之后，使 Angular 更加适合开发大型项目。
+                </p>
+            </section>
+            <section>
+                <p>5.表单 </p>
+                <p>AngularJS 对于表单的校验和错误消息提示能力非常薄弱，Angular 提供了非常完善的表单校验和消息提示功能，比如 Angular 提供了响应式表单。
+                </p>
+            </section>
+          <section>
+            <p>6. 学习成本 </p>
+            <p>AngularJS 存在非常多的概念，模块、控制器、模板、过滤器、服务、组件、指令、双向数据绑定、作用域、依赖注入等，这些对于初学者很不友好，而且你还很难准确指出 AngularJS 的核心是什么，如果谈到 React 的核心是什么，很多人很容易就会想到“虚拟 DOM”、“组件”。新版的 Angular 的核心就是组件，语法上使用一种更加优雅的装饰器注解来整合代码。</p>
+          </section>
+            <section>
+                <p>用Angular，它包含很多复杂的概念，也许不懂它为什么要加这么多乱七八糟的东西，但是慢慢地你就会了解一切都是有它存在的原因的。</p>
+                <p>有一句话不知道听过没有，大概是这样的：一个程序员不学数据结构与算法，那么他编程一辈子的经验就可以写成一本“数据结构与算法”。</p>
+                <p>Angular的情况也大概一样，它是一群人很多年蛋疼的经验所总结出来的东西，去学习它我们能少走很多弯路。</p>
+            </section>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+      <section>
+        <h3>angular与 React 对比</h3>
+        <h3>angular与 Vue  对比</h3>
+      </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+      <section>
+          <section>
+              <p>angular与 React 对比</p>
+          </section>
+          <section>
+              速度
+              <p>提到 React 的第一反应就是快，因为 React 采用了一种特别方式来操作  DOM，也就是虚拟 DOM；在性能方面，React 只会在 setStaus 的时候才会去更新 DOM，而且 React 是先修改虚拟 DOM，然后再与实际的 DOM 进行对比，最后再修改真实 DOM，一个是修改的内容少，一个是修改 DOM 的次数少，所以速度特别快；Angular 也实现了一个类似的变更检测机制算法，速度已经跟 React 不相上下。</p>
+
+          </section>
+          <section>
+              FLUX 架构
+              <p>React 提出了 FLUX 架构 这个概念，使 React 更加专注于组件化和数据单向流更新，单向数据流使得数据的流向非常清晰，降低代码维护成本，而且还可以直接使用ES6语法，通过 Webpack 这样的打包工具编译成兼容性更好的 ES5。这些以前 AngularJS 是没有的，不过现在Angular已经全部支持了，比如数据单向绑定、组件化。</p>
+          </section>
+          <section>
+              服务器端渲染
+              <p>SPA 的一个缺陷是对 SEO 不友好，因为搜索引擎的爬虫依赖的是服务端响应的内容，不会去解析 JS 再爬取页面的内容，而 React 是可以支持服务器端渲染，通过服务端预渲染机制动态生成页面再返回到客户端，这个 Angular 以前是没有的，现在也已经支持服务端渲染。</p>
+          </section>
+
+          <section>
+              React 的定位是一个 UI 组件库，相当于 MVC 里面的 V，它并不是 WEB 的解决方案，React 专注于代码结构和组件间通信，开发大型项目通常需要搭配其它一些库来使用，比如 Redux，Redux 适合多交互，多数据源的应用场景，不然只会增加应用的复杂性，即使配套 Redux 也不能完全说是一个框架，类似 Promise 这样的东西还需要自己找第三方实现，而 Angular 提供了一整 WEB 套解决方案，基本上不需要为了某一功能模块而去使用第三方实现，而如果你只需要专注于 UI层，那么 React 是一个非常好的选择。
+          </section>
+          <section>
+              <p>angular与 Vue  对比</p>
+          </section>
+          <section>
+              Vue 是由国内的大牛 尤雨溪 开发，并由 Vue 团队维护的一个框架，中文文档支持完善；Vue 官网已经有与 Angular2 对比的介绍，无论从文件大小、上手难度、执行效率，Vue 都略优于 Angular
+          </section>
+          <section>
+              简单
+              <p>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件，而且 Vue 是由国内的大牛尤雨奚开发的，Vue 官方中文文档 完善，这一点 Angular 直到 2.0 才慢慢完善中文文档，目前 Angular 官网中文文档 覆盖率已经超过80%，而且还支持中英文对照。</p>
+          </section>
+          <section>
+              性能
+              <p>最新版本的 Vue 更加优越，根据上面提供的对比数据来看，Angular4 稍稍比 Vue 慢了一点点。</p>
+          </section>
+          <section>
+              个人主导
+              <p>Vue 是由国内的大牛尤雨奚主导，Angular 是由 Google 主导，个人主导的项目，对于今后项目的维护和经费开销还有有点担心，而这对于 Google 来说完全不是事。</p>
+          </section>
+          <section>
+              社区
+              <p>Angular 在世界上有庞大的开发者社区和配套的生态环境，Vue 目前跟 Angular 相比还是有一些差距。</p>
+          </section>
+      </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+      <section>
+          <section>
+              <p>面对众多的框架，我们该如何进行选择？</p>
+          </section>
+        <section>
+          <p>不谈具体项目讲哪个有优势纯属耍流氓。</p>
+        </section>
+          <section>
+              AngularJS 与 Angular架构的区别
+          </section>
+          <section>
+              AngularJS
+          </section>
+          <section>
+              AngularJS 是一个典型的 MVC 架构，用户通过点击按钮，输入框等操作与视图进行交互，这些操作会被视图通知到控制器，控制器会修改或者查询底层的数据模型，数据模型可能会跟服务器产生一些交互来获取或修改资源，最后数据模型把修改反馈到视图，用户可以立刻看到自己所做的这些操作和视图反馈的结果，这就是 AngularJS 的基本架构。
+              <img src="../img/Advantages-and-disadvantages/angularJS.png">
+          </section>
+          <section>
+              Angular
+          </section>
+          <section>
+              Angular 采用了完全不同的架构，Angular 整个应用就是一颗组件树，用户看到的是这颗组件树上某几个被激活的组件视图，用户可以通过一些操作，从一个页面路由到另一个页面，用户还可以跟视图进行交互，这些交互由组件本身提供，组件通过依赖注入来引入一些服务来做一些操作，或者跟服务端产生一些通信。
+              <img src="../img/Advantages-and-disadvantages/Angular-A.png">
+          </section>
+
+      </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+          <p>参考一：<a href="http://blog.csdn.net/u012125579/article/details/52744093" target="_blank">参考链接</a></p>
+          <p>参考二：<a href="https://www.zhihu.com/question/40975678">知乎</a></p>
+          <p>参考三：<a href="https://my.oschina.net/wangshijun/blog/857834">2016 年崛起的 JS 项目 </a></p>
+          <p>参考四：<a href="https://github.com/ruanyf/jstraining/blob/master/docs/history.md">前端开发的历史和趋势</a></p>
+          <p>参考五：<a href="https://www.zhihu.com/question/39943474">react.js,angular.js,vue.js学习哪个好？</a></p>
+          <p>参考六：<a href="https://juejin.im/post/590e060aac502e00653fe9a4">初识 Angular</a></p>
+          <p>参考七：<a href="https://juejin.im/entry/5861cb4c61ff4b0068aa45d3">Angular 2 到底有没有比 React 牛逼？</a></p>
+          <p>参考八：<a href="https://gitee.com/mumu-osc/NiceFish">NiceFish（美人鱼）</a></p>
+          <p>参考九：<a href="https://www.zhihu.com/question/21871888">移动网站用backbone还是angular?</a></p>
+          <p>参考十：<a href="http://www.chinaz.com/news/2011/0408/170658_2.shtml">90年代那些如黄金般珍贵的古老网站</a></p>
+          <p>参考十一：<a href="https://www.zhihu.com/question/54588987">如何理解前端框架中的MVVM，MVC，MVW</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+      <section>
+        <p>在学习Angular中存在哪些问题？</p>
+        <p>没学过Angular，听完后会产生哪些疑问？</p>
+      </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 颜彦 </small></p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

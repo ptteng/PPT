@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>tiles框架</h2>
+            <h3>小课堂</h3>
+            <p>分享人：蒋新益</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍 </h3>
+        </section>
+        <section>
+            <p align="left">如果您发现自己在每个页面上都要编写三行相同的 JSP 代码，或者你想容易地定义复杂的模版布局，那么相信学习Tiles框架会对你有帮助</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>tiles是什么</p>
+        </section>
+        <section>
+            <p>复合视图模式</p>
+            <p>所有的网站都有一些共同点：它们由共享类似结构的页面组成。页面共享相同的布局，而每个页面由不同的独立部分组成，但始终放置在整个站点的相同位置。</p>
+        </section>
+        <section>
+            <p align="left">Tiles 是复合视图模式（Composite View pattern）的一个实现。Tiles将该模式添加到自己的概念中是该模式具体化。Tiles的实现是以复合式模式为理论，   概念包括：Template，Attribute和Definition。视图助手模式的实现是View Preparer 概念。</p>
+        </section>
+        <section>
+            <p>模板:Template</p>
+            <p align="left">在Tiles中，模板（Template）是一个页面的布局部分。你能将一个页面结构看成是由不同的需要填补空白组成。</p>
+            <p align="left">注意：一个模板（Template）可以没有属性（attributes）,这种情况下该模板可以直接使用。有属性的话就要先定义属性才能使用，不然的话就会在解析jsp页面的时候报错</p>
+        </section>
+        <section>
+            <p>属性：Attribute</p>
+            <p>属性是模板中的空白，它在你的应用程序中被填充到模板中。</p>
+        </section>
+        <section>
+            <p>属性又分为三种</p>
+            <p>string:属性是string的话，会将string直接呈现在页面。</p>
+            <p>template:属性是一个模板（Template），有无属性都行。如果有属性的话，你也要将他们填充后再呈现页面。</p>
+            <p>definition:它是一个可重复使用组成的页面，包含所有的属性来填充以呈现页面。 </p>
+        </section>
+        <section>
+            <p>定义：definition</p>
+            <p>定义是呈现给最终用户的组合物；本质上，一个定义是由一个模板和完全或部分填充的属性组成的。说白了就是：一个定义是由一个模板和属性组成的。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>include也可以实现多个jsp共用一个jsp的内容,为什么要使用tiles呢?</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>刚接触web开发的人或许知道jsp可以通过include标签动态插入一个jsp页面,这样可以实现多个jsp页面共用一个jsp的内容.但是如果有一个超级大网站,jsp页面以万计呢?</p>
+            <p>Tiles就是为你遇到的这种需求服务的</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>关于视图解析器的优先级</p>
+        </section>
+        <section>
+            <p>在Spring MVC应用程序中，我们经常需要应用一些视图解析器策略来解析视图名称。如果返回了一个视图的名称，那么，使用哪一个视图解析器策略?</p>
+        </section>
+        <section>
+            <p>如果应用了多个视图解析器策略，那么就必须通过“order”属性来声明优先级，order值越低，则优先级越高</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一:<a href="https://my.oschina.net/jast90/blog/284254"></a>Apache Tiles的基本使用</p>
+            <p>参考二:<a href="http://blog.csdn.net/qq_27093465/article/details/48650719"></a>分分钟知道tiles框架是干嘛的</p>
+            <p>参考三:<a href="http://blog.csdn.net/wang1988081309/article/details/51895482"></a>SpringMVC视图解析器：配置多个视图解析器的优先级 </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 蒋新益</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
