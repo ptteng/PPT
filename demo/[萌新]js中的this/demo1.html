@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script>
+
+    //什么是全局对象
+    //var name = 'window';//name是js关键字就不用它举例子了
+    var content = 'window';//比如content就是一个全局变量,挂载到window对象中
+    //为什么是window,这个取决于宿主环境,在浏览器中就是window对象
+    //在nodejs中就有点不一样了,我也只是简单看了一下....
+
+    //浏览器
+    //严格模式下,全局对象中的this
+    function globalInStrict() {
+        'use strict';
+        console.log(this);
+    }
+
+    globalInStrict();//严格模式下,全局对象中的this指向undefined
+    //非严格模式下.....非严格模式下.....非严格模式下.....非严格模式下.....
+    //全局性调用,this就指向window,例如单纯的函数调用、window内置对象调用
+    ~function () {
+        //单纯函数调用
+        function log1() {
+            console.log('%c' + this.content, 'color:red');
+        }
+
+        function test1() {
+            console.log('%c' + this.content, 'color:red');
+
+            function log2() {
+                console.log('%c' + this.content, 'color:red');
+            };
+            log2();//全局性调用 window.log2()
+        }
+
+        function test2() {
+            console.log('%c' + this.content, 'color:red');
+
+            function log3() {
+                console.log('%c' + this.content, 'color:red');
+            };
+            log3();//全局性调用 window.log3()
+        }
+
+        log1();//全局性调用 window.log1()
+        test1();//全局性调用 window.test1()
+        test2();//全局性调用 window.test2()
+        //虽然嵌套了很多层,仍然属于全局行调用,所以this全部指向window
+    }();
+    ~function () {
+        //window内置对象调用,指向全局对象
+        var obj = {
+            content: 'obj',
+            logName: function () {
+                //console.log(this.name);//'obj'
+                //使用window内置对象调用---------->不推荐这种写法性能低
+                window.setTimeout('console.log(\'%c\' + this.content, \'color:red\')', 1000);
+            },
+        }
+        obj.logName();//window
+    }();
+    //作为对象方法调用
+    ~function () {
+        //作为对象方法调用
+        var obj = {
+            name: 'obj',
+            logName: function () {
+                console.log(this.name);
+            },
+        }
+        obj.logName();//'obj'  obj调用logName,this指向obj
+        //复制函数指针的时候.....
+        var quote = obj.logName;//quoteFn赋值了一份指针,现在和obj.logName指向同一内存地址
+        console.log(quote === obj.logName);//true
+        quote();//全局性调用 window.quote()
+        //'window'
+    }();
+    //apply()、call()、bind() 这几个方法都会更改this指向
+    ~function () {
+        //apply()、call()
+        function fn() {
+            this.show && this.show();
+            console.log(arguments);
+        }
+
+        var msg1 = {
+            message: 'msg1',
+            show: function () {
+                console.log('%c' + this.message, 'color:red');
+            }
+        }
+        var msg2 = {
+            message: 'msg2',
+            show: function () {
+                console.log('%c' + this.message, 'color:red');
+            }
+        }
+        //更改fn的this指向,拿fn这个方法来用
+        fn.call(msg1, 'arg1', 'arg2', 'arg3');//依次传入
+        //apply()、call()最大的区别就是传递参数方式不同
+        fn.apply(msg2, ['arg1', 'arg2']);//传入参数数组
+        //其实就实现了一个这种效果,,,减少了重复代码
+        /*
+        var msg = {
+            message: 'msg',
+            show: function () {
+                console.log('%c' + this.message, 'color:red');
+            },
+            fn: function () {
+                this.show();
+                console.log(arguments);
+            }
+        }
+        msg.show('arg1', 'arg2', 'arg3');
+        */
+        //bind方法,比较特殊,它返回一个新函数,而且..
+        var msg3 = {
+            message: 'msg2',
+            show: function () {
+                console.log('%c' + this.message, 'color:red');
+            }
+        }
+        var newFn = fn.bind(msg3, 'arg1', 'arg2', 'arg3');//在调用新函数时,定义的参数都会被传入,,,
+        // 例如这里定义了arg1、arg2、arg3,调用newFn的时候都会被传入
+        newFn('arg4');
+    }();
+
+
+</script>
+</html>
+
+
+<!--//this和构造器-->
+<!--var Person = function (name) {-->
+<!--this.name = name;-->
+<!--}-->
+<!--//按照js的习惯,通用方法都放在原型上-->
+<!--Person.prototype.logName = function () {-->
+<!--console.log(this.name);-->
+<!--}-->
