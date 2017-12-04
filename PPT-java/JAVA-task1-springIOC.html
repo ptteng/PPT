@@ -1,0 +1,192 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>SPRING中的IOC是什么意思，为什么要用IOC而不是NEW来创建实例？</h3>
+               <p>分享人:冯亚超</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+                <p>1.背景介绍</p>
+                </section>
+        <section>
+		<p>平常的java开发中，程序员在某个类中需要依赖其它类的方法，则通常是new一个依赖类再调用类实例的方法。</p>
+		<p>这种开发存在的问题是 new 的类实例不便于统一管理，spring 提出了依赖注入的思想，即依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类中。</p>
+		  </section>
+        
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>IOC即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。如何理解好Ioc呢？理解好Ioc的关键是要明确“谁控制谁，控制什么，为何是反转（有反转就应该有正转了），哪些方面反转了”</p>
+        </section>
+        <section>
+            <p>谁控制谁，控制什么?</p>          
+            <p>IoC 容器控制了对象</p>          
+            <p>主要控制了外部资源获取</p>
+            <p>为何是反转？</p>  
+            <p>因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；哪些方面反转了？依赖对象的获取被反转了。</p>  
+        </section>
+        <section>
+            <p>依赖注入</p>
+            <p>谁依赖谁，为什么需要依赖，谁注入谁，注入了什么?</p>
+            <p>谁依赖于谁：当然是应用程序依赖于IoC容器；</p>
+            <p>为什么需要依赖：应用程序需要IoC容器来提供对象需要的外部资源；</p>
+            <p>谁注入谁：很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象；</p>
+            <p>注入了什么：就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。</p>
+        </section>
+
+		<section>	
+		<p>spring依赖注入的形式</p>
+	    <p>1、Setter方法注入</p>
+            <p>2、构造方法注入</p>
+            <p>3、静态工厂的方法注入</p>
+            <p>4、实例工厂的方法注入</p>
+	</section>
+	<section>
+		<p>手动装配</p>
+		<p>通过在 或者 标签中使用ref属性，在上一小节的“依赖注入”部分使用的就是手动装配</p>
+                <p>ref即引用,引用一个bean</p>
+                <p>value给对象属性赋值</p>
+	</section>
+   
+	<section>
+			<p>自动装配</p>
+			<p>我们可以通过 @Autowired  在 Bean 类中使用自动装配功能</p>
+                        <p>@Autowired默认是按照类型装配注入的,如果想按照名称来转配注入，则需要结合@Qualifier一起使用；</p>                      
+        </section>
+        
+	<section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>什么是Bean?</p>
+            <p>byName与 byType有什么区别?</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+           <section>
+            <p> 什么是Bean?</p>
+            <p> 由IoC容器管理的那些组成你应用程序的对象我们就叫它Bean， Bean就是由Spring容器初始化、装配及管理的对象，除此之外，bean就与应用程序中的其他对象没有什么区别了。</p>
+        </section>
+         <section>
+            <p> byName：通过属性的名字的方式查找JavaBean依赖的对象并为其注入</p>
+            <p> byType：通过属性的类型查找JavaBean依赖的对象并为其注入</p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+                <p>spring的依赖注入到底有什么优势？</p>
+        </section>
+        <section>
+                <p>让使用者不需要自己去创建或获取自己的依赖，既然创建或获取的过程不是使用者控制的。</p>
+                <p>这也就意味着，当我需要切换依赖时，不需要改变使用者的代码。这当然要结合面向接口编程等思想，也许有人要说我一个接口就只有一个实现，何必用接口，我也基本不会去切换自己的实现。</p>
+                <p>说的对，然而就算你只有一个实现。 但是你往往会用到AOP吧，其实用代理对象替换原对象也算是切换了实现。什么日志，权限检查，异常处理等等需求。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://hck.iteye.com/blog/1578641</p>
+            <p>http://blog.csdn.net/jiesa/article/details/48649205</p>
+            <p>http://blog.csdn.net/u011225629/article/details/47143051</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:冯亚超</small></p>
+        </section>
+        <section>
+         <p>鸣谢</p>
+         <p>张帆  茹程远  李亚衡  王鹏举</p>
+		</section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

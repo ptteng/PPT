@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤ppt</title>
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>JS中基本类型和引用类型分别指的是什么?有何区别?</h3>
+                <h4>小课堂【web-B组第21期】</h4>
+                <p>分享人：王姣妍</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <h4>
+                    先了解一下 JAVASCRIPT 是什么
+                </h4>
+                JavaScript是一种属于网络的脚本语言,已经被广泛用于Web应用开发,常用来为网页添加各式各样的动态功能,
+                为用户提供更流畅美观的浏览效果。JavaScript可以嵌入在 HTML 中，或者作为单独的文件被 HTML 引用，
+                用以实现某种动态的功能。
+                </section>
+            <section>
+                    <h4>ECMAScript数据类型</h4>
+                <p style="text-align: left;text-indent: 5%">
+                    ECMAScript是JavaScript在语法和语义上的标准、规范。JavaScript是基于ECMAScript标准实现的。
+                    Javascript包括ECMAScript、DOM、BOM。
+                    在日常场合，这两个词是可以互换的。
+                </p>
+                <p style="text-align: left">
+                    在 ECMAScript 规范中，共定义了 7 种数据类型，
+                </p>
+                <ol>
+                    <li>
+                        Number：包含整数和浮点数
+                    </li>
+                    <li>
+                        String：字符串用双引号或者单引号，有length属性
+                    </li>
+                    <li>
+                        Boolean：只有true和false两个值
+                    </li>
+                    <li>
+                        Null：被看作是空的对象引用，只有一个值，null
+                    </li>
+                    <li>
+                        Undefined：未定义
+                    </li>
+                    <li>
+                        Symbol：表示独一无二的值
+                    </li>
+                    <li>
+                        Object：对象
+                    </li>
+                </ol>
+
+            </section>
+            <section>
+                2、知识剖析
+            </section>
+            <section>
+                ECMAScript数据类型分为基本类型和引用类型两大类
+                （简单点说就是拥有方法的类型和不能拥有方法的类型）
+                <ol>
+                    <li>基本类型：number，string，boolean，null，undefined，Symbol</li>
+                    <li>引用类型：object(Date、Array、RegExp、Function)</li>
+                </ol>
+            </section>
+            <section>
+                3、常见问题
+            </section>
+            <section>
+                基本类型和引用类型的不同之处
+            </section>
+            <section>
+                4、解决方案
+            </section>
+            <section>
+            <ol>
+                <li>
+                    基本类型的值是不可变的，引用类型的值是可变的；
+                </li>
+                <li>
+                基本类型的变量是存放在栈区的（栈区指内存里的栈内存）,引用类型的值是同时保存在栈内存和堆内存中的对象;
+            </li>
+                <li>
+                    基本类型的比较是值的比较，引用类型的比较是引用的比较；
+                </li>
+            </ol>
+            </section>
+            <section>
+                <section>
+                    1-1、基本类型的值是不可变的：
+                    <p>任何方法都无法改变一个基本类型的值，比如一个字符串：</p>
+                    <pre>
+                        <code>
+                          var name = "mary";
+                          name.toUpperCase(); //"MARY"
+                          console.log(name); //"mary"
+
+                           var person = "mary";
+                           person.age = 22;
+                           person.method = function () {
+                                    return 100;
+                            };
+                           console.log(person.age);//undefined
+                           console.log(person.method);//提示错误
+                       </code>
+                    </pre>
+                    <p>
+                        第一个例子：会发现原始的name并未发生改变，而是调用了toUpperCase()方法后返回的是一个新的字符串。
+                    </p>
+                    <p>
+                        第二个例子：我们不能给基本类型添加属性和方法。
+                    </p>
+                </section>
+
+                <section>
+                    1-2、引用类型的值是可变的：
+                   <p>我们可为为引用类型添加属性和方法，也可以删除其属性和方法</p>
+                    <pre>
+                        <code>
+                            var person = {};
+                            person.name = 'jozo';
+                            person.age = 22;
+                            person.sayName = function(){console.log(person.name);}
+                            person.sayName();// 'jozo'
+
+                            delete person.name; //删除person对象的name属性
+                            person.sayName(); // undefined
+                        </code>
+                    </pre>
+                    <p>上面代码说明引用类型可以拥有属性和方法，并且是可以动态改变的。</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    2-1、基本类型的变量是存放在栈区的（栈区指内存里的栈内存）
+                    <p>假如有以下几个基本类型的变量：</p>
+                    <pre>
+                        <code>
+                        var name = 'jozo';
+                        var city = 'guangzhou';
+                        var age = 22;
+                        </code>
+                    </pre>
+                    <img src="../img/j"/>
+                </section>
+                <section>
+                    2-2、引用类型的存储需要内存的栈区和堆区（堆区是指内存里的堆内存）共同完成，
+                    栈区内存保存变量标识符和指向堆内存中该对象的指针，
+                        也可以说是该对象在堆内存的地址。
+                    <pre>
+                        <code>
+                            var person1 = {name:'jozo'};
+                            var person2 = {name:'xiaom'};
+                            var person3 = {name:'xiaoq'};
+                        </code>
+                    </pre>
+                    <img src="堆.png"/>
+                </section>
+
+        </section>
+            <section>
+                <section>
+                    3-1、基本类型的比较是值的比较
+                    <p>只有在它们的值相等的时候它们才相等。</p>
+                    <pre>
+                        <code>
+                            var a = 1;
+                            var b = true;
+                            console.log(a == b);//true
+                        </code>
+                    </pre>
+                    <p>在用==比较两个不同类型的变量时会进行一些类型转换。像上面的比较先会把true
+                        转换为数字1再和数字1进行比较，结果就是true了。</p>
+                </section>
+                <section>
+                    3-2、引用类型的比较是引用的比较
+                    <pre>
+                        <code>
+                            var person1 = {};
+                            var person2 = {};
+                            console.log(person1 == person2); // false
+                        </code>
+                    </pre>
+                    <p>
+                        引用类型是按引用访问的，换句话说就是比较两个对象的堆内存中的地址是否相同，那很明显，
+                        person1和person2在堆内存中地址是不同的：
+                    </p>
+                </section>
+
+            </section>
+            <section>
+                5、编码实战
+            </section>
+            <section>
+                6、扩展思考
+            </section>
+            <section>
+                基本类型和引用类型分别是怎么传递参数的？
+            </section>
+            <section>
+                基本数据类型传递参数
+                <pre>
+                <code>
+                    　function addTen(num){
+　　　　                    num+=10;
+　　　　                    return num;
+　　                   }
+
+　　                   var count=20;
+　　                   var result=addTen(count);
+　　                   console.log(count);
+                       console.log(result);
+                </code>
+            </pre>
+            </section>
+            <section>
+                　执行结果是：20和30。在这段代码中，将变量count当做参数传递给了函数addTen，
+                也就是相当于将变量count的值复制给了函数addTen的参数。这时addTen的参数num可以看做是函数内部的一个变量。
+                在上段代码中，就相当于两个基本数据类型变量之间的值复制。而基本数据类型都有自己独立的内存地址，
+                所以num和count是没有任何关系的，他们只是值相等而已，函数执行完毕后，count的值并没有改变。
+                而函数外面的result是被直接赋值的，所以result的值就是函数的结果30。
+            </section>
+            <section>
+                引用类型传递参数
+                <pre>
+                    <code>
+                        　function setName(obj){
+　　　　                   obj.name="LSN";
+　　                       }
+
+　　                       var person=new Object();
+　　                       setName(person);
+　　                       console.log(person.name);//LSN
+
+                    </code>
+                </pre>
+            </section>
+            <section>
+                执行结果是：LSN。在这段代码中，函数setName的作用是给obj对象添加了一个属性name并给该属性赋值为"LSN",
+                因为obj是引用类型，所以这里属于是将引用类型person赋值给了obj，也就是说person和obj引用了一个内存地址，
+                所以当给obj新加了属性name时，在函数外面的person也跟着改变，最后person.name的结果为LSN。
+            </section>
+            <section>
+                7、参考文献
+            </section>
+            <section>
+                <ul style="list-style: none;">
+                    <li>参考一：<a href="http://www.cnblogs.com/focusxxxxy/p/6390536.html#3823077">js基本类型和引用类型的区别</a></li>
+                    <li>参考二：<a href="http://www.w3school.com.cn/js/pro_js_primitivetypes.asp">W3school</a></li>
+                    <li>参考三：<a href="https://www.cnblogs.com/chris-oil/p/4862638.html">指针的理解</a></li>
+                </ul>
+
+            </section>
+            <section>
+                8、更多讨论
+            </section>
+            <section>
+                两种类型的检测方法是什么
+                </section>
+            <section>
+                <p>答:Typeof操作符是检测基本类型的最佳工具
+                </p>
+                <pre>
+                    <code>
+                        var num = 1;
+                        var a = 'a';
+                        var b;
+                        var flag = true;
+                        var c = null;
+                        alert(typeof num); //number
+                        alert(typeof a); //string
+                        alert(typeof b); //undefined
+                        alert(typeof flag); //boolean
+                        alert(typeof c); //object
+                    </code>
+                </pre>
+                <p>instanceof ：判断是否是某个引用类型。</p>
+                <pre>
+                    <code>
+                        var a = [1,2,3];
+                        alert(a instanceof Object); //true
+                        alert(a instanceof Array); //true
+                        alert(a instanceof RegExp); //false
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p><small>BY : 王姣妍</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        }, {
+            src: '../plugin/markdown/markdown.js'
+        }, {
+            src: '../plugin/notes/notes.js',
+            async: true
+        }, {
+            src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+    </script>
+</body>
+
+</html>

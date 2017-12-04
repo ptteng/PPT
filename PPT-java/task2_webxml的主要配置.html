@@ -1,0 +1,179 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>web.xml里的主要配置</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：雍金卫</p>
+        </section>
+        <section>
+            <p>1.web.xml的主要作用</p>
+            <p>2.web.xml为什么可以定义这些标签元素呢</p>
+            <p>3.常用的标签元素</p>
+            <p>4.不常用的标签元素</p>
+            <p>5.一些思考的东西</p>
+        </section>
+        <section>
+            <h3>基本介绍</h3>
+        </section>
+        <section>
+			<p>web.xml是用来干啥的？</p>
+			<p>其实大家都知道，web.xml是用来配置信息的。</p>
+			<p>通俗来讲：你的webapp需要什么配置，比如说servlet,filter以及其它的标签等等。</p>		
+        </section>
+        <section>
+            <h3>Sun公司</h3>
+        </section>
+        <section>
+			<p>根元素web-app</p>
+            <p>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns="http://java.sun.com/xml/ns/javaee"</p>
+            <p>web.xml的模式(Schema)文件中定义了多少种标签元素，web.xml中就可以出现它的模式文件所定义的标签元素</p>
+		</section>
+		<section>
+		<h3>常用的一些标签元素</h3>
+		</section>
+		<section>
+			    <p>welcome-file-list  指定欢迎界面，当然这个标签下可以指定多个界面，如果前者界面不存在，就寻找后者。</p>        
+			   	<p>context-param上下文参数这个略微复杂等一下细讲</p>
+				<p>servlet用来声明一个servlet的数据</p>
+			   	<p>filter过滤器</p>
+				<p>listener监听器</p>		            
+        </section>
+		<section>
+		     	<p>context-param</p>		    
+				<p>声明应用范围内的初始化参数。它用于向 ServletContext提供键值对，即应用程序上下文信息。我们的listener, filter等在初始化时会用到这些上下文中的信息。</p>
+				<p>在启动一个webapp程序时，会发生哪些动作呢？</p>
+		</section>	
+		<section>
+			    
+				<p>启动流程</p>			
+				<p>1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点: listener和 context-param</p>
+				<p>2.紧接着,容器创建一个ServletContext(上下文),这个WEB项目所有部分都将共享这个上下文.</p>
+				<p>3.容器将context-param转化为键值对,并交给ServletContext.</p>
+				<p>4.容器创建listener中的类实例,即创建监听.</p>
+		</section> 
+		<section>
+		<p>servlet 用来声明一个servlet的数据</p>
+		<p>运行在服务器端的程序，用于处理及响应客户的请求。</p>
+		<p>servlet-mapping</p>
+		<p>将URL模式映射到某个Servlet，即该Servlet处理的URL。</p>
+		</section>
+		<section>	    
+					<p>filter </p>
+					<p>举个过滤器的例子</p>
+					<P>filter</p>
+					<p>characterEncoding</p>
+					<p>org.springframework.web.filter.CharacterEncodingFilter</p>
+					<p>	init-param</p>
+					<p>	encoding</p>
+					<p>UTF-8</p>
+					<p>	filter</P>
+					<p>这个大家经常用，下面还有对应的mapping，就不列出来了。</p>
+		</section>
+		<section>
+			<p>filter可认为是Servlet的一种“加强版”，主要用于对用户请求request进行预处理，也可以对response进行后处理，是个典型的处理链。使用filter的完整流程是：filter对用户请求HttpServletRequest进行预处理，接着将请求交给Servlet进行处理并生成响应，最后filter再对服务器响应HttpServletResponse进行后处理。filter与Servlet具有完全相同的生命周期，且filter也可以通过init-param来配置初始化参数，获取filter的初始化参数则使用filterConfig的getInitParameter()。</p>
+			<p>filter在web.xml中配置，可包含filter-name、filter-class、init-param等子元素</p>	
+		</section>
+		<section>
+			<p>filter-mapping</p>
+			<p>用来声明Web应用中的过滤器映射，过滤器被映射到一个servlet或一个URL 模式。这个过滤器的filter和filter-mapping必须具有相同的filter-name，指定该filter所拦截的URL。过滤是按照部署描述符的filter-mapping出现的顺序执行的。</p>
+		</section>
+		<section>
+			<h3>监听器</h3>
+		</section>
+		<section>
+				<p>listener监听器</p>
+				<p>listener</p>
+				<p>org.springframework.web.context.ContextLoaderListener</p>
+				<p>listener</p>	
+		</section>       
+        <section>
+          	<p>监听器Listener就是在application,session,request三个对象创建、
+			销毁或者往其中添加修改删除属性时自动执行代码的功能组件。</p>
+			<P>Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。</p>	
+        </section>  
+        <section>
+            <h3>其他的一些配置</h3>
+            <p>error-page错误路径</p>
+            <p>session-config会话(Session)过期时间</p>
+            <p>jsp-config 设置jsp</p>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 雍金卫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

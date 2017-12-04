@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>什么是AJAX？</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>【JS-05】什么是AJAX？</h3>
+            <p>分享人：梁耀</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <h4>什么是AJAX？</h4>
+                <p>
+                    即异步的 JavaScript 和 XML，是一种用于创建快速动态网页的技术；
+                    传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。
+                    使用AJAX则不需要加载更新整个网页，实现部分内容更新；
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <p>具体来说，AJAX包括以下几个步骤。</p>
+                <ol>
+                    <li>创建AJAX对象</li>
+                    <li>发出HTTP请求</li>
+                    <li>接收服务器传回的数据</li>
+                    <li>更新网页数据</li>
+                </ol>
+            </section>
+
+            <section>
+                <p>xmlhttprequest对象的用法</p>
+                <pre>
+                    <code>
+                xhr.open("get","ajax_info.txt",false);
+                xhr.send(null);
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>
+                    send方法接受一个数据，即要作为请求主体的数据。如果不需要请求主体发回数据，则传回null；
+                    收到响应后数据会填入xhr对象的属性：
+                </p>
+                <ul>
+                    <li>responseText：作为响应主体被返回的文本</li>
+                    <li>responseXML：如果响应的内容类型是“text/xml”或者“application/xml”
+                        这个属性中就保存包含着响应数据的XML DOM文档</li>
+                    <li>status：响应的HTTP状态</li>
+                    <li>statusText：HTTP状态说明</li>
+                </ul>
+            </section>
+            <section>
+                <p>在收到响应后，第一步先确定status属性，用来确定是否返回成功（状态为200）；
+                    responseText属性就准备就绪，此外，状态码304表示请求的资源没有被修改；
+                    但一般为了确保接受到适当的响应还需要检测上面两种状态码；
+                </p>
+            </section>
+            <section>
+            <pre>
+                       <code>
+                           function sendAjax() {
+  //构造表单数据
+  var formData = new FormData();
+  formData.append('username', 'johndoe');
+  formData.append('id', 123456);
+  //创建xhr对象
+  var xhr = new XMLHttpRequest();
+  //设置xhr请求的超时时间
+  xhr.timeout = 3000;
+  //设置响应返回的数据格式
+  xhr.responseType = "text";
+  //创建一个 post 请求，采用异步
+  xhr.open('POST', '/server', true);
+  //注册相关事件回调处理函数
+  xhr.onload = function(e) {
+    if(this.status == 200||this.status == 304){
+        alert(this.responseText);
+    }
+  };
+  xhr.ontimeout = function(e) { ... };
+  xhr.onerror = function(e) { ... };
+  xhr.upload.onprogress = function(e) { ... };
+
+  //发送数据
+  xhr.send(formData);
+}
+                       </code>
+                    </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section style="font-family: 'Times New Roman'; text-transform:none; text-align: left;">
+                <p class="fragment">1、IE浏览器下面的缓存问题</p>
+                <p class="fragment">2、跨域问题</p>
+                <p class="fragment">3、Ajax乱码问题</p>
+                <p class="fragment">4、使用post提交的时候需要设置content-type为"application/x-www-form-urlencoded"</p>
+                <p class="fragment">5、Ajax对象属性的大小写问题</p>
+                <p class="fragment">6、Ajax状态为0的问题</p>
+                <br><br>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>4.解决方法</h3>
+            </section>
+
+                <section>
+                    1. 缓存问题<br><br>在IE浏览器下面使用get请求时，如果第一次请求了数据之后IE会自动缓存数据，如果下一次再发送同样的
+                    请求的时候浏览器会自动先去找缓存显示出来，所以如果请求的数据有变化的时候，这里是看不到变化的。<br><br>
+                    解决办法：
+                    <pre>
+                    <code> xhr.open("get","xxxx.aspx?_dc="+new Date().getTime(),true);</code>
+                </pre>
+                    就是在请求的后面 加上时间戳或是随机数，让url变成唯一，或者是，改成post请求。
+                    （get和post请求的区别可参见 <a href="http://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html">浅谈HTTP中Get与Post的区别</a>）
+                </section>
+                <section style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                    2. 跨域问题<br><br>
+                    这是我们目前见到的最多的，也是最熟悉的一个问题。本地上面直接采用Nginx跨域实现。在服务器上实现跨域，可以通过后端达成，可参考 <a
+                        href="http://www.cnblogs.com/fanyx/p/5775939.html">跨域有几种处理方式？</a>
+                    注意 Nginx跨域可以同时配置多个接口的，就是多写几个location就好了，然后location后面带的参数不一样就可以了。
+                </section>
+
+                <section>
+                    <img src="../img/js-05-ajax/pic03.png" alt="">
+                </section>
+                <section>
+                    <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                        3. Ajax乱码问题<br><br>
+                        乱码问题虽然我们目前遇到的不多，但是也属于比较常见的一个问题了。出现的主要原因就是编码不一致导致的。
+                        如果出现乱码问题了，首先检查一下meta声明的charset要和请求的页面返回的charset一致。response.charset="gb2312 or utf-8"
+                    </p>
+                </section>
+                <section>
+                    <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                                          4. 使用post提交的时候需要进行的设置 <br><br>
+                    <pre>
+                       <code>
+                           content-Type: application/x-www-form-urlencoded;
+                           //jQuery中，
+                           content-Type: application/x-www-form-urlencoded;charset=utf-8;
+                           //AngularJS中$http
+                           content-Type: application/json; charset=utf-8;
+                           //使用原生Ajax需要在open以后才能使用xhr.setRequestHeader()方法，否则出错
+                           xhr.open("post","xxxx.aspx",true);
+                           xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+                           //用原生写时必须在open()方法之后send()方法之前调用
+                       </code>
+                    </pre>
+                                   </p>
+                </section>
+                <section>
+                    <p style="text-align: left; font-family: 'Times New Roman'; text-transform:none;">
+                                          5. Ajax对象属性的大小写问题 <br><br>
+                        有些浏览器比如火狐，对大小写是敏感的，if (xhr.readystate==4)这种写法，
+                        在IE下是成立的，但是在Firefox下就行不通了，因为IE不区分大小写，Firefox是区分大小的。标准写法为if (xhr.readyState==4)，同理还有属性
+                        responseText，responseXML。<b>习惯采用驼峰形式的写法可以避免这个问题。</b><br/>
+                    </p>
+                </section>
+                <section>
+                    <p>
+                        6. Ajax状态0的问题<br><br>
+                        有时候在测试Ajax代码的时候加了 xhr.status==200的判断后，一直不执行xhr.status==200的代码，
+                        这个就需要注意了。xhr.status==200是要通过服务器确认后来返回的，在服务器页面没有发生错误或者转向时才返回200状态的，
+                        此状态和你通过浏览器访问页面时服务器定义的状态一致。直接拖进浏览器浏览结果或者双击运行html页面的，未发生错误时，此时的xhr.status是0，不是200。
+                    </p>
+                </section>
+
+
+
+
+        </section>
+
+        <section>
+            <section>
+                <h3>5、编码实战</h3>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>6、扩展思考</h3>
+                <p>AJAX的优缺点</p>
+                <p>get与post</p>
+            </section>
+            <section>
+                <p>ajax的优点：</p>
+                <ol>
+                    <li>最大的一点是页面无刷新，用户的体验非常好。</li>
+                    <li>使用异步方式与服务器通信，具有更加迅速的响应能力。</li>
+                    <li>可以把以前一些服务器负担的工作转嫁到客户端，利用客户端闲置的能力来处理，
+                        减轻服务器和带宽的负担，节约空间和宽带租用成本。并且减轻服务器的负担，
+                        ajax的原则是“按需取数据”，可以最大程度的减少冗余请求，和响应对服务器造成的负担。</li>
+                    <li>基于标准化的并被广泛支持的技术，不需要下载插件或者小程序。</li>
+                    <li>ajax可使因特网应用程序更小、更快，更友好。</li>
+                </ol>
+            </section>
+            <section>
+                <p>ajax的缺点：</p>
+                <ol>
+                    <li>ajax不支持浏览器back按钮。</li>
+                    <li>安全问题 AJAX暴露了与服务器交互的细节。</li>
+                    <li>对搜索引擎的支持比较弱。</li>
+                    <li>破坏了程序的异常机制。</li>
+                    <li>不容易调试。</li>
+                </ol>
+            </section>
+            <section>
+                <p>
+                    GET - 从指定的资源请求数据。
+                    POST - 向指定的资源提交要被处理的数据
+                </p>
+                <p>
+                    GET 请求可被缓存
+                    GET 请求保留在浏览器历史记录中
+                    GET 请求可被收藏为书签
+                    GET 请求不应在处理敏感数据时使用
+                    GET 请求有长度限制
+                    GET 请求只应当用于取回数据
+                </p>
+                <p>
+                    POST 请求不会被缓存
+                    POST 请求不会保留在浏览器历史记录中
+                    POST 不能被收藏为书签
+                    POST 请求对数据长度没有要求
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>7、参考文献：</h3>
+            </section>
+            <section>
+                <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                    <p>参考一：《JavaScript高级编程设计》</p>
+                    <p>参考二：
+                        <a href="http://javascript.ruanyifeng.com/bom/ajax.html" target="_blank">AJAX -- JavaScript 标准参考教程（alpha）——阮一峰</a>
+                    </p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8、更多讨论</h3>
+            </section>
+            <section>
+                <P>AJAX适用场景有哪些？</P>
+            </section>
+            <section>
+                <ul><p>Ajax适用场景</p>
+                    <li>表单驱动的交互</li>
+
+                    <li>深层次的树的导航</li>
+                    <li> 快速的用户与用户间的交流响应</li>
+                    <li>类似投票、yes/no等无关痛痒的场景</li>
+                    <li>对数据进行过滤和操纵相关数据的场景</li>
+                    <li>普通的文本输入提示和自动完成的场景</li>
+                </ul>
+                <ul><p>Ajax不适用场景</p>
+                    <li> 部分简单的表单</li>
+                    <li>搜索</li>
+                    <li>基本的导航</li>
+                    <li>替换大量的文本</li>
+                    <li>对呈现的操纵</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <p>谢谢大家</p>
+            <p>分享人：梁耀</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+<script>
+    document.getElementById("change").onclick = function () {
+        document.getElementById("change").setAttribute("src", "../img/QTC_ppt/wtm.jpg");
+        // alert("a");
+    }
+</script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        transition: 'convex',
+
+
+        dependencies: [{
+            src: '../plugin/markdown/marked.js'
+        },
+            {
+                src: '../plugin/markdown/markdown.js'
+            },
+            {
+                src: '../plugin/notes/notes.js',
+                async: true
+            },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+
+</html>

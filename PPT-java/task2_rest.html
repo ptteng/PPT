@@ -1,0 +1,178 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>简单理解REST接口</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：雍金卫</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.特点介绍</p>
+            <p>3.具体规范</p>
+            <p>4.HTTP响应状态码</p>
+        </section>
+        <section>
+            <h3>①.基本介绍</h3>
+        </section>
+        <section>
+			<p>REST是谁？</p>
+			<p>REST(Representational State Transfer)</p>
+			<p>官方解释：表述性状态传递</p>
+			<p>通俗来讲：资源在网络中以某种表现形式进行状态转移。</p>
+			<p>RESTful架构风格最初由Roy T. Fielding（HTTP/1.1协议专家组负责人）在其2000年的博士学位论文中提出。HTTP就是该架构风格的一个典型应用。</p>
+        </section>
+        <section>
+            <h3>②.出现背景</h3>
+        </section>
+        <section>
+			<p>为什么会使用RESTful结构呢？</p>
+			
+            <p>在移动端盛行之前，网页前后端联系很紧密，比如当时的PHP,JSP。在当时来看这是问题不大，各种不同的客户端(手机，平板等)。这样的情况之下，RESTful出现了。</p>
+               <p>RESTful可以通过一套统一的接口为 Web，iOS和Android提供服务。</p>
+              
+		</section>
+		<section>
+		<h3>2.特点介绍</h3>
+		</section>
+		<section>
+			    <p>REST最大的几个特点为：资源、统一接口、URI和无状态。</p>        
+			   	<p>资源:就是网络上的一个实体，或者说是网络上的一个具体信息。</p>
+			   	<p>资源总是以某种Representation为载体显示的，即序列化的信息</p>
+				<p>常用的Representation是json(推荐)或者xml（不推荐）等</p>	
+				<p>Representation 是REST架构的表现层</p>
+			            
+        </section>
+		<section>
+		     <p>统一接口：</p>		    
+				<p>RESTful架构风格规定，数据的元操作，即CRUD操作，分别对应于HTTP方法：GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT用来更新资源，DELETE用来删除资源，这样就统一了数据操作的接口，仅通过HTTP方法，就可以完成对数据的所有增删查改工作。</p>
+				<p>GET（SELECT）：从服务器取出资源（一项或多项）。</p>
+				<p>POST（CREATE）：在服务器新建一个资源。</p>
+				<p>PUT（UPDATE）：在服务器更新资源（客户端提供完整资源数据）。</p>
+				<P>DELETE（DELETE）：从服务器删除资源。</P>
+		</section>
+		<section>
+			    
+				<p>URI</p>
+				
+				<p>可以用一个URI（统一资源定位符）指向资源，即每个URI都对应一个特定的资源。要获取这个资源，访问它的URI就可以，因此URI就成了每一个资源的地址或识别符。
+				一般的，每个资源至少有一个URI与之对应，最典型的URI即URL。</p>	
+		</section> 
+		
+		<section>
+			    
+				<p>无状态</p>
+				<p>所谓无状态的，即所有的资源，都可以通过URI定位，而且这个定位与其他资源无关，也不会因为其他资源的变化而改变。有状态和无状态的区别，举个简单的例子说明一下。如查询员工的工资，如果查询工资是需要登录系统，进入查询工资的页面，执行相关操作后，获取工资的多少，则这种情况是有状态的，因为查询工资的每一步操作都依赖于前一步操作，只要前置操作不成功，后续操作就无法执行；如果输入一个url即可得到指定员工的工资，则这种情况是无状态的，因为获取工资不依赖于其他资源或状态，且这种情况下，员工工资是一个资源，由一个url与之对应，可以通过HTTP中的GET方法得到资源，这是典型的RESTful风格。</p>
+
+		</section>
+		<section>
+			<h3>具体规范</h3>
+		</section>
+		<section>
+			    
+				<p>URI命名规范</p>
+				
+				<p>文档(资源的单一形式，可理解为一个对象)类型的资源用名词(短语)单数命名</p>
+				<P>集合(容器，相当于资源的集合)类型的资源用名词(短语)复数命名</P>
+				<P>仓库(资源库)类型的资源用名词(短语)复数命名</P>
+				<P>控制器(方法，支持参数输入，结果返回)类型的资源用动词(短语)命名</P>
+				<P>URI中有些字段可以是变量，在实际使用中可以按需替换</P>
+				
+		</section>
+		<section>
+            <h3>4.HTTP响应状态码</h3>
+       	</section>
+        
+        
+        <section>
+            <p>200 (“OK”) 用于一般性的成功返回</p>
+            <p>201 (“Created”) 资源被创建</p>
+            <p>204 (“No Content”) 此状态可能会出现在PUT、POST、DELETE的请求中，一般表示资源存在，但消息体中不会返回任何资源相关的状态或信息。</p>
+            <p>301 (“Moved Permanently”) 资源的URI被转移，需要使用新的URI访问</p>
+			<p>400 (“Bad Request”) 用于客户端一般性错误返回, 在其它4xx错误以外的错误，也可以使用400</p>
+			<p>404 (“Not Found”) 找不到URI对应的资源</p>
+			<p>500 (“Internal Server Error”) 服务器端的接口错误，此错误于客户端无关</p>
+        </section>
+        
+        <section>
+            <h3>5.参考文献</h3>
+            <p>http://blog.csdn.net/zghwaicsdn/article/details/53788535#t16</p>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 雍金卫</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>葡萄藤PPT</title>
+
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+  <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+  <!-- syntax highlighting 代码高亮主题 -->
+  <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+  <!-- 打印和PDF输出样式 -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+  <map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h3>Spring中的IOC是什么意思，为什么要用IOC而不是New来创建实例？</h3>
+        <p>小课堂</p>
+        <h3></h3>
+        <p>分享人：杨以杰</p>
+      </section>
+      <section>
+        <p>1.背景介绍</p>
+        <p>2.知识剖析</p>
+        <p>3.常见问题</p>
+        <p>4.解决方案</p>
+        <p>5.编码实战</p>
+        <p>6.扩展思考</p>
+        <p>7.参考文献</p>
+        <p>8.更多讨论</p>
+      </section>
+      <section>
+        <h3>1.背景介绍</h3>
+      </section>
+
+
+      <section>
+        <p>先简单介绍下背景</p>
+        <p>Spring是一个基于IOC和AOP结构的开源轻量级开发应用框架，Rod Johnson大神是为了解决企业级应用开发复杂性创建的，因此spring也说是J2EE系统的框架</p>
+      </section>
+
+      <section>
+        <h3>2.知识剖析</h3>
+      </section>
+      <section>
+        <p>Inversion of control</p>
+        <p>IOC控制反转是Spring的基础,简单说就是创建对象由以前的程序员自己new， 变成了交由Spring创建对象。这就是平常的java开发中， 我们在某个类中需要依赖其它类的方法，通常是new一个依赖类然后再调用类实例的方法，但是 new 的类实例不便于统一管理，耦合性更高； 这个时候IOC的思想就凸显出来了:由 Spring容器来实现这些相互依赖对象的创建、协调工作， 对象只需要关系业务逻辑本身就可以了； 这样理解的话，对象如何得到他的协作对象的责任被反转了。
+        </p>
+      </section>
+      <section>
+        <p>Dependency Injection</p>
+        <p>DI 依赖注入 . 简单地说就是拿到的对象的属性，已经被注入好相关属性值了，直接使用即可，当然还可以像上面提到反转，也就是注入一个对象 就像jdbc里面，对象A需要操作数据库,以前首先需要A自己编写代码来获得一个Connection对象， 有了spring我们就只需要告诉spring,A需要一个Connection,在系统运行时，spring会在适当的时候制造一个Connection,注射到 A中,这样就完成了对两个对象之间关系的控制。A需要依赖Connection才能正常运行，而这个Connection是由spring注入到A中的,
+          依赖注入的名字就这么来的。
+        </p>
+      </section>
+
+
+      <section>
+        <h3>3.常见问题</h3>
+      </section>
+
+      <section>
+        <p>什么是依赖？什么是注入？</p>
+
+      </section>
+
+      <section>
+        <h3>4.解决方案</h3>
+      </section>
+      <section>
+        <p>
+          通过编码来看效果
+        </p>
+      </section>
+
+      <section>
+        <h3>5.编码实战</h3>
+      </section>
+
+      <section>
+        <p>
+          使用ref；
+        </p>
+        <p>
+          使用autowire；
+        </p>
+      </section>
+
+      <section>
+        <h3>6.扩展思考</h3>
+      </section>
+
+      <section>
+
+        <p>上面是注入对象行为属性的注解，那么bean对象本身，比如student，school可不可以移出applicationContext.xml 配置文件，也通过注解进行呢？
+        </p>
+
+      </section>
+
+      <section>
+        <h3>7.参考文献</h3>
+        <p>1，https://ptteng.github.io/PPT/PPT-java/java_task1_14_SpringIOC.html#/5 </p>
+        <p>2，https://ptteng.github.io/PPT/PPT-java/java-IOC-task1.html#/9</p>
+        <p>3，http://www.yiibai.com/spring/</p>
+        <p>4，https://baike.baidu.com/item/spring/85061?fr=aladdin</p>
+      </section>
+
+      <section>
+        <h3>8.更多讨论</h3>
+
+      </section>
+
+      <section>
+        <p>什么是AOP</p>
+      </section>
+
+      <section>
+        <h4>Thanks</h4>
+        <p></p>
+        <p><small>By : 杨以杰</small></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+  <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+  <script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+      history: true,
+      dependencies: [{
+          src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js',
+          async: true
+        },
+        {
+          src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+
+</html>

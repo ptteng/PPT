@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JS有哪几种传参方式?</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>【JS-task3】JS有哪几种传参方式?</h2>
+                <p>小课堂【上海第25期】</p>
+                <p>分享人：刘洪利</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">所有函数的参数都是按值传递的,也就是说把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。</p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">对于基本类型来说，其复制的是被复制变量在栈中的值，即创建了一个副本，对其中任何一个变量的改变都不会影响另外一个变量。</p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">对于引用类型来说，其复制的是被复制变量在栈中的值，但是这个值所存储的是变量指向到堆中的对象的指针，即该对象所存储的地址，复制后的变量虽然也是一个副本，但是却指向了与被复制的变量的同一个在堆中的对象。对其中任何一个变量所做的改变都会影响都会影响另外一个变量。</p>
+            </section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section>
+                <h3 style="text-align:left">常见的传参方式</h3>
+                <p style="text-align:left">1. localStorage、sessionStorage</p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">1.1. localStorage方法：
+                    <br>&emsp;&emsp;在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k)，localStorage中一般浏览器支持的是5M大小，这个在不同的浏览器中localStorage会有所不同。不过储存在localStorage方法中的数据会遵循一条规则，数据保留到通过Javascript删除或者用户清楚浏览器缓存。
+                </p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">1.2. sessionStorage方法：
+                    <br>&emsp;&emsp;与localStorage基本相同，但是sessionStorage只是储存特定于某个会话的数据，也就是该数据只会保持到浏览器关闭。当浏览器关闭时，sessionStorage所储存的数据会随关闭浏览器一起消失
+                </p>
+
+            </section>
+            <section>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">
+                    这两种方法同时都属于是storage类型，因此拥有与storage类型相同的使用方法：
+                    <br>clear(): 删除所有值
+                    <br>getItem(): 根据指定的名字name获取相应的值
+                    <br>key(index): 获得index位置处的值的名字
+                    <br>removeItem(name): 删除由name指定的名值对儿
+                    <br>setItem(name, value): 为指定的name设置一个对应的值
+                    <br>
+                    <br>&emsp;&emsp;值得注意的是，storage类型只能储存字符串,非字符串的数据在存储之前会被转换成字符串
+                </p>
+            </section>
+
+            <section>
+                <p style="text-align:left">2. 用cookie传递参数</p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">Cookie 是什么</p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">
+                    Cookie是当你浏览某网站时，网站存储在你机器上的一个小文本文件，它记录了你的用户ID，密码、浏览过的网页、停留的时间等信息，当你再次来到该网站时，网站通过读取Cookie，得知你的相关信息，就可以做出相应的动作，如在页面显示欢迎你的标语，或者让你不用输入ID、密码就直接登录等等
+                </p>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">
+                    Cookie 一般有两个作用。
+                    <br> 第一个作用是识别用户身份。
+                    <br>&emsp;&emsp;比如用户A用浏览器访问了 http://a.com，那么 http://a.com 的服务器就会立刻给A返回一段数据[uid=1]（这就是 Cookie）。当A再次访问 http://a.com
+                    的其他页面时，就会附带上[uid=1]这段数据。
+                    <br>
+                    <br>&emsp;&emsp;同理，用户B用浏览器访问 http://a.com 时，http://a.com 发现B没有附带 uid 数据，就给B分配了一个新的 uid，为2，然后返回给B一段数据[uid=2]。B
+                    之后访问 http://a.com的时候，就会一直带上[uid=2]这段数据。
+                    <br>
+                    <br> 借此，http://a.com 的服务器就能区分A和B两个用户了。
+                    <br>
+                    <br>
+                </p>
+            </section>
+            <section>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">
+                    第二个作用是记录历史。
+                    <br>
+                    <br>&emsp;&emsp;假设 http://a.com 是一个购物网站，当A在上面将商品 A1 、A2 加入购物车时，JS 可以改写 Cookie，改为[uid=1; cart=A1,A2]，表示购物车里有 A1 和 A2
+                    两样商品了。
+                    <br>
+                    <br>&emsp;&emsp;这样一来，当用户关闭网页，过三天再打开网页的时候，依然可以看到 A1、A2 躺在购物车里，因为浏览器并不会无缘无故地删除这个 Cookie。
+                    <br>
+                    <br> 借此，就达到里记录用户操作历史的目的了。
+                </p>
+
+            </section>
+            <section>
+                <p style="text-align:left;font-size:1.7rem;text-indent:4rem">
+                    cookie的特点。
+                    <br>
+                    <br> 1.cookie可以使用 js 在浏览器直接设置（用于记录不敏感信息，如用户名）, 也可以在服务端通使用 HTTP 协议规定的 set-cookie 来让浏览器种下cookie，这是最常见的做法。
+                    <br>
+                    <br> 2.每次网络请求 Request headers 中都会带上cookie。所以如果 cookie 太多太大对传输效率会有影响。
+                    <br>
+                    <br> 3.一般浏览器存储cookie 最大容量为4k，所以大量数据不要存到cookie。
+                </p>
+            </section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>还有什么其他传递参数的方式？</p>
+            </section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p style="text-align:left">
+                    url传参
+                </p>
+                <p style="text-align:left;font-size:1.5rem;text-indent:4rem">
+                通过把参数值附在url后面传递到其他页面 
+                <br>如： http://xxx.com/login.html?mobile=123&pwd=abc 
+                <br>
+                <br>其中“mobile=123”和“pwd=abc”就是我们传递的参数名称和值。 
+                <br>
+                <br>url和参数之间用"?"隔开多个参数之间用"&"符号连接。
+                </p>
+                <p style="text-align:left">
+                    URL地址传递参数的几个特点：
+                </p>
+                <p style="text-align:left;font-size:1.5rem">
+                    优点： 
+                    <br> 1. URL地址法简洁易用，可同时传递多个字符型参数；
+                    <br> 2. URL地址法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况比较不会性能损失；
+                    <br> 缺点：
+                    <br> 3. URL传递参数长度受限，最大为2K；
+                    <br> 4. URL只能传递字符型参数，传递中文时，由于发送页面和接收页面的字符编码方式不一样而导致参数解析处理错误，参数包含中文时可能出现乱码或者参数接收错误；
+                    <br> 5. 信息泄露：URL地址在客户端可见，所以涉及隐私的参数需进行加密后才能进行传递，不加密传输会导致信息泄露，产生安全隐患。
+                </p>
+            </section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <p>如何保持页面重载后内容数据不变化？如何实现？在不同设备下又该如何实现？</p>
+            </section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align:left;font-size:1.7rem">
+                    参考一：
+                    <br><a href="http://www.runoob.com/html/html5-webstorage.html" target="_blank">菜鸟教程---HTML5 Web 存储</a>
+                </p>
+                <p style="text-align:left;font-size:1.7rem">
+                    参考二：
+                    <br><a href="https://zhuanlan.zhihu.com/p/22396872?refer=study-fe" target="_blank">「每日一题」简述 Cookie 是什么</a>
+                </p>
+                <p style="text-align:left;font-size:1.7rem">
+                    参考三：
+                    <br><a href="https://zhuanlan.zhihu.com/p/22388743" target="_blank">「每日一题」cookie、session、localStorage分别是什么？有什么作用？</a>
+                </p>
+                <p style="text-align:left;font-size:1.7rem">
+                    参考四：
+                    <br><a href="http://blog.sina.com.cn/s/blog_74e9b07c0100qcv0.html" target="_blank">Web页面通过URL地址传递参数常见问题及检测方法</a>
+                </p>
+                <br>
+
+            </section>
+
+
+            <section>
+                <h3>鸣谢</h3>
+                <h3>感谢观看</h3>
+                <h3>
+                    <small>BY : 李绍博 | 刘洪利</small>
+                </h3>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [
+                { src: '../plugin/markdown/marked.js' },
+                { src: '../plugin/markdown/markdown.js' },
+                { src: '../plugin/notes/notes.js', async: true },
+                { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+            ]
+        });
+    </script>
+</body>
+
+</html>

@@ -24,16 +24,14 @@
     </script>
 </head>
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task10】常见表单验证的优缺点？</h2>
-            <h3>小课堂</h3>
-            <p>分享人：王相博</p>
+            <h2>【JS-10】有哪些常见的验证表单方式，他们各自的优缺点是什么？ </h2>
+            <p>分享人：伊文秋</p>
         </section>
         <section>
             <p>目录</p>
@@ -47,120 +45,221 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>一.背景介绍</h3>
-        </section>
-        <section>
-            <p>JavaScript 可在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证。以减轻后台数据传送压力，提高数据传送的质量和效率。</p>
-            <!--<img src="../img/js-08-Html5Validator/effect.jpg" alt="">-->
-        </section>
-        
-        <section>
-            <h3>
-                二.知识剖析
-            </h3>
-        </section>
-        <section>
-            <h3>了解一下表单验证</h3>
-        </section>
-        <section>
-            <h3>H5自带的表单验证属性</h3>
-            <p>在点击提交时进行本地验证<a href="https://www.web-tinker.com/article/20781.html">demo</a></p>
-        </section>
-        <section>
-            <h3>利用手工js代码</h3>
-            <p>if/switch，或者正则表达式，+DOM操作</p>
-            <p>缺点：代码量大，耗时多<br>
-                优点：相比于第三方库，可以减少加载的js文件大小，样式灵活<br>
-                如果网站的表但很少，或者格式简单，或者对性能的要求高，可以手工写<a>demo2</a>
-            </p>
-        </section>
-        <section>
-            <h3>利用js第三方插件</h3>
-            <p>优点：全站适用，手工代码量少</p>
-            <p>缺点：有可能加重服务器负担，样式相对固定</p>
-            <p><a href="http://validform.rjboy.cn/demo.html">链接</a></p>
-        </section>
-        <section>
-            <h3>
-                三.常见问题
-            </h3>
-        </section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section style="text-align: left;">
+                <p style="text-align: left;">JavaScript 可在数据被送往服务器前对 HTML 表单中的这些输入数据进行验证。以减轻后台数据传送压力，提高数据传送的质量和效率。
+                </p>
+                <p>HTML5自带的表单验证属性<br>
+                    js代码<br>
+                    js第三方插件</p>
+            </section>
 
-        <section>
-            <p>何时进行验证？</p>
-           
-        </section>
 
-        <section>
-             <h3>
-                四.解决方案
-            </h3>
         </section>
         <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section >
+                <h3>验证时间</h3>
+                <ul>
+                    <li>输入时进行实时验证(.onchange)
+                        <a href="https://reg.jd.com/reg/person?ReturnUrl=http%3A%2F%2Fwww.jd.com" target="_blank">京东注册</a></li>
+                    <li>退出焦点时验证(.onblur)
+                        <a href="http://jnshu.com/login/1/" target="_blank">修真院官网</a> </li>
+                    <li>提交表单时进行本地验证
+                        <a href="https://www.amazon.cn/ap/register?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.cn%2F%3Fref_%3Dnav_ya_signin&prevRID=AH8T4G41KT19W8BC0JBB&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=cnflex&openid.mode=checkid_setup&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&prepopulatedLoginId=&failedSignInCount=0&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&pageId=cnflex&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0" target="_blank">亚马逊登录</a></li>
+                </ul>
+            </section>
+            <section style="text-align: left;">
+                <h3>H5自带的表单验证属性</h3>
+                <a href="http://www.cnblogs.com/Wenwang/archive/2012/04/26/2470403.html" target="_blank">小例子</a>
+            </section>
+            <section style="text-align: left;">
+                <h3>js代码</h3>
+                <p>if/switch，或者正则表达式，DOM操作</p>
+                <p>缺点：代码量大，耗时多<br>
+                    优点：相比于第三方库，可以减少加载的js文件大小，样式灵活<br>
+                    如果网站的表但很少，或者格式简单，或者对性能的要求高，可以手工写
+                </p>
+            </section>
+            <section style="text-align: left;">
+                <h3>利用js第三方插件</h3>
+                <p>优点：全站适用，手工代码量少</p>
+                <p>缺点：有可能加重服务器负担，样式相对固定</p>
+            </section>
 
-            <ul>
-                <li>输入时进行实时验证(.keydown)
-                    <a href="https://reg.jd.com/reg/person?ReturnUrl=http%3A%2F%2Fwww.jd.com">京东注册</a></li>
-                <li>退出焦点时验证(.onblur)
-                    <a href="http://jnshu.com/login/1">demo3</a> </li>
-                <li>提交表单时进行本地验证
-                    <a href="https://www.amazon.cn/ap/signin">亚马逊登录</a></li>
-            </ul>
         </section>
         <section>
-            <h3>五.编码实战</h3>
-        </section>
-        <section>
-        <pre>
-            <code>
-                var regP = /^\d{6,16}$/;
-                var regU = /^([A-Za-z0-9\S]){5,16}$/;
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>1.表单验证常见的验证信息</p>
+                <p>2.不同的方法分别是什么写法?</p>
+            </section>
 
-                $("input:first").blur(function(){
-                   var user = $("input:first").val();
-                   if (regU.test(user) == true ){
-                    $("p:eq(1)").html("输入正确")
-                   }else{
-                    $("p:eq(1)").html("请输入正确的用户名")
-                   }
-                });
-            </code>
-        </pre>
         </section>
         <section>
-            <h3>6.拓展思考</h3>
-        </section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
 
-        <section>
-            <p>这些验证方法的优缺点是什么？</p>
-        </section>
-        <section>
-            <p>第一种京东的方法还是挺好的，毕竟大公司，获取焦点时显示提示，随着输入的过程，符合要求后给予用户通过验证的反馈，缺点是会影响一些性能，这个缺点也是很小的，一般情况下注册页都是单独出现的，所以只是执行几个keydown这种小函数应该也谈不上影响性能。第二种失去焦点验证，会导致用户输入完账号后发现上边不符合标准，还要点回去进行修改，也是会影响一些用户体验。第三种提交时才验证，这种就有些故意为了降低服务器而设置的表单验证了，考虑机器的成分大，对用户体验不够重视，是不被推荐的验证方式。</p>
-        </section>
+            <section style="text-align:left">
+                <p>表单验证常见信息</p>
+                <ul>
+                    <li>是否为空（必填/选填）</li>
+                    <li>字符长度（用户名，密码，姓名，电话，邮编，身份证）</li>
+                    <li>大小写</li>
+                    <li>标点，符号</li>
+                    <li>是否支持中文</li>
+                    <li>格式（邮箱，手机，银行卡）</li>
+                    <li>两次密码</li>
+                    <li><a href="http://wenku.baidu.com/link?url=vBbA5Dhyuf8OLXjtf2-jFmOsgOgKaMPDT-kEoeKxB_HlALWTKZqlSRuO-tYQLqLTx3c40n562sHIolndM9XDyXpmsT-JFROhcwXoED0iRta" target="_blank">链接</a></li>
+                </ul>
+            </section>
+            <section style="text-align:left">
+                <p>主要介绍三大类写法，分别是：js原生写法、angular js的表单验证写法、angular插件ng-message写法。</p>
+            </section>
 
-        <section>
-            <h3>7.参考资料</h3>
         </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
 
-        <section>
+            <section>
+                <p>1.js原生写法</p>
+                <pre><code>
+                JS表单验证
+                <p>是否填写以及长度限制</p>
+                <form name="a" onsubmit="return test()"><!--onsubmit表示表单提交时执行一段js代码，当该事件触发的函数中返回false时，表单就不会被提交，不能掉了return，否则表单永远会提交。-->
+                    <input type="text" name="b" placeholder="不超过5个字符">
+                    <br/>
+                    <input type="submit" name="Submit" value="check">
+                </form>
+                <br>
+                <script language="javascript">
+                    function test() {
+                        if (document.a.b.value == null || document.a.b.value == "") {
+                            alert("请输入用户名");
+                            return false;
+                        }
+                        if (document.a.b.value.length > 5) {
+                            alert("不能超过5个字符！");
+                            return false;
+                        }
+                    }
+                </script>
+            </code></pre>
+            </section>
+            <section>
+                <p>2.angularJs  ng-show写法</p>
+                <pre>
+                <code>
+                    <form ng-app="myApp" ng-controller="validateCtrl" name="myForm" novalidate>
 
-            <p><a href="http://validform.rjboy.cn/demo.html" target="_blank">表单展示</a></p>
-            <p><a href="https://reg.jd.com/reg/person?ReturnUrl=http%3A%2F%2Fwww.jd.com" target="_blank" >狗东注册</a></p>
-            <p><a href="https://www.amazon.cn/" target="_blank" >亚马逊注册</a></p>
-            <!-- <p><a href="" target="_blank" ></a></p> -->
+                        <p>邮箱:<br>
+                        <input type="email" name="email" ng-model="email" required>
+                        <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                            <span ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+                            <span ng-show="myForm.email.$error.email">非法的邮箱地址。</span>
+                        </span>
+                        </p>
+                        <p>
+                        <input type="submit" ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||myForm.email.$dirty && myForm.email.$invalid">
+                        </p>
+
+                    </form>
+                    <script>
+                    var app = angular.module('myApp', []);
+                    app.controller('validateCtrl', function($scope) {
+                    });
+                </script>
+                </code>
+            </pre>
+            </section>
+            <section>
+                <p>3.angularjs ng-message(angular表单验证插件）（推荐）</p>
+                <pre>
+                <code>
+
+                    <div ng-app="app" >
+                        <form form name="myForm" class="form-horizontal" novalidate>
+                            <label>邮箱</label><br>
+                            <input type="email" placeholder="ng-Messages测试" name="name" ng-model="username.name"
+                                   ng-minlength=3 ng-maxlength=20 required />
+                            <div style="color:red">
+                                <div ng-messages="myForm.name.$error">
+                                    <div ng-message="required">必填项</div>
+                                    <div ng-message="minlength">字符太短小于3</div>
+                                    <div ng-message="maxlength">字符太长大于20</div>
+                                    <div ng-message='email'>正确的邮箱格式</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <script type="text/javascript">
+//                        angular.module("app", ['ngMessages']);
+                    </script>
+                </code>
+            </pre>
+            </section>
         </section>
         <section>
-            <h3>8.更多讨论</h3>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <h4>其他的插件</h4>
+                <p>BootstrapValidator</p>
+                <p><a href="https://www.cnblogs.com/xiangwanjie/p/6053517.html" target="_blank" >教程</a></p>
+            </section>
+
+            <section>
+                <p>这些验证方法的优缺点是什么？</p>
+            </section>
+            <section style="text-align:left">
+                <p>第一种输入时进行实时验证，获取焦点时显示提示，随着输入的过程，符合要求后给予用户通过验证的反馈，缺点是会影响一些性能，这个缺点也是很小的，一般情况下注册页都是单独出现的，所以只是执行几个keydown这种小函数应该也谈不上影响性能。<br>
+                    第二种失去焦点验证，会导致用户输入完账号后发现上边不符合标准，还要点回去进行修改，也是会影响一些用户体验。<br>
+                    第三种提交时才验证，这种就有些故意为了降低服务器而设置的表单验证了，考虑机器的成分大，对用户体验不够重视，是不被推荐的验证方式。</p>
+            </section>
         </section>
         <section>
-            <p>今天没讲到的验证方式与其优缺点</p>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section style="text-align: left">
+                <p><a href="https://www.oschina.net/translate/angularjs-form-validation" target="_blank" >angularJs的表单验证</a></p>
+                <p><a href="http://www.runoob.com/angularjs/ng-ng-show.html" target="_blank" >ng-show指令</a></p>
+                <p><a href="http://www.runoob.com/angularjs/angularjs-validation.html" target="_blank" >AngularJS 输入验证</a></p>
+                <p><a href="http://jingyan.baidu.com/article/c843ea0bb2bf3c77931e4ad4.html" target="_blank" >bootstrap validator插件使用流程</a></p>
+                <p><a href="http://www.w3school.com.cn/html5/att_input_required.asp" target="_blank" >HTML 5 input required 属性</a></p>
+            </section>
         </section>
         <section>
-            <h4>鸣谢</h4>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <!--<section>-->
+                <!--<p>SEO与SEM的区别</p>-->
+            <!--</section>-->
+            <!--<section style="text-align: left">-->
+                <!--<h3>seo与sem</h3>-->
+                <!--<p>-->
+                    <!--SEM(Search Engine Market)就是搜索引擎营销。简单理解就是购买搜索引擎提供的广告位， 例如百度和google右侧的结果都是广告，按照关键词购买，按照点击收费，每次有网民点击你的广告，搜索引擎就扣一次费用。-->
+                    <!--<br>-->
+                    <!--区别：SEO是通过对网站的内容，结构，外链等方面进行优化，使网站更符合搜索引擎的抓取， 从而提升搜索结果排名，提升网站流量的手段。-->
+                <!--</p>-->
+            <!--</section>-->
+        </section>
+        <section>
+            <!--<h4>鸣谢</h4>-->
             <p>感谢大家观看</p>
-            <p><small>BY : 王相博 | 刘其勇 | 冯馨雨</small></p>
+            <p><small>BY : 伊文秋</small></p>
         </section>
-
     </div>
 </div>
 
@@ -168,6 +267,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -186,9 +286,11 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
-        history: true,
+        transition: 'default',
+        transitionSpeed: 'default',
         dependencies: [
             { src: '../plugin/markdown/marked.js' },
             { src: '../plugin/markdown/markdown.js' },
