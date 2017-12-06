@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>controller as</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>【JS-task06】controller as引入的意义及方法？</h3>
+                <h3>小课堂【武汉-271期】</h3>
+                <p>分享人：熊凡</p>
+            </section>
+
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="text-align: left">在Angular中，有几种不同的方式来声明和使用控制器。</p>
+                        <p style="text-align: left">在最开始的时候我们对于angular在view上的绑定都必须使用直接的scope对象，对于controller来说我们也得必须注入$scope这个service</p>
+                        <p style="text-align: left">angular从1.2版本开始带来了新语法Controller as。</p>
+                        <p style="text-align: left">它使我们不需要把$scope作为依赖项。简洁了controller，同时我们可以使用this在控制器上直接添加我们想要的任何属性。</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>$scope和this究竟是什么：</h4>
+                        <p style="font-size:24px">引入controller as之前: </p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.5">
+app.controller('MainCtrl', function ($scope) {
+    $scope.title = 'Some title';
+});
+</code></pre>
+                        <p style="font-size:24px">引入controller as之后: </p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.5">         
+app.controller('MainCtrl', function () {
+    var vm = this;
+    vm.title = 'Some title';
+});
+                            </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size:24px">类比一下js中的构造函数和实例: </p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">var myClass = function () {
+  this.title = 'Class title';
+}
+var myInstance = new myClass();
+</code></pre>
+                        <p style="font-size:24px">现在我们可以使用myInstance实例来访问myClass的属性和方法。 </p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">app.controller('MainCtrl', function () {
+  var vm = this;
+  vm.title = 'Some title';
+});
+<div ng-controller="MainCtrl as main">
+  {{ main.title }}
+</div></code></pre>
+                        <p style="font-size:24px">app.controller('MainCtrl',function(){})就是在定义一个名称为MainCtrl的构造函数，MainCtrl as main就是在实例化，生成MainCtrl的实例main，然后就可以在main中访问MainCtrl里定义的变量和函数。</p>
+
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>scope对象类似于构造函数的原型对象</p>
+                        <p>this则是指当前实例对象</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>controller as有哪些优点</h4>
+                        <p style="font-size: 28px">controller as让继承关系的变量之间更清晰可读</p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">var myClass = function () {
+<div ng-controller="MainCtrl">
+    {{ title }}
+    <div ng-controller="AnotherCtrl">
+        {{ title }}
+        <div ng-controller="YetAnotherCtrl">
+            {{ title }}
+        </div>
+    </div>
+</div>
+
+<div ng-controller="MainCtrl as main">
+    {{ main.title }}
+    <div ng-controller="AnotherCtrl as another">
+        {{ another.title }}
+        <div ng-controller="YetAnotherCtrl as yet">
+            {{ yet.title }}
+        </div>
+    </div>
+</div>
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">var myClass = function () {
+<div ng-controller="MainCtrl">
+    {{ title }}
+    <div ng-controller="AnotherCtrl">
+        Scope title: {{ title }}
+        Parent title: {{ $parent.title }}
+        <div ng-controller="YetAnotherCtrl">
+            {{ title }}
+            Parent title: {{ $parent.title }}
+            Parent parent title: {{ $parent.$parent.title }}
+        </div>
+    </div>
+</div>
+
+<div ng-controller="MainCtrl as main">
+    {{ main.title }}
+    <div ng-controller="AnotherCtrl as another">
+        Scope title: {{ another.title }}
+        Parent title: {{ main.title }}
+        <div ng-controller="YetAnotherCtrl as yet">
+            {{ yet.title }}
+            Parent title: {{ another.title }}
+            Parent parent title: {{ main.title }}
+        </div>
+    </div>
+</div>
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size: 28px">controller as 方式解决了父子$scope带来的混乱</p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">var myClass = function () {
+<div ng-controller="ParentController">  
+    ParentController: <input type="text" ng-model="foo" />
+    <div ng-controller="ChildController">
+        ChildController: <input type="text" ng-model="foo" />
+    </div>
+</div> 
+
+<script>
+	app  
+	  .controller('ParentController', function ($scope) {
+	    $scope.foo = "bar";
+	  })
+	  .controller('ChildController', function ($scope) { /*empty*/ });
+</script>
+</code></pre>
+                        <p style="font-size: 24px">直接使用$scope会产生父变字变，子变父不变的现象。当一个对象的原型链上有属性foo，你再给这个对象赋上一个属性foo，它不会改变原型链上的属性foo。只是新建的一个foo，在原型链的更近端，访问这个属性时不会在去寻找更远处的foo属性。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size: 24px">使用controller as方式可以避免上面的混乱，让关系更清晰：</p>
+                        <pre><code style="background-color:#1c1e20; font-size:22px; line-height:1.4">
+<div ng-controller="ParentController as parent">  
+    ParentController: <input type="text" ng-model="parent.foo" />
+    parent.foo: {{ parent.foo }}
+    <div ng-controller="ChildController as child">
+        ChildController: <input type="text" ng-model="parent.foo" />
+        parent.foo: {{ parent.foo }}
+    </div>
+</div> 
+<script>
+	app  
+	  .controller('ParentController', function () {
+	    this.foo = "bar";
+	  })
+	  .controller('ChildController', function () { /*empty*/ });
+</script>
+                            </code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>controller as有哪些应用方式？</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>4.解决办法</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <pre><code style="background-color: #1c1e20; font-size:24px; line-height:1.4;"><div
+    ng-controller="expression as myExpr">
+    ...
+</div>
+	</code></pre>
+                        <pre><code style="background-color: #1c1e20; font-size:24px; line-height:1.4;">
+$routeProvider
+    .when('/my-url', {
+        controller: 'MyController',
+        controllerAs: 'ctrl'
+    });
+	</code></pre>
+                        <pre><code style="background-color: #1c1e20; font-size:24px; line-height:1.4;">
+$stateProvider
+    .state('myState', {
+        controller: 'MyController',
+        controllerAs: 'ctrl'
+    })
+	</code></pre>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>5、编码实战</h3>
+                </section>
+                <section>
+
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6、扩展思考</h3>
+                </section>
+                <section>
+                    <p>controller as的实质是什么？</p>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size:26px;">controller as的实质是一种语法糖，我们可以看一下angular源码：</p>
+                        <pre><code style="background-color: #1c1e20; font-size:24px;">if (directive.controllerAs) {
+ 
+         locals.$scope[directive.controllerAs] = controllerInstance;
+ 
+  }</code></pre>
+                        <p style="font-size:26px;"> 从上面的代码我们能看见的是：angular只是把controller这个对象实例以其as的别名在scope上创建了一个新的对象属性。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:center ; padding:0% 12% ;font-size:30px">
+                        <pre><code style="background-color: #1c1e20; font-size:24px; line-height:1.4">
+app.controller('MyController', function () {  
+    this.someValue = "Hello!";
+});
+ </code></pre>
+                        <p style="font-size:26px;">等价于：</p>
+                        <pre><code style="background-color: #1c1e20; font-size:24px; line-height:1.4">
+app.controller('MyController', function ($scope) {  
+    $scope.myController = this;
+    this.someValue = "Hello!";
+    } 
+  </code></pre>
+                    </div>
+                </section>
+
+            </section>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                        <p>参考一：
+                            <a style="font-size:28px" href="http://echizen.github.io/tech/2015/09-24-and-this">angularjs 中 controller as 引入的意义</a>
+                        </p>
+                        <p>参考二：
+                            <a style="font-size:28px" href="https://coryrylan.com/blog/angularjs-controller-as-syntax">AngularJS Controller As Syntax </a>
+                        </p>
+                        <p>参考三：
+                            <a style="font-size:28px" href="http://www.cnblogs.com/whitewolf/p/3493362.html">angular controller as syntax vs scope</a>
+                        </p>
+                        <p>参考四：
+                            <a style="font-size:28px" href="http://codetunnel.io/angularjs-controller-as-or-scope/">MENU AngularJS: "Controller as" or "$scope"? </a>
+                        </p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人： 熊凡</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
+
+
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>

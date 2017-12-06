@@ -1,0 +1,331 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>JSP的内置对象</h2>
+            <h3>小课堂</h3>
+            <p>分享人：魏振恒</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <h4>JSP内置对象</h4>
+            <p>
+               虽然目前web开发更为常见的组合SpringMVC+AJAX，但作为一个合格的java工程师还是很有必要了解一下JSP的九大内置对象的。像request、response、session这些常用的对象，即便使用其他框架也是会经常用到的。因此十分有了解的必要。<br>
+                这些对象可以在JSP页面中调用，而不需要事先定义，这使得JSP编程更加的方便和快捷。其实这些内置对象都对应着某个Servlet类，在JSP被翻译成Servlet之后，这些内置对象会相应转换成对应的类实例。
+            </p>
+        </section>
+        <section>
+            <h4>九大内置对象</h4>
+            <p>request客户端请求-----response服务器响应-----page页面本身<br>
+                session会话-----applicationWEB 应用本身-----out输出流<br>
+                exception错误异常-----config JSP配置信息-----pageContext页面上下文
+          </p>
+        </section>
+        <section>
+            <h4>request</h4>
+            <p>request内置对象是最常用的对象之一，它代表的是java.servlet.HttpServletRequest类的对象。request内置对象中包含了有关浏览器请求的信息，并提供了多个用于获取cookie、header以及session内数据的方法。所以他的方法很多。
+            <br>getMethod()：返回HTTP请求信息中所使用到的方法名称；
+            <br>getServletPath()：返回请求信息中调用Servlet的URL部分；
+            <br>getQueryString()：返回HTTP GET请求信息中URL之后的查询字符串；
+            <br>getContentType()：返回请求实体的MIME类型；
+           <br> getProtocol()：返回请求信息中的协议名名字与版本号；
+            <br>getPathInfo()：返回有关任何路径信息；
+            <br>getServletName()：返回接受请求的服务器主机；
+           <br> getServletPort()：返回服务器的端口号；
+            </p>
+        </section>
+        <section>
+            getRemoteHost()：返回提交请求的客户机的规范名字；
+            <br>getRemoteAddr()：返回提交请求的客户机的IP地址；
+            <br>getScheme()：返回请求使用的模式（协议）名字；
+            <br>getParameter()：返回客户端通过表单提交过来的参数值。例如request.getParameter(“myname”)，通过该语句来获取客户端传递过来的myname 参数。
+           <br> getContextPath()：返回HTTP 请求中指示请求上下文的部分。
+            <br>getHeaderNames()：返回一个枚举类型，此枚举集合中包含了请求所含有的所有请求名。
+           <br> getAuthType()：返回用于保护Servlet 的认证模式的名字。例如，BASIC，SSL 或者NULL（没有保护）。
+            </section>
+
+            <section>
+            <br>gtRequestURL()：返回HTTP 请求信息中的第一行从协议名开始直至查询字符串之间的URL 部分。例如，对HTTP GET 请求http://www.zzbsite.com/helloworld?name=johnson&age=20，这个方法将返回http://www.zzbsite.com/helloworld 字符串。
+            <br>gtCountLength()：返回整数，表示请求实体的长度（以字节为单位）。
+            <br>gtUestPrincipal()：返回java.security 类的Principal 对象，其中包含有目前授权用户的名字。
+            <br>iUserInRole(String role)：返回一个布尔值，指示某个授权用户是否包含在某个具体的逻辑角色role 中。
+            <br>gtRemoteHost()：如果用户已经被授权，则返回提交请求的用户的注册名字，否则返回一个NULL。
+        </section>
+        <section>
+            <h4>代码展示</h4>
+        </section>
+        <section style="font-size: 30px">
+             <h4>response</h4>
+             <p>response对象提供了多个方法用来处理HTTP响应，可以调用response中的方法修改ContentType中的MIME类型以及实现页面的跳转等等
+             </p>
+             以下列出常用的方法
+             <br> setContentLength(int len)：此方法用于设置响应头的长度。
+            <br>setContentType(String type)：用于设置HTTP响应的contentType中的MIME类型，其中可以包含字符编码的规则。例如可以把contentType设置为“text/html;char <br>set=GBK”。在Servelet编写过程中，需要调用此方法进行设置，但是在JSP中一般都是使用page指令直接指定contentType的属性。
+                 <br>getOutputStream()：此方法返回一个Servlet的输出流。用于在响应中写入二进制数据。Servlet容器不对二进制数据进行编码。
+                 <br>getWriter()：此方法返回一个PrintWriter对象，在Servlet编写过程使用的比较频繁，而在JSP文件中，由于out是用getWriter()创建的PrintWriter对象的隐含对象，所以可以直接调用out对象作输出响应。
+                 <br>getCharacterEncoding()：该方法获得此时响应所采用的字符编码类型。
+                 <br>sendError(int status)：使用指定错误状态码向客户机发送相应的错误信息。
+                 <br>sendError(int status, String message)：使用自定义的错误状态码以及描述信息向客户机发送错误的提示信息。
+        </section>
+        <section style="font-size: 30px">
+            sendRedirect(String location)：将请求重新定位到一个不同的URL（页面）上。此方法在实际开发过程中会经常使用到。
+                 <br>setDateHeader(String headername, long date)：把指定的头名称以及日期设置为响应头信息。其中日期是用long值表示的，这是按照从新纪元开始算起的毫秒数。
+                <br>ContainsHeader(String name)：检测指定的头信息是否存在。返回一个布尔类型。
+                 <br>setHeader(String headername, String value)：此方法使用指定的头名字以及相应的值来设置头信息。如果此头信息已经设置，则新的值会覆盖掉旧的值。如果头信息已经被发送出去，则此方法的设置将被忽略。
+                 <br>addheader(String headername, String value)：把指定的头名字以及相应值添加到头信息当中去。
+                 <br>addIntHeader(String headername, int value)：把指定的头名字以及整数值设置为头信息。如果头信息已经设置了，则新的设置值将覆盖掉以前的值。
+                 <br>setStatus(int sc)：给响应设置状态的代码。
+                 <br>setStatus(int sc, String sm)：为响应设置状态代码以及信息。这是在没有错误的时候使用的。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+            上述方法中，getWriter()和sendRedirect(String location)在实际开发中使用的最为频繁。
+            getWriter()常出现在Servlet编写中。所以这个代码展示就用这两个。
+        </section>
+
+        <section>
+             <h4>page</h4>
+             <p>page对象有点类似于Java编程中的this指针，就是指当前JSP页面本身。page是java.lang.Object类的对象。
+             </p>
+             <br>以下列出常用的方法
+             <br>getClass()：返回当时Object的类。
+           <br> hashCode()：返回此Object的哈希代码。
+            <br>toString()：把此时的Object类转换成字符串。
+            <br>equals(Object o)：比较此对象是否和指定的对象是否相等。
+            <br>copy（Object o）：把此对象复制到指定的对象当中去。
+           <br> clone()：对此对象进行克隆。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+        </section>
+        <section style="font-size: 30px">
+             <h4>session</h4>
+             <p>session是与请求有关的会话期，它是java.servlet.http.HttpSession类的对象，用来表示和存储当前页面的请求信息。
+
+在实际的Web应用开发过程会经常遇到这样的一个问题：会话状态的维持。当然有很多种方法可以用来解决这个问题，例如：Cookies、隐藏的表单输入域或者将状态信息直接附加到URL当中去，但是这些方法使用非常不便。
+
+Java Servlet提供了一个可以在多个请求之间持续有效的会话对象HttpSession，此对象允许用户存储和提取会话状态的信息。JSP同样也支持了Servlet中的这个概念。JSP中的session内置对象就是对应于Servlet中的HttpSession对象。当Web应用系统希望通过多个页面完成一个事务的时候，session的使用是非常有用和方便的。
+             </p>
+             <p>session一般在服务器上设置了一个30分钟的过期时间，当客户端停止操作后30分钟，session中存储的信息会自动失效。
+
+此外需要注意的，session中保存和查找的信息不能是基本的类型，如int、double等，而必须是Java相对应的对象，例如Integer、Double等。</p>
+             </section>
+             <section style="font-size: 30px">
+             以下列出常用的方法
+             <br>getId()：此方法返回唯一的标识，这些标识为每个session而产生。当只有一个单一的值与一个session联合时，或当日志信息与先前的sessions有关时，它被当作键名用。
+            <br>getCreationTime()：返回session被创建的时间。最小单位为千分之一秒。为得到一个对打印输出很有用的值，可将此值传给Date constructor 或者GregorianCalendar的方法setTimeInMillis。
+            <br>getLastAccessedTime()：返回session最后被客户发送的时间。最小单位为千分之一秒。
+            <br>getMaxInactiveInterval()：返回总时间（秒），负值表示session永远不会超时。
+            <br>getAttribute(String key)：通过给定的关键字获取一个存储在session中相对应的信息。例如，Integer item = (Integer) session.getAttrobute("item")。
+            <br>setAttribute(String key, Object obj)：提供一个关键词和一个对象值，然后存在session当中。例如，session.setAttribute("ItemValue", itemName)。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+        </section>
+
+         <section>
+             <h4>application</h4>
+             <p>application是javax.servlet.ServletContext类对象的一个实例，用于实现用户之间的数据共享（多使用于网络聊天系统）。
+
+<br><h5>application对象与session对象的区别<h5>
+
+<br>它的作用有点类似session内置对象。但是它们之间还是有区别的，一般来说，一个用户对应着一个session，并且随着用户的离开session中的信息也会消失，所以不同客户之间的会话必须要确保某一时刻至少有一个客户没有终止会话；而applicat则不同，它会一直存在，类似于系统的“全局变量”，而且只有一个实例。</p>
+        </section>
+        <section style="font-size: 30px">
+            <h4>application常用方法</h4>
+            <br>getAttribute(String key)：通过一个关键字返回用户所需要的信息，返回类型为对象（Object），类似于session中的getAttribute(String key)方法。
+            <br>getAttributeNames()：返回所有可用的属性名，返回类型为枚举（Enumeration）。
+            <br>setAttribute(String key, Object obj)：保存一个对象信息，并指定给一个关键字。
+            <br>removeAttribute(String key)：通过关键字来删除一个对象信息。
+           <br> getServletInfo()：返回JSP引擎的相关信息。
+            <br>getRealPath(String path)：返回虚拟路径的真实路径。
+            <br>getContext(String URLPath)：返回执行Web应用的application对象。
+            </section>
+
+            <section style="font-size: 30px">
+            <br>getMajorVersion()和getMinorVersion()：返回服务器所支持的Servlet API最大和最小版本号。
+            <br>getMineType(String file)：返回指定文件的MIME类型。
+            <br>getResource(String path)：返回指定资源的URL路径。
+            <br>getResourceAsStream(String path)：返回指定资源的输入流。
+            <br>getRequestDispatcher(String URLPath)：返回指定资源的RequestDispatcher对象。
+            <br>getServlet(String name)：返回指定名称的Servlet。
+            <br>getServlets()：返回所有的Servlet，返回类型为枚举型。
+            <br>getServletNames()：返回所有的Servlet名称，返回类型为枚举型。
+            <br>log(String msg)：把指定信息写入到Servlet的日志文件中。
+            <br>log(String msg, Throwable throwable)：把栈轨迹以及给出的Throwable异常的说明信息写入Servlet的日志文件。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+            本次用的是浏览器计数，本段代码证明application是基于服务器的，不会因为会话关闭就清除。
+            和session对象一样，application存储的是对象类型而不是普通的数值类型。此处调用了application对象中的getAttribute()方法来获取前一个页面所存储的信息，并把读取出的计数值加一，然后重新存储在application当中去。
+        </section>
+
+         <section style="font-size: 30px">
+             <h4>out</h4>
+             <p>out对象是在JSP开发过程中使用得最为频繁的对象，但使用也是最为简单的。
+             </p>
+             <br>print()：在页面中打印出字符串信息，不换行；
+            <br>println()：在页面中打印出字符串信息，并且换行；
+            <br>clear()：清除掉缓冲区中尚存在的内容。
+            <br>clearBuffer()：此方法清除掉当前缓冲区中尚存在的内容。
+            <br>flush()：清除掉数据流。
+            <br>getBufferSize()：返回缓冲区的内存大小，单位为字节流。如果不进行缓冲区的设置，大小为0。
+            <br>getRemaining()：此方法返回缓冲区还剩下多少字节数可以使用。
+            <br>isAutoFlush()：检查当前缓冲区是设置为自动清空，还是满了就抛出异常。
+            <br>close()：关闭输出流。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+        </section>
+
+<section style="font-size: 32px">
+             <h4>exception</h4>
+             <p>exception内置对象是用来处理页面出现的异常错误，它是java.lang.Throwable类的一个对象。前面已经讲过，在实际JSP网站开发过程中，通常是在其页面中加入page指令的errorPage属性来将其指向一个专门处理异常错误的页面。如果这个错误处理页面已经封装了这个页面收到的错误信息，并且错误处理页面页面含有的isErrorpage属性设置为true，则这个错误处理页面可以使用以下方法来访问错误的信息：
+             </p>
+             <br>getMessage()和getLocalizedMessage()：这两种方法分别返回exception对象的异常消息字符串和本地化语言的异常错误。
+            <br>printStackTrace()：显示异常的栈跟踪轨迹。
+            <br>toString()：返回关于异常错误的简单消息描述。
+            <br>fillInStackTrace()：重写异常错误的栈执行轨迹。
+        </section>
+        <section>
+        <h4>config</h4>
+             <p>config内置对象是ServletConfig类的一个实例。在Servlet初始化的时候，JSP引擎通过config向它传递信息。这种信息可以是属性名/值匹配的参数，也可以是通过ServletContext对象传递的服务器的有关信息。
+             </p>
+             <br>getServletContext()：此方法将返回一个含有服务器相关信息的ServletContext对象。
+            <br>getInitParameter(String name)：返回初始化参数的值。
+            <br>getInitParameterNames()：返回包含了Servlet初始化所需要的所有参数，返回类型是枚举型。
+            <p>
+                一般在JSP开发过程很少使用到config内置对象。只有在编写Servlet时，需要重载Servlet的init()方式时才用到。
+            </p>
+        </section>
+        <section>
+            <h1>代码展示</h1>
+        </section>
+        
+        <section>
+        <h4>pagecontext</h4>
+             <p>pageContext对象是一个比较特殊的对象。它相当于页面中所有其他对象功能的最大集成者，即使用它可以访问到本页面中所有其他对象，例如前面已经描述的request、response以及application对象等。
+             </p>
+            <br>getRequest()：返回当前页面中的request对象。
+            <br>getResponse()：使用此方法将返回当前页面中的response对象。
+           <br> getPage()：此方法返回当前页面中的page对象。
+           <br> getSession()：返回当前页面中的session对象。
+            <br>getOut()：返回当前页面中的out对象。
+           <br> getException()：返回当前页面中的exception对象。
+            
+        </section>
+        <section style="font-size: 28px">
+           getServletConfig()：返回当前页的config对象。
+          <br>  getServletContext()：返回当前页中的application对象。
+            <br>setAttribute(String name)：给指定的属性名设置属性值。
+            <br>getAttribute(String name)：根据属性名称找到相应的属性值。
+            <br>setAttribute(String name, Object obj, int scope)：在给定的范围内设置相应的属性值。
+            <br>getAttribute(String name, int scope)：在指定的范围内获取到相应的属性值。
+            <br>findAttribute(String name)：寻找一个属性并返回，如果没有找到则返回一个null。
+           <br> removeAttribute(String name)：通过属性名删除掉某个属性。
+          <br>  removeAttribute(String name, int scope)：在指定的某个范围内删除某个属性。
+           <br> getAttributeScope(String scope)：返回某属性的作用域。
+           <br> getAttributeNamesInScope(int scope)：返回指定范围内的所有属性名的枚举。
+            <br>release()：释放掉pageContext()所占的所有资源。
+            <br>forward(String relativeURLpath)：使用当前页面重导到另一个页面。
+           <br> include(String relativeURLpath)：使用当前位置包含的另一个页面。
+        </section>
+        <section>
+            <h1>代码展示</h1>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>网络</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 魏振恒</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

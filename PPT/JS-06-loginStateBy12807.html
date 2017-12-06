@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【js-06】登录之后，在其他页面怎么判断是否已经登录？</h2>
+            <p>分享人：郭健锋</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>登录功能，是前端经常要完成的需求之一。</p>
+            <p>但是如何进行登录判断？</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>传统的Cookie-session验证</p>
+            <p>Cookie认证机制就是为一次请求认证在服务端创建一个Session对象，同时在客户端的浏览器端创建了一个Cookie对象；
+                通过客户端带上来Cookie对象来与服务器端的session对象匹配来实现状态管理的。默认的，当我们关闭浏览器的时候，cookie会被删除。
+                但可以通过修改cookie 的expire time使cookie在一定时间内有效。</p>
+        </section>
+        <section>
+            <p>所以，在其它页面保持登录，可以在登录后往本地cookie中存储一个关键字段（存储用户信息）,如：名字、值、过期时间、路径和域。
+                在路由变化的时候，或者在页面跳转的时候，检测是该字段值是否正确，不正确则跳转登录页；点击注销可以执行删除。</p>
+        </section>
+        <section>
+            <p>token的验证</p>
+            <p>token的意思是“令牌”，是用户身份的验证方式，最简单的token组成:uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign(签名），
+                由token的前几位+盐以哈希算法压缩成一定长的十六进制字符串，可以防止恶意第三方拼接token请求服务器)。还可以把不变的参数也放进token，避免多次查库。</p>
+            <!--<p>鉴于移动端各种机型使用Cookie的方法不同，不利于开发，因此移动端常使用token的验证。</p>-->
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+                <p>cookie与session的区别</p>
+                <p>cookie保存格式和参数说明</p>
+            </section>
+            <section>
+                <p>cookie与session的区别</p>
+                <p>1、cookie数据存放在客户端上，session数据放在服务器上。</p>
+                <p>2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session。</p>
+                <p>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE。</p>
+                <p>4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</p>
+                <p>5、所以个人建议：
+                    <br>将登陆信息等重要信息存放为SESSION
+                    <br>其他信息如果需要保留，可以放在COOKIE中</p>
+            </section>
+            <section>
+                <p>cookie保存格式和参数说明</p>
+                <pre><code>
+             //设置Cookie
+             /*
+              在cookie的名或值中不能使用分号（;）、逗号（,）、等号（=）以及空格。在cookie
+              的名中做到这点很容易，但要保存的值是不确定的。如何来存储这些值呢？方法是用
+              encodeURI()函数进行编码，它能将一些特殊符号使用十六进制表示，例如空格将会编码
+              为“20%”，从而可以存储于cookie值中，而且使用此种方案还可以避免中文乱码的出现。
+              在获取cookie时可以通过decodeURI()方法对cookie进行解码。
+
+              Cookie的保存格式为："name=value; expires=evalue; path=pvalue;"
+              每个属性之间通过：'分号+空格'(; )隔开;
+
+              参数值的意思:
+              name:表示要存入对象的名称，唯一必须设置（通常使用：user@domain格式命名，
+              user为本地用户，domain为所访问网站的域名）。value：表示要存入的值。
+              expires：该对象的有效时间（可选）（默认为当前浏览器会话有用，关闭浏览器就消失）;
+              path:指定该Cookie作用范围（可选）(即：在那些网页上可用)；
+              domain:设置web服务器的Cookie共享域（可选）(如：test*.com)表示域名为test*.com
+              的服务器共享该Cookie
+              secure：设置Cookie的传输过程是否加密（可选）（一般为SSH加密）
+              */
+            </code></pre>
+            </section>
+        </section>
+        <section>
+            <p>在前端浏览器里经常使用Cookie-session验证，那么如何进行使用这种验证？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+                <pre><code>
+        function setCookie(cname, cvalue, exdays) {
+            // 获取系统时间
+            var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open('HEAD', window.location.href.toString(), false);
+                xmlHttp.send('');
+            var time = xmlHttp.getResponseHeader("Date");
+            var d = new Date();
+            d.setTime(Date.parse(time) + (exdays * 1000 * 60 * 60 * 24));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires;
+        }
+
+        var cookie = document.cookie.indexOf("loginAdmin=true");
+        if (cookie !== -1) {
+            $state.go("main", {})
+        }
+        setCookie("loginAdmin", true, 5);
+            </code></pre>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <section>
+                <h4>session与token的区别</h4>
+                <p style="font-size: 35px;text-align: left">session和token并不矛盾，作为身份认证
+                    token安全性比session好，因为每个请求都有签名还能防止监听以及重放攻击，而session就必须靠链路层来保障通讯安全了。
+                    如上所说，如果你需要实现有状态的会话，仍然可以增加session来在服务器端保存一些状态。</p>
+                <p style="font-size: 35px;text-align: left">App通常用restful
+                    api跟server打交道。Rest是stateless的，也就是app不需要像浏览器那样用cookie来保存session,因此用session/token来标示自己就够了，
+                    session/state由api server的逻辑处理。 如果你的后端不是stateless的rest api,
+                    那么你可能需要在app里保存session.可以在app里嵌入webkit,用一个隐藏的browser来管理cookie session.</p>
+            </section>
+            <section>
+                <p style="font-size: 35px;text-align: left">Session
+                    是一种HTTP存储机制，目的是为无状态的HTTP提供的持久机制。所谓Session认证只是简单的把User信息存储到Session 里，因为SID 的不可预测性，暂且认为是安全的。
+                    这是一种认证手段。而Token，如果指的是Token或类似的机制的话，提供的是认证和授权，认证是针对用户，授权是针对App。其目的是让某App有权利访问某用户的信息。
+                    这里的 Token是唯一的。不可以转移到其它App上，也不可以转到其它用户上。转过来说Session只提供一种简单的认证，即有此 SID，即认为有此User的全部权利。
+                    是需要严格保密的，这个数据应该只保存在站方，不应该共享给其它网站或者第三方App。
+                    所以简单来说，如果你的用户数据可能需要和第三方共享，或者允许第三方调用 API 接口，用Token。如果永远只是自己的网站，自己的 App，用什么就无所谓了。</p>
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section style="margin-left: 18rem">
+            <p style="font-size: 35px;text-align: left">参考一：<a
+                    href="http://blog.csdn.net/fangaoxin/article/details/6952954/">Cookie/Session机制详解</a></p>
+            <p style="font-size: 35px;text-align: left">参考二：<a
+                    href="http://blog.csdn.net/zhaochanglong/article/details/7994400">js创建cookie js设置cookie过期时间</a></p>
+            <p style="font-size: 35px;text-align: left">参考三：<a href="https://www.cnblogs.com/nannan0226/p/6257546.html">cookie、session与token</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h3>还有其他的登陆验证的方法吗？</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭健锋</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>

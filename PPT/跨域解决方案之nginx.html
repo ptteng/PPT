@@ -16,15 +16,14 @@
 
     <!-- 打印和PDF输出样式 -->
     <script>
-        var link = document.createElement( 'link' );
+        var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
-<img src="../img/css-02-how%20to%20configure%20nginx/logo.png" alt="" usemap="#pttmap" class="base-logo">
 <map name="pttmap">
     <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
 </map>
@@ -32,125 +31,178 @@
     <div class="slides">
         <section>
             <h2>跨域解决方案之nginx</h2>
-            <p>分享人：濮力钒</p>
+
+            <p>成都小课堂</p>
+
+            <p>分享人：童海琴</p>
         </section>
         <section>
             <p>目录</p>
+
             <p>1.背景介绍</p>
-            <p>2.下载安装</p>
-            <p>3.测试方法</p>
-            <p>4.修改配置</p>
-            <p>5.操作演示</p>
-            <p>6.手机访问</p>
-            <p>7.常见问题</p>
-            <p>8.参考文献</p>
-            <p>9.更多讨论</p>
-        </section>
-        <section>
-            <h3>1.背景介绍</h3>
-        </section>
-        <section>
-            <p>Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。
-                其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布
-                Nginx——Ngine X，是一款自由的、开源的、高性能HTTP服务器和反向代理服务器；也是一个IMAP、POP3、SMTP代理服务器；也就是说Nginx本身就可以托管网站（类似于Tomcat一样），进行Http服务处理，也可以作为反向代理服务器使用。
-</p>
-        </section>
-        <section>
-            <ul>
-<p>
-    Nginx 解决了服务器的C10K（就是在一秒之内连接客户端的数目为10k即1万）问题。它的设计不像传统的服务器那样使用线程处理请求，而是一个更加高级的机制—事件驱动机制，是一种异步事件驱动结构。
 
-    虽然目前Nginx的份额在市场上只占很少部分，但是其高性能和低消耗内存的结构，使得其越来越普遍，典型的一个应用就是我们可以使用Nginx作为反向代理进行网站的负载均衡器。例如：Wordpress、GitHub等知名的网站都使用到了Nginx。</p>
-            </ul>
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
         </section>
         <section>
             <section>
-                <h4>Nginx的特点</h4>
-                <ul>
-                    <li> 跨平台：可以在大多数Unix like 系统编译运行。而且也有Windows的移植版本。 </li>
-                    <li>配置异常简单：非常的简单，易上手。</li>
-                    <li>非阻塞、高并发连接：数据复制时，磁盘I/O的第一阶段是非阻塞的。官方测试能支持5万并发连接，实际生产中能跑2~3万并发连接数（得益于Nginx采用了最新的epoll事件处理模型（消息队列）。 </li>
-                    <li>Nginx代理和后端Web服务器间无需长连接</li>
-                    <li>Nginx接收用户请求是异步的，即先将用户请求全部接收下来，再一次性发送到后端Web服务器，极大减轻后端Web服务器的压力。 </li>
-                </ul>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <h3>
+                    什么是跨域？
+                </h3>
+            </section>
+            <section>
+                <img src="nginx.jpg" style="width: 700px"/>
+
+                <p style="text-align: left;line-height: 250%">
+                    跨域是指a页面想获取b页面资源，如果a、b页面的协议、域名、端口、子域名不同，或是a页面为ip地址，
+                    b页面为域名地址，所进行的访问行动都是跨域
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
             </section>
 
             <section>
-                <h4>Nginx的优势</h4>
-                <ol>
-                    <li>跨平台：能在大多数Unix like os编译运行，而且也有Windows移植版本</li>
-                    <li>配置简单：非常容易上手，配置风格跟程序开发一样</li>
-                    <li>非阻塞、高并发连接：官方测试支撑5万，实际环境也能到2~3万</li>
-                    <li>事件驱动：采用epoll模型，支持更大的并发连接</li>
-                    <li>Master/Worker进程：一个master进程，生成一个或者多个worker进程</li>
-                </ol>
+                <h3>产生的原因？</h3>
             </section>
             <section>
-                <ol>
-                    <li>内存消耗小：3万并发，开10个Nginx进程才消耗150M内存</li>
-                    <li>内置的健康检查功能：Nginx代理的后端的某台Web服务器宕机时不影响前端访问</li>
-                    <li>节省宽带：支持GZIP压缩，可以添加浏览器本地的Header头</li>
-                    <li>稳定性高：用于反向代理，宕机概率微乎其微<li>
-                </ol>
-            </section>
-            <section>
-                <h4>BSD协议</h4>
-                <p><所有人> = 加州大学董事</p>
-                    <p><机构> = 加州大学伯克利分校</p>
-                        <p><年份> = 1998</p>
-            </section>
-        </section>
-        <section>
-        <section>
-            <h3>2.下载安装</h3>
-        </section>
-        <section>
-            <a href="https://www.baidu.com/link?url=-MP-EhC8lwo_e22IJGbHgqj0bE-8DdXyL0iXQKaKxsjRAlx4yEO96X0fXWsQn8Hf&wd=&eqid=e452265400000ad80000000559f034c2">官方网址</a>
-            <p>下载后直接点击nginx.exe程序，你会发现有个黑色弹出框一闪即逝；说明成功启动；
-                然后随便打开一个浏览器；输入localhost
-            会出现welcome的标示。
+                <p style="text-align: left">
+                    浏览器为了安全问题一般都限制了跨域访问，也就是不允许跨域请求资源
+                </p>
 
+                <p style="text-align: left">
+                    同ip（或domain）,同端口，同协议视为同一个域，一个域内的脚本仅仅具有本域内的权限，可以理解为本域脚本只能读写
+                    本域内的资源，而无法访问其它域的资源。这种安全限制称为同源策略
+                </p>
+
+                <p style="text-align: left">
+                    现代浏览器在安全性和可用性之间选择了一个平衡点。
+                    在遵循同源策略的基础上，选择性地为同源策略“开放了后门”。例如img script style等标签，都允许垮域引用资源,然而，
+                    你也只能是引用这些资源而已，并不能读取这些资源的内容
+                </p>
+
+            </section>
+            <section>
+                <p style="text-align: left;line-height: 280%"><strong>同源策略限制以下几种行为：</strong></p>
+
+                <p style="text-align: left;line-height: 200%">1.Cookie、LocalStorage 和 IndexDB 无法读取</p>
+
+                <p style="text-align: left;line-height: 200%">2.DOM 和 Js对象无法获得
+
+                <p style="text-align: left;line-height: 200%">3.AJAX 请求不能发送
+
+            </section>
+            <section>
+                <h3><strong>常见跨域场景</strong></h3>
+                <pre><code style="font-size: 28px;line-height: 120%">
+                    http://www.domain.com/a.js
+                    http://www.domain.com/b.js 同一域名，不同文件或路径 允许
+                    http://www.domain.com/lab/c.js
+
+                    http://www.domain.com:8000/a.js
+                    http://www.domain.com/b.js 同一域名，不同端口 不允许
+
+                    http://www.domain.com/a.js
+                    https://www.domain.com/b.js 同一域名，不同协议 不允许
+
+                    http://www.domain.com/a.js
+                    http://192.168.4.12/b.js 域名和域名对应相同ip 不允许
+
+                    http://www.domain.com/a.js
+                    http://x.domain.com/b.js 主域相同，子域不同 不允许
+                    http://domain.com/c.js
+
+                    http://www.domain1.com/a.js
+                    http://www.domain2.com/b.js 不同域名 不允许
+                </code></pre>
+            </section>
         </section>
         <section>
-            <h3>3.具体测试方法</h3>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section style="text-align: left;">
+                <h3><strong>跨域解决方案</strong></h3>
+
+                <p>1、 通过jsonp跨域<br>2、 document.domain + iframe跨域<br>3、 location.hash + iframe<br>4、 window.name +
+                    iframe跨域<br>5、 postMessage跨域<br>6、 跨域资源共享（CORS）<br>7、 nginx代理跨域<br>8、 nodejs中间件代理跨域<br>9、
+                    WebSocket协议跨域</p>
+            </section>
         </section>
         <section>
-        <p> Nginx的配置文件是文件夹中的conf文件下的nginx.conf，其实配置文件默认不修
-            改也是可有用的；如果你通过浏览器输入localhost出现的页面即为文件夹下HTML文件中的index.html；所以你可以将你想要检测的产品放
-            到HTML文件夹中，并将原本的index.html文件给删了，这个时候打开网页输入localhost，使用ctrl+F5清下浏览器缓存即出现你产
-            品中的index.html(产品的首页都会命名为index.html）页面，然后进行一系列测试看看是否OK</p>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <p>nginx反向代理解决跨域</p>
+            </section>
+            <section>
+                <p style="text-align: left;line-height: 200%"><strong>正向代理</strong>：代理位于网站和客户端中间，
+                    客户端无法访问某网站，就将请求发送给代理服务器，代理从网站取回来再发送给客户端，网站并不知道为谁提供服务
+                </p>
+
+                <p style="text-align: left;line-height: 200%"><strong>反向代理</strong>：客户端访问某网站的一个页面，
+                    但是网站并没有，就偷偷从另外一台服务器上取回来,然后作为自己的内容吐给用户，用户不知道真正提供服务的是谁
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left;line-height: 200%">对于浏览器来说，访问的就是同源服务器上的一个url。而nginx通过
+                    检测url前缀，把http请求转发到后面真实的物理服务器。并通过rewrite命令把前缀再去掉。这样真实的服务器就可以正确
+                    处理请求，并且并不知道这个请求是来自代理服务器的。
+                </p>
+                <p style="text-align: left;line-height: 200%">
+                    简单说，nginx服务器欺骗了浏览器，让它认为这是同源调用，从而解决了浏览器的跨域问题。又通过重写url，欺骗了真实
+                    的服务器，让它以为这个http请求是直接来自与用户浏览器的。
+                </p>
+            </section>
         </section>
         <section>
-            <h3>3.修改配置</h3>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p style="text-align: left">参考一：<a
+                        href=" http://aurthurxlc.github.io/Aurthur-2016/cross-origin-resource-sharing.html">
+                    跨域问题解决方案（Nginx）
+                </a></p>
+
+                <p style="text-align: left">参考二：<a href="log.csdn.net/shendl/article/details/48443299"
+                                                   target="_blank">
+                    最简单实现跨域的方法----使用nginx反向代理
+                </a></p>
+
+            </section>
         </section>
         <section>
-            <p>实际的测试过程中，一般不大可能会将产品放入nginx文件里的html文件夹中，这个时候就需要修改配置，使匹配的路径改为我们想要的文件夹</p>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section> <section>
+                <h3>如何通过jsonp跨域</h3>
+            </section>
         </section>
         <section>
-            <h3>4.操作演示</h3>
-        </section>
-        <section>
-            <h3>5.我们的任务中为什么要用nginx呢？</h3>
-        </section>
-        <section>
-            <h3>6.常见问题</h3>
-        </section>
-        <section>
-            <p>nginx对文件夹英文取名不敏感，对中文敏感，路径中不能存在中文字符</p>
-            <p>出现报错，nginx路径下的\logs\error.log就是错误日志，复制里面的内容去百度就行</p>
-        </section>
-        <section>
-            <h3>7.参考文献</h3>
-        </section>
-        <section>
-            <p>参考一：<a href="http://blog.csdn.net/xlgen157387/article/details/49781487">徐刘根的博客</a></p>
-            <p>参考二：<a href="https://baike.baidu.com/item/nginx/3817705?fr=aladdin" >百度百科</a></p>
-            <p>参考四：<a href="https://developer.mozilla.org/zh-CN/search?q=nginx&topic=apps&topic=html&topic=css&topic=js&topic=api&topic=canvas&topic=svg&topic=webgl&topic=mobile&topic=webdev&topic=http&topic=webext">MDN文档</a> </p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
+            <!--<h4>鸣谢</h4>-->
             <p>感谢大家观看</p>
-            <p><small>BY :濮力钒</small></p>
+
+            <p>
+                <small>BY : 童海琴ooooo</small>
+            </p>
         </section>
 
     </div>
@@ -160,6 +212,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -178,14 +231,19 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
-            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
         ]
     });
 </script>
