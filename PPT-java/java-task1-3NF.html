@@ -1,0 +1,256 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>数据库的三范式</h2>
+            <h3>小课堂</h3>
+            <p>分享人：陈昊</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>
+                范式：Normal Form  范式是“符合某一种级别的关系模式的集合，表示一个关系内部各属性之间的联系的合理化程度”。简单来说可以把它粗略地理解为一张数据表的表结构所符合的某种设计标准的级别。就像英语的四级和六级，相对代表了英语的水平的高低。
+
+            </p>
+            <p>
+                满足这些规范的数据库是简洁的、结构明晰的，同时，不会发生插入（insert）、删除（delete）和更新（update）操作异常。
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>
+                数据库范式分为1NF，2NF，3NF，BCNF，4NF，5NF 一般我们在设计数据库结构的时候最多只要满足到BCNF 就可以了。符合高一级的范式必定符合第一级的范式。
+            </p>
+
+            <p>
+            </p>
+
+
+
+            </section>
+        <section>
+                <p>1NF的定义为：符合1NF的关系中的每个属性都不可再分。在使用数据库管理系统的时候比如mysql，sqlserver等创建的数据表都满足1NF，如果不满足这个范式，是不能创建成功数据表的。
+                    属性不可再分的意思是每一个字段都是最小的，不包含其他字段。不重复，原子性。
+                </p>
+
+        </section>
+
+        <section>
+
+            <p> 问题：数据冗余，插入异常，删除异常，修改异常的问题。
+            </p>
+            <p> 插入异常：如果需要新建一个系，并且有系主任。但是因为还没有学生开始学习，所以主键是空的，肯定是不能插入的。
+            </p>
+            <p> 删除异常：如果需要把某个系下面学生信息都清空，那么这个系也就不存在了。
+            </p>
+            <p> 修改异常：如果需要把学生的系进行更换，就需要把三条数据里面的系名和系主任都修改才可以。
+            </p>
+
+        </section>
+        <section>
+            <p>2NF：在1NF的基础上，消除了非主属性对于码的部分函数依赖。
+            </p>
+            <p>
+                码：一个表中，可以唯一决定一个元组的属性“集合”。假设K为表中的某个属性，如果在K确定了的情况下，这个表里面其他的属性都可以确定，那么K就叫做候选码，也叫码。比如通过id可以获取到姓名，系名，系主任名，但是不能确定课名和分数。课名可以获取分数。
+            </p>
+            <p>id -------姓名，系名，系主任</p>
+            <p>课名-----分数</p>
+            <p>（id，课名）这个属性组就叫做码。</p>
+
+        </section>
+        <section>
+            <p>非主属性： 上面说到的码里面的属性就是主属性，包括id，课名。
+                不是主属性的就是非主属性，包括姓名，系名，系主任，分数。
+            </p>
+        </section>
+        <section>
+            <p>
+                函数依赖：函数y=f(x) 代表了给定一个x的值，y的值也是确定的。在数据表中，在属性X确定的情况下，必定能确定Y的值，那就说Y函数依赖与X  写作X---Y。
+                比如：在表中，给定一个学号，必定能得到唯一的一个姓名。那就说姓名函数依赖于学号。
+                写作：学号---姓名
+            </p>
+            <p>在表中的函数依赖还有</p>
+            <p>学号-----系名</p>
+            <p>学号-----系主任</p>
+            <p>（学号，课名）-----成绩</p>
+
+        </section>
+        <section>
+            <p>
+                完全函数依赖：在一张表中，若 X → Y，且对于 X 的任何一个真子集（假如属性组 X 包含超过一个属性的话），X ' → Y 不成立，那么我们称 Y 对于 X 完全函数依赖，记作 X F→ Y。
+            </p>
+            <p>比如（学号，课名）-----成绩</p>
+              <p>学号和课名都是X的真子集，但是如果只有学号，或者只有课名，是不能得到一个唯一的成绩。满足完全函数依赖的要求，所以Y完全函数依赖于X
+            </p>
+        </section>
+        <section>
+            <p>
+                部分函数依赖：如果Y函数依赖于X，但是Y不完全函数依赖于X，那就叫做部分函数依赖。</p>
+            <p> 比如  （学号，课名）------姓名。</p>
+            <p>  由学号可以得到唯一的姓名，但是由课名不能得到唯一的姓名。所以称为Y部分函数依赖X。</p>
+
+
+        </section>
+        <section>
+            <p>
+                判断是否符合2NF,就是看数据表中是否存在非主属性对于码的部分函数依赖。若存在，则数据表最高只符合1NF的要求，若不存在，则符合2NF的要求。
+            </p>
+            <p>步骤：</p>
+            <p>第一步：找出数据表中所有的码。（id，课名）</p>
+            <p>第二步：根据第一步所得到的码，找出所有的主属性。  id和课名</p>
+            <p>第三步：数据表中，除去所有的主属性，剩下的就都是非主属性了。
+            姓名，系名，系主任，分数。</p>
+            <p>第四步：查看是否存在非主属性对码的部分函数依赖。</p>
+            <p>对于（学号，课名） → 姓名，有 学号 → 姓名，存在非主属性 姓名 对码（学号，课名）的部分函数依赖。</p>
+
+        </section>
+        <section>
+                <p>问题：数据冗余，插入异常，删除异常，修改异常的问题。</p>
+            <p>数据冗余：减少了冗余。</p>
+            <p>插入异常：如果需要新建一个系，并且有系主任。但是因为还没有学生开始学习，所以主键是空的，肯定是不能插入的.</p>
+            <p>删除异常：如果需要把某个系下面学生信息都清空，那么这个系也就不存在了。</p>
+            <p>修改异常：如果需要把学生的系进行更换，就需要把三条数据里面的系名和系主任都修改才可以。 2NF可以只修改一个字段就可以实现。
+            </p>
+        </section>
+        <section>
+            <p>
+                3NF在2NF的基础之上，消除了非主属性对于码的传递函数依赖。也就是说， 如果存在非主属性对于码的传递函数依赖，则不符合3NF的要求。
+            </p>
+            <p>
+                传递函数依赖：
+                如果Y依赖于X，Z又依赖于Y，那就说Z依赖于X。 </p>
+               <p> 比如：系名依赖于学号，系主任依赖于系名，那么系主任传递函数依赖于学号。不满足3NF</p>
+
+        </section>
+        <section>
+            <p>问题：</p>
+            <p>插入异常：如果需要新建一个系，并且有系主任。但是因为还没有学生开始学习，所以主键是空的，肯定是不能插入的。 现在需要新建一个系是不会出问题的。</p>
+            <p>删除异常：如果需要把某个系下面学生信息都清空，那么这个系也就不存在了。这时候清空只需要清空第二个表，不会影响其他表。不会出现异常。</p>
+
+        </section>
+
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1NF，2NF，3NF 特点是什么？怎么区分？</p>
+
+
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>是不是我们在设计数据表的时候都要满足3NF？</p>
+
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.zhihu.com/question/24696366</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 陈昊</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

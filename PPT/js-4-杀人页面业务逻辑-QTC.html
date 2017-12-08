@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>杀人和投票的业务逻辑上有什么区别？</title>
+    <style>
+        .img {
+            width: 330px;
+            height: 600px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>【JS-task04】杀人和投票的业务逻辑上有什么区别？</h3>
+                <h3>小课堂【武汉-272期】</h3>
+                <p>分享人：邱天成</p>
+            </section>
+
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <h4>什么是业务逻辑？</h4>
+                    <p>
+                        比如你开发了一个收款系统，一件商品卖10元钱。有人买了10个就是100元。这个很有逻辑。但是这时候客户说了：“不行，我们搞活动买10个打8折，所以总价是80元”，这就是业务逻辑。 这种逻辑和程序员可以推断的常理来说的逻辑不同，比如，一个商品的价格保存以后，除非有人改动，下次读取应该保持一致，比如不能把一个价格除零。业务逻辑是由客户的需求所决定的。另外经常这种逻辑是容易改动的。
+                        在程序里用专门的模块或者层来处理业务逻辑，可以隔离这种变化对程序其它部分的影响。
+                    </p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <h4>杀人页面:</h4>
+                    <img class="img" src="../img/QTC_ppt/js-4/kill.png" alt="图呢？">
+                </section>
+                <section>
+                    <h4>
+                        上图就是杀人页面，业务逻辑有如下几个：
+                    </h4>
+                    <ol>
+                        <li>
+                            首先是样式渲染，因为第二天进入杀人页面的话，有的玩家已经死亡，我们需要用特殊的样式或状态标记出来。
+                        </li>
+                        <li>
+                            然后杀人时的标记（上图的红框跟“刀”的图片
+                        </li>
+                        <li>
+                            点击“确定”按钮时的逻辑：
+                        </li>
+                    </ol>
+
+                </section>
+                <section>
+                    <h4>
+                        点击“确定”按钮时的逻辑：
+                    </h4>
+                    <ol>
+                        <li>如果杀手没有杀人，则弹出警告“请杀人”</li> 
+                        <li>如果被标记的人是“杀手”，则弹出警告，“不能杀同类”</li>                              
+                        <li>将要杀的玩家状态改为“死亡”</li>
+                        <li>判断游戏是否结束，如果贫民为0的话游戏胜利游戏结束，跳转结果页面，否则游戏继续</li>
+                        <li>跳转到“法官日志”页面</li>
+                    </ol>
+                </section>
+                <section>
+                    <h4>投票页面：</h4>
+                    <img class="img" src="../img/QTC_ppt/js-4/vote.png" alt="图呢">
+                </section>
+                <section>
+                    <h4>
+                        投票页面的逻辑：
+                    </h4>
+                    <ol>
+                        <li>一开始也是渲染死亡玩家的样式</li>
+                        <li>标记想投死的人</li>
+                        <li>然后点击“确定”按钮的逻辑</li>
+                    </ol>
+                </section>
+                <section>
+                    <h4>点击“确定”按钮的逻辑：</h4>
+                    <ol>
+                        <li>先判定是否没有标记被投玩家,如果是则弹出警告框“请投票”</li>
+                        <li>然后将被投的玩家状态改为“死亡”</li>
+                        <li>判断游戏是否胜利，如果平民的数量跟杀手数量相等，则“杀手胜利”，跳转结果页面，如果杀手数量为0，则“平民胜利”，跳转结果页面，否则游戏继续</li>
+                        <li>跳转到“法官日志”页面</li>
+                    </ol>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <p>
+                        这两个页面的区别主要在游戏结束的判定上，由于杀人不能杀自己人，所以在杀人页面平民是不可能胜利；在投票页面每个人都有可能死亡，所以“杀手”跟“平民”都是有可能胜利的。
+                    </p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>4.解决方法</h3>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>5、编码实战</h3>
+                </section>
+                <section>
+                    <h4>杀人页面：</h4>
+                    <img src="../img/QTC_ppt/js-4/kill-e.png" alt="">
+                    <img src="../img/QTC_ppt/js-4/kill-e2.png" alt="">
+                </section>
+                <section>
+                    <img src="../img/QTC_ppt/js-4/k-e3.png" alt="">
+                    <img src="../img/QTC_ppt/js-4/k-e4.png" alt="">
+                </section>
+                <section>
+                    <h4>投票页面：</h4>
+                    <img src="../img/QTC_ppt/js-4/v1.png" alt="">
+                    <img src="../img/QTC_ppt/js-4/v2.png" alt="">
+                </section>
+                <section>
+                    <img src="../img/QTC_ppt/js-4/v3.png">
+                    <img src="../img/QTC_ppt/js-4/v4.png" alt="">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6、扩展思考</h3>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人： 邱天成</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+    <script>
+        document.getElementById("change").onclick = function () {
+            document.getElementById("change").setAttribute("src", "../img/QTC_ppt/wtm.jpg");
+            // alert("a");
+        }
+    </script>
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
+
+
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>

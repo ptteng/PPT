@@ -1,15 +1,16 @@
+
+
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>葡萄藤PPT</title>
 
     <link rel="stylesheet" href="../css/reveal/reveal.css">
 
     <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
-    a    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
 
     <!-- syntax highlighting 代码高亮主题 -->
     <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
@@ -24,17 +25,12 @@
     </script>
 </head>
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
-<map name="pttmap">
-    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
-</map>
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS—task2】</h2>
-            <h3>小课堂【武汉第251期】</h3>
-            <p>常见的Dom操作有哪些？</p>
-            <p>分享人：余佳贝</p>
+            <h2>【js-task02】</h2>
+            <h3>常见Dom操作有哪些？</h3>
+            <p>分享人：郭婷婷</p>
         </section>
         <section>
             <p>目录</p>
@@ -48,171 +44,132 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <section>
-                <h3>1.背景介绍</h3>
-                <p>什么是DOM?</p>
-            </section>
-            <section>
-                <p>DOM 是 Document Object Model（文档对象模型）的缩写,是针对HTML和XML文档的一个API（应用编程接口），通过DOM可以去改变文档</p>
-                <p>DOM描绘了一个层次化的节点树，允许开发人员添加，移除和修改页面的某一部分.</p>
-            </section>
-            <section>
-                <p>W3C DOM 标准被分为 3 个不同的部分</p>
-                <p>核心 DOM - 针对任何结构化文档的标准模型</p>
-                <p>XML DOM - 针对 XML 文档的标准模型</p>
-                <p>HTML DOM - 针对 HTML 文档的标准模型</p>
-            </section>
-            <section>
-                <p>1998 年10 月DOM１级规范成为W3C 的推荐标准，为基本的文档结构及查询提供了接口。本章主
-                    要讨论与浏览器中的HTML页面相关的DOM1级的特性和应用，以及JavaScript 对DOM1级的实现。
-                    IE、Firefox、Safari、Chrome 和Opera 都非常完善地实现了DOM。</p>
-            </section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>DOM（文档对象模型）是针对HTML 和XML 文档的一个API（应用程序编程接口）。DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>DOM是什么？</p>
+            <p>DOM 是 Document Object Model（文档对象模型）的缩写。DOM就是一个编程接口，就是一套API，是针对HTML文档、XML等文档的一套API。</p>
+            <p>DOM用来访问或操作HTML文档、XHTML文档、XML文档中的节点元素。JavaScript 可以通过 DOM 来访问和操作HTML文档所有的元素。JavaScript是一种脚本语言，DOM是用来获得和操作HTML文档的节点属性。JavaScript通常是通过DOM来获得和操作HTML属性的。</p>
+        </section>
+        <section>
+            <p>什么是DOM节点？</p>
+            <p>HTML 文档中的所有内容都是节点</p>
+            <p>整个文档是一个文档节点</p>
+            <p>每个 HTML 元素是元素节点</p>
+            <p>HTML 元素内的文本是文本节点</p>
+            <p>每个 HTML 属性是属性节点</p>
+            <p>注释是注释节点</p>
+        </section>
+        <section style="font-size: 30px">
+            <img src="../img/js-02-DOM/demo1.png">
+            <ul>上图是一个html文件，也就是网页的结构。
+                <li>html标签是一个节点（Node）。</li>
+                <li>head、title、body、p标签都是节点。</li>
+                <li>嵌套其他节点的节点叫做父节点。</li>
+                <li>被嵌套的节点叫做子节点。</li>
+                <li>同一个父节点下的节点叫做兄弟节点。</li>
+                <li>父亲的父亲以及上溯十八代祖宗叫做祖先节点。</li>
+                <li>儿子的儿子以及子子孙孙无穷匮也叫做后代节点。</li>
+            </ul>
         </section>
 
         <section>
-            <section>
-                <h3>2.知识剖析</h3>
-            </section>
-            <section>
-                <p>一.查找html元素</p>
-                <p>1.通过 id 找到 HTML 元素</p>
-                <p>getElementById(id) - 获取带有指定 id 的节点（元素）</p>
-                <p>2.通过类名找到 HTML 元素</p>
-                <p>getElementsByClassName(class)-获取带有指定类名的所有元素的节点列表</p>
-                <p>3.通过标签名找到 HTML 元素</p>
-                <p>getElementsByTagName(tag)-带有指定标签名称的所有元素的节点列表（集合/节点数组）</p>
-            </section>
-            <section>
-                <p>二.改变html元素的内容和属性</p>
-                <p>修改 HTML 内容的最简单的方法时使用 innerHTML 属性</p>
-                <p>document.getElementById(id).innerHTML=新的 HTML</p>
-                <p>如需改变 HTML 元素的属性，请使用这个语法</p>
-                <p>document.getElementById(id).attribute=新属性值</p>
-                <pre>
-                    <code>
-                        <p id="p1">hello world</p>
-                        <p id="p2" title="原来的title属性">hello world</p>
-                        <script>
-                            document.getElementById('p1').innerHTML='新文本';
-                            document.getElementById('p2').title='现在的title属性';
-                        </script>
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <p>三.改变html元素的样式</p>
-                <pre>
-                    <code>
-                        <p id="p3">hello world</p>
-                        <script>
-                             document.getElementById('p3').style.color='red';
-                             document.getElementById('p3').style.fontSize='50px';
-                        </script>
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <p>四.对事件作出反应</p>
-                <p>HTML 事件的例子：</p>
-                <p>当用户点击鼠标时</p>
-                <p>当网页已加载时</p>
-                <p>当图像已加载时</p>
-                <p>当鼠标移动到元素上时</p>
-                <p>当输入字段被改变时</p>
-                <p>当用户触发按键时</p>
-            </section>
-            <section>
-                <pre>
-                    <code>
-                        var text=document.getElementById('text');
-                        text.onfocus=function() {
-                            text.style.backgroundColor='#f93'
-                        };
-                        text.onchange=function() {
-                            alert('现在的value值是：'+text.value);
-                        };
-                        text.onblur=function() {
-                            text.style.backgroundColor='#ccc';
-                        };
-                    </code>
-                </pre>
-            </section>
-            <section>
-                <p>五.添加或删除html元素</p>
-                <p>如需向 HTML DOM 添加新元素，您必须首先创建该元素（元素节点），然后向一个已存在的元素追加该元素。</p>
-            </section>
-            <section>
-                <pre>
-                    <code>
-                        // 添加html元素
-                        // var para = document.createElement("p");//创建新的p元素
-                        // var node = document.createTextNode("这是一个新的hello world。");//向p元素添加文本，首先要创建文本节点
-                        // para.appendChild(node);//向p元素追加这个文本节点
-                        // var element = document.getElementById("div1");//向一个已有的元素追加这个新元素
-                        // element.appendChild(para);//在已存在的元素后添加新元素
-
-                        // 删除html元素
-                        var parent = document.getElementById("div1");
-                        var child = document.getElementById("p6");
-                        parent.removeChild(child);
-                    </code>
-                </pre>
-            </section>
-        </section>
-
-        <section>
-            <section>
-                <h3>3.常见问题</h3>
-            </section>
-            <section>
-                <p>如何通过class和tag调用元素?如何对其设置属性？</p>
-            </section>
+            <h3>3.常见问题</h3>
+            <p>常见的DOM操作有哪些？</p>
         </section>
         <section>
-            <section>
-                <h3>4.解决方案</h3>
-            </section>
-            <section>
-                <p>一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下</p>
+            <p>1.查找节点</p>
+            <p>2.新建节点</p>
+            <p>3.添加新节点</p>
+            <p>4.删除节点</p>
+            <p>5.修改节点</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section style="font-size: 30px;text-align: left">
+            <img src="../img/js-02-DOM/dom-tree.png" width="300"style="float: left;">
+            <div style="overflow: hidden;margin-left: 350px">
+                <p>Document</p>
+                <p>
+                    当浏览器下载到一个网页，通常是 HTML，这个 HTML 就叫 document（当然，这也是 DOM 树中的一个 node），
+                    从上图可以看到，document 通常是整个 DOM 树的根节点。这个 document 包含了标题（document.title）、URL（document.URL）等属性，可以直接在 JS 中访问到。
+                </p>
+                <p>在 JS 中，可以通过 document 访问其子节点（其实任何节点都可以），如</p>
                 <pre>
                     <code>
-                        <div class="sq"></div>
-                        <div class="sq"></div>
-                        <div class="sq"></div>
-                        var sq = document.getElementsByClassName('sq');
-                        sq[0].style.color = 'red';
-                        sq[1].style.color = 'green';
-                        sq[2].style.color = 'blue';
+                        document.body;
+                        document.getElementById('xxx');
                     </code>
                 </pre>
-            </section>
+            </div>
+
         </section>
+        <section>
+            <p>常用的查找节点的方法有：</p>
+            <p>document.getElementById('id属性值');返回拥有指定id的对象的引用</p>
+            <p>document.getElementsByClassName('class属性值');返回拥有指定class的对象集合</p>
+            <p>document.getElementsByTagName('标签名');返回拥有指定标签名的对象集合</p>
+        </section>
+        <section>
+            <p>常用的新建节点的方法有：</p>
+            <p>document.createElement('元素名');创建新的元素节点</p>
+            <p>document.createAttribute('属性名');创建新的属性节点</p>
+            <p>document.createTextNode('文本内容');创建新的文本节点</p>
+        </section>
+        <section style="font-size: 30px">
+            <p>常用的添加新节点的方法有：</p>
+            <p>如需向 HTML DOM 添加新元素，您必须首先创建该元素（元素节点），然后向一个已存在的元素追加该元素。</p>
+            <p>1)parent.appendChild( 创建的新节点 );向父节点的最后一个子节点后追加新节点</p>
+            <p>2)parent.insertBefore( newChild, existingChild );向父节点的某个特定子节点之前插入新节点</p>
+        </section>
+        <section>
+            <p>常用的删除节点的方法有：</p>
+            <p>parentNode.removeChild( existingChild );删除已有的子节点，返回值为删除节点</p>
+            </p>
+        </section>
+        <section>
+            <p>常用的修改节点的方法有：</p>
+            <p>parentNode.replaceChild( newChild, existingChild );用新节点替换父节点中已有的子节点</p>
+            <p>element.setAttribute( attributeName, attributeValue );给元素增加指定属性，并设定属性值(若原元素已有该节点，此操作能达到修改该属性值的目的)</p>
+            <p>element.setAttributeNode( attributeName );给元素增加属性节点(若原元素已有该节点，此操作能达到修改该属性值的目的)</p>
+        </section>
+
         <section>
             <h3>5.编码实战</h3>
         </section>
         <section>
-            <section>
-                <h3>6.扩展思考</h3>
-                <p>Html5添加了辅助管理DOM焦点的功能。首先就是document.activeElement属性， 这个属性始终会引用DOM中当前获得了焦点的元素。 另外就是新增了document.hasFocus()方法，这个方法用于确定文档是否获得了焦点。 我们可以去学习HTML5中的一些新内容。</p>
-            </section>
+            <h3>6.更多讨论</h3>
+            <p>常见的DOM - 事件又哪些？</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>onload 事件——用户进入</p>
+            <p>onunload 事件——用户离开</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
+            <p><a href="http://www.runoob.com/jsref/dom-obj-event.html" target="_blank">HTML DOM 事件</a></p>
         </section>
-
         <section>
             <h3>7.参考文献</h3>
-            <section>
-                <a href="#">《DOM编程艺术》</a><br>
-                <a href="http://www.runoob.com/js/js-htmldom-elements.html">菜鸟教程--HTML DOM</a>
-            </section>
-        </section>
-
-        <section>
-            <h3>8.更多讨论</h3>
-            <p>如何合理的写HTML内容和用DOM对其进行操作？</p>
+            <p><a href="http://www.runoob.com/htmldom/htmldom-tutorial.html" target="_blank">菜鸟教程-HTML DOM 教程</a></p>
+            <p><a href="http://www.cnblogs.com/yinshuige/p/5812095.html" target="_blank">DOM常用操作 - GraceZy - 博客园</a></p>
+            <p><a href="http://www.zhihu.com/question/34219998" target="_blank">DOM 是什么？</a></p>
+            <p><a href="http://www.zhihu.com/question/33453164/answer/56549408" target="_blank">DOM, DOCUMENT, BOM, WINDOW 有什么区别?</a></p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢大家观看</p>
-            <p><small>BY : 余佳贝</small></p>
+            <p><small>BY :|黄源志|郭婷婷 </small></p>
         </section>
 
     </div>
@@ -222,6 +179,7 @@
 <script src="../lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -240,6 +198,7 @@
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,
@@ -253,5 +212,3 @@
 </script>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status He

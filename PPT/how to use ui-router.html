@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>武汉小课堂</h2>
+            <h3>如何使用ui-router？</h3>
+            <p>分享人：余佳贝</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>我们都知道js经常用于开发客户端的单页面应用  所以要在一个页面呈现不同的视图,路由起到了至关重要的作用
+                angular.js 为我们封装好了一个路由工具 ngRoute ,它是一种靠url改变去切换视图.
+                angularUI 也为我们封装了一个独立的路由模块 ui-router ,它是一种靠状态 state 来切换视图.
+                在学习ui-router之前可以先了解一下 angulajs中路由和原生路由ngroute相关的概念</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>2.1什么是路由</p>
+        </section>
+        <section>
+            <p>一般情况下，我们访问网页的时候，是通过url地址。比如我们通常访问一个网页:https://www.baidu.com/index/first.html
+                但是在angular中是这样的 https://www.baidu.com/index/index.html#/first
+                当我们点击以上任一一个链接时，向服务器请求的地址都是https://www.baidu.com/index/index.html ，而＃号之后的内容在向服务器端请求时会被浏览器忽略掉，
+                所以我们在客户端实现＃号后面的功能实现即可。简单来说，路由通过＃＋标记帮助我们区分不同逻辑页面，并将其绑定到对应的控制器上。
+            </p>
+        </section>
+        <section>
+        <p>
+            2.通过angularjs中的路由模块，实现ng-route的步骤
+            （1）载入包含ng-route的JS文件
+            (2）包含了 ngRoute 模块作为主应用模块的依赖模块
+           （3）使用指令ng-view
+            （4）我们在html中定义链接，可以实现一个单页应用</p>
+            <pre>
+                <code>
+                    <ul>
+                        <li><a href="#/login">login</a></li>
+                        <li><a href="#/list">list</a></li>
+                        <li><a href="#/detail">detail</a></li>
+                    </ul>
+                    <div ng-view></div>
+                    var app=angular.module('app',['ngRoute']);
+                    app.config(['$routeProvider',function($routeProvider) {
+                        $routeProvider.
+                        when('/login',{
+                            templateUrl:'login.html'
+                        }).
+                        when('/list',{
+                            templateUrl:'list.html'
+                        }).
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <p>AngularJS 路由也可以通过不同的模板来实现。$routeProvider.when 函数的第一个参数是 URL 或者 URL 正则规则，第二个参数为路由配置对象。</p>
+            <pre>
+                <code>
+                    路由配置对象语法规则如下：
+                    $routeProvider.when(url, {
+                      template: string,//用于指定视图模板，也可以是一个方法 该方法必须返回html模板内容
+                      templateUrl: string,//视图模板路径
+                      controller: string, function 或 array,//控制器名称或控制器构造方法
+                      controllerAs: string,//通过控制器标识符名称引用控制器
+                      resolve: object类型,//用于指定注入控制器中的内容
+                    });
+                </code>
+            </pre>
+        </section>
+        <section>
+            <p>ui-router是一个可以用来替换AngularJS原生路由的插件，它最大的特点就是支持嵌套路由</p>
+            <p>那么，什么是嵌套路由呢？</p>
+            <p>
+                原生路由刚才也给大家说了 angular的视图是通过ng-view这个指令进行加载的 然后通过控制器来加载相应的视图模板
+                如果说我们有一个网页，左边是菜单栏，右边是各个菜单所对应的视图。
+                那么，如果按照这样的定义，点击每个菜单项，岂不得刷新整个网页？
+                而我们想要的只是右边的视图刷新。所以，这就要用到嵌套路由了。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>如何实现嵌套路由？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+            <p>ui-route子路由可以继承父路由,也就是说 state 设置可以嵌套,通过名称中的.(点)来区分层次.</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+            <p>在 Angularjs 中 ui-sref 和 $state.go 如何传递参数</p>
+        </section>
+        <section>
+            <p>1.ui-sref、$state.go 的区别</p>
+            <p>ui-sref一般使用在a链接中</p>
+            <p>$state.go一般使用在控制器中</p>
+            <p>这两者的本质上是一样的 ui-sref源码里面最后调用的还是$state.go的方法</p>
+            <p>2.如何传递参数？</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="http://yijiebuyi.com/blog/3aab7ad8bccb22b4a881849c0593d5e2.html">angular 系列八 ui-router详细介绍及ngRoute工具区别</a>
+            <a href="http://blog.csdn.net/zcl_love_wx/article/details/52034193">AngularJS——ui-router详解</a>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>讲的都是一些我自己知道的 也比较基础 那么大家在学习ui-router的过程中有没有发现一些好的技巧呢？</p>
+        </section>
+        <section>
+            <p>感谢大家观看</p>
+            <p>BY : 余佳贝 </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

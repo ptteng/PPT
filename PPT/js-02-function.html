@@ -53,14 +53,14 @@
              <h3>什么是Function Declaration（函数声明）？</h3>
             <p style="text-align: left">
                 Function Declaration 可以定义命名的函数变量，而无需给变量赋值。Function Declaration 是一种独立的结构，不能嵌套在非功能模块中。<br><br>
-                <strong>EZ:</strong>就是使用function关键字声明一个函数，再指定一个函数名，叫函数声明
+                <strong>具体的：</strong>就是使用function关键字声明一个函数，再指定一个函数名，叫函数声明
             </p>
         </section>
         <section>
             <h3>什么是Function Expression（函数表达式）？</h3>
             <p style="text-align: left">
                 Function Expression 将函数定义为表达式语句（通常是变量赋值）的一部分。通过 Function Expression 定义的函数可以是命名的，也可以是匿名的。Function Expression 不能以“function”开头。<br><br>
-                <strong>EZ:</strong>使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式
+                <strong>具体的：</strong>使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式
             </p>
         </section>
         <section>
@@ -194,9 +194,54 @@
             <h3>8.更多讨论</h3>
         </section>
         <section>
-            <h2>
+            <p>
                 关于立即执行函数的讨论
-            </h2>
+            </p>
+            <p>
+                表达式和声明式各自应用的场景（自执行）
+            </p>
+        </section>
+        <section>
+            <pre>
+               <code>
+                    //情况1  
+                    //结果会被输出  
+                    var fn=function(){  
+                        console.log("函数表达式赋值给一个变量");  
+                    }();  
+                    //情况2  
+                    //结果不会被输出，JavaScript引擎只解析函数声明，忽略后面的括号，函数声明不会被调用  
+                    function fn(){  
+                        console.log("函数声明");  
+                    }();  
+                    //情况3  
+                    //语法错误，匿名函数属于函数表达式，未执行赋值操作，不能被调用  
+                    function(){  
+                        console.log("函数表达式");  
+                    }(); 
+                </code>
+            </pre>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    (function(a){  
+                console.log(a);  
+            })(123);  
+            (function(a){  
+                console.log(a);  
+            }(1234));  
+            !function(a){  
+                console.log(a);  
+            }(12345);  
+            +function(a){  
+                console.log(a);  
+            }(123456);  
+            -function(a){  
+                console.log(a);  
+            }(1234567);
+                </code>
+            </pre>
         </section>
         <section>
             <p>
@@ -207,7 +252,7 @@
         <section>
             <h4>感谢观看</h4>
             <p>
-                <small>BY : 孙剑立</small>
+                <small>BY : 秦栩章</small>
             </p>
         </section>
     </div>
