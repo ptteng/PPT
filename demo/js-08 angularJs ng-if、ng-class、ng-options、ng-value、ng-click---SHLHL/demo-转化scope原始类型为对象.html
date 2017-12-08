@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+
+<body ng-controller="myController">    
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        点击此处
+        <input type="checkbox" ng-model="value">
+        <div>
+            <strong style="color:red">未加入ng-if</strong>
+            <br> valueA:{{vm.valueA}}
+            <input type="checkbox" ng-model="vm.valueA" />
+        </div>
+        <div ng-if="!value">
+            <strong style="color:red">加入ng-if，同时双向绑定了vm.valueB</strong>
+            <br> valueB:{{vm.valueB}}
+            <input type="checkbox" ng-model="vm.valueB" />
+        </div>
+        <div ng-if="!value">
+            <strong style="color:red">加入ng-if，</strong>
+            <br> valueC:{{valueC}}
+            <input type="checkbox" ng-model="valueC" />
+        </div>
+        <input type="button" ng-click="con()" value="点击打印">
+    </div>
+    <!-- JS -->
+    <script src="https://cdn.bootcss.com/angular.js/1.6.7/angular.min.js"></script>
+    <script>
+        var app = angular.module("app", [])
+            .controller("myController", function ($scope) {
+                var vm = $scope.vm={};
+                vm.valueA = 123;
+                vm.valueB = 456;
+                $scope.valueC = 879;
+                $scope.con = function () {
+                    console.log("valueA的值为" + vm.valueA);
+                    console.log("valueB的值为" + vm.valueB);
+                    console.log("valueC的值为" + $scope.valueC);
+                }
+            })
+    </script>
+</body>
+
+</html>
