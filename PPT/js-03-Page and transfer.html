@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .reveal pre code {
+            background-color: #120;
+        }
+
+        th {
+            color: #0f0f0f;
+        }
+
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>js有哪几种传参方式？</h3>
+            <h4>小课堂【郑州-web-D组】</h4>
+            <p>分享人：王姣妍</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+            <section>
+                <h2>1.背景介绍</h2>
+            </section>
+            <section>
+                <p>
+                    我们今天讲的传参是指页面之间的数据传递。
+                </p>
+                <p>
+                    传统的前端开发中，页面之间是少有参数交互的，甚至没有，而在如今的前端环境下，
+                    一个稍微正式点的项目都不可能少了页面间传参，页面的跨越、服务器后台进行数据请求等，都需要一个或多个传参的方法。
+                    那么参数在不同的页面间进行传递，一个页面的参数被另一页面使用，如何才能做到不同页面间进行参数传递？
+                </p>
+            </section>
+            <section>
+                    <p>
+                        在JS中有多种页面传递参数的方法：
+                    </p>
+                <table>
+                    <tr>
+                        <th>
+                            一、URL
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>把参数值附在url后面传递到其他页面</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            二、H5 web storage
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>localStroage 和 sessionStorage</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            三、Cookie
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>使用浏览器Cookie传递参数</td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            四、Form 表单
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Form表单通过URL传递参数</td>
+                    </tr>
+                </table>
+            </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+
+            <section>
+                <h3>2.1、URL传参</h3>
+                <p>
+                    把参数值附在url后面传递到其他页面<br>
+                    如：
+                </p>
+                <pre>
+                    <code>
+                   http://xxx.com/login.html?user=laozhang&pwd=66666
+                    </code>
+                    </pre>
+                其中 <span>“user=laozhang”</span>和 <span>“pwd=66666”</span>就是我们传递的参数名称和值。
+                <br>
+                <p>
+                    url和参数之间用 <span>"?"</span>隔开<br>
+                    多个参数之间用 <span>"&"</span>符号连接。<br>
+                </p>
+            </section>
+            <section>
+                <p>URL地址传递参数的几个特点：</p>
+                <p style="text-align: left">
+                    优点：<br>
+                    1、 URL地址法简洁易用，可同时传递多个字符型参数；<br>
+                    2、 URL地址法可以很方便的在页面之间切换并传递参数，无需额外的处理，基于正常情况比较不会性能损失；<br>
+                    不足：<br>
+                    3、 URL传递参数长度受限，最大为2K；<br>
+                    4、 URL只能传递字符型参数，传递中文时，由于发送页面和接收页面的字符编码方式不一样而导致参数解析处理错误，参数包含中文时可能出现乱码或者参数接收错误；<br>
+                    5、 信息泄露：URL地址在客户端可见，所以涉及隐私的参数需进行加密后才能进行传递，不加密传输会导致信息泄露，产生安全隐患。</p>
+            </section>
+
+            <section>
+                <h3>2.2、H5 web storage</h3>
+                <p style="text-align: left">
+                    1、sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。</p>
+
+                <p style="text-align: left"> 2、localStorage HTML5本地存储web storage特性的API之一，用于将大量数据（最大5M）保存在浏览器中<br>
+                    .&nbsp;保存后数据永远存在不会失效过期，除非手动清除。<br>
+                    .&nbsp;不参与网络传输。<br>
+                    .&nbsp;一般用于性能优化，可以保存图片、js、css、html 模板、大量数据。<br>
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">3、数据以 键/值 （key/value）对存在, web网页的数据只允许该域访问使用</p><br>
+
+                <p style="text-align: left">
+                    4、不管是 localStorage，还是 sessionStorage，可使用的API都相同，常用的有如下几个（以localStorage为例）：<br>
+                    保存数据：localStorage.setItem(key,value);<br>
+                    读取数据：localStorage.getItem(key);<br>
+                    删除单个数据：localStorage.removeItem(key);<br>
+                    删除所有数据：localStorage.clear();<br>
+                    得到某个索引的key：localStorage.key(index);<br>
+                </P>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    5、数据储存：<br>
+                    在有多组数据需要储存时，一般:<br>
+                    .建立一个新的对象，然后将多组数据储存在对象中，<br>
+                    .使用 JSON.stringify() 来将对象转换为字符串，<br>
+                    .使用localStorage.setItem(key,value);保存数据。<br>
+                </p>
+                <p style="text-align: left">
+                    6、数据提取：<br>
+                    .使用localStorage.getItem(key)读取数据<br>
+                    . 使用 JSON.parse 方法将字符串转换为 JSON 对象。<br>
+                    . 直接引用对象的各个值。<br>
+                </p>
+
+            </section>
+
+            <section>
+                <h3>2.3、Cookie</h3>
+                <p style="text-align: left">Cookie是什么</p>
+                <p style="text-align: left">
+                   Cookie是当你浏览某网站时，网站存储在你机器上的一个小文本文件，
+                    它记录了你的用户ID，密码、浏览过的网页、停留的时间等信息，当你再次来到该网站时，
+                    网站通过读取Cookie，得知你的相关信息，就可以做出相应的动作，如在页面显示欢迎你的标语，
+                    或者让你不用输入ID、密码就直接登录等等
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    <span>Cookie</span> 一般有两个作用。<br>
+                    第一个作用是识别用户身份。<br>
+                    比如用户 A 用浏览器访问了 http://a.com，那么 http://a.com 的服务器就会立刻给 A 返回一段数据「uid=1」（这就是 <span>Cookie</span>）。当 A
+                    再次访问
+                    http://a.com 的其他页面时，就会附带上「uid=1」这段数据。<br><br>
+                    同理，用户 B 用浏览器访问 http://a.com 时，http://a.com 发现 B 没有附带 uid 数据，就给 B 分配了一个新的 uid，为2，然后返回给 B
+                    一段数据「uid=2」。B 之后访问 http://a.com 的时候，就会一直带上「uid=2」这段数据。<br><br>
+                    借此，http://a.com 的服务器就能区分 A 和 B 两个用户了。<br><br>
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    第二个作用是记录历史。<br>
+                    假设 http://a.com 是一个购物网站，当 A 在上面将商品 A1 、A2 加入购物车时，<span>JS 可以改写 Cookie</span>，改为「uid=1;
+                    cart=A1,A2」，表示购物车里有 A1 和
+                    A2 两样商品了。<br><br>
+                    这样一来，当用户关闭网页，过三天再打开网页的时候，依然可以看到 A1、A2 躺在购物车里，因为浏览器并不会无缘无故地删除这个 <span>Cookie</span>。<br><br>
+                    借此，就达到里记录用户操作历史的目的了。
+                </p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    <span>Cookie</span>的一些特点。<br><br>
+                    1.<span>Cookie</span>可以使用 js 在浏览器直接设置（用于记录不敏感信息，如用户名）, 也可以在服务端通使用 HTTP 协议规定的 <span>set-cookie</span>
+                    来让浏览器种下<span>Cookie</span>，这是最常见的做法。<br><br>
+                    2.每次网络请求 Request headers 中都会带上<span>Cookie</span>。所以如果 <span>Cookie</span>太多太大对传输效率会有影响。<br><br>
+                    3.一般浏览器存储<span>Cookie</span> 最大容量为4k，所以大量数据不要存到<span>Cookie</span>。
+                </p>
+            </section>
+
+
+            <section>
+                <h3>2.4、Form 表单</h3>
+            </section>
+            <section>
+                <p>Form表单传值也是通过URL传递参数</p>
+                <pre>
+                    <code>
+                        <form action="page2.html" method="get">
+                    <input type="text" name="user" value="laozhang"/>
+                    <input type="text" name="pwd" value="666666"/>
+                    <input type="submit" value="通过传递参数"/>
+                </form>
+                    </code>
+                </pre>
+
+                <p>跳转至page2.com时，<br>url为: <span>page2.com?id=laozhang&name=666666</span></p>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    通常使用的表单的提交方式主要是：<br>
+                    post和get两种。<br>
+                    两者的区别在于：post方式是把数据内容放在请求的数据正文部分，没有长度的限制;<br>
+                    get方式则是把数据内容直接跟在请求的头部的URL后面，有长度的限制。<br>
+                    而一般在表单的数据提交中，都会选择POST方式，<br>
+                    因为使用GET方法数据是通过URL传递的，在地址栏中会直接看到传递的数据，这样就缺少安全性。<br>
+                    而使用POST传递时，是把提交的数据放置在HTTP包的包体中，地址栏不会看到数据。<br>
+                </p>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>
+                    既然有如此多种页面传参的方式。那么问题来就来了，在什么情况下，适合使用以上介绍的传递方式呢？
+                </p>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section>
+                <div>
+                    <p>在传递少量不涉及隐私的参数时可以使用直接url或者Form的GET方式传递，大量数据可以用POST传递</p>
+
+                        <p>会话信息等可以用cookie和localStorage,临时数据可用sessionStorage</p>
+                </div>
+            </section>
+        </section>
+
+        <section>
+
+                <h3>5.编码实战</h3>
+        </section>
+
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section>
+                <h3>传参方式的优缺点</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    6.1、URL传参：<br>
+                    <span>优点</span>：取值方便，可以跨域。<br>
+                    <span>缺点</span>：值长度有限制。<br>
+                    6.2、H5 Web storage：<br>
+                    <span>优点</span>：使用起来非常简单、方便。<br>
+                    <span>缺点</span>：兼容性有点小问题。兼容性： 现代浏览器（firefox safari chrome opera）都支持，IE8以下（不包括IE8）不支持。<br>
+                    6.3、Cookie传参：<br>
+                    <span>优点</span>：兼容性最好，可以在同源内的任意网页内访问，生命期可以设置。<br>
+                    <span>缺点</span>：值长度有限制（存储的容量小），还得注意请求接口时别带到http head。<br>
+                </p>
+            </section>
+
+
+        <section>
+            <section>
+                <h3>7.参考文献</h3>
+            </section>
+            <section>
+                <p>参考一：<a href="http://blog.csdn.net/u013131203/article/details/53946456" target="_blank">js传参方式</a>
+                </p>
+                <p>参考二：<a href="https://www.cnblogs.com/sy270321/p/4248961.html  cookie" target="_blank">理解cookie及其用法</a>
+                </p>
+                <p>参考二：<a href="http://justcoding.iteye.com/blog/2092992" target="_blank">web Storage</a>
+                </p>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭俊伟/王姣妍</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
