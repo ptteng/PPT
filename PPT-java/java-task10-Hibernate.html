@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>浅谈Hibernate</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：龚剑飞</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>先介绍下背景</p>
+			<p>Hibernate是什么？</p>
+			<p> Hibernate，翻译过来是冬眠的意思，正好现在已经进入秋季，世间万物开始准备冬眠了。其实对于对象来说就是持久化。</p>
+			<p>ORM，即Object-Relational Mapping，它的作用就是在关系型数据库和对象之间做了一个映射。从对象（Object）映射到关系（Relation），再从关系映射到对象。这样，我们在操作数据库的时候，不需要再去和复杂SQL打交道，只要像操作对象一样操作它就可以了（把关系数据库的字段在内存中映射成对象的属性）。</p>
+        </section>
+		 <section>
+			<p>Hibernate的产生背景：
+			大多数应用程序都需要处理数据。Java应用程序运行时，往往把数据封装为相互连接的对象网络，但是当程序结束时，这些对象就会消失在一团逻辑中，所以需要有一些保存它们的方法。有时候，甚至在编写应用程序之前，数据就已经存在了，所以需要有读入它们和将其表示为对象的方法。手动编写代码来执行这些任务不仅单调乏味、易于出错，而且会占用整个应用程序的很大一部分开发工作量。</p>
+		 </section>
+		 <section>
+		 <p>Gavin King开发hibernate的动机有两个：发现CMP太烂；赢得对老板的争执。Gavin King当时没有任何用SQL开发数据库的经验，Gavin King开发hibernate的第一件事是去街上买了本SQL基础的书</p>
+		 </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+       
+		<section>
+			<p>执行流程</p>
+            <P>Configuration接口:负责配置并启动Hibernate</p>
+
+			<P>SessionFactory接口:负责初始化Hibernate</p>
+
+			<P>Session接口:负责持久化对象的CRUD操作</p>
+
+			<P>Transaction接口:负责事务</p>
+
+			<P>Query接口和Criteria接口:负责执行各种数据库查询</p>
+        </section>
+		 
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+			<p>如何操作Hibernate？</p>
+        </section>
+		
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section> 
+		<section>
+			<p> 来给大家演示一下基本操作</p>
+		</section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+			<p>Mybatis同样也是非常流行的ORM框架，主要着力点在于 POJO 与 SQL 之间的映射关系。然后通过映射配置文件，将SQL所需的参数，以及返回的结果字段映射到指定 POJO 。相对Hibernate“O/R”而言，Mybatis 是一种“Sql Mapping”的ORM实现。</p>
+        </section>
+		<section>
+	<p>Hibernate优势</p>
+
+    <p>Hibernate的DAO层开发比MyBatis简单，Mybatis需要维护SQL和结果映射。</p>
+
+    <p>Hibernate对对象的维护和缓存要比MyBatis好，对增删改查的对象的维护要方便。</p>
+
+    <p> Hibernate数据库移植性很好，MyBatis的数据库移植性不好，不同的数据库需要写不同SQL。</p>
+
+    <p>Hibernate有更好的二级缓存机制，可以使用第三方缓存。MyBatis本身提供的缓存机制不佳。</p>
+
+	<p>Mybatis优势</p>
+
+    <p>MyBatis可以进行更为细致的SQL优化，可以减少查询字段。</p>
+
+    <p>MyBatis容易掌握，而Hibernate门槛较高。</p>
+</section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>CSDN博客</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+           <p>最后简单说下复盘项目，真的只是简单说一下</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 龚剑飞</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

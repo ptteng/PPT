@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .A {
+            font-weight: blod;
+            background: rgb(53, 224, 243);
+        }
+
+        .B {
+            font-weight: blod;
+            background: red;
+        }
+
+        .C {
+            font-weight: blod;
+            background: #ffff00;
+        }
+
+        .Aa {
+            background: rgb(97, 241, 0)
+        }
+
+        .Bb {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body ng-controller="myController">
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        <h2 style="margin:10px;">ng-if、ng-hide、ng-show</h2>
+        <input type="text" ng-model="keyworld">
+        <input type="button" value="ng-show" ng-click="keyworld=''" ng-show="keyworld ==='' ">
+        <input type="button" value="ng-hide" ng-click="keyworld=''" ng-hide="keyworld !='' ">
+        <input type="button" value="ng-if" ng-click="keyworld=''" ng-if="keyworld !='' ">
+        <p>判断输入框为不为空，ng-show判断条件：输入框为空；ng-hide判断条件：输入框不为空；ng-if判断条件：输入框不为空</p>
+    </div>
+
+
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        <h2 style="margin:10px;">ng-class</h2>
+        <div>
+            1.scope变量绑定
+            <br>
+            <p class="{{color}}">虽然没错，但是让angular来提供变量改变class总感觉怪怪的。。。。</p>
+            <select ng-model="A">
+                <option value="">-- 请选择其他颜色 --</option>
+                <option value="B">红色</option>
+                <option value="C">黄色</option>
+            </select>
+            <p ng-class="A">
+                通过选择选项改变此处的背景色
+            </p>
+            2.通过使用对象数组改变class
+            <br>
+            <input type="checkbox" ng-model="a" ng-init="a = ture">
+            <p ng-class="{true:'B',false:'C'}[a]">
+                通过选中来改变布尔值,从而改变此处的背景颜色
+            </p>
+            3.key/value改变class
+            <br>
+            <input type="checkbox" ng-model="isA" ng-init="isA = true">背景色
+            <input type="checkbox" ng-model="isB" ng-init="isB = true">边框
+            <p ng-class="{'Aa':isA,'Bb':isB}">
+                通过选中来改变布尔值，true为添加class，false为去除class
+            </p>
+
+        </div>
+    </div>
+
+
+
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        <h2>ng-options</h2>
+        基本用法
+        <select ng-model="selectName" ng-options="x for x in option">
+            <option value="">-- 请选择 --</option>
+        </select>
+        <hr>
+        <br>显示对象的ID
+        <br>
+        <select ng-model="options1" ng-options="y.id for y in options">
+            <option value="">-- 请选择 --</option>
+        </select>
+        <p>你拿到了{{options1.name}}</p>
+    </div>
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        <h2>ng-value</h2>
+        <input type="text" ng-value="city" ng-model="city"> 我们正身处{{city}}
+        <br>
+        <input type="button" ng-click="back();click=click+1" value="重置">
+        <p>重置了{{click}}次</p>
+    </div>
+
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        <h2>ng-options</h2>
+        <div>
+            <h3>数组</h3>
+            <p>用数组中的值做标签(label
+                <strong style="color:red">for</strong> value
+                <strong style="color:red">in</strong> array)</p>
+
+
+
+            <select ng-model="arrA" ng-options="card.name for card in options">
+                <option value="">-- 请选择 --</option>
+            </select>
+
+
+
+            <hr>
+            <p>用数组中的值作为选中的标签(select
+                <strong style="color:red">as</strong> label
+                <strong style="color:red">for</strong> value
+                <strong style="color:red">in</strong> array)</p>
+
+
+            <select ng-model="arrB" ng-options="card.id as card.name for card in cards">
+                <option value="">-- 请选择 --</option>
+            </select>
+
+
+
+            <hr>
+            <p>用数组中的值做标签组(label
+                <strong style="color:red">group by</strong> group
+                <strong style="color:red">for</strong> value
+                <strong style="color:red">in</strong> array)</p>
+
+
+            <select ng-model="arrC" ng-options="card.name group by card.color for card in cards">
+                <option value="">-- 请选择 --</option>
+            </select>
+
+
+            <hr>
+            <p>数组中的值作为选中的标签组(select
+                <strong style="color:red">as</strong> label
+                <strong style="color:red">group by</strong> group
+                <strong style="color:red">for</strong> value
+                <strong style="color:red">in</strong> array)</p>
+
+            <select ng-model="arrD" ng-options="card.name as card.name group by card.color for card in cards">
+                <option value="">-- 请选择 --</option>
+            </select>
+
+
+            <!-- *********************************************************************************************************************** -->
+            <div style="border:1px solid red"></div>
+            <h3>对象</h3>
+            <p>用对象的键-值（key-value）做标签(label
+                <strong style="color:red">for</strong> ( key , value )
+                <strong style="color:red">in</strong> object)</p>
+
+
+
+            <select ng-model="objA" ng-options="key for (key,value) in cardsB">
+                <option value="">-- 请选择 --</option>
+            </select>
+
+
+            <hr>
+            <p>用对象的键-值作为选中的标签(select
+                <strong style="color:red">as</strong> label
+                <strong style="color:red">for</strong> ( key , value )
+                <strong style="color:red">in</strong> object)</p>
+            <select ng-model="objB" ng-options="key as key for (key,value) in cardsB">
+                <option value="">-- 请选择 --</option>
+            </select>
+            <hr>
+            <p>用对象的键-值作为标签组(select
+                <strong style="color:red">as</strong> label
+                <strong style="color:red">group by</strong> group
+                <strong style="color:red">for</strong> ( key , value )
+                <strong style="color:red">in</strong> object)</p>
+            <select ng-model="objC" ng-options="key group by value for (key, value) in cardsB">
+                <option value="">-- 请选择 --</option>
+            </select>
+            <hr>
+            <p>用对象的键-值作为选中的标签组(select
+                <strong style="color:red">as</strong> label
+                <strong style="color:red">group by</strong> group
+                <strong style="color:red">for</strong> ( key , value )
+                <strong style="color:red">in</strong> object)</p>
+            <select ng-model="obj" ng-options="key as key group by value for (key, value) in cardsB">
+                <option value="">-- 请选择 --</option>
+            </select>
+            <hr>
+        </div>
+    </div>
+
+
+
+
+    
+    <div style="margin-bottom: 20px;border:1px solid #000;padding-bottom:10px;">
+        点击此处
+        <input type="checkbox" ng-model="value">
+        <div>
+            <strong style="color:red">未加入ng-if</strong>
+            <br> valueA:{{valueA}}
+            <input type="checkbox" ng-model="valueA" />
+        </div>
+        <div ng-if="!value">
+            <strong style="color:red">加入ng-if，未加入$parent</strong>
+            <br> valueB:{{valueB}}
+            <input type="checkbox" ng-model="valueB" />
+        </div>
+        <div ng-if="!value">
+            <strong style="color:red">加入ng-if，加入$parent</strong>
+            <br> valueC:{{valueC}}
+            <input type="checkbox" ng-model="$parent.valueC" />
+        </div>
+        <input type="button" ng-click="con()" value="点击打印">
+    </div>
+    <!-- JS -->
+    <script src="https://cdn.bootcss.com/angular.js/1.6.7/angular.min.js"></script>
+    <script>
+        var app = angular.module("app", [])
+            .controller("myController", function ($scope) {
+                $scope.keyworld = "";
+                $scope.color = "A";
+                $scope.option = ["King", "Queen", "Jack"];
+                $scope.options = [{ id: 0, name: "King" }, { id: 1, name: "Queen" }, { id: 3, name: "Jack" }];
+                $scope.city = "上海";
+                $scope.back = function () {
+                    $scope.city = "上海";
+                };
+                $scope.cards = [
+                    {
+                        id: 0,
+                        name: "King",
+                        color: "梅花"
+                    }, {
+                        id: 1,
+                        name: "Queen",
+                        color: "梅花"
+                    }, {
+                        id: 3,
+                        name: "Jack",
+                        color: "黑桃"
+                    }, {
+                        id: 4,
+                        name: "Jaker",
+                        color: "黑桃"
+                    }
+                ];
+                $scope.cardsB = {
+                    K: "King",
+                    Q: "Queen",
+                    J: "Jack",
+                    F: "Jaker"
+                };
+                $scope.valueA = 123;
+                $scope.valueB = 456;
+                $scope.valueC = 789;
+                $scope.con = function () {
+                    console.log("valueA的值为" + $scope.valueA);
+                    console.log("valueB的值为" + $scope.valueB);
+                    console.log("valueC的值为" + $scope.valueC);
+                }
+            })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,403 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>任务二：Spring-AOP的使用</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+            <p>AOP（Aspect Oriented Programming）面向切面编程，通过预编译方式和
+			运行期动态代理实现程序功能的横向多模块统一控制的一种技术。AOP是OOP
+			的补充，是Spring框架中的一个重要内容。利用AOP可以对业务逻辑的各个部
+			分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。</p>
+	     
+        </section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+
+        <section>
+
+            <p>AOP的作用：</p>
+			<p>在OOP中，正是这种分散在各处且与对象核心功能无关的代码（横切代码）的存在，
+			使得模块复用难度增加。AOP则将封装好的对象剖开，找出其中对多个对象产生影响的
+			公共行为，并将其封装为一个可重用的模块，这个模块被命名为“切面”（Aspect），
+			切面将那些与业务无关，却被业务模块共同调用的逻辑提取并封装起来，减少了系统中
+			的重复代码，降低了模块间的耦合度，同时提高了系统的可维护性。</p>
+			
+
+        </section>
+			
+		<section>
+		
+			<p>DI 和 IOC 概念</p>
+			<p>依赖注入或控制反转的定义中，调用者不负责被调用者的实例创建工作，该工作由
+			Spring框架中的容器来负责，它通过开发者的配置来判断实例类型，创建后再注入调用者。
+			由于Spring容器负责被调用者实例，实例创建后又负责将该实例注入调用者，因此称为依赖注入。
+			而被调用者的实例创建工作不再由调用者来创建而是由Spring来创建，控制权由应用代码转移到了
+			外部容器，控制权发生了反转，因此称为控制反转。</p>
+		
+		</section>
+		<section>
+			<p>
+				BeanFactory与ApplicationContext	
+			</p>
+			<p>
+				ApplicationContext是BeanFactory的子接口，也被称为应用上下文。BeanFactory提供了
+				Spring的配置框架和基本功能，ApplicationContext则添加了更多企业级功能（如国际化的支持），
+				他另一重要优势在于当ApplicationContext容器初始化完成后，容器中所有的 singleton Bean 也都
+				被实例化了，也就是说当你需要使用singleton Bean 是，在应用中无需等待就可以用，
+				而其他BeanFactory接口的实现类，则会延迟到调用 getBean（）方法时构造，
+				ApplicationContext的初始化时间会稍长些，调用getBean（）是由于Bean已经构造完毕，
+				速度会更快。因此大部分系统都使用ApplicationContext，而只在资源较少的情况下，才考虑使用BeanFactory。
+			</p>
+			
+		</section>
+		<section>	
+			<p>
+				AOP的实现策略
+			</p>
+			<p>
+				1）Java SE动态代理：
+				使用动态代理可以为一个或多个接口在运行期动态生成实现对象，生成的对象中实现接口的
+				方法时可以添加增强代码，从而实现AOP。缺点是只能针对接口进行代理，另外由于动态代理是
+				通过反射实现的，有时可能要考虑反射调用的开销。
+			</p>
+			<p>
+				2）字节码生成（CGLib 动态代理）
+					动态字节码生成技术是指在运行时动态生成指定类的一个子类对象，并覆盖其中特定方法，
+					覆盖方法时可以添加增强代码，从而实现AOP。其常用工具是cglib。
+			</p>
+
+		</section>
+		<section>
+			<p>
+				3）定制的类加载器
+				当需要对类的所有对象都添加增强，动态代理和字节码生成本质上都需要动态构造代理对象，
+				即最终被增强的对象是由AOP框架生成，不是开发者new出来的。解决的办法就是实现自定义的类加载器，
+				在一个类被加载时对其进行增强。JBoss就是采用这种方式实现AOP功能。
+			</p>
+			<p>
+				4）代码生成
+				利用工具在已有代码基础上生成新的代码，其中可以添加任何横切代码来实现AOP。
+			</p>
+			<p>
+				5）语言扩展
+				可以对构造方法和属性的赋值操作进行增强，AspectJ是采用这种方式实现AOP的一个常见Java语言扩展。
+			</p>
+			
+		</section>
+		<section>
+			<p>
+				1.编程式增强
+			</p>
+			<p>
+				2.声明式增强
+			</p>
+			<p>
+				3.引入增强
+			</p>
+		</section>
+		<section>
+			<p>
+				面向切面编程：
+			</p>
+			<p>
+				1）通知（增强）Advice
+　　			通知定义了切面是什么以及何时使用，应该应用在某个方法被调用之前？之后？还是抛出异常时？等等。
+			</p>
+			<p>
+				2）连接点 Join point
+　　			连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时，抛出异常时，
+				甚至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程中，并添加新的行为。
+			</p>
+			<p>
+				3）切点 Pointcut
+　　			切点有助于缩小切面所通知的连接点的范围。如果说通知定义了切面的“什么”和“何时”的话，
+				那么切点就定义了“何处”，切点会匹配通知所要织入的一个或多个连接点，
+				一般常用正则表达式定义所匹配的类和方法名称来指定这些切点。
+			</p>
+		
+		</section>
+		<section>
+		
+			<p>
+				4）切面 Aspect
+　　			切面是通知和切点的结合。通知和切点定义了切面的全部内容——它是什么，在何时何处完成其功能。
+			</p>
+			<p>
+				5）引入 Introduction
+　　			引入允许我们向现有的类添加新方法或属性，从而无需修改这些现有类的情况下，让他们具有新的行为和状态。
+			</p>
+			<p>
+				6）织入 Weaving
+　　			织入与引入的经常概念混淆，“引入”我把它看做是一个定义，
+				也就是一个名词，而“织入”我把它看做是一个动作，一个动词，也就是切面在指定的连接点被织入到目标对象中。
+			</p>
+		
+		</section>
+		<section>
+			<p>使用基于正则表达式的SpringAOP切面类</p>
+			<p>AOP自动代理</p>
+			<p> AspectJ execution 表达式拦截</p>
+			<p>AspectJ @DeclareParents 注解（引入增强）</p>
+			<p>Spring的AspectJ自动代理</p>
+			<p>在XML中声明切面</p>
+        </section>
+		
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>通知、连接点、切点概念分不清。</p>
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+            <p>通知包含了需要用于多个应用对象的横切行为；连接点是程序执行过程中能够应用通知的所有点；
+			切点定义了通知被应用的具体位置（在哪些连接点）。其中关键的概念是切点定义了哪些连接点会得到通知（增强）。
+			创建切点来定义切面所织入的连接点是AOP框架的基本功能。
+
+　　		另外，Spring是基于动态代理的，所以Spring只支持方法连接点，而像AspectJ和JBoss除了方法切点，
+			它们还提供字段和构造器接入点。如果需要方法拦截之外的连接点拦截功能，则可以利用AspectJ来补充SpringAOP的功能。</p>
+        </section>
+
+		
+		
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+			<p>java动态代理和CGLib动态代理的区别</p>
+			<p>JDK的动态代理机制只能代理实现了接口的类，而不能实现接口的类就不能实现JDK的动态代理，
+			cglib是针对类来实现代理的，他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强。</p>
+		
+        </section>
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>参考一：Spring实战</p>
+			<p>参考二：https://www.cnblogs.com/zhaozihan/p/5953063.html Spring由浅入深</p>
+			
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>

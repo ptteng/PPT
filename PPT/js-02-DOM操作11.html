@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>【JS-task】DOM常见的操作方式有哪些？</h2>
+            <h3>小课堂【成都小课堂】</h3>
+            <p>分享人：杨雨辰</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.什么是DOM</p>
+            <p>2.DOM节点</p>
+            <p>3.常见的DOM属性</p>
+            <p>4.访问元素的方法</p>
+            <p>5.修改元素的方法</p>
+            <p>6.DOM事件</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.什么是DOM</h3>
+            <section>
+                <p>DOM 是 Document Object Model（文档对象模型）的缩写。</p>
+                <p>它代表着加载到浏览器窗口的当前网页，我们可以通过js去读取它的信息</p>
+                <p>DOM把一份文档表示为一棵树，或者说是一颗族谱树，每个元素之间复杂的关系都能简明的表示出来</p>
+            </section>
+        </section>
+        <section>
+            <h3>2.什么是DOM节点</h3>
+            <p>在现实世界中事物都由原子组成，原子又由亚原子微粒组成，DOM也是同样的情况，文档是由节点构成的集合</p>
+        </section>
+        <section>
+            <p> 整个文档是一个文档节点</p>
+            <p>每个HTML元素是元素节点</p>
+            <p>每个元素内的文本是文本节点</p>
+            <p>每个元素的属性是属性节点</p>
+            <p>注释是注释节点</p>
+        </section>
+        <section>
+            <h3>3.常见的DOM属性</h3>
+            <section>
+                childNodes属性
+                可以通过这个属性来返回任何一个元素的所有子节点。
+            </section>
+            <section>
+                <p>nodeName 属性</p>
+                <p>nodeName 属性规定节点的名称</p>
+                <p>元素节点的 nodeName 与标签名相同</p>
+                <p>属性节点的 nodeName 与属性名相同</p>
+                <p>文本节点的 nodeName 始终是 #text</p>
+                <p>文档节点的 nodeName 始终是 #document</p>
+            </section>
+            <section>
+                <p>nodeValue 属性</p>
+                <p>nodeValue 属性规定节点的值。</p>
+                <p> 元素节点的 nodeValue 是 undefined 或 null</p>
+                <p> 文本节点的 nodeValue 是文本本身</p>
+                <p> 属性节点的 nodeValue 是属性值</p>
+            </section>
+            <section>
+                <p>nodeType属性</p>
+                <p>nodeType属性共有12种值可以取值，但其中仅有3种具有实用价值</p>
+                <p>元素节点：1</p>
+                <p>属性节点：2</p>
+                <p>文本节点：3</p>
+            </section>
+        </section>
+        <section>
+            <p>4.获取元素的方法</p>
+            <p>  getElementById() 方法</p>
+            <p> getElementsByTagName() 方法</p>
+            <p> getElementsByClassName() 方法</p>
+            <p>object.getAtrribute('atr')</p>
+            <p>object.setAtrribute('atr','value')</p>
+        </section>
+        <section>
+            <h3>5.修改元素的方法</h3>
+            <section>
+                <p>改变 HTML 内容</p>
+                <p>document.getElementById("p1").innerHTML="New text!";</p>
+                <p>改变 CSS 样式</p>
+                <p>document.getElementById("p2").style.color="blue";</p>
+            </section>
+            <section>
+                <p>追加子元素的方法</p>
+                <p>appendChild()</p>
+                <p>删除 HTML 元素</p>
+                <p>removeChild()</p>
+                <p>替换 HTML 元素</p>
+                <p>replaceChild()</p>
+            </section>
+
+
+            <section>
+                <p>实例</p>
+                <pre>
+                    <code>
+                         <!-- for(var i=0; i<li.length; i++){
+                            if(li[i].getAttribute('class') == 'this'){
+                             li[i].onclick = function () {
+                                    alert('find you')
+                                 }
+                             }
+                         } -->
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>6.DOM - 事件</h3>
+            <p>允许 JavaScript 对 HTML 事件作出反应</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>oninput 事件在用户输入时触发。</p>
+            <p>onblur 事件失去焦点时触发</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p><a href="http://www.w3school.com.cn/htmldom/dom_events.asp" target="_blank">W3C</a></p>
+            <p>《DOM编程艺术第二版》</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>在使用dom的时候可以一直采用document.getElementById("p1")这样的写法来写完代码</p>
+            <p>也可以把这个节点存到变量里，然后用变量代替上面那串，第二种写法相对第一种的优点</p>
+        </section>
+            
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 杨雨辰</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He

@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>SpringAOP</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：宋哲明</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		
+		 <section>
+            <p>我们在任务中会接触到Spring，而Spring最关键的两处就是IOC和AOP</p>
+            <p>今天我们不看IOC，只讲AOP</p>
+        </section>
+        <section>
+            <p>那我们在任务中需要使用SpringAOP做什么呢？</p>
+			 <p>任务中的描述是让我们记录日志</p>
+            
+
+		</section>
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+			</section>
+			 <section>
+            <p>什么是AOP？</p>
+          
+        </section>
+        <section>
+            <p>面向切面编程（Aspect Oriented Programing，AOP）采用横向抽取机制，是面向对象编程（Object Oriented Programing，OOP）的补充和完善。
+			 <p>OOP引入封装、继承、多态等概念来建立一种对象层次结构，OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能、权限管理、异常处理等，
+			 该类功能往往横向地散布在核心代码当中，这种散布在各处的无关代码被称为横切。</p>
+            </p>
+            <p>
+           AOP利用一种称为“横切”的技术，剖解开封装的对象内部，并将那些影响了多个类的公共行为封装到一个可重用模块，并将其名为“Aspect”，即方面。所谓“方面”，简单地说，就是将那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可操作性和可维护性。
+
+            </p>
+		</section>
+		<section>
+		<p>AOP代表的是一个横向的关系，如果说“对象”是一个空心的圆柱体，其中封装的是对象的属性和行为；那么面向方面编程的方法，就仿佛一把利刃，将这些空心圆柱体剖开，以获得其内部的消息。而剖开的切面，也就是所谓的“方面”了。然后它又以巧夺天功的妙手将这些剖开的切面复原，不留痕迹。使用“横切”技术，AOP把软件系统分为两个部分：核心关注点和横切关注点。业务处理的主要流程是核心关注点，与之关系不大的部分是横切关注点。横切关注点的一个特点是，他们经常发生在核心关注点的多处，而各处都基本相似。比如权限认证、日志、事务处理。</p>
+		</section>
+			<section>
+            <p>怎么实现AOP？</p>
+        </section>
+		<section>
+		    <p>实现AOP的技术，主要分为两大类：一是采用动态代理技术，利用截取消息的方式，对该消息进行装饰，以取代原有对象行为的执行；二是采用静态织入的方式，引入特定的语法创建“方面”，从而使得编译器可以在编译期间织入有关“方面”的代码。
+			<p></p>
+			</p>
+		</section>
+		
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+		
+            <p>那么问题来了</p>
+			<p>我们看到AOP是一种技术，那么我们就需要学习如何应用。</p>
+		</section>
+	   <section>
+            <p>学习SpringAOP我们先要知道几个名词</p>
+        </section>
+        <section>
+        <p>连接点（Joinpoint）：被拦截到的点，该连接点可以是被拦截到的方法、字段或者构造器；</p>
+        <p>切入点（Pointcut）：指要对哪些连接点进行拦截，即被拦截的连接点；</p>
+        <p>通知（Advice）：指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知；</p>
+        <p>目标（Target）：代理的目标对象；</p>
+        <p>织入（Weaving）：把增强的代码应用到目标上，生成代理对象的过程；</p>
+        <p>切面（Aspect）：切入点和通知的集合。</p>
+       
+        </section>
+      
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+				
+				<section>
+				<p>说了半天不知道你们懂没懂AOP的思想，我觉得懂了思想，后面的实现可能就没这么难了。所以这里我们再来简短的总结下</p>
+				</section>
+				<section>
+				<img src="D:\Java\小课堂\AOP.jpg">
+				</section>
+
+
+
+
+		
+
+	<section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>JDk动态代理和CGLib代理的区别</p>
+        </section>
+		
+		 <section>
+            <p>JDK动态代理只能对实现了接口的类生成代理，而不能针对类 
+CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法 
+因为是继承，所以该类或方法最好不要声明成final </p>
+        </section>
+		
+
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/ybt_c_index/article/details/78074729</p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 宋哲明</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -32,10 +32,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>rmi底层实现原理</h2>
-			<p></p>
-            <h3>java分享会</h3>
-            <p>分享人：姚远</p>
+            <h2>小课堂</h2>
+            <h4>什么是RMI？为什么要使用RMI框架？</h4>
+            <p>分享人：上海分院 唐坤</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -48,134 +47,82 @@
             <p>8.更多讨论</p>
         </section>
         <section>
-            <h3>1.背景介绍</h3>
+            <h3>1.背景介绍	</h3>
         </section>
-		
-		
-			<section>
-            <p>远程方法调用（RMI）顾名思义是一台机器上的程序调用另一台机器上的方法，其主要目的就是要使运行在不同的计算机中的对象之间的调用表现得像本地调用一样。从而可以实现分布式计算。</p>
-			<p>简单来说，用户知道工匠的名字，知道工匠的地址，然后用户通过工匠的地址和名字去找到工匠，让工匠干活。</p>
-			<p></p>
-			</section>
-			
-			
+        <section>
+            <p>
+            <h3>什么是RMI</h3>
+           RMI是Java的一组拥护开发分布式应用程序的API。RMI使用Java语言接口定义了远程对象，它集合了Java序列化和Java远程方法协议(Java Remote Method Protocol)。简单地说，这样使原先的程序在同一操作系统的方法调用，变成了不同操作系统之间程序的方法调用，由于J2EE是分布式程序平台，它以RMI机制实现程序组件在不同操作系统之间的通信。
+            </p>
+        </section>
+ 
         <section>
             <h3>2.知识剖析</h3>
         </section>
-		
-		<section>
-            <p>RMI应用程序通常包含两个单独的程序，一个服务器和一个客户机。典型的服务器程序创建一些远程对象，使对这些对象的引用可访问，并等待客户端调用这些对象上的方法。典型的客户端程序获取对服务器上的一个或多个远程对象的远程引用，然后调用它们上的方法。RMI提供了服务器和客户端来回传递信息的机制。这种应用有时被称为分布式对象应用。</p>
-			<p>在 RMI 中, 远程服务的定义是存放在继承了 Remote 的接口中。远程服务的实现代码存放在实现该定义接口的类中。</p>
-			
-			
-			<p></p>
-			<p></p>
-		</section>
-		
-		<section>
-		<p>RMI 支持两个类实现一个相同的远程服务接口: 一个类实现行为并运行在服务器上, 而另一个类作为一个远程服务的代理运行在客户机上。</p>
-		<p>客户程序发出关于代理对象的调用方法, RMI 将该调用请求发送到远程 JVM 上, 并且进一步发送到实现的方法中。实现方法将结果发送给代理, 再通过代理将结果返回给调用者。</p>
-		<p></p>
-		</section>
-		
-         <section>
-            <h3>3.常见问题</h3>
+               <section>
+            <h3>为什么使用RMI</h3>
         </section>
-		
-		<section>
-		<p>stubs和skeletons起到了什么作用？</p>
-        <p>RMIRegistry的作用是什么？</p>
-		<p></p>
-		</section>
-		
-        
         <section>
-            <h3>4.解决方案</h3>
+           
+            <p>
+            <h3>什么是分布式</h3>  
+            分布式系统（distributed system）是建立在网络之上的软件系统。正是因为软件的特性，所以分布式系统具有高度的内聚性和透明性。因此，网络和分布式系统之间的区别更多的在于高层软件（特别是操作系统），而不是硬件。内聚性是指每一个数据库分布节点高度自治，有本地的数据库管理系统。透明性是指每一个数据库分布节点对用户的应用来说都是透明的，看不出是本地还是远程。在分布式数据库系统中，用户感觉不到数据是分布的，即用户不须知道关系是否分割、有无副本、数据存于哪个站点以及事务在哪个站点上执行等
         </section>
-		
-		<section>
-		<img src="c:/Users/Hp/Pictures/123.jpeg">
-		</section>
-		
-		<section>
-            <p>存根( Stub) 和骨架( Skeleton) 合在一起形成了 RMI 构架协议，负责网络通信相关的功能</p>
-			<p>stub担当远程对象的客户本地代表或代理人角色，负责把要调用的远程对象方法的方法名及其参数编组打包,并将该包转发给远程对象所在的服务器</p>
-			<p>调用stub的方法时将执行下列操作：</p>
-			<p>(1)与服务端的skeleton建立socket连接(2) 对参数进行打包（写入并传输）</p>
-			<p>(3) 等待方法调用结果</p>
-			<p>(4) 解包（读取）返回值或返回的异常</p>
-			<p>(5) 结果返回给客户端</p>
-			<p></p>
-		</section>
-		
-		<section>
-		<p>Skeleton运行服务端上，接受来自stub对象的调用。当skeleton接收到来自stub对象的调用请求后，skeleton会作如下工作：</p>
-        <p>(1) 解包（读取）stub传来的参数</p>
-		<p>(2) 调用匹配实现上的方法</p>
-		<p>(3) 打包返回值或错误发送给stub对象</p>
-		</section>
-		
-		<section>
-		<p>java.rmi.Naming类提供存储和获得“远程对象注册表”上远程对象的引用的方法。Naming类的每个方法都使用URL格式的参数，一个//ip:port/name可以唯一定位一个RMI服务器上的发布了的对象</p>
-		<p>服务端运行public static void bind(String name, Remote obj)这个方法会传入一个实现类的引用作为第二参数，此时Naming会使用getClass来获取类的名字，并构建成stub（Impl_stub）</p>
-		<p>运行public static Remote lookup(String name)方法的时候，会传入name作为参数，RMIRegistry就会返回stub给客户端调用</p>
-		<p>从实体类中获取RemoteRef对象，这个对象中就封装了服务端的细节，包括服务端的hostname、port。RMIRegistry会储存stub对象，并提供给客户端使用</p>
-		</section>
-	
-		<section>
-		<img src="c:/Users/Hp/Pictures/456.png">
-		</section>
-	
-		<section>
-        <p>RMIRegistry 是必须的吗？</p>
-        </section>
-		
         <section>
-        <p>No，RMIRegistry起到的作用只是为了方便client获取到stub对象，如果还有其他的方法让client拿到stub就不需要RMIRegistry了，因为client一旦拿到了stub就不需要RMIRegistry了</p>
+            <h3>运行机制</h3>
+            在与远程对象的通信过程中，RMI使用标准机制：stub和skeleton。远程对象的stub担当远程对象的客户本地代表或代理人角色。调用程序将调用本地stub的方法，而本地stub将负责执行对远程对象的方法调用。
         </section>
-		
-		<section>
-        <p>直接在client new一个stub对象不就可以了？</p>
-        </section>
-		
-		<section>
-        <p>No，stub构造函数中需要一个RemoteRef对象，这个对象只能在server端获取。</p>
-        </section>
-		
         <section>
-            <h3>5.编码实战</h3>
+            <p>
+               <h3>RMI的工作流程</h3> 
+            <h6>RMI远程调用步骤：
+            1，客户对象调用客户端辅助对象上的方法</p>
+            2，客户端辅助对象打包调用信息（变量，方法名），通过网络发送给服务端辅助对象</p>
+            3，服务端辅助对象将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象</p>
+            4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象</p>
+            5，服务端辅助对象将结果打包，发送给客户端辅助对象</p>
+            6，客户端辅助对象将返回值解包，返回给客户对象</p>
+            7，客户对象获得返回值</p>
+            对于客户对象来说，步骤2-6是完全透明的</p><h6>
         </section>
-		
-		
         <section>
-            <h3>6.扩展思考</h3>
-        </section>
+             <h3>注册表</h3>
+             RMI提供了一个简单的命名服务,叫做RMI注册表,它是一个集中式的资源,它就像是一个"电话本",供应用程序使用.就是说,它是一个位置明确众所周知的应用,把一个真实服务映射成一个逻辑名称,客户端程序能根据这个逻辑名称轻松地定位到对应的服务程序.
+             可以返回的是一个存根(stub),它封装了服务的位置信息(位于哪台机器,在哪个端口上监听).这些信息是对客户端隐藏的,展现出来的是能够调用的远程方法
 
-        <section>
-            <p>我已经放弃思考了</p>
         </section>
-		
-        
+        <section>
+            <h3>序列化</h3>
+            需求:一般情况下，只有当JVM处于运行时，这些对象才可能存在，即，这些对象的生命周期不会比JVM的生命周期更长。但在现实应用中，就可能要求在JVM停止运行之后能够保存(持久化)指定的对象，并在将来重新读取被保存的对象,Java对象序列化就能够帮助我们实现该功能。
+            序列化 (Serialization)将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。
+        </section>
+         <section>
+            <h3>拓展思考</h3>
+        </section>
+         <section>
+            <h3>javaRMI和springRMI的区别</h3>
+         </section>
+         <section>
+            <h3>区别</h3>
+            在Spring环境使用RMI时，可以省略以下几点：</p>
+            1、接口类不需要继承Remote，方法不需要抛出RemoteException异常对象。</p>
+            2、实现类不需要继承UnicastRemoteObject。</p>
+            3、RMI服务自动注册。</p>
+         </section>
+  
         <section>
             <h3>7.参考文献</h3>
-            <p>http://docs.oracle.com/javase/tutorial/rmi/</p>
-			<p>http://blog.csdn.net/xinghun_4/article/details/45787549</p>
-		
+            <p>参考一：百度</p>
+            <p>参考一：小课堂</p>
         </section>
-		
         <section>
             <h3>8.更多讨论</h3>
-            <p></p>
+            <p>欢迎大家交流和讨论</p>
         </section>
-		
-		<section>
-			<p>有什么问题吗？</p>
-		</section>		
-		
         <section>
             <h4>鸣谢</h4>
-            <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 姚远</small></p>
+            <p>感谢大家观看</p>
+            <p><small>BY : 唐坤</small></p>
         </section>
 
     </div>

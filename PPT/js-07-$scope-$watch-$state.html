@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>angular之中，$state  $watch $scope $rootScope 分别是什么？</h2>
+            <h3>武汉分院【小课堂271期】</h3>
+            <p>分享人：聂义中</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align: justify">在平时的编码中，我们总会想着有什么方法能够简化我们的工作流程，让我们只专心于业务逻辑和数据的处理，而angularjs
+                就为我们程序员实现了这一点。AngularJS有着诸多特性，最为核心的是：MVC、模块化、自动化双向数据绑定、语义化标签、依赖注入等等。
+                下面，我们将要讨论的就是angularJS 里面的 $scope $rootScope $watch 和 $state
+
+            </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section style="text-align: left">
+            <section>
+                <h4>作用域</h4>
+                <p style="text-align: justify">
+                     我们可以把angularJs 里面的作用域看做为一个容器，在控制器中我们可以访问这个容器
+                  我们可以往这个容器中放入一些模型数据，在视图中我们可以通过表达式将数据展示给用户。
+                  作用域 是应用在 HTML (视图) 和 JavaScript (控制器)之间的纽带，他是一个对象，
+                  有可用的方法和属性，可应用在视图和控制器上。
+                </p>
+            </section>
+            <section>
+                <h4>$rootScope 与 $scope</h4>
+                <p style="text-align: justify">
+                    【1】当angularJS 遇到ng-app指令的时候就会自动生成一个名为$rootScope的作用域，该作用域就是就
+                    是angularJS的根作用域。 $rootScope就相当于一个全局作用域，所以我们保存在其中的东西是全局性的
+                    ，在任一controller之中都能够使用<br>
+                    【2】当angularJS 遇到controller或者一些自定义指令的时候也会自动的生成一个名为$scope的作用域
+                    scope是html和单个controller之间的桥梁，数据绑定就靠他了。<br>
+                    【3】$scope都是$rootScope的子作用域。
+                </p>
+            </section>
+
+            <section>
+                <h4>$watch</h4>
+                <p style="text-align: justify">
+                    相信使用过angularjs的同学都知道，ng中有个比较重要的特点，叫做双向绑定，那么这个双向绑定是如何实现的呢？
+                    当我们在对绑定的name属性进行修改的时候，angular内部的$digest循环级会执行一次，他执行的内容是检查我们的
+                    $scope作用域的内容与上次执行$digest循环的时候是否有变化，若有变化就执行$watch()方法绑定的处理函数。从而
+                    达到了监听作用域属性的效果。
+                </p>
+            </section>
+
+            <section style="text-align: left">
+                <p>$watch(watchExpression, listener, objectEquality);</p>
+                <p>watchExpression,需要监控的表达式</p>
+                <p>listener,处理函数，函数参数如下
+                    function(newValue,oldValue, scope)</p>
+                <p>objectEquality,是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么你应该使用它</p>
+            </section>
+            <section>
+                <h4 style="text-align: center">$state</h4>
+                <p>
+                    在ajax技术发展普及之后，因为其不会留下历史记录方便浏览器访问和对于seo不友好的特点，一个新技术应运而生：
+                    路由，$state就是路由中的一项服务。
+                </p>
+                    <p style="text-align: center">$state.go()</p>
+                    <p style="text-align: justify">
+                        $state.go()方法可以产生与a链接一样的效果，可以将此方法绑定给一个button按钮，
+                        然后在按钮的点击事件中国执行 $state.go()，就可以跳转到相应的页面。
+                    </p>
+
+            </section>
+            <section>
+                <p>$stateParams 状态参数
+                    在上面提及使用$stateparams来提取在url中的不同参数。该服务的作用是处理url的不同部分。例如，当上述的inbox状态是这样时：
+                    url: '/inbox/:inboxId/messages/{sorted}?from&to'//当用户访问者链接时：'/inbox/123/messages/ascending?from=10&to=20'
+                    $stateParams对象的值为：
+                    {inboxId: '123', sorted: 'ascending', from: 10, to: 20}</p>
+                <a href="https://www.cnblogs.com/littlemonk/p/5484322.html">详细讲解</a>
+            </section>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>watch的深度监听是什么意思呢？有什么优缺点呢？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p style="text-align: justify">$watch在对待原始类型和引用类型会有不同的处理方式，
+                这就要首先说一说$watch函数的第三个参数。
+                在前面的例子中，我们知道，$watch函数有接收两个参数，第一个参数是需要监视的对象，
+                第二个参数是在监视对象发生变化时需要调用的函数，实际上$watch还有第三个参数，
+                它在默认情况下是false。在默认情况下，即不显式指明第三个参数或者将其指明为false时，
+                我们进行的监视叫做“引用监视”。引用监视的原词的“reference watch”，
+                它的意思是只要监视的对象引用没有发生变化，就不算它发生了变化。具体来说，
+                在上面的例子中，只要是items的引用没有发生变化，就算items中的一些属性发生了变化，
+                $watch也会当做没有看见。</p>
+        </section>
+        <section>
+            <p style="text-align: justify">如果我们将$watch的第三个变量设置为true，那么此时我们进行的监视叫做“全等监视”，
+                原词是“equality watch”。此时，只要$watch的对象有一点风吹草动，它马上就跳出来</p>
+            <p style="text-align: justify">既然全等监视这么好，那么我们为什么不直接用全等监视呢？当然，任何事情都有好的坏的两个方面，
+                全等监视固然是好，但是它在运行时需要先遍历整个监视对象，然后在每次$digest之前使用
+                angular.copy()将整个对象深拷贝一遍然后在运行之后用angular.equal()将前后的
+                对象进行对比，上面的例子中因为items比较简单，因此可能性能上不会有什么差别，但是到了
+                实际生产时，我们要面对的数据千千万万，可能因为全等监视这一个设置就会消耗大量的资源，
+                让应用停滞不前</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一：<a href="http://www.cnblogs.com/sitemanager/p/3513827.html" target="_blank">深度理解scope</a></p>
+            <p>参考二：<a href="http://web.jobbole.com/82517/"  target="_blank">原始数据类型和对象类型的区别及深度拷贝解析</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            |
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 聂义中</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+//        history: true,
+        transition: 'default',
+        transitionSpeed: 'slow',
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+    //    原始类型对象直接赋值不会相互影响
+    var a = 1;
+    var b = a;
+    b = 10;
+    console.log(a); // 1
+    //
+    var a = 'hello';
+    var b = a;
+    b = 'world';
+    console.log(a); // hello
+    var a = true;
+    var b = a;
+    b = false;
+    console.log(a);
+    //数组浅复制
+    //    var a = ['隔壁老王','冠希哥', '宋经理' //定义一个名为a的属猪，里面有3个值，
+    //    ];
+    //    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+    //    b[2] = '冲冲老师'; //然后把b的第三个值等于冲冲老师
+    //    console.log(a)//那么现在打印a 是什么结果呢
+    //
+    //    var arr = ["One","Two","Three"];   //数组的深复制，slice方法
+    //    var arrtoo = arr.slice(0);
+    //    arrtoo[1] = "set Map";
+    //    console.log(arr);//One,Two,Three
+    //    console.log(arrtoo);//One,set Map,Three
+    //    var arr1 = ["One","Two","Three"]; //数组的深复制，concat 方法
+    //    var arrtooo = arr1.concat();
+    //    arrtooo[1] = "set Map To";
+    //    console.log(arr1);//One,Two,Three
+    //    console.log(arrtooo);//One,set Map To,Three
+    //
+    //    var b=[1,2,3,4,5];   //concat的链接
+    //    var c=[6,7,8,9];
+    //    console.log(b.concat(c))
+    //    var a={name:'yy',age:26};  //对象的浅拷贝哦
+    //    var b=new Object();
+    //    b.name=a.name;
+    //    b.age=a.age;
+    //    b.name='xx';
+    //    console.log(a);//Object { name="yy", age=26}
+    //    console.log(b);//Object { name="xx", age=26}
+    var d = {            //对象的浅拷贝哦 第一种
+        name: 'd',
+        oc: {
+            age: 32
+        },
+        oad: {
+            adds: {
+                bb: 12
+            }
+        }
+    };
+    var deepCopy = function(source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key]
+        }
+        return result
+    };
+    var c = deepCopy(d);
+    c.name = 'c';
+    c.oc = {
+        age: 49
+    };
+    console.log(c);
+    console.log(d);
+    //    var person = {    //第二种深拷贝
+    //        name: 'aa',
+    //        friends: ['da', 'dsa', 'gf']
+    //    };
+    //
+    //    var aPerson = Object.create(person, {
+    ////        name: {
+    ////            value: "gee"
+    ////        }
+    //    });
+    //
+    //    console.log(person.name);
+    //    console.log(aPerson.friends)
+</script>
+</body>
+</html>

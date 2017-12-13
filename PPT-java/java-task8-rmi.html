@@ -1,0 +1,167 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>小课堂</h2>
+            <h4>什么是RMI？为什么要使用RMI框架？</h4>
+            <p>分享人：上海分院 唐坤</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>
+            <h3>什么是RMI</h3>
+           RMI是Java的一组拥护开发分布式应用程序的API。RMI使用Java语言接口定义了远程对象，它集合了Java序列化和Java远程方法协议(Java Remote Method Protocol)。简单地说，这样使原先的程序在同一操作系统的方法调用，变成了不同操作系统之间程序的方法调用，由于J2EE是分布式程序平台，它以RMI机制实现程序组件在不同操作系统之间的通信。
+            </p>
+        </section>
+ 
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+               <section>
+            <h3>为什么使用RMI</h3>
+        </section>
+        <section>
+           
+            <p>
+            <h3>什么是分布式</h3>  
+            分布式系统（distributed system）是建立在网络之上的软件系统。正是因为软件的特性，所以分布式系统具有高度的内聚性和透明性。因此，网络和分布式系统之间的区别更多的在于高层软件（特别是操作系统），而不是硬件。内聚性是指每一个数据库分布节点高度自治，有本地的数据库管理系统。透明性是指每一个数据库分布节点对用户的应用来说都是透明的，看不出是本地还是远程。在分布式数据库系统中，用户感觉不到数据是分布的，即用户不须知道关系是否分割、有无副本、数据存于哪个站点以及事务在哪个站点上执行等
+        </section>
+        <section>
+            <h3>运行机制</h3>
+            在与远程对象的通信过程中，RMI使用标准机制：stub和skeleton。远程对象的stub担当远程对象的客户本地代表或代理人角色。调用程序将调用本地stub的方法，而本地stub将负责执行对远程对象的方法调用。
+        </section>
+        <section>
+            <p>
+               <h3>RMI的工作流程</h3> 
+            <h6>RMI远程调用步骤：
+            1，客户对象调用客户端辅助对象上的方法</p>
+            2，客户端辅助对象打包调用信息（变量，方法名），通过网络发送给服务端辅助对象</p>
+            3，服务端辅助对象将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象</p>
+            4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象</p>
+            5，服务端辅助对象将结果打包，发送给客户端辅助对象</p>
+            6，客户端辅助对象将返回值解包，返回给客户对象</p>
+            7，客户对象获得返回值</p>
+            对于客户对象来说，步骤2-6是完全透明的</p><h6>
+        </section>
+        <section>
+             <h3>注册表</h3>
+             RMI提供了一个简单的命名服务,叫做RMI注册表,它是一个集中式的资源,它就像是一个"电话本",供应用程序使用.就是说,它是一个位置明确众所周知的应用,把一个真实服务映射成一个逻辑名称,客户端程序能根据这个逻辑名称轻松地定位到对应的服务程序.
+             可以返回的是一个存根(stub),它封装了服务的位置信息(位于哪台机器,在哪个端口上监听).这些信息是对客户端隐藏的,展现出来的是能够调用的远程方法
+
+        </section>
+        <section>
+            <h3>序列化</h3>
+            需求:一般情况下，只有当JVM处于运行时，这些对象才可能存在，即，这些对象的生命周期不会比JVM的生命周期更长。但在现实应用中，就可能要求在JVM停止运行之后能够保存(持久化)指定的对象，并在将来重新读取被保存的对象,Java对象序列化就能够帮助我们实现该功能。
+            序列化 (Serialization)将对象的状态信息转换为可以存储或传输的形式的过程。在序列化期间，对象将其当前状态写入到临时或持久性存储区。以后，可以通过从存储区中读取或反序列化对象的状态，重新创建该对象。
+        </section>
+         <section>
+            <h3>拓展思考</h3>
+        </section>
+         <section>
+            <h3>javaRMI和springRMI的区别</h3>
+         </section>
+         <section>
+            <h3>区别</h3>
+            在Spring环境使用RMI时，可以省略以下几点：</p>
+            1、接口类不需要继承Remote，方法不需要抛出RemoteException异常对象。</p>
+            2、实现类不需要继承UnicastRemoteObject。</p>
+            3、RMI服务自动注册。</p>
+         </section>
+  
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：百度</p>
+            <p>参考一：小课堂</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 唐坤</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

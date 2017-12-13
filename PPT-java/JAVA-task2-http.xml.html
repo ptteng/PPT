@@ -1,0 +1,267 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>http协议</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘子源</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+         
+
+<p>什么是http协议？</p>
+<p>http协议（HyperText Transfer Protocol，超文本传协议）是一种用于分布式，协作式和超媒体信息系统的应用层协议，
+是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。</p>
+  <p>特点：</p>
+         <p>1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。
+         请求方法常用的有GET、HEAD、POST等。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+    		<p>灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+        </section>
+        <section>
+     
+         
+        <p>3.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+               <p>4.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>   
+              <p>5、支持B/S及C/S模式。</p>    
+                  </section>        
+                 
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+			<p>URL</p>
+			<p>HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，全称是UniformResourceLocator, 
+			中文叫统一资源定位符,是互联网上用来标识某一处资源的地址包含了用于查找某个资源的足够的信息。</p>
+			<p></p>
+			 </section>
+			 <section>           
+			<p>以下面这个URL为例，介绍下普通URL的各部分组成：
+
+http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+<p>1.协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在Internet中可以使用多种协议，如HTTP，FTP等等本例中使用的是HTTP协议。在"HTTP"后面的“//”为分隔符。</p>
+<p>2.域名部分：该URL的域名部分为“www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用。</p>
+<p>3.端口部分：跟在域名后面的是端口，域名和端口之间使用“:”作为分隔符。端口不是一个URL必须的部分，如果省略端口部分，将采用默认端口。</p>
+
+<p></p>
+			 </section>
+			 <section>
+			 <p>以下面这个URL为例，介绍下普通URL的各部分组成：
+
+http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+<p>4.虚拟目录部分：从域名后的第一个“/”开始到最后一个“/”为止，是虚拟目录部分。虚拟目录也不是一个URL必须的部分。本例中的虚拟目录是“/news/”</p>
+         <p>5.文件名部分：从域名后的最后一个“/”开始到“？”为止，是文件名部分，如果没有“?”,则是从域名后的最后一个“/”开始到“#”为止，是文件部分，如果没有“？”和“#”，那么从域名后的最后一个“/”开始到结束，都是文件名部分。
+         本例中的文件名是“index.asp”。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名</p>
+         
+            </section>
+             <section>
+             <p>以下面这个URL为例，介绍下普通URL的各部分组成：
+
+http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name</p>
+          <p>6.锚部分：从“#”开始到最后，都是锚部分。本例中的锚部分是“name”。锚部分也不是一个URL必须的部分。</p>
+          <p>7.参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID=5&ID=24618&page=1”。参数可以允许有多个参数，参数与参数之间用“&”作为分隔符。</p>
+          <p></p>
+          </section>
+            
+
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        <p>http请求content-Type有几种？</p>
+        <p>Content-Type，内容类型，用于定义网络文件的类型和网页的编码，浏览器根据该参数来决定数据的打开方式。</p>
+        <p>Content-Type使用的是 “主类型/子类型; 额外参数” (  [type]/[subtype]; parameter )的数值格式。</p>
+        
+        </section>
+         <section>
+         <p>“主类型” （type）主要有以下几种：</p>
+         <p>1. text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的； 默认是text/plain。</p>
+		<p>2. multipart：用于连接消息体的多个部分构成一个消息，这些部分可以是不同类型的数据； 默认是multipart/mixed。</p>
+		<p>3. application：用于传输应用程序数据或者二进制数据； 默认是application/octet-stream。</p>
+		<p>4. message：用于包装一个E-mail消息。</p>
+
+         </section>
+          <section>
+          <p>5. image：用于传输静态图片数据。</p>
+          <p>6. audio：用于传输音频或者音声数据。</p>
+          <p>7. video：用于传输动态影像数据，可以是与音频编辑在一起的视频数据格式。</p>
+           </section>
+        <section>
+                  
+                 
+
+<p> “子类型” （subtype）用于指定"主类型"的详细形式。 其中以x-开头表示该类别尚未标准化 。当客户端不能确定“子类型”时，会根据“主类型”来获取默认的子类型。</p>
+	<p>"额外参数" （parameter）用于指定请求/响应内容的字符编码格式。例如text/html;charset=utf-8；</p>
+			
+                  
+                  
+                  
+                   </section>
+                   
+                   
+                <section>
+                <p>
+                http状态码
+                </p>
+                 <p>1开头代表消息,代表请求已被接收,需要继续处理,这类响应只是临时响应 </p>
+                 <p>2开头代表成功,这一类型的状态码代表请求已成功被服务器接收,理解 </p>
+                 <p>3开头代表重定向.这类状态码代表需要客户端采取进一步的操作才能完成请求,通常,这些状态码用来重定向,后续的地址(重定向目标)在本次响应的location域中指明</p>
+                 <p>4开头代表请求错误,这类状态码代表客户端看起来可能发生了错误,妨碍了服务器的处理 </p>
+                 <p>5开头代表服务器在处理请求的过程有错误或者异常状态发生 </p>
+                </section>
+                
+                <section>
+                <p>常见的状态码</p>
+                <p>200:请求已成功，请求所希望的响应头或数据体将随此响应返回。</p>
+                <p>404:请求失败，请求所希望得到的资源未被在服务器上发现，出现这个错误的最有可能的原因是服务器端没有这个页面。</p>
+                <p>500:服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器端的源代码出现错误时出现。</p>
+                </section>
+                
+        
+
+                   <section>
+                
+            <p>Get和post请求方法有什么区别？</p>
+			
+</p>
+		
+        </section>
+         <section>
+         <p>根据HTTP标准，HTTP请求可以使用多种请求方法，到HTTP1.1包括八种方法：</p>
+         <p>GET, POST,HEAD,OPTIONS, PUT, DELETE, TRACE 和 CONNECT。</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+         <section>
+         <p>区别：</p>
+         <p>1.GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&相连，如EditPosts.aspx?name=test1&id=123456. POST方法是把提交的数据放在HTTP包的Body中.</p>
+<p>2.GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制。</p>
+<p>3.GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</p>
+<p>4.GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码。</p>
+       
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>http协议适用场景</p>
+            <p>缺点：</p>
+            <p>1.传输速度慢，数据包大。</p>
+            <p>2.如实现实时交互，服务器性能压力大</p>
+            <p> 3.数据传输安全性差</p>
+            
+        </section>
+        <section>
+        		<p>1.公司oa系统：Office Automation System ，意为办公自动化系统。使用局域网，较为安全。</p>
+        		<p>2.各种互联网服务。</p>
+        </section>
+        
+        
+        <section>
+        
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/li0803/archive/2008/11/03/1324746.html</p>
+            <p>http://blog.csdn.net/kfanning/article/details/6062118/</p>
+        </section>
+    
+        <section>
+            <h3>8.更多讨论</h3>
+   		</section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘子源</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>武汉小课堂</h2>
+            <h3>什么是Ajax？</h3>
+            <p>分享人：余佳贝</p>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。
+                Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当我们在谷歌的搜索框输入关键字时，
+                JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
+            <p>AJAX的全称是： Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。</p>
+            <p>AJAX不是编程语言 是一种无需重载整个网页的情况下与服务器交换数据并更新部分网页的技术</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>2.1同步和异步</p>
+        </section>
+        <section>
+            <p>同步</p>
+            <p>传统的网页(没有使用ajax的网页)，想要更新内容或者提交一个表单，必须重载整个网页</p>
+            <img src="../img/what is ajax/aj1.png">
+        </section>
+        <section>
+            <p>异步</p>
+            <p>页面上的操作与服务器端的操作互相之间不会造成堵塞</p>
+            <p>比如说在填写表单的时候不小心填写错误  错误信息会实时的显示在页面上 这个过程不会有整个页面的刷新 也不会有个整个页面的提交和等待</p>
+            <img src="../img/what is ajax/aj2.png">
+        </section>
+        <section>
+            <p>2.2XMLHttpRequest</p>
+            <p>xhr对象是ajax的基础 在xhr对象没有出现之前 网页开发采用的都是同步的方式 有了xhr对象之后 才可以进行异步的操作</p>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    var request = new XMLHttpRequest();//新建一个xhr对象
+                    request.open('GET','DEMO.php',true);//调用xhr对象的post方法
+                    request.send();//将请求发送到服务器
+                    request.onreadystatechange=function(){//对这个请求过程进行监听 并作出判断
+                      if (request.readyState==4 && request.status==200)
+                        {
+                        document.getElementById("myDiv").innerHTML=request.responseText;
+                        }
+                      }
+                </code>
+            </pre>
+            <p>一个典型的xhr建立一个ajax异步请求的过程大概就是这样</p>
+        </section>
+        <section>
+            <p>
+                我们可以把这段代码拆分一下  看看open(),send()是什么意思.
+                open(method,url,async),send()是xhr对象向服务器发送请求的两个方法 open里面有3个参数
+                规定请求的类型、URL 以及是否异步处理请求。method：请求的类型；GET 或 POST url：文件在服务器上的位置
+                async：true（异步）或 false（同步）
+            </p>
+        </section>
+        <section>
+            <p>我们可以看看onreadystatechange readyState status分别是什么意思</p>
+            <img src="../img/what is ajax/aj3.png">
+        </section>
+        <section>
+            <h3>常见问题</h3>
+        </section>
+        <section>
+            <p>跨域问题：<br>本地上面直接采用Nginx跨域实现。在服务器上的话，交给后端吧。。。
+                注意 Nginx跨域可以同时配置多个接口的，就是多写几个location就好了，然后location后面带的参数不一样就可以了。</p>
+            <p>
+                使用post提交的时候需要设置 <br>
+                <code>content-Type: application/x-www-form-urlencoded</code>             
+                使用原生Ajax需要在open以后才能使用xhr.setRequestHeader()方法，否则出错。
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <pre>
+                <code>
+                    var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象;
+                  request.onreadystatechange = function () { // 状态发生变化时，函数被回调;
+                      if (request.readyState === 4) { // 成功完成
+                          // 判断响应结果:
+                          if (request.status === 200) {
+                              // 成功，通过responseText拿到响应的文本:
+                              return success(request.responseText);
+                          } else {
+                              // 失败，根据响应码判断失败原因:
+                              return fail(request.status);
+                          }
+                      } else {
+                          // HTTP请求还在继续...
+                      }
+                  }
+
+                  // 发送请求:
+                  request.open("POST","/skill-ajax/a/login",true);
+                  request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                  request.send();
+                  alert('请求已发送，请等待响应...');
+
+
+                // status值说明
+                // 200:成功
+                // 404:没有发现文件、查询或URl
+                // 500:服务器产生内部错误
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>6.拓展思考</h3>
+        </section>
+        <section>
+            <p>readyState值说明</p>
+            <p class="fragment">状态0，未初始化，表明对象已经建立，但未初始化，也就是尚未调用Oen方法创建Http请求。</p>
+            <p class="fragment">状态1，初始化，表明对象已经建立，但是未调用send方法发送Http请求</p>
+            <p class="fragment"> 状态2，发送数据，表明send方法已经被调用，但是当前的状态以及Http头未知。</p>
+            <p class="fragment">状态3，数据传送中，表明服务器已经接受部分数据，因为响应时间以及Http头补全，这时通过 response系列方法获取部分数据会出现错误</p>
+            <p class="fragment">状态4，传送完成，数据接收完毕，此时可以通过response系列方法获取完整的回应数据。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+        <section>
+            <p>参考一
+                <a href="http://developer.51cto.com/art/201109/289286.htm">51cto</a>
+            </p>
+            <p>参考二
+                <a href="http://blog.csdn.net/yueguanghaidao/article/details/9568071">博客</a>
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>那么大家在学习AJAX的过程中遇到了其他的问题？</p>
+        </section>
+        <section>
+            <p>感谢大家观看</p>
+            <p>BY : 余佳贝 </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
