@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>nginx服务器有什么作用?什么叫反向代理?为什么要使用反向代理?</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：邹苏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+			<p>nginx是什么？</p>
+			<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器,
+                其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，
+                中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>nginx服务器有什么作用?</p>
+			
+            <p>1、反向代理：反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，
+                然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端,
+                简单来说就是真实的服务器不能直接被外部网络访问,想要访问必须通过代理。</p>
+
+               <p>2、负载均衡：负载均衡也是 Nginx 常用的一个功能，当有2台或以上服务器时，根据规则随机的将请求分发到指定的服务器上处理，
+                   负载均衡配置一般都需要同时配置反向代理，通过反向代理跳转到负载均衡。而Nginx目前支持自带3种负载均衡策略，
+                   还有2种常用的第三方策略。</p>
+
+               
+		</section>
+		<section>
+            <p>3、HTTP服务器：Nginx本身也是一个静态资源的服务器，当只有静态资源的时候，就可以使用Nginx来做服务器，同时现在也很流行动静分离，就可以通过Nginx来实现</p>
+
+            <p> 4、正向代理：意思是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，
+                然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
+        </section>
+		<section>
+		     <p>为什么要使用反向代理?</p>
+			    
+				<p>反向代理的主要作用是分发请求。</p>
+				
+				<p>假定一个接口请求返回数据100k，10个并发请求就是1M，那么千兆网卡，可以支撑并发10000个请求
+                    ，假设我们收到请求马上就返回，那么最高并发数就是我们上面计算的结果，但是，问题在于，
+                    应用服务器做不到马上返回，因为它有很多业务逻辑需要执行处理，
+                    比如给用户发推送发短信发邮件，本地磁盘写日志，请求数据库增删改查，调用微信的登录接口等等等等。
+                    木桶理论取最短板，假如拖后腿的这个，最佳状态也只能优化到支持1000个并发，
+                    那就尴尬了，本来能支持10000个请求的系统，只能用到1/10性能。</p>
+				
+				<p></p>
+		
+		</section>
+		<section>
+				
+				<p>单个公网ip算一个节点的话，这个节点本来的潜力是响应10000个并发请求，实际在应用层面只能到1000并发，
+                    潜力还未发掘。这个时候，就是反向代理起到用武之地的时候了。</p>
+
+				<p>首先一个反向代理的服务器抛开所有业务层的东西，只单纯的接下请求再返回，那么可以支持到10000并发了。
+                    接下来应用层面谁来处理？找来10个小弟，转发给他们，每人1000正好。
+                    这样这个节点系统就用到了10/11的性能了。</p>
+				
+				<p></p>
+		
+				<p></p>
+		</section>
+		
+		<section>
+            <h3>3.常见问题</h3>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+			<P>几种负载均衡策略：</p>
+            <p>1、RR（默认）：</p>
+			<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。</p>
+
+			<p>2、权重：</p>
+            <p>指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。</p>
+        </section>
+        <section>
+			<P>3、ip_hash</p>
+            <p>前面2种方式，在下一个请求来的时候请求可能分发到另外一个服务器，当我们的程序不是无状态的时候（采用了session保存数据），
+                这时候就有一个很大的很问题了，比如把登录信息保存到了session中，那么跳转到另外一台服务器的时候就需要重新登录了，
+                所以很多时候我们需要一个客户只访问一个服务器，那么就需要用iphash了，
+                iphash的每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</p>
+        </section>
+        <section>
+            <p>4、fair（第三方）</p>
+            <p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
+            <p>下载地址：https://github.com/gnosek/nginx-upstream-fair?spm=5176.100239.blogcont73621.10.7QrfAw</p>
+            <p>5、url_hash（第三方）</p>
+            <p>按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.zhihu.com/question/19761434</p>
+            <p>http://www.linuxidc.com/Linux/2017-04/142962.htm</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 邹苏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
