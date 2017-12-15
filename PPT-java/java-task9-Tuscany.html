@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是Tuscany？ </h2>
+			<p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：李宁虎</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 <section>
+            <p>
+				Tuscany 是 Apache 的开源项目，它是 IBM、Oracle、SAP 等厂商联合成立的 SOA 标准化组织 -OSOA 支持下开发出的 SCA 框架，它既是开源界 SCA 的试金石，也是当前开源界最成熟的 SCA (SCA: Service Component Architecture)框架之一。
+			</p>
+			<p>
+				tuscany是一套开源的SCA框架模型，是做SOA的基础架构，SOA它是面向服务的体系结构，是一个组件模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来
+			</p>
+		</section>
+
+
+
+        <section>
+            <h3>2.知识剖析</h3>	
+		</section>
+
+		<section>
+			 <p>
+				SCA是什么？
+
+					<p>
+						SCA为构建基于SOA的应用和解决方案提供了编程模型。它基于这样的理念：将业务功能作为一系列的服务而提供，并由这一系列的服务组装起来的解决方案来满足特定业务需求。这些组合的应用既包括为应用而新创建的特定服务，也包括源自已已存在系统和应用的业务逻辑，这些业务逻辑作为组合构件的一部分被复用。SCA既为服务的组合也为服务构件的创建提供了模型，包括对SCA组组合构件中对已存在应用功能的复用。
+					</p>
+
+					
+
+					
+		
+			 </p>
+			 </section>
+
+			 <section>
+
+				<p>
+						SCA的基础工件就是component，它是SCA的构成单元。构件(component)由一个实现的可配置（implementation）实例所组成。在该构件中，实现是提供业务功能的程序代码片段。该业务功能作为服务(service)而提供，为其他构件所使用。实现也许依赖于由其他构件所提供的服务，这些依赖被称作”引用”(reference)。实现可以有一个可设置的属性(properties)，该属性是可以影响业务功能操作的数据值。构件通过提供属性值和连线(wire)到由其他构件提供服务的引用来配置实现。
+					</p>
+       	        
+				    
+			 </section>
+
+			<section>
+					<p>
+						<img src="D:\飞秋下载之图片\字母\11.png" style="width:700px;height:600px">
+					</p>
+			 </section>
+			
+         <section>
+            <h3>3.常见问题</h3>
+         </section>
+         <section>
+			<p>
+				Tuscany的例子很少。官网已经不维护了，建议多百度，看师兄日报。
+			</p>
+		  
+			
+		</section>
+           
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+
+			<section>
+					SCA装配模型在Tuscany中是用一系列接口表示的。如下是些关键的元素。
+					<p> SCA component 是配置化的SCA实现的实例，它可以提供服务或消费服务。</p>
+					<p> SCA service用于声明实现的可以被外部访问的服务</p>
+					<p> SCA reference用于表示该实现对某些其他实现所提供的服务的依赖。该依赖的服务可以通过配置来指定。</p>
+					<p> Implementation是用于描述软件技术的概念，例如在面向服务的应用中实现了一个或多个服务的Java 类，BEPL，XSLT转换，C++类。SCA composite也是implementaion。</p>
+				</section>
+				<section>
+					<p> Interface定义了一个或多个业务功能。这些业务功能通过Service提供，通过Reference让其他组件使用。服务是由实现的接口来定义的。现在SCA支持两种接口类型系统：Java接口、SWDL portType</p>
+					<p>SCA composite是SCA域中的compositon的基础单元。SCA Composite是组件的装配，服务、应用和wire都互相连接。</p>
+					<p>Binding是被服务和引用所使用的。引用使用绑定来描述访问机制，该机制用于访问连接的服务。服务使用绑定来描述客户程序调用服务的访问机制。</p>
+					<p>Property是考虑到有的实现配置需要显式地设置数据值。该数据值由组件提供，当然也可能来源于容器composite的属性。</p>
+
+			</section>
+			
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+
+       
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+	
+        <section>
+            <p>
+				什么是Dubbo，作用是什么
+		
+			</p>
+        </section>
+        
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+				作者：五月的仓颉
+				链接：https://www.cnblogs.com/xrq730/p/5316805.html				
+			</p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 李宁虎</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
