@@ -1,0 +1,224 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>拦截器、过滤器、监听器各有什么作用？</h2>
+            <h3>小课堂</h3>
+            <p>分享人：魏振恒</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+            <img src="C:\Users\home\Desktop\截图\QQ截图20171207154928.png" style="transform: scale(1.3);">
+        </section>
+        <section>
+            <h4>拦截器</h4>
+            <p>
+                java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action
+执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截
+然后再之前或者之后加入某些操作。
+            </p>
+        </section>
+        <section>
+            <h4>拦截器原理</h4>
+            <p>SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor 来实现的。在SpringMVC 中定义一个Interceptor 非常简单，主要有两种方式，第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor 接口，或者是这个类继承实现了HandlerInterceptor 接口的类，比如Spring 已经提供的实现了HandlerInterceptor 接口的抽象类HandlerInterceptorAdapter；
+            <br>第二种方式是实现Spring的WebRequestInterceptor接口，或者是继承实现了WebRequestInterceptor的类。
+            <br>本次代码演示是继承HandlerInterceptor.
+        </p>
+        </section>
+        <section>
+        	<h4>拦截器实现</h4>
+        	<p style="text-align: left;font-size: 28px">
+        		HandlerInterceptor 接口中定义了三个方法，我们就是通过这三个方法来对用户的请求进行拦截处理的。
+			   <br>（1 ）preHandle (HttpServletRequest request, HttpServletResponse response, Object handle) 方法，顾名思义，该方法将在请求处理之前进行调用。SpringMVC 中的Interceptor 是链式的调用的，在一个应用中或者说是在一个请求中可以同时存在多个Interceptor 。每个Interceptor 的调用会依据它的声明顺序依次执行，而且最先执行的都是Interceptor 中的preHandle 方法，所以可以在这个方法中进行一些前置初始化操作或者是对当前请求的一个预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去。该方法的返回值是布尔值Boolean 类型的，当它返回为false 时，表示请求结束，后续的Interceptor 和Controller 都不会再执行；当返回值为true 时就会继续调用下一个Interceptor 的preHandle 方法，如果已经是最后一个Interceptor 的时候就会是调用当前请求的Controller 方法。
+			   
+        	</p>
+        </section>
+        <section>
+        	<p style="text-align: left;font-size: 28px">
+        		（2 ）postHandle (HttpServletRequest request, HttpServletResponse response, Object handle, ModelAndView modelAndView) 方法，由preHandle 方法的解释我们知道这个方法包括后面要说到的afterCompletion 方法都只能是在当前所属的Interceptor 的preHandle 方法的返回值为true 时才能被调用。postHandle 方法，顾名思义就是在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。postHandle 方法被调用的方向跟preHandle 是相反的，也就是说先声明的Interceptor 的postHandle 方法反而会后执行，这和Struts2 里面的Interceptor 的执行过程有点类型。Struts2 里面的Interceptor 的执行过程也是链式的，只是在Struts2 里面需要手动调用ActionInvocation 的invoke 方法来触发对下一个Interceptor 或者是Action 的调用，然后每一个Interceptor 中在invoke 方法调用之前的内容都是按照声明顺序执行的，而invoke 方法之后的内容就是反向的。
+			   <br>（3 ）afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handle, Exception ex) 方法，该方法也是需要当前对应的Interceptor 的preHandle 方法的返回值为true 时才会执行。顾名思义，该方法将在整个请求结束之后，也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。
+        	</p>
+        </section>
+        <section>
+            <h1>代码实战</h4>
+            	<h3>拦截已注册用户</h3>
+        </section>
+        
+            
+        <section>
+        	<h4>过滤器</h4>
+        	<p>
+        		Filter也称之为过滤器，它是Servlet技术中最激动人心的技术之一，WEB开发人员通过Filter技术，对web服务器管理的所有web资源：例如Jsp,Servlet, 静态图片文件或静态html文件等进行拦截，从而实现一些特殊的功能。例如实现URL级别的权限访问控制、过滤敏感词汇、压缩响应信息等一些高级功能。
+　　Servlet API中提供了一个Filter接口，开发web应用时，如果编写的Java类实现了这个接口，则把这个java类称之为过滤器Filter。通过Filter
+技术，开发人员可以实现用户在访问某个目标资源之前，对访问的请求和响应进行拦截，Filter接口源代码：
+        	</p>
+        </section>
+	<section>
+        	<h4>过滤器原理</h4>
+        	<p>
+        		Filter接口中有一个doFilter方法，当我们编写好Filter，并配置对哪个web资源进行拦截后，WEB服务器每次在调用web资源的service方法之前，调用目标资源之前，让一段代码执行。
+    <br>是否调用目标资源（即是否让用户访问web资源）。
+    <br>调用目标资源之后，让一段代码执行。
+　　<br>web服务器在调用doFilter方法时，会传递一个filterChain对象进来，filterChain对象是filter接口中最重要的一个对象，它也提供了一个
+doFilter方法，开发人员可以根据需求决定是否调用此方法，调用该方法，则web服务器就会调用web资源的service方法，即web资源就会被访问，
+否则web资源不会被访问。
+        	</p>
+        </section>
+
+
+<section>
+			<h4>过滤器中的方法</h4>
+			<p>
+				init(FilterConfig var1): web应用程序启动时，web服务器将创建Filter的实例对象，并调用其init方法，完成对象的初始化
+功能，从而为后续的用户请求作好拦截的准备工作，filter对象只会创建一次，init方法也只会执行一次。
+
+    <br>doFilter(ServletRequest var1, ServletResponse var2, FilterChain var3):当有人访问web服务器时对请求进行操作。
+
+    <br>destroy()web容器调用destroy方法销毁Filter。destroy方法在Filter的生命周期中仅执行一次。在destroy方法中，可以释放过滤器使用的资源。
+			</p>
+		</section>
+		<section>
+			<h1>代码展示</h1>
+			<h3>过滤脏话</h3>
+		</section>
+
+
+
+ <section>
+        	<h4>监听器</h4>
+        	<p>
+        		监听你的web应用，监听许多信息的初始化，销毁，增加，修改，删除值等
+<br>Servlet监听器用于监听一些重要事件的发生，监听器对象可以在事情发生前、发生后可以做一些必要的处理。
+  <br>1.Listener是Servlet的监听器 
+  <br>2.可以监听客户端的请求、服务端的操作等。
+  <br>3.通过监听器，可以自动激发一些操作，如监听在线用户数量,当增加一个HttpSession时，给在线人数加1。
+  <br>4.编写监听器需要实现相应的接口
+  <br>5.编写完成后在web.xml文件中配置一下,就可以起作用了
+  6.可以在不修改现有系统基础上,增加web应用程序生命周期事件的跟踪			　　
+        	</p>
+        </section>
+	
+<section>
+			<h4>监听器讲解</h4>
+			<p>
+				servlet 规范中为每种事件监听器都定义了相应的接口，在编写事件监听器程序时只需实现这些接口就可以了。一些Servlet事件监听器需要在web应用程序的部署 文件描述符文件（web.xml）中进行注册(注册之后才能发布)，一个web.xml可以注册多个servlet事件监听器。web服务器按照它们在web.xml中注册顺序来加载和注册这些servlet事件监听器。servlet事件监听器的注册和调用过程都是由web容器自动完成的，当发生被监听对象被创建，修改，销毁等事件时，web容器将调用与之相关的servlet事件监听器对象的相应方法(所监听到的对象如果在创建、修改、销毁事件触发的时候就会调用这些监听器这就相当于面向事件编程的概念)，用户在这些方法中编写的事件处理代码(相当于JS中的事件响应)即被执行。由于在一个web应用程序中只会为每个事件监听器类创建一个实例对象，有可能出现多个线程同时调用一个事件监听对象的情况，所以要注意多线程安全问题。
+			</p>
+		</section>
+
+		<section>
+			<h4>监听器类型</h4>
+			<p>
+				1.用于监听应用程序环境对象（ServletContext）的事件监听器
+<br>2.用于监听用户会话对象（HttpSession）的事件监听器
+<br>3.用于监听请求消息对象（ServletRequest）的事件监听器
+			</p>
+			<p>本次使用HttpSession类型时间监听器</p>
+			<p>
+				HttpSessionListener：用于监听Session对象的创建和销毁，监听器类需要实现javax.servlet.http.HttpSessionListener接口或者javax.servlet.http.HttpSessionActivationListener接口，或者两个都实现。
+			</p>
+		</section>
+		
+		<section>
+			<h4>监听器方法</h4>
+			<p>sessionCreated(HttpSessionEvent httpSessionEvent)会话创建时调用
+			<br>sessionDestroyed(HttpSessionEvent httpSessionEvent)会话结束时调用</p>
+		</section>
+		<section>
+			<h1>代码展示</h1>
+			<h3>在线人数监听器</h3>
+		</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>网络</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>BY : 魏振恒</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
