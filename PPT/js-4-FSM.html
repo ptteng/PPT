@@ -46,8 +46,9 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>【JS-task4】Javascript Finite State Machine</h2>
-            <h3>小课堂</h3>
+            <h3>深圳小课堂</h3>
+            <h4>【JS-task4】使用有限状态机实现杀人游戏</h4>
+
             <p class="text-center">分享人：蓝裕伟</p>
         </section>
         <section>
@@ -61,18 +62,40 @@
             <p class="text-center">7.参考文献</p>
             <p class="text-center">8.更多讨论</p>
         </section>
-        <section>
+        <section style="text-align: left">
             <section>
                 <h3>1.背景介绍</h3>
             </section>
             <section>
                 <p>
                     有限状态机，（英语：Finite-state machine, FSM），又称为有限状态自动机，简称状态机，
-                    是一个数学模型，表示有限个状态以及在这些状态之间的转换和动作等行为。
-                    1、状态存储关于过去的信息，它反映从系统开始到现在时刻的输入变化。
-                    2、转移指示状态变更，并且用必须满足来确使转移发生的条件来描述它。
-                    3、动作是在给定时刻要进行的活动的描述。
+                    是一个数学模型。是一个抽象机器，在任何时候都可以处于有限数量的状态之一。响应某些外部输入，
+                    FSM可以从一个状态转换到另一个状态; 从一种状态到另一种状态的变化称为过渡。
+                    状态机的行为可以在现代社会中的许多设备中观察到，这些设备根据它们呈现的事件序列执行预定的一系列行为。
+                    例如自动售货机，当存放适当的硬币组合时分配产品，当车辆等待时改变顺序的交通灯等。
                 </p>
+              </section>
+            <section style="font-size: 30px;">
+                <p>有限状态机最初应用在数字系统的涉及，它对数字系统的设计具有十分重要的作用。有限状态机是指输出取决于过去输入部分和当前输入部分的时序逻辑电路。，除了输入部分和输出部分外，有限状态机还含有一组具有“记忆”功能的寄存器，这些寄存器的功能是记忆有限状态机的内部状态，它们常被称为状态寄存器。
+                    在有限状态机中，状态寄存器的的下一个状态不仅与输入信号有关，而且还与该寄存器的当前状态有关，因此有限状态机又可以认为是组合逻辑和寄存器逻辑的一种组合。其中，寄存器逻辑的功能是存储有限状态机的内部状态；而组合逻辑又可以分为次态逻辑和输出逻辑两部分，次态逻辑的功能是确定有限状态机的下一个状态，输出逻辑的功能是确定有限状态机的输出。</p>
+                <p>在我们前端开发中，我们可以套用有限状态机模型，将业务流程状态化，划分状态和相应的触发事件与动作，利用生命周期事件进行控制与执行。</p>
+            </section>
+            <section>
+                <p> 一个可以用状态机模拟的简单机制的例子---旋转门。</p>
+                <img src="../img/js-03-fsm/110px-Torniqueterevolution.jpg" height="167" width="110"/>
+            </section>
+            <section>
+               常见的旋转门是控制通往地铁和游乐园的游乐设施的旋转门。
+                在腰部高度有三个旋转臂，一个在入口处。最初状态，手臂被锁住了，阻止进入，防止顾客通过。
+                将硬币或代币存放在旋转门上的一个槽中，可以打开手臂，让一位顾客穿过。顾客通过后，手臂再次被锁定，直到另一枚硬币被插入。
+                作为一个状态机，旋转门有两种可能的状态：锁定和解锁。有两种可能的输入影响其状态：将硬币放入槽（硬币）并推动手臂（推）。
+                在锁定状态下，推臂不起作用; 无论输入推送有多少次，它都处于锁定状态。投入一枚硬币 - 也就是给机器一个硬币输入 - 将状态从“ 锁定”转换为“ 解锁”。
+                在解锁状态下，放入额外的硬币不起作用; 那就是增加硬币输入不会改变状态。但是，一个推着手臂的顾客，将推送这个动作输入，状态就转回到锁定状态。
+            </section>
+            <section>
+                <img src="../img/js-03-fsm/330px-Turnstile_state_machine_colored.svg.png" height="143" width="330"/>
+                旋转门状态机也可以用称为状态图（上图）的有向图表示 。每个状态都由一个节点（圆圈）表示。边（箭头）显示从一个状态到另一个状态的转换。
+                每个箭头都标有触发该转换的输入。不会导致状态改变的输入（例如在解锁状态下的硬币输入）由返回到原始状态的圆形箭头表示。从黑点到锁定节点的箭头表示这是初始状态。
             </section>
         </section>
         <section>
@@ -86,13 +109,10 @@
                     *）事物拥有的状态总数是有限的；
                     *）通过触发事物的某些行为，可以导致事物从一种状态过渡到另一种状态；
                     *）同一种行为，可以将事物从多种状态变成同种状态，但是不能从同种状态变成多种状态。
-
-
                 </p>
             </section>
             <section>
                 <p>
-
                     状态机由一组状态和转换组成：
 
                     状态 : 固体 、 液体 、 气体。
@@ -101,12 +121,9 @@
 
                   </p>
             </section>
-
             <section>
-                <p>2.2 Javascript Finite State Machine 函数库</p>
-                <P><a href="https://github.com/jakesgordon/javascript-state-machine" target="_blank">javascript-state-machine插件</a></P>
-            </section>
-            <section>
+                <p>有限状态机长什么样？ </p>
+                <P>需要的函数库：<a href="https://github.com/jakesgordon/javascript-state-machine" target="_blank">javascript-state-machine插件</a></P>
                 <pre style="height: 400px">
                     <code style="height: 100%">
 var fsm = new StateMachine({
@@ -233,7 +250,7 @@ methods: {
                 <h3>3.常见问题</h3>
             </section>
             <section>
-                <p>如何使用？</p>
+                <p>如何使用有限状态机实现杀人游戏？</p>
             </section>
         </section>
         <section>
@@ -241,7 +258,7 @@ methods: {
                 <h3>4.解决方法</h3>
             </section>
             <section>
-                <p>将需求模型化，划分状态和相应的触发事件与动作，利用这些构建类，控制执行。</p>
+                <p>将杀人游戏逻辑模型化，划分状态和相应的触发事件与动作，利用生命周期事件进行控制与执行。</p>
             </section>
         </section>
 
@@ -251,26 +268,32 @@ methods: {
             </section>
         </section>
         <section>
-            <section>
+            <section style="text-align: left">
                 <h3>6.扩展思考</h3>
-                <p> Javascript Finite State Machine 的异步转换</p>
+                <!--<p> Javascript Finite State Machine 的异步转换</p>-->
+                <p>如何保存玩家状态？</p>
+                通过webStorage，保存玩家状态，在需要的时候再取出。
+                localStorage.setItem("key","value");//以“key”为名称存储一个值“value”
+                localStorage.getItem("key");//获取名称为“key”的值
+                <!--localStorage.setItem('array',JSON.stringify(array));-->
+                <!--JSON.parse(localStorage.getItem('array'));-->
             </section>
-            <section>
-                <p>
-                    有时，我们需要在状态转换期间执行一些异步代码，并确保在代码完成之前不会输入新状态。
-                    举个栗子:当我们从一个状态转换出来并想逐渐淡入一个UI组件，或者将它从屏幕上滑出来，而且不想在动画完成之后转换到下一个状态。
+            <!--<section>-->
+                <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;有时，我们需要在状态转换期间执行一些异步代码，并确保在代码完成之前不会输入新状态。&ndash;&gt;-->
+                    <!--&lt;!&ndash;举个栗子:当我们从一个状态转换出来并想逐渐淡入一个UI组件，或者将它从屏幕上滑出来，而且不想在动画完成之后转换到下一个状态。&ndash;&gt;-->
 
-                    就可以通过 从任何生命周期事件中返回Promise对象来实现此目的。
+                    <!--&lt;!&ndash;就可以通过 从任何生命周期事件中返回Promise对象来实现此目的。&ndash;&gt;-->
 
-                    从生命周期事件返回Promise将导致该转换的生命周期暂停。可以继续解决，也可以拒绝承诺。
-                </p>
-            </section>
+                    <!--&lt;!&ndash;从生命周期事件返回Promise将导致该转换的生命周期暂停。可以继续解决，也可以拒绝承诺。&ndash;&gt;-->
+                <!--&lt;!&ndash;</p>&ndash;&gt;-->
+            <!--</section>-->
         </section>
         <section>
             <h3>7.参考文献</h3>
             <p>参考一：<a href="https://github.com/jakesgordon/javascript-state-machine">javascript-state-machine官方文档</a></p>
             <p>参考二：<a href="https://segmentfault.com/a/1190000007032448#articleHeader8">初探Promise</a></p>
-            <p>参考三：百度百科</p>
+            <p>参考三：百度百科,维基百科</p>
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -280,7 +303,7 @@ methods: {
             <h4>鸣谢</h4>
             <p class="text-center">感谢大家观看</p>
             <p class="text-center">
-                <small>BY : 王蒙 / 蓝裕伟</small>
+                <small>BY : 蓝裕伟 </small>
             </p>
         </section>
     </div>
