@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>谈谈分布式</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：刘子源</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+         <section>
+         
+
+<p>什么是分布式？</p>
+<p>分布式是一个形容词，如分布式计算，分布式系统等，其实就是一种设计思想。</p>
+   <p>那程序员的分布式设计思想如何体现呢？</p>
+                  </section>        
+         <section>
+           <p>比如说做一个物品交易的网站，建一个web工程，往里面加功能，比如订单功能，商品管理功能，
+           客户信息管理功能等等。</p>
+           <p>找一个性能优良的服务器，把web项目和数据库等资源都丢到服务器里，测试，差不多就能上线了。</p>
+
+
+
+         </section>    
+         <section>
+           <p>过段日子，运气不错的有了一些客户，心里美滋滋，结果发现随着客户的访问的数量增长，网站开始扛不住了，服务器也接近崩溃，怎么办呢？</p>
+
+         </section>  
+         <section>
+           <p>这还不简单，再买几个服务器，把项目都放到这些服务器里，用nginx反向代理不就可以增加访问量了。</p>
+         </section> 
+         <section>
+           <p>万万没想到，生意太好，服务器又撑不住了，加配置也只能解燃眉之急，又要怎么办呢？</p>
+           <p>模块之间耦合度太高，升级其中一个功能其他的功能也要做修改，升级，系统的拓展性也很差。</p>
+         </section>
+         <section>
+           <p>用分布式的思想对项目进行重构，把整个项目工程拆分成多个子项目，每个子项目负责自己的功能，例如订单这个功能就是一个单独的系统项目，会员也是一个单独的系统。</p>
+         </section> 
+         <section>
+           <p>这样做的好处是：把每个模块都拆分出来，可以灵活的部署了，比如商品信息这个模块被访问的量比较大，就可以单独对这个模块进行服务性能的提升，不用全部都一起提升。也降低了代码的耦合度，模块之间互不影响，如果以后有人加入开发，他只要负责他的模块去开发就可以了，合作也高效。
+</p>
+
+         </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+         <section>
+		
+			<p>什么架构可以体现分布式的思想？</p>
+			 </section>
+			 <section>           
+			
+<p>虽然Internet提供了开放的环境，但是没有一种统一的服务访问模式，各个企业之间成了信息内部丰富的孤岛，需要将这些孤岛串联起来，同时要最大限度的复用有限的资源，因此提出了面向业务的服务概念。SOA架构（Service-Oriented Architecture，面向服务的体系结构，也叫面向服务架构）是指为了解决在Internet环境下业务集成的需要，通过连接能完成特定任务的独立功能实体实现的一种软件系统架构。</p>
+			 </section>
+			 <section>
+			 <p>让SOA落地——SCA</p>
+       <p>SCA (Service Component Architecture) 是一个开发SOA(Service-Oriented Architecture)面向服务应用的简单模型规范，它描述用于使用SOA构建应用程序和系统的模型。它可简化使用SOA进行的应用程序开发和实现工作。SCA仅仅是个规范
+，各个涉及SOA技术的公司的实现也各不相同。</p>
+         
+            </section>
+          <!-- 
+
+
+           -->
+
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+        <p>SCA具体长啥样？</p>
+
+        </section>
+         <!-- <section>
+         
+         </section>
+          <section>
+         
+           </section>
+        <section>
+                  
+                 
+
+
+			
+                  
+                  
+                  
+                   </section>
+                   
+                   
+                <section>
+                
+                </section>
+                
+                <section>
+                
+                </section> -->
+                
+        
+
+                   <!-- <section>
+                
+            
+        </section> -->
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+         <section>
+         <p>
+           Tuscany是开源界 SCA 的试金石，也是当前开源界最成熟的 SCA 框架之一，下面介绍一下它的构成。
+         </p>
+         </section>
+
+       <section>
+             <p>（1）Component</p>
+        <p>Component是SCA原子（最基层的组织单元），其封装了实际的业务逻辑。Component可以采用运行环境支持的任何编程技术实现。例如，Apache Tuscany项目目前支持Java、JavaScript和C++等组件类型，同时为创建新的组件类型提供了扩展API。</p>
+        <p>（2）Property</p>
+        <p>Property控制Component的行为，在部署其间可以被可改变。同时Composite也可以有Property，但其Property是Component Property升级（Promote）后的Property。</p>   
+                </section>
+
+
+                <section>
+<p>（3）Service</p>
+<p>Service是供其它Component调用时使用。</p>
+<p>（4）Reference</p>
+<p>Component也描述了被该Component调用的其它组件的接口，称为SCA的“引用”（Reference）。这些Service和Reference被连接在一起，组成一个可运行的系统。</p>
+</section>
+                <section>
+              <p>（5）Composite</p>
+               <p>如果说Component是SCA架构中的原子，那么Composite就是SCA架构中的分子；图中的两个Component，A和B，被组装在一个更大Composite范围内，被称作Composite A。SCA的Composite描述了一个由互相连接的Component所构成的集合。Composite也声明了Service和Reference，它们被暴露到Composite外部。Composite的service和Reference是Composite内部的Component的Service和Reference的升级。一个Composite内部的Component彼此连接就如同创建一个运行在同一进程中的紧耦合的应用程序。将Composite通过Service和Reference连接在一起，则形成了一个更加松耦合的系统；系统中的每一个Composite都可能运行在一个单独的进程或处理器中，在网络中通过各种的协议和传输绑定连接起来。通过这个途径SCA为独立和分布式应用提供了统一的编程模型。</p>
+                <p></p>
+                 <p></p>
+                </section>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>分布式和集群的区别？</p>
+            <p>集群是物理形态，分布式是一种工作方式。</p>
+            <p>集群一般是物理集中、统一管理的，而分布式系统则不强调这一点，只要是一堆机器，就可以叫集群，
+            他们是否一起协作干活，不确定；一个程序或系统，只要运行在不同的机器上，就可以叫分布式。</p>
+
+            <p>所以，集群可能运行着一个或多个分布式系统，也可能根本没有运行分布式系统；
+            分布式系统可能运行在一个集群上，也可能运行在不属于一个集群的多台机器上。</p>
+            <p></p>
+        </section>
+        
+       
+
+        
+        
+        <section>
+        
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/elimago/article/details/1946208</p>
+            <p>http://blog.csdn.net/cenwenchu79/article/details/1879690</p>
+        </section>
+    
+        <section>
+            <h3>8.更多讨论</h3>
+   		</section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘子源</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
