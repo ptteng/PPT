@@ -1,0 +1,216 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Mysql的多表查询</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：邹苏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>产生背景</p>
+            <p> </p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>多表查询:</p>
+
+
+               <p>多表查询就是在多个有逻辑联系的表之间进行的查询，逻辑关系主要是指主外键之间的联系，
+                   在主表中的某个字段的值取自另一个表中的一个字段，就是说主表中的一个字段的值包含于另一个表的一个字段的值的集合里 。</p>
+
+               <p>这样的话，如果要在主表里插入数据，就必须是对应的字段的值在相应的表中存在，才有可能插入成功，如果不存在，
+                   则肯定插入不成功（除非此字段可以为空） 。要实现多表之间的查询就要依靠表连接或者是子查询的方式实现</p>
+
+               <p></p>
+
+               
+		</section>
+        <section>
+
+            <p>表连接：</p>
+
+            <p>普通多表查询：
+
+                select 列1... from 表1，表2...
+                where...
+                在from之后可以有很多表，每个表之间用，隔开，from后面的表会做笛卡尔积
+                表与表之间做笛卡尔积，然后就能查询出来了</p>
+
+            <p>两个集合X和Y的笛卡尓积（Cartesian product），
+                又称直积，表示为X × Y，第一个对象是X的成员而第二个对象是Y的所有可能有序对的其中一个成员。</p>
+
+            <p></p>
+        </section>
+        <section>
+            <p>内连接：</p>
+            <p>语法：select 列from 表1 别名 inner join 表2 别名 on 表1.列=表2.列，...</p>
+            <p>
+                from开始，表1与表2进行笛卡尔积，每匹配一行的数据，就会通过on后条件判断
+                是否成立，就将该行匹配的信息存放到临时表，否则不存放</p>
+
+            <p>外连接：</p>
+
+            <p>左外连接：左表中所有的记录都会被放到结果集中，无论是否在右表是否存在匹配记录</p>
+            <p>语法：select 列
+                from 表1 left outer join 表2 on 表1.列=表2.列</p>
+
+        </section>
+        <section>
+        <p>右外连接：不管是否成功匹配连接条件都会返回右表中的所有记录</p>
+
+        <p>语法： select 列
+            from 表1 right outer join 表2 on 表1.列=表2.列
+            </p>
+            <p>全外连接：在mysql中没有全外连接，可以使用union实现
+
+                即是select...左连接 union select  ... 右连接...
+                表1 full outer join 表2 on ...
+            </p>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+
+		<section>
+			    <p>表之间的约束</p>
+				<p>数据库中的完整性约束用来防止对数据的意外破坏，来保证数据的安全性和一致性。
+                    通常我们都需要对数据库的某些列加上合适的约束来防止程序bug等导致的数据不一致，
+                    因为这类数据不一致的问题排查起来很困难。mysql中的完整性约束主要包括主键、外键
+                    （参照完整性约束）、唯一约束、非空约束等。</p>
+
+
+
+        </section>
+
+        <section>
+            <h3>外键约束</h3>
+            <p>外键用来指定参照完整性约束，被指定为外键的列必需要有索引，外键参考列必需为另一个表的主键。</p>
+            <p> 语法：CONSTRAINT 外键约束名 FOREIGN KEY (本表字段名) REFERENCES 参照表名 (参照表字段名)</p>
+            <p> alter table 表名 add constraint 外键约束名 FOREIGN KEY(本表字段名) REFERENCES 参照表名 (参照表字段名);</p>
+        </section>
+        
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>关系数据库的三范式：</p>
+
+            <p>一范式就是属性不可分割，原子性。</p>
+
+            <p>二范式就是要有主键，要求其他字段都依赖于主键。</p>
+
+            <p>三范式就是要消除传递依赖，方便理解，可以看做是“消除冗余”</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/jintao_ma/article/details/51260458</p>
+            <p>http://blog.csdn.net/github_37767025/article/details/67636061</p>
+            <p>http://blog.csdn.net/u012723798/article/details/47189479</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 邹苏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
