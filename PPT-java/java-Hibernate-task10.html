@@ -1,0 +1,227 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Hibernate入门</h2>
+                   <p>李亚衡</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        
+		<section>
+		    <h4>什么是Hibernate？</h4>
+            <!-- <p></p> -->
+			<P>Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，
+			它将POJO与数据库表建立映射关系，能让我们通过操作实体关系模型来操作数据库。
+			是一个全自动的orm框架，hibernate可以自动生成SQL语句，
+			自动执行，使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库。</P>
+		</section>
+		
+		<section>
+		<h4>为什么要使用Hibernate？</h4>
+		 <ul>
+			<li>开源和轻量级： Hibernate框架是轻量级的开源工具。</li>
+			<li>快速性能： Hibernate框架的性能很快，因为缓存在Hibernate框架内部使用。</li>	
+			<li>数据库独立查询： HQL(Hibernate查询语言)是面向对象的SQL版本。 </li>
+			<li>自动创建表： Hibernate框架提供了自动创建数据库表的功能。</li>	
+			<li>简化复杂连接： 在hibernate框架中可轻松获取多个表中的数据。</li>
+			<li>提供查询统计和数据库状态： Hibernate支持查询缓存，并提供有关查询和数据库状态的统计信息。</li>
+			</ul>
+		</section>
+			
+		<section>
+         <h3>Hibernate? Mybatis?</h3>
+		</section>
+	    
+		<section>
+		    <h4>Hibernate优势</h4>
+			<ul>
+			<li>Hibernate的DAO层开发比MyBatis简单，Mybatis需要维护SQL和结果映射。</li>
+			<li>Hibernate对对象的维护和缓存要比MyBatis好，对增删改查的对象的维护要方便。</li>
+			<li>Hibernate数据库移植性很好，MyBatis的数据库移植性不好，不同的数据库需要写不同SQL。</li>
+			<li>Hibernate有更好的二级缓存机制，两者都可以使用第三方缓存。但MyBatis本身提供的缓存机制不如HiBernate。</li>
+			</ul>
+        </section>
+		
+		<section>
+		    <h4>Mybatis优势</h4>
+			<ul>
+			<li>MyBatis可以进行更为细致的SQL优化，可以减少查询字段。</li>
+			<li>MyBatis容易掌握，而Hibernate门槛较高。</li>
+			</ul>
+        </section>
+		
+		<section>
+         <h4>一句话总结</h4>
+		  <p>Mybatis：小巧、方便、高效、简单、直接、半自动化</p>
+		  <p>Hibernate：强大、方便、高效、复杂、间接、全自动化</p>
+		</section>
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		 <section>
+		    <h4>Hibernate有五大核心接口</h4>
+			<ul>
+			<li style="font-size:26px">Session接口：Session也被称为持久化管理器，它负责所有的持久化工作，负责管理持久化对象的生命周期，提供第一级别的高级缓存来保证持久化对象的数据与数据库同步</li>
+			<li style="font-size:26px">SessionFactory接口：负责初始化Hibernate。它充当数据存储源的代理，并负责创建Session对象</li>
+			<li style="font-size:26px">Transaction接口：负责事务相关的操作，一般在Hibernate的增删改中出现</li>
+			<li style="font-size:26px">Query接口：负责执行各种数据库查询。它可以使用HQL语言或SQL语句两种表达方式。它的返回值一般是List。需要自己转换。</li>
+			<li style="font-size:26px">Configuration接口：用于配置并启动Hibernate应用，通过Configuration实例来指定对象—关系映射文件的位置或者动态配置Hibernate的属性，然后创建SessionFactory实例。</li>
+			</ul>
+        </section>
+        		
+		<section>
+         <h4>Hibernate结构</h4>
+	    <img src="./Hibernate结构.png"/>
+		</section>
+		 
+		 <section>
+         <p>HQL	</p>
+		</section>
+		 <section>
+		    <h4>from子句:</h4>
+		    <ul>
+			<li>HQL的最简子句，不可或缺</li>
+			<li>指定了HQL语句的查询主体——持久化类及其属性</li>
+			<li>支持定义别名，供其他语句使用</li>
+			</ul>
+        </section>
+		 
+		  <section>
+		    <h4>其他子句</h4>
+		    <ul>
+			<li>Select</li>
+			<li>where</li>
+			<li>Orderby</li>
+			</ul>
+        </section>
+		   
+	    <section>
+            <h3>3.常见问题</h3>
+        </section>
+       		
+		<section>  
+			 <P>如何搭建Hinernate？</p>
+        </section>
+
+		
+        <section>
+            <h3>4.解决方案</h3>
+			 <p></p>
+        </section>
+		
+	     
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+           
+		<section>
+         <p>Spring Hibernate</p>
+		</section>
+       
+        <section>
+            <h3>7.参考文献</h3>
+			<p>http://www.yiibai.com/hibernate/</p>
+			<P>http://blog.csdn.net/qq_33429968/article/details/53536778</p>
+			<P>http://blog.csdn.net/canot/article/details/50512217</p>
+		
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:李亚衡</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
