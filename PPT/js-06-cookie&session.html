@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3 style="text-align: left;">【JS-06】域名，cookie是什么？有什么用处？cookie session的区别?cookie的失效期？</h3>
+            <h3>小课堂【深圳】</h3>
+            <p>分享人：蓝裕伟</p>
+        </section>
+
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+                <!--document.cookie="ut=123;path=/";-->
+                <!--document.cookie="hello=小姐姐;expires="+new Date("December 06,2017 14:12:30")-->
+            </section>
+            <section>
+                <div style="text-align: left;">
+                    <h4>域名是什么？</h4>
+                    <p>要解释域名是什么，我们应当知道一些互联网的基本概念</p>
+                    <p>我们实现互联网的方式中有一个网络层的概念，这个网络层在实体层和链接层上。网络层引入了一套地址，用来区分不同的计算机是否属于同一个子网络，
+                        建立“主机到主机”的通信基础。这套地址就是“网络地址”，也就是我们常说的网址</p>
+                    <P>互联网实现的方式还规定了许多协议，其中规定网络地址的协议，叫做IP协议。IP协议定义的地址就是我们常说的IP地址。
+                        IP地址是一个32位的二进制数，通常被分割为4个“8位二进制数”（也就是4个字节）。
+                        IP地址通常用“点分十进制”表示成（a.b.c.d）的形式，其中，a,b,c,d都是0~255之间的十进制整数。
+                        例：点分十进IP地址（100.4.5.6），实际上是32位二进制数（01100100.00000100.00000101.00000110）。</P>
+                </div>
+            </section>
+
+            <section style="text-align: left;">
+
+                <p>IP地址用来建立互联网通信，它具有唯一性，只有知道对方主机的IP地址，我们才能和对方主机互相通信。而这一串IP地址是非常难记的.</p>
+                <p>这时候域名登场了。域名（Domain Name）是IP地址的映射，每个域名对应一个唯一的IP地址。通俗的讲，域名就是IP地址的代表。
+                    有了域名，我们就不用去记一长串的数字地址，而是可以用几个有意义的词来代替。
+                    比如我们官网的域名是:www.jnshu.com，对应的ip地址就是 121.41.226.206 。我们不论输入
+                    121.41.226.206还是www.jnshu.com，都可以访问我们的官网。</p>
+            </section>
+            <section style="text-align: left;">
+                <p>域名分成顶级域名，二级域名，三级域名等，比较少有四级域名。一个完整的域名由二个或二个以上部分组成，各部分之间用英文的句号"."来分隔，
+                    最右边部分称为顶级域名（TLD，也称为一级域名，包含一个合法字符串，和一个域名后缀），顶级域名的左边部分字符串到下个"."为止称为二级域名（SLD），
+                    二级域名的左边部分称为三级域名，以此类推，每一级的域名控制它下一级域名的分配。
+                    例如jnshu.com是一级域名，www.jnshu.com是二级域名,test.skill.ptteng.com是三级域名。</p>
+                <p>顶级域名[1] 又分为两类：　一是国家顶级域名，例如中国是cn，美国是us，日本是jp等。二是国际顶级域名，
+                    例如表示工商企业的.Com，表示网络提供商的.net，表示非盈利组织的.org等</p>
+            </section>
+            <section style="text-align: left;">
+                <p>使用域名访问网站的时候，实际上是先经过域名系统DNS (Domain Name Server)将域名解析成计算机识别的IP地址（二进制数字串），
+                    系统再通过这个IP地址建立主机与主机的通信基础。Hosts 文件也可以解析域名，用来提高解析效率。
+                    在进行 DNS 请求以前，系统会先检查自己的 Hosts 文件中是否有这个地址映射关系，如果有则调用这个 IP 地址映射，
+                    如果没有再向已知的 DNS 服务器提出域名解析。也就是说 Hosts 的请求级别比 DNS 高。
+                    当 Hosts 文件里面有对应的 IP 时，它就会直接访问那个 IP，可以跳过 DNS 的解析这一步，提高解析效率。</p>
+                <!--<p>什么是域名指向-->
+                <!--域名指向就是把您注册的域名指向IP根目录或其它域名，即多个域名共用一个IP地址或空间。-->
+                <!--什么是URL转发功能?-->
+
+                <!--URL转发功能是我公司提供的域名注册后的增值服务。所谓URL转发，是通过服务器的特殊设置，将访问您当前域名的用户引导到您指定的另一个网络地址。-->
+                <!--例如，URL转发可以让用户在访问http://www.yourdomain.com时，自动转向访问http://www.otherdomain.com/other.htm。-->
+                <!--什么是泛域名解析-->
+
+                <!--泛域名解析定义为：-->
+                <!--客户的域名a.com，之下所设的*.a.com全部解析到同一个IP地址上去。比如客户设b.a.com就会自已自动解析到与a.com同一个IP地址上去，-->
+                <!--显示的是跟a.com一样的页面。</p>-->
+            </section>
+        </section>
+
+        <section>
+            <!--<section>-->
+            <!--<h3>2.知识剖析</h3>-->
+            <!--</section>-->
+            <section style="text-align: left;">
+                <h2>cookie\session是什么？</h2>
+                <p> Web应用程序是使用HTTP协议传输数据的。HTTP协议是无状态的协议。一旦数据交换完毕，客户端与服务器端的连接就会关闭，
+                    再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。即用户A购买了一件商品放入购物车内，
+                    当再次购买商品时服务器已经无法判断该购买行为是属于用户A的会话还是用户B的会话了。要跟踪该会话，必须引入一种机制。
+                    Cookie就是这样的一种机制。它可以弥补HTTP协议无状态的不足。所以出现了Cookie机制是为了辩别用户身份，进行会话跟踪而存储在客户端上的数据；</p>
+            </section>
+            <section style="text-align: left;">
+                <div>
+                    <h4>cookie是什么？</h4>
+                    <p>cookie指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。
+                        “Cookie”是小量信息，由网络服务器发送出来以存储在网络浏览器上，从而下次这位独一无二的访客又回到该网络服务器时，
+                        可从该浏览器读回此信息。让浏览器记住这位访客的特定信息，如上次访问的位置、花费的时间或用户首选项（如样式表）。
+                        客户端请求服务器，服务器就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，
+                        浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。
+                    </p>
+                </div>
+            </section>
+            <section style="text-align: left;">
+                <h3>3、cookie的分类：</h3>
+                cookie分为会话cookie和持久cookie，会话cookie是指在不设定它的生命周期expires时的状态，
+                前面说了，浏览器的开启到关闭就是一次会话，当关闭浏览器时，会话cookie就会跟随浏览器而销毁。
+                当关闭一个页面时，不影响会话cookie的销毁。
+                持久cookie则是设定了它的生命周期expires，此时，cookie像商品一样，有个保质期，关闭浏览器之后，它不会销毁，直到设定的过期时间。
+                对于持久cookie，可以在同一个浏览器中传递数据，比如，你在打开一个淘宝页面登陆后，你在点开一个商品页面，依然是登录状态，即便你关闭了浏览器，
+                再次开启浏览器，依然会是登录状态。这就是因为cookie自动将数据传送到服务器端，在反馈回来的结果。
+            </section>
+            <section style="text-align: left;">
+                <h3>什么是SESSION</h3>
+                <p style="text-align: left">
+                    Session:在计算机中，称为“会话控制”。是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上。
+                    在打开浏览器第一次请求服务器时，服务器会自动为其创建一个session，并赋予其一个sessionID，发送给客户端的浏览器（通过cookie）。
+                    以后客户端接着请求本应用中其他资源的时候，会自动在请求头上添加：Cookie:JSESSIONID=客户端第一次拿到的session ID 。
+                    服务器端在接到请求时候，就会收到session ID，并根据ID在内存中找到之前创建的session对象进行比对，提供给请求使用。
+                    当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。<br>
+
+                </p>
+            </section>
+            <section style="text-align: left;">
+                Session 的作用是回话跟踪，比如购物车，当A用户点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的
+                ，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书，这几本书是谁的。
+            </section>
+            <section style="text-align: left;">
+                3、Session删除的时间：<br>
+                1）Session超时：超时指的是连续一定时间服务器没有收到该Session所对应客户端的请求，并且这个时间超过了服务器设置的Session超时的最大时间。<br>
+                2）程序调用HttpSession.invalidate()<br>
+                3）服务器关闭或服务停止
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <h3>域名有什么用？</h3>
+                <h3> COOKIE的用处是什么？</h3>
+                <h3> COOKIE的有效期？</h3>
+                <h3> COOKIE、session有什么区别？</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left; font-size: 25px;">
+                <h3>域名有什么用？</h3>
+                1、IP地址比较难记忆，因而使用域名来标识网站地址，方便我们访问和记忆，这是域名最本质的作用。 <br>
+                2、建网站，域名是一个网站的重要元素，一个好域名可以让网站在推广过程中更加省力，在用户脑中留下深刻印象。
+                3、投资赚钱。除了做网站以外，还有很多人注册域名是拿来投资，也有了不少专做域名投资的人，称为“米农”。
+                因为域名具有唯一性，注册一个少一个。（新浪微博域名 weibo.com 花了800万的代价才买回来的。）
+            </section>
+            <section style="text-align: left; font-size: 25px;">
+                <h3> COOKIE的用处是什么？</h3>
+                每次HTTP请求的时候，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，
+                第一次创建Session的时候，服务端会在HTTP反馈的报文通过 Cookie 携带Session ID反馈给客户端，
+                以后客户端每次请求把这个会话ID发送到服务器，服务器通过比对反馈的Session ID来判断是哪个用户。
+                <p>
+                    ①.保存用户的登陆状态,用户进行登陆，成功登陆后，服务器生成特定的cookie返回给客户端，客户端下次访
+                    问该域名下的任何页面，将该cookie的信息发送给服务器，服务器经过检验，来判断用户是否登陆。
+                </p>
+                <p>
+                    ②.记录用户的行为，例如，京东商场左下角有一个最近访问的产品记录信息，当当网上有你最近浏览过的书籍信息，都是根据用户
+                    访问页面，记录到cookie的信息来制作的。
+                </p>
+                <p>③.电商购物车的处理，因为在不同页面，点击添加到购物车，这个信息也是记到了cookie里面。结账的时候统一提交</p>
+                <p>④.定制页面。如果网站提供了换肤的功能，我们这个时候也是将他记录到cookie里面，以便下次访问还是保持原来的风格页面。</p>
+            </section>
+            <section style="text-align: left; font-size: 30px;">
+                <h3> COOKIE的有效期？</h3>
+                Cookie的maxAge决定着Cookie的有效期，单位为秒（Second）。
+                如果maxAge属性为正数，则表示该Cookie会在maxAge秒之后自动失效。浏览器会将maxAge为正数的Cookie持久化，即写到对应的Cookie文件中。
+                <!--无论客户关闭了浏览器还是电脑，只要还在maxAge秒之前，登录网站时该Cookie仍然有效。下面代码中的Cookie信息将永远有效。-->
+                <!--Cookie cookie = new Cookie("username","helloweenvsfei");   // 新建Cookie-->
+                <!--cookie.setMaxAge(Integer.MAX_VALUE);           // 设置生命周期为MAX_VALUE-->
+                <!--response.addCookie(cookie);                    // 输出到客户端-->
+
+                如果maxAge为负数，则表示该Cookie仅在本浏览器窗口以及本窗口打开的子窗口内有效，关闭窗口后该Cookie即失效。Cookie默认的maxAge值为–1。
+                如果maxAge为0，则表示删除该Cookie。Cookie机制没有提供删除Cookie的方法，
+                因此通过设置该Cookie即时失效实现删除Cookie的效果。失效的Cookie会被浏览器从Cookie文件或者内存中删除， <br>
+                <!--例如：-->
+                <!--Cookie cookie = new Cookie("username","helloweenvsfei");   // 新建Cookie-->
+                <!--cookie.setMaxAge(0);                          // 设置生命周期为0，不能为负数-->
+                <!--response.addCookie(cookie);                    // 必须执行这一句-->
+                <!--response对象提供的Cookie操作方法只有一个添加操作add(Cookie cookie)。-->
+                <!--要想修改Cookie只能使用一个同名的Cookie来覆盖原来的Cookie，达到修改的目的。删除时只需要把maxAge修改为0即可。-->
+                <!--注意：从客户端读取Cookie时，包括maxAge在内的其他属性都是不可读的，也不会被提交。浏览器提交Cookie时只会提交name与value属性。maxAge属性只被浏览器用来判断Cookie是否过期。-->
+                例如： <br>
+                cookie.setmaxage设置为0时，会马上在浏览器上删除指定的cookie <br>
+                cookie.setmaxage设置为-1时，代表关闭当前浏览器即失效。 <br>
+                例如：Cookie c = new Cookie("username","john"); <br>
+                c.setMaxAge(60);//60秒的意思 <br>
+                c.setMaxAge(60*60);//一小时 <br>
+                c.setMaxAge(365*24*60*60);//一年 <br>
+            </section>
+            <section style="text-align: left; font-size: 30px;">
+                <h3> COOKIE、session的区别</h3>
+                1、cookie数据存放在客户的浏览器上，session数据放在服务器 <br>
+                2、cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗。 session存于服务器端。状态信息保存在服务器端。这意味着session安全性更高 <br>
+                3、session会在一定时间内保存在服务器上，当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie<br>
+                4、 单个cookie保存的数*据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie<br>
+                5、 建议将登录信息等重要信息存放为session，其他信息如果需要保留，可以放在cookie中<br>
+                6、session保存在服务器，客户端不知道其中的信心；cookie保存在客户端，服务器能够知道其中的信息<br>
+                7、session中保存的是对象，cookie中保存的是字符串<br>
+                8、session不能区分路径，同一个用户在访问一个网站期间，所有的session在任何一个地方都可以访问到，而cookie中如果设置了路径参数，那么同一个网站中不同路径下的cookie互相是访问不到的<br>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+                如果客户端的浏览器禁用了 Cookie 怎么办？
+                <p style="text-align: left;"> 一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，
+                    URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。</p>
+            </section>
+            <!--<section>-->
+            <!--<p style="text-align: left">-->
+            <!--1. 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，-->
+            <!--这个机制就是Session.典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，-->
+            <!--所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书。-->
+            <!--这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。-->
+            <!--集群的时候也要考虑Session的转移，在大型的网站，一般会有专门的Session服务器集群，用来保存用户会话，-->
+            <!--这个时候 Session 信息都是放在内存的，使用一些缓存服务比如Memcached之类的来放 Session。-->
+            <!--</p>-->
+            <!--</section>-->
+            <!--<section>-->
+            <!--<p style="text-align: left">-->
+            <!--2. 思考一下服务端如何识别特定的客户？这个时候Cookie就登场了。每次HTTP请求的时候，-->
+            <!--客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，-->
+            <!--第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，-->
+            <!--以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？-->
+            <!--一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，-->
+            <!--URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。-->
+            <!--</p>-->
+            <!--</section>-->
+            <!--<section>-->
+            <!--<p style="text-align: left">-->
+            <!--3. Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？-->
+            <!--这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。-->
+            <!--这也是Cookie名称的由来，给用户的一点甜头。所以，总结一下：-->
+            <!--Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；-->
+            <!--Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。-->
+            <!--</p>-->
+
+            <!--</section>-->
+        </section>
+        <section>
+            <section>
+                <h3>7.参考文献.</h3>
+            </section>
+            <section  style="text-align: left;">
+                <p>参考一：<a href="https://segmentfault.com/a/1190000011844051" target="_blank">JS学习之Cookie和Session</a></p>
+                <p>参考二：<a href="https://segmentfault.com/a/1190000012058858" target="_blank">cookie和session的区别</a></p>
+                <p>参考三：<a href="http://www.mahaixiang.cn/seowd/1333.html" target="_blank">网址前为什么要加www</a>
+                <p>参考四：<a href="http://blog.csdn.net/fangaoxin/article/details/6952954/" target="_blank">Cookie/Session机制详解</a>
+
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+            <section>
+                <p>Q1：域名中加“www”和不加“www”，有什么区别？</p>
+            </section>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 郭俊伟 | 蓝裕伟</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

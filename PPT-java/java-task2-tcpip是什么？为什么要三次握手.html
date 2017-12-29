@@ -1,0 +1,215 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>什么是tcp/ip协议？TCP的三次握手指的是什么，为什么一定要三次握手，而不是四次或者是两次？</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：邹苏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>产生背景</p>
+            <p>在阿帕网（ARPA）产生运作之初，通过接口信号处理机实现互联的电脑并不多，大部分电脑相互之间不兼容。
+                在一台电脑上完成的工作，很难拿到另一台电脑上去用,每一个军种的电脑在各自的系里都运行良好，但却有一个大弊病：不能共享资源。
+                直到1983年，TCP/IP协议作为因特网上所有主机间的共同协议，从此以后被作为一种必须遵守的规则被肯定和应用。
+                在确定规则过程中，最重要的人物当数瑟夫（Vinton G.Cerf）。正是他的努力，才使今天各种不同的电脑
+                能按照协议上网互联。瑟夫也因此获得了与克莱因罗克（“因特网之父”）一样的美称“互联网之父”。</p>
+        </section>
+        <section>
+			<p>什么是tcp/ip协议？</p>
+            <p>tcp/ip协议又名网络通讯协议，是Internet最基本的协议、Internet国际互联网络的基础，由网络层的IP协议和传输层的TCP协议组成。
+                TCP/IP 定义了电子设备如何连入因特网，以及数据如何在它们之间传输的标准。协议采用了4层的层级结构，
+               每一层都呼叫它的下一层所提供的协议来完成自己的需求。通俗而言：TCP负责发现传输的问题，一有问题就发出信号，
+                要求重新传输，直到所有数据安全正确地传输到目的地。而IP是给因特网的每一台联网设备规定一个地址。
+                </p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+			<p>TCP:</p>
+
+
+               <p>1.TCP是面向连接的通信协议，通过三次握手建立连接，通讯完成时要拆除连接，由于TCP是面向连接的所以只能用于端到端的通讯。</p>
+
+               <p>2.TCP提供的是一种可靠的数据流服务，采用“带重传的肯定确认”技术来实现传输的可靠性。TCP还采用一种称为“滑动窗口”的方式进行流量控制，所谓窗口实际表示接收能力，用以限制发送方的发送速度。</p>
+
+               <p>3.如果IP数据包中有已经封好的TCP数据包，那么IP将把它们向‘上’传送到TCP层。TCP将包排序并进行错误检查，同时实现虚电路间的连接。TCP数据包中包括序号和确认，所以未按照顺序收到的包可以被排序，而损坏的包可以被重传。</p>
+
+               
+		</section>
+        <section>
+
+            <p>IP:</p>
+
+            <p>1.IP层接收由更低层（网络接口层例如以太网设备驱动程序）发来的数据包，并把该数据包发送到更高层---TCP或UDP层；相反，
+                IP层也把从TCP或UDP层接收来的数据包传送到更低层。</p>
+
+            <p>2.IP数据包是不可靠的，因为IP并没有做任何事情来确认数据包是否按顺序
+                发送的或者有没有被破坏，IP数据包中含有发送它的主机的地址（源地址）和接收它的主机的地址（目的地址）。</p>
+
+            <p>TCP/IP协议不是TCP和IP这两个协议的合称，而是指因特网整个TCP/IP协议族。从协议分层模型方面来讲，TCP/IP由四个层次组成：网络接口层、网络层、传输层、应用层。</p>
+        </section>
+        <section>
+            <p>为什么要三次握手：</p>
+
+            <p>TCP是一个面向连接的服务,面向连接的服务是电话系统服务模式的抽象,每一次完整的数据传输都必须经过建
+                立连接,数据传输和终止连接3个过程,TCP建立连接的过程称为三次握手</p>
+
+            <p>TCP三次握手过程</p>
+
+            <p>1.主机A通过向主机B 发送一个含有同步序列号的标志位的数据段给主机B ,向主机B 请求建立连接,通过这个数据段,
+                主机A告诉主机B 两件事:我想要和你通信;你可以用哪个序列号作为起始数据段来回应我.</p>
+
+        </section>
+        <section>
+        <p>2.主机B 收到主机A的请求后,用一个带有确认应答(ACK)和同步序列号(SYN)标志位的数据段响应主机A,也告诉主机A两件事:
+            我已经收到你的请求了,你可以传输数据了;你要用哪个序列号作为起始数据段来回应我</p>
+
+        <p>3.主机A收到这个数据段后,再发送一个确认应答,确认已收到主机B 的数据段:"我已收到回复,我现在要开始传输实际数据了</p>
+
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+
+		<section>
+			    
+				<p>为什么不能两次握手能进行连接？</p>
+
+
+
+        </section>
+
+        <section>
+            <!--<h3>4.解决方案</h3>-->
+            <p>把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，
+            考虑计算机A和B之间的通信，假定B给A发送一个连接请求分组，A收到了这个分组，并发送了确认应答分组。按照两次握手的协定，
+            A认为连接已经成功地建立了，可以开始发送数据分组。可是，B在A的应答分组在传输中被丢失的情况下，将不知道A是否已准备好，
+            不知道A建立什么样的序列号，B甚至怀疑A是否收到自己的连接请求分组。在这种情况下，B认为连接还未建立成功，将忽略A发来的任
+            何数据分组，只等待连接确认应答分组。而A在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+        </section>
+        
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>近年来，随着INTERNET的不断发展和网络多媒体技术的广泛应用，如电视会议系统、网络电话、视频点播系统以及虚拟现实技术等，采用TCP/IP协议的Internet/Intranet网络系统存在如下主要问题：</p>
+
+            <p>1.通信线路拥挤：主要由Internet的高速发展所引起的，网络用户急剧增加；另外，网上业务的多元化，如多媒体应用和电子商务等，对网络带宽提出了更高的要求。</p>
+
+            <p>2.数据到达时间的抖动：在多媒体应用中，所传数据一到达接收端，就立刻进行“再生”处理。当检测到数据丢失和错误时，要求重新发送，引起发送端和接收端的时间间隔不同步。
+                如果数据到达接收端的时间抖动得非常严重，将对电视和视频点播等适时多媒体应用产生不利的影响。</p>
+        </section>
+        <section>
+            <p>所以就有了RTMP协议、HTTP-FLV协议 、RTP/RSVP协议：RTP（Real Time Transport Protocol，
+            实时传输协议 ）是支持适时多媒体通信而设计的传输协议。RTP由两种协议组成：数据传输协议（FTP）和实时控制协议（RTCP）。
+            FTP负责多媒体收据的传输，RTCP管理控制信息。RTP在视频监控、视频会议、IP电话上有广泛的应用，因为视频会议、
+            IP电话的一个重要的使用体验：内容实时性强。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://blog.csdn.net/qq276592716/article/details/19762121</p>
+            <p>https://www.cnblogs.com/ningskyer/articles/5534512.html</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 邹苏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

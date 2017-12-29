@@ -1,0 +1,201 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Annotation</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>在编程中，一直强调的一点就是注释的编写，注释的规范等等。尤其是越是核心，程序越复杂，逻辑越多的情况下，注释的编写对我们以后的阅读代码，维护软件起着至关重要的作用。一款软件有着好的注释，相当于一个中国人阅读一篇带着汉语翻译的英文文章，其阅读速度是事半功倍的效果。但是今天想要总结的却不是代码中的注释需要注意的问题，而是JDK5.0以后提供的一种新特性。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>（一）注解开发介绍</p>
+        </section>
+        <section>
+            <p>Annotation(注解)，其实就是对类，方法，属性进行的一种标示，一种注释（注意，这个里注释不是为了让我们开发或维护人员阅读更方便，而是为JVM看呢），通过这些标示，Java虚拟机可以完成这些标示对应的功能。例如使用框架开发时，我们都是通过配置文件进行对象关系组合映射等功能，而通过注解我们可以完全代替配置文件的编写。</p>
+        </section>
+        <section>
+            <p>Annotation的作用：</p>
+            <p>编写文档：通过代码里标识的元数据生成文档。</p>
+            <p>代码分析：通过代码里标识的元数据对代码进行分析。</p>
+            <p>编译检查：通过代码里标识的元数据让编译器能实现基本的编译检查。</p>
+        </section>
+        <section>
+            <p>JDK内置的几个常用注解：</p>
+        </section>
+        <section> 
+            <p>(1)@Override:此注解能够实现编译时检查，当某方法前边添加此注解时，表示此方法为重写父类中的方法。如果此方法不是父类的方法，例如我们本来想重写toString呢，却写成了tostring，则编译无法通过，会提示错误。</p>
+        </section>
+        <section>    
+            <p>(2)@Deprecated:此注解是对不应该，或者将要淘汰的方法进行标识，当编程人员使用时就会给予提示。</p>
+            <p>(3)@SuppressWanings:此注解表示去除一些警告，但是里边需要我们制定参数。</p>
+        </section>
+        <section>    
+            <p>(4)@interface进行自定义注解的定义。我们可以像@SuppressWanings一样向里边添加参数。比如利用@Target注解来指定其使用范围；@Documented表示此注解是否文档化，就是当我们生成文档时，是否生成进去；@Inherited标注继承，控制此注释是否会影响到子类等等。</p>
+        </section>  
+        <section>
+        	<p>（二）Spring注解开发</p>
+        </section>
+        <section>
+        	<p>Spring框架的核心功能IoC(Inversion of Control)，也就是通过Spring容器进行对象的管理，以及对象之间组合关系的映射。通常情况下我们会在xml配置文件中进行action,service,dao等层的声明，然后并告知框架我们想要的注入方式，然后在类中声明要组合类的get，set方法。而通过Spring框架中注解的运用也就主要是解决这类问题的。而框架中另一个核心知识AOP,一种面向横切面的方法编程，在程序中一般都是进行一次设置就可以的，所以都还放在配置文件中。例如声明式事物的设置，一次设置，后边就不用管了，所以这个没有必要使用注解进行简化。</p>
+        </section>
+        <section>
+        	<p>1.首先需要在配置文件中增加命名空间的和约束文件</p>
+        </section>
+        <section>
+        	<p>2.开启Spring的注解功能，这样Spring环境才会进行指定位置的扫描，进行类之间的关联组合</p>
+        </section>
+        <section>
+        	<p>3.声明注解类，让Spring框架可以识别:</p>
+        </section>
+        <section>
+        	<p>(1)类的分层注解，由于我们后台开发都是分为三层进行开发的，所以Spring框架提供了三种对于不同层的注解方式：</p>
+            <p>控制层：@Controller</p>
+            <p>服务层：@Service</p>
+            <p>持久层：@Repository</p>
+        </section>
+        <section>
+            <p>默认情况下使用注解声明的Bean对象id名称为：类名称的首字母小写，一般不需要我们进行设置，如果想要设置时，例如我们指定的是实现类，而名字指向了接口，直接添加value属性即可：</p>
+            <p>@Service(value="name")，当然value是可以省略的。</p>
+            <p>Spring框架还为我们提供了代替上边三个分层注解的通用注解：</p>
+            <p>@Component.当然提倡大家使用分层注解更好一些，区分层次比较明确。</p>
+        </section>
+        <section>
+            <p>(2)自动装配功能的实现对象之间的组合关系，在属性前边指定下边的注解：</p>   
+            <p>@Autowired : 采用类型的方式完成自动装配 ： byType</p>
+            <p>@Resource : 采用名称+类型的方式完成自动装配 : byName +byType</p>
+            <p>另外Spring提供的两种注解的自动装配功能，属性不需要声明set,get方法也可以完成组合功能，这是非常方便的。</p>
+        </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在开发中我们应该选择使用配置文件开发，还是使用注解开发？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>（1）注解开发的优缺点</p>
+            <p>优点：1）开发速度快；2）编译期间容易发现错误的出处 。</p>
+            <p>缺点：1）管理分散，基本每个类上都有；2）扩展功能时，没有遵循OCP开发原则。</p>
+        </section>
+        <section>
+            <p>（2）配置文件开发的优缺点</p>
+            <p>优点：1）遵循OCP开发原则，修改配置文件即可进行功能扩展；2）集中管理对象和对象之间的组合关系，易于阅读。</p>
+            <p>缺点：1）开发速度相对较慢；2）编译时很难检查出错误，运行中的错误很难定位，调试难度较大。</p>
+        </section>
+        <section>
+            <p>如果客户需求不会频繁发生变化。那么使用注解非常好，开发效率快。</p>
+            <p>如果客户需求经常发生变化，那么采用配置文件的方式会好一些。有利于扩展。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>在使用框架开发中，如何利用注解帮助我们提高效率？</p>
+        </section>        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://blog.csdn.net/liujiahan629629/article/details/22325155" target="_blank">http://blog.csdn.net/liujiahan629629/article/details/22325155</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/liujiahan629629/article/details/22696031" target="_blank">http://blog.csdn.net/liujiahan629629/article/details/22696031</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭伟杰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

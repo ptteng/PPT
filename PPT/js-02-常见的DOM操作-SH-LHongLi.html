@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>【JS-task2】DOM常见的操作方式有哪些？</h2>
+                <h3>小课堂【上海第31期】</h3>
+                <p>分享人：刘洪利</p>
+            </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <p style="font-size:1.8rem;text-align:left;text-indent:4.5rem;">什么是DOM？简单地说，DOM是一套对文档的内容进行抽象和概念化的方法</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">在现实世界里，人们对所谓的'世界对象模型'都不会陌生，例如，当用'汽车'、'房子'和'树'等名词来称呼日常生活环境里的事物时，我们都可以百分百的肯定对方知道我们说的是什么，这是因为人们在对这些名词所代表的的东西有着相同的认知。于是，当对别人说"汽车停在车库里"时，可以断定他们不会理解为"小鸟关在壁橱里"</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        我们的"世界对象模型"不进可以用来描述客观存在的事物，还可以同来描述抽象概念。例如，假设有个人想我问路，而我给出的答案是"左边第三栋房子"，这个答案有没有意义取决于那个人能够理解"左边"和"第三"的含义。如果他不会数数或者分不清左右，则不管他是否理解这几个概念，我的回答对他都不会有任何的帮助。在现实世界中，正是因为大家对抽象的"世界对象模型"有着基本的共识，人们才能用非常简单的话来表达出复杂的含义并得到对方的理解。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        而DOM的定义则是由W3C所制定的标准，定义为"一个与系统平台和编程语言无关的接口，程序和脚本可以通过这个接口动态地访问和修改文档的内容`、结构和样式。"
+                    </p>
+
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        节点这个词是一个网络用语，代表了网络中的一个连接点。一个网络就是由一些节点构成的集合。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        在现实世界中，一切事物都由原子构成。原子就是现实世界的节点。但是原子同样还可以进一步分解为更细小的亚原子微粒。这些亚原子微粒同样也是节点。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        DOM也是同样的情况。文档是由节点构成的集合，只不过此时的节点是文档树上的树枝和树叶而已。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        在DOM中有许多不同类型的节点。就像原子包含着亚原子微粒那样，也有很多类型的DOM节点包含着其他类型的节点。接下来我们先看看其中的三种：元素节点、文本节点和属性节点。
+                    </p>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        在DOM中的原子就是元素节点。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        像是我们现在所看到的这个ppt，我们在编写时，会用到诸如&lt;body&gt;、&lt;head&gt;、&lt;section&gt;、&lt;p&gt;这些元素。如果把Web上的文档比作一座大厦，那么元素就是建造这座大厦的砖块，这些元素在在文档中的布局形成了文档的结构。元素可以包含其他的元素，在我们的ppt首页中，内容都被包含在在一个'&lt;section&gt;'元素的内部。而唯一没有被包含在其他元素中的唯一元素是'&lt;html&gt;'，他和我们的节点树的根元素，其他的所有元素都被包含在'&lt;html&gt;'中。
+                        <img src="../demo/js-02-常见的DOM操作-SH-LHongLi/111.png" alt="" style="width:25vw">
+                    </p>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        元素节点只是节点类型的一种。如果一份文档完全有一些空白元素构成，他将有一个结构，但这份文档本身将不会包含什么内容。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        在我们的ppt首页中，'&lt;p&gt;'元素包含着文本，'分享人：刘洪利'。他就是一个文本节点。在html文档里，文本节点总是被包含在元素节点的内部。
+                    </p>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        属性节点用来对元素做出更具体的描述。例如，几乎所有的元素都有一个title属性，而我们可以利用这个属性对包含在元素里的东西做出准确的描述：
+                        <br> '&lt;p title="a gentle reminder"&gt;这是一个带有温馨提示的p标签&lt;/p&gt;'
+                        <br> 在DOM中，title="a gentle reminder"是一个属性节点。因为属性总是被放在起始标签里，所以属性节点总是被包含在元素节点中。并非所有的标签都包含着属性，但是所有的属性都被元素包含。
+                    </p>
+                    <img src="../demo/js-02-常见的DOM操作-SH-LHongLi/222.png" alt="">
+                </section>
+                <section>
+                    <h3>常见的DOM操作</h3>
+                    <p style="text-align:left">获取DOM</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">通过使用 getElementById() 方法匹配元素的id属性来访问元素节点，对元素节点进行操作</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">通过使用 getElementsByTagName() 方法匹配元素的tagName来访问元素节点，对元素节点进行操作</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">通过使用 getElementsByClassName() 方法匹配元素的className来访问元素节点，对元素节点进行操作</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">值得注意的是， getElementsByTagName() 和 getElementsByClassName() 这两种方法因为其访问的是节点中的可能为复数的属性，所以得到的会是一个以数组的形式来体现出来的元素节点集合，我们可以通过打印获取到的DOM节点来判断类型</p>
+                    <a href="../demo/js-02-常见的DOM操作-SH-LHongLi/demo.html">demo</a>
+                </section>
+                <section>
+                    <p style="text-align:left">DOM事件</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onclick事件---当用户点击时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onload事件---当用户进入时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onunload事件---用用户离开时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onmouseover事件---当用户鼠标指针移入时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onmouseout事件---当用户鼠标指针移出时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onmousedown事件---当用户鼠标摁下时执行</p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">onmouseup事件---当用户鼠标松开时执行</p>
+
+                    <a href="../demo/js-02-常见的DOM操作-SH-LHongLi/demo.html">demo</a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">如何通过class和tag调用元素?如何对其设置属性？</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>4.解决方案</h3>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">在一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下</p>
+                    <a href="../demo/js-02-常见的DOM操作-SH-LHongLi/demo.html">demo</a>
+                </section>
+            </section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+
+            <section>
+                <section>
+                    <h3>6.扩展思考</h3>
+                </section>
+                <section>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        onblur事件---当对象失去焦点时发生
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        onchange事件---当对象域的值被改变时发生
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                         button 事件---属性可返回一个整数，指示当事件被触发时哪个鼠标按键被点击。
+                    </p>
+                    <p style="font-size:1.5rem;text-align:left;text-indent:3.5rem;">
+                        更多的事件就不一一的描述了，有兴趣的同学可以去看下这个
+                    </p>
+                    <a href="http://www.w3school.com.cn/jsref/dom_obj_document.asp">w3school</a>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>7.参考文献</h3>
+                </section>
+                <section>
+                    <p>《JavaScript DOM编程艺术》</p>
+                    <a href="http://www.w3school.com.cn/jsref/dom_obj_document.asp">w3school</a>
+                </section>
+            </section>
+            <section>
+                <h3>8.更多讨论</h3>
+            </section>
+
+            <section>
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p>
+                    分享人：刘洪利
+                    <br>
+                    <small>BY : 陈尚欢 | 韩阳| 杨纲 </small>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
+
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [
+                { src: '../plugin/markdown/marked.js' },
+                { src: '../plugin/markdown/markdown.js' },
+                { src: '../plugin/notes/notes.js', async: true },
+                {
+                    src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
+Contact GitHub API Training Shop Blog About © 2016 GitHub, Inc. Terms Privacy Security Status He
