@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -19,157 +20,225 @@
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
+
 <body>
-<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
-<map name="pttmap">
-    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
-</map>
-<div class="reveal">
-    <div class="slides">
-        <section>
-            <h2>【JS-task5】HTTP状态码有哪些？分别代表是什么意思？</h2>
-            <h3>小课堂【武汉第221期】</h3>
-            <p>分享人：叶紫阳</p>
-        </section>
-        <section>
-            <p>目录</p>
-            <p>1.背景介绍</p>
-            <p>2.知识剖析</p>
-            <p>3.常见问题</p>
-            <p>4.解决方案</p>
-            <p>5.编码实战</p>
-            <p>6.扩展思考</p>
-            <p>7.参考文献</p>
-            <p>8.更多讨论</p>
-        </section>
-        <section>
-            <h3>1.背景介绍</h3>
-        </section>
-        <section>
-            <p style="text-align: justify">当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含HTTP状态码的信息头（server header）用以响应浏览器的请求。<br><br>
-	        <p style="text-align: left">说人话：三位数字代码分别代表着不同的请求状态</p>
-        </section>
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-        <section>
-            <p style="text-align: justify">HTTP状态码的英文为HTTP Status Code。 下面是常见的HTTP状态码的概括：</p>
-            <p style="text-align: justify">1开头：（被接受，需要继续处理。）这一类型的状态码，代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。</p>
-            <p style="text-align: justify">2开头 （请求成功）这一类型的状态码，代表请求已成功被服务器接收、理解、并接受</p>
+    <img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank" />
+    </map>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>【JS-task5】HTTP状态码有哪些？分别代表是什么意思？</h3>
+                <h3>小课堂【武汉-277期】</h3>
+                <p>分享人：熊凡</p>
+            </section>
 
-            <p style="text-align: justify">3开头 （请求被重定向）这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。</p>
-        </section>
-        <section>
-            <p style="text-align: justify">4开头：（请求错误）这类的状态码代表了客户端看起来可能发生了错误，妨碍了服务器的处理。除非响应的是一个 HEAD 请求，否则服务器就应该返回一个解释当前错误状况的实体，以及这是临时的还是永久性的状况。这些状态码适用于任何请求方法。浏览器应当向用户显示任何包含在此类错误响应中的实体内容。</p>
-            <p style="text-align: justify">5开头：（服务器错误）这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。除非这是一个HEAD 请求，否则服务器应当包含一个解释当前错误状态以及这个状况是临时的还是永久的解释信息实体。浏览器应当向用户展示任何在当前响应中被包含的实体。</p>
-        </section>
-	    <section>
-		    <h5>如何记忆这些状态码</h5>
-		    <ul>当然是来一段freestyle了
-			    <li>1xx ： Hold on (等着)</li>
-			    <li>2xx ： Here you go (执行完了，没毛病，拿着结果回去吧)</li>
-			    <li>3xx ： Go away (你要的不在我这儿，去别处找)</li>
-			    <li>4xx ： You fucked up (你丫出问题了)</li>
-			    <li>5xx ： I fucked up (我特么出问题了)</li>
-		    </ul>
-	    </section>
-        <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-            <p>有哪些常见的状态码</p>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
-	    <section>
-		    <ul>一般只需要了解以下常见的状态码就够了
-			    <li>200 OK 服务器成功处理了请求（这个是我们见到最多的）</li>
-			    <li>304 Not Modified：服务端的资源与客户端上一次请求的一致，不需要重新传输，客户端使用本地缓存的即可</li>
-			    <li>400 Bad Request：用于告诉客户端它发送了一个错误的请求</li>
-			    <li>404 Not Found(页面丢失)未找到资源</li>
-			    <li>500 Internal Server Error：服务器内部出现了错误</li>
-			    <li>501 Internal Server Error服务器遇到一个错误，使其无法对请求提供服务</li>
-		    </ul>
-	    </section>
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-        <section>
-            <h3>6.扩展思考</h3>
-        </section>
-        <section>
-            <h4>为什么要避免304请求</h4>
-        </section>
-	    <section>
-		    <p style="text-align: justify">
-			    因为我们在对文件设置缓存后，浏览器会将这些文件缓存在本地，当再次需要这些文件的时候，浏览器仍然会发送请求，然后服务器会返回304，告诉浏览器直接用本地的缓存就行了。这样和直接使用本地缓存相比，多了一次http请求。解决方案其实也简单，给缓存文件设置一个比较的max-age，需要更新的时候添加版本号就可以了。
-		    </p>
-	    </section>
-        <section>
-            <h3>7.参考文献</h3>
-        </section>
-        <section>
-            <p>参考一：<a href="http://blog.csdn.net/it_man/article/details/50235315" target="_blank">CSDN博客：HTTP状态码</a></p>
-            <p>参考一：<a href="http://baike.baidu.com/link?url=djR1a8qTw3slQRLhArsZ41zApZKHoqs56LdRx9AnRyOPiVsBhO71S0ejuhqlRl_IarKDo13eM-MIsBNPVuofcpnHdtfB8fVN3zuLA1DorljDkkwMRRDXu6Aw4A8uCk_F" target="_blank">百度百科关于HTTP的详解</a></p>
-        </section>
-        <section>
-            <h3>8.更多讨论</h3>
-        </section>
-        <section>
-            <p style="letter-spacing: 5px">大家自由讨论一下在调试接口时会遇到哪些状态码？</p>
-        </section>
-        <section>
-            <h4>鸣谢</h4>
-            <p>感谢大家观看</p>
-            <p>
-                <small>BY :叶紫阳</small>
-            </p>
-        </section>
+            <section>
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
 
+            <section>
+                <section>
+                    <h3>1.背景介绍</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。</p>
+                        <p>当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含HTTP状态码的信息头（server header）用以响应浏览器的请求。</p>
+                        <p>HTTP状态码由三个十进制数字组成，三位数字代码分别代表着不同的请求状态，第一个十进制数字定义了状态码的类型，后两个数字没有分类的作用。</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>2.知识剖析</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <h4>HTTP状态码分类</h4>
+                        <p>HTTP状态码共分为5种类型：</p>
+                        <p style="font-size:26px;">1开头：（被接受，需要继续处理。）这一类型的状态码，代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。</p>
+                        <p style="font-size:26px;">2开头 （请求成功）这一类型的状态码，代表请求已成功被服务器接收、理解、并接受</p>
+                        <p style="font-size:26px;">3开头 （请求被重定向）这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size:26px;">4开头：（请求错误）这类的状态码代表了客户端看起来可能发生了错误，妨碍了服务器的处理。除非响应的是一个 HEAD 请求，否则服务器就应该返回一个解释当前错误状况的实体，以及这是临时的还是永久性的状况。这些状态码适用于任何请求方法。浏览器应当向用户显示任何包含在此类错误响应中的实体内容。</p>
+                        <p style="font-size:26px;">5开头：（服务器错误）这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。除非这是一个HEAD 请求，否则服务器应当包含一个解释当前错误状态以及这个状况是临时的还是永久的解释信息实体。浏览器应当向用户展示任何在当前响应中被包含的实。</p>
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>如何记忆这些状态码</p>
+                        <p style="font-size:24px">Http 状态码是做Web开发的必备的基础知识，面试中也会经常出现这方面的考题。但是要记住全部的状态码不是一件容易的事，部分状态码记忆：</p>
+                        <p style="font-size:24px;">200 欢迎回来，主人 （正常；请求已完成。 ）</p>
+                        <p style="font-size:24px;">301 人家搬家了 （已移动 — 请求的数据具有新的位置且更改是永久的。 ）</p>
+                        <p style="font-size:24px;">307 不是这里，换个地方啦 （重新请求的URL，客户端自动重新请求新的地址）</p>
+                        <p style="font-size:24px;">400 不要把奇怪的东西给人家嘛 （错误请求 — 请求中有语法问题，或不能满足请求。 ）</p>
+                        <p style="font-size:24px;">403 这里不可以啦！（禁止 — 即使有授权也不需要访问。 ）</p>
+                        <p style="font-size:24px;">404 这里什么都没有 --- 人家是平的啦。 （找不到 — 服务器找不到给定的资源；文档不存在。 ）</p>
+                        <p style="font-size:24px;">405 打开方式不对 （资源被禁止 ）</p>
+
+                    </div>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p style="font-size:24px">405 打开方式不对 （资源被禁止 ）</p>
+                        <p style="font-size:24px">414 这... 太长了啦 （请求 - URI 太长 ）</p>
+                        <p style="font-size:24px">418 我就是个杯具啊 （我是茶壶）</p>
+                        <p style="font-size:24px">500 服务姬坏掉了啦 （内部错误 — 因为意外情况，服务器不能完成请求。 ）</p>
+                        <p style="font-size:24px">503 不要...人家还没准备好啦 （无法获得服务 — 由于临时过载或维护，服务器无法处理请求。 ）</p>
+                        <p style="font-size:24px">101 服务姬傲娇中 （服务器将遵从客户的请求转换到另外一种协议）</p>
+                        <p style="font-size:24px">100 人家... 还要... （初始的请求已经接受，客户应当继续发送请求的其余部分。</p>
+
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>3.常见问题</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>有哪些常见的状态码？</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>4.解决办法</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>一般只需要了解以下常见的状态码就够了：</p>
+                        <p style="font-size:24px">200 OK 服务器成功处理了请求（这个是我们见到最多的）</p>
+                        <p style="font-size:24px">304 Not Modified：服务端的资源与客户端上一次请求的一致，不需要重新传输，客户端使用本地缓存的即可</p>
+                        <p style="font-size:24px">400 Bad Request：用于告诉客户端它发送了一个错误的请求</p>
+                        <p style="font-size:24px">404 Not Found(页面丢失)未找到资源</p>
+                        <p style="font-size:24px">500 Internal Server Error：服务器内部出现了错误</p>
+                        <p style="font-size:24px">501 Internal Server Error服务器遇到一个错误，使其无法对请求提供服务</p>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>5、编码实战</h3>
+                </section>
+                <section>
+                    <a href="http://www.jnshu.com/home">
+                        <img src="../img/js-05-http/http.png" alt="">
+                    </a>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>6、扩展思考</h3>
+                </section>
+                <section>
+                    <p>为什么要避免304请求？</p>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:30px">
+                        <p>因为我们在对文件设置缓存后，浏览器会将这些文件缓存在本地，当再次需要这些文件的时候，浏览器仍然会发送请求，然后服务器会返回304，告诉浏览器直接用本地的缓存就行了。这样和直接使用本地缓存相比，多了一次http请求。解决方案其实也简单，给缓存文件设置一个比较的max-age，需要更新的时候添加版本号就可以了。</p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>7、参考文献：</h3>
+                </section>
+                <section>
+                    <div style="text-align:left ; padding:0% 12% ;font-size:34px">
+                        <p>参考一：
+                            <a href=" http://blog.csdn.net/it_man/article/details/50235315">CSDN博客：HTTP状态码</a>
+                        </p>
+                        <p>参考二：
+                            <a href="http://www.nowamagic.net/librarys/veda/detail/2084">让HTTP萌娘帮你记住状态码吧</a>
+                        </p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3>8、更多讨论</h3>
+                </section>
+            </section>
+            <section>
+                <p>谢谢大家</p>
+                <p>制作人：叶紫阳 | 熊凡</p>
+            </section>
+
+        </div>
     </div>
-</div>
-<script src="../lib/reveal/js/head.min.js"></script>
-<script src="../lib/reveal/reveal.js"></script>
-<script>
 
-    // 以下为常见配置属性的默认值
-    // {
-    // 	controls: true, // 是否在右下角展示控制条
-    // 	progress: true, // 是否显示演示的进度条
-    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
-    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
-    // 	keyboard: true, // 是否启用键盘快捷键来导航
-    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
-    // 	center: true, // 是否将幻灯片垂直居中
-    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
-    // 	loop: false, // 是否循环演示
-    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
-    // 	fragments: true, // 全局开启和关闭碎片。
-    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
-    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
-    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
-    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
-    // }
+    <script src="../lib/reveal/js/head.min.js"></script>
+    <script src="../lib/reveal/reveal.js"></script>
 
-    // 初始化幻灯片
-    Reveal.initialize({
-        history: true,
-        dependencies: [
-            {src: '../plugin/markdown/marked.js'},
-            {src: '../plugin/markdown/markdown.js'},
-            {src: '../plugin/notes/notes.js', async: true},
-            {
-                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
-        ]
-    });
-</script>
+    <script>
+        // 以下为常见配置属性的默认值
+        // {
+        // 	controls: true, // 是否在右下角展示控制条
+        // 	progress: true, // 是否显示演示的进度条
+        // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+        // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+        // 	keyboard: true, // 是否启用键盘快捷键来导航
+        // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+        // 	center: true, // 是否将幻灯片垂直居中
+        // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+        // 	loop: false, // 是否循环演示
+        // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+        // 	fragments: true, // 全局开启和关闭碎片。
+        // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+        // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+        // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+        // 	mouseWheel: false, //是否启用通过鼠标滚轮来切换幻灯片
+        // }
+
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            transition: 'convex',
+
+
+            dependencies: [{
+                    src: '../plugin/markdown/marked.js'
+                },
+                {
+                    src: '../plugin/markdown/markdown.js'
+                },
+                {
+                    src: '../plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: '../plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function () {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
 </body>
+
 </html>

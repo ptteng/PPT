@@ -1,0 +1,250 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Java中的I/O</h2>
+			<p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：李宁虎</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		 <section>
+            <p>
+				Java中I/O流是一种计算机用语。而I/O问题可以说是Web应用中所面临的主要问题之一，因为在这个海量数据时代，数据在网络中随处流动。这个流动都涉及到I/O问题，可以说大部分Web应用系统的瓶颈都是I/O瓶颈。
+			</p>
+
+			<p>
+				I/O问题是任何编程语言都无法回避的问题，可以说I/O问题是整个人机交互的核心问题，因为I/O是机器获取和交换信息的主要渠道。在这个数据爆炸的时代，I/O问题尤其突出。
+			</p>
+		</section>
+		<section>
+			<p>
+				<img src="C:\Users\李宁虎\Videos\2.png">
+			</p>
+		</section>
+		
+
+        <section>
+            <h3>2.知识剖析</h3>	
+		</section>
+
+		<section>
+			 <p>
+				IO流的三种分类方式
+
+					<p>
+						1.按流的方向分为：输入流和输出流
+					</p>
+					<p>
+						2.按流的数据单位不同分为：字节流和字符流
+
+					</p>
+					<p>
+						3.按流的功能不同分为：节点流和处理流
+					</p>	
+		
+			 </p>
+
+			<p>
+				IO流的四大抽象类
+
+					<p>
+						字符流：Reader  Write
+					</p>
+					<p>
+						字节流：InputStream 读 OutputStream 写
+
+					</p>
+			 </p>
+
+
+			
+
+			 </section>
+
+			 <section>
+
+				<p>
+					 基于字节操作的I/O接口：InputStream 和 OutputStream
+				</p>
+
+				<p>
+					 基于字符操作的I/O接口：Writer 和 Reader
+				</p>
+
+				<p>
+					 基于磁盘操作的I/O接口：File	
+				</p>
+
+				<p>
+					 基于网络操作的I/O接口：Socket	
+				</p>
+       	        
+				    
+			 </section>
+			
+			<section>
+			<p>
+
+				FileReader类其实就是简单的包装一下FileInputStream，但是它继承InputStreamReader类，当调用read方法时其实调用的是StreamDecoder类的read方法，这个StreamDecoder正是完成字节到字符的解码的实现类。
+				<img src="C:\Users\李宁虎\Videos\1.png">
+			</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+         </section>
+         <section>
+			<p>
+				I/O传输过程中的阻塞问题，传输时间长，访问磁盘次数过多。
+			</p>
+			
+		</section>
+           
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+
+			<section>
+					
+					<p> 
+					   通常提升磁盘I/O性能的方法有：
+					   
+					   <p>
+							1：增加缓存，减少磁盘访问次数
+					   </p>
+					   <p>
+							2：优化磁盘的管理系统，设计最优的磁盘方式策略。这是在底层操作系统层面考虑的。
+					   </p>
+					   <p>
+							3：设计合理的磁盘存储数据块，以及访问这些数据块的策略。这是在应用层考虑的。可以给存放的数据设计索引，通过寻址输索引来加快和减少磁盘的访问量，还可以使用异步和非阻塞的方式加快磁盘的访问次数。
+					   </p>
+					</p>
+				</section>
+				
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+
+       
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+	
+        <section>
+            <p>
+				socket是什么，怎样与别的网络进行通信？
+			</p>
+        </section>
+        
+		 <section>
+            <p>
+				　一台计算机要和另一台计算机进行通讯，获取其上应用程序的数据，必须通过Socket建立连接，要知道对方的IP和端口号。建立一个Socket连接需要通过底层TCP/IP协议来建立TCP连接，而建立TCP连接必须通过底层IP协议根据给定的IP在网络中找到目标主机。目标计算机上可能跑着多个应用，所以我们必须要根据端口号来制定目标应用程序，这样就可以通过一个 Socket 实例唯一代表一个主机上的一个应用程序的通信链路了。
+			</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+				链接：http://blog.csdn.net/sight_/article/details/8138802		
+				作者：fantisGod
+				
+				链接：https://www.cnblogs.com/zhuYears/archive/2013/04/10/2993292.html
+				作者：lance的心思
+			</p>
+			
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>
+				
+			</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 李宁虎</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://ptteng.github.io/PPT/PPT/css-06-3.html#/ -->
+<html class=" js no-mobile desktop no-ie chrome chrome62 ppt-section ppt-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded w-577 gt-240 gt-320 gt-480 lt-640 lt-768 lt-800 lt-1024 lt-1280 lt-1440 lt-1680 lt-1920 portrait no-landscape" id="css-06-3-page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="./葡萄藤PPT_files/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <link rel="stylesheet" type="text/css" href="./葡萄藤PPT_files/paper.css">
+    <script type="text/javascript" src="./葡萄藤PPT_files/marked.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT_files/markdown.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT_files/notes.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT_files/highlight.js.下载"></script>
+</head>
+
+<body>
+    <img src="./葡萄藤PPT_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+    <map name="pttmap">
+        <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+    </map>
+    <div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+        <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.540937);">
+            <section class="present" style="top: 135.5px; display: block;">
+                <h2>【CSS-task6】</h2>
+                <h3>小课堂【成都】</h3>
+                <h3>rgba和opacity,display和visiblity区别</h3>
+                <p>分享人：程仲夏</p>
+            </section>
+            <section class="future" style="top: 15px; display: block;" hidden="" aria-hidden="true">
+                <h3>目录</h3>
+                <h4>1.背景介绍</h4>
+                <h4>2.知识剖析</h4>
+                <h4>3.常见问题</h4>
+                <h4>4.解决方案</h4>
+                <h4>5.编码实战</h4>
+                <h4>6.扩展思考</h4>
+                <h4>7.参考文献</h4>
+                <h4>8.更多讨论</h4>
+            </section>
+            <section class="future" style="top: 267px; display: block;" hidden="" aria-hidden="true">
+                <h3>一.背景介绍</h3>
+            </section>
+            <section class="future" style="top: 142px; display: none;" hidden="" aria-hidden="true">
+                <p>1.大家在写页面时，会用到各种元素和颜色，有时候一张页面会放好几张图片，图片如果显示效果都一样，看起来很单调，整个页面给人的感觉会很硬。那么，怎么能让页面的元素有一种通透感和不一样的效果呢？于是，有了opacity和rgba()这两个属性。</p>
+            </section>
+            <section class="future" style="top: 119px; display: none;" hidden="" aria-hidden="true">
+                <p>2.另外，在看一下display和visibility背景介绍，故名思意，display和visibility是与元素显示有关系的，这两个属性都可以控制元素的显示与隐藏。
+                </p>
+                <p>究其作用，我们可以知道，为了提高用户的体验，实现更好的页面甚至元素与用户的互动，当用户开始某个操作时，可以通过display和visibility这两个属性让元素显示或者隐藏, 或者以哪种方式显示。</p>
+            </section>
+            <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>二.知识剖析</h3>
+            </section>
+            <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+                <section class="future" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+                    <h3>display的属性值</h3>
+                    <p>block:独占一行，可以设置宽高。</p>
+                    <p>inline:表现为一个行级元素（一般情况下不独占一行）</p>
+                    <p>inline-block：不独占一行，但是可以设置宽高。同时具有inline和block的特性。</p>
+                    <p>none:元素不可见，并且不为其保留相应的位置。</p>
+                </section>
+                <section class="future" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+                    <div style="border: 2px solid pink;">
+                        <p id="p-none" style="display: block; height: 100px;background-color: #d863ae;line-height: 100px;">display:block</p>
+                        <div>
+                            <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('p-none').style.display = 'block';document.getElementById('p-none').innerHTML = 'display:block'">display:block</button>
+                            <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('p-none').style.display = 'inline';document.getElementById('p-none').innerHTML = 'display:inline'">display:inline</button>
+                            <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('p-none').style.display = 'inline-block';document.getElementById('p-none').innerHTML = 'display:inline-block';document.getElementById('p-none').style.minWidth = '600px';">display:inline-block</button>
+                            <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('p-none').style.display = 'none'">display:none</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+                <section class="future" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+                    <h3>visibility的属性值</h3>
+                    <p>hidden：元素不可见，但仍然为其保留相应的空间</p>
+                    <p>visible：元素可见，默认值</p>
+                    <p>visibility:inherit 继承上级元素的visibility值</p>
+                </section>
+            </section>
+            <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+                <section class="future" style="top: 178px; display: none;" hidden="" aria-hidden="true">
+                    <h3>dispaly和visibility二者的区别：</h3>
+                    <p>display:none 元素不可见，在文档流中不占据空间</p>
+                    <p>visibility：hidden 元素不可见，但是占据空间</p>
+                </section>
+                <section class="future" style="top: 178px; display: none;" hidden="" aria-hidden="true">
+                    <span style="display: inline-block;width: 600px;height: 200px;padding: 10px; border: 2px solid pink;">
+					<div id="vs-no" style="float: left;width: 200px;height: 200px;background-color: #1d8fc3"></div>
+					<div style="float: left;width: 200px;height: 200px;background-color: #891dc3"></div>
+					</span>
+                    <br>
+                    <button style="width:200px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('vs-no').style.visibility = 'hidden';">visibility：hidden</button>
+                    <button style="width:200px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('vs-no').style.display = 'none';">display:none</button>
+                </section>
+            </section>
+            <section class="future" style="top: 198px; display: none;" hidden="" aria-hidden="true">
+                <p>还有一点是，从visibility：hidden转换为visibility：visible时比display：none转换为display：block性能要好， 因为display在切换可见性时，文档流会重新书写,所以visibility：visible性能更好。
+                </p>
+            </section>
+            <section class="future" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+                <h3>rgba</h3>
+                <p>所谓RGBA颜色，就是红+绿+蓝+Alpha透明的颜色。</p>
+                <p>R：红色值。正整数 | 百分数</p>
+                <p>G：绿色值。正整数 | 百分数</p>
+                <p>B：蓝色值。正整数 | 百分数</p>
+                <p>A：透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。</p>
+            </section>
+            <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+                <section class="future" style="top: 30px; display: none;" hidden="" aria-hidden="true">
+                    <p>正整数为十进制0~255之间的任意值，百分数为0%~100%之间的任意值。</p>
+                    <p>RGBA是在R（Red）G（Green）B（Blue）模式上增加了alpha通道，alpha通道是不透明度，即，如果一个元素的alpha通道数值为0%（或0）， 那该元素就是完全
+                    </p>
+                    <p>透明的（也就是看不见的，但是可以透过该元素看到该元素下的元素），数值为100%（或255）时则意味着该元素完全不透明。</p>
+                    <p>例子：<span style="background-color: rgba(55, 122, 179,0.5)">rgba(55, 122, 179,0.5)</span>；rgb值为“55, 122, 179”，0.5使设定的rgb值为50%透明，1为完全不透明，0为完全透明</p>
+                </section>
+                <section class="future" style="top: 30px; display: none;" hidden="" aria-hidden="true">
+                    <p style="height: 500px;background: url(./葡萄藤PPT_files/rgba.png) no-repeat;background-size: cover;">
+                        <sapn id="span-rgba" style="display: inline-block;width: 100%;height: 280px;background-color: rgba(55, 122, 179,1););"></sapn>
+                    </p>
+                    <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba').style.background = 'rgba(55, 122, 179,1)';">rgba(55, 122, 179,1)
+                    </button>
+                    <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba').style.background = 'rgba(55, 122, 179,0.5)';">rgba(55, 122, 179,0.5)
+                    </button>
+                    <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba').style.background = 'rgba(55, 122, 179,0)';">rgba(55, 122, 179,0)
+                    </button>
+                </section>
+            </section>
+            <section class="future" style="top: 0px; display: none;" hidden="" aria-hidden="true">
+                <h3>Opacity</h3>
+                <p>opacity属性是CSS3的属性，设置元素的不透明级别</p>
+                <p>取值说明: value 不透明度，从0.0(完全透明)到1.0（完全不透明）。</p>
+                <p>注意：IE8以及更早版本支持替代的filter属性。例如：filter: Alpha（opacity=50）;</p>
+                <pre>                <code>
+	                .rgba {
+	                background: rgba(255,0,0,0.5);
+	                }
+	                .opacity {
+	                background : red ; opacity: 0.5;
+	                }
+                </code>
+            </pre>
+            </section>
+            <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+            <section class="future" style="top: 76px; display: none;" hidden="" aria-hidden="true">
+                <h3>1.Opacity和rgba()的用法以及二者的区别：</h3>
+                <p>然后，RGBA和opacity都是用来设置元素的不透明度的，那么两者有什么区别呢？</p>
+                <p>opacity会继承父元素的opacity 属性，而RGBA设置的元素的后代元素不会继承不透明属性。</p>
+                <p>简单来说就是opacity作用于元素和元素所有内容的透明,看一下例子</p>
+            </section>
+            <section class="future" style="top: 30px; display: none;" hidden="" aria-hidden="true">
+                <p style="height: 500px;background: url(./葡萄藤PPT_files/rgba.png) no-repeat;background-size: cover;">
+                    <sapn id="span-rgba1" style="display: inline-block;box-sizing: border-box; width: 100%;height: 280px;padding-top: 200px; font-size: 50px;font-weight: bold; color: #c12121;text-align: left; background-color: rgba(55, 122, 179,1);">
+                    	编程使你快乐
+                    </sapn>
+                </p>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.background = 'rgba(55, 122, 179,1)';">rgba(55, 122, 179,1)
+                </button>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.background = 'rgba(55, 122, 179,0.5)';">rgba(55, 122, 179,0.5)
+                </button>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.background = 'rgba(55, 122, 179,0)';">rgba(55, 122, 179,0)
+                </button>
+                <br>
+                <br>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.opacity = '1';">opacity = '1'
+                </button>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.opacity = '0.5';">opacity = '0.5'
+                </button>
+                <button style="width:160px;height: 50px;margin-right: 20px;font-size: 20px;vertical-align: top;" onclick="document.getElementById('span-rgba1').style.opacity = '0';">opacity = '0'
+                </button>
+            </section>
+            </section>
+            <section class="future" style="top: 221px; display: none;" hidden="" aria-hidden="true">
+                <p>所以，rgba相对于opacity还是技高一筹的，当然只要是涉及颜色的，都可以用rgba来设置。</p>
+            </section>
+            <section class="future" style="top: 178px; display: none;" hidden="" aria-hidden="true">
+                <h3>三.常见问题</h3>
+                <p>透明度的兼容性</p>
+                <p>一般主流的浏览器都支持这两个属性，我们需要注意的是旧版本的ie浏览器</p>
+            </section>
+            <section class="future" style="top: 92.5px; display: none;" hidden="" aria-hidden="true">
+                <h3>四.解决方案</h3>
+                <p>旧版本的ie浏览器提供了filter这一属性，下面是兼容性写法</p>
+                <pre>                <code>
+	                .transparent_class {
+	                filter:alpha(opacity=50);
+	                opacity: 0.5;
+	                }
+                </code>
+            </pre>
+            </section>
+            <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>五.编码实战</h3>
+            </section>
+            <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>六.拓展思考</h3>
+            </section>
+            <section class="future" style="top: 201px; display: none;" hidden="" aria-hidden="true">
+                <h3>七.参考文献</h3>
+                <p>参考一：<a href="http://www.cnblogs.com/Chenshuai7/p/5188068.html">DIV中display和visibility属性差别 </a></p>
+                <p>参考二:<a href="http://www.cnblogs.com/myvin/p/4621417.html" target="_blank">rgba与opacity区别小解</a></p>
+            </section>
+            <section class="future" style="top: 267px; display: none;" hidden="" aria-hidden="true">
+                <h3>八.更多讨论</h3>
+            </section>
+            <section class="future" style="top: 212.5px; display: none;" hidden="" aria-hidden="true">
+                <h4>鸣谢</h4>
+                <p>感谢大家观看</p>
+                <p><small>BY : 沁修 | 火山 | 叶紫阳 | 程仲夏</small></p>
+            </section>
+        </div>
+        <div class="backgrounds">
+            <div class="slide-background present" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: none;"></div>
+        </div>
+        <div class="progress" style="display: block;"><span style="width: 0px;"></span></div>
+        <aside class="controls" style="display: block;">
+            <button class="navigate-left" aria-label="previous slide"></button>
+            <button class="navigate-right enabled" aria-label="next slide"></button>
+            <button class="navigate-up" aria-label="above slide"></button>
+            <button class="navigate-down" aria-label="below slide"></button>
+        </aside>
+        <div class="slide-number" style="display: none;"></div>
+        <div class="speaker-notes" data-prevent-swipe=""></div>
+        <div class="pause-overlay"></div>
+        <div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+            【CSS-task6】 小课堂【武汉第99期】 rgba和opacity,display和visiblity区别 分享人：叶紫阳
+        </div>
+    </div>
+    <script src="./葡萄藤PPT_files/head.min.js.下载"></script>
+    <script src="./葡萄藤PPT_files/reveal.js.下载"></script>
+    <script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+    </script>
+</body>
+
+</html>

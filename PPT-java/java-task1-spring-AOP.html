@@ -1,0 +1,196 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring中的AOP</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>李林朋</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>在软件开发中，散布于应用中多处的功能被称为横切关注点，这些横切关注点从概念上是与应用的业务逻辑相分离的，但往往会直接嵌入到应用的业务逻辑中，把这些横切关注点与业务逻辑相分离正是面向切面编程（AOP）所要解决的问题[1]</p>
+            
+			
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+        	<p>AOP中有几个术语</p>
+        	<p>横切关注点：系统中的非核心业务的功能，如日志等，横切关注点可以被模块化为特殊的类，这些类被称为切面</p>
+        	<p>通知：切面的工作被称为通知，定义了切面是什么以及何时使用，spring切面有5种类型的通知</p>
+				<p>1.前置通知</p>
+				<p>2.后置通知</p>
+				<p>3.返回通知</p>
+				<p>4.异常通知</p>
+				<p>5.环绕通知</p>
+																
+		</section>
+
+		<section>
+			<p>连接点：连接点是程序执行过程种能够应用通知的所有的点</p>
+			<p>切点：切点定义了通知被应用的具体位置（在哪些连接点）</p>
+			<p>切面：切面和切点的结合，通知和切点共同定义了切面的全部内容，是什么，在何时，在何处</p>
+			<p>引入：利用引入可以向现有的类添加新的方法或属性</p>
+			<p>织入：把切面应用到目标对象并创建新的代理对象的过程</p>
+		</section>
+
+        <section>
+            <p>spring 提供了4种类型的AOP支持</p>
+            <p>1.基于代理的经典spring AOP</p>
+            <p>2.纯POJO切面</p>
+            <p>3.@AspectJ注解驱动的切面</p>
+           	<p>4.注入式AspectJ切面</p>
+            <p>前三种都是spring AOP实现的变体，构建在动态代理的基础上</p>
+
+        </section>
+
+         <section>
+         		<p>spring的经典AOP比较笨重和复杂，已经很少用到了。利用XML配置，用spring的aop命名空间，可以将POJO转换为切面。spring借鉴了AspectJ的编程模型，实现了不使用XML来实现定义切面。最后，spring还支持把bean装配进AspectJ切面中，AspectJ是另一个AOP实现，在编译期就可以将切面织入</p>
+         		<p>spring基于动态代理，所以spring方法连接点，相比于AspectJ，无法提供字段和构造器接入点，当需要细粒度的控制切面时，可以利用AspectJ来补充</p>
+         </section>
+
+      
+      		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+       
+        <section>
+        
+            <p>在软件开发中，散布于应用中多处的行为，如日志，性能统计等，不应该是应用对象主动参与的，应用对象应该只关注于自己所针对的业务问题，而将与核心业务无关的行为交给其他对象来处理</p>
+            
+        </section>  
+
+       
+               
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>采用AOP，面向对象编程，实现辅助功能与核心业务的分离</p>
+     
+        </section>
+      		 
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+   
+  		<section>
+  			<p>纯POJO切面</p>
+  			<p>@AspectJ注解驱动的切面</p>
+  		</section>
+      
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            
+            <p>利用被称为引入的AOP概念，切面可以为spring bean添加新的方法</p>
+           
+     
+        </section>
+
+  
+		
+        <section>
+            <h3>7.参考文献</h3>
+            <p>[1].spring 实战</p>
+          
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+           
+        </section>
+        <section>
+            
+            <p>感谢观看</p>
+            <p><small>BY : 李林朋</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

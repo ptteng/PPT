@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>copy</title>
+</head>
+<body>
+<script>
+
+    //浅拷贝
+    var a = ['1','2', '3'];//定义一个名为a的数组，里面有3个值，
+    var b = a;   //定义一个变量b，把a赋值给他，这样比、b和a一样了
+    b[2] = '4'; //然后把b的第三个值等于4
+    console.log(a); //那么现在打印a 是什么结果呢
+
+//深拷贝
+//    var arr = ["One","Two","Three"];
+//        var arrtoo = arr.slice(0);
+//        arrtoo[1] = "set Map";
+//        console.log(arr);//One,Two,Three
+//        console.log(arrtoo);//One,set Map,Three
+    //
+    //
+//        var arr1 = ["One","Two","Three"];
+//        var arrtooo = arr1.concat();
+//        arrtooo[1] = "set Map To";
+//        console.log(arr1);//One,Two,Three
+//        console.log(arrtooo);//One,set Map To,Three
+//    //
+//        var obj = [1,23,4,{name:'名字',value:"数值"}];
+//         json = JSON.stringify(obj);
+//        var newObj = JSON.parse(json);
+//        newObj[1] = 5 ;
+//        console.log(obj);
+//        console.log(newObj);
+
+
+//函数传参
+//    function setName(obj){
+//        obj.name = "aaa";
+//        obj = new Object();
+//        obj.name = "bbb";
+//        return obj;
+//    }
+//
+//
+//
+//    var person = new Object();
+//
+//    var person1 = setName(person);
+//
+//    console.log(person);
+//    console.log(person1);
+
+//
+//
+//    //对象浅拷贝
+//    Chinese.birthPlaces = ['北京','上海','香港'];
+//    var Doctor = extendCopy(Chinese);
+//    Doctor.birthPlaces.push('厦门');
+//    console.log(Doctor.birthPlaces); //北京, 上 海, 香港, 厦门
+//    console.log(Chinese.birthPlaces); //北京, 上海, 香港, 厦门
+
+    //对象深拷贝
+    var Chinese =
+        {
+        birthPlaces : ['北京','上海','香港']
+
+        };
+    function deepCopy(p,c) {
+        var c = c || {};
+        for (var i in p) {
+            if (typeof p[i] === 'object') {
+                c[i] = (p[i].constructor === Array) ? [] : {};
+
+                deepCopy(p[i], c[i]);
+            } else {
+
+                c[i] = p[i];
+            }
+        }
+        return c;
+    }
+    var doctor = deepCopy(Chinese);
+    doctor.birthPlaces.push('厦门');
+
+
+    console.log(doctor.birthPlaces); //北京, 上海, 香港, 厦门
+    console.log(Chinese.birthPlaces); //北京, 上海, 香港
+
+</script>
+</body>
+</html>
