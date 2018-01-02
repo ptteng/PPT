@@ -1,0 +1,189 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>json-taglib</h2>
+            <h3>小课堂</h3>
+            <p>分享人：郭伟杰</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍	</h3>
+        </section>
+        <section>
+            <p>JSON-taglib是一个JSP 2.0标记库，用于在JSP代码中呈现JSON（JavaScript Object Notation）数据。它可以作为AJAX应用程序的服务器端的一部分，允许您使用JSP的全部功能来格式化您的JSON数据。</p>
+            <p>标签库建立在由Douglas Crockford编写的Java JSON库上。</p>
+        </section>
+        <section>
+        	<p>JSON 指的是 JavaScript 对象表示法（JavaScript Object Notation）</p>
+        	<p>JSON是轻量级的文本数据交换格式</p>
+        	<p>JSON独立于语言以上传.json使用的JavaScript的的语法来描述数据对象，但是JSON仍然独立于语言和平台以上传上传.json解析器和JSON库支持许多不同的编程语言目前非常多的动态（PHP，JSP， .NET）编程语言都支持JSON。</p>
+        	<p>JSON具有自我描述性，更为理解</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>JSON是一种轻量级的数据交换格式。它是一种基于文本的，用于表示数据结构的可读格式.JSON是JavaScript对象文字符号的一个子集，广泛用于AJAX Web应用程序。</p>
+        </section>
+        <section>
+            <p>JSON-taglib被设计为尽可能易于使用。</p>
+            <p>它只做一件事：在JSP中呈现JSON数据。</p>
+            <p>SON-taglib由3个用于定义数据的简单标签组成：JSON:object，JSON:property和JSON:array。</p>
+        </section>
+        <section>
+        	<p>JSON-taglib标签的建立</p>
+            <p>在JSP中包含taglib。只需将json-taglib jar文件放入webapp的WEB-INF / lib目录中，然后在JSP的顶部使用以下taglib声明。</p>
+            <p><％@ taglib prefix =“json”uri =“http://www.atg.com/taglibs/json”％></p>
+        </section>
+        <section>
+            <p>一、JSON对象</p>
+        </section>
+        <section> 
+            <p>JSON:object标签用于创建JSON对象对象可以根据需要多次嵌套上传上传上传上传.json对象包含属性，使用上面描述的JSON：属性标签添加。</p>
+        </section>
+        <section>    
+            <p>二、JSON属性</p>
+        </section>
+        <section>    
+            <p>JSON:property标记来呈现JSON属性可以用该属性标签将属性添加到数据，对象或者数组中进行嵌套使用</p>
+        </section>
+        <section>    
+            <p>JSON属性基本上只是名称/值对。</p>
+            <p>名称就是是一个字符串，可以在标签上设置name =“...”属性。</p>
+            <p>值通过在标签上设置value =“...”属性。</p>
+        </section>  
+        <section>
+        	<p>如果指定的值是一个布尔值，那么它将被转换为一个JSON布尔值</p>
+        	<p>如果指定的值是一个数字（整数，短，长，双，浮点数），那么它将被转换成JSON数值。</p>
+        	<p>如果该值是一个字符串，它将被转换为一个JSON字符串。</p>
+        	<p>任何其他用于设置值的的的的的Java类型都将调用的的的toString（）方法，它们将被视为JSON字符串。</p>
+        </section>
+        <section>
+        	<p>三、JSON数组</p>
+        </section>
+        <section>
+        	<p>JSON:array标签用于创建JSON数组上传上传上传上传.json数组可能包含字符串，数值，布尔值，JSON对象或其他JSON数组。</p>
+        </section>
+        <section>
+        	<p>使用items =“...”属性传递值的集合或数组。</p>
+        	<p>集合将被迭代，集合中的每个值都将被添加到JSON数组中。</p>
+        	<p>集合中的项目类型遵循与JSON属性相同的规则，所以整数将成为JSON数字，布尔变成JSON布尔等等。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>为什么推荐使用JsonTaglib来处理的的的Json的？？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>使用JSON-标签库，在控制器中的代码更加简洁，易读</p>
+            <p>使用JSON-标签库更加灵活，如果以后需要更改JSON数据格式，只需要更改JSP页面即可，不需要改动控制器代码</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>生成的的的Json的有几种方式，他们之间的好处和坏处分别是什么？</p>
+        </section>        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="HTTP://json-taglib.sourceforge.net/" target="_blank">HTTP://json-taglib.sourceforge.net/</a></p>
+            <p>参考二：<a href="HTTPS://v.qq.com/x/page/q05502dk6ls.html" target="_blank">HTTPS://v.qq.com/x/page/q05502dk6ls.html</a></p>
+            <p>参考三：<a href="HTTP://www.runoob.com/json/json-tutorial.html" target="_blank">HTTP://www.runoob.com/json/json-tutorial.html</a></p>
+            <p>参考四：<a href="https://www.jianshu.com/p/002ef4cbcb2a" target="_blank">https://www.jianshu.com/p/002ef4cbcb2a</a></p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 郭伟杰</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

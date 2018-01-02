@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom</title>
+    <style>
+        body{
+            margin-bottom: 100px;
+        }
+        .on {
+            margin: 10px;
+            width: 500px;
+            height: 100px;
+            font-weight: blod;
+            border: solid 5px #000;
+            color: #fff;
+            background: red;
+        }
+
+        .btn {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body onload="alert('用户进入...')">
+    <h1>获取DOM</h1>
+    <div class="a" id="b">测试0</div>
+    <div class="a">测试1</div>
+    <div class="a">测试2</div>
+    <div class="a">测试3</div>
+    <div class="a">测试4</div>
+    <div class="a">测试5</div>
+    <div class="a">测试6</div>
+    <div class="a">测试7</div>
+    <hr>
+    <h1>DOM事件</h1>
+    <div class="on" onclick="console.log('用户点击...')">onclick事件---当用户点击时执行</div>
+    <div class="on">onload事件---当用户进入时执行</div>
+    <div class="on" onmouseover="console.log('用户鼠标指针移入...')" onmouseout="console.log('用户鼠标指针移出...')">onmouseover事件---当用户鼠标指针移入时执行
+        <br>onmouseout事件---当用户鼠标指针移出时执行
+    </div>
+    <div class="on" onmousedown="console.log('用户鼠标摁下...')" onmouseup="console.log('用户鼠标松开...')">onmousedown事件---当用户鼠标摁下时执行
+        <br>onmouseup事件---当用户鼠标松开时执行
+    </div>
+    <hr>
+    <h1>点击下面的按钮改变以下元素的文本</h1>
+    <p class="cc">通过className更改</p>
+    <span>通过tagName更改</span>
+    <br>
+    <button type="button" onclick="clickaa()" class="btn">点击修改</button>
+    <hr>
+    <h1>扩展思考</h1>
+    <input type="text" name="a" id="a" onblur="console.log(this.value)" />当输入框失去焦点时，将输入框内容打印出来
+    <br>
+    <br>
+    <input type="text" name="b" id="b" onchange="console.log(this.value)" />当输入框的值被改变时，将改变的值打印出来
+
+    <div class="on" onmousedown="whichButton(event)">
+        当点击这个框内的任意位置时，会打印出是使用了那个键点击的
+    </div>
+
+    <!-- js -->
+    <script>
+        var id = document.getElementById('b');
+        var clas = document.getElementsByClassName('a');
+        var tag = document.getElementsByTagName('div');
+        console.log(id)
+        console.log(clas)
+        console.log(tag)
+        function clickaa() {
+            document.getElementsByClassName('cc')[0].innerHTML = '通过getElementsByClassName()修改内容'
+            document.getElementsByTagName('span')[0].innerHTML = '通过getElementsByTagName()修改内容'
+        }
+
+        function whichButton(event) {
+            var btnNum = event.button;
+            if (btnNum == 2) {
+                console.log("您点击了鼠标右键！")
+            }
+            else if (btnNum == 0) {
+                console.log("您点击了鼠标左键！")
+            }
+            else if (btnNum == 1) {
+                console.log("您点击了鼠标中键！");
+            }
+            else {
+                console.log("您点击了" + btnNum + "号键，我不能确定它的名称。");
+            }
+        }
+    </script>
+</body>
+
+</html>
