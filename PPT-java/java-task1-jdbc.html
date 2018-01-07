@@ -1,0 +1,174 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>JDBC</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：韩要贺</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:center">JDBC(java Database connectivity,数据库连接)是一种用于执行SQL语句的Java API应用程序编程接口），可以为多种关系数据库（mysql，Oracle）提供统一访问，它由一组用JAVA语言编写的类和接口组成。可以实现对数据库的增删改查</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p>有了JDBC API，可以大量简化重复性的代码工作，就不必为访问Mysql数据库专门写一个程序，为访问Oracle数据库又专门写一个程序，或为访问DB2数据库又编写另一个程序等等，程序员只需用JDBC API写一个程序就够了，它可向相应数据库发送SQL调用。</p>
+		</section>
+		<section>
+			<p style="text-align:center">JDBC，操作流程分成五个步骤</p>
+			<p style="text-align:left">1.初始化驱动，通过Driver接口。装载MySql驱动：Class.forName("com.mysql.jdbc.Driver");装载Oracle驱动：Class.forName("oracle.jdbc.driver.OracleDriver");</p>
+			<p style="text-align:left">2.通过Connection对象建立与数据库的连接，提供端口号3306，数据库名称how2java，账号root，密码****</p>
+			<p style="text-align:left">3.创建执行SQL语句的Statement</p>
+			<p style="text-align:left">4.setObject写入数据。理论上来讲，任何set方法都可以用setObject代替。</p>
+			<p style="text-align:left">5.execute执行更新。依次关闭ResultSet，Statement，Connection</p>
+		</section>
+		<section>
+			<p style="text-align:center">Statement三种类</p>
+			<p style="text-align:left">1.Statement，发送简单SQL语句（代码比较）</p>
+			<p style="text-align:left">2.PreparedStatement发送含一或多个参数的SQL语句，比Statement效率高，可以进行批处理</p>
+			<p style="text-align:left">3.CallableStatement，调用储存过程</p>
+		</section>
+		<section>
+			<p style="text-align:center">Statement方法</p>
+			<p style="text-align:left">1.execute执行查询语句，返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等</p>
+			<p style="text-align:left">2.executeQuery，运行select语句，返回ResultSet结果集</p>
+			<p style="text-align:left">3.executeUpdate，运行insert、update、delete操作，返回int类型，表示有多少条数据受到了影响</p>
+		</section>
+		<section>
+			<p style="text-align:center">JDBC的常见用途</p>
+			<p style="text-align:left">1.JDBC的增删改，插入不同的SQL语句（运行代码）</p>
+			<p style="text-align:left">2.注意查询要返回数据（代码2）</p>
+		</section>
+		<section>
+			<p style="text-align:center">DAO(数据库访问对象）</p>
+			<p style="text-align:left">先做DAO接口，再做类，类实现DAO接口，就必须提供接口中声明的方法，实现在语法上的关键字是implements。（接口和类的区别）接口是抽象方法的集合，通常以interface来声明，没有main方法，用public修饰，接口无法被实例化，但是可以被实现；类是一个模板，它描述一类对象的行为和状态，一个实现接口的类，必须实现接口内所描述的所有方法，否则就必须声明为抽象类，抽象类是被用来创建继承层级里子类的模板。（代码）</p>
+		</section>
+		<section>
+			<p style="text-align:center">连接池</p>
+			<p style="text-align:left">1.当有多个线程，每个线程都需要连接数据库执行SQL语句的话，那么每个线程都会创建一个连接，并且在使用完毕后，关闭连接。
+            创建连接和关闭连接的过程也是比较消耗时间的，当多线程并发的时候，系统就会变得很卡顿。同时，一个数据库同时支持的连接总数也是有限的，如果多线程并发量很大，那么数据库连接的总数就会被消耗光，后续线程发起的数据库连接就会失败。</p>
+         </section>
+         <section>
+            <p style="text-align:left">2.连接池在使用之前，就会创建好一定数量的连接。
+            如果有任何线程需要使用连接，那么就从连接池里面借用，而不是自己重新创建. 
+            使用完毕后，又把这个连接归还给连接池供下一次或者其他线程使用。
+            倘若发生多线程并发情况，连接池里的连接被借用光了，那么其他线程就会临时等待，直到有连接被归还回来，再继续使用。整个过程，这些连接都不会被关闭，而是不断的被循环使用，从而节约了启动和关闭连接的时间（代码）</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.PreparedStatement和Statement有什么区别？</p>
+            <p style="text-align:left">2.为什么采取了PreparedStatement，运行时间反倒变慢了？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">1.Statement每次执行SQL语句，相关数据库都要进行SQL语句编译，PreparedStatement是预编译，对批量处理大大提高效率，可以防止SQL注入攻击，防止数据库缓冲池溢出，代码的可读性，可维护性都更好（运行代码）</p>
+			<p style="text-align:left">2.preparedstatment是否能提高性能，实际要具体的看数据库服务器端处理复杂SQL的情况，对于oracle而言在复杂的SQL上面二者性能差异明显（可以使用报表系统的SQL来测试），而比较简单的数据库MySQL而言其性能提升不明显。这和我们平时的观念有所出入</p>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+       <section>
+		 </section>
+		
+         <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">于博韬师兄的小课堂：</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
