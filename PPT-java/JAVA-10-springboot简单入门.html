@@ -31,11 +31,11 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Nginx的反向代理</h2>
-			<p></p>
-            <h3>java分享会</h3>
-            <p>分享人：韦 杰</p>
+            <h2>spring boot之入门篇</h2>
+            <h3>小课堂</h3>
+            <p>分享人：蒋新益</p>
         </section>
+
         <section>
             <p>1.背景介绍</p>
             <p>2.知识剖析</p>
@@ -46,73 +46,90 @@
             <p>7.参考文献</p>
             <p>8.更多讨论</p>
         </section>
+
         <section>
-            <h3>1.背景介绍</h3>
+            <h3>1.背景介绍 </h3>
         </section>
+
         <section>
-			<p>在传统的Web服务器体系结构中，每个客户端连接作为一个单独的进程或线程处理，随着网站的流行度增加，并发连接数量的增加，Web服务器减慢，延迟了对用户的响应。</p>
-			<p>从技术的角度来看，产生一个单独的进程/线程需要将CPU切换到新的任务并创建一个新的运行时上下文，消耗额外的内存和CPU时间，从而对性能产生负面影响。</p>
-			<p>Nginx开发的目标是实现10倍以上的性能，优化服务器资源的使用，同时也能够扩展和支持网站的动态增长。 因此，Nginx成为最知名的模块化，事件驱动，异步，单线程Web服务器和Web代理之一。</p>
-		</section>
+            <p>什么是spring boot</p>
+        </section>
+
+        <section>
+            <p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。用我的话来理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，spring boot整合了所有的框架（不知道这样比喻是否合适）。</p>
+        </section>
+
         <section>
             <h3>2.知识剖析</h3>
         </section>
+
         <section>
-			<p>1、正向代理</p>
-			<p>正向代理隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。</p>
-			<p>这里有张图</p>
+            <p>使用spring boot有什么好处</p>
         </section>
-		 <section>
-			<p>2、反向代理</p>
-			<p>反向代理隐藏了真实的服务器，当我们请求www.baidu.com的时候，就像拨打10086一样，背后可能有成千上万台服务器为我们服务，但具体时间哪一台，我们不知道，也不
-			需要知道，我们只需要知道反向代理服务器是谁就好了。反向代理服务器会帮我们把请求转发到真实的服务器那里去。</P>
-			<p>这里有张图</p>
+
+        <section>
+            <p>简单、快速、方便</p>
         </section>
-		 <section>
-			<p>正向代理代理的对象是客户端，反向代理代理的对象是服务器</p>
+
+        <section>
+            <p align="center">和以前的web项目比较</p>
+            <p align="left">1）配置web.xml，加载spring和spring mvc</p>
+            <p align="left">2）配置数据库连接、配置spring事务</p>
+            <p align="left">3）配置加载配置文件的读取，开启注解</p>
+            <p align="left">4）配置日志文件</p>
+            <p align="left">...</p>
         </section>
-         <section>
+
+        <section>
+            <p align="center">spring boot简洁性的原因</p>
+            <p>Spring Boot充分利用了JavaConfig的配置模式以及“约定优于配置”的理念，能够极大的简化基于Spring MVC的Web应用和REST服务开发</p>
+            <p>spring boot默认的配置文件必须是，也只能是application.命名的yml文件或者properties文件，且唯一</p>
+        </section>
+
+        <section>
             <h3>3.常见问题</h3>
         </section>
+
         <section>
-			<p>1、什么是HTTP Server（HTTP服务器），什么是Application Server（应用服务器）？</p>
+            <p>如何搭建一个spring框架</p>
         </section>
+
         <section>
             <h3>4.解决方案</h3>
         </section>
-		<section>
-			<p>1、Http Server又叫做Web Server，用于处理客户端对静态资源的请求或者用作反向代理将请求转发给Application Server，Nginx和Apache属于HTTP服务器；</p>
-			<p>2、Application Server 又叫做 Web应用容器，用于加载运行web应用，用来处理动态的请求，Tomcat、Jetty、Resin属于应用服务器。</p>
-			<p>这里有张图</p>
-		</section>
-		
+
         <section>
             <h3>5.编码实战</h3>
         </section>
-		<section>
-			<p>1、负载均衡的几种模式配置方法</p>
-			<p>2、Nginx做静态资源伺服</p>
-		</section>
-        
+
         <section>
             <h3>6.扩展思考</h3>
         </section>
-		<section>
-			<p>Nginx是怎样应对几十万、上百万的并发请求的？</p>
-        </section>
+
         <section>
-            <h3>7.参考文献</h3>
-            <p>http://www.jb51.net/article/81131.htm</p>
-			<p>https://www.cnblogs.com/vipyoumay/p/5853694.html</p>
+            <p>spring boot的不足和缺点</p>
+            <p align="left">因为不用自己亲手配置,出了问题排查困难</p>
+            <p align="left">看似配置简单,但是只是对有丰富经验的人比较友好,万一出了问题对新人来说会很棘手</p>
+            <p align="left">坑多文档少</p>
         </section>
+
         <section>
-            <h3>8.更多讨论</h3>
             <p></p>
         </section>
         <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>欢迎大家交流和讨论</p>
+        </section>
+        <section>
             <h4>鸣谢</h4>
-            <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 韦 杰</small></p>
+            <p>感谢大家观看</p>
+            <p>
+                <small>BY : 蒋新益</small>
+            </p>
         </section>
 
     </div>

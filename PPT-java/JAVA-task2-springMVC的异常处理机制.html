@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>在Controller里应该怎么处理Service的异常，大段的Try Catch 会有什么坏处？</h2>
+            <p></p>
+            <h3>java分享</h3>
+            <p>分享人：卢静</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>先介绍下背景</p>
+            <p>异常分类</p>
+            <p></p>
+            <p>异常类分两大类型：Error类，Exception类</p>
+            <p></p>
+            <p>
+                Error类代表了编译和系统的错误，不允许捕获；属于JVM运行中发生的一些错误，虽然并不属于开发人员的范畴，但是有些Error还是由代码引起的，比如StackOverflowError经常由递归操作引起</p>
+            <p>Exception分为两种，检查类型（checked）和未检查类型（unchecked）。检查类型的异常就是说要程序员明确的去声明或者用try..catch语句来处理的异常，而非检查类型的异常则没有这些限制。</p>
+
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>异常的处理</p>
+
+            <p>
+                针对预期可能发生的异常（检查类型（checked）），在代码手动处理异常可以try/catch捕获，可以向上抛出，可以声明。
+            </p>
+            <p>针对运行时异常，只能通过规范代码质量、在系统测试时详细测试等排除运行时异常。</p>
+
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>在Controller里，大段的Try Catch 会有什么坏处？</p>
+            <p>1.try catch 的代价比较大。相对于判断返回值，抛出异常到捕获，需要更多的cpu指令和代码</p>
+            <p>2.Java的异常机制是由JVM控制的，业务逻辑复杂的情况下，会影响controller的执行效率</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p> 1.用错误码控制业务流程,需要对每个接口的返回都要做一个错误码的校验。<p>
+            <p> 2.自定义异常处理类，使用springMVC提供的统一的异常处理方式</p>
+            <p> </p>
+        </section>
+
+        <section>
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+            <p></p>
+            <p>springMVC官方也提供了基于注解的统一异常处理方式，但是对代码的入侵性较大。</p>
+            <p>springMVC官方也提供了基于注解的统一异常处理方式，但是对代码的入侵性较大。</p>
+            <p>参考连接：https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc</p>
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>相关阅读：http://blog.csdn.net/column/details/spring-mvc.html
+                </p>
+                <p>引用：学习笔记源码下载地址：https://github.com/eson15/SpringMVC_Study</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 卢静</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -31,10 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>SpringAOP</h2>
+            <h2>Mysql的多表查询</h2>
 			<p></p>
             <h3>java分享会</h3>
-            <p>分享人：宋哲明</p>
+            <p>分享人：邹苏</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,111 +50,119 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
-		
-		
-		 <section>
-            <p>我们在任务中会接触到Spring，而Spring最关键的两处就是IOC和AOP</p>
-            <p>今天我们不看IOC，只讲AOP</p>
-        </section>
         <section>
-            <p>那我们在任务中需要使用SpringAOP做什么呢？</p>
-			 <p>任务中的描述是让我们记录日志</p>
-            
+            <p>产生背景</p>
+            <p> </p>
+        </section>
 
-		</section>
-			
-		
         <section>
             <h3>2.知识剖析</h3>
-			</section>
-			 <section>
-            <p>什么是AOP？</p>
-          
         </section>
         <section>
-            <p>面向切面编程（Aspect Oriented Programing，AOP）采用横向抽取机制，是面向对象编程（Object Oriented Programing，OOP）的补充和完善。
-			 <p>OOP引入封装、继承、多态等概念来建立一种对象层次结构，OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能、权限管理、异常处理等，
-			 该类功能往往横向地散布在核心代码当中，这种散布在各处的无关代码被称为横切。</p>
-            </p>
-            <p>
-           AOP利用一种称为“横切”的技术，剖解开封装的对象内部，并将那些影响了多个类的公共行为封装到一个可重用模块，并将其名为“Aspect”，即方面。所谓“方面”，简单地说，就是将那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可操作性和可维护性。
+			<p>多表查询:</p>
 
-            </p>
+
+               <p>多表查询就是在多个有逻辑联系的表之间进行的查询，逻辑关系主要是指主外键之间的联系，
+                   在主表中的某个字段的值取自另一个表中的一个字段，就是说主表中的一个字段的值包含于另一个表的一个字段的值的集合里 。</p>
+
+               <p>这样的话，如果要在主表里插入数据，就必须是对应的字段的值在相应的表中存在，才有可能插入成功，如果不存在，
+                   则肯定插入不成功（除非此字段可以为空） 。要实现多表之间的查询就要依靠表连接或者是子查询的方式实现</p>
+
+               <p></p>
+
+               
 		</section>
-		<section>
-		<p>AOP代表的是一个横向的关系，如果说“对象”是一个空心的圆柱体，其中封装的是对象的属性和行为；那么面向方面编程的方法，就仿佛一把利刃，将这些空心圆柱体剖开，以获得其内部的消息。而剖开的切面，也就是所谓的“方面”了。然后它又以巧夺天功的妙手将这些剖开的切面复原，不留痕迹。使用“横切”技术，AOP把软件系统分为两个部分：核心关注点和横切关注点。业务处理的主要流程是核心关注点，与之关系不大的部分是横切关注点。横切关注点的一个特点是，他们经常发生在核心关注点的多处，而各处都基本相似。比如权限认证、日志、事务处理。</p>
-		</section>
-			<section>
-            <p>怎么实现AOP？</p>
+        <section>
+
+            <p>表连接：</p>
+
+            <p>普通多表查询：
+
+                select 列1... from 表1，表2...
+                where...
+                在from之后可以有很多表，每个表之间用，隔开，from后面的表会做笛卡尔积
+                表与表之间做笛卡尔积，然后就能查询出来了</p>
+
+            <p>两个集合X和Y的笛卡尓积（Cartesian product），
+                又称直积，表示为X × Y，第一个对象是X的成员而第二个对象是Y的所有可能有序对的其中一个成员。</p>
+
+            <p></p>
         </section>
-		<section>
-		    <p>实现AOP的技术，主要分为两大类：一是采用动态代理技术，利用截取消息的方式，对该消息进行装饰，以取代原有对象行为的执行；二是采用静态织入的方式，引入特定的语法创建“方面”，从而使得编译器可以在编译期间织入有关“方面”的代码。
-			<p></p>
-			</p>
-		</section>
-		
-		
-         <section>
+        <section>
+            <p>内连接：</p>
+            <p>语法：select 列from 表1 别名 inner join 表2 别名 on 表1.列=表2.列，...</p>
+            <p>
+                from开始，表1与表2进行笛卡尔积，每匹配一行的数据，就会通过on后条件判断
+                是否成立，就将该行匹配的信息存放到临时表，否则不存放</p>
+
+            <p>外连接：</p>
+
+            <p>左外连接：左表中所有的记录都会被放到结果集中，无论是否在右表是否存在匹配记录</p>
+            <p>语法：select 列
+                from 表1 left outer join 表2 on 表1.列=表2.列</p>
+
+        </section>
+        <section>
+        <p>右外连接：不管是否成功匹配连接条件都会返回右表中的所有记录</p>
+
+        <p>语法： select 列
+            from 表1 right outer join 表2 on 表1.列=表2.列
+            </p>
+            <p>全外连接：在mysql中没有全外连接，可以使用union实现
+
+                即是select...左连接 union select  ... 右连接...
+                表1 full outer join 表2 on ...
+            </p>
+
+        </section>
+        <section>
             <h3>3.常见问题</h3>
         </section>
-        <section>
-		
-            <p>那么问题来了</p>
-			<p>我们看到AOP是一种技术，那么我们就需要学习如何应用。</p>
-		</section>
-	   <section>
-            <p>学习SpringAOP我们先要知道几个名词</p>
+
+
+		<section>
+			    <p>表之间的约束</p>
+				<p>数据库中的完整性约束用来防止对数据的意外破坏，来保证数据的安全性和一致性。
+                    通常我们都需要对数据库的某些列加上合适的约束来防止程序bug等导致的数据不一致，
+                    因为这类数据不一致的问题排查起来很困难。mysql中的完整性约束主要包括主键、外键
+                    （参照完整性约束）、唯一约束、非空约束等。</p>
+
+
+
         </section>
+
         <section>
-        <p>连接点（Joinpoint）：被拦截到的点，该连接点可以是被拦截到的方法、字段或者构造器；</p>
-        <p>切入点（Pointcut）：指要对哪些连接点进行拦截，即被拦截的连接点；</p>
-        <p>通知（Advice）：指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知；</p>
-        <p>目标（Target）：代理的目标对象；</p>
-        <p>织入（Weaving）：把增强的代码应用到目标上，生成代理对象的过程；</p>
-        <p>切面（Aspect）：切入点和通知的集合。</p>
-       
+            <h3>外键约束</h3>
+            <p>外键用来指定参照完整性约束，被指定为外键的列必需要有索引，外键参考列必需为另一个表的主键。</p>
+            <p> 语法：CONSTRAINT 外键约束名 FOREIGN KEY (本表字段名) REFERENCES 参照表名 (参照表字段名)</p>
+            <p> alter table 表名 add constraint 外键约束名 FOREIGN KEY(本表字段名) REFERENCES 参照表名 (参照表字段名);</p>
         </section>
-      
+        
+        
         <section>
-            <h3>4.解决方案</h3>
-        </section>
-				
-				<section>
-				<p>说了半天不知道你们懂没懂AOP的思想，我觉得懂了思想，后面的实现可能就没这么难了。所以这里我们再来简短的总结下</p>
-				</section>
-				<section>
-				<img src="D:\Java\小课堂\AOP.jpg">
-				</section>
-
-
-
-
-		
-
-	<section>
             <h3>5.编码实战</h3>
         </section>
-
+        
         <section>
             <h3>6.扩展思考</h3>
         </section>
 
         <section>
-            <p>JDk动态代理和CGLib代理的区别</p>
-        </section>
-		
-		 <section>
-            <p>JDK动态代理只能对实现了接口的类生成代理，而不能针对类 
-CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法 
-因为是继承，所以该类或方法最好不要声明成final </p>
-        </section>
-		
+            <p>关系数据库的三范式：</p>
 
-        
+            <p>一范式就是属性不可分割，原子性。</p>
+
+            <p>二范式就是要有主键，要求其他字段都依赖于主键。</p>
+
+            <p>三范式就是要消除传递依赖，方便理解，可以看做是“消除冗余”</p>
+        </section>
+
         <section>
             <h3>7.参考文献</h3>
-            <p>http://blog.csdn.net/ybt_c_index/article/details/78074729</p>
-			
+            <p>http://blog.csdn.net/jintao_ma/article/details/51260458</p>
+            <p>http://blog.csdn.net/github_37767025/article/details/67636061</p>
+            <p>http://blog.csdn.net/u012723798/article/details/47189479</p>
+
         </section>
         <section>
             <h3>8.更多讨论</h3>
@@ -162,7 +171,7 @@ CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 宋哲明</small></p>
+            <p><small>BY : 邹苏</small></p>
         </section>
 
     </div>
@@ -172,6 +181,7 @@ CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆
 <script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
 
 <script>
+
     // 以下为常见配置属性的默认值
     // {
     // 	controls: true, // 是否在右下角展示控制条
@@ -190,6 +200,7 @@ CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆
     // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
     // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
     // }
+
     // 初始化幻灯片
     Reveal.initialize({
         history: true,

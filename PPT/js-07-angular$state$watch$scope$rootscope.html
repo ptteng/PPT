@@ -1,0 +1,320 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : 'https://ptteng.github.io/PPT/css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+
+<body>
+<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h4>小课堂</h4>
+            <p>angular之中，$scope $rootScope $watch $state 是什么？</p>
+            <h4>分享人：蓝裕伟</h4>
+        </section>
+        <section>
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <section>
+                <h3>1.背景介绍</h3>
+            </section>
+            <section>
+                <p style="text-align: left">
+                    1、AngularJS Scope(作用域) <br>
+                    Scope(作用域) 是应用在 HTML (视图) 和 JavaScript (控制器)之间的纽带。Scope 是一个对象，有可用的方法和属性。
+                    Scope 可应用在视图和控制器上。$scope 的使用贯穿整个 Angular App 应用,它与数据模型相关联,同时也是表达式执行的上下文.
+                    有了 $scope 就在视图和控制器之间建立了一个通道,基于作用域视图在修改数据时会立刻更新 $scope,
+                    同样的 $scope 发生改变时也会立刻重新渲染视图. <br>
+                    1、根作用域 rootScope<br>
+                    所有的应用都有一个 $rootScope，它可以作用在 ng-app 指令包含的所有 HTML 元素中。
+                    $rootScope 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>2.知识剖析</h3>
+            </section>
+            <section style="text-align: left;font-size: 28px;">
+                <p>
+                    （1）$scope
+                </p>
+                <p>
+                    $scope是一个把view（一个DOM元素）连结到controller上的对象。
+                    在我们的MVC结构里，这个 $scope 将成为model，它提供一个绑定到DOM元素（以及其子元素）上的excecution context。
+                </p>
+                <img src="../img/js-07-$scope$watch/201635151546605.jpg" alt="">
+                $scope 实际上就是一个JavaScript对象，controller和view都可以访问它，所以我们可以利用它在两者间传递信息。
+                在这个 $scope 对象里，我们既可以存储数据，又可以存储将要运行在view上的函数。
+            </section>
+            <section style="text-align: left;font-size: 28px;">
+                <p>
+                    每一个Angular应用都会有一个 $rootScope。这个 $rootScope 是最顶级的scope，它对应着含有 ng-app 指令属性的那个DOM元素。
+                    如果页面上没有明确设定 $scope ，Angular 就会把数据和函数都绑定到这里。
+                </p>
+                <pre>
+                    <code>
+             app.controller("children",function ($scope,$rootScope) {
+                    $scope.child = "child";
+                   $rootScope.rootScope = "rootScope$rootScope"
+                      });
+                    </code>
+                </pre>
+                <p>
+                    Angular 应用启动并生成视图时,会将根 ng-app 元素与 $rootScope 进行绑定.$rootScope 是所有 $scope 的最上层对象,
+                    可以理解为一个 Angular 应用中得全局作用域对象,所以不应该附加太多逻辑或者变量给$rootScope,和污染 Javascript 全局作用域是一样的道理.
+                </p>
+
+            </section>
+            <section style="text-align:left;font-size: 28px">
+                $scope 的作用 <br>
+                $scope 对象在 Angular 中充当数据模型的作用,也就是一般 MVC 框架中 Model 得角色.
+                但又不完全与通常意义上的数据模型一样,因为 $scope 并不处理和操作数据,它只是建立了视图和 HTML 之间的桥梁,
+                让视图和 Controller 之间可以友好的通讯. <br>
+                它有如下作用和功能: <br>
+                提供了观察者可以监听数据模型的变化 <br>
+                可以将数据模型的变化通知给整个 App <br>
+                可以进行嵌套,隔离业务功能和数据 <br>
+                给表达式提供上下文执行环境 <br>
+                在 Javascript 中创建一个新的执行上下文,实际就是用函数创建了一个新的本地上下文,
+                在 Angular 中当为子 DOM 元素创建新的作用域时,其实就是为子 DOM 元素创建了一个新的执行上下文.
+            </section>
+            <section style="text-align:left">
+                $scope 的生命周期有4个阶段: <br>
+                1. 创建 <br>
+                控制器或者指令创建时, Angular 会使用 $injector 创建一个新的作用域,然后在控制器或指令运行时,将作用域传递进去.
+                2. 链接 <br>
+                Angular 启动后会将所有 $scope 对象附加或者说链接到视图上,所有创建 $scope 对象的函数也会被附加到视图上.
+                这些作用域将会注册当 Angular 上下文发生变化时需要运行的函数.也就是 $watch 函数, Angular 通过这些函数或者何时开始事件循环.
+                3. 更新 <br>
+                一旦事件循环开始运行,就会开始执行自己的脏值检测.一旦检测到变化,就会触发 $scope 上指定的回调函数
+                4. 销毁 <br>
+                通常来讲如果一个 $scope 在视图中不再需要, Angular 会自己清理它.
+                <!--当然也可以通过 $destroy() 函数手动清理.-->
+            </section>
+            <section style="text-align:left;font-size: 28px">
+                ng-controller指令给所在的DOM元素创建了一个新的$scope 对象，并将这个$scope 对象包含进外层DOM元素的$scope 对象里。
+                在ng-app里，这个外层DOM元素的$scope 对象，就是$rootScope 对象。这个scope链是这样的：
+                <img src="../img/js-07-$scope$watch/201635151716443.png" alt=""> <br>
+                所有scope都遵循原型继承（prototypal inheritance），这意味着它们都能访问父scope们。对任何属性和方法，
+                如果AngularJS在当前scope上找不到，就会到父scope上去找，如果在父scope上也没找到，就会继续向上回溯，一直到$rootScope 上。
+                唯一的例外：有些指令属性可以选择性地创建一个独立的scope，让这个scope不继承它的父scope们。
+                《看demo》
+            </section>
+            <section style="text-align:left;font-size: 28px">
+                <p>$watch:</p>
+                <p>
+                    angularjs核心之一是双向绑定，那么这个双向绑定是如何实现的呢？
+                    当我们在创建出scope下的一个新属性的时候，ng就会主动为我们新属性注册$watch这个方法，$watch用来监听
+                    的数据变化，当数据变化之后，就立即把view和scope上数据同步。AngularJS就能够自动注册并监听变量的改变。
+                    AngularJS会首先将在{{ }}中声明的表达式编译成函数并调用$watch方法。
+                </p>
+                $watch是一个scope函数，用于监听模型变化 <br>
+                $watch(watchExpression, listener, objectEquality){ ... }; <br>
+                watchExpression：$watch方法的第一个参数是一个函数，它通常被称为watch函数，它的返回值声明需要监听的变量； <br>
+                listener:第二个参数是listener，在变量发生改变的时候会被调用。和传统的事件注册和监听没有什么本质上的差别，
+                差别仅在于AngularJS能够自动注册绝大多数的change事件并进行监听，只要按照AngularJS要求的语法来写HTML中的表达式代码，即{{ }}。
+                $watch方法为当前scope注册了一个watcher，这个watcher会被保存到一个scope内部维护的数组中，即是$$watchers。
+                watcher的主要目的是对scope上的某个属性进行监控 <br>
+                objectEquality：是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. <br>
+            </section>
+            <section style="text-align:left;font-size: 28px">
+                当浏览器接收到可以被angular context处理的事件时，$digest循环就会触发。这个循环是由两个更小的循环组合起来的。
+                一个处理evalAsync队列(这个没有探究)，另一个处理$watch队列。$digest将会遍历我们的$watch队列。如果有至少一个更新过，
+                这个循环就会再次触发，直到所有的$watch都没有变化。这样就能够保证每个model都已经不会再变化。
+                如果循环超过10次的话，它将会抛出一个异常，防止无限循环。每次当$digest循环结束时，DOM相应地变化。 <br>
+                例如我们按下按钮触发ng-click事件： <br>
+                浏览器接收到一个事件，进入angular context。 <br>
+                $digest循环开始执行，查询每个$watch是否变化。 <br>
+                由于监视$scope.name的$watch报告了变化，它会强制再执行一次$digest循环。 <br>
+                新的$digest循环没有检测到变化。 <br>
+                浏览器拿回控制权，更新与$scope.name新值相应部分的DOM。 <br>
+                这里重要的是每一个进入angular context的事件都会执行一个$digest循环，
+                也就是说每次我们输入一个字母循环都会检查整个页面的所有$watch。 <br>
+                Angular会为我们自动调用$apply！因此当点击带有ng-click的元素时，事件就会被封装到一个$apply调用。
+                比如有一个ng-model="foo"的输入框，然后敲一个f，事件就会这样调用$apply("foo = 'f';")，触发$digest循环。
+            </section>
+            <section style="text-align:left;font-size: 28px">
+                <p>（4）$state</p>
+                <p>
+                    $state是ui-rooter的一项服务负责表示状态以及它们之间的转换。它还提供了接口来询问当前状态 </p>
+                常用的方法有：<br>
+                <!--$state.get(stateOrName, context) :为任何特定的状态或所有状态返回状态配置对象。<br>-->
+                $state.go(to, params, options) :转换到新状态的方便方法 <br>
+                $state.includes(stateOrName, params, options) :确定当前活动状态是否等于或是状态状态子的方法。返回布尔值 <br>
+                $state.params ： 返回状态参数的对象$stateParams
+                <p>$stateParams是一个对象，包含 url 中每个参数的键/值。$stateParams可以为控制器或者服务提供 url 的各个部分。
+                    注意：$stateParams必须与一个控制器相关，并且$stateParams中的“键/值”也必须事先在那个控制器的url属性中有定义。</p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>3.常见问题</h3>
+                1、 如何自定义$watch? <br>
+                2、 什么时候需要我们去调用$watch?
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h3>4.解决方案</h3>
+            </section>
+            <section style="text-align: left;font-size: 28px;">
+                1、自定义自己的watches： <br>
+                <pre>
+                <code>
+                    angular.module("myApp",[]).controller('MainCtrl', function($scope) {
+                    $scope.name = "hello";
+                    $scope.updated = -1;
+                    $scope.$watch('name', function() {
+                    $scope.updated++;
+                    });
+                    });
+                </code>
+                </pre>
+                //创造一个新的$watch的方法。第一个参数是一个字符串或者函数，在这里是只是一个字符串，就是我们要监视的变量的名字，
+                // 第二个参数是当$watch说我监视的表达式发生变化后要执行的。当controller执行到这个$watch时，它会立即执行一次 <br>
+                2、 取消 $watch :<br>
+                $watch 会影响性能问题，特别是在移动设备上，在不需要时应该清除 <br>
+                $watch函数本身返回一个函数,所以，当$watch不再需要的时候，我们只需调用返回的函数即可:
+                $scope.stop = function() {
+                //第一种方式
+                // textWatch();
+                //第二方式
+                //lastDirtyWatch = null;
+                };
+                《有demo》
+            </section>
+            <section style="font-size: 28px">
+                2、 什么时候需要我们去调用$watch? <br>
+                被调用的事件没有进入angular context，$digest循环永远没有执行。这种情况一般出现在指令的隔离作用域中
+                ，也会出现在异步执行的函数体中。调用$watch需要通过$apply。《有demo》
+                <!--<p>如果我们将$watch的第三个变量设置为true，那么此时我们进行的监视叫做“全等监视”，原词是“equality watch”。
+                此时，只要$watch的对象有一点风吹草动，它马上就跳出来</p>-->
+                <!--<p>-->
+                <!--既然全等监视这么好，那么我们为什么不直接用全等监视呢？当然，任何事情都有好的坏的两个方面，
+                全等监视固然是好，但是它在运行时需要先遍历整个监视对象，然后在每次$digest之前使用angular.copy()
+                将整个对象深拷贝一遍然后在运行之后用angular.equal()将前后的对象进行对比，但是到了实际生产时，我们要面对的数据千千万万，可
+                能因为全等监视这一个设置就会消耗大量的资源，让应用停滞不前</p>-->
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>5.编码实战</h3>
+            </section>
+            <section>
+                <a href="http://localhost:63342/demo/index.html?_ijt=qrfeuukpt6oc5u39h0pi5rmi6c#!/home"
+                   target="view_window">demo</a>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>6.扩展思考</h3>
+            </section>
+            <section style="font-size: 28px">
+                指令中的scope三个值有什么用？
+                <br>
+                false 共享作用域    <br>
+                true 创建自己的作用域，并继承父作用域   <br>
+                {}创建隔离作用域   <br>
+                《有demo》
+            </section>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>参考一：<a href="http://yuankeqiang.lofter.com/post/8de51_1454f93"
+                      target="_blank">Angular.js中使用$watch监听模型变化</a></p>
+            <p>参考二：<a href="http://blog.csdn.net/u010451286/article/details/50635839"
+                      target="_blank">关于$watch应用的一些小技巧</a></p>
+            <p>参考三：<a href="http://angular-tips.com/blog/2013/08/watch-how-the-apply-runs-a-digest/" target="_blank">Watch
+                how the apply runs a digest</a></p>
+            <p>参考四：<a href="http://www.jb51.net/article/80492.htm" target="_blank">深入解析AngularJS框架中$scope的作用与生命周期</a>
+            <p>参考五：<a href="   https://www.cnblogs.com/koleyang/p/4576419.html"
+                      target="_blank">--@ui-router——$state服务原版详解</a></p>
+
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p>
+                By
+                <small style="vertical-align: middle">蓝裕伟</small>
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

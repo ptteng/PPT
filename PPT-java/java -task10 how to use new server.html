@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -31,10 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Nginx的反向代理</h2>
+            <h2>1.复盘前 服务器准备 </h2>
 			<p></p>
             <h3>java分享会</h3>
-            <p>分享人：韦 杰</p>
+            <p>分享人：白笑然</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,70 +50,96 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
-        <section>
-			<p>在传统的Web服务器体系结构中，每个客户端连接作为一个单独的进程或线程处理，随着网站的流行度增加，并发连接数量的增加，Web服务器减慢，延迟了对用户的响应。</p>
-			<p>从技术的角度来看，产生一个单独的进程/线程需要将CPU切换到新的任务并创建一个新的运行时上下文，消耗额外的内存和CPU时间，从而对性能产生负面影响。</p>
-			<p>Nginx开发的目标是实现10倍以上的性能，优化服务器资源的使用，同时也能够扩展和支持网站的动态增长。 因此，Nginx成为最知名的模块化，事件驱动，异步，单线程Web服务器和Web代理之一。</p>
-		</section>
+		
+	
+			<section>
+            <p>我们的代码最终部署到服务器上</p>
+			<p>目的是在任何地方都可以访问</p>
+		    <p>现在前端对此不了解 一般都是后端部署前后端的代码</p>
+			 <p>我们的代码部署在服务器上 还需要在服务器进行相关配置 比如nginx</p>
+			</section>
+			
+		 
         <section>
             <h3>2.知识剖析</h3>
         </section>
-        <section>
-			<p>1、正向代理</p>
-			<p>正向代理隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。</p>
-			<p>这里有张图</p>
-        </section>
-		 <section>
-			<p>2、反向代理</p>
-			<p>反向代理隐藏了真实的服务器，当我们请求www.baidu.com的时候，就像拨打10086一样，背后可能有成千上万台服务器为我们服务，但具体时间哪一台，我们不知道，也不
-			需要知道，我们只需要知道反向代理服务器是谁就好了。反向代理服务器会帮我们把请求转发到真实的服务器那里去。</P>
-			<p>这里有张图</p>
-        </section>
-		 <section>
-			<p>正向代理代理的对象是客户端，反向代理代理的对象是服务器</p>
-        </section>
+		<section>
+		<p>nginx的配置 说难不难 说简单也挺麻烦的  </p>
+		    <p>首先来说我们需要准备八种东西</p>
+			<p>前台域名 后台域名 项目名 小组名 前台的访问端口 后台的访问端口 前端前台代码以及后台代码的位置 </p>
+            <p>然后我们要修改两个nginx文件 servers.conf  upstreams.conf</p>
+	 <p>然后还要新建两个文件 </p>
+		</section>
+		
          <section>
             <h3>3.常见问题</h3>
         </section>
-        <section>
-			<p>1、什么是HTTP Server（HTTP服务器），什么是Application Server（应用服务器）？</p>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
+		
 		<section>
-			<p>1、Http Server又叫做Web Server，用于处理客户端对静态资源的请求或者用作反向代理将请求转发给Application Server，Nginx和Apache属于HTTP服务器；</p>
-			<p>2、Application Server 又叫做 Web应用容器，用于加载运行web应用，用来处理动态的请求，Tomcat、Jetty、Resin属于应用服务器。</p>
-			<p>这里有张图</p>
+		<p>域名怎磨来的 能不能用</p>
+		<p>访问端口怎磨来的</p>
+          <p>代码位置是啥</p>   
 		</section>
 		
-        <section>
-            <h3>5.编码实战</h3>
-        </section>
-		<section>
-			<p>1、负载均衡的几种模式配置方法</p>
-			<p>2、Nginx做静态资源伺服</p>
-		</section>
         
         <section>
-            <h3>6.扩展思考</h3>
+            <h3>4.解决方案</h3>
+			<p>域名向施星大佬申请  申请完成后 ping测试是否能用</p>
+			  <p>前后台端口分开 而且有很多不同 提前wiki登记  </p>
+			  <p> 路径我们有通用的格式 请仿照别人的 例如<p>
+			   <p>  /data/svn/student/polyfinance/polyfinance-crimestory-html/trunk</p>
         </section>
+		
+			
 		<section>
-			<p>Nginx是怎样应对几十万、上百万的并发请求的？</p>
+          
+			
+		</section>
+	
+        
+        <section>
+            <h3>5.编码实战</h3>
+				
+</p>
+        </section>
+		
+        <section>
+        <img src="image/task1-10.jpg">
+		<img src="">
+        </section>
+		
+        <section>
+            <h3>6.扩展思考</h3>
+			
+        </section>
+              
+        <section>
+          
+        </section>
+		
+      
+		
         </section>
         <section>
             <h3>7.参考文献</h3>
-            <p>http://www.jb51.net/article/81131.htm</p>
-			<p>https://www.cnblogs.com/vipyoumay/p/5853694.html</p>
+			<p></p>
+         
+		
         </section>
+		
         <section>
             <h3>8.更多讨论</h3>
-            <p></p>
+           
         </section>
+		
+		<section>
+			<p></p>
+		</section>		
+		
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 韦 杰</small></p>
+            <p><small>BY : sweetalin</small></p>
         </section>
 
     </div>

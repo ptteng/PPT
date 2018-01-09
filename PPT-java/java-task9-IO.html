@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -31,10 +32,10 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Nginx的反向代理</h2>
+            <h2>Java中的I/O</h2>
 			<p></p>
-            <h3>java分享会</h3>
-            <p>分享人：韦 杰</p>
+            <h3>java 分享会</h3>
+            <p>分享人：李宁虎</p>
         </section>
         <section>
             <p>1.背景介绍</p>
@@ -49,70 +50,162 @@
         <section>
             <h3>1.背景介绍</h3>
         </section>
-        <section>
-			<p>在传统的Web服务器体系结构中，每个客户端连接作为一个单独的进程或线程处理，随着网站的流行度增加，并发连接数量的增加，Web服务器减慢，延迟了对用户的响应。</p>
-			<p>从技术的角度来看，产生一个单独的进程/线程需要将CPU切换到新的任务并创建一个新的运行时上下文，消耗额外的内存和CPU时间，从而对性能产生负面影响。</p>
-			<p>Nginx开发的目标是实现10倍以上的性能，优化服务器资源的使用，同时也能够扩展和支持网站的动态增长。 因此，Nginx成为最知名的模块化，事件驱动，异步，单线程Web服务器和Web代理之一。</p>
+		 <section>
+            <p>
+				Java中I/O流是一种计算机用语。而I/O问题可以说是Web应用中所面临的主要问题之一，因为在这个海量数据时代，数据在网络中随处流动。这个流动都涉及到I/O问题，可以说大部分Web应用系统的瓶颈都是I/O瓶颈。
+			</p>
+
+			<p>
+				I/O问题是任何编程语言都无法回避的问题，可以说I/O问题是整个人机交互的核心问题，因为I/O是机器获取和交换信息的主要渠道。在这个数据爆炸的时代，I/O问题尤其突出。
+			</p>
 		</section>
-        <section>
-            <h3>2.知识剖析</h3>
-        </section>
-        <section>
-			<p>1、正向代理</p>
-			<p>正向代理隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。</p>
-			<p>这里有张图</p>
-        </section>
-		 <section>
-			<p>2、反向代理</p>
-			<p>反向代理隐藏了真实的服务器，当我们请求www.baidu.com的时候，就像拨打10086一样，背后可能有成千上万台服务器为我们服务，但具体时间哪一台，我们不知道，也不
-			需要知道，我们只需要知道反向代理服务器是谁就好了。反向代理服务器会帮我们把请求转发到真实的服务器那里去。</P>
-			<p>这里有张图</p>
-        </section>
-		 <section>
-			<p>正向代理代理的对象是客户端，反向代理代理的对象是服务器</p>
-        </section>
-         <section>
-            <h3>3.常见问题</h3>
-        </section>
-        <section>
-			<p>1、什么是HTTP Server（HTTP服务器），什么是Application Server（应用服务器）？</p>
-        </section>
-        <section>
-            <h3>4.解决方案</h3>
-        </section>
 		<section>
-			<p>1、Http Server又叫做Web Server，用于处理客户端对静态资源的请求或者用作反向代理将请求转发给Application Server，Nginx和Apache属于HTTP服务器；</p>
-			<p>2、Application Server 又叫做 Web应用容器，用于加载运行web应用，用来处理动态的请求，Tomcat、Jetty、Resin属于应用服务器。</p>
-			<p>这里有张图</p>
+			<p>
+				<img src="C:\Users\李宁虎\Videos\2.png">
+			</p>
 		</section>
 		
+
+        <section>
+            <h3>2.知识剖析</h3>	
+		</section>
+
+		<section>
+			 <p>
+				IO流的三种分类方式
+
+					<p>
+						1.按流的方向分为：输入流和输出流
+					</p>
+					<p>
+						2.按流的数据单位不同分为：字节流和字符流
+
+					</p>
+					<p>
+						3.按流的功能不同分为：节点流和处理流
+					</p>	
+		
+			 </p>
+
+			<p>
+				IO流的四大抽象类
+
+					<p>
+						字符流：Reader  Write
+					</p>
+					<p>
+						字节流：InputStream 读 OutputStream 写
+
+					</p>
+			 </p>
+
+
+			
+
+			 </section>
+
+			 <section>
+
+				<p>
+					 基于字节操作的I/O接口：InputStream 和 OutputStream
+				</p>
+
+				<p>
+					 基于字符操作的I/O接口：Writer 和 Reader
+				</p>
+
+				<p>
+					 基于磁盘操作的I/O接口：File	
+				</p>
+
+				<p>
+					 基于网络操作的I/O接口：Socket	
+				</p>
+       	        
+				    
+			 </section>
+			
+			<section>
+			<p>
+
+				FileReader类其实就是简单的包装一下FileInputStream，但是它继承InputStreamReader类，当调用read方法时其实调用的是StreamDecoder类的read方法，这个StreamDecoder正是完成字节到字符的解码的实现类。
+				<img src="C:\Users\李宁虎\Videos\1.png">
+			</p>
+		</section>
+         <section>
+            <h3>3.常见问题</h3>
+         </section>
+         <section>
+			<p>
+				I/O传输过程中的阻塞问题，传输时间长，访问磁盘次数过多。
+			</p>
+			
+		</section>
+           
+        <section>
+            <h3>4.解决方案</h3>
+            <p></p>
+        </section>
+
+			<section>
+					
+					<p> 
+					   通常提升磁盘I/O性能的方法有：
+					   
+					   <p>
+							1：增加缓存，减少磁盘访问次数
+					   </p>
+					   <p>
+							2：优化磁盘的管理系统，设计最优的磁盘方式策略。这是在底层操作系统层面考虑的。
+					   </p>
+					   <p>
+							3：设计合理的磁盘存储数据块，以及访问这些数据块的策略。这是在应用层考虑的。可以给存放的数据设计索引，通过寻址输索引来加快和减少磁盘的访问量，还可以使用异步和非阻塞的方式加快磁盘的访问次数。
+					   </p>
+					</p>
+				</section>
+				
         <section>
             <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
         </section>
-		<section>
-			<p>1、负载均衡的几种模式配置方法</p>
-			<p>2、Nginx做静态资源伺服</p>
-		</section>
-        
+
+       
         <section>
             <h3>6.扩展思考</h3>
         </section>
-		<section>
-			<p>Nginx是怎样应对几十万、上百万的并发请求的？</p>
+	
+        <section>
+            <p>
+				socket是什么，怎样与别的网络进行通信？
+			</p>
+        </section>
+        
+		 <section>
+            <p>
+				　一台计算机要和另一台计算机进行通讯，获取其上应用程序的数据，必须通过Socket建立连接，要知道对方的IP和端口号。建立一个Socket连接需要通过底层TCP/IP协议来建立TCP连接，而建立TCP连接必须通过底层IP协议根据给定的IP在网络中找到目标主机。目标计算机上可能跑着多个应用，所以我们必须要根据端口号来制定目标应用程序，这样就可以通过一个 Socket 实例唯一代表一个主机上的一个应用程序的通信链路了。
+			</p>
         </section>
         <section>
             <h3>7.参考文献</h3>
-            <p>http://www.jb51.net/article/81131.htm</p>
-			<p>https://www.cnblogs.com/vipyoumay/p/5853694.html</p>
+            <p>
+				链接：http://blog.csdn.net/sight_/article/details/8138802		
+				作者：fantisGod
+				
+				链接：https://www.cnblogs.com/zhuYears/archive/2013/04/10/2993292.html
+				作者：lance的心思
+			</p>
+			
         </section>
         <section>
             <h3>8.更多讨论</h3>
-            <p></p>
+            <p>
+				
+			</p>
         </section>
         <section>
             <h4>鸣谢</h4>
             <p>感谢观看,如有出错,恳请指正</p>
-            <p><small>BY : 韦 杰</small></p>
+            <p><small>BY : 北京分院 李宁虎</small></p>
         </section>
 
     </div>

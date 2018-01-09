@@ -1,0 +1,380 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>IO流</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+		
+			<p>流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。</p>
+            <p>数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，
+			方便更直观的进行数据操作。</p>
+			
+	     
+        </section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+		
+		<section>
+		
+			<p>IO流的分类</p>
+			<p>根据处理数据类型的不同分为：字符流和字节流</p>
+			<p>根据数据流向不同分为：输入流和输出流</p>
+			<p></p>
+			
+		</section>
+
+        <section>
+
+            <p>字符流和字节流</p>
+			<p>字符流的由来：因为数据编码的不同，而有了对字符进行高效操作的流对象。
+			本质其实就是基于字节流读取时，去查了指定的码表。</p>
+			<p> 字节流和字符流的区别：</p>
+			<p>读写单位不同：字节流以字节（8bit）为单位，字符流以字符为单位，根据码表映射字符，一次可能读多个字节。</p>
+			<p>处理对象不同：字节流能处理所有类型的数据（如图片、avi等），而字符流只能处理字符类型的数据。</p>
+			
+        </section>
+		
+		<section>
+
+            <p>输入流和输出流 </p>
+			<p>对输入流只能进行读操作，对输出流只能进行写操作，程序中需要根据待传输数据的不同特性而使用不同的流。</p>
+			
+        </section>
+		
+		<section>
+
+            <p>字节流</p>
+			
+        </section>
+		
+		<section>
+
+            <p>输入字节流InputStream：看图片</p>
+			<p>InputStream 是所有的输入字节流的父类，它是一个抽象类。</p>
+			<p>ByteArrayInputStream、StringBufferInputStream、FileInputStream 是三种基本的介质流，
+			它们分别从Byte 数组、StringBuffer、和本地文件中读取数据。
+			PipedInputStream 是从与其它线程共用的管道中读取数据。</p>
+			<p>ObjectInputStream 和所有FilterInputStream 的子类都是装饰流（装饰器模式的主角）。</p>
+			
+        </section>
+		
+		<section>
+
+            <p>输出字节流OutputStream：看图片</p>
+			<p>OutputStream 是所有的输出字节流的父类，它是一个抽象类。</p>
+			<p>ByteArrayOutputStream、FileOutputStream 是两种基本的介质流，
+			它们分别向Byte 数组、和本地文件中写入数据。PipedOutputStream 是向与其它线程共用的管道中写入数据，</p>
+			<p>ObjectOutputStream 和所有FilterOutputStream 的子类都是装饰流。</p>
+			
+        </section>
+		
+		<section>
+
+            <p>字符流</p>
+			
+        </section>
+		
+		<section>
+
+            <p>Reader 是所有的输入字符流的父类，它是一个抽象类。</p>
+			<p>CharReader、StringReader 是两种基本的介质流，
+			它们分别将Char 数组、String中读取数据。PipedReader 是从与其它线程共用的管道中读取数据。</p>
+			<p>BufferedReader 很明显就是一个装饰器，它和其子类负责装饰其它Reader 对象。</p>
+			<p>InputStreamReader 是一个连接字节流和字符流的桥梁，它将字节流转变为字符流。
+			FileReader 可以说是一个达到此功能、常用的工具类，在其源代码中明显使用了将FileInputStream 转变为Reader 的方法。
+			我们可以从这个类中得到一定的技巧。Reader 中各个类的用途和使用方法基本和InputStream 中的类使用一致。</p>
+			
+        </section>
+		
+		<section>
+
+            <p>Writer 是所有的输出字符流的父类，它是一个抽象类。</p>
+			<p>CharArrayWriter、StringWriter 是两种基本的介质流，
+			它们分别向Char 数组、String 中写入数据。PipedWriter 是向与其它线程共用的管道中写入数据，</p>
+			<p>BufferedWriter 是一个装饰器为Writer 提供缓冲功能。</p>
+			<p>PrintWriter 和PrintStream 极其类似，功能和使用也非常相似。</p>
+			<p>OutputStreamWriter 是OutputStream 到Writer 转换的桥梁，
+			它的子类FileWriter 其实就是一个实现此功能的具体类（具体可以研究SourceCode）。
+			功能和使用和OutputStream 极其类似。</p>
+			
+        </section>
+		
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>字符流与字节流转换的特点、何时转换、具体体现？</p>
+			<p></p>
+			<p></p>
+			
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+		
+            <p>转换流的特点：</p>
+			<p>其是字符流和字节流之间的桥梁</p>
+			<p>可对读取到的字节数据经过指定编码转换成字符</p>
+			<p>可对读取到的字符数据经过指定编码转换成字节</p>
+			<p></p>
+        </section>
+		
+		<section>
+		
+            <p>何时使用转换流？</p>
+			<p>当字节和字符之间有转换动作时；</p>
+			<p>流操作的数据需要编码或解码时。</p>
+			<p></p>
+			<p></p>
+        </section>
+		
+		<section>
+		
+            <p>具体的对象体现：</p>
+			<p>InputStreamReader:字节到字符的桥梁</p>
+			<p>OutputStreamWriter:字符到字节的桥梁</p>
+			<p>这两个流对象是字符体系中的成员，它们有转换作用，本身又是字符流，所以在构造的时候需要传入字节流对象进来。</p>
+			<p></p>
+        </section>
+
+		
+		
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+		
+			<p>什么时候使用字节流，什么时候使用字符流？</p>
+			<p>只要是处理纯文本数据，就优先考虑使用字符流。 除此之外都使用字节流。</p>
+		
+        </section>
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+            <p>参考一：https://www.cnblogs.com/oubo/archive/2012/01/06/2394638.html  java IO流的使用总结</p>
+			<p></p>
+			
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>
