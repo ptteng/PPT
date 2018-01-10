@@ -1,0 +1,445 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>葡萄藤PPT</title>
+
+		<link rel="stylesheet" href="../css/reveal/reveal.css">
+
+		<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+		<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+		<!-- syntax highlighting 代码高亮主题 -->
+		<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+		<!-- 打印和PDF输出样式 -->
+		<script>
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+			document.getElementsByTagName('head')[0].appendChild(link);
+		</script>
+		<style>
+			* {
+				font-family: 'Microsoft JhengHei'!important;
+			}
+			
+			.reveal pre code {
+				background-color: #120;
+			}
+			
+			h5,
+			h6 {
+				text-transform: none !important;
+			}
+			
+			h6 {
+				text-align: start;
+				font-size: 22px !important;
+			}
+			
+			xmp {
+				margin: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+		<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>小课堂【萌新】</h4>
+					<h4> 基本数据类型</h4>
+					<h4>分享人：吴泽华</h4>
+				</section>
+				<section>
+					<p>目录</p>
+
+					<p>1.背景介绍</p>
+					<p>2.知识剖析</p>
+					<p>3.常见问题</p>
+					<p>4.解决方案</p>
+					<p>5.编码实战</p>
+					<p>6.扩展思考</p>
+					<p>7.参考文献</p>
+					<p>8.更多讨论</p>
+				</section>
+				<section>
+					<section>
+						<h3>1.背景介绍</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h5>JavaScript是一种弱类型或者说动态语言。就是不用提前声明变量的类型，
+							在程序运行过程中，类型会被自动确定。这也意味着你可以使用同一个变量保存不同类型的数据
+						</h5>
+						
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>2.知识剖析</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h5>
+							js基本数据类型有哪些？<br />
+							ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。
+							还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成的。
+						</h5>
+					</section>
+					
+				</section>
+				<section>
+					<section>
+						<h5>
+							typeof 操作符<br />
+
+ 							由于js中的变量是松散类型的，所以它提供了一种检测当前变量的数据类型的方法，就是typeof关键字.
+							通过typeof关键字，对这5种数据类型会返回下面的值（以字符串形式显示)<br />
+							undefined ---------- 如果值未定义 Undefined<br />
+
+							boolean ---------- 如果这个值是布尔值 Boolean<br />
+
+							string ---------- 如果这个值是字符串 String<br />
+
+							number ---------- 如果这个值是数值类型 Number<br />
+
+							object ---------- 如果这个值是对象或null Object<br />
+
+							需要注意的是typeof null返回为object,因为特殊值null被认为是一个空的对象引用。
+                        </h5>
+					</section>
+					
+				</section>
+				<section>
+					<h5>  1. Undefined</h5>
+					<h6>Undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined</h6>
+					<pre>
+						<code>
+							var a；
+							alert(a==undefined);//true
+						</code>
+					</pre>
+					<h6>这个例子只声明了变量a，但并没有对它进行初始化。比较这个变量与undefined字面量，表明它们是相等的</h6>
+					
+					<pre>
+						<code>
+							var a=undefined；
+							alert(a==undefined);//true
+						</code>
+					</pre>
+
+					<h6>这个例子使用undefined值显示初始化了变量a，但是没有必要这么做，因为未经初始化的值默认就会取得undefined值</h6>
+                   
+				</section>
+				<section>
+					<h6>不过包含undefined值的变量与未定义的变量还是不一样的</h6>
+					<pre>
+						<code>
+							var a=；//这个变量声明之后默认取得了undefined值
+							
+							//下面这个变量并没有声明
+							//var age
+							
+							alert(a);  //"undefined"
+							alert(age);  //产生错误
+						</code>
+					</pre>
+					<h6>第一个警告框会显示a的值，即"undefined"；第二个警告框因为传递alert()函数的是没有声明的变量age所以会出现一个错误</h6>
+				</section>
+				<section>
+					<h6>对没有初始化的变量执行typeof操作符会返回undefined值，而对没有声明的变量执行typeof操作符也会返回undefined值</h6>
+					<pre>
+						<code>
+							var a=；//这个变量声明之后默认取得了undefined值
+							
+							//下面这个变量并没有声明
+							//var age
+							
+							alert(typeof a);  //"undefined"
+							alert(typeof age);  //"undefined"
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h5>2.null</h5>
+					<h6>Null类型是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个空对象指针，
+						而这也正是使用typeof操作符检测null时会返回object的原因。
+					</h6>
+					<pre>
+						<code>
+							var car=null；
+							
+							alert(typeof car);  //"object"
+						</code>
+					</pre>
+					<h6>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，
+						只要直接检测null值就可以知道相应的变量是否已经保存了一个对象的引用了。</h6>
+					<pre>
+						<code>
+							if (car !=null){
+								//对car对象执行某些操作
+							}
+						</code>
+					</pre>	
+					
+				</section>
+				<section>
+					<h6>实际上undefined值是派生自null值的，因此ECMA-262规定对它们的相等性测试要返回true</h6>
+					<pre>
+						<code>
+							alert(null==undefined);//true
+						</code>
+					</pre>	
+					<h6>位于null和undefined之间的相等操作符"=="总是返回true，不过需要注意的是这个操作符醋鱼比较的目的会转换其操作数</h6>
+					<h6>只要意在保存对象的变量还没有真正保存对象，就应该明确的让该变量保存null值。不仅可以体现null作为空对象指针的惯例还有助于进一步区分null和undefined</h6>
+				</section>
+				<section>
+					<h5>3.Boolean</h5>
+					<h6>该类型只有两个字面值：true和false。这两个值与数字值不是一回事，因此true不一定等于1，而false也不一定等于0。</h6>
+					<pre>
+						<code>
+							var found=true；
+							var lost=false；
+						</code>
+					</pre>	
+					<h6>需要注意的是Boolean类型的字面值true和false是区分大小写的</h6>
+				</section>
+				<section>
+					<h6>虽然Boolean类型的字面值只有两个，但JavaScript中所有类型的值都有与这两个Boolean值等价的值。
+						要将一个值转换为其对应的Boolean值，可以调用类型转换函数Boolean()，</h6>
+					<pre>
+						<code>
+							var message="Hello world"；
+							var messageAsBoolean=Boolean(message)；
+						</code>
+					</pre>	
+					<h6>在这个例子中，字符串message被转换成了一个Boolean值，该值被保存在messageAsBoolean变量中。
+						可以对任何数据类型的值调用Boolean()函数，而且总会返回一个Boolean值。至于返回的这个值是true还是false，
+						取决于要转换值的数据类型及其实际值</h6>
+					
+				</section>
+				<section>
+					<table>
+						<tr>
+							<th>数据类型</th>
+							<th>转换为true的值</th>
+							<th>转换为false的值</th>
+						</tr>
+						<tr>
+							<th>Boolean</th>
+							<th>true</th>
+							<th>false</th>
+						</tr>
+						<tr>
+							<th>String</th>
+							<th>任何非空字符串</th>
+							<th>..（空字符串）</th>
+						</tr>
+						<tr>
+							<th>Number</th>
+							<th>任何非零数字值（包括无穷大）</th>
+							<th>0和NaN</th>
+						</tr>
+						<tr>
+							<th>Object</th>
+							<th>任何对象</th>
+							<th>null</th>
+						</tr>
+						<tr>
+							<th>Undefined</th>
+							<th>不适用</th>
+							<th>undefined</th>
+						</tr>
+						
+					</table>
+				</section>
+				<section>
+
+					<h6>
+					这些转换规则对理解流控制语句（如if语句）自动执行相应的Boolean转换非常重要
+					</h6>
+					<pre>
+						<code>
+							var message="Hello world";
+							if (message){
+								alert("Value is true");
+							}
+						</code>
+					</pre>
+					<h6>运行这个示例，就会显示一个警告框，因为字符串message被自动转换成了对应的Boolean值（true）。
+						由于存在这种自动执行的Boolean转换，因此确切地知道在流控制语句中使用的是什么变量至关重要</h6>
+				</section>
+				<section>
+					<h5>4.Number</h5>
+					<h6>
+						这种类型用来表示整数和浮点数值，还有一种特殊的数值，即NaN（非数值 Not a Number）。
+						这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。
+						例如，在其他编程语言中，任何数值除以0都会导致错误，从而停止代码执行。但在JavaScript中，
+						任何数值除以0会返回NaN，因此不会影响其他代码的执行。
+					</h6>
+					<h6>NaN本身有两个非同寻常的特点。首先，任何涉及NaN的操作（例如NaN/10）都会返回NaN，
+						这个特点在多步计算中有可能导致问题。其次，NaN与任何值都不相等，包括NaN本身。</h6>
+					<pre>
+						<code>
+							alert(NaN == NaN);    //false
+						</code>
+					</pre>
+
+				</section>
+				
+				
+					<section>
+						<h5>5.String</h5>
+						<h6>String类型用于表示由零或多个16位Unicode字符组成的字符序列，
+							即字符串。字符串可以由单引号(')或双引号(")表示。</h6>
+						<h6>String类型的特殊性</h6>
+						<h6>string类型有些特殊，因为字符串具有可变的大小，所以显然它不能被直接存储在具有固定大小的变量中。
+							由于效率的原因，我们希望JS只复制对字符串的引用，而不是字符串的内容。但是另一方面，
+							字符串在许多方面都和基本类型的表现相似，而字符串是不可变的这一事实（即没法改变一个字符串值的内容），
+							因此可以将字符串看成行为与基本类型相似的不可变引用类型</h6>
+						
+				</section>
+				<section>
+					
+						<h6>Boolean、Number、String 这三个是Javascript中的基本包装类型，也就是这三个其实是一个构造函数，
+							他们是Function的实例，是引用类型，这里的String指的是String这个构造函数,因为Javascript是松散类型的。</h6>
+						<pre>
+						<code>
+						var name = String("jwy");
+							alert(typeof name);//"object"
+							var author = "Tom";
+							alert(typeof name);//"string"
+						</code>
+					</pre>
+					<h6>注意，typeof 变量 如果值是"string" 的话，也就是这个变量是字符串，在Javascript中，字符串是基本类型，而在C#或Java中，
+						字符串是引用类型，但是Javascript中的String是引用类型，因为它是Javascript中定义好的基本包装类型，在C#中，
+						String跟string其实是一样的。</h6>
+				</section>
+					<section>
+						<h5>6.Object</h5>
+						<h6>ECMAScript中的对象其实就是一组数据和功能的集合。对象可以通过new操作符后跟要创建的对象类型的名称来创建。
+						而创建Object类型的实例并为其添加属性和方法，就可以创建自定义对象</h6>
+						<pre>
+						<code>
+							var o=new Object（）；
+						</code>
+						</pre>
+						<h6>在ECMAScript中Object类型是所有它的实例的基础，
+							也就是说Object类型所具有的任何属性和方法也同样存在于更具体的对象中</h6>
+					
+					<a href="http://blog.csdn.net/wlwanglu/article/details/52253002">Object常用方法和属性</a>
+					</section>
+					<section>
+						<h5>3.常见问题</h5>
+						<h6>问题一：如何判断数据类型</h6>
+						<h6>问题二：常用数据转换方法</h6>
+					</section>
+					<section>
+						<h5>4.解决方法</h5>
+						<h6>一：使用typeof操作符。typeof操作符的操作数可以是变量也可以是数值字面量。需要注意的是 调用typeof null会返回"object"，因为null被认为是一个空的对象引用。</h6>
+						
+						<h6>二：转数值：parseInt() 和 parseFloat()。<br />
+								转字符串： .toString()<br />
+								强制转换：访问数据内部内容，并将符合格式的内容进行转换<br />
+								Boolean(value) - 把给定的值转换成 Boolean 型；<br />
+								Number(value) - 把给定的值转换成数字（可以是整数或浮点数）；<br />
+								String(value) - 把给定的值转换成字符串；</h6>
+					</section>
+				<section>
+					<section>
+						<h3>5.扩展思考</h3>
+						<h5></h5>
+						
+					</section>
+					
+				</section>
+
+				<section>
+					<section>
+						<h3>6.参考文献</h3>
+						<a href="http://www.w3school.com.cn/js/pro_js_primitivetypes.asp">ECMAScript原始类型</a><br />
+						<a href="http://www.w3school.com.cn/js/pro_js_referencetypes.asp">ECMAScript引用类型</a><br />
+						<a href="http://www.w3school.com.cn/js/pro_js_typeconversion.asp">ECMAScript类型转换</a><br />
+						<a href="http://www.cnblogs.com/CheerfulGarden/p/5518932.html">Javascript的三个组成部分</a>
+					</section>
+				</section>-->
+				
+					<section>
+						<h3>7.更多讨论</h3>
+					</section>
+					<section>
+						<h5>数组类型属于哪种类型？</h5>
+					</section>
+					<section>
+						<pre>
+						<code>
+							var a=[]；
+							alert(typeof a) //Object
+						</code>
+						</pre>
+					</section>
+					
+				<section>
+					<h4></h4>
+					<p>感谢大家观看</p>
+					<p>
+						By
+						<small style="vertical-align: middle">吴泽华</small>
+					</p>
+				</section>
+			</div>
+		</div>
+		<script src="../lib/reveal/js/head.min.js"></script>
+		<script src="../lib/reveal/reveal.js"></script>
+		<script>
+			// 以下为常见配置属性的默认值
+			// {
+			// 	controls: true, // 是否在右下角展示控制条
+			// 	progress: true, // 是否显示演示的进度条
+			// 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+			// 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+			// 	keyboard: true, // 是否启用键盘快捷键来导航
+			// 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+			// 	center: true, // 是否将幻灯片垂直居中
+			// 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+			// 	loop: false, // 是否循环演示
+			// 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+			// 	fragments: true, // 全局开启和关闭碎片。
+			// 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+			// 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+			// 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+			// 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+			// }
+			// 初始化幻灯片
+			Reveal.initialize({
+				//        history: false,
+				history: true,
+				dependencies: [
+					{ src: '../plugin/markdown/marked.js' },
+					{ src: '../plugin/markdown/markdown.js' },
+					{ src: '../plugin/notes/notes.js', async: true },
+					{
+						src: '../plugin/highlight/highlight.js',
+						async: true,
+						callback: function() {
+							hljs.initHighlightingOnLoad();
+						}
+					}
+				]
+			});
+		</script>
+	</body>
+
+</html>
