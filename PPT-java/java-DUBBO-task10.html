@@ -1,0 +1,224 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Spring Dubbo</h2>
+                   <p>李亚衡</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        
+		<section>
+		    <h4>什么是Dubbo?</h4>
+            <!-- <p></p> -->
+			<P>Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，
+			使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。
+			从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，
+			要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。关于注册中心、协议支持、服务监控等内容</P>
+		</section>
+		
+		<section>
+		<h4>应用架构进化史</h4>
+		 <ul>
+			<ul>
+			<li style="font-size:26px">单一应用架构：当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。</li>
+			<li style="font-size:26px">垂直应用架构：当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。</li>
+			<li style="font-size:26px">分布式服务架构：当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。</li>
+			<li style="font-size:26px">流动计算架构：当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键。</li>
+			</ul>
+		</section>
+			
+		<section>
+         <h4>进化图</h4>
+		 <img src="http://dubbo.io/books/dubbo-user-book/sources/images/dubbo-architecture-roadmap.jpg"/>
+		</section>
+	    
+		<section>
+		     <h4>Dubbo最基本的几个需求</h4>
+			<ul>
+			<li style="font-size:26px">当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。 此时需要一个服务注册中心，动态的注册和发现服务，使服务的位置透明。并通过在消费方获取服务提供方地址列表，实现软负载均衡和 Failover，降低对 F5 硬件负载均衡器的依赖，也能减少部分成本</li>
+			<li style="font-size:26px">当进一步发展，服务间依赖关系变得错踪复杂，甚至分不清哪个应用要在哪个应用之前启动，架构师都不能完整的描述应用的架构关系。 这时，需要自动画出应用间的依赖关系图，以帮助架构师理清理关系。</li>
+			<li style="font-size:26px">服务的调用量越来越大，服务的容量问题就暴露出来，这个服务需要多少机器支撑？什么时候该加机器？ 为了解决这些问题，第一步，要将服务现在每天的调用量，响应时间，都统计出来，作为容量规划的参考指标。
+			         其次，要可以动态调整权重，在线上，将某台机器的权重一直加大，并在加大的过程中记录响应时间的变化，直到响应时间到达阀值，记录此时的访问量，再以此访问量乘以机器数反推总容量。</li>
+			</ul>
+        </section>
+		
+		<section>
+		    <h4>为什么要学习Spring Dubbo？</h4>
+			<ul>
+			<li>Dubbo采用全Spring配置方式，透明化接入应用，对应用没有任何API侵入，只需用Spring加载Dubbo的配置即可，Dubbo基于Spring的Schema扩展进行加载。</li>
+			<li>最近一段时间频繁出现在面试群中，为了面试储备知识</li>
+			<li>懒得列举的一些优点</li>
+			<li>已经恢复维护</li>
+			</ul>
+        </section>
+		
+		<section>
+         <h4>缺点？？？</h4>
+		  <p>只支持JAVA语言</p>
+		</section>
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		
+		<section>
+         <h4>架构</h4>
+	    <img src="http://inprogress.baeldung.com/wp-content/uploads/2017/11/dubbo-architecture-1024x639.png"/>
+		</section>
+		
+		
+		
+		 <section>
+		    <h4>节点角色说明</h4>
+			<ul>
+			<li>Provider:暴露服务的服务提供方</li>
+			<li>Consumer:调用远程服务的服务消费方</li>
+			<li>Registry:服务注册与发现的注册中心</li>
+			<li>Monitor:统计服务的调用次数和调用时间的监控中心</li>
+			<li>Container:服务运行容器</li>
+			</ul>
+        </section>
+        		
+		 <section>
+		    <h4>调用关系说明</h4>
+		    <ul>
+			<li>1.服务容器负责启动，加载，运行服务提供者</li>
+			<li>2.服务提供者在启动时，向注册中心注册自己提供的服务</li>
+			<li>3.服务消费者在启动时，向注册中心订阅自己所需的服务</li>
+			<li>4.注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者</li>
+			<li>5.服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用</li>
+			<li>6.服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心</li>
+			</ul>
+        </section>
+		 
+
+		   
+	    <section>
+            <h3>3.常见问题</h3>
+        </section>
+       		
+		<section>  
+			 <P>Zookeeper和DUBBO的关系</p>
+        </section>
+
+		
+        <section>
+            <h3>4.解决方案</h3>
+			 <p>http://blog.csdn.net/daiqinge/article/details/51282874#reply</p>
+        </section>
+		
+	     
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+           
+		<section>
+         <p>什么是长连接和心跳机制？</p>
+		 <p>https://baike.baidu.com/item/%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6/2817701?fr=aladdin</p>
+		</section>
+       
+        <section>
+            <h3>7.参考文献</h3>
+			<p>http://dubbo.io/books/dubbo-user-book/</p>
+			<P>http://www.baeldung.com/dubbo</p>
+			<P>http://shiyanjun.cn/archives/325.html</p>		
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+		
+		<section>
+         <p></p>
+		</section>
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:李亚衡</small></p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
