@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!--PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板-->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!--syntax highlighting 代码高亮主题-->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!--打印和PDF输出样式-->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2> Servlet详解</h2>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人：深圳-常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>
+                Servlet（Server Applet）是Java Servlet的简称，一般称为小服务程序或服务连接器，
+                是一个用Java编写的服务器端程序。
+            </p>
+            <p>
+                主要功能在于处理请求和发送响应、交互式地浏览和修改数据，生成动态Web内容，
+                甚至可以说Servlet是为了解决实现动态页面而衍生的程序。
+            </p>
+            <P>
+                狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。Servlet运行于支持Java的应用服务器中。
+            </P>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>Servlet的四个主要对象</p>
+            <p>ServletConfig对象</p>
+            <p>ServletContext对象</p>
+            <p>request对象</p>
+            <p>response对象</p>
+        </section>
+        <section>
+            <p>
+                ServletConfig:
+            </p>
+            <p>
+                代表当前Servlet在web.xml中的配置信息（用的不多）
+            </p>
+            <p>
+                String getServletName()
+            </p>
+            <p>
+                -- 获取当前Servlet在web.xml中配置的名字</p>
+            <p>
+                String getInitParameter(String name)
+            </p>
+            <p>
+                -- 获取当前Servlet指定名称的初始化参数的值</p>
+            <p>
+                Enumeration getInitParameterNames()
+            </p>
+            <p>
+                -- 获取当前Servlet所有初始化参数的名字组成的枚举</p>
+            <p>
+                ServletContext getServletContext()
+            </p>
+            <p>
+                -- 获取代表当前web应用的ServletContext对象</p>
+            </section>
+        <section>
+            <p>
+                Request对象的作用是与客户端交互，收集客户端的Form、Cookies、超链接，或者收集服务器端的环境变量。
+            </p>
+            <p>
+                request对象是从客户端向服务器发出请求，包括用户提交的信息以及客户端的一些信息。
+                同时也会向服务器或者浏览器定义自己需要的返回的东西。
+            </p>
+        </section>
+        <section>
+            <p>
+                Response对象用于动态响应客户端请示，控制发送给用户的信息，并将动态生成响应。
+            </p>
+            <p>
+                Response对象只提供了一个数据集合cookie，它用于在客户端写入cookie值。若指定的cookie不存在，则创建它。
+                若存在，则将自动进行更新。结果返回给客户端浏览器。
+            </p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>
+                1. servlet的生命周期是怎么样的？
+            </p>
+            <p>
+                2. Servlet与JSP的异同
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>
+                1. servlet的生命周期是怎么样的？
+            </p>
+            <p>
+                Servlet生命周期分为三个阶段：
+            </p>
+            <p>
+                1，初始化阶段 调用init()方法
+            </p>
+            <p>
+                2，响应客户请求阶段　　调用service()方法
+            </p>
+            <p>
+                3，终止阶段　　调用destroy()方法
+            </p>
+        </section>
+        <section>
+            <p>
+                初始化阶段
+            </p>
+            <p>
+                1，Servlet容器启动时自动装载某些Servlet
+                -loadon-startup-1-loadon-startup-
+            </p>
+            <p>
+                2，在Servlet容器启动后，客户首次向Servlet发送请求的时候
+            </p>
+            <p>
+                3，Servlet类文件被更新后，重新装载Servlet
+            </p>
+        </section>
+        <section>
+            <p>
+                2. Servlet与JSP的比较
+            </p>
+            <p>
+                Servlet与JSP有许多相似之处，都可以生成动态网页。
+            </p>
+            <p>背景</p>
+            <p>Servlet体系是基于B/S架构开发web应用程序，使用Servlet类将HTTP请求和响应封装在标准JAVA类中来实现各种web应用方案的。
+                当大量的B/S架构程序开发出来以后出现了很多问题：首先servlet类有大量冗余代码，其次是开发Servlet的没法做到有精美的页面效果。
+                所以sun提出将服务端代码添加在已经设计好的静态页面上，经过JSP容器对JSP文件进行自动解析并转换成Servlet类来交给web服务器运行。</p>
+        </section>
+        <section>
+            <p>创建方式:
+                Servlet都是由JAVA程序代码构成，用于流程控制和事务处理，通过Servlet来生成动态网页很不直观。</p>
+            <p>
+                而JSP由HTML代码和JSP标签构成，可以方便地编写动态网页.
+            </p>
+            <p>编译:
+                JSP修改后可以立即看到结果，不需要编译；
+            </p>
+            <p>而Servelt缺需要编译。</p>
+            <p>转换：
+                JSP是动态网页开发技术，是运行在服务器端的脚本语言，而Servlet是web服务器端编程技术。
+            </p>
+            <p>所以JSP运行时就是转换为Servlet，也就是java程序来执行。</p>
+        </section>
+        <section>
+            <p>总结</p>
+            <p>
+                JSP的优点是擅长于网页制作，生成动态页面比较直观，缺点是不容易跟踪与排错。
+            </p>
+            <p>
+                Servlet是纯Java语言，擅长于处理流程和业务逻辑，缺点是生成动态网页不直观。
+            </p>
+            </p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+        <section>
+            <P>
+                注意事项：
+                -scope>provided-/scope
+                ，有一些jar包是在编译的时候不需要，但是在具体发布的时候却需要的jar包，只需要在所添加的依赖之下，添加scope属性，并定义为provided即可。
+                如果不这么做的话，Tomcat或者是Jetty就会编译报错，导致项目无法运行。
+            <p>
+        </section>
+        <section>
+            这是因为Tomcat7以及之前的编码方式都是iso8859-1 ，tomcat8以后默认编码格式开始改为utf-8；
+            <P>这时候我们需要在页面进行设置，添加下列代码使得页面的编码方式变成utf-8.
+            </P>
+            <P>
+                <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+                <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+            </P>
+            <p>
+                就可以将页面的获取内容改为UTF8，显示正常的数据。
+                但是在我们向服务器提交信息的时候，返回的信息依然会是iso8859-1，
+                这就需要我们在后台进行处理。这里就不仔细讲了，也不是什么很麻烦的事情。
+            </P>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+            <p>
+                1、为什么创建的servlet是继承自httpServlet，而不是直接实现Servlet接口？
+            </p>
+            <p>
+                2、servlet的生命周期中，可以看出，执行的是service方法，为什么我们就只需要写doGet和doPost方法呢？
+            </p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+                链接：http://www.cnblogs.com/whgk/p/6399262.html
+            </p>
+            <p>
+                作者：一杯凉茶
+            </p>
+            <p>
+                链接：https://baike.baidu.com/item/Response%E5%AF%B9%E8%B1%A1/7465134?fr=aladdin
+            </p>
+            <p>
+                作者：百度百科
+            </p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4></h4>
+            <p>感谢观看,如有出错,恳请指正.</p>
+            <p>
+                <small>BY:深圳分院 常雷雷</small>
+            </p>
+        </section>
+
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
