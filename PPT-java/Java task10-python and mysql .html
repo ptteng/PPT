@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题,可以在/css/reveal/theme/中选择其他主题,目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+       <section>
+            <h3>部署py脚本,查询数据库</h3>
+			<p></P>
+            <h4>Java小课堂 BY武汉分院</h4>
+            <p>分享人:甘乐</p>
+			<time>
+				<script type="text/javascript"> 
+						var today = new Date();
+						document.write(today.toLocaleDateString())
+				</script>
+			</time>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+		
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">Puthon是一门高级的,解释型的,典型的,动态的,开源的,多范式的,多用途的编程语言,相比于其他编程语言,Python的语法表述起来更为简洁,在数据科学和网络编程方面具有颇高的人气.
+			Python提供了非常完善的基础代码库，覆盖了网络、文件、GUI、数据库、文本等大量内容，被形象地称作“内置电池（batteries  included）”.用Python开发，许多功能不必从零编写，直接使用现成的即可.
+           除了内置的库外，Python还有大量的第三方库，直接使用.<br>
+		  <i> <a href="http://blog.csdn.net/gzlaiyonghao/article/details/2151918" target="_blank">Python之禅</a></i>
+		   </p>	
+		</section>	
+		   
+		 <section>
+		   <p style="text-align:left">当前有两个不同的Python版本:Pyhton2和Python3.</br>Python 2.7被确定为最后一个Python 2.x版本，它除了支持Python 2.x语法外，还支持部分Python 3.1语法.Python3.0版本，常被称为Python 3000，或简称Py3k.为了不带入过多的累赘，Python 3.0在设计的时候没有考虑向下兼容.
+			</p>
+		</section>
+		
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+		<h4>Python入门</h4>
+            <p style="text-align:left">
+			2.1&nbsp;&nbsp;注释&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<i>Comment statement</i> <br/>
+			2.2&nbsp;&nbsp;标识符<br/>
+			标识符可以字母(A~Z或a~z)或下划线(_)开头,并且包含任何数量的字母,数字,下划线,空格不能出现在标识符中.<br/>
+			2.3&nbsp;&nbsp;保留字<a href="file:///E:/%E6%88%91%E7%9A%84%E6%96%87%E6%A1%A3/JAVA%E5%AD%A6%E4%B9%A0/00%20%E5%B8%B8%E8%A7%84%E4%BA%8B%E5%AE%9C/02%20java%E5%B0%8F%E8%AF%BE%E5%A0%82/01.13/key%20word.html" target="_blank">(33个)</a><br/>
+			2.4&nbsp;&nbsp;变量<br/>
+			初始化变量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variable= expression <br/>
+			初始化一个变量时,解释器会自动完成声明过程,毋需像Java一样为了保存内存空间而显式声明.
+			</p>
+		</section>
+		
+		<section>
+		<h4>标准数据类型</h4>
+            <p style="text-align:left">
+			6种基本的数据类型:<br/>
+			(1)数字型Number:分为整数和浮点数,整数又分为正负,其中整数大小是没有上限的.<br/>
+			(2)字符串String:可以是字母,数字和特殊字符的序列,用单引号或双引号作定界符.字符串中第一个字符的下标是0.<br/>
+			操作:切片运算符([ ])和([:]),连接运算符(+)和重复运算符(*)以及多种内置命令或方法<br/>
+			切片运算符([ ])和([:])用来从字符串中提取子字符串<br/>
+			<i>sample_string[start : end<: step]</i> &nbsp;&nbsp; #step is optional   <br/>
+			(3)列表List:有序的,可被索引的序列,可以包含相同类型或者不同类型的元素.声明一个列表需要用逗号(,)分隔每个元素,并用方括号包裹所有的元素.([:]),(+)和(*)也可以用于列表.
+			</p>
+		</section>
+		
+		<section>
+            <p style="text-align:left">
+			(4)元组Tuple:存储序列元素,用圆括号()定界.是只读类型列表,一旦存储元素就不能被修改.<br/>
+			(5)字典Dictionary:无序的键值对集合,可以遍历1)键;2)值;3)字典中元素(键值对).<br/>
+			(6)布尔型:True/False<br/>
+			(7)集合Sets:无序不重复元素的序列,支持并(|),交(&),差(-)和对称差积(^)运算.
+			</p>
+		</section>
+		
+		<section>
+		<h4>运算符</h4>
+            <p style="text-align:left">
+			运算符用来修改对象值的结构
+			<ul>
+					<li>算数运算符</li>
+					<li>比较运算符</li>
+					<li>赋值运算符</li>
+					<li>逻辑运算符</li>
+					<li>位运算符</li>
+					<li>隶属运算符</li>
+					<li>恒等运算符</li>
+			</ul>
+			</p>
+			<p style="text-align:left">
+			python中绝大多数运算符是从左至右的结合性,**运算符是从右至左的.()拥有最高优先级.
+			</p>
+		</section>
+		
+		<section>
+		<h4>控制语句</h4>
+            <p style="text-align:left">
+			(1)for循环:基于迭代器,用于遍历任何顺序的序列,即字符串,列表,元组,字典的键和其他可迭代的对象.<br/>
+			<i>for  x  in  y:<br/>
+			&emsp;Block 1 <br/>
+			else:&emsp;&emsp;&emsp;&emsp; &nbsp;#Optional<br/>					
+			&emsp;Block 2&emsp;&emsp;#excuted only when the  loop exits normally
+			</i>
+			</p>
+		</section>
+		
+		<section>
+		<h4>控制语句</h4>
+            <p style="text-align:left">
+			(2)while循环:指定条件语句,重复执行.<br/>
+			<i>while condition:<br/>
+			&emsp;Block  <br/>
+			else:&emsp;&emsp;&emsp;&emsp; &nbsp;#Optional<br/>					
+			&emsp;statement&emsp;&emsp;
+			</i>
+			</p>
+			<p style="text-align:left">在while循环和for循环中,break语句推出循环,转而执行紧接在循环后面的语句,continue语句会直接跳过循环中的剩余部分转而立即去执行循环只能改的起始部分.
+			执行for循环中的break语句,else部分会被跳过.</p>
+		</section>
+		
+		<section>
+		<h4>控制语句</h4>
+            <p style="text-align:left">
+			(3)if elif else语句:if语句被认为是决策语句,条件出现在if子句中;如果条件为True,则if子句下面的代码块会被执行,否则不执行.利用elif语句来检测多个表达式是否为True,
+			并执行条件为True的elif语句下的代码块<br/>
+			<i>if expression1 :<br/>
+			&emsp;statement1<br/>
+			elif  expression2 :<br/>
+			&emsp;statement2<br/>
+			elif  expression3 :<br/>
+			&emsp;statement3<br/>
+			else  expression4 :<br/>					
+			&emsp;statement4
+			</i>
+			</p>
+			<p style="text-align:left">if语句中elif语句可以出现多次,而else语句最多出现一次.</p>
+		</section>
+		
+		<section>
+		<h4>迭代---while语句</h4>
+            <p style="text-align:left">
+			语法:<br/>
+			<i>while expression:<br/>
+			&emsp;statement(s) <br/>
+			else:&emsp;&emsp;&emsp;&emsp; &nbsp;#Optional<br/>					
+			&emsp;statement&emsp;#executes only when while condition becomes F
+			</i>
+			</p>
+		</section>
+		
+		<section>
+		<h4>从键盘获取输入</h4>
+            <p style="text-align:left">
+			(1)input()函数:一般有一个提示字符串作为可选的参数,会解析用户的输入.<br/>
+			<i>>>>name = input("What is your Name ?")<br/>
+			>>>print("Hello"+ name + "!") <br/>
+			<br/>
+			What is your Name?  'John'&emsp;&emsp;&emsp;#Output<br/>					
+			Hello John!
+			</i>
+			</p>
+		</section>
+		
+		<section>
+		<h4>从键盘获取输入</h4>
+            <p style="text-align:left">
+			(1)raw_input()函数:从用户处获取输入,但不会解析输入,直接返回用户的输入,不做任何修改.可以把原始的额输入改为程序中需要的任意数据类型<br/>
+			<i>>>>age = int(raw_input("What is your Name ?"))<br/>
+			What is your age? 46<br/>
+			>>>type(age)<br/>
+			&lt;type 'int'&gt;
+			</i>
+			</p>
+		</section>
+		
+		<section>
+		<h4>函数</h4>
+            <p style="text-align:left">自定义函数语法<br/>
+			<i>def functionname(parameters):<br/>
+			&emsp;"function_docstring"<br/>
+			&emsp;statement(s)<br/>
+			&emsp;return [expression]<br/>
+			</i>
+			</p>
+		</section>
+		
+		<section>
+		<h4>函数参数</h4>
+            <p style="text-align:left">调用函数时,可使用下列四种类型的参数:
+			<ul>
+				<li>必选参数</li>
+				<li>关键字参数</li>
+				<li>默认参数</li>
+				<li>变长参数</li>
+			</ul>
+			</p>
+		</section>
+		
+		<section>
+		<h4>编写Python脚本</h4>
+            <p style="text-align:left">使用Pthony最常用的方法是在一个文件中编写代码,然后使用解释器以脚本方式运行这个文件.通常以'.py'的文件名保存.</p>
+			 <p style="text-align:center">
+			 <a href="file:///E:/%E6%88%91%E7%9A%84%E6%96%87%E6%A1%A3/JAVA%E5%AD%A6%E4%B9%A0/00%20%E5%B8%B8%E8%A7%84%E4%BA%8B%E5%AE%9C/02%20java%E5%B0%8F%E8%AF%BE%E5%A0%82/01.13/scrip.html" target="_blank">脚本模板讲解</a>
+			</p>
+		</section>
+		 
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">Pythons数据库编程流程如何?</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+           <p style="text-align:center"><b>数据库和Python</b></p>
+			<p style="text-align:left">访问
+数据库包括直接通过数据库接口访问和使用ORM 访问两种方式.在 Python 中数据库是通过适配器的方式进行访问的.适配器是一个Python 模块，使用
+它可以与关系数据库的客户端库（通常是使用C 语言编写的）接口相连.Python 中的MySQL 适配器：MySQLdb
+			</p>
+		</section>
+		
+		<section>
+           <p style="text-align:center"><b>Python 的DB-API---模块属性</b></p>
+			<p style="text-align:left">DB-API 是阐明一系列所需对象和数据库访问机制的标准，它可以为不同的数据库适配
+器和底层数据库系统提供一致性的访问.
+			</p>
+			<p style="text-align:left">
+			(1)模块属性,DB-API必须提供下文列出的功能和属性<br/>
+			1)数据属性<br/>
+			apilevel---指定需要适配器兼容的DB-API 版本<br/>
+			threadsafety----本模块的线程安全级别,0~3级别增加.<br/>
+			2)参数风格,DB-API 支持以不同的方式指明如何将参数与SQL 语句进行整合，并最终传递给服务器中执行.该参数是一个字符串，用于指定构建查询行或命令时使用的字符串替代形式<br/>
+			</p>
+		</section>
+		
+		<section>
+           <p style="text-align:center"><b>Python 的DB-API---Connection 对象</b></p>
+			<p style="text-align:left">
+			应用与数据库之间进行通信需要建立数据库连接.它是最基本的机制，只有通过数据库
+连接才能把命令传递到服务器，并得到返回的结果.当一个连接（或一个连接池）建立后，可以创建一个游标，向数据库发送请求，然后从数据库中接收回应.<br/>
+		Connection 对象定义的方法:<br/>
+		close ()--- 关闭数据库连接<br/>
+		commit()--- 提交当前事务<br/>
+		rollback()--- 取消当前事务<br/>
+		cursor()--- 使用该连接创建（并返回）一个游标或类游标的对象<br/>
+		errorhandler (cxn, cur, errcls, errval )--- 作为给定连接的游标的处理程序
+		</p>
+		</section>
+		
+		<section>
+           <p style="text-align:center"><b>Python 的DB-API---Cursor 对象</b></p>
+			<p style="text-align:left">当建立连接后，就可以和数据库进行通信了.当游标创建好后，就可以执行查询或命令（或多个查询和命令），并从结果集中取回一行
+或多行结果.<br/>
+游标对象最重要的属性是execute*()和fetch*()方法，所有针对数据库的服务请求都是通过它们执行的.arraysize 数据属性在为fetchmany()设置默认大小时非常有用.<br/><br/>
+<i>fetchone()--- 获取查询结果的下一行<br/>
+fetchmany([size=cursor. arraysize])--- 获取查询结果的下面size 行<br/>
+fetchall()--- 获取查询结果的所有（剩余）行</i>
+			</p>
+		</section>
+		
+		<section>
+           <p style="text-align:center"><b>Python 的DB-API---类型对象和构造函数</b></p>
+			<p style="text-align:left">DB-API 的另一个需求是创建构造函数，从而构建可以简单地转换成适当数据库对象的特殊对象.
+			</p>
+		</section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+			<section>
+            <p style="text-align:center"><b>查询数据库,持久化数据到.JSON文件</b></p>
+        </section>
+		
+		
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+			<p style="text-align:center"><b>Python缺点</b></p>
+			<p style="text-align:left">第一个缺点就是运行速度慢，和C程序相比非常慢，因为Python是解释型语言，代码在执行时会一行一行地翻译成CPU能理解的机器码，这个翻译过程非常耗时，所以很慢.而C程序是运行前直接编译成CPU能执行的机器码，所以非常快.
+			</p>
+		</section>
+			 <section>
+			<p style="text-align:left">第二个缺点就是代码不能加密.如果要发布你的Python程序，实际上就是发布源代码，这一点跟C语言不同，C语言不用发布源代码，只需要把编译后的机器码（也就是你在Windows上常见的xxx.exe文件）发布出去.要从机器码反推出C代码是不可能的，所以，凡是编译型的语言，都没有这个问题，而解释型的语言，则必须把源码发布出去.<br/>
+这个缺点仅限于你要编写的软件需要卖给别人挣钱的时候.好消息是目前的互联网时代，靠卖软件授权的商业模式越来越少了，靠网站和移动应用卖服务的模式越来越多了
+			</p>
+		</section>
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:left">1.《Python编程与问题求解》 [印] E Balagurusamy著. 秦臻 肖俊超译.  北京.清华大学出版社. 2017.10
+			</p>
+			<p style="text-align:left">2.《Python编程从入门到实践》 [美] Eric Matthes著. 袁国忠译.  北京.人民邮电出版社. 2016.07
+			</p>
+			<p style="text-align:left">3.《Python核心编程（第3版）》 [美] Wesley Chun著. 孙波翔 李斌 李晗 译.  北京.人民邮电出版社. 2016.06
+			</p>
+		</section>
+		
+		<section>
+            <h3>8.更多讨论</h3>
+			<p style="text-align:center"><a href="" target="">今天的分享就到这里啦,欢迎大家提问和探讨~
+			</p>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号,也可以使用代码slideNumber: 'c / t' ,表示当前页/总页数.
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式,可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL,即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片.
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒）,当设置成 0 的时候则禁止自动切换,该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果,有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度,default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
