@@ -1,0 +1,216 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>了解maven的module</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：邹苏</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p>为什么要聚合？</p>
+            <p>随着技术的飞速发展和各类用户对软件的要求越来越高，软件本身也变得越来越复杂，然后软件设计人员开始采用各种方式
+                进行开发，于是就有了我们的分层架构、分模块开发，来提高代码的清晰和重用。</p>
+        </section>
+        <section>
+            <p>比如:我们在开发过程中，创建了2个以上的模块，每个模块都是一个独立的maven project，在开始的时候我们可以独立的编译和测试运行每
+                个模块，但是随着项目的不断变大和复杂化，这样的管理是混乱的，没有遵守一个设计模式原则：“高内聚，低耦合”，于是我们就希望用分层架构、分层模块来提高代码的清晰和重用，
+                这时Maven给出了聚合的配置方式。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        
+        <section>
+
+            <p>建立聚合project的时候，我们要注意以下几点：</p>
+
+            <p>1、该聚合本身也做为一个Maven项目，它必须有自己的POM</p>
+
+            <p>2、它的打包方式必须为： pom</p>
+
+            <p>3、引入了新的元素：modules---module</p>
+
+            <p>4、版本：聚合模块的版本和被聚合模块版本一致</p>
+            <p>5、习惯约定：为了方便构建，通常将聚合模块放在项目目录层的最顶层，
+                其它聚合模块作为子目录存在。这样当我们打开项目的时候，第一个看到的就是聚合模块的POM</p>
+
+
+        </section>
+        <section>
+            <p>6、聚合模块减少的内容：聚合模块的内容仅仅是一个pom.xml文件，它不包含src/main/java、src/test/java等目录，
+                因为它只是用来帮助其它模块构建的工具，本身并没有实质的内容。</p>
+
+            <p>7、聚合模块和子模块的目录：他们可以是父子类，也可以是平行结构，当然如果使用平行结构，那么聚合模块的POM也需要做出相应的更改</p>
+
+          
+
+        </section>
+        <section>
+		<p>模块化的好处：</p>
+        <p>1、方便重用。项目的一些包都是复用的，称为项目复用的基础类库，供所有的项目使用。当需要再开发一个模块的时候重用这些
+            复用的模块能省不少事，这是模块化最重要的一个目的。</p>
+
+        <p>2、灵活性。比如我们公共的jar包，我们不需要再当源码，只需要deploy到nexus，其他人从nexus下载即可。代码的可维护性、可扩展性好，并且保证了项目独立性与完整性。</p>
+		<p></p>
+
+        </section>
+		<!--<section>-->
+		<!--<p>2.易使用：没有复杂的程序、复杂的细节，易于学习；灵活的API允许按字段排序、可自定义分页、 排序和筛选等。-->
+		<!--一个完整的API意味着被期望的功能都包含在内。</p>-->
+        <!--<p>3.难误用：对详细的错误提示，有些经验的用户可以直接使用API而不需要阅读文档。</p>-->
+
+        <!--<p>而对于开发人员来说，易阅读：代码的编写只需要一次一次，但是当调试或者修改的时候都需要对代码进行阅读。</p>-->
+		<!--<p>易开发：一个最小化的接口是使用尽可能少的类以及尽可能少的类成员。这样使得理解、记忆、调试以及改变API更容易。</p>-->
+
+        <!--</section>-->
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+
+		<section>
+			    
+				<p>聚合/继承？</p>
+
+
+
+        </section>
+
+        <section>
+            <!--<h3>4.解决方案</h3>-->
+            <p>聚合：把多个模块或项目聚合到一期，我们可以建立一个专门负责聚合工作的project. </p>
+
+            <p>继承：父子关系,Maven继承也是为了防止重复，让项目的jar包版本一致，在项目管理上起了很大的作用。</p>
+            <p>对于聚合模块来说，它知道有哪些被聚合的模块，而对于被聚合的模块来说，它们不知道被谁聚合了，也不知道它的存在；
+                对于继承关系的pom来说，它不知道被哪些模块继承了，对于子pom来说，它必须知道要继承谁。</p>
+        </section>
+        
+        
+        <section>
+            <p>多模块和父子关系是不同的。如果core和webapp只是在逻辑上属于同一个总工程，那么我们完全可以只声明模块关系，
+                而不用声明父子关系。如果core和webapp分别处理两个不同的领域，但是它们又共享了很多，比如依赖等，
+                那么我们可以将core和webapp分别继承自同一个父pom工程，而不必属于同一个工程下的子模块。</p>
+           
+        </section>
+
+		<section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p>模块之间的依赖：</p>
+
+            <p>Maven在创建webapp模块时并不知道webapp依赖于core，所以这种依赖关系需要我们手动加入，
+                在webapp模块的pom.xml中加入对core模块的依赖：在webapp的dependencies中加入core模块的GAV坐标，就完成了依赖。 </p>
+
+            <p>此时再在聚合目录下执行 “mvn clean install”，Maven将根据自己的Reactor机制决定哪个模块应该
+                先执行，哪个模块应该后执行。比如，这里的webapp模块依赖于core模块，那么Maven会先在core模块上执行
+                “mvn clean install”，再在webapp模块上执行相同的命令。在webapp上执行“mvn clean install”时，
+                由于core模块已经被安装到了本地的Repository中，webapp便可以顺利地找到所依赖的core模块。</p>
+
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.cnblogs.com/davenkin/p/advanced-maven-multi-module-vs-inheritance.html</p>
+            <p>http://blog.csdn.net/yuanxiaojun1990/article/details/50359059</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 邹苏</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
