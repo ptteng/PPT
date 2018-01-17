@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://ptteng.github.io/PPT/PPT/JS-02-commonDOM%20-%2011.18.html#/14 -->
+<html class=" js no-mobile desktop no-ie chrome chrome62 ppt-section ppt-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded w-1366 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 lt-1440 lt-1680 lt-1920 no-portrait landscape" id="js-02-commondom%20-%2011-page"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./葡萄藤PPT_files/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script><link rel="stylesheet" type="text/css" href="./葡萄藤PPT_files/paper.css"><script type="text/javascript" src="./葡萄藤PPT_files/marked.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/markdown.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/notes.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/highlight.js.下载"></script>
+</head>
+<body>
+<img src="./葡萄藤PPT_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.768857);">
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h2>【js-task02】</h2>
+            <h3>小课堂【北京第263期】常见Dom操作有哪些？</h3>
+            <p id="idValue" class="classNewValue">分享人：李劲宏</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>目录</p>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>DOM（文档对象模型）是针对HTML 和XML 文档的一个API（应用程序编程接口）。DOM描
+                绘了一个层次化的节点树，允许开发人员添加、移除和修改页面的某一部分。DOM脱胎于
+                Netscape 及微软公司创始的DHTML（动态HTML），但现在它已经成为表现和操作页面标记的真正的跨
+                平台、语言中立的方式。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>1998 年10 月DOM１级规范成为W3C 的推荐标准，为基本的文档结构及查询提供了接口。本章主
+                要讨论与浏览器中的HTML页面相关的DOM1级的特性和应用，以及JavaScript 对DOM1级的实现。
+                IE、Firefox、Safari、Chrome 和Opera 都非常完善地实现了DOM。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>什么是DOM</p>
+            <p>DOM 是 Document Object Model（文档对象模型）的缩写。
+                DOM是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。
+                在 HTML DOM中，所有事物都是节点。DOM 是被视为节点树的 HTML。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 330px; display: none;">
+            <p>DOM节点</p>
+            <p>HTML 文档中的所有内容都是节点。整个文档是一个文档节点,每个 HTML 元素是元素节点，
+            HTML 元素内的文本是文本节点，每个 HTML 属性是属性节点，注释是注释节点。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 56px; display: none;">
+            <p>DOM常用操作</p>
+            <p>查找节点</p>
+            <p>新建节点</p>
+            <p>添加节点</p>
+            <p>删除节点</p>
+            <p>修改节点</p>
+            我们用到最多的是element类型，用于表现HTML元素，提供了对元素标签名、子节点及特性的访问。
+        </section>
+        <section hidden="" aria-hidden="true" class="past" style="top: 112px; display: none;">
+            <p>DOM常用操作举例</p>
+            <p>查找节点</p>
+            <p>document.getElementById('id属性值');</p>
+            返回拥有指定id的第一个对象的引用            <p>document/element.getElementsByClassName('class属性值');</p>
+            返回拥有指定class的对象集合
+        </section>
+        <section class="past" style="top: 0px; display: none;" hidden="" aria-hidden="true">
+            <p>新建节点</p>
+            <p>document.createElement('元素名');</p>
+            创建新的元素节点
+            <p>document.createAttribute('属性名');</p>
+            创建新的属性节点
+            <p>document.createTextNode('文本内容');</p>
+            创建新的文本节点
+            <p>document.createComment('注释节点');</p>
+            创建新的注释节点
+            <p>document.createDocumentFragment( );</p>
+            创建文档片段节点
+        </section>
+         <section class="past" style="top: 25px; display: none;" hidden="" aria-hidden="true">
+            <p>DOM常用操作</p>
+            <p>添加节点</p>
+            <p>常用来添加文本节点element.innerHTML='新增文本内容'</p>
+            <pre>            <code class="hljs vbscript-html"><span class="xml">
+            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>创建文本节点<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"addText()"</span>&gt;</span>创建文本节点<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addText</span>(<span class="hljs-params"></span>)</span>{
+                        <span class="hljs-keyword">var</span> element = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'p'</span>)[<span class="hljs-number">0</span>];
+                        element.innerHTML=<span class="hljs-string">'新增文本内容'</span>; <span class="hljs-comment">//插入文本内容</span>
+                    }
+                </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            </span></code>
+            </pre>
+        </section>
+         <section class="past" style="top: 46px; display: block;" hidden="" aria-hidden="true">
+            <p>DOM常用操作</p>
+            <p>删除节点</p>
+            <p>parentNode.removeChild( existingChild );</p>
+            删除已有的子节点，返回值为删除节点
+            <p>element.removeAttribute('属性名');</p>
+            删除具有指定属性名称的属性，无返回值
+            <p>element.removeAttributeNode( attrNode );</p>
+            删除指定属性，返回值为删除的属性
+        </section>
+         <section class="past" style="top: 0px; display: block;" hidden="" aria-hidden="true">
+            <p>DOM常用操作</p>
+            <p>修改节点</p>
+            <p>添加属性节点，修改属性值：</p>
+            element.setAttribute( attributeName, attributeValue );
+            <pre><code class="hljs dust"><span class="xml">
+            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>属性节点<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"classValue"</span>&gt;</span>增添id属性，并修改class属性值<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+                <span class="hljs-keyword">var</span> element = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'p'</span>)[<span class="hljs-number">0</span>];
+        <span class="hljs-comment">// 添加属性节点</span>
+                <span class="hljs-keyword">var</span> attr = <span class="hljs-built_in">document</span>.createAttribute(<span class="hljs-string">'id'</span>);
+                attr.value = <span class="hljs-string">'idValue'</span>;
+                element.setAttributeNode(attr);
+        <span class="hljs-comment">// 修改属性值</span>
+                <span class="hljs-keyword">var</span> attr = <span class="hljs-built_in">document</span>.createAttribute(<span class="hljs-string">'class'</span>);
+                attr.value = <span class="hljs-string">'classNewValue'</span>;
+                element.setAttributeNode(attr);
+            </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            </span></code></pre>
+        </section>
+        <section class="present" style="top: 13px; display: block;">
+            DOM事件
+            <p>允许 JavaScript 对 HTML 事件作出反应</p>
+            <p>onclick 事件——当用户点击时</p>
+            <p>onload 事件——用户进入</p>
+            <p>onunload 事件——用户离开</p>
+            <p>onmouseover事件——鼠标移入</p>
+            <p>onmouseout事件——鼠标移出</p>
+            <p>onmousedown事件——鼠标按下</p>
+            <p>onmouseup 事件——鼠标抬起</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+            <h3>3.常见问题</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 267px; display: block;">
+            <p>如何通过class和tag调用元素?如何对其设置属性？</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>4.解决方案</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>一个页面中常常有多个class相同的元素，也有多个标签相同的元素，在调用时方法如下</p>
+            <pre>                <code class="hljs gherkin">
+                    <span class="hljs-variable">&lt;div&gt;</span>
+                        <span class="hljs-variable">&lt;span class="time"&gt;</span><span class="hljs-variable">&lt;/span&gt;</span>
+                        <span class="hljs-variable">&lt;span class="time"&gt;</span><span class="hljs-variable">&lt;/span&gt;</span>
+                        <span class="hljs-variable">&lt;span class="time"&gt;</span><span class="hljs-variable">&lt;/span&gt;</span>
+                        <span class="hljs-variable">&lt;span class="time"&gt;</span><span class="hljs-variable">&lt;/span&gt;</span>
+                    <span class="hljs-variable">&lt;/div&gt;</span>
+                    <span class="hljs-variable">&lt;div&gt;</span>
+                        <span class="hljs-variable">&lt;p&gt;</span>div2<span class="hljs-variable">&lt;/p&gt;</span>
+                    <span class="hljs-variable">&lt;/div&gt;</span>
+                    document.getElementsByClassName(<span class="hljs-string">"time"</span>)[0].innerHTML = <span class="hljs-string">"16:43"</span>;
+                    document.getElementsByClassName(<span class="hljs-string">"time"</span>)[1].innerHTML = <span class="hljs-string">"16:44"</span>;
+                    document.getElementsByTagName(<span class="hljs-string">"div"</span>)[0].className = <span class="hljs-string">"text-time"</span>;
+                </code>
+            </pre>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>5.编码实战</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>我们运行一下上一页给出的代码，来用DOM改变一下HTML的内容和样式。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>6.扩展思考</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>Html5添加了辅助管理DOM焦点的功能。首先就是document.activeElement属性，
+                这个属性始终会引用DOM中当前获得了焦点的元素。
+                另外就是新增了document.hasFocus()方法，这个方法用于确定文档是否获得了焦点。
+                我们可以去学习HTML5中的一些新内容。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.参考文献</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>参考一：《JavaScript高级程序设计》</p>
+            <p>参考二：<a href="http://blog.csdn.net/ouyangyanlan/article/details/50217065" target="_blank">DOM树知识点梳理</a></p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>8.更多讨论</h3>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>如何合理的写HTML内容和用DOM对其进行操作？</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>鸣谢</h4>
+            <p>感谢大家观看</p>
+            <p><small>BY : 沁修 | 寇晨迪|曹樾</small></p>
+        </section>
+    </div>
+<div class="backgrounds"><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: none;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 708.296px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+            DOM事件
+            允许 JavaScript 对 HTML 事件作出反应
+            onclick 事件——当用户点击时
+            onload 事件——用户进入
+            onunload 事件——用户离开
+            onmouseover事件——鼠标移入
+            onmouseout事件——鼠标移出
+            onmousedown事件——鼠标按下
+            onmouseup 事件——鼠标抬起
+        </div></div>
+
+<script src="./葡萄藤PPT_files/head.min.js.下载"></script>
+<script src="./葡萄藤PPT_files/reveal.js.下载"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status He
+</body></html>
