@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .a {
+            width: 200px;
+            background: #333333;
+        }
+
+        .a2 {
+            width: 50px;
+            height: 50px;
+            background: #999999;
+        }
+
+        .b {
+            width: 200px;
+            background: #333333;
+        }
+
+        .b2 {
+            width: 50px;
+            height: 50px;
+            background: #999999;
+        }
+
+        .margin10 {
+            margin: 10px;
+        }
+
+        .BFC-hidden {
+            overflow: hidden;
+        }
+
+        .float {
+            float: left;
+        }
+
+        .box {
+            width: 900px;
+            border: 1px solid #000;
+        }
+
+        .img {
+            float: left;
+            width: 200px;
+        }
+
+        .info {
+            background: #f1f1f1;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+<div style="border:solid 1px #000">
+    <h1>1.清除浮动</h1>
+    <hr>
+    <h2>父元素生成bfc，浮动不会塌陷</h2>
+    <div class="a margin10 BFC-hidden">
+        <div class="a2 margin10 float"></div>
+        <div class="a2 margin10 float"></div>
+        <div class="a2 margin10 float"></div>
+        <div class="a2 margin10 float"></div>
+    </div>
+    <hr>
+    <h2>父元素未生成bfc，如果子元素使用float，父元素会塌陷</h2>
+    <div class="b margin10">
+        <div class="b2 margin10 float"></div>
+        <div class="b2 margin10 float"></div>
+        <div class="b2 margin10 float"></div>
+        <div class="b2 margin10 float"></div>
+    </div>
+</div>
+<div style="border:solid 1px #000;margin-top: 150px;">
+    <h1>2.垂直margin合并</h1>
+    <hr>
+    <h2>两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值</h2>
+    <div>
+        <div style="height: 100px;background:#eeeeee;margin-bottom: 20px;">
+            margin-bottom:20px;
+        </div>
+        <div style="height: 100px;background: #efefef;margin-top: 10px;">
+            margin-top:10px;
+        </div>
+    </div>
+    <hr>
+    <h2>两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值。</h2>
+    <div>
+        <div style="height: 100px;background:#333333;margin-bottom: -10px;">
+            margin-bottom:-10px;
+        </div>
+        <div style="height: 100px;background: #999999;margin-top: -20px;">
+            margin-top:-20px;
+        </div>
+    </div>
+    <hr>
+    <h2>两个外边距一正一负时，折叠结果是两者的相加的和。这个同样可以利用BFC解决。</h2>
+    <div>
+        <div style="height: 100px;background:#333333;margin-bottom: 20px;">
+            margin-bottom:20px;
+        </div>
+        <div style="height: 100px;background: #999999;margin-top: -10px;">
+            margin-top:-10px;
+        </div>
+    </div>
+</div>
+<div style="border:solid 1px #000;margin-top: 50px;margin-bottom: 100px;">
+    <h1>3.创建自适应两栏布局</h1>
+    <div class="box">
+        <img src="111.png" alt="" class="img">
+        <p class="info">
+            信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信
+        </p>
+    </div>
+    <div class="box" style="margin-top: 50px">
+        <img src="111.png" alt="" class="img">
+        <p class="info" style="overflow: hidden">
+            信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信
+        </p>
+    </div>
+</div>
+
+
+</body>
+</html>
