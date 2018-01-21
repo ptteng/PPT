@@ -1,0 +1,342 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+    <title>葡萄藤PPT</title>
+
+
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+
+
+    <!-- syntax highlighting 代码高亮主题 -->
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+
+
+    <!-- 打印和PDF输出样式 -->
+
+    <script>
+
+        var link = document.createElement( 'link' );
+
+        link.rel = 'stylesheet';
+
+        link.type = 'text/css';
+
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+    </script>
+
+</head>
+
+<body>
+
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+<map name="pttmap">
+
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+
+</map>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+
+            <h2>spring事务</h2>
+
+            <h3>java小课堂</h3>
+
+            <p>分享人：慕孟洋</p>
+
+        </section>
+
+        <section>
+
+            <p>1.背景介绍</p>
+
+            <p>2.知识剖析</p>
+
+            <p>3.常见问题</p>
+
+            <p>4.解决方案</p>
+
+            <p>5.编码实战</p>
+
+            <p>6.扩展思考</p>
+
+            <p>7.参考文献</p>
+
+            <p>8.更多讨论</p>
+
+        </section>
+
+        <section>
+
+            <h3>1.背景介绍	</h3>
+
+        </section>
+
+        <section>
+
+			<p>转账的案例</p>
+      <p>理解事务之前，先讲一个你日常生活中最常干的事：转账。</p>
+      <p>张三给李四转账100元。那数据库假设需要 张三扣100，李四加100，记录一条流水。</p>
+      <p>如果流水没记录成功，那整体回滚，张三也没转账成功，李四也没多钱。 </p>
+
+        </section>
+
+        <section>
+
+    			<p>事务就是用来解决类似问题的。</p>
+    			<p>事务是一系列的动作，它们综合在一起才是一个完整的工作单元，
+          这些动作必须全部完成，如果有一个失败的话，那么事务就会回滚到最开始的状态，仿佛什么都没发生过一样。</p>
+    			<p>在企业级应用程序开发中，事务管理必不可少的技术，用来确保数据的完整性和一致性。</p>
+
+    		</section>
+
+        <section>
+
+            <h3>2.知识剖析</h3>
+
+        </section>
+
+		<section>
+      <p>事务有四个特性：ACID</p>
+			<p>原子性（Atomicity）：事务是一个原子操作，由一系列动作组成。</p>
+      <p>事务的原子性确保动作要么全部完成，要么完全不起作用。</p>
+			<p>一致性（Consistency）：一旦事务完成（不管成功还是失败），系统必须确保它所建模的业务处于一致的状态，</p>
+      <p>而不会是部分完成部分失败。在现实中的数据不应该被破坏。</p>
+
+		</section>
+
+    <section>
+      <p>隔离性（Isolation）：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏。</p>
+    	<p>持久性（Durability）：一旦事务完成，无论发生什么系统错误，它的结果都不应该受到影响，
+          这样就能从任何系统崩溃中恢复过来。通常情况下，事务的结果被写到持久化存储器中。</p>
+
+    </section>
+
+		<section>
+
+			<p>事务传播行为</p>
+			<p>事务规则也就是事务传播行为，用于解决业务层方法之间的相互调用的问题</p>
+
+		</section>
+
+		<section>
+
+			<p>常见的事务传播行为</p>
+			<p>REQUIRED：</p>
+      <p>表示当前方法必须运行在一个事物环境中，如果一个现有的事物正在运行，
+        该方法将运行在这个事务中，否则，就要开始一个新的事务</p>
+      <p>REQUIRESNEW</p>
+      <p>表示当前方法必须运行在自己的事务里</p>
+
+		</section>
+
+    <section>
+
+        <p>SUPPORTS</p>
+        <p>表示当前方法不需要事务处理环境，但如果有一个事务正在运行的话，则这个方法也可以运行在这个事务中</p>
+        <p>MANDATORY</p>
+        <p>表示当前方法必须运行在一个事务上下文中，否则就抛出异常</p>
+        <p>NEVER</p>
+        <p>表示当前方法不应该运行在一个事务上下文中，否则就抛出异常</p>
+
+    </section>
+
+        <section>
+
+            <h3>3.常见问题</h3>
+
+        </section>
+
+        <section>
+
+            <p>有哪些方式实现事务管理</p>
+
+        </section>
+
+        <section>
+
+            <h3>4.解决方案</h3>
+
+        </section>
+
+        <section>
+
+    			<p>Spring 事务管理有两种方式</p>
+    			<p>一种是编程式事务管理，即通过编写代码实现事物管理，</p>
+    			<p>包括定义事务的开始，程序正常执行后的事物提交，异常时进行的事务回滚。</p>
+
+    		</section>
+    		<section>
+
+    			<p>另一种是基于AOP技术实现的声明式事务管理</p>
+    			<p>其主要思想是将事务管理作为一个“切面”代码单独编写，我们只用关心核心业务逻辑代码，
+            然后通过AOP技术将事务管理的“切面”代码织入到业务类中</p>
+          <p>声明式事务管理有包括基于AOP方式的事务管理和基于 @Transactional注解方式的事务管理</p>
+
+    		</section>
+    		<section>
+
+    			<p>声明式事务管理极大的简化了编程式事务管理的操作流程，不再需要重复地执行定义事物的开始，</p>
+    			<p>程序正常执行后事务提交，异常时进行事物回滚这些繁琐的操作,</p>
+    			<p>而基于 @Transactional注解的声明式事务又进一步简化了基于AOP的事务管理，减少了Spring配置代码。</p>
+    			<p>声明式事务的缺点在于只能作用到方法级别，无法做到像编程式事务那样能控制到代码块级别。</p>
+
+    		</section>
+
+        <section>
+
+            <h3>5.编码实战</h3>
+
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+            <h3>6.扩展思考</h3>
+
+        </section>
+
+        <section>
+
+			<p></p>
+			<p></p>
+
+        </section>
+
+        <section>
+
+            <h3>7.参考文献</h3>
+
+      <p>参考：https://www.cnblogs.com/zhaozihan/p/6219776.html</p>
+			<p>Spring事务管理案例</p>
+
+        </section>
+
+        <section>
+
+            <h3>8.更多讨论</h3>
+
+            <p>......</p>
+
+        </section>
+
+        <section>
+
+            <h4>鸣谢</h4>
+
+            <p>感谢大家观看</p>
+
+            <p><small>BY : 慕孟洋</small></p>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+
+
+<script>
+
+
+
+    // 以下为常见配置属性的默认值
+
+    // {
+
+    // 	controls: true, // 是否在右下角展示控制条
+
+    // 	progress: true, // 是否显示演示的进度条
+
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+
+    // 	center: true, // 是否将幻灯片垂直居中
+
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+
+    // 	loop: false, // 是否循环演示
+
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+
+    // 	fragments: true, // 全局开启和关闭碎片。
+
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+
+    // }
+
+
+
+    // 初始化幻灯片
+
+    Reveal.initialize({
+
+        history: true,
+
+        dependencies: [
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+
+        ]
+
+    });
+
+</script>
+
+</body>
+
+</html>
