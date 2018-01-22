@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://ptteng.github.io/PPT/PPT-java/java-task2-api.html#/1 -->
+<html class=" js no-mobile desktop no-ie chrome chrome63 ppt-section ppt-java-section w-1366 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 lt-1440 lt-1680 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch no-retina fontface domloaded" id="java-task2-api-page"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./葡萄藤PPT_files/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT_files/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script><link rel="stylesheet" type="text/css" href="./葡萄藤PPT_files/paper.css"><script type="text/javascript" src="./葡萄藤PPT_files/marked.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/markdown.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/notes.js.下载"></script><script type="text/javascript" src="./葡萄藤PPT_files/highlight.js.下载"></script>
+</head>
+<body>
+<img src="./葡萄藤PPT_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com/" alt="" target="_blank">
+</map>
+<div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.756);">
+        <section class="past" style="top: 42px; display: block;" hidden="" aria-hidden="true">
+            <h2>结合自己的复盘项目来讲讲接口文档</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：雍金卫</p>
+        </section>
+        <section class="present" style="top: 36px; display: block;">
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section class="future" style="top: 267px; display: block;" hidden="" aria-hidden="true">
+            <h3>1.背景介绍</h3>
+        </section>
+        <section class="future" style="top: 165px; display: block;" hidden="" aria-hidden="true">
+            <p>什么是接口文档？</p>
+            <p>在项目开发中，web项目的前后端分离开发，APP开发，需要由前后端工程师共同定义接口，编写接口文档，之后大家都根据这个接口文档进行开发，到项目结束前都要一直维护。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 96px; display: none;">
+			<p>API:</p>
+            <p>API（Application Programming Interface）即应用程序接口。可以认为 API 是一个软件组件或是一个 Web 服务与外界进行的交互的接口。
+			目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。
+			从另一个角度来说，API是一套协议，规定了我们与外界的沟通方式：如何发送请求和接收响应。</p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 267px; display: none;">
+            <h3>2.知识剖析</h3>
+        </section>
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+
+            <p>接口分为四部分:</p>
+
+            <p>1、方法:新增(post) 修改(put) 删除(delete) 获取(get)</p>
+
+            <p>2、uri：以/a开头，如果需要登录才能调用的接口(如新增、修改；前台的用户个人信息，资金信息等)后面需要加/u，
+			即：/a/u；中间一般放表名或者能表达这个接口的单词；get方法，如果是后台通过搜索查询列表，那么以/search结尾，
+			如果是前台的查询列表，以/list结尾。</p>
+
+            <p>3、请求参数和返回参数，都分为5列：字段、说明、类型、备注、是否必填</p>
+
+
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>字段是类的属性；说明是中文释义；类型是属性类型，只有String、Number、Object、Array四种类型；备注是一些解释，或者可以写一下例子，
+			比如负责json结构的情况，最好写上例子，好让前端能更好理解；是否必填是字段的是否必填。</p>
+
+            <p>4、返回参数结构有几种情况：1、如果只返回接口调用成功还是失败（如新增、删除、修改等），则只有一个结构体：
+			code和message两个参数；2、如果要返回某些参数，则有两个结构体：1是code/mesage/data，2是data里写返回的参数,data是object类型；
+			3、如果要返回列表，那么有三个结构体，1是code/mesage/data,data是object，里面放置page/size/total/totalPage/list 5个参数，
+			其中list是Arrary类型，list里放object，object里是具体的参数。</p>
+
+          
+
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		<p>衡量接口（API）设计好和坏的准则</p>
+        <p>槽糕的API接口各种各样，但是好的API接口对于用户来说必须满足以下几个点：</p>
+
+        <p>1.易学习：有完善的文档及提供尽可能多的示例和可copy－paste的代码，像其他设计工作一样，你应该应用最小惊讶原则。</p>
+		<p>最小惊讶原则(Principle of least astonishment)
+		最小惊讶原则通常是在用户界面方面引用，但同样适用于编写的代码(优秀程序设计原则之一)。代码应该尽可能减少让读者惊喜。也就是说，
+		你编写的代码只需按照项目的要求来编写。其他华丽的功能就不必了，以免弄巧成拙。</p>
+
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+		<p>2.易使用：没有复杂的程序、复杂的细节，易于学习；灵活的API允许按字段排序、可自定义分页、 排序和筛选等。
+		一个完整的API意味着被期望的功能都包含在内。</p>
+        <p>3.难误用：对详细的错误提示，有些经验的用户可以直接使用API而不需要阅读文档。</p>
+
+        <p>而对于开发人员来说，易阅读：代码的编写只需要一次一次，但是当调试或者修改的时候都需要对代码进行阅读。</p>
+		<p>易开发：一个最小化的接口是使用尽可能少的类以及尽可能少的类成员。这样使得理解、记忆、调试以及改变API更容易。</p>
+
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>3.常见问题</h3>
+        </section>
+
+
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+			    
+				<p>如何合理设计接口？</p>
+
+
+
+        </section>
+
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <!--<h3>4.解决方案</h3>-->
+            <p>	一、 设计原理</p>
+            <p>	1. 深入了解需求:从“客户端-接口-数据库”的层次上看，接口明显扮演着承上启下的角色，一方面要明白接口要什么数据，另一方面要考虑如何
+			从数据库获取、组织数据。所以如果不了解需求，你就无法正确抽象对象来组织数据给客户端，也无法验证数据库的数据结构能否满足需求。</p>
+			<p>	2.了解数据库结构:既然接口要明白如何从数据库获取、组织数据，就当然要了解数据库结构啦。</p>
+			<p>	3.了解客户端原型:了解原型，其实更多是为了帮助你设计接口时需要提供的数据和结构。</p>
+        </section>
+        
+        
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>二、设计原则</p>
+            <p>1.充分理由:不是随便一个功能就要有个接口，也不是随便一个需求就要加个接口。每新建一个接口，就要有充分的理由和考虑，无意义的接口不仅增加了维护的难度，
+			更重要是对于程序的可控性的大大降低，接口也会十分臃肿。</p>
+			<p>2.职责明确:一个接口只负责一个业务功能，比如查询会员，但不要在查询会
+			员的同时还有修改权限等类似的其他业务功能，应该分成两个接口做。</p>
+           
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>3.高内聚低耦合:一个接口要包含完整的业务功能，而不同接口之间的业务关联要尽可能的小。</p>
+            <p>4.分析角度明确:设计接口分析的角度要统一明确。否则会造成接口结构的混乱。</p>
+			<p>5.入参格式统一:所有接口的参数格式要求及风格要统一，不要一个接口参数是逗号分隔，
+			另一个就是数组;不要一个接口日期参数是x年x月x日风格，另一个就是x-x-x。</p>
+           
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>6.状态及消息:提供必要的接口调用状态信息。调用是否成功?如果失败，那么失败的原因是什么。这些必要的信息必须要告诉给客户端。</p>
+            <p>7.控制数据量:一个接口返回不应该包含过多的数据量，过多的数据量不仅处理复杂，
+			对数据传输的压力也非常大，会导致客户端反应缓慢。过多的数据量很多时候都是接口划分不明确。</p>
+	
+        </section>
+		<section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <p>三、设计方法</p>
+            <p>1.数据格式：
+		接口定义的数据格式必须都经过充分考虑，否则会出现数据转换失败或超出长度等错误。如果无法确定，直接设置成字符串是最合适的。</p>
+		<p>2.有意义的命名：
+		无论是接口还是参数，名称都应该是有意义的，让人能看明白的。</p>
+		<p>3.抽象业务：
+　　	相比抽象对象而言，抽象业务更宏观</p>
+        </section>
+		<section>
+            <h3>5.编码实战</h3>
+        </section>
+        <section>
+        	下面给大家看一下我自己在复盘中设计的接口文档。
+        </section>
+        <!--<section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+        </section>
+        <section>
+          
+        </section>-->
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>7.参考文献</h3>
+            <p>https://www.zhihu.com/question/52409287/answer/130390641</p>
+            <p>http://blog.csdn.net/lingshaoxia/article/details/21097839</p>
+
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section hidden="" aria-hidden="true" class="future" style="top: 330px; display: none;">
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 雍金卫</small></p>
+        </section>
+
+    </div>
+<div class="backgrounds"><div class="slide-background past" data-loaded="true" style="display: block;"></div><div class="slide-background present" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: block;"></div><div class="slide-background future" data-loaded="true" style="display: none;"></div><div class="slide-background future" data-loaded="true" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div><div class="slide-background future" style="display: none;"></div></div><div class="progress" style="display: block;"><span style="width: 71.8947px;"></span></div><aside class="controls" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px);">
+            1.背景介绍
+            2.知识剖析
+            3.常见问题
+            4.解决方案
+            5.编码实战
+            6.扩展思考
+            7.参考文献
+            8.更多讨论
+        </div></div>
+
+<script src="./葡萄藤PPT_files/head.min.js.下载"></script>
+<script src="./葡萄藤PPT_files/reveal.js.下载"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
