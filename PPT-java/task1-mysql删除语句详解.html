@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h4>SQL语法中delete,drop,alter和truncate分别是用来删除什么的?有什么异同?删除了以后可以恢复吗?哪些可以恢复?怎么恢复？</h4>
+               <p>分享人:吴磊建</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+                <p></p>
+		<p>MySQL是一种开放源代码的关系型数据库管理系统（RDBMS），使用最常用的数据库管理语言--结构化查询语言（SQL）进行数据库管理。</p>
+		<p>“SQL” ----是用于访问和处理数据库的标准的计算机语言，简称结构化查询语言</p>
+		<p>SQL中的删除语句一共有四种,分别对应不同的功能</p>
+		  </section>
+
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+		<section>
+		
+		<p>四种删除语句</p>
+	    <p></p>
+	</section>
+	<section>
+		<p>delete:</p>
+		<p>delete from table_name where some_column=some_value</p>
+		<p>用于删除表中的行</p>
+                
+		<p>delete from table_name/delete * from table_name;</p>
+		<p>用于删除表中所有的行,也就是删除表中所有的数据</p>
+
+	</section>
+   
+	<section>
+			<p>drop:</p>
+			<p>drop table table_name;</p>
+                        <p>用于删除整个表,包括表结构</p>
+                        <p>drop database database_name;</p>
+                        <p>用于删除数据库</p>
+        </section>
+	<section>
+			<p>alter（alter语句属于drop语句的分支）:</p>
+			<p>alter table table_name drop column column_name;</p>
+                        <p>用于删除表中的列</p>
+                        <p>alter table table_name drop index index_name;</p>
+                        <p>用于删除表中的索引</p>
+        </section>
+        
+        <section>
+                        <p>truncate:</p>
+                        <p>truncate table table_name;</p>
+                        <p>用于删除表内的数据</p>
+        </section>
+	
+	<section>
+            <h3>3.常见问题</h3>
+        </section>
+       		
+	<section>
+		<p>四种删除语句中哪些功能是相同的?</p>
+                <p>哪些功能是不同的?</p>
+		<p>删除后可以恢复吗?哪些删除是可以恢复的?怎么恢复？</p>
+	</section>
+
+				
+        <section>
+            <h3>4.解决方案</h3>
+			</section>
+			<section>
+		<p>四种删除语句中哪些功能是相同的?</p>
+		<p>1.truncate和不带where子句的delete，以及drop都能删除表内的数据</p>
+        <p>2.truncate和delete只删除表数据保留表结构</p>
+	</section>
+        <section>
+                <p>哪些功能是不同的?</p>
+                <p>delete
+  <p>1、delete语句为数据操作语言（DML,data maintain Language）,这个操作会被放到 rollback segment中,事务提交后才生效。如果有相应的 trigger,执行的时候将被触发。
+  并且同时将该行的的删除操作记录在undo和redo表空间中以便进行回滚（rollback）和重做操作，但要注意表空间要足够大，需要手动提交（commit）操作才能生效，
+  可以通过rollback撤消操作。</p>
+  <p>2、delete可根据条件删除表中满足条件的数据，如果不指定where子句，那么删除表中所有记录。</p>
+<p>3、delete语句不影响表所占用的extent，高水线(high watermark)保持原位置不变。</p>
+        </section>
+		<section>
+		<p>什么是数据库事务?</p>
+			<p>数据库事务是指作为单个逻辑工作单元执行的一系列操作。</p>
+			<p>数据库事务正是用来保证出问题时系统平稳性和可预测性的技术.</p>
+			<p>什么是高水位线？</p>
+			<p>高水位线就存在于段（segment)中，它用于标识段中已使用过的数据块与未使用地的数据块二者间交界，
+			扫描表数据的时候，高水位线以下的所有数据块都必须被扫描。</p>
+			</section>
+        <section>
+            <p>truncate
+  <p>1.truncate是数据定义语言（DDL,data define language）,操作立即生效，原数据不放到 rollback segment中，不能回滚</p>
+<p>2.truncate table一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。
+并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。</p>
+<p> truncate table比 delete 速度快，且使用的系统和事务日志资源少。
+delete 语句每次删除一行，并在事务日志中为所删除的每行记录一项。truncate table 通过释放存储表数据所用的数据页来删除数据，并且只在事务日志中记录页的释放。</p>
+        </section>
+        <section>
+                <p>drop
+  <p>1、drop是数据定义语言（DDL,data define language），会隐式提交，所以，不能回滚，不会触发触发器。</p>
+<p>2、drop语句删除表结构及所有数据，并将表所占用的空间全部释放。</p>
+<p>3、drop语句将删除表的结构所依赖的约束，触发器，索引，依赖于该表的存储过程/函数将保留,但是变为invalid状态。</p>
+        </section>
+		
+	<section>
+		
+                <p>1.在速度上,一般来说,drop> truncate > delete.</p>
+		<p>2、在使用drop和truncate时一定要注意，虽然可以恢复，但为了减少麻烦，还是要慎重。</p>
+		<p>3、如果想删除部分数据用delete，注意带上where子句，回滚段要足够大；如果想删除表，当然用drop；
+   <p>如果想保留表而将所有数据删除，如果和事务无关，用truncate即可；</p>
+   <p>如果和事务有关，或者想触发trigger，还是用delete；</p>
+   <p>如果是整理表内部的碎片，可以用truncate跟上reuse storage，再重新导入/插入数据。</p>
+		
+	</section>
+	<section>
+		<p>删除后可以恢复吗?哪些删除是可以恢复的?</p>
+		<p>数据库删除后的数据想要恢复分三种情况:</p>
+		<p>1.有没有备份?</p>
+		<p>2.有没有开启binlog?</p>
+		<p>3.如果两者都没开,只能使用第三方恢复软件,或者找专业的数据恢复公司</p>
+	</section>
+    <section>
+	<p>用备份语句恢复</p>
+	<p>备份：mysqldump -u root -p database_name  > E:/filename.sql</p>
+
+<p>恢复：mysql  -u root -p database_name  < E:/filename.sql</p>
+
+<p>选择性备份：mysqldump -u root -p database_name table1 table2 ...  > E:/filename.sql</p>
+ <p>全部备份：mysqldump -u root -p --all-databases > E:/filename.sql</p>
+	</section>
+	<section>
+	<p>用binlog恢复</p>
+	<p>binlog是二进制日志，简单的理解就是将数据库中的数据以二进制的形式记录下来，默认形式是hostname.00000x(x=1,2,3...)。
+	此外，mysqlbinlog生成的备份文件是动态备份。binlog日志会将我们对数据的所有操作都记录下来，
+	它就像是一个工作在后台的监视器，以一定的时间间隔查看我们在此段时间内执行的操作，并将之记录下来。</p>
+	</section>
+	<section>
+	<p>如何开启log_bin？（window系统）</p>
+	<p>mysql安装完后有个默认目录：C:\ProgramData\MySQL\MySQL Server 5.7 ，其下有个my.ini文件，在安装过程中该文件已经被配置好了，
+	字符集（utf8），datadir ，端口号3306......配置的很详细， 要开启log_bin，很简单，只需要将my.ini中#log-bin 前的 # 去掉即可</p>
+
+<p>（二进制logbin文件存储的位置默认为：C:\ProgramData\MySQL\MySQL Server 5.7\Data）</p>
+
+ <p>mysql重启完后，然后我们借助：show variables like 'log_bin'; 便可查看log_bin是否开启</p>
+	</section>
+		
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>	
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>冯亚超师兄PPT</p>
+            <p>http://blog.csdn.net/ws0513/article/details/49980547?%3E</p>
+            <p>http://blog.csdn.net/qq_34722749/article/details/69388376</p>
+
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            
+        </section>
+		
+		
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
