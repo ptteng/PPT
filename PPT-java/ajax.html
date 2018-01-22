@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>ajax的简单了解</h2>
+            <p></p>
+           
+            <p>宋哲明</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+ 
+        <section>
+            <p>做复盘的时候选择了聚金融，如果需要调试的话需要在安卓端或者IOS端进行调试，然而并没有人给调试，这就很尴尬了，在坚持了两天之后还是决定仿照前两组的样子来
+            直接把APP端的页面改成PC端，然而变成PC端的时候，因为对前端知识不是很了解，有的地方如果有不同的想法，就会造成需要改却无法改的很尴尬的情况，然后直接自己学习一部分前端知识来用，
+            当中必须要懂的就是今天讲到的ajax</p>
+        </section>
+        
+
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+		<section>
+            <p>套用一句不恰当的话，Ajax就是中间商（并不赚取差价），换一个专业点的说话，现在它就是脚本发起HTTP通信的代名词</p><br />
+            <p>具体什么是Ajax呢？我们在说这个问题之前，需要思考一个问题：当我们上网的时候，我们到底在上什么？</p>
+    </section>
+        
+            <section class="fragment" style="text-align: left;">
+                <p>大部分人都是在上浏览器。</p>
+                <p>当我们在浏览器地址栏键入一个网址，或者通过网页表单向服务器提交内容的时候,我们就开始与浏览器进行交互。而浏览器在这个时候，开始与服务器进行交互。</p>
+                <p>传统的Web应用交互由用户触发一个HTTP请求到服务器,服务器对其进行处理后再返回一个新的HTML页到客户端。</p>
+                <p>每当服务器处理客户端提交的请求时,客户都只能空闲等待,并且哪怕只是一次很小的交互、只需从服务器端得到很简单的一个数据</p>
+                <p>都要返回一个完整的HTML页,而客户端每次都要浪费时间和带宽去重新读取整个页面。</p>
+            </section>
+            <section style="text-align: left;">
+                <p>1999年，微软公司发布IE浏览器5.0版，第一次引入新功能：允许JavaScript脚本向服务器发起HTTP请求。这个功能当时并没有引起注意,为什么？</p>
+                <p>实际上，人们一直在寻求改善传统的web应用交互方式。1999年以前，JS可以通过Java applet或Flash电影等中间层向服务器发送请求。</p>
+                <p>在Ajax被提出之前，这种技术就已经存在很长时间了，那时候人们通常将这种技术叫做远程脚本(remote scripting)</p>
+            </section>
+            <section style="text-align: left;">
+                <P>Ajax技术的核心是XMLHttpRequest（简称XHR），这是由微软首先引入的一个特性，最早应用在它的IE5浏览器上。</P>
+                <P>在IE5中，XHR对象是通过MSXML库中的一个ActiveX对象实现的，而IE7+及其他标准浏览器都支持原生的XHR对象</P>
+                <p>在XHR出现之前，Ajax式的通信必须借助一些hack首选来实现，大多数使用隐藏或内嵌的框架来。</p>
+                <p>在XHR出现之后，XHR为向浏览器发送请求和解析服务器响应提供了流畅的接口。</p>
+                <p>随着XHR、JS等各项技术应用得越来越广泛，2005年，依赖XHR的Ajax技术被提出。</p>
+            </section>
+
+       <section>
+            <h3>3.常见问题</h3>
+       </section>
+       		
+		<section>
+              <p>简单的了解下ajax的运行机制</p>
+              
+        </section>
+	    
+            <section>
+                <p style="text-align: left;">Ajax的工作原理相当于在用户和服务器之间加了—个中间层(AJAX引擎),使用户操作与服务器响应异步化。</p>
+                <p style="text-align: left;">并不是所有的用户请求都提交给服务器,像—些数据验证和数据处理等都交给Ajax引擎自己来做, 只有确定需要从服务器读取新数据时再由Ajax引擎代为向服务器提交请求。</p>
+                <p  style="text-align: left;">Ajax就这样集齐CSS、JavaScript、XMLHTTPRequest、DOM对象四神兽，通过XmlHttpRequest
+                    对象来向服务器发异步请求，从服务器获得数据，然后用JavaScript来操作DOM、改变CSS，更新页面。</p>
+            </section>
+            <section>
+                <p style="text-align: left;">Ajax重要影响是使WEB中的界面与应用分离（也可以说是数据与呈现分离），而在以前两者是没有清晰的界限的。</p>
+                <p style="text-align: left;">数据与呈现分离的分离，有利于分工合作、减少非技术人员对页面的修改造成的WEB应用程序错误、提高效率、也更加适用于现在的发布系统。</p>
+                <p style="text-align: left;">也可以把以前的一些服务器负担的工作转嫁到客户端，利于客户端闲置的处理能力来处理。</p>
+            </section>
+            <section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		
+		
+
+		
+		
+       
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+        	<h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>ajax的优缺点？</p>
+        <p>(1).AJAX的优点</p>
+
+                <p><1>.无刷新更新数据。AJAX最大优点就是能在不刷新整个页面的前提下与服务器通信维护数据。这使得Web应用程序更为迅捷地响应用户交互，并避免了在网络上发送那些没有改变的信息，减少用户等待时间，带来非常好的用户体验。</p></section>
+        
+          <section style="text-align: left;">
+                <p><2>.异步与服务器通信。
+                    AJAX使用异步方式与服务器通信，不需要打断用户的操作，具有更加迅速的响应能力。优化了Browser和Server之间的沟通，减少不必要的数据传输、时间及降低网络上数据流量。</p>
+                <p><3>.前端和后端负载平衡。
+                    AJAX可以把以前一些服务器负担的工作转嫁到客户端，利用客户端闲置的能力来处理，减轻服务器和带宽的负担，节约空间和宽带租用成本。并且减轻服务器的负担，AJAX的原则是“按需取数据”，可以最大程度的减少冗余请求和响应对服务器造成的负担，提升站点性能</p>
+             </section>
+            <section style="text-align: left;">
+                <p><4>.基于标准被广泛支持。
+                    AJAX基于标准化的并被广泛支持的技术，不需要下载浏览器插件或者小程序，但需要客户允许JavaScript在浏览器上执行。随着Ajax的成熟，一些简化Ajax使用方法的程序库也相继问世。同样，也出现了另一种辅助程序设计的技术，为那些不支持JavaScript的用户提供替代功能。</p>
+                <p><5>.界面与应用分离。
+                    Ajax使WEB中的界面与应用分离（也可以说是数据与呈现分离），有利于分工合作、减少非技术人员对页面的修改造成的WEB应用程序错误、提高效率、也更加适用于现在的发布系统。</p>
+            </section>
+            <section style="text-align: left;">
+                <p>(2).AJAX的缺点</p>
+                <p><1>.AJAX干掉了Back和History功能，即对浏览器机制的破坏。
+                    在动态更新页面的情况下，用户无法回到前一个页面状态，因为浏览器仅能记忆历史记录中的静态页面。一个被完整读入的页面与一个已经被动态修改过的页面之间的差别非常微妙；用户通常会希望单击后退按钮能够取消他们的前一次操作，但是在Ajax应用程序中，这将无法实现。</p>
+                <p><2>.AJAX的安全问题。
+                    AJAX技术给用户带来很好的用户体验的同时也对IT企业带来了新的安全威胁，Ajax技术就如同对企业数据建立了一个直接通道。这使得开发者在不经意间会暴露比以前更多的数据和服务器逻辑。Ajax的逻辑可以对客户端的安全扫描技术隐藏起来，允许黑客从远端服务器上建立新的攻击。还有Ajax也难以避免一些已知的安全弱点，诸如跨站点脚步攻击、SQL注入攻击和基于Credentials的安全漏洞等等。</p>
+
+            </section>
+            <section style="text-align: left;">
+                <p><3>.对搜索引擎支持较弱。
+                    对搜索引擎的支持比较弱。如果使用不当，AJAX会增大网络数据的流量，从而降低整个系统的性能。</p>
+                <p><4>.破坏程序的异常处理机制。</p>
+                <p><5>.违背URL和资源定位的初衷。
+                    例如，我给你一个URL地址，如果采用了Ajax技术，也许你在该URL地址下面看到的和我在这个URL地址下看到的内容是不同的。这个和资源定位的初衷是相背离的。</p>
+            </section>
+            <section style="text-align: left;">
+                <p><6>.AJAX不能很好支持移动设备。
+                    一些手持设备（如手机、PDA等）现在还不能很好的支持Ajax，比如说我们在手机的浏览器上打开采用Ajax技术的网站时，它目前是不支持的。</p>
+                <p><7>.客户端过肥，太多客户端代码造成开发上的成本。
+                        编写复杂、容易出错 ；冗余代码比较多（层层包含js文件是AJAX的通病，再加上以往的很多服务端代码现在放到了客户端）；破坏了Web的原有标准。 </p>
+            </section>
+            <section style="text-align: left;">
+                <p>需要注意的是：</p>
+                <p>Ajax开发时，网络延迟——即用户发出请求到服务器发出响应之间的间隔——需要慎重考虑。不给予用户明确的回应，没有恰当的预读数据，或者对XMLHttpRequest的不恰当处理，都会使用户感到延迟，这是用户不希望看到的，也是他们无法理解的。通常的解决方案是，使用一个可视化的组件来告诉用户系统正在进行后台操作并且正在读取数据和内容。</p>
+                <p></p>
+            </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>百度	</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+         
+        </section>
+		
+
+		
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:宋哲明</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
