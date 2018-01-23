@@ -1,0 +1,194 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>JAVA中的异常处理机制</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：何东霖</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<p>什么是异常</p>
+            <p style="text-align:left">异常就是程序运行中出现的不正常情况，在Java代码中，异常出现就会阻止当前方法或作用域继续执行</p>
+        </section>
+        <section>
+        	 <p>Java异常处理机制</p>
+            <p style="text-align:left">如果某个方法不能按照正常的途径完成任务， 就可以通过另一种路径退出方法。 在这种情况下会抛出一个封装了错误信息的对象。 此时，这个方法会立刻退出同时不返回任何值。 另外，调用这个方法的其他代码也无法继续执行， 异常处理机制会将代码执行交给异常处理器。</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p style="text-align:left">异常分类</p>
+			<p style="text-align:left">1、检查型异常：例如java.lang.IOException  程序正确,但因为外在的环境条件不足而引发。例如程序视图打开一个不存在的远程端口或者是打开不存在的文件时，这不是程序本身的逻辑错误，很可能是远程机器名字错误（用户拼写的路径错误），这种异常Java编译器是要求强制处理的，如果不捕获这类异常，程序将不能通过编译。</p>
+			<p style="text-align:left">2、（非检查型）运行期异常：java.lang.RuntimeException 意味着程序存在逻辑错误，比如数组越界，除数为0，入参不满足规范.....这类异常需要更改程序配置来避免。</p>
+			<p style="text-align:left">3、错误:java.lang.Error 一般开发过程中不多见，遇到了也很难通过调试程序来解决。他的出现更多是源于环境的问题，错误在程序中无需处理，而由运行环境处理</p>
+			<p style="text-align:left"></p>
+		</section>
+		        <section>
+            <p>这三个异常类的顶层都是java.lang.Throwable类，检查型异常，运行期异常，错误都是这个类的子类。</p>
+<!-- 
+            <p style="text-align:left">第一步：准备数据库、表</p>
+            <p style="text-align:left">第二步：3个依赖和1个插件</p>
+            <p style="text-align:left">mybatis.jar</p>
+            <p style="text-align:left">mybatis-generator-core.jar</p>
+            <p style="text-align:left">mysql-connector-java.jar</p>
+            <p style="text-align:left">mybatis-generator-maven-plugin</p> -->
+        </section>
+
+        <section>
+            <p style="text-align:left">Java异常处理涉及到五个关键字，分别是：try、catch、finally、throw与throws</p>
+            <p style="text-align:left">1.try：它里面放置可能引发异常的代码</p>
+            <p style="text-align:left">2.catch：后面对应异常类型和一个代码块，用于表明该catch块用于处理这种类型的代码块，可以有多个catch块。</p>
+            <p style="text-align:left">3.finally：finally关键字保证无论程序使用任何方式离开try块，finally中的语句都会被执行，它相当于一个万能的保险，即使前面的try块发生的异常没有对应的catch块来捕获，finally块也能马上执行。</p>
+            <p style="text-align:left">4.throw与throws都是将异常抛出，具体使用看代码</p>
+        </section>
+<!-- 		<section>
+			<p style="text-align:left">代码生成的映射文件提供了几种常用的CRUD操作</p>
+			<p style="text-align:left">1.insert()</p>
+			<p style="text-align:left">2.insertSelective()</p>
+			<p style="text-align:left">3.updateByPrimaryKeySelective()</p>
+			<p style="text-align:left">4.updateByPrimaryKey()</p>
+			<p style="text-align:left">5.selectByPrimaryKey()</p>
+			<p style="text-align:left">6.deleteByPrimaryKey()</p>
+		</section>
+		 <section>
+            <p style="text-align:center">mybatis-generator的运行过程</p><br>
+			<p style="text-align:center">连接数据库——》从数据库的表中获取字段——》依据字段生成mapper文件、dao、实体类</p><br>
+
+        </section>
+                <section>
+            <p>命令行生成</p>
+
+
+        </section> -->
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">1、如何使用这些关键字来对代码中的异常进行出处理呢？</p><br>
+            <p style="text-align:center">2、Java也不可能做到穷举所有异常可能出现的情况，出现Java提供的异常类之外的异常该如何处理呢？</p><br>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p>1、代码演示关键字用法</p><br>
+			<p>2、自定义异常类</p><br>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>异常机制在实际开发中使用时应该注意哪些地方呢？</p>  
+			<p style="text-align:left">1、处理异常。针对该异常采取一些行动，例如修正问题、提醒某个人或进行其他一些处理，要根据具体的情形确定应该采取的动作，所以很多时候调用printStackTrace（）算不上已经“处理好了异常”。printStackTrace的堆栈跟踪功能显示出程序运行到当前类的执行流程，但只提供了一些最基本的信息，未能说明实际导致错误的原因，同时也不易解读。   因此，在出现异常时，最好能够提供一些文字信息，例如当前正在执行的类、方法和其他状态信息，包括以一种更适合阅读的方式整理和组织printStackTrace提供的信息。 </p>
+			<p style="text-align:left">2、切忌用一个catch语句捕获所有的异常。最常见的情形就是使用catch(Exception ex)语句。在绝大多数情况下，这种做法不值得提倡。所以在catch语句中尽可能指定具体的异常类型，必要时使用多个catch。</p>
+			<!-- <p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序到不同文件，可以清晰反映出应用程序的</p> -->
+		 </section>
+		 <section>
+			<p style="text-align:left">3、如果程序用到了文件、Socket、JDBC连接之类的资源，即使遇到了异常，也要正确释放占用的资源。所以还要充分运用finally关键词</p>
+			<p style="text-align:left">4、应尽量减小try块的体积，我们常常习惯把大量的代码放入单个try块，然后再在catch语句中声明Exception，而不是分离各个可能出现异常的段落并分别捕获其异常。这种做法为分析程序抛出异常的原因带来了困难，因为一大段代码中有太多的地方可能抛出Exception。   </p>
+			<p style="text-align:left">5、当执行循环的过程中抛出了异常，要仔细分析并全面考虑可能出现的异常以及这些异常对执行流程的影响，对已经输出但不完全的数据要做好应对措施，否则使用数据的人或者设备收到一份不完整的数据，却得不到任何有关这份数据是否完整的提示，网网比异常导致的系统停止运行带来的损失更大</p>
+        </section>
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.CSDN博客：http://swiftlet.net/archives/998</p>
+			<p style="text-align:center">2.CSDN博客：http://blog.csdn.net/zxman660/article/details/7799827</p>
+			<p style="text-align:center"></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
