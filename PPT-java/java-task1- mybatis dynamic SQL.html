@@ -1,0 +1,171 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>mybatis常用标签和动态查询</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：张庆东</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">在日常开发中，基本的静态的查询情况已经足够对付。但有些时候，我们想寻求一个能够根据参数自动调整SQL查询的方法。如，学校教导主任发现一个学生违反校纪校规，但是并没有当场抓住该学生，于是，他通过已经掌握的学生信息如【性别】，【年纪】，【身高】等信息来查询符合条件的学生。但是，这些信息的数量每次得到的数量都是不同的。换句话说，我们在设计系统时，无法确定传入参数的数量。也没有获得一个足以唯一确定这个对象的主键【如学号】。这便需要使用到动态查询功能。</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section> 
+		
+		<section>
+			<p style="text-align:center"> &lt;if&gt;</p>
+			<p style="text-align:left">说明： 若符合&nbsp;&nbsp;&lt;if&gt;标签中的条件，则在SQL语句上添加&lt;if&gt;&lt;/if&gt;内的条件</p>
+			<p style="text-align:left">常见场景：应用场景广泛，若条件不为null，添加SQL语句，在update中最为常见，也可以在insert中使用，避免插入null，导致默认值失效，当然其他类型例如select也可以使用</p>
+		</section>
+			
+		<section>
+			<p style="text-align:center">&lt;where&gt;</p>
+			<p style="text-align:left">说明：避免所有条件都为空的时候出现“select * from user where ”这种会出错的情况，当然我们也可以在where后面加入“1=1”简单的解决，但是有更简单的方法，何乐而不为呢？</p>
+		</section>
+		
+		<section>
+			<p style="text-align:center">&lt;set&gt;</p>
+			<p style="text-align:left">&lt;set&gt;元素会动态前置 SET 关键字，同时也会消除无关的逗号，因为用了条件语句之后很可能就会在生成的赋值语句的后面留下这些逗号，和&lt;where&gt;相同，也是避免SQL语句出错而设置的一个标签</p>
+		</section>
+		
+		<section>
+			<p style="text-align:center"> &lt;choose&gt; </p>
+			<p style="text-align:left">说明：自带&lt;when&gt;和 &lt;otherwise&gt;两个标签，&lt;when&gt;标签可以有多个，若其中一个&lt;when&gt;内条件符合，则终止 &lt;choose&gt;；若无&lt;when&gt;条件符合，则采用&lt;otherwise&gt;中的语句</p>
+			<p style="text-align:left">常见场景：复用单条件SQL语句，例如查找一个用户，按“年龄查找”，或按“性别”查找等</p>
+		</section>
+		
+		<section>
+			<p style="text-align:center">&lt;foreach&gt;</p>
+			<p style="text-align:left">说明：遍历传入的List、collection或map参数，依次使用集合中的元素执行SQL语句</p>
+			
+	
+		</section>
+		
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:center">如果没有mybatis，又想要使用动态查询怎么办？</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">使用葡萄藤的工具类库，SQLUtil，将MAP转化为SQL语句，再使用JDBC或JDBCTemplate查询</p>
+		</section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.CSDN：http://blog.csdn.net/ABCD898989/article/details/51218551</p>
+			<p style="text-align:center">2.mybatis官方文档</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
