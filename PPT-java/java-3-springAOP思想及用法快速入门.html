@@ -1,0 +1,211 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>SpringAOP思想及用法快速入门</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：何东霖</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        	<p>什么是AOP</p>
+            <p style="text-align:left">AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。
+                AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的核心内容之一。
+                利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。</p>
+        </section>
+        <section>
+        	 <p>AOP与OOP</p>
+            <p style="text-align:left">AOP可以说是OOP（面向对象编程）的补充和完善。OOP引入封装、继承、多态等概念来建立一种对象层次结构，用于模拟公共行为的一个集合。
+            不过OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能。
+            日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系。对于其他类型的代码，如安全性、异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting）。在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用。</p>
+        </section>
+                <section>
+             <p>我对于AOP思想的理解</p>
+            <p style="text-align:left">AOP的核心思想是帮助我们在扩展功能（方法）时可以不依靠修改源代码来实现。其采取横向抽取机制，规避了传统面向对象中纵向继承体系的重复性高耦合代码</p>
+        </section>
+    
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p>1、为什么要使用aop</p>
+			<p style="text-align:left">a.为了方便，用了aop能让你少写很多代码</p>
+			<p style="text-align:left">b.为了更清晰的逻辑，可以让你的业务逻辑去关注自己本身的业务，而不去想一些其他的事情，这些其他的事情包括：安全，事物，日志等。</p>
+			<p style="text-align:left">c.为了降低之前传统面向对象中采用纵向继承体系增强方法导致的耦合度过高的问题</p>
+            <p style="text-align:left">d.提高了代码的复用性</p>
+		</section>
+<!-- 		        <section>
+            <p>这三个异常类的顶层都是java.lang.Throwable类，检查型异常，运行期异常，错误都是这个类的子类。</p>
+
+            <p style="text-align:left">第一步：准备数据库、表</p>
+            <p style="text-align:left">第二步：3个依赖和1个插件</p>
+            <p style="text-align:left">mybatis.jar</p>
+            <p style="text-align:left">mybatis-generator-core.jar</p>
+            <p style="text-align:left">mysql-connector-java.jar</p>
+            <p style="text-align:left">mybatis-generator-maven-plugin</p>
+        </section> -->
+
+        <section>
+            <p style="text-align:left">浅析AOP思想的发展及原理</p>
+            <p style="text-align:left">发展：修改源代码————采用OOP纵向继承体系————采用AOP横向织入</p>
+            <p style="text-align:left">实现原理：通过动态代理创建代理对象来实现</p>
+            <p style="text-align:left"></p>
+            <p style="text-align:left"></p>
+        </section>
+		<section>
+			<p style="text-align:left">对aop专业术语的个人理解</p>
+			<p style="text-align:left">1.通知（Advice）*：理解为增强更合适，里面就是增强方法的逻辑，分为前置增强，后置增强，环绕增强，最终增强，异常增强</p>
+			<p style="text-align:left">2.连接点（JoinPoint）：在springAOP中就是目标类中允许你使用增强逻辑的所有方法。</p>
+			<p style="text-align:left">3.切入点（Pointcut）*：实际被我们增强的方法称为切点</p>
+			<p style="text-align:left">4.切面（Aspect）*：把增强应用到切点上的过程</p>
+			<p style="text-align:left">5.目标（target）：被增强的方法所在的那个类，也就是真正的业务逻辑，他可以在毫不知情的情况下，被织入切面。而自己专注于业务本身的逻辑。</p>
+			
+		</section>
+		 <section>
+            <p style="text-align:left">6.代理(proxy)：目标类被增强后产生的代理类</p>
+			<p style="text-align:left">7.织入(weaving)：把增强应用到目标类的过程</p>
+
+        </section>
+<!--                 <section>
+            <p>命令行生成</p>
+
+
+        </section> -->
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">提问一：如何实现spring的AOP操作？</p><br>
+            <p style="text-align:left">提问二：在确定好需要增强的方法之后，切入点的定位是如何完成的？</p><br>
+            <!-- <p style="text-align:center">2、Java也不可能做到穷举所有异常可能出现的情况，出现Java提供的异常类之外的异常该如何处理呢？</p><br> -->
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">回答一：在sring里面进行aop操作，使用aspectJ来实现。aspectJ本身是一个单独的面向切面的框架，里面定义了AOP语法，不是spring的一部分，和spring协同完成springAOP的操作，使用aspectJ来实现springAOP的操作有两种方式</p><br>
+			<p style="text-align:left">1.基于aspectJ的xml文件</p><br>
+            <p style="text-align:left">2.基于aspectJ注解</p><br>
+		</section>
+                <section>
+            <p style="text-align:left">回答二：使用表达式来配置切入点，表达式有很多种，但是绝大多数问题都可以用execution表达式来解决</p><br>
+            <p style="text-align:left">1.execution（* com.ptt.aop.Book.add(..))</p><br>
+            <p style="text-align:left">2.execution（* com.ptt.aop.Book.*(..))</p><br>
+            <p style="text-align:left">3.execution（* *.*(..))</p><br>
+            <p style="text-align:left">4.匹配所有save开头的方法：execution(* save*(..))</p><br>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>基于注解与基于配置文件的优缺点</p>  
+			<p style="text-align:left">1、注解可以充分利用 Java 的反射机制获取类结构信息，这些信息可以有效减少配置的工作，注释和 Java 代码位于一个文件中，而XML 配置采用独立的配置文件，大多数配置信息在程序开发完成后都不会调整，如果配置信息和 Java 代码放在一起，有助于增强程序的内聚性。而采用独立的 XML 配置文件，程序员在编写一个功能时，往往需要在程序文件和配置文件中不停切换，这种思维上的不连贯会降低开发效率。 </p>
+			<p style="text-align:left">2、个人认为如果开发的程序比较复杂的话还是多用xml配置，这样以后方便维护，反之则使用注解</p>
+			<!-- <p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序到不同文件，可以清晰反映出应用程序的</p> -->
+		 </section>
+	<!-- 	 <section>
+			<p style="text-align:left">3、如果程序用到了文件、Socket、JDBC连接之类的资源，即使遇到了异常，也要正确释放占用的资源。所以还要充分运用finally关键词</p>
+			<p style="text-align:left">4、应尽量减小try块的体积，我们常常习惯把大量的代码放入单个try块，然后再在catch语句中声明Exception，而不是分离各个可能出现异常的段落并分别捕获其异常。这种做法为分析程序抛出异常的原因带来了困难，因为一大段代码中有太多的地方可能抛出Exception。   </p>
+			<p style="text-align:left">5、当执行循环的过程中抛出了异常，要仔细分析并全面考虑可能出现的异常以及这些异常对执行流程的影响，对已经输出但不完全的数据要做好应对措施，否则使用数据的人或者设备收到一份不完整的数据，却得不到任何有关这份数据是否完整的提示，网网比异常导致的系统停止运行带来的损失更大</p>
+        </section>
+		 -->
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.常雷雷的PPT</p>
+			<p style="text-align:center">2.CSDN博客：https://www.cnblogs.com/hongwz/p/5764917.html</p>
+			<p style="text-align:center"></p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
