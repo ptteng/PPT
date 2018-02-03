@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Cookie和Session</h2>
+            <p></p>
+            <h3>java 分享会</h3>
+            <p>分享人:深圳-6-java-牛涛</p>
+        </section>
+        <section>
+            <p>0.为什么要使用Cookie和Session</p>
+            <p>1.Cookie</p>
+            <P>2.Cookie使用方法</P>
+            <p>3.Cookie常见问题</p>
+            <p>4.Session</p>
+            <p>5.Session使用方法</p>
+            <p>6.Session常见问题</p>
+            <p>7.两者的区别及使用场景</p>
+        </section>
+        <section>
+            <h3>为什么要使用Cookie和Session</h3>
+            <p>Http的无状态性要求出现一种保存c/s间状态的机制</p>
+            <p>1.cookie机制采用的是在客户端保持状态的方案</p>
+            <p>2.session机制采用的是在服务器端保持状态的方案</p>
+        </section>
+        <section>
+            <h3>1.Cookie</h3>
+            <p>Cookie 可以翻译为“小甜品，小饼干”<p>
+            <p>
+                Cookie 在网络系统中几乎无处不在，当我们浏览以前访问过的网站时，网页中可能会出现 ：
+                你好 XXX，这会让我们感觉很亲切，就好像吃了一个小甜品一样。
+            </p>
+        </section>
+        <section>
+            <p>Cookie 实际上是指小量文本信息，由 Web 服务器创建，将信息存储在用户计算机上。<p>
+            <p>1.存储在浏览器内存中，会话cookie<p>
+            <P>2.存储在用户本地的硬盘上，普通cookie</P>
+        </section>
+        <section>
+            <h3>2.Cookie使用方法</h3>
+            <p>setName(String name)/getName()</p>
+            <p>setValue(String Value)/getValue()</p>
+            <p>setMaxAge(int age)/getMaxage()</p>
+            <p>利用HttpServletRespones的addCookie（）方法将它设置到客户端</p>
+            <p>利用HttpServletRequest的getCookie（）方法来读取客户端的Cookie，返回一个Cookie数组</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+            <p>
+                1.Cookie有效期及存储方式。
+            </p>
+            <p>
+                2.Cookie有效域。
+            </p>
+            <p>
+                3.Cookie有效路径。
+            </p>
+        </section>
+        <section>
+            <p>1.Cookie有效期</p>
+            <p>
+                如果不设置过期时间，则表示这个cookie的生命周期为浏览器会话期间，只要关闭浏览器窗口，cookie就消失了。
+                这种生命周期为浏览器会话期的cookie被称为会话cookie。会话cookie一般存储在在客户机的内存里。
+            </p>
+        </section>
+        <section>
+            <p>
+                服务器端使用setMaxAge()方法设置了cookie的有效期,服务器把cookie发送给浏览器时，浏览器把Cookie存到硬盘中，
+                保存至有效期，浏览器会将它删除。
+            </p>
+        </section>
+        <section>
+            <p>2.Cookie有效域</p>
+            <p>setDomain(String domain)/getDomain()</p>
+            <p>如果设置域为 .baidu.com,则可以访问baidu.com,baike.baidu.com</p>
+        </section>
+        <section>
+            <p>3.Cookie有效路径</p>
+            <p>setPath(String uri)/getPath()</p>
+            <p>
+                设置cookie的有效路径，比如把cookie的有效路径设置为"/"，那么整个web项目都可以使用这个cookie
+                再比如把cookie的有效路径设置为"/test/"，那么浏览器只有在访问"/test/xxx"  资源时才会带上这个cookie
+            </p>
+        </section>
+        <section>
+            <h3>4.Session</h3>
+            <p>Session：会话，从一个浏览器窗口打开到关闭这个期间。<p>
+            <p>Session在web开发，它的含义是指一类用来在客户端与服务器之间保持状态的解决方案<p>
+            <p>
+                当用户请求来自应用程序的 Web 页时，如果该用户还没有session，则 Web 服务器将自动创建一个 Session ,
+            当会话过期或被放弃后，服务器将终止该会话。
+            </p>
+        </section>
+        <section>
+            <h3>5.Session使用方法</h3>
+            <p>获取Session</p>
+            <p>getSession(boolean);  //true：没有将创建新的，false：没有将返回null</p>
+            <p>getSession(); //没有将创建新的</p>
+            <p>属性操作</p>
+            <p>setAttrubute(String name,Object value)/getAttrubute(String name)</p>
+        </section>
+        <section>
+            <h3>6.Session常见问题</h3>
+            <p>1.Session有效期</p>
+            <p>2.Session存储方式</p>
+            <p>3.用户禁掉Cookie怎么办</p>
+        </section>
+        <section>
+            <h3>Session有效期:</h3>
+            <p>1.session.setMaxInactiveInterval();参数单位是秒</p>
+            <p>2.web.xml</p>
+            <p>3.在应用服务器中设置,如Tomcat默认30分钟</p>
+            <p>需要注意的是如果上述三个地方如果都设置了，有个优先级的问题，从高到低：（1）>（2）>（3）</p>
+        </section>
+        <section>
+            <h3>特别注意：</h3>
+            <p>session.setMaxInactiveInterval(),不活动间隔</p>
+            <p>Session有效期计时是从最后一次请求结束后开始计时！</p>
+            <p>如果Cookie先于Session失效，那么Session也将失效！</p>
+        </section>
+        <section>
+            <h3>Session存储方式</h3>
+            <p>一般情况下，session都是存储在内存里，当服务器进程被停止或者重启的时候，内存里的session也会被清空</p>
+            <p></p>
+        </section>
+        <section>
+            <h3>用户禁掉cookie后如何使用session</h3>
+            <p>Url重写</p>
+            <p>encodeURL(java.lang.String url)进行所有URL重写<p>
+        </section>
+        <section>
+            <h3>7.区别及使用场景</h3>
+            <p>cookie值只能是字符串，session值可以是Object</p>
+            <p>cookie数据存放在客户的浏览器上，session数据放在服务器上</p>
+            <p>cookie不是很安全，考虑到安全应当使用session</p>
+            <p>session会在一定时间内保存在服务器上，当访问多，占用你服务器的性能。考虑到减轻服务器性能方面，应当使用cookie</p>
+        </section>
+        <section>
+            <p>Cookie</p>
+            <p>记住用户名，用户喜好等。 2.购物车，浏览记录等</p>
+            <p>Session</p>
+            <p>保持登陆状态，及一些对安全性要求高的数据</p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 深圳分院 牛涛</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
