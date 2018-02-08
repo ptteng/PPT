@@ -1,0 +1,157 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>quartz定时任务应用</h2>
+            <p>分享人：王鹏举</p>	
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.拓展思考</p>
+            <p>7.参考文献</p>
+			<p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+		</section>
+		<section>
+		<p>Quartz是一个作业调度库，可以与任何其他软件系统集成，也可以和其他软件系统一起使用。“job scheduler”作业调度程序是一个服务组件，负责执行（或通知）其他软件组件预定（预定）时间到达。
+		Quartz非常灵活，并且包含多个可以单独使用或一起使用的使用范例，以便实现所需的行为，并使我们能够以对项目最为“自然”的方式编写代码。
+		Quartz非常轻量级，而且只需要很少的设置/配置 - 如果您的需求相对比较基本的话，它实际上可以用于“开箱即用”的。
+		Quartz是容错的，可以在系统重启之间持续（'记住'）你的预定作业。</p>
+		</section>
+	
+		<section>
+            <h3>2.知识剖析</h3>
+		</section>
+		 <section>
+		<p>Quartz体系结构</p>
+		<p> Job： 是一个接口，只定义一个方法execute(JobExecutionContext context)，在实现接口的execute方法中编写所需要定时执行的Job(任务)， JobExecutionContext类提供了调度应用的一些信息。
+		Job运行时的信息保存在JobDataMap实例中；</p>
+		<p>JobDetail： Quartz每次调度Job时， 都重新创建一个Job实例， 所以它不直接接受一个Job的实例，相反它接收一个Job实现类(JobDetail:描述Job的实现类及其它相关的静态信息，如Job名字、描述、关联监听器等信息)，
+		以便运行时通过newInstance()的反射机制实例化Job</p>
+		</section>
+		 <section>
+		<p>Trigger：是一个类，描述触发Job执行的时间触发规则。主要有SimpleTrigger和CronTrigger这两个子类。
+		当且仅当需调度一次或者以固定时间间隔周期执行调度，SimpleTrigger是最适合的选择；而CronTrigger则可以通过Cron表达式定义出各种复杂时间规则的调度方案：</p>
+		<p>Calendar：org.quartz.Calendar和java.util.Calendar不同， 它是一些日历特定时间点的集合（可以简单地将org.quartz.Calendar看作java.util.Calendar的集合——java.util.Calendar代表一个日历时间点，无特殊说明后面的Calendar即指org.quartz.Calendar）。 
+		一个Trigger可以和多个Calendar关联， 以便排除或包含某些时间点<p>
+		</section>
+		
+		 <section>
+		<p> Scheduler：代表一个Quartz的独立运行容器， Trigger和JobDetail可以注册到Scheduler中，拥有各自的组及名称，组及名称必须唯一（但可以和Trigger的组和名称相同，因为它们是不同类型的）。Scheduler定义了多个接口方法， 允许外部通过组及名称访问和控制容器中Trigger和JobDetail。</p>
+		</section>
+		<section>
+		<p>Scheduler可以将Trigger绑定到某一JobDetail中， 这样当Trigger触发时，对应的Job就被执行。一个Job可以对应多个Trigger， 但一个Trigger只能对应一个Job。可以通过SchedulerFactory创建一个Scheduler实例。Scheduler拥有一个SchedulerContext，它类似于ServletContext，保存着Scheduler上下文信息，Job和Trigger都可以访问SchedulerContext内的信息。SchedulerContext内部通过一个Map以键值对的方式维护这些上下文数据，SchedulerContext为保存和获取数据提供了多个put()和getXxx()的方法。
+		</p>
+		</section>
+		
+		<section>
+            <h3>3.常见问题</h3>
+		</section>
+		<section>
+		<p>将quartz与老大框架结合起来遇到的问题.</p>
+		</section>
+		<section>
+            <h3>4.解决方案</h3>
+		</section>
+		
+		<section>
+            <h3>5.编码实战</h3>
+		</section>
+    
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+		<section>
+		 <p>为什么要将quartz与spring结合起来?</p>
+		</section>
+		
+		
+	   <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.quartz-scheduler.org/documentation/faq.html#FAQ-whatQuartz</p>
+			<p>http://blog.csdn.net/gongyouong/article/details/72965451</p>
+        </section>
+		<section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>分享到此结束</h4>
+            <p>欢迎大家讨论</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
