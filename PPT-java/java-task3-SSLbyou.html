@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>SSH原理与应用</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：尤炳晓</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+		 <section>
+            <p>背景介绍</p>
+            <p>最早的时候，互联网通信都是明文通信。一旦被截获，内容就暴露无疑。1995年芬兰学者Tatu Ylonen设计了SSH协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广。目前已经成为Linux系统的标准配置。
+            </p>
+        </section>
+
+
+      <section>
+          <h3>2.知识剖析</h3>
+          <p>SSH的通信原理：密码登录。<br>
+              过程：（1）远程主机收到用户的登录请求，把自己的公钥发给用户。（2）用户使用这个公钥，将登录密码加密之后，发送回来。（3）远程主机用自己的私钥解密登录密码，如果密码正确，就同意用户登录。这个过程是安全的。<br>
+              
+              对称加密：最简单、快速的一种加密方式。加密与解密使用同一个密钥，<br>
+              非对称加密：最安全，但是慢。公钥可以发送给任何请求人，私钥只有自己保存。公钥用来加密信息，私钥用来解密信息。<br>
+              解决办法：使用对称加密传输信息，但对称加密所使用的密钥通过非对称加密的方式发送出去。
+          </p>
+      </section>
+      
+      <section>
+      <h3>2.知识剖析</h3>
+      <p>SSH的通信原理：公钥登录。<br>
+      使用密码登录每次都得输入密码，非常麻烦。还好SSH提供了公钥登录。<br>
+      过程：（1）用户将自己的公钥存储在远程主机上。（2）登录时，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。（3）远程主机用公钥进行解密，如果成功，证明用户可信，不再要求密码。<br>
+      
+      </p>
+      </section>
+      
+
+        <section>
+            <h3>3.常见问题</h3>
+
+              <p>中间人攻击<br>
+              采用公钥加密的方式本身存在一个风险：如果有人截获了登陆请求，然后冒充远程主机，将伪造的公钥发给用户，那么用户很难辨认其真伪。因为不像https协议，SSH协议的公钥是没有证书中心公证的。也就是说公钥都是自己签发的。<br>
+              可以设想，如果攻击者插在用户和远程主机之间，用伪造的公钥，是可以获取用户登陆密码的。这就使得SSH的安全保障消失。<br>
+              这就是传说中的中间人攻击。
+              
+              </p>
+        </section>
+
+     <section>
+         <h3>4.解决方案</h3>
+     </section>
+
+     <section>
+       <p>SSH解决中间人攻击的办法：口令登录<br>
+       
+       在第一次登陆远程主机的时候，系统会提示你一个FingerPrint信息，并询问你是否继续连接这个远程主机。这是因为我的主机无法识别远程主机的真实性（因为有可能是中间人攻击者），只知道他的公钥指纹。用户需要自己去这个远程主机所在的网站或者远程主机的使用者那里确认公钥指纹是否正确。正确就说明这个公钥信息是远程主机发过来的，可以信任。当远程主机被接受之后，这个远程主机的公钥就会被保存在本地，下次登陆这个远程主机时，系统会认出它的公钥已经保存在本地，从而跳过警告部分，直接提示输入密码。<br>
+       
+       注：公钥指纹：因为公钥太长（1024位），用户很难对比，所以采用一种算法，生成一个只有128位的指纹，方便用户进行比较。
+       </p>
+     </section>
+
+
+
+     <section>
+         <h3>5.编码实战</h3>
+     </section>
+
+     <section>
+     <p>登陆远程服务器：
+     连接远程主机：<br>
+     ssh 用户名@远程服务器地址<br>
+     使用22端口连接远程主机<br>
+     ssh -p 22 用户名@远程服务器地址<br>
+     断开连接：<br>
+     logout<br>
+     
+     
+     
+     
+     </p>
+     </section>
+
+
+        <section>
+            <h3>6.扩展</h3>
+        </section>
+
+        <section>
+            <p>如何从网上下载文件到Linux服务器？</p>
+        </section>
+        <section>
+        <h3>7.参考文献</h3>
+        </section>
+        <section>
+<p>
+http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html  阮一峰博客<br>
+https://www.cnblogs.com/scofi/p/6617394.html   <br> 博客园博客<br>
+</p>
+
+
+
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+
+		<section>
+
+            <p>大家有什么问题吗？</p>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : byou</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
