@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>web.xml里的主要配置都包括什么，都代表什么含义，比如怎么加载Spring 配置的？</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：韩要贺</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">当我们去启动一个WEB项目时，Tomcat首先会读取项目web.xml配置文件里的配置，当这一步骤没有出错并且完成之后，项目才能正常地被启动起来。web.xml文件是用来初始化配置信息：比如Welcome页面、servlet、servlet-mapping、filter、listener、启动加载级别等。当你的web工程没用到这些时，你可以不用web.xml文件来配置你的Application。在web.xml的模式(Schema)文件中定义了多少种标签元素，web.xml中就可以出现它的模式文件所定义的标签元素，它就能拥有定义出来的那些功能。而且web.xml的模式文件中定义的标签并不是定死的，模式文件也是可以改变的。</p>
+        </section>
+        </section>
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p style="text-align:center">web启动加载过程
+            </p>
+            <p style="text-align:left">web项目启动时，容器首先在web.xml中读取context-param和listener，然后创建一个ServletContext，作为全局共享信息存储，将context-param中的name和value存入。然后创建listener实例，listener继承了ContextLoader类，由ContextLoader加载上下文（父子），然后容器继续读取filter，实例化过滤器。然后读取servlet，根据load-on-startup的值（整数值）来决定是即时实例化还是第一次请求时实例化</p>
+           
+        </section>
+        <section>
+            <p style="text-align:center">表头文件
+            </p>
+            <p style="text-align:left">1.跟所有的配置文件xml一样，必须要有一个xml头开始，这个头声明可以使用的XML版本并给出文件的字符编码。DOCYTPE声明必须立即出现在此头之后。这个声明告诉服务器适用的servlet规范的版本。
+所有部署描述符文件的顶层（根）元素为web-app。web-app必须用小写</p>
+           
+        </section>
+		
+         <section>
+         	<p style="text-align:center">命名和定制URL</p>
+             <p style="text-align:left">在web.xml中完成的一个最常见的任务是对servlet或JSP页面给出名称和定制的URL，命名必须在定制URL前，。用servlet元素分配名称，使用servlet-mapping元素将定制的URL与刚分配的名称相关联。为了提供初始化参数，对servlet或JSP页面定义一个定制URL或分配一个安全角色，必须首先给servlet或JSP页面一个名称。可通过 servlet元素分配一个名称。最常见的格式包括servlet-name和servlet-class子元素</p>
+             <p style="text-align:center">定制初始化参数</p>
+             <p style="text-align:left">定制servlet、JSP、Context的初始化参数，然后可以在servlet、JSP、Context中获取这些参数值</p>
+              
+         </section>
+         <section>
+         	<p style="text-align:center">设置过滤器</p>
+             <p style="text-align:left">Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是过滤字符编码、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经登陆、有没有权限访问该页面等等工作。它是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关请求，只有当你的web应用停止或重新部署的时候才销毁</p>
+             </section>
+          <section>
+         	<p style="text-align:center">设置监听器</p>
+             <p style="text-align:left">Servlet的监听器Listener，它是实现了javax.servlet.ServletContextListener 接口的服务器端程序，它也是随web应用的启动而启动，只初始化一次，随web应用的停止而销毁。主要作用是： 做一些初始化的内容添加工作、设置一些基本的内容、比如一些参数或者是一些固定的对象等等</p>
+            </section>
+           <section>
+            <h3>3.常见问题</h3>
+        </section>
+         <section>
+            <p style="text-align:left">1.url-pattern配置为"/"和"/*"的区别</p>
+       
+            <p style="text-align:left">2.web.xml 文件中一般包括 servlet, spring, filter, listener的配置。那么他们是按照一个什么顺序加载呢？</p>
+           
+         </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">1.< url-pattern > /   不会匹配到*.jsp，即：*.jsp不会进入spring的 DispatcherServlet类 。
+< url-pattern > /*
+会匹配*.jsp，会出现返回jsp视图时再次进入spring的DispatcherServlet 类，导致找不到对应的controller所以报404错。
+</p>
+            <p style="text-align:left">2..加载顺序为： listener >> filter >> servlet >> spring
+加载顺序会影响对spring bean 的调用。
+比如filter 需要用到 bean ，但是加载顺序是 先加载filter 后加载spring，则filter中初始化操作中的bean为null；
+但加载顺序与他们在web.xml文件中的先后顺序无关。
+</p>
+         </section>
+       
+             </p>
+
+        </section>
+        <section>
+            <p style="text-align:left">
+        </p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+<!--         <section>
+            <p style="text-align:left">Spring容器独立于配置元数据格式，二者之间是解耦的，因此，改变配置方式对 Spring 的框架自身是透明的。</p>  
+			<p style="text-align:left">对于一个使用Spring开发的典型WEB应用程序而言，将配置元数据划分到不同文件，可以清晰反映出应用程序的层，
+			不但便于管理，又可以同时由不同人员开发。</p>
+		 </section>
+		 <section>
+			<p style="text-align:left">beans-web.xml或者ConfigurationForWeb 类定义WEB层/表现层中所操作的Bean;</p>
+			<p style="text-align:left">beans-service.xml或者ConfigurationForService类定义服务层/业务层中所操作的Bean;</p>
+			<p style="text-align:left">beans-dao.xml或者ConfigurationForDao类定义数据访问层中所操作的Bean。</p>
+        </section> -->
+		
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">3.张庆东师兄的ppt</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
