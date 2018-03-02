@@ -1,0 +1,187 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么要处理异常，Try/Catch应该在什么样的场景下使用？</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">异常exception</p>
+            <p style="text-align:left">异常是程序中的一些错误，但并不是所有的错误都是异常，并且错误有时候是可以避免的。</p>
+            <p style="text-align:left">异常发生的原因有很多，通常包含以下几大类：</p>
+            <p style="text-align:left">1.用户输入了非法数据。</p>
+            <p style="text-align:left">2.要打开的文件不存在。</p>
+            <p style="text-align:left">3.网络通信时连接中断，或者JVM内存溢出。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">Try/catch语法</p>
+            <p style="text-align:left">使用 try 和 catch 关键字可以捕获异常。</p>
+            <p style="text-align:left">try/catch 代码块放在异常可能发生的地方。try/catch代码块中的代码称为保护代码。</p>
+            <p style="text-align:left">一个 try 代码块可以后面跟随多个 catch 代码块，叫多重捕获。</p>
+            <p style="text-align:left">如果一个方法没有捕获一个检查性异常，那么该方法必须使用 throws 关键字来声明。throws 关键字放在方法签名的尾部。也可以使用 throw 关键字抛出一个异常，无论它是新实例化的还是刚捕获到的。</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">java如何处理异常？</p>
+　　        <p style="text-align:left">java提供了抛出异常捕获异常的逻辑用于处理异常，当程序抛出异常时，如果不存在捕获异常逻辑，正在执行的方法将停止执行，并将该异常向外抛出，调用该方法的程序进行同样的处理，如果也没有进行捕获，则将一层一层的向外抛出，直到到达当前线程处时将会终止线程的执行。</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>在什么场景下加Try-Catch机制</p>
+            <p>Try-Catch机制注意点</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+            <p>1）以业务逻辑功能为单位，在最上层加Try-Catch机制。为什么要这样做呢？这主要是增加程序的健壮性，防止因抛出异常过多，导致程序崩溃。</p>
+            <p>2）底层代码，在可能出错的地方加Try-Catch机制，用Catch侦测具体的异常，然后就具体的异常，采取相应的解决方案。</p>
+            <p>3）底层代码，在需异常追踪时加Try-Catch机制，在Catch块中抛出自定义异常，调试时可迅速定位到错误代码段。</p>
+        </section>
+
+        <section>
+            <p>Try-Catch机制会将异常屏蔽掉，必须根据具体的应用场景，具体分析。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">catch 体里遇到 return 是怎么处理？ finally 体遇到 return 怎么办？finally 体里有 System.exit() 方法怎么处理？当 catch 和 finally 体里同时遇上 return 怎么办？</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">（假设方法需要返回值）java 的异常处理中，
+            <p style="text-align:left">在不抛出异常的情况下，程序执行完 try 里面的代码块之后，该方法并不会立即结束，而是继续试图去寻找该方法有没有 finally 的代码块，</p>
+            <p style="text-align:left">如果没有 finally 代码块，整个方法在执行完 try 代码块后返回相应的值来结束整个方法；</p>
+            <p style="text-align:left">如果有 finally 代码块，此时程序执行到 try 代码块里的 return 语句之时并不会立即执行 return，而是先去执行 finally 代码块里的代码，</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">若 finally 代码块里没有 return 或没有能够终止程序的代码，程序将在执行完 finally 代码块代码之后再返回 try 代码块执行 return 语句来结束整个方法；</p>
+            <p style="text-align:left">若 finally 代码块里有 return 或含有能够终止程序的代码，方法将在执行完 finally 之后被结束，不再跳回 try 代码块执行 return。</p>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+            <p>http://www.cnblogs.com/tianzhiliang/archive/2010/10/09/1846676.html</p>
+            <p>http://www.blogjava.net/fancydeepin/archive/2012/07/08/java_try-catch-finally.html</p>
+            <p>https://www.cnblogs.com/zouheng/p/6706114.html</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
