@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>葡萄藤PPT</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>为什么要使用memcache？memcashe有什么作用？</h2>
+            <p></p>
+            <h3>java 小课堂</h3>
+            <p>分享人：常雷雷</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <P>
+                Memcached是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高动态、数据库驱动网站的速度。Memcached基于一个存储键/值对的hashmap。其守护进程（daemon）是用C写的，但是客户端可以用任何语言来编写，并通过memcached协议与守护进程通信。</P>
+        </section>
+        <section>
+            <P>特征</P>
+            <p>memcached作为高速运行的分布式缓存服务器，具有以下的特点。</p>
+            <p>协议简单</p>
+            <p>基于libevent的事件处理</p>
+            <p>内置内存存储方式</p>
+            <p>memcached不互相通信的分布式</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <P>Memcache和memcached区别？</P>
+            <P>Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名。</p>
+            <p>一个是项目名称，一个是主程序文件名（守护进程）。</P>
+        </section>
+        <section>
+            <p> memcache函数所有的方法列表如下：</p>
+            <p> Memcache::add – 添加一个值，如果已经存在，则返回false</p>
+            <p> Memcache::addServer – 添加一个可供使用的服务器地址</p>
+            <p> Memcache::close – 关闭一个Memcache对象</p>
+            <p> Memcache::connect – 创建一个Memcache对象</p>
+            <p> Memcache::delete – 删除一个key值</p>
+            <p> Memcache::flush – 清除所有缓存的数据</p>
+            <p> Memcache::get – 获取一个key值</p>
+            <p> Memcache::getStats – 返回服务器的一些运行统计信息</p>
+            <p> Memcache::replace -对一个已有的key进行覆写操作</p>
+        </section>
+        <section>
+            <p> Memcache::set – 添加一个值，如果已经存在，则覆写</p>
+            <p> Memcache::setCompressThreshold – 对大于某一大小的数据进行压缩</p>
+            <p> Memcache::setServerParams – 在运行时修改服务器的参数</p>
+            <p> memcache_debug – 控制调试功能</p>
+            <p> Memcache::decrement – 对保存的某个key中的值进行减法操作</p>
+            <p> Memcache::getExtendedStats – 获取进程池中所有进程的运行系统统计</p>
+            <p> Memcache::getServerStatus – 获取运行服务器的参数</p>
+            <p> Memcache::getVersion – 返回运行的Memcache的版本信息</p>
+            <p> Memcache::increment – 对保存的某个key中的值进行加法操作</p>
+            <p> Memcache::pconnect – 创建一个Memcache的持久连接对象</p>
+        </section>
+        <section>
+            <p>插入：set key flags exptime bytes [noreply]</p>
+            <p>增加：add key flags exptime bytes [noreply]</p>
+            <p>替换：replace key flags exptime bytes [noreply]</p>
+            <p>追加（后）：append key flags exptime bytes [noreply]</p>
+            <p>追加（前）：prepend key flags exptime bytes [noreply]</p>
+            <p>检查并设置：cas key flags exptime bytes unique_cas_token [noreply]</p>
+            <p>查找：get key</p>
+            <p>查找令牌：gets key 【与CAS为搭配】</p>
+        </section>
+        <section>
+            <p>删除：delete key [noreply]</p>
+            <p>自增：incr key increment_value</p>
+            <p>自减：decr key decrement_value</p>
+            <p>返回统计信息：stats</p>
+            <p>用于显示各个 slab 中 item 的数目和存储时长：stats items</p>
+            <p>命令用于显示各个slab的信息：stats slabs</p>
+            <p>命令用于显示所有item的大小和个数：stats sizes</p>
+            <p>清理缓存：flush_all [time] [noreply]</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1.为什么要使用memcache？memcashe有什么作用？</p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>为什么要使用Memcache？</p>
+            <p>主要用于动态Web应用以减轻数据库的负载。
+                它通过在内存中缓存数据和对象来减少读取数据库的次数，从而提高了网站访问的速度。</p>
+            <p>Memcache的实现原理</p>
+            <p>memcache处理的原子是每一个key、val，key会通过一个hash表转换成hash的key，便于查找对比以及竟可能的做到散列。
+                同时mem用的是一个二级散列，通过一个hash表来维护。memcache有两个核心组件:服务端和客户端。
+                在一个memcache组件查询中，client先通过key的hash值来确定kv在service端的位置，当server端确定后，客户端就会发一个请求个server端。
+                让它来查找出确切数据，因为这之间没有交互以及多播协议，因此mem带给网络的影响最小。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>让我们来看看这个例子的代码。</p>
+        </section>
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>JAVA中缓存的实质是什么？</p>
+            <p>计算机缓存的定义 ：缓存是CPU的一部分，它存在于CPU中</p>
+            <p>就此可以说明 CPU中不可能存放大量的数据</p>
+            <p>所以java 的缓存 不是真正意义上的缓存</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>链接：https://www.jianshu.com/p/b882a4f2e788</p>
+            <p>作者：一筒君</p>
+            <p>链接：http://www.runoob.com/memcached/memcached-clear-data.html</p>
+            <p>作者：runoob</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : 深圳分院 常雷雷</small>
+            </p>
+        </section>
+    </div>
+</div>
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+<script>
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
+
+
+
+
+    <!--XMemcached配置-->
+
+    <bean id="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+        <constructor-arg>
+            <list>
+                <bean class="java.net.InetSocketAddress">
+                    <constructor-arg value="39.108.78.2"/>
+                    <constructor-arg value="11211"/>
+                </bean>
+            </list>
+        </constructor-arg>
+        <property name="connectionPoolSize" value="50"/>
+        <property name="commandFactory">
+            <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"/>
+        </property>
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+    </bean>
+     <!-- Use factory bean to build memcached client -->
+    <bean id="memcachedClient"
+          factory-bean="memcachedClientBuilder"
+          factory-method="build"
+          destroy-method="shutdown">
+    </bean>
