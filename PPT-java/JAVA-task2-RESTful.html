@@ -1,0 +1,183 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是RESTful API，及简单使用</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：牛涛</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备......）。 因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。</p>
+        </section>
+
+    
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p>1、REST概念</p>
+			<p style="text-align:left">(Representational State Transfer, REST)表述性状态转移</p>
+			<p style="text-align:left">表述性（Representational）：REST资源可以用各种形式来进行表述，包括XML JSON甚至HTML---最适合资源使用者的任意形式。</p>
+            <p style="text-align:left">状态（State）：当使用REST的时候，我们更关注资源的状态而不是对资源采用的行为。</p>
+            <p style="text-align:left">转移（Trasfer）：REST涉及到转移资源数据，它以某种表述性形式从一个应用转移到另一个应用。</p>
+            <p style="text-align:left">REST就是将资源的状态以最适合客户端或者服务端的形式从服务器端转移到客户端（或者反过来）</p>
+		</section>
+
+
+		<section>
+            <p>2、RESTful API特点</p>
+			<p style="text-align:left">基于“资源”，数据也好、服务也好，在RESTful设计里一切都是资源。</p>
+			<p style="text-align:left">无状态。一次调用一般就会返回结果，不存在类似于“打开连接-访问数据-关闭连接”这种依赖于上一次调用的情况。</p>
+			<p style="text-align:left">URL中通常不出现动词，只有名词 </p>
+			<p style="text-align:left">URL语义清晰、明确</p>
+			<p style="text-align:left">使用HTTP的GET、POST、DELETE、PUT来表示对于资源的增删改查</p>
+		</section>
+
+         <section>
+             <p>3、与数据库操作的对应关系</p>
+            <p style="text-align:left">GET（SELECT）：从服务器取出资源（一项或多项）。</p>
+            <p style="text-align:left">POST（CREATE）：在服务器新建一个资源。</p>
+             <p style="text-align:left">PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</p>
+             <p style="text-align:left">PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</p>
+             <p style="text-align:left">DELETE（DELETE）：从服务器删除资源。</p>
+        </section>
+
+        <section>
+            <p>3、简单实例</p>
+            <p style="text-align:left">在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的"集合"（collection），所以API中的名词也应该使用复数。</p>
+            <p style="text-align:left">就是URL定位资源，用HTTP动词（GET,POST,DELETE,PUT，PATCH）描述操作。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">GET    /users:     列出所有用户,并返回对象列表。</p>
+            <p style="text-align:left">POST   /users:     新建一个用户，并返回新生成的对象。</p>
+            <p style="text-align:left">GET    /users/id:  获取某个指定用户的信息，返回指定用户对象。</p>
+            <p style="text-align:left">PUT    /users/id： 更新某个指定用户的信息（提供该用户的所有信息），返回指定用户对象。</p>
+            <p style="text-align:left">PATCH  /users/id:  更新某个指定用户的信息（提供部分信息），返回指定用户对象。</p>
+            <p style="text-align:left">DELETE /users/id:  删除某个用户，返回空文档。</p>
+        </section>
+
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">为什么使用RESTful API？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">看Url就知道要什么</p><br>
+            <p style="text-align:left">看http method就知道干什么</p><br>
+            <p style="text-align:left">看http status  code就知道结果如何</p><br>
+		</section>
+         
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+             <p style="text-align:left">对于用户登录和用户退出这两个业务需求，REST指导下的架构和设计如何满足？</p>
+        </section>
+
+        <section>
+			<p style="text-align:left">登录”作为一个资源，所以登录是POST /logins，退出是DELETE /logins/{id}</p>
+
+            <p style="text-align:left">就是Token的POST和DELETE</p>
+		 </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">https://www.zhihu.com/question/33959971/answer/57593571</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
