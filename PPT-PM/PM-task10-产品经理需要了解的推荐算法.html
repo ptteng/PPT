@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="../css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<!--<img src="../../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">-->
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>产品经理需要了解的推荐算法</h2>
+            <p>分享人：吴彬</p>
+        </section>
+        <section>
+            <p style="text-align: left">目录</p>
+            <p style="text-align: left">1.普通的产品经理需要了解算法到何种程度</p>
+            <p style="text-align: left">2.热度算法</p>
+            <p style="text-align: left">3.基于内容的推荐算法</p>
+			 <p style="text-align: left">4.基于用户的协同推荐</p>
+          
+          
+        </section>
+        <section>
+            <section>
+                <h3>1.普通的产品经理需要了解算法到何种程度</h3>
+            </section>
+            <section>
+                 <p style="text-align: left">如果产品：数据量足够大，用户、内容互相之间存在足够多的差异性；产品对于内容分发有较高的要求；不需要强调自己的风格或者服务特定目标人群，那是时候接入推荐算法了。普通产品经理需要做的是：提供需求（用户在何时需要何种推荐），协调算法工程师和程序员之间的业务配合。</p>
+		
+  </section>
+            </section>
+<section>
+    <section>
+                <h3>2.热度算法</h3>
+            </section>
+            <section>
+                 <p style="text-align: left">基本原理：把热点的内容优先推荐给用户，能覆盖到大部分的内容需求，而且启动成本低。新闻热度分 = 初始热度分 + 用户交互产生的热度分 – 随时间衰减的热度分</p>
+            </section>
+            <section>
+                <p style="text-align: left">初始热度值：按照新闻类别给予新闻不同的初始热度，让用户关注度高的类别获得更高的初始热度分，从而获得更多的曝光。对于重大事件的报道，热词匹配的方式，对大型新闻站点的头条，微博热点，竞品的头条做监控和扒取，并将这批新闻的关键词维护到热词库并保持更新；每条新闻入库的时候，让新闻的关键词去匹配热词库，匹配度越高，就有越高的初始热度分。</p>
+<p style="text-align: left">用户行为分（D）：将用户行为：阅读（C）、收藏（F）、分享（S）、评论（C），根据权重赋予相应的分数，则用户行为分数为：X*阅读+Y*收藏+Z*分享+W*评论。</p>
+<p style="text-align: left">时间衰减：新闻的强时效性，已经发布的新闻的热度值必须随着时间流逝而衰减，并且趋势应该是衰减越来越快，直至趋近于零热度。要求推荐给用户的新闻必须是24h以内。</p>
+
+          
+ 
+            </section>
+            </section>
+<section>
+    <section>
+        <h3>3.基于内容的推荐算法</h3>
+    </section>
+            <section>
+               <p style="text-align: left">基本原理：对比新闻之间的相似度，如果两个新闻的关键词越类似，那两个新闻是相关内容的可能性更高。</p>
+<p style="text-align: left">关键词新闻内频率指标（A）：将新闻看作是所有关键词的合集，重合多越高，则两新闻相关的可能性越高。</p>
+<p style="text-align: left">分词：停用没有实际含义的词库，例如：“给”、“是”、“啊”</p>
+<p style="text-align: left">关键词频率相反指标（B）：例如：“郑州摩拜单车数量激增。”、“郑州天气好转，大家可以骑摩拜单车出去溜溜啦。”这两条新闻虽然关键词重叠频率高，但讲述的内容完全不同。一个关键词在某条新闻出现的频率最大，在所有文档中出现的频率越小，该关键词对这条新闻的特征标识作用越大。</p>
+
+    </section>
+            <section>
+			<p style="text-align: left">内容推荐的实施：例如，用户已经阅读新闻1，对于新闻2的推荐程度，引入内容相似度比对指标C，提取新闻1和新闻2的相同关键词，新闻1：∑C1=A1*B1，新闻2：∑C2=A2*B2，比对∑C1和∑C2，数字越接近，则两新闻相关性越强。此时引入用户阅读新闻1的用户行为分（D），得出基于内容推荐的指标：C*D*N，其中N为内容推荐算法系数。</p>
+
+		 </section>    
+        </section>
+        <section>
+            <section>
+			 <h3>4.基于用户的协同推荐</h3>
+    </section>
+            <section>
+               <p style="text-align: left">基本原理：依据用户A的阅读喜好，为A找到与他兴趣最接近的群体，所谓“人以群分”，然后把这个群体里其他人喜欢的，但是A没有阅读过的内容推荐给A。</p>
+<p style="text-align: left">用户群体划分：外部数据的借用：借用第三方登陆的用户信息、IP地址、地理位置。
+产品内主动询问：产品首次启动的时候，弹框询问用户是男是女，职业等。
+对比用户特征：依据热度推荐和内容推荐给出的用户阅读行为和内容相似度，判断用户阅读喜好相似度。</p>
+
+
+    </section>
+            <section>
+			<p style="text-align: left">假设用户A在系统归属于群体X，首先，群体X中用户交互过（阅读，评论等）的新闻提取出来；需要剔除掉用户A已经看过的新闻，对余下的新闻进行评分和相似度加权的计算，计算包括两部分，一是用户A与群体每一个用户的相似性，二是每个用户对新闻列表中每条新闻的喜好，这样就能得到每条新闻相对于用户A的最终得分；将新闻列表按照得分高低的顺序推荐给用户。</p>
+ </section>    
+        </section>
+        <section>
+            <section>
+                <h3>5.更多讨论</h3>
+            </section>
+        </section>
+        <section>
+            <p>感谢大家观看</p>
+            <p><small>BY : 吴彬</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/reveal/js/head.min.js"></script>
+<script src="../lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: '../plugin/markdown/marked.js' },
+            { src: '../plugin/markdown/markdown.js' },
+            { src: '../plugin/notes/notes.js', async: true },
+            { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
