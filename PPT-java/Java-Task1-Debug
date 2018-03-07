@@ -1,0 +1,193 @@
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>debug调试</h2>
+			<p></p>
+            <h3>java分享会</h3>
+            <p>分享人：北京分院 吴磊建</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+		
+		<section>
+		<p>debug由来</p>
+		    <p>关于debug的由来，要追溯到1937年。为马克2号计算机（Harvard Mark II）编制程序的葛丽丝·霍波（Grace Hopper）是一位美国海军准将及计算机科学家，同时也是世界最早的一批程序设计师之一。
+			有一天，她在调试设备时出现故障，拆开继电器后，发现有只飞蛾被夹扁在触点中间，从而“卡”住了机器的运行。
+			于是，霍波诙谐的把程序故障统称为“臭虫（BUG）”，把排除程序故障叫DEBUG，而这奇怪的“称呼”，竟成为后来计算机领域的专业行话。</p>
+			
+		</section>
+		 
+			
+		
+        <section>
+            <h3>2.知识剖析</h3>
+			</section>
+			<section>
+            <p>DEBUG是一种计算机程序。</p>
+		    <p>是DOS系统中的一个程序，而且比较底层，涉及汇编，不是我们想要的
+			</p>
+		    <p>我们想要的是：Debugger
+			</p>
+		</section>
+		
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        
+	   <section>
+            <p>Debugger是什么？干什么的？怎么用？</p>
+        </section>
+      
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+		
+
+        <section>
+            <p>我们经常使用到的“Debugger”只是用来帮助我们进行Debug的工具，“Debugger”本身不能自动完成“Debug”。
+                  </p>
+            <p>我们可以回想一下我们是如何进行Debug的，在进行Debug的过程中，我们通过Debugger来完成以下工作：</p>
+            <p>（1）监视“Debug对象”的状态；</p>
+            <p>（2）控制“Debug对象”的运行；</p>
+        </section>	
+
+		<section>
+         <p>我们常用Debug来追踪代码的运行流程，通常在程序运行过程中出现异常，
+		 启用Debug模式可以分析定位异常发生的位置，以及在运行过程中参数的变化。</p>
+		 <p>通常我们也可以启用Debug模式来跟踪代码的运行流程去学习三方框架的源码。</p>
+
+
+        </section>
+         <section>
+          <p>接下来说怎么用</p>
+
+         </section>
+
+         
+		
+		<section>
+          <p>F7:单步调试，会进入方法体，如果该方法体还有方法，则不会进入该内嵌的方法中 </p>
+		  <p>F8:单步调试，不会进入方法体</p>
+		  <p>F9:跳至下一断点</p>
+		  <p>Shift+F8:跳出</p>
+		  <p>Alt+F8:可以通过在 Debug 的状态下，选中对象，弹出可输入计算表达式调试框，查看该输入内容的调试结果 。</p>
+		  <p>等等</p>
+
+         </section>
+
+	<section>
+            <h3>5.编码实战</h3>
+        </section>
+		
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+           <p>小黄鸭调试法</p>
+			<p>相信大家都有类似的经历。遇到 Bug/问题被卡住了，拉个人过来，和他 blablabla 讲了一通，很多时候中途你就找到了解决办法。有时候，并不一定要和人倾诉，还可以像其他东西倾诉，强迫自己把遇到的问题，详细地解释出来（一定要说出来）。其实呢。这种方法，有一个术语：小黄鸭调试法（Rubber Duck Debugging）。
+
+</p><p>维基百科有解释：小黄鸭调试法是软件工程中使用的调试代码方法之一。就是在程序的调试、纠错或测试过程中，耐心地向小黄鸭解释每一行程序的作用，以此来激发灵感。
+</p>
+        </section>
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>https://www.linuxidc.com/Linux/2017-09/146772.htm</p>
+			<p>http://blog.csdn.net/qq_27093465/article/details/64124330</p>
+			<p>https://www.jianshu.com/p/44a0e069beb8</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 北京分院 吴磊建</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
