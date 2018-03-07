@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Mybatis动态sql语句的使用</h3>
+            <p>小课堂</p>
+            <h3></h3>
+            <p>分享人：卢静</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+        <section>
+            <p>先介绍下背景</p>
+            <p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。与实体类对应的XML配置文件是mybatis的核心，其中包含了很多常用的标签
+            </p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+            <p>动态SQL：按照不同的条件对SQL语句进行拼接，从而实现SQL语句的变化。与静态SQL相比，动态SQL的优势是可以根据实际输入的参数自动调整SQL语句，从而减少程序猿的工作量。举个例子：学生信息有【学号】，【姓名】，【性别】，【班级】等信息，当我们需要更新一个学生的班级信息时，如果使用静态SQL语句，我们需要提供这个学生的所有信息，才能够修改他的【班级】信息，如果使用动态SQL语句，我们只需要提供他的主键【学号】和新的【班级】信息，就可以了。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p>常用标签：if、where、set；foreach；bind</p>
+        </section>
+
+
+        <section>
+            <p>当有很多条if语句时，如果只有几条成立，那么拼装而成的sql语句将会出现语法问题，比如“，”逗号会多出来，sql中的where会出现在sql语句的末尾。where标签会自动添加一个WHERE，如果if语句中有AND，还会将AND删掉。</p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1.字符串的拼接 </p>
+            <p>2.构造查询条件QueryVo </p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <p>demo</p>
+        </section>
+
+
+        <section>
+            <h3>6.扩展</h3>
+        </section>
+
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+
+                http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html  https://www.cnblogs.com/dongying/p/4092662.html  官方文档
+                等
+            </p>
+
+
+
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+
+        </section>
+
+        <section>
+
+            <p>。</p>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By：lujing</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
