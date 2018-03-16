@@ -1,0 +1,184 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要用Long代替DATE类型？</h3>
+			<p></P>
+            <h4>Java小课堂</h4>
+            <p>分享人：牛涛</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section
+            <p style="text-align:left">MYSqL中的DATE类型。</p>
+            <p style="text-align:left">格式的规定：Y表示年、M（前M）表示月、D表示日、H表示小时、M（后M）表示分钟、S表示秒。</p>
+            <p style="text-align:left">下面是MySQL中可用的日期和时间列类型</p>
+            <p style="text-align:left">DATETIME——格式：'YYYY-MM-DD HH:MM:SS'，范围：'1000-01-01 00:00:00'到'9999-12-31 23:59:59'</p>
+            <p style="text-align:left">DATE——格式：'YYYY-MM-DD'，范围：'1000-01-01'到'9999-12-31'</p>
+            <p style="text-align:left">TIMESTAMP——格式：'YYYYMMDDHHMMSS'、'YYMMDDHHMMSS'、'YYYYMMDD'</p>
+            <p style="text-align:left">范围：'1970-01-01 00:00:00'到'2037-01-01 00:00:00'</p>
+        </section>
+
+    
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+			<p>1、什么是时间戳</p>
+			<p style="text-align:left">时间戳指的就是Unix时间戳(Unix timestamp)。它也被称为Unix时间(Unix time)、POSIX时间(POSIX time)，是一种时间表示方式，定义为从格林威治时间1970年01月01日00时00分00秒起至现在的总秒数。因此，严格来说，不管你处在地球上的哪个地方，任意时间点的时间戳都是相同的。这点有利于线上和客户端分布式应用统一追踪时间信息。</p>
+		</section>
+        
+        <section>
+			<p>2、什么是时区？</p>
+			<p style="text-align:left">时区是地球上的区域使用同一个时间定义。为了照顾到各地区的使用方便，又使其他地方的人容易将本地的时间换算到别的地方时间上去。有关国际会议决定将地球表面按经线从南到北，划分成24个时区，并且规定相邻区域的时间相差1小时。当人们跨过一个区域，就将自己的时钟校正1小时（向西减1小时，向东加1小时），跨过几个区域就加或减几小时。中国把首都北京所在的东8区的时间作为全国统一的时间，称为北京时间。</p>
+		</section>
+
+        
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">明明Date类型就该表示时间，为何要用bigint替代呢？</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p style="text-align:left">Date类型与时区有关。</p><br>
+            <p style="text-align:left">timestamp与时区无关。</p><br>
+            <p style="text-align:left">mysql 中的timestamp会自动更新，如果不需要这个功能，则使用bigint记录timestamp。</p><br>
+		</section>
+         
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+        
+        
+		 <section>
+            <h3>6.扩展思考</h3>
+             <p style="text-align:left">选择Mysql数据类型有哪些原则？</p>
+        </section>
+
+     
+        <section>
+			<p style="text-align:left">1.更小的通常是更好的（一般情况下，应该尽可能使用正确存储数据的最小数据类型。</p>
+            <p style="text-align:left">（1） 因为更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更短。</p>
+            <p style="text-align:left">（2） 要确保没有低估需要存储的值的范围，更小是相对与数据类型的最大值范围来讲的。</p>
+            <p style="text-align:left">（3） 如果无法确定哪个数据类型是最好的，就选择你认为不会超过范围的最小类型。</p>
+		 </section>
+         
+         <section>
+			<p style="text-align:left">2.简单就好（简单数据类型的操作通常需要更短的CPU周期。</p>
+            <p style="text-align:left">（1）整型比字符串操作代价更低，因为字符串集和校对规则（排序规则）是的字符比较比整型比较更复杂。</p>
+            <p style="text-align:left">（2）能够使用整型表示的字段，就不要用字符串。</p>
+		 </section>
+         
+         <section>
+			<p style="text-align:left">3.尽量避免 NULL （空值）</p>
+            <p style="text-align:left">（1）很多表都包含可为NULL的列，就算程序并不需要保存NULL也是如此，这是因为列的默认属性就是可为NULL。通常情况下最好指定列NOT NULL，除非真的需要存储NULL。</p>
+            <p style="text-align:left">（2） 如果查询中包含可为NULL的列，对于Mysql来说是很难优化的，因为NULL的列使得索引，索引统计和值比较都更复杂。可为NULL的列会使用更多的存储空间，在Mysql里也需要特殊处理。</p>
+		 </section>
+         
+         <section>
+			<p style="text-align:left">3.总结</p>
+            <p style="text-align:left">（1）第一步需要确定合适的大类型（数字、字符串、时间等等）</p>
+            <p style="text-align:left">（2）根据存储的长度和范围细化类型</p>
+            <p style="text-align:left">（3）特殊情况考虑（eg： TIMESAMP的自动更新功能是否需要？）</p>
+		 </section>
+         
+         
+
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.龚师兄的小课堂。</p>
+            <p style="text-align:center">2. http://billauer.co.il/blog/2009/03/mysql-datetime-epoch-unix-time/</p>
+            <p style="text-align:center">3.http://www.joda.org/joda-time/quickstart.html</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
