@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://ptteng.github.io/WEB/ppt/JS-02-shuffle%20algorithm-ZCJ.html#/6/6 -->
+<html class=" js no-mobile desktop no-ie chrome chrome64 web-section ppt-section gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius cssreflections csstransforms csstransitions no-touch retina fontface domloaded w-1195 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 lt-1280 lt-1440 lt-1680 lt-1920 no-portrait landscape"
+    id="js-02-shuffle%20algorithm-zcj-page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <link rel="stylesheet" type="text/css" href="./葡萄藤PPT2_files/paper.css">
+    <script type="text/javascript" src="./葡萄藤PPT2_files/marked.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT2_files/markdown.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT2_files/notes.js.下载"></script>
+    <script type="text/javascript" src="./葡萄藤PPT2_files/highlight.js.下载"></script>
+    <link rel="stylesheet" type="text/css" href="./葡萄藤PPT2_files/paper.css">
+</head>
+
+<body>
+    <img src="./葡萄藤PPT2_files/logo.png" alt="" usemap="#pttmap" class="base-logo">
+
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/reveal.css">
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/ptt.css">
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="./葡萄藤PPT2_files/zenburn.css">
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' :
+            '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+
+
+    <div class="reveal slide center" role="application" data-transition-speed="default" data-background-transition="fade">
+        <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(0.718714);">
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="past">
+                <h3>洗牌算法具体指的是什么</h3>
+                <p>武汉分院</p>
+                <p style="text-align: center;">分享人：黄震</p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="past">
+                <p>目录</p>
+                <p>1.背景介绍</p>
+                <p>2.知识剖析</p>
+                <p>3.常见问题</p>
+                <p>4.解决方案</p>
+                <p>5.编码实战</p>
+                <p>6.扩展思考</p>
+                <p>7.参考文献</p>
+                <p>8.更多讨论</p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="past">
+                <h3>一、背景介绍</h3>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="past">
+                <p style="text-align:left;font-size: 47px;text-indent:2em;">
+                    洗牌算法是我们常见的随机问题，在玩游戏、随机排序时经常会碰到，本质是让一个数组内的元素随机排列。 类似于洗牌，将所有牌的位置打乱，让他们随机出现在任何位置。
+                </p>
+            </section>
+            <section style="top: 266.5px; display: block;" hidden="" aria-hidden="true" class="past">
+                <h3>二、知识剖析</h3>
+            </section>
+
+            <section style="top: 0px; display: block;" class="stack present">
+                <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="past">
+                    <h4>常见的洗牌算法</h4>
+                </section>
+                <section class="past" aria-hidden="true" style="text-align: left; font-size: 30px; top: 0px; display: block;" hidden="">
+                    <p>方法一：</p>
+                    <p>假如你要洗牌，那么最随机的做法无疑是从牌堆里随便抽一张出来，然后放在一边，之后从剩下的牌里重复之前的操作，直到所有牌都被抽出来放到了另一堆中。抽象到代码世界，按相同的做法，就是随机从数组里取出一个元素，保存到另一个数组，然后重复之，直到原数组中所有元素都处理掉。</p>
+                    <a href="http://sandbox.runjs.cn/show/1hylhpck">Demo</a>
+                </section>
+                <section class="past" aria-hidden="true" style="top: 330px; display: none;" hidden="">
+                    <pre>                <code class="hljs actionscript">
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shuffle</span><span class="hljs-params">(array)</span> </span>{
+    <span class="hljs-keyword">var</span> copy = [],
+      n = array.length,
+      i;
+    <span class="hljs-comment">// 如果还剩有元素则继续。。。</span>
+    <span class="hljs-keyword">while</span> (n) {
+        <span class="hljs-comment">// 随机抽取一个元素</span>
+        i = Math.floor(Math.random() * array.length);
+        <span class="hljs-comment">// 如果这个元素之前没有被选中过。。</span>
+        <span class="hljs-keyword">if</span> (i <span class="hljs-keyword">in</span> array) {
+            copy.push(array[i]);
+            <span class="hljs-keyword">delete</span> array[i];
+            n--;
+        }
+    }
+    <span class="hljs-keyword">return</span> copy;
+}
+                </code>
+            </pre>
+                </section>
+
+                <section class="past" aria-hidden="true" style="text-align: left; font-size: 30px; top: 0px; display: block;" hidden="">
+                    <p>方法二：</p>
+                    <p>方法一的问题在此，即使一个序号上的元素已经被处理过了，由于随机函数产生的数是随机的，所有这个被处理过的元素序号可能在之后的循环中不断出现，一是效率问题，另一个就是逻辑问题了，存在一种可能是永远运行不完！</p>
+                    <p>所以改进的做法就是处理完一个元素后，我们用Array的splice()方法将其从目标数组中移除同时也更新了目标数组的长度，如此一来下次遍历的时候是从新的长度开始，不会重复处理的情况了。</p>
+                    <a href="http://sandbox.runjs.cn/show/v6a7gq0f">Demo</a>
+                </section>
+                <section class="past" aria-hidden="true" style="top: 72px; display: block;" hidden="">
+                    <pre>                <code class="hljs actionscript">
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shuffle</span><span class="hljs-params">(array)</span> </span>{
+    <span class="hljs-keyword">var</span> copy = [],
+        n = array.length,
+        i;
+    <span class="hljs-comment">// 如果还剩有元素。。</span>
+    <span class="hljs-keyword">while</span> (n) {
+        <span class="hljs-comment">// 随机选取一个元素</span>
+        i = Math.floor(Math.random() * n--);
+        <span class="hljs-comment">// 移动到新数组中</span>
+        copy.push(array.splice(i, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]);
+    }
+    <span class="hljs-keyword">return</span> copy;
+}
+                </code>
+            </pre>
+                </section>
+
+                <section class="past" aria-hidden="true" style="text-align: left; font-size: 30px; top: 0px; display: block;" hidden="">
+                    <p>最终版：</p>
+                    <p>上面的做法已经可以了，但上面的改进依然还有提升空间。注意到我们要做的仅仅是将数组元素重新排序，已经取出来的元素和剩下的元素之和一定是等于数组原来的总元素个数的。所以可以考虑不创建新的数组来保存已经抽取的元素，可以这样，随机从数组中抽出一个元素，然后与最后个元素交换，相当于把这个随机抽取的元素放到了数组最后面去，表示它已经是被随机过了，同时被换走的那个元素跑到前面去了，会在后续的重复操作中被随机掉。一轮操作过后，下一轮我们只在剩下的n-1个元素也就是数组的前n-1个元素中进行相同的操作，直到进行到第一个。</p>
+                    <a href="http://sandbox.runjs.cn/show/jabgttzr">Demo</a>
+                </section>
+                <section class="present" style="top: 101px; display: block;">
+                    <pre>                <code class="hljs actionscript">
+  Array.prototype.shuffle = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> input = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = input.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {
+      <span class="hljs-keyword">var</span> randomIndex = Math.floor(Math.random() * (i + <span class="hljs-number">1</span>));<span class="hljs-comment">//获取小于this.length的随机整数</span>
+      <span class="hljs-keyword">var</span> itemAtIdex = input[randomIndex];
+      input[randomIndex] = input[i];
+      input[i] = itemAtIdex;<span class="hljs-comment">//input[randomIndex]和input[i]交换值</span>
+    }
+    <span class="hljs-keyword">return</span> input;
+  }
+                </code>
+            </pre>
+                </section>
+            </section>
+            <section style="top: 266.5px; display: block;" hidden="" aria-hidden="true" class="future">
+                <h3>三、常见问题</h3>
+            </section>
+            <section style="top: 266.5px; display: block;" hidden="" aria-hidden="true" class="future">
+                <p>有没有简洁点的洗牌算法？</p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h3>四、解决方案</h3>
+            </section>
+            <section style="text-align: left; font-size: 30px; top: 0px; display: block;" hidden="" aria-hidden="true" class="future">
+                <pre>                <code class="hljs actionscript">
+arr.sort(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span>-Math.random()});
+                </code>
+            </pre>
+                <p>结合数组自带的sort()方法编写,中间变量以及值交换什么的都省了,一行代码就可以实现，相对而言比较简单，但是他并不能实现真正意义的随机。</p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h3>五、编码实战</h3>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h3>六、拓展思考</h3>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h4>怎么保证这个算法得到的数组是完全随机的（即等概）？</h4>
+            </section>
+            <section style="text-align: left; font-size: 30px; top: 0px; display: block;" hidden="" aria-hidden="true" class="future">
+                <p>计算机本来就没办法实现真正的随机，计算机是一种可确定，可预测的的设备，没法通过一行一行的确定的代码本身自身产生真随机，产生的所谓随机数全部都是伪随机，最多只能做到范围足够大，产生规律足够复杂，感觉像是随机而已。
+                </p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h3>七、参考文献</h3>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <p>参考一：
+                    <a href="http://www.w3cplus.com/javascript/shuffling-array-js.html">洗牌算法：给数组随机排序</a>
+                </p>
+                <br>
+                <p>参考二：
+                    <a href="http://www.cnblogs.com/Wayou/p/fisher_yates_shuffle.html">由乱序播放说开了去</a>
+                </p>
+                <br>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h3>八、更多讨论</h3>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <p>还有没有更好用的洗牌算法</p>
+            </section>
+            <section style="top: 330px; display: none;" hidden="" aria-hidden="true" class="future">
+                <h4>鸣谢</h4>
+                <h3>感谢观看</h3>
+                <p>
+                    <small>BY ︱黄震</small>
+                </p>
+            </section>
+        </div>
+        <div class="backgrounds">
+            <div class="slide-background past" style="display: none;"></div>
+            <div class="slide-background past" style="display: none;"></div>
+            <div class="slide-background past" style="display: none;"></div>
+            <div class="slide-background past" style="display: none;"></div>
+            <div class="slide-background past" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background stack past" data-loaded="true" style="display: block;">
+                <div class="slide-background past" data-loaded="true" style="display: block;"></div>
+                <div class="slide-background past" data-loaded="true" style="display: block;"></div>
+                <div class="slide-background past" style="display: none;"></div>
+            </div>
+            <div class="slide-background stack present" data-loaded="true" style="display: block;">
+                <div class="slide-background past" style="display: none;"></div>
+                <div class="slide-background past" style="display: none;"></div>
+                <div class="slide-background past" style="display: none;"></div>
+                <div class="slide-background past" style="display: none;"></div>
+                <div class="slide-background past" data-loaded="true" style="display: block;"></div>
+                <div class="slide-background past" data-loaded="true" style="display: block;"></div>
+                <div class="slide-background present" data-loaded="true" style="display: block;"></div>
+            </div>
+            <div class="slide-background future" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background future" data-loaded="true" style="display: block;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+            <div class="slide-background future" style="display: none;"></div>
+        </div>
+        <div class="progress" style="display: block;">
+            <span style="width: 620.148px;"></span>
+        </div>
+        <aside class="controls" style="display: block;">
+            <button class="navigate-left enabled" aria-label="previous slide"></button>
+            <button class="navigate-right enabled" aria-label="next slide"></button>
+            <button class="navigate-up enabled" aria-label="above slide"></button>
+            <button class="navigate-down" aria-label="below slide"></button>
+        </aside>
+        <div class="slide-number" style="display: none;"></div>
+        <div class="speaker-notes" data-prevent-swipe=""></div>
+        <div class="pause-overlay"></div>
+        <div id="aria-status-div" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+
+            Array.prototype.shuffle = function() { var input = this; for (var i = input.length - 1; i &gt;= 0; i--) { var randomIndex
+            = Math.floor(Math.random() * (i + 1));//获取小于this.length的随机整数 var itemAtIdex = input[randomIndex]; input[randomIndex]
+            = input[i]; input[i] = itemAtIdex;//input[randomIndex]和input[i]交换值 } return input; }
+
+
+        </div>
+    </div>
+    <script src="./葡萄藤PPT2_files/head.min.js.下载"></script>
+    <script src="./葡萄藤PPT2_files/reveal.js.下载"></script>
+    <script>
+        // 初始化幻灯片
+        Reveal.initialize({
+            history: true,
+            dependencies: [{
+                src: '../plugin/markdown/marked.js'
+            }, {
+                src: '../plugin/markdown/markdown.js'
+            }, {
+                src: '../plugin/notes/notes.js',
+                async: true
+            }, {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }]
+        });
+    </script>
+
+
+
+</body>
+
+</html>
