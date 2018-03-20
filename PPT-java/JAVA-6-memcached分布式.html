@@ -1,0 +1,256 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>memcached分布式介绍</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：吴艺强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+
+        <section>
+
+            <p>DB访问速度问题</p>
+            <p>    许多Web 应用程序都将数据保存到RDBMS中，应用服务器从中读取数据并在浏览器中显示。但随着数据量的增大，访问的集中，就会出现REBMS的负担加重，数据库响应恶化，网站显示延迟等重大影响。</p>
+            
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+
+
+            <p>Memcached</p>
+            <p>    Memcached是一款开源、高性能、分布式内存对象缓存系统，可应用各种需要缓存的场景，其主要目的是通过降低对数据库的访问来加速web应用程序。它是一个基于内存的“键值对”存储，用于存储数据库调用、API调用或页面引用结果的直接数据，如字符串、对象等。</p>
+           
+
+
+        </section>
+
+        <section>
+
+
+            <p>Memcached分布式</p>
+            <p>    Memcached虽然称为“分布式“缓存服务器，但服务器端并没有“分布式”的功能。Memcached的分布式完全是有客户端实现的。</p>
+            <p>    当数据到达客户端，客户端实现的算法就会根据“键”来决定保存的memcached服务器，服务器选定后，命令他保存数据。取的时候也一样，客户端根据“键”选择服务器，使用保存时候的相同算法就能保证选中和存的时候相同的服务器。</p>
+
+
+        </section>
+        <section>
+
+
+            <p>memcached缓存特点</p>
+            <p> 1). 协议简单</p>
+            <p>memcached的服务器客户端通信并不使用复杂的MXL等格式，而是使用简单的基于文本的协议。</p>
+            <p> 2). 基于libevent的事件处理</p>
+            <p>libevent是个函数库，它将Linux的epoll、BSD类操作系统的kqueue等时间处理功能封装成统一的接口。memcached使用这个libevent库，能发挥高性能；</p>
+            
+          
+
+
+        </section>
+
+        <section>
+            <h3>memcached缓存特点</h3>
+            <p> 3). 内置内存存储方式</p>
+            <p>为了提高性能，memcached中保存的数据都存储在memcached内置的内存存储空间中。重启memcached，重启操作系统会导致全部数据消失；</p>
+            <p> 4). memcached不相互通信的分布式</p>
+            <P>memcached虽然是分布式缓存服务器，但服务器端并没有分布式功能，此功能主要通过客户端实现；</P>
+
+        </section>
+
+        <section>
+
+            <p>清理超期数据</p>
+            <p>    默认情况下，Memcached是一个LRU缓存，同时，它按事先预订的时长清理超期数据；但事实上，memcached不会删除任何已缓存数据，只是在其过期之后不再为客户端所见；而且，memcached也不会真正按期限清理缓存，而仅是当get命令到达时检查其时长，发现过期才清理；</p>
+           
+
+        </section>
+
+
+        
+
+        <section>
+            <h3>客户端分布式算法</h3>
+            <p>1、根据余数计算分散</p>
+            <p>余数计算的方法简单，数据的分散性也相当优秀，但也有其缺点。 那就是当添加或移除服务器时，缓存重组的代价相当巨大。 添加服务器后，余数就会产生巨变，这样就无法获取与保存时相同的服务器， 从而影响缓存的命中率。用Perl写段代码来验证其代价。</p>
+
+        </section>
+
+        <section>
+            <h3>客户端分布式算法</h3>
+            <p>2、Consistent Hashing算法</p>
+            <p>余数分布式算法由于保存键的服务器会发生巨大变化而影响缓存的命中率，但Consistent Hashing中，只有在圆（continuum）上增加服务器的地点逆时针方向的第一台服务器上的键会受到影响。</p>
+
+        </section>
+
+
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1、 缓存穿透</p>
+
+            <p>2、 缓存雪崩</p>
+
+            <p>3、 缓存击穿</p>
+
+        </section>
+
+
+        <section>
+            <p>1、 缓存穿透</p>
+
+            <p>缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义。在流量大时，可能DB就挂掉了，要是有人利用不存在的key频繁攻击我们的应用，这就是漏洞</p>
+        </section>
+
+        <section>
+            <p>1、 缓存穿透</p>
+
+            <p>最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被 这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</p>
+            <p>另外也有一个更为简单粗暴的方法（我们采用的就是这种），如果一个查询返回的数据为空（不管是数 据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。</p>
+        </section>
+
+        <section>
+            <p>2、 缓存雪崩</p>
+
+            <p>缓存雪崩是指在我们设置缓存时采用了相同的过期时间，导致缓存在某一时刻同时失效，请求全部转发到DB，DB瞬时压力过重雪崩。</p>
+           
+        </section>
+
+        <section>
+            <p>2、 缓存雪崩</p>
+
+            <p>缓存失效时的雪崩效应对底层系统的冲击非常可怕。大多数系统设计者考虑用加锁或者队列的方式保证缓存的单线 程（进程）写，从而避免失效时大量的并发请求落到底层存储系统上。</p>
+            <p>一个简单方案就时讲缓存失效时间分散开，比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</p>
+           
+        </section>
+
+        <section>
+            <p>3、 缓存击穿</p>
+
+            <p>对于一些设置了过期时间的key，如果这些key可能会在某些时间点被超高并发地访问，是一种非常“热点”的数据。这个时候，需要考虑一个问题：缓存被“击穿”的问题，这个和缓存雪崩的区别在于这里针对某一key缓存，前者则是很多key。</p>
+            <p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+          
+            
+        </section>
+
+        <section>
+            <p>3、 缓存击穿</p>
+
+            <p>1) 使用互斥锁(mutex key)</p>
+            <p>2) "提前"使用互斥锁(mutex key)</p>
+            <p>3) "永远不过期"</p>
+            <p>4) 资源保护</p>
+            
+        </section>
+
+
+        <section>
+            <h3>5.参考文献</h3>
+            <p>http://blog.csdn.net/bintime/article/details/6259133</p>
+            <p>https://www.php1.cn/Content/XiangJieFenBuShiHuanCun_-Memcached_JiFenBuShiShiXianFangFa.html</p>
+            <p>http://blog.51cto.com/9124573/1774564</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : sweetalin</small>
+            </p>
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
