@@ -1,0 +1,291 @@
+﻿<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>葡萄藤PPT</title>
+
+		<link rel="stylesheet" href="../css/reveal/reveal.css">
+
+		<!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+		<link rel="stylesheet" href="../css/reveal/theme/ptt.css">
+
+		<!-- syntax highlighting 代码高亮主题 -->
+		<link rel="stylesheet" href="../lib/reveal/css/zenburn.css">
+
+		<!-- 打印和PDF输出样式 -->
+		<script>
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match(/print-pdf/gi) ? '../css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+			document.getElementsByTagName('head')[0].appendChild(link);
+		</script>
+		<style>
+			.reveal pre code {
+				background-color: #120;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="../img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+		<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>小课堂【萌新】</h4>
+					<h4>【CSS】开发过程中应该遵守哪些编码规范和CLASS命名规范？</h4>
+					<h4>分享人：计翔于</h4>
+
+				</section>
+				<section>
+					<p>目录</p>
+					<p>1.背景介绍</p>
+					<p>2.知识剖析</p>
+					<p>3.常见问题</p>
+					<p>4.解决方案</p>
+					<p>5.编码实战</p>
+					<p>6.扩展思考</p>
+					<p>7.参考文献</p>
+					<p>8.更多讨论</p>
+				</section>
+				<section>
+					<section>
+						<h3>1.背景介绍</h3>
+					</section>
+					<section>
+						<p>
+							团队开发过程中，如果编码不规范，很容易造成出现bug之后难以维护等问题 所以一个具有普适性的编码规范具有很重要的意义.
+							黄金原则：不管有多少人共同参与同一项目，一定要确保每一行代码都像是同一个人编写的。
+						</p>
+					</section>
+
+				</section>
+				<section>
+					<section>
+						<h3>2.知识剖析</h3>
+					</section>
+					<section>
+						<p><h3>HTML规范</h3>
+							一.DOCTYPE的声明: 每个HTML开头使用！doctype来启用标准模式声明，在此建议使用HTML5的声明模式<br>
+							二.字符集和编码字符: 在每个页面的head中设置字符集，一般都是使用"UTF-8"<br>
+							三.语法: 使用四个空格的缩进 在属性上使用双引号 不要忽略可选的关闭标签<br>
+							四.引入css样式以及js脚本: 需要采用外链的形式引入css样式/js脚本，方便管理和修改。
+						</p>
+					</section>
+					<section>
+						<strong></strong>
+						<p>
+							五.正确的标签嵌套 <br>
+							除了固定的嵌套规则（如ul包含li，ol包含li等），一般遵循以下规则：<br>
+							1.块级元素与块级元素平级、内联元素与内联元素平级<br>
+							2.块级元素可以包含内联元素或某些块级元素，但内联元素不能包含块级元素<br>
+							3.有几个特殊的块级元素只能包含内联元素，不能再包含块级元素 h1~h6、p、dt。<br>
+							4.块级元素不能放在标签p里面。<br>
+							5.li标签可以包含div标签，因为li和div标签都是装在内容的容器。
+						</p>
+					</section>
+					<section>
+						<p>六.属性顺序 <br>
+							HTML属性应该按照特定的顺序出现保证可读性<br>
+							除了固定的嵌套规则（如ul包含li，ol包含li等），一般遵循以下规则：<br>
+							1.class<br>
+							2.id、name.<br>
+							3.data-*<br>
+							4.src，for，tpye，href等<br>
+							5.title，alt<br>
+							6.role，aria-*<br>
+						</p>
+                </section>
+					<section>
+						<strong></strong>
+						<p>
+							七.逻辑顺序 <br>
+							尽量让自己的网站按照先后顺序 比如先写页头，在写页体，最后写页脚
+						</p>
+					</section>
+					<section>
+						<h3>CSS书写规范</h3>
+						一.声明顺序 <br>
+						1.positioning 定位<br>
+						2.因为可使一个元素脱离文档流，覆盖盒模型相关的样式<br>
+						3.Box model盒模型<br>
+						4.Typographic 排版<br>
+						5.Visual 外观
+					</section>
+					<section>
+						二.媒体查询 <br>
+						尽量将媒体查询的位置靠近他们的相关的规则。不要把他们放在一个独立 文件当中，也不要写在最底下，以免容易忘记
+					</section>
+					<section>
+						<h4> 三.class的命名 </h4>
+						不但要自己能看懂代码，也要别人能轻松读懂自己的代码。<br>
+
+						1.规则命名中，一律采用小写加中划线的方式，不允许使用大写字母或_<br>
+						2.命名避免使用中文拼音，应该采用更简明有语义的英文单词进行组合+<br>
+						3.不允许通过1、2、3等序号进行命名；避免class与id重名<br>
+						4.class用于标识某一个类型的对象，命名必须言简意赅<br>
+						5.尽可能提高代码模块的复用，样式尽量用组合的方式<br>
+						6.规则名称中不应该包含颜色（red/blue）、定位（left/right）等与具体显示效果相关的信息。 应该用意义命名，而不是样式显示结果命名
+					</section>
+					<section>
+						四.属性简写 <br>
+						坚持限制属性取值简写的使用，过度使用属性简写往往会导致更混乱的代码。 常见的属性简写滥用包括：
+						padding，margin，font，background等
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>3.常见问题</h3>
+					</section>
+					<section>
+						<p>
+							class命名有什么常用的方式？
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>4.解决方案</h3>
+					</section>
+					<section>
+						<p>
+
+							原子类命名 <br>
+
+							这个关键在于拼凑组合.ft{folat：right；}
+						</p>
+					</section>
+					<section>
+						<p>
+
+							模块命名 <br>
+
+							按照职能划分命名规则
+							nav模块，可以命名为nav-tittle、nav-left
+						</p>
+					</section>
+					<section>
+						<p>
+
+
+							BEM命名 <br>
+
+							BEM的优点是独一无二 ，不用担心自己的样式被覆盖
+							缺点就是class名太长了，修改更新不方便
+						</p>
+					</section>
+					<section>
+						<p>
+
+
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>5.编码实战</h3>
+					</section>
+
+					<section><a href="">demo</a></section>
+
+				</section>
+				<section>
+					<section>
+						<h3>6.扩展思考</h3>
+					</section>
+					<section>
+						<p>在实际写代码的时候到底该如何选择命名方式？
+
+							可以记住常见的class关键词，在此基础上特殊化class
+
+							也可以参考github上的热门项目</p>
+					</section>
+					<section>
+						<p>
+					</section>
+					<section>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>7.参考文献</h3>
+					</section>
+					<section>
+						参考一：<a href="https://www.tuicool.com/articles/yqUjea">推酷</a><br>
+						参考二：<a href="https://www.douban.com/note/499976405/?type=like">豆瓣</a><br>
+					</section>
+
+				</section>
+				<section>
+					<section>
+						<h3>8.更多讨论</h3>
+					</section>
+					<section>
+						<p>
+							常用的class关键词有哪些?
+						</p>
+					</section>
+				</section>
+				<section>
+					<h4>鸣谢</h4>
+					<p>感谢大家观看</p>
+					<p>
+						By
+						<small style="vertical-align: middle">计翔于</small>
+					</p>
+				</section>
+			</div>
+		</div>
+		<script src="../lib/reveal/js/head.min.js"></script>
+		<script src="../lib/reveal/reveal.js"></script>
+		<script>
+			// 以下为常见配置属性的默认值
+			// {
+			// 	controls: true, // 是否在右下角展示控制条
+			// 	progress: true, // 是否显示演示的进度条
+			// 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+			// 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+			// 	keyboard: true, // 是否启用键盘快捷键来导航
+			// 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+			// 	center: true, // 是否将幻灯片垂直居中
+			// 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+			// 	loop: false, // 是否循环演示
+			// 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+			// 	fragments: true, // 全局开启和关闭碎片。
+			// 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+			// 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+			// 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+			// 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+			// }
+			// 初始化幻灯片
+			Reveal.initialize({
+				history: true,
+				dependencies: [{
+						src: '../plugin/markdown/marked.js'
+					},
+					{
+						src: '../plugin/markdown/markdown.js'
+					},
+					{
+						src: '../plugin/notes/notes.js',
+						async: true
+					},
+					{
+						src: '../plugin/highlight/highlight.js',
+						async: true,
+						callback: function() {
+							hljs.initHighlightingOnLoad();
+						}
+					}
+				]
+			});
+		</script>
+	</body>
+
+</html>
