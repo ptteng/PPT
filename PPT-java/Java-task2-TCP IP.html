@@ -1,0 +1,222 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>什么是tcp/ip协议？TCP的三次握手指的是什么</h3>
+			<p>小课堂</p>
+            <h3></h3>
+            <p>分享人：闵仕宇</p>
+        </section>
+
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+         <section>
+            <p style="text-align:left">TCP/IP协议是什么</p>
+			<br>
+　　        <p style="text-align:left">通信协议是对计算机必须遵守的规则的描述，只有遵守这些规则，计算机之间才能进行通信。</p>
+            <p style="text-align:left">TCP/IP协议族按照层次由上到下，层层包装。</p>
+        </section>
+
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">IP 是无连接的通信协议,用于计算机之间的通信。</p>
+            <p style="text-align:left">通过 IP，消息（或者其他数据）被分割为小的独立的包，并通过因特网在计算机之间传送。</p>
+            <p style="text-align:left">IP 负责将每个包路由至它的目的地。</p>
+            <p style="text-align:left">每个计算机必须有一个 IP 地址才能够连入因特网。</p>
+            <p style="text-align:left">每个 IP 包必须有一个地址才能够发送到另一台计算机。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">TCP 用于应用程序之间的通信,使用固定的连接</p>
+            <p style="text-align:left">当应用程序希望通过 TCP 与另一个应用程序通信时，它会发送一个通信请求。这个请求必须被送到一个确切的地址。</p>
+            <p style="text-align:left">在双方“握手”之后，TCP 将在两个应用程序之间建立一个全双工 (full-duplex) 的通信。</p>
+            <p style="text-align:left">这个全双工的通信将占用两个计算机之间的通信线路，直到它被一方或双方关闭为止。</p>
+            <p style="text-align:left">UDP 和 TCP 很相似，但是更简单，同时可靠性低于 TCP。</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">TCP/IP 意味着 TCP 和 IP 在一起协同工作。</p>
+            <p style="text-align:left">TCP 负责应用软件（比如你的浏览器）和网络软件之间的通信。</p>
+            <p style="text-align:left">IP 负责计算机之间的通信。</p>
+			<p style="text-align:left">TCP 负责将数据分割并装入 IP 包，然后在它们到达的时候重新组合它们。</p>
+            <p style="text-align:left">IP 负责将包发送至接受者。</p>
+		</section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">如何建立TCP/IP连接</p>
+            <p style="text-align:left">IP包如何路由至目标地址</p>
+            <p style="text-align:left">到达目标地址的IP包如何检验完整性</p>
+            <p style="text-align:left">如和拆除连接</p>
+        </section>
+
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+
+        <section>
+			<p style="text-align:left">建立TCP/IP的过程就是要讲的三次握手。</p>
+			<p style="text-align:left">即三次握手就是为了解决连接的问题</p>
+			<p style="text-align:left">建立一个TCP连接时，需要客户端和服务端总共发送3个包以确认连接的建立。</p>
+			<p style="text-align:left"></p>
+        </section>
+
+        <section>
+			<p style="text-align:left">（1）第一次握手：Client将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</p>
+			<p style="text-align:left">（2）第二次握手：Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+			<p style="text-align:left">（3）第三次握手：Client收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给Server，Server检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+        </section>
+
+        <section>
+			<p style="text-align:left">IP包有固定的报文格式，报头有所需要参数</p>
+			<p style="text-align:left">如：源端口、目标端口、确认序号和标志域等。</p>
+			<p style="text-align:left">拆除连接的时候，双方都需要关闭通道</p>
+			<p style="text-align:left">即四次挥手</p>
+        </section>
+        
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+
+        <section>
+            <p style="text-align:left">当短时间大量不存在的IP不断发送SYN包会出现什么情况</p>
+        </section>
+
+        <section>
+            <p style="text-align:left">在三次握手过程中，Server发送SYN-ACK之后，收到Client的ACK之前的TCP连接称为半连接（half-open connect），此时Server处于SYN_RCVD状态，当收到ACK后，Server转入ESTABLISHED状态。</p>
+            <p style="text-align:left">Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将产时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p>
+            <p style="text-align:left">SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了</p>
+        </section>
+
+		<section>
+			<p style="text-align:left">为什么一定要三次握手</p>
+		</section>
+		
+		<section>
+   			<p style="text-align:left">当A想要建立连接时发送一个SYN，然后等待ACK，结果这个SYN因为网络问题没有及时到达B，
+			所以A在一段时间内没收到ACK后，再发送一个SYN，这次B顺利收到，接着A也收到ACK，这时A发送的第一个SYN终于到了B，
+			对于B来说这是一个新连接请求，然后B又为这个连接申请资源，返回ACK，然而这个SYN是个无效的请求，A收到这个SYN的ACK后也并不会理会它，
+			而B却不知道，B会一直为这个连接维持着资源，造成资源的浪费。</p>
+        </section>
+		
+		<section>
+			<p style="text-align:left">两次握手的问题在于服务器端不知道一个SYN是否是无效的，而三次握手机制因为客户端会给服务器回复第二次握手，
+			也意味着服务器会等待客户端的第三次握手，如果第三次握手迟迟不来，服务器便会认为这个SYN是无效的，释放相关资源。
+			但这时有个问题就是客户端完成第二次握手便认为连接已建立，而第三次握手可能在传输中丢失，服务端会认为连接是无效的，
+			这时如果Client端向Server写数据，Server端将以RST包响应，这时便感知到Server的错误。</p>
+			<p style="text-align:left">总之，三次握手可以保证任何一次握手的失败都是可感知的，不会浪费资源</p>
+		</section>
+
+        <section>
+            <h3>7.参考文献</h3>
+        </section>
+
+        <section>
+   			<p style="text-align:left">https://www.jianshu.com/p/ef892323e68f</p>
+			<p style="text-align:left">http://blog.csdn.net/u013344815/article/details/72134950</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>Thanks</h4>
+            <p></p>
+            <p><small>By : 上海分院 闵仕宇</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
