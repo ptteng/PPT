@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+	
+        <section>
+            <h3>什么是缓存、加载和刷新？</h3>
+            <p>分享人:杨帅</p>
+        </section>
+		
+        <section>
+            <p>1.缓存</p>
+            <p>2.加载</p>
+            <p>3.刷新</p>
+			<p>4.参考文献</p>
+        </section>
+		
+        <section>      
+	        <section>
+	      	      <p>1.什么是缓存</p>
+	        </section>  
+	        <section>
+	      	      <p>.缓存是介于应用程序和永久数据存储源之间，目的是为了降低应用程序直接读写永久数据存储源的频率，从而提高运行性能。
+         </p>
+	        </section>    
+        </section>
+
+
+
+
+                                       
+                                         
+	    <section>
+        <section>		  		    
+            <p>为什么要加缓存？</p>
+        </section> 
+        <section>		  		    
+            <p style="font-size: 28px">场景一：【等待】，在向服务器请求新的数据时。我们让用户看到什么？第一种是漂亮的等待加载页面；第二种是缓存的内容。对于第二种，用户可以对页面进行操作，
+            待新数据时可以查看旧数据，更具有“可操作性”与“可用性”，从而减轻了从服务器获取数据这一动作的大小和时间长短，增强了用户体验。
+            另一方面，如果内容更新的间隔较长或者用户刷新的间隔较短，在没有缓存的情况下，很多数据我们会多次重复的向服务器获取，增加了成本。</p>
+
+			 <p style="font-size: 28px"> 场景二：【结果】没有联网，或者在地铁上网络太差无法加载数据时，如果留给用户一个空白页面，实在是感觉有点不负责任啊。
+			并且很多功能在没有联网的情况下也有使用的可能性，比如：APP中的通讯录，查看一些聊天记录，通知信息，文章列表等。
+			因为用户打开APP不一定是要看新信息，说不定是回顾老信息（或许老信息里也有用户之前没看的），所以恰当的缓存可以满足更多的用户场景。</p>
+			</section>
+			<section>
+
+			  <p style="font-size: 28px"><p> 场景三：【金钱】有一天，一个用户发现自己装了某个APP后流量用的特别快，Ta可能永远将这个APP打入冷宫了，而增加缓存正是节省流量的一个方法。
+			虽然节省的不多或者用户也察觉不到，但是作为一个有态度的产品经理，应该多做一些思考。
+			</p>
+			
+		 
+		</section> 
+		</section> 
+		
+        <section>		  		    
+        <section>
+			<p>如何清理缓存？</p>
+		</section> 
+		<section>		  		    
+            <p>一般App都会在“设置”里提供一个清理缓存的功能，一键把空间释放。除此之外，App最好要设计自动清理机制，可以通过两个维度来设计这个机制。</p>
+
+（1）、时间
+通过设定一个固定的时间，或者根据用户使用周期灵活设定时间来清理缓存。每个产品的场景不一，用户使用频率不一，设定这个机制的时候就需要结合实际情况考虑了。</p>
+
+（2）、容量
+一般是设定一个容量上限，采用堆栈的设计原理进行缓存清理，溢出堆栈的旧数据将自动清除。
+</p>
+        </section> 
+        </section>
+
+   		<section>
+		<section>
+            <h3>什么是加载？</h3>
+        </section>
+
+        <section>
+		  <p>加载是一种反馈状态，常见样式有菊花、进度条等。用户与产品的每一次互动都需要反馈，用户依赖反馈信息，才能顺利完成连贯的操作。
+		  用户在等待反馈结果时，焦急专注的盯着界面，这时，系统需要告诉用户“hi，我还活着，正在努力干活呢，别走！” </p>
+
+        </section>
+        </section>
+
+
+        <section>
+        <section>
+		<p>什么时候用加载？</p>		
+        
+		</section>
+		   <section>
+		<p>1s是对话中可以有的最长间隔，又因为交互系统的操作是一个对话的形式，所以交互系统应该避免自己一方的长时间间隔，否则用户会怀疑发生了什么。
+		系统有1s的时间去执行用户要求做的任务或者标志出操作需要多少时间，要不然用户会失去耐心”——摘自《认知与设计》</p>
+
+结合上面这句话，关于何时使用，我这么理解：如果系统1s内就能完成任务，可以不给加载图标，如果系统1s内不能完成任务，则需要在1s内弹出加载中的提示。
+</p>		
+        </section>
+		</section>
+
+
+	    <section>
+	    <section>
+            <h3>加载的逻辑</h3>
+        </section>
+		<section>
+            <p>客户端接收到用户操作后，向服务端发送请求，服务端响应然后返回数据，客户端把数据翻译成用户看的懂的元素。
+            用户从执行操作后就一直在等待结果。客户端从发送到接收到数据这段时间在等待结果。比较耗时的是发送接收数据以及渲染展示的环节。
+            服务器查找时间取决于服务器性能和存储等；发送耗时受网络影响；渲染展示时间取决于前端和机器性能，知道这些，就可以对症下药了，谁家的孩子，
+            谁拎回去修理，交互能做的就是配和他们的方案，选择合适的方式，做好对用户的宣传。
+	</p>
+        </section>
+        
+        
+		</section>
+
+		<section>
+        <section>
+            <p>什么是刷新？</p>
+        </section>
+        <section>
+            <p>简而言之，下拉刷新是刷新指示器于下拉手势想结合的产物，同时借助下拉动效完善整个交互。</p>
+最早的下拉刷新设计源自于Tweetie 这款应用的设计，设计师Loren Brichter 是这种令人欲罢不能的交互的缔造者。
+现在，下拉刷新的交互几乎无处不在，但即便如此也让人无法轻易忽视它带来的快感。从Twitter 到 Gmail，从QQ到新浪微博，它几乎存在于你触手可及的每一个应用当中。
+</p>
+        </section>
+         </section>
+         	<section>
+        <section>
+            <p>刷新是怎么运行的？</p>
+        </section>
+        <section>
+            <p>下拉刷新本质上是一种特定的手动刷新交互，和其他的同类操作不同的地方在于它采用了更加直觉的下拉操作。
+            它的交互足够清晰明显，不过有的时候设计师依然会使用刷新指示器来显示自动更新的内容。
+            不过，由于自动刷新的机制不需要用户进行任何操作，是因此自动刷新最好还是不要使用刷新指示器了。
+</p>
+        </section>
+        </section>
+        </section>
+
+         <section>
+        <section>
+            <p>什么时候适合刷新？</p>
+        </section>
+
+        <section>
+            <p>滑动刷新（包括下拉刷新）非常适合于列表、栅格列表和卡片集合之类界面（按照时间降序排列）。
+            这类界面通常会随着时间推移，优先展示最新的内容，并且通常不会采用自动更新来刷新内容。
+            不采用自动刷新的机制的原因很简单，当你滚动到顶部的时候，如果采用自动刷新，内容会不断自动下载显示，对于用户而言
+            ，这样的自动显示的机制并不可控。而下拉刷新则很好的解决了这个问题，只有在你使用下拉手势的时候，触发刷新指示器，再行更新，
+            这样也给了用户选择和退出的机会。
+</p>
+        </section>
+        </section>
+
+         <section>
+        <section>
+            <p>什么时候不适合刷新？</p>
+        </section>
+         <section>
+          <p style="font-size: 28px">下拉刷新并非万能的，它有不适宜使用的场景：1.屏幕小插件。这类小插件是需要自动更新的。
+2.地图应用。地图上的内容通常不会以时序排列，也没有明确的方向和内容来源，用户也无法直觉推断出下拉刷新的含义.
+3.无序列表。有序列表通常能够给用户以下拉更新的期望，而无序列表在这方便则不明显，也无法直观地让用户看出其中的更新。
+4.低更新率的内容。如果列表中的内容并不经常更新，下拉刷新的手势几乎没有存在的意义，因为用户去刷新列表的机率很低，也没有太大的必要。
+5.按照时间先后顺序排列的内容。按照时间先后顺序排列的列表中，最新更新的内容排在最后，用户下拉刷新之后无法立刻看到最新更新的内容，
+这样列表使用下拉刷新就相当尴尬。
+6.特殊类型的内容。许多需要实时更新的内容会在短短一分钟甚至更短的时间内失去时效，诸如股票、服务器后台进程之类的信息，最好使用实时自动更新。
+</p>
+        </section>
+        </section>
+
+
+
+
+
+
+
+
+
+		<section>
+            <h3>4.参考文献</h3>
+        </section>
+		<section>
+		<p>（1）如何设计APP清理缓存功能？-人人都是产品经理</p>		
+        <p>（2）UI设计中下拉刷新有什么讲究？”-人人都是产品经理</p>
+		 <p>（3）APP中缓存、加载与刷新机制设计-CSDN</p>  
+        </section>
+		
+        
+        <section>
+            <h4>谢谢观看</h4>
+            <p></p>
+            <p><small>By:杨帅</small></p>
+        </section>
+
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    //  controls: true, // 是否在右下角展示控制条
+    //  progress: true, // 是否显示演示的进度条
+    //  slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    //  history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    //  keyboard: true, // 是否启用键盘快捷键来导航
+    //  overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    //  center: true, // 是否将幻灯片垂直居中
+    //  touch: true, // 是否在触屏设备上启用触摸滑动切换
+    //  loop: false, // 是否循环演示
+    //  rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    //  fragments: true, // 全局开启和关闭碎片。
+    //  autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    //  transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    //  transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    //  mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
