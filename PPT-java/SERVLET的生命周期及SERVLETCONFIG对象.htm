@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>servlet的生命周期及ServletConfig对象</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：万全林</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        
+			<p>什么是servlet？</p>
+        
+            　<p>Servlet(Server Applet)是Java Servlet的简称，称为小服务程序或服务连接器，用Java编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态Web内容。
+                 狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。Servlet运行于支持Java的应用服务器中。从原理上讲，Servlet可以响应任何类型的请求，但绝大多数情况下Servlet只用来扩展基于HTTP协议的Web服务器。</p>　
+                 
+                </section>
+                <section>
+                    <p>　 一个servlet就是Java编程语言中的一个类，它被用来扩展服务器的性能，服务器上驻留着可以通过“请求-响应”编程模型来访问的应用程序。虽然servlet可以对任何类型的请求产生响应，但通常只用来动态扩展Web服务器的应用程序。Java Servlet技术为这些应用程序定义了一个特定于HTTP的 servlet类。</p>
+                </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+				<p>servlet的生命周期</p>
+				<p>1.Servlet 通过调用 init () 方法进行初始化。</p>
+                    <p>2.Servlet 调用 service() 方法来处理客户端的请求。</p>
+                        <p>3.Servlet 通过调用 destroy() 方法终止（结束）。</p>
+                            <p>4.最后，Servlet 是由 JVM 的垃圾回收器进行垃圾回收的。</p>
+			
+        
+            </section>
+            <section>
+                <p>ServletConfig对象</p>
+                <p>在Servlet的配置文件中，可以使用一个或多个<init-param>标签为servlet配置一些初始化参数，当Servlet配置了初始化参数后，web容器在创建servlet实例对象时，会自动将这些参数封装到ServletConfig对象中，并在调用Servlet的init方法时，将ServletConfig对象传递给Servlet。进而，程序员通过ServletConfig对象就可以得到当前Servlet的初始化参数信息。该对象的getInitParameter(String name)用来获得指定参数名的参数值，getInitParameterNames()用来获得所有参数名</p>	
+               
+            </section>
+			<section>
+                <p>ServletContext对象</p>
+                <p> web容器在启动时，它会为每个web应用程序都创建一个对应的ServletContext对象，它代表当前web应用(web工程)。</p>	
+                <p>request，一个用户可有多个；session，一个用户一个；而servletContext，所有用户共用一个。所以，为了节省空间，提高效率，ServletContext中，要放必须的、重要的、所有用户需要共享的线程又是安全的一些信息</p>
+            </section>
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>servlet和SpringMVC的关系?</p>
+            <p>Http Header里的Content-Type一般有这三种：</p>
+            <p>application/x-www-form-urlencoded：数据被编码为名称/值对。这是标准的编码格式。</p>
+            <p>multipart/form-data： 数据被编码为一条消息，页上的每个控件对应消息中的一个部分。</p>
+            <p>text/plain： 数据以纯文本形式(text/json/xml/html)进行编码，其中不含任何控件或格式字符。postman软件里标的是RAW。</p>
+        </section>
+        <section>
+                <h3>3.常见问题</h3>
+            </section>
+            <section>
+                <p>HttpServletRequest对象,HttpServletResponse对象?</p>
+                <p>HttpServletRequest对象代表客户端的请求，当客户端通过HTTP协议访问服务器时，HTTP请求头中的所有信息都封装在这个对象中，开发人员通过这个对象中的方法，可以获得客户的这些信息。</p>
+                <p>这个对象是指服务器的响应，这个对象中封装了想客户端发送数据，发送响应头，发送响应状态码的方法。 </p>
+                <p>getRequestURL();   //返回客户端发出请求时的完整URL  </p>
+                <p>getRequestURI();   //返回请求行中的资源名部分  </p>
+                <p>getQueryString();  //返回请求行中的参数部分  </p>
+                <p>getRemoteAddr();   //返回发出请求的客户机的IP地址  </p>
+                <p>getRemoteHost();   //返回发出请求的客户机完整主机名  </p>
+            </section>
+        
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>  HttpServlet指能够处理HTTP请求的servlet，它再原有的Servlet接口上添加了一些与HTTP协议处理方法，它比Servlet接口的功能更为强大，因此开发人员在编写Servlet时，通常应继承这个类，而避免直接去实现Servlet接口。HttpServlet在实现Servlet接口时，覆写了service方法，该方法体内的代码会自动判断用户的请求方式，如为GET请求，则调用HttpServlet的doGet方法，如为Post请求，则调用doPost方法。因此，开发人员在编写Servlet时，通常只需要覆写doGet或doPost方法，而不要去覆写service方法。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+	
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+           
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>http://www.runoob.com/servlet/servlet-client-request.html</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 万全林</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
