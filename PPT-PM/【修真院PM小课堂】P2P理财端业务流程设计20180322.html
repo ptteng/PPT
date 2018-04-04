@@ -1,0 +1,205 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+	
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>P2P理财端业务流程设计</h2>
+			<p></p>
+            <h3>PM分享会</h3>
+            <p>分享人：刘宁</p>
+        </section>
+        <section>
+            <p>一.什么是流程分析？</p>
+            <p>二.P2P 理财端业务的核心流程</p>
+            <p>三.用户注册并实名开户</p>
+			<p>四.充值流程</p>
+			<p>五.投资流程</p>
+			<p>六.提现流程</p>
+			<p>七.标的管理流程</p>
+			<p>八.标的还款流程</p>
+			<p>九.更多讨论</p>
+        </section>
+		<section>
+		<section>
+            <h3>一.什么是流程分析？</h3>
+        </section>
+		<section>
+            <p>「流程分析」主要分为「业务流程」和「页面流程」。「业务流程」是通过产品经理在业务调研的基础上，对相关业务点进行梳理并链接呈现的过程，更多用来与后端开发同事对接业务逻辑。「页面流程」则是前端用户界面跳转的展现，更多用来与 UI 设计师、前端工程师沟通。本次小课堂的「流程分析」主要从「业务流程」这个方面对 P2P理财端核心流程进行分析。</p>
+		</section>
+		</section>
+        <section>
+		<section>
+			<h3>二.P2P 理财端业务的核心流程</h3>
+		</section>
+		<section>
+			<p>对于 P2P 平台来说，功能模块并不复杂（如果你非要在 P2P 平台上加一个社交/电商/即时通讯，这就不在我们讨论的范围内了）。其核心是「投资赚收益」，核心业务就是「投资」和「资产管理」。我们就主要从「投资」的角度去梳理下其在银行存管系统下的业务流程。</p>
+		</section>
+		<section>
+			<p>在设计业务流程的时候，一般有两种展示方式：1.是单纯的用户操作行为流程图，这种图一般只涉及用户角色，不涉及跨部门或者跨功能的业务展示。2.是泳道图，这种图按照职责或功能将活动进行组织，可以直观的描述整个系统中的各个子系统或者各活动之间的逻辑关系，便于使用者理解业务逻辑，适合跨部门或跨功能的业务展示。本文将主要以泳道图来为大家展示。</p>
+			<p>设计基于银行存管系统的 P2P 平台时，信息流在平台，资金流在存管。本流程主要以投资用户在平台的操作流程（「用户注册并实名开户」-「充值」-「投资」-「提现」）作为分析的重点，这个流程也是整个平台对接存管系统变动最大的地方。</p>
+		</section>
+		</section>
+        <section>
+		<section>
+			<h3>三.用户注册并实名开户</h3>
+		</section>
+		<section>
+			<img src="E:\小课堂\1.png">
+		</section>
+		<section>
+			<p>这里需要关注的有三点：</p>
+			<p>1.用户需要在业务系统（即平台）和存管系统（即银行）分别开立账户，开立存管系统账户的活动可以隐藏在实名绑卡的步骤中来完成，一般情况下，这一步骤需要跳转银行的页面来完成。也有部分银行彻底将所有业务的步骤均隐藏在平台的页面内，全部数据通过接口方式传递（平台—>银行），在一定程度上提升了体验，可以做到用户的「无感知」，但是也容易引起用户的怀疑：你究竟做没做存管？不同的银行有不同的考虑，这一点上来看，并没有绝对的优劣。</p>
+		</section>
+		<section>
+			<p>2.实名信息的认证，同样，不同银行有不同的认证方式。有的银行依托公安机关的户籍系统（比如使用「国政通」），仅需进行身份认证即可完成开户，开户完成后在由用户进行出入金借记卡的绑定。另外一些银行直接利用合作的支付通道来通过银行卡四要素（或三要素）认证，来完成出入金借记卡的绑定。</p>
+			<p>3.途中将返回结果合并成一个（实名开户和绑卡结果一起返回），但在实际业务中，可能有多种情况，甚至还有需要平台主动查询的可能，需要产品经理根据存管系统接口实际来设计。</p>
+		</section>
+		</section>
+        <section>
+		<section>
+			<h3>四.充值流程</h3>
+		</section>
+		<section>
+			<img src="E:\小课堂\2.png">
+		</section>
+		<section>
+			<p>这里需要关注的有两点：</p>	
+			<p>1.判断是否绑卡的步骤需要根据存管系统要求来设计，我遇到过有的银行并不会给平台返回用户是否绑卡（对，你没看错）的信息，那么这一步就会有存管系统来判断，业务系统只需要进行「充值转发」就可以了。当然如果提前在业务系统里进行判断，用户没有绑卡直接跳转绑卡页面，或提示用户绑卡。这样的流程比较流程，体验上也比较好。</p>
+			<p>2.大家可以看到，在流程图中，不管充值成功还是失败，业务系统都会进行记录，这一点也需要注意，不但可以为用户提供更详实的展示外，一旦出现账务处理异常也可以很方便的去排查。</p>
+		</section>
+		</section>
+        <section>
+		<section>
+			<h3>五.投资流程</h3>
+		</section>
+		<section>
+			<img src="E:\小课堂\3.png">
+		</section>
+		<section>
+			<p>这里有一点注意：</p>	
+			<p>标的可投的校验：为了防止出现溢标（就是投资额超出实际需要募集的金额）的状况，一般情况下，需要两次以上的校验——前端根据可投额度校验一次，对大于可投金额的资金直接提示；后端在收到前端传过来的值后，在进行一次校验。双保险，更安全！之所以说是两次以上，是因为存管系统可能还会对标的实际募集金额进行校验，有的银行不允许溢标，有的银行又允许溢标。不过从实操和法律规定上来看，不溢标会好一些。其实在未收到结果时先减少可投余额，再根据结果反馈进行调整和最后当「可投金额=0」时变更标的状态，同样也是为了防止溢标。</p>
+		</section>
+		</section>
+		</section>
+        <section>
+		<section>
+            <h3>六.提现流程</h3>
+		</section>
+		<section>
+			<img src="E:\小课堂\4.png">
+		</section>
+		<section>
+            <p>这里需要说明的两点：</p>
+			<p>1.因为我们的系统经历了「支付通道」—>「第三方支付托管」—>「银行存管」的变更，所以在提现审核之后立刻就减少用户资金记录后期在根据反馈结果进行调整的做法是个历史遗留的问题，主要是在支付通道的时候防止用户在操作之后结果反馈之前的时间内（可能很短，也可能很长），利用时间差不断提现，造成不必要的资金损失。其实大家可以理解成在没有记过之前先冻结掉提现金额。</p>
+			<p>2.业务系统的提现审核，这一步其实在存管体系下的作用越来越小，毕竟资金在银行。不过为了用户安全，还是可以根据业务需要由平台相关业务人员或者业务系统进行一次提现审核。还是那句话：双保险，更安全！</p>
+		</section>
+		</section>
+		</section>
+        <section>
+		<section>
+            <h3>七.标的管理流程</h3>
+		</section>
+		<section>
+			<p>「标的管理」又分为「标的发布」和「标的成立和出账」两块。一般情况下，「标的发布」时，存管系统介入较少，仅需要「业务系统」将标的的信息传递给「存管系统」进行存储。而「标的成立和出账」因为涉及到资金操作，所以会较多的涉及存管系统。</p>
+		</section>
+		<section>
+			<img src="E:\小课堂\5.png">
+		</section>
+		<section>
+			<p>这里需要说明的两点：</p>
+			<p>1.流标流程是一个单独的流程，但是一般平台上用的几率不是很大。在这里不细说，其实就是解冻用户资金，并原路返还，这标的废掉的一个流程。</p>
+			<p>2.开始计息的时间：这一点大家可以根据自己的业务来处理。有投资后计息、标满后计息和图中表示的出账后计息多种。</p>
+		</section>
+		</section>
+		</section>
+        <section>
+		<section>
+            <h3>八.标的还款流程</h3>
+		</section>
+		<section>
+			<p>回款会涉及到正常还款、提前还款、垫付和逾期。以正常还款为例。</p>
+			<p>这里有一点需要注意：</p>
+			<p>借款人还款的时间：因为银行清结算需要时间，所以借款人还款时间一定要早于最晚的标的还款时间，不然会有极大的可能造成因银行清结算延误造成标的逾期。</p>
+		</section>
+		<section>
+			<img src="E:\小课堂\6.png">	
+		</section>
+		</section>
+        <section>
+		<section>
+			<p>九. 更多讨论</p>
+			<p>参考资料来自于：http://www.pmcaff.com</p>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 刘宁</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

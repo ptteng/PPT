@@ -1,0 +1,232 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>redis缓存集群介绍</h2>
+            <p></p>
+            <h3>java分享会</h3>
+            <p>分享人：吴艺强</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.编码实战</p>
+            <p>4.常见问题</p>
+            <p>5.参考文献</p>
+            <p>6.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+		<section>
+
+            <h3>redis</h3>
+            <p>Redis本质上是一个Key-Value类型的内存数据库，很像memcached，整个数据库统统加载在内存当中进行操作，定期通过异步操作把数据库数据flush到硬盘上进行保存。因为是纯内存操作，Redis的性能非常出色，每秒可以处理超过 10万次读写操作，是已知性能最快的Key-Value DB。</p>
+            
+        </section>
+
+		<section>
+
+            <h3>为什么使用集群</h3>
+            <p>大型网站应用，热点数据量往往巨大</p>
+            <p>为了提高网站响应速度，热点数据保存在内存中</p>
+            <p>单台服务主机的内存资源往往是有限制的，通过横向可伸缩扩展，使用多台主机提供服务，能够获得更好的效果</p>
+            
+        </section>
+       
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+
+
+            <h3>redis集群</h3>
+            <p>Redis集群是一个由多个Redis服务器组成的分布式网络服务器群，集群中的各个服务器被称为节点（node），这些节点会相互连接并进行通信。分布式的Redis集群没有中心节点，所以用户不必担心某个节点会成为整个集群的性能瓶颈。</p>
+           
+
+
+        </section>
+
+        <section>
+
+
+            <h3>redis分布式</h3>
+            <p>主从模式：Master会将数据同步到slave，而slave不会将数据同步到master。Slave启动时会连接master来同步数据。</p>
+            <p>读写分离模型：可以利用master来插入数据，slave提供检索服务。这样可以有效减少单个机器的并发访问数量</p>
+
+
+        </section>
+
+        <section>
+
+
+            <h3>redis集群分片</h3>
+            <p> 1).将整个数据库分为 16384 个槽（slot）</p>
+            <p> 2).计算键 key： slot_number = crc16(key) % 16384 ，其中 crc16 为 16 位的循环冗余校验函数</p>
+            
+         
+
+        </section>
+
+        <section>
+            <h3>redis集群转向</h3>
+            <p>对于一个被指派了槽的主节点来说，这个主节点只会处理属于指派给自己的槽的命令请求。如果一个节点接收到了与自己处理的槽无关的命令请求，那么节点会向客户端返回一个转向错误（redirection error），告诉客户端，哪个节点负责处理这条命令，之后客户端需要根据错误中包含的地址和端口号重新向正确的节点发送命令请求。</P>
+
+        </section>
+
+        <section>
+
+            <p>容错机制</p>
+            <p>Redis提供了节点之间相互发送的ping命令，用于测试每个节点的健康状态，集群中连接正常的节点接收到其他节点发送的ping命令时，会返回一个pong字符串。</p>
+            <p>投票机制</p>
+            <p>如果一个节点A给B发送ping没有得到pong返回，那么A就会通知其他节点再次给B发送ping，如果集群中超过一半的节点给B发送ping都没有得到返回，那么B就被坐实game over了，所以为了避免单点故障，一般都会为Redis的每个节点提供一个备份节点，B节点挂掉了立马启动B的备份节点服务器。</p>
+           
+
+        </section>
+
+
+        
+
+        <section>
+            <h3>redis集群的缺点</h3>
+            <p>1、集群无法正常提供服务的情况。</p>
+            <p>a:如果集群任意master挂掉,且当前master没有slave.集群进入fail状态,也可以理解成集群的slot映射[0-16383]不完整时进入fail状态. ps : redis-3.0.0.rc1加入cluster-require-full-coverage参数,默认yes.</p>
+			<p>b:如果集群超过半数以上master挂掉，无论是否有slave，集群进入fail状态.</p>
+            <p>2、Redis集群无法提供强一致性，Redis集群有可能丢失掉部分数据，尽管系统已经发送确认给客户端.（异步模式）</p>
+
+        </section>
+
+        <section>
+            <h3>redis集群搭建</h3>
+            <p>1.redis-trib.rb</p>
+            <p>2.ruby环境</p>
+            <p>3.配置多个redis节点</p>
+            <p>4.集群的启动(/redis-trib.rb create --replicas 1 192.168.1.1 7001)</p>
+            <p>5.客服端配置</p>
+
+        </section>
+
+
+        <section>
+            <h3>3.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>4.常见问题</h3>
+        </section>
+
+
+        <section>
+            <p>1、 Sorry, can't connect to node 47.95.248.39:7001</p>
+
+            <p>因为绑定bind了127.0.0.1，要么改bind，要么修改启动ip为127.0.0.1</p>
+        </section>
+
+        <section>
+            <p>2、 the node already knows other nodes</p>
+
+            <p>需要清除杀掉redis实例，然后删除每个节点下的临时数据文件appendonly.aof，dump.rdb，nodes-703x.conf，然后再重新启动redis实例即可启动集群</p>
+         
+        </section>
+
+        <section>
+            <p>3、 redis集群如何关闭</p>
+
+            <p>需要逐个关闭集群</p>
+           
+        </section>
+
+       
+        <section>
+            <h3>5.参考文献</h3>
+            <p>https://segmentfault.com/a/1190000007029987</p>
+            <p>https://www.zhihu.com/question/21419897</p>
+            <p>https://blog.csdn.net/xianymo/article/details/46433447</p>
+            <p>https://blog.csdn.net/hinstenyhisoka/article/details/61916694</p>
+            <p>https://blog.csdn.net/u013063153/article/details/71191138/</p>
+            <p>https://www.cnblogs.com/aspirant/p/7221909.html</p>
+        </section>
+
+        <section>
+            <h3>6.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p>
+                <small>BY : sweetalin</small>
+            </p>
+        </section>
+
+    </div>
+    <script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
