@@ -1,0 +1,171 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>为什么要处理异常，try/catch用在什么场景？</h3>
+		
+            <h4>Java小课堂</h4>
+            <p>分享人：牛涛</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+            <p style="text-align:left">在理想境界中，程序永远不会出现问题，用户输入的数据永远是正确的，逻辑没有任何问题 ，选择打开的文件也一定是存在的，内存永远是够用的……反正没有任何问题！但是一旦出现这些问题，如果处理不好，程序就不能正常运行了，用户就有可能再也不使用这个程序了。</p>
+        </section>
+
+		<section>
+            <h3>2.知识剖析</h3>
+        </section>
+		<section>
+            <p>异常分类</p>
+            <p></p>
+            <p>异常类分两大类型：Error类，Exception类</p>
+            <p></p>
+            <p>
+                Error类代表了编译和系统的错误，不允许捕获；属于JVM运行中发生的一些错误，虽然并不属于开发人员的范畴，但是有些Error还是由代码引起的，比如StackOverflowError经常由递归操作引起</p>
+            <p>Exception分为两种，检查类型（checked）和未检查类型（unchecked）。检查类型的异常就是说要程序员明确的去声明或者用try..catch语句来处理的异常，而非检查类型的异常则没有这些限制。</p>
+
+        </section>
+		
+		<section>
+            <p>异常的处理</p>
+
+            <p>
+                针对预期可能发生的异常（检查类型（checked）），在代码手动处理异常可以try/catch捕获，可以向上抛出，可以声明。
+            </p>
+            <p>针对运行时异常，只能通过规范代码质量、在系统测试时详细测试等排除运行时异常。</p>
+
+        </section>
+
+		
+	
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p style="text-align:left">1.什么时候抛出，什么时候捕获？</p><br>
+			<p style="text-align:left">2.在Controller里，大段的Try Catch 会有什么坏处？</p><br>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+		<section>
+			<p>1.什么时候抛出，什么时候捕获？</p>
+			<p style="text-align:left">Java异常处理原则之一：延迟捕获</p><br>
+			<p style="text-align:left">当异常发生时，不应立即捕获，而是应该考虑当前作用域是否有有能力处理这一异常的能力，如果没有，则应将该异常继续向上抛出，交由更上层的作用域来处理。</p><br>
+		</section>
+		
+		<section>
+			<p style="text-align:left">某方法String readFile(String filename)，会去尝试读出指定文件的内容并返回，其使用FileInputStream来读取指定文件，而FileInputStream的构造方法会抛出FileNotFoundException，这是一个Checked Exception。那么readFile方法是应该捕获这个异常，还是抛出这个异常呢？很显然应该抛出。因为readFile这个方法可能会在不同的场景下，被不同的代码调用，在这些场景中，出现“文件未找到”的情况时的处理逻辑可能是不同的，例如某场景下要发出告警信息，另一场景下可能会尝试从另一个文件中读取，第三个场景下可能需要将错误信息提示给用户。在这种情况下，在readFile方法内的作用域中，是处理不了这个异常的，需要抛出，交由上层的，具备了处理这个异常的能力的作用域来处理。</p><br>
+		</section>
+		
+		<section>
+			<p>2.在Controller里，大段的Try/Catch 会有什么坏处？</p>
+			<p style="text-align:left">1.try catch 的代价比较大。相对于判断返回值，抛出异常到捕获，需要更多的cpu指令和代码</p><br>
+			<p style="text-align:left">2.Java的异常机制是由JVM控制的，业务逻辑复杂的情况下，会影响controller的执行效率</p><br>
+		</section>
+		
+         
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+		 <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>spring mvc 异常统一处理？</p>  
+		 </section>
+	
+        
+        <section>
+            <h3>7.参考文献</h3>
+			<p style="text-align:center">1.知乎</p>
+			<p style="text-align:center">2.https://blog.csdn.net/eson_15/article/details/51731567</p>
+        </section>
+		
+        <section>
+            <h3>8.更多讨论</h3>
+            <p>今天的分享就到这里啦，欢迎大家提问和探讨!</p>
+        </section>
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
