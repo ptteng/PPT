@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>时间类型转换的几种方式</h2>
+			<p></p>
+            <h3>java小课堂</h3>
+            <p>分享人：万全林</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <section>
+        
+			<p>为什么要进行时间类型的转换</p>
+        
+            　<p>我们在存储时间类型的数据的时，将该数据保存为Long类型 例如：1523255214000 （其转换成date类型后为2018-04-09 14:26:54）。这种数据
+                明显不能通过人来很快的识别转换，从用户体验上来说我们就需要将其转换为人所能接受的数据类型，即date类型。在任务过程中二时我通过java代码实现了
+                时间类型转换，在后面的学习过程中又学习到了通过jsp标签进行转换和通过自定义标签进行转换的方式。
+            </p>　
+                 
+                </section>
+                
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <section>
+                <p>首先，怎么通过java代码实现？</p>
+                <p>加入了3个类,利用set和get将其余的属性分别取出和注入,再将时间类型进行转换后再注入对象中.</p>
+                <p>3个类，2个实体类，另外一个类存放转换方法:</p>
+                <p>在将数据从数据库中拿出时,时间类型被存储为Long类型,需要将其转换为Date类型以供用户浏览.这里需要一个工具类将其转换. </p>
+                <p>第二个类用于在更新信息的时候配合第一个类使用,逻辑顺序:先将数据从数据库中取出并返回给客户端,这里需要用到第一个类,用户输入数据后,将数据传递给服务端,服务端再将Date类型的数据转换为Long,然后执行SQL语句进行更新.
+               进行转换的类,实行数据转换。</p>
+            </section>
+			
+            </section>
+            <section>
+                <p>怎么通过jsp标签实现？</p>
+                <p>这里需要知道JSP中JavaBean标签 </p>	
+                <p> < jsp:useBean > 标签可以在JSP中声明一个JavaBean，然后使用。声明后，JavaBean对象就成了脚本变量，可以通过脚本元素或其他自定义标签来访问。</p>
+                <p> < jsp:useBean id="bean 的名字" scope="bean 的作用域" typeSpec/  </p>
+                <p>在 < jsp:useBean > 标签主体中使用 < jsp:getProperty /> 标签来调用 getter 方法，使用 < jsp:setProperty /> 标签来调用 setter 方法</p>
+            </section>
+			<section>
+                <p>怎么通过自定义tag标签实现？</p>
+                <p>这里需要知道jsp内置对象中的的Out对象，和PageContext对象</p>	
+                <p>Out对象是在JSP开发过程中使用得最为频繁的对象，但是使用也是最简单的。</p>
+                <p>Out对象用于JSP向客户端浏览器发送文本数据，我们之前在查看由JSP转换后的.java文件中可以看到，Servlet正是通过out对象，将JSP中所有的模板元素（HTML标签之类）和内容显示都以out对象的方法将其写入response对象中，并响应回浏览器。</p>
+                <p>Out对象是用过pageContext对象(后面会介绍到)的getOut()方法返回的，同时记住out对象是字符流对象</p>
+            </section>
+
+            <section>
+                <p>PageContext对象</p>
+                <p>　pageContext对象代表了该JSP页面的运行环境，它的作用有：
+                 <p>　① 这个对象封装了对其它八大隐式对象的引用</p>
+                    
+                    　<p>　② pageContext自身还是一个域对象，可以用来保存数据，同时可以通过pageContext这个域对象操作另外三个域(Request域，Session域，ServletContext域)</p>
+                    
+                    　<p>　③ pageContext封装了WEB开发中经常涉及到的一些常用操作，例如包含和跳转到其他资源，检索其他域对象中保存的值等等。</p>
+            </section>
+            <section>
+            <p>1.创建标签的处理类(Tag Handler Class) </p>
+
+                <p> 2.创建标签库描述文件(Tag Library Descrptor File) </p>
+                
+                    <p> 3.在web.xml文件中配置元素 </p>
+                
+                        <p> 4.在JSP文件中引人标签库 </p>
+                    </section>
+                
+         <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>插入udate_at和creat_at的2种方法</p>
+            <p>1.SQL语句插入</p>
+            <p>2.java代码实现</p>
+        </section>
+        
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p></p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+	
+        </section>
+        
+        <section>
+            <h3>6.扩展思考</h3>
+           <p>jsp内置对象 9个</p>
+           <p>1、request对象</p>
+           <p> 2、response对象</p>
+             <p>3、session对象</p>
+             </section>
+             <section>
+         <p> 4、application对象</p>
+        <p> 5、out 对象</p>
+            <p>6、pageContext 对象</p>
+                <p>7、config 对象</p>
+                    <p> 8、page 对象</p>
+                        <p> 9、exception 对象  </p>  
+        </section>
+
+        
+        
+        <section>
+            <h3>7.参考文献</h3>
+            <p>JSP文档</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 万全林</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
