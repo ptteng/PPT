@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>it修真院java小课堂-索引</title>
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>What、How、When、How and index</h3>
+            <h3>（什么是DB的索引，多大的数据量下建索引会有性能的差别，什么样的情况下该对字段建索引？）</h3>
+            <p>小课堂</p>
+            <h3></h3>
+            <p>分享人：辛家印</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+        <!--        <section>-->
+        <!--            <p style="text-align:left">概念</p>-->
+        <!--            <p style="text-align:left">1、索引是什么？</p>-->
+        <!--            <p style="text-align:left">2、索引怎么用？</p>-->
+        <!--            <p style="text-align:left">3、索引在哪用？</p>-->
+        <!--            <p style="text-align:left">4、索引什么时候用？</p>-->
+        <!--            <p style="text-align:left">5、索引是怎么提高效率的？</p>-->
+        <!--        </section>-->
+        <section>
+            <h3 style="text-align:left">索引是什么</h3>
+            <br/>
+            <p style="text-align:left">索引是对数据库表中一个或多个列的值进行排序的结构</p>
+            <h3 style="text-align:left">索引可以做什么</h3>
+            <br/>
+            <p style="text-align:left">索引可以加快检索表中数据，亦即能协助信息搜索者尽快的找到符合限制条件的记录ID的辅助数据结构</p>
+        </section>
+
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+
+        <section>
+            <h4>索引分类</h4>
+            <p style="text-align:left">普通索引：仅加速查询</p>
+            <p style="text-align:left">唯一索引：加速查询、列值唯一（可以有null）</p>
+            <p style="text-align:left">主键索引：加速查询、列值唯一（不可以有null）、表中只有一个</p>
+            <p style="text-align:left">组合索引：多列值组成一个索引，专门用于组合搜索，其效率大于同时使用多条单列索引</p>
+            <p style="text-align:left">全文索引：对文本的内容进行分词，进行搜索</p>
+            <h4>索引方式</h4>
+            <p style="text-align:left">Hash、B-Tree、B+Tree、RTree</p>
+        </section>
+        <section>
+            <p>建索引的几点原则 </p><br>
+
+            <p style="text-align:left">1．选择唯一性索引</p>
+            <p align="left"> 唯一性索引的值是唯一的，可以更快速的通过该索引来确定某条记录。
+                例如，学生表中学号是具有唯一性的字段。为该字段建立唯一性索引可以很快的确定某个学生的信息。
+                如果使用姓名的话，可能存在同名现象，从而降低查询速度。
+            </p>
+            <p style="text-align:left"> 2、限制索引的数目</p>
+            <p align="left">索引的数目不是越多越好。每个索引都需要占用磁盘空间，
+                索引越多，需要的磁盘空间就越大。修改表时，对索引的重构和更新很麻烦。
+                越多的索引，会使更新表变得很浪费时间。</p>
+        </section>
+        <section>
+            <p style="text-align:left"> 3、尽量使用数据量少的索引</p>
+            <p align="left">如果索引的值很长，那么查询的速度会受到影响。
+                例如，对一个CHAR(100)类型的字段进行全文检索需要的时间肯定要比对CHAR(10)类型的字段需要的时间要多。</p>
+            <p style="text-align:left">4、尽量使用前缀来索引</p>
+            <p align="left">如果索引字段的值很长，最好使用值的前缀来索引。
+                例如，TEXT和BLOG类型的字段，进行全文检索会很浪费时间。如果只检索字段的前面的若干个字符，这样可以提高检索速度。</p>
+        </section>
+        <section>
+            <p style="text-align:left">5、删除不再使用或者很少使用的索引</p>
+            <p align="left">表中的数据被大量更新，或者数据的使用方式被改变后，
+                原有的一些索引可能不再需要。数据库管理员应当定期找出这些索引，
+                将它们删除，从而减少索引对更新操作的影响。</p>
+            <p style="text-align:left">6、最左前缀匹配原则，非常重要的原则。</p>
+            <p align="left">mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，
+                比如a 1=”” and=”” b=”2” c=”“> 3 and d = 4 如果建立(a,b,c,d)顺序的索引，
+                d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。</p>
+            </p>
+        </section>
+
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+        <section>
+            <p>1、索引是怎样加快效率的？</p>
+            <p align="left">
+                在没有索引的情况下，数据库查找数据的时候会进行全盘扫描来寻找需要的数据，
+                而索引将经常需要查询的数据单独建立了有序的结构，从而提高了效率
+            </p>
+            <p> 2、不同引擎有什么区别？</p>
+            <p align="left">
+                没有最好的引擎，只有最适合的引擎。<br/>
+                ISAM：读取操作的速度很快，不支持事务处理，不能在表损坏后恢复数据。<br/>
+                MyISAM：读取操作更快，不支持事务，不能在表损坏后恢复数据。<br/>
+                InnoDB：慢很多，但是支持事务处理和外来键。<br/>
+            </p>
+        </section>
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+            <p>确定需求后在决定引擎</p>
+            <p align="left">
+                MyISAM：<br/>
+                (1)做很多count 的计算；<br/>
+                (2)插入不频繁，查询非常频繁；<br/>
+                (3)没有事务。<br/>
+                <br/>
+                InnoDB：<br/>
+                (1)可靠性要求比较高，或者要求事务；<br/>
+                (2)表更新和查询都相当的频繁，并且表锁定的机会比较大的情况指定数据引擎的创建<br/>
+            </p>
+
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+            <p>多大的数据量下建索引会有性能的差别<br/>
+            </p>
+
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <h3>1、Hash（类似HashMap）</h3>
+            <p align="left">
+                1、使用特定的哈希函数将索引列中的值生成哈希码 hashcode ，不同的值生成的哈希码不一样<br/>
+                2、哈希索引将所有的哈希码和指向每个数据行的指针保存到索引中<br/>
+                3、如果生成的哈希码是一样的，则在那一行生成链表<br/>
+                4、使用了查询语句后，引擎检测使用了索引，然后会将值转换成哈希码，找到对应的索引中的哈希码，最后取出数据对比，以确保是要查找的行<br/>
+            </p>
+        </section>
+        <section>
+            <h3>例子：现有如下一个表</h3>
+            <p align="left">
+                有7为学生及相应的得分，其中有3位重名<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/表1.jpg"><br/>
+                在姓名列建立Hash索引<br/>
+            </p>
+        </section>
+        <section>
+            <p align="left">
+                在姓名列建立Hash索引<br/>
+                假设有这样的哈希函数F()，他返回这样的值<br/>
+                （都是假设数据，并非真实数据）<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/表2.jpg"><br/>
+                那么建立的Hash索引数据结构如下<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/表3.jpg"><br/>
+            </p>
+        </section>
+        <section>
+            <p align="left">
+                Hash索引数据结构如下<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/表3.jpg"><br/>
+                每个槽的编号是排序的，但是数据行不是<br/>
+                相同的姓名（Addision）生成的哈希码是相同的，将会以链表方式解决<br/>
+                假如现在要查询 select score from table where name = 'Fred' ;<br/>
+                MySQL会先计算 'Fred' 的哈希值，即 f( ' Fred ' )=8464<br/>
+                然后使用该值寻找对应的槽，然后就找到对应的指针“指向第4行的指针”<br/>
+                最后会到第4行比对name是否是 ' Fred ' ，确保是要查找的行，输出：60<br/>
+            </p>
+        </section>
+
+        <section>
+            <p align="left">
+                限制：<br/>
+                1、哈希索引不存储字段值，不能用来做覆盖索引<br/>
+                2、哈希索引数据不是按照索引值排序的，无法用于排序<br/>
+                3、哈希索引是按照索引列全部内容进行计算哈希值的，所以不支持范围查找<br/>
+                4、哈希冲突多的话，效率会受影响，不稳定，存储引擎必须遍历链表中的所有行指针，逐行对比知道找到相应的行。同样的删除也会受影响<br/>
+        </section>
+        <section>
+            <h3>二叉树</h3>
+            <img src="https://ptteng.github.io/PPT/img-java/what is index/二叉树.jpg">
+            <p align="left">
+                一个简单的二叉树结构<br/>
+                以此为例，假如找H，那么要先找到F（代表该二叉树）<br/>
+                然后指向E，最后指向H<br/>
+            </p>
+
+        </section>
+        <section>
+            <h3>2、B-Tree平衡多路二叉树</h3>
+            <p align="left">
+                如图是一个3阶B-Tree<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/BTree.jpg"><br/>
+                系统从磁盘读取数据到内存时是以磁盘块（block）为基本单位的，位于同一个磁盘块中的数据会被一次性读取出来，而不是需要什么取什么。<br/>
+            </p>
+        </section>
+        <section>
+            <p align="left" >
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/BTree.jpg"><br/>
+                假设现在有如图这样一个B-Tree索引，找键10携带的数据<br/>
+                1、根据根节点找到磁盘块1，读入内存。【I/O操作第1次】<br/>
+                2、比较关键字10在小于17区间，找到磁盘块1的指针P1。<br/>
+                3、根据P1指针找到磁盘块2，读入内存。【I/O操作第2次】<br/>
+                4、比较关键字10在区间（8,12），找到磁盘块2的指针P2。<br/>
+                5、根据P2指针找到磁盘块6，读入内存。【I/O操作第3次】<br/>
+                6、在磁盘块6中的关键字列表中找到关键字10。<br/>
+            </p>
+        </section>
+
+        <section>
+            <p align="left">
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/BTree.jpg"><br/>
+                分析上面过程，发现需要3次磁盘I/O操作，和3次内存查找操作由于内存中的关键字是一个有序表结构，
+                可以利用二分法查找提高效率。而3次磁盘I/O操作是影响整个B-Tree查找效率的决定因素，
+                但是该表中查询数据最多只使用3次I/O操作，但是相对于普通二叉树，和平衡二叉树，B-Tree缩减了节点个数，
+                使每次磁盘I/O取到内存的数据都发挥了作用，从而提高了查询效率。
+            </p>
+
+        </section>
+
+        <section>
+            <h3>3、B+Tree</h3>
+            <p align="left">
+                只有叶子记录关键字记录的指正，非叶子节点只进行数据索引，所有数据地址必须要到叶子节点才能获取到，所以每次数据查询的次数都一样。<br/>
+                如图是一个3阶B+Tree<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/B+Tree.jpg"><br/>
+            </p>
+        </section>
+
+        <section>
+            <p align="left">
+                假设现在有如图这样一个B+Tree索引，找键63携带的数据<br/>
+                1、根据根节点找到磁盘块，读入内存。【磁盘I/O操作第1次】<br/>
+                2、比较关键字63在区间[28,65)，找到磁盘块的指针P2。<br/>
+                3、根据P2指针找到磁盘块，读入内存。【磁盘I/O操作第2次】<br/>
+                4、比较关键字63在区间[56,65)，找到磁盘块的指针P3。<br/>
+                5、根据P3指针找到磁盘块，读入内存。【磁盘I/O操作第3次】<br/>
+                6、在磁盘块中的关键字列表中找到关键字63。<br/>
+            </p>
+        </section>
+        <section>
+            <p align="left">
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/B+Tree.jpg"><br/>
+                分析上面过程，发现不管查找哪个数据都需要3次I/O操作，
+                所以查询速度稳定，查询速度非常接近二分法。
+                另外B+Tree中非叶子节点不需要保存关键字记录的指针，
+                每个节点能保存的关键字大大增加，所以B+Tree比B-Tree更有效率、更稳定。
+            </p>
+        </section>
+
+        <section>
+            <h3>4、聚集索引（InnoDB引擎）</h3>
+            <p align="left">
+                聚集索引的主索引的叶子节点存储的就是数据本身，辅助索引的叶子节点存储的是对应数据的主键键值。<br/>
+                <br/>
+                在指定主键时会建立主索引<br/>
+                <br/>
+                每个主键都携带着数据行，找到主键即找到了数据行<br/>
+                <br/>
+                如果没有指定主键，系统内部会自动生成一个“行id”，
+                但是无法操作该数据，然后生成一个包含该id的聚集索引<br/>
+                所以系统中总会有且仅有一个聚集索引。
+
+            </p>
+<!--            <p>手册是这样说明的：<br/>-->
+<!--                If the table has no PRIMARY KEY or suitable UNIQUE index,-->
+<!--                InnoDB internally generates a hidden clustered index on a synthetic column containing row ID values.-->
+<!--                The rows are ordered by the ID that InnoDB assigns to the rows in such a table.-->
+<!--                The row ID is a 6-byte field that increases monotonically as new rows are inserted.-->
+<!--                Thus, the rows ordered by the row ID are physically in insertion order.-->
+<!--            </p><br/>-->
+
+<!--            <p align="left">-->
+<!--                大致意思就是，如果没有指定主键或一个合适的唯一索引，-->
+<!--                则会内部生成一个6字节的行id，-->
+<!--                然后在内部包含此 id 的合成行上生成隐藏的聚集索引（此id看作为主键去理解），-->
+<!--                这些行会按照 id 去排列，在输入新行时会自增，因此，行 id 排序是按照插入顺序排列的。-->
+<!--            </p>-->
+        </section>
+
+        <section>
+            <p align="left"><br/>
+                聚集索引中的索引结构<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/聚集索引.jpg"><br/>
+                左边是主索引，右边是辅助索引<br/>
+                聚簇索引的数据是根据主键的顺序保存。<br/>
+                如果只需要查找索引的列，就尽量不要加入其它的列，这样会提高查询效率。<br/>
+            </p>
+        </section>
+
+        <section>
+            <h3>5、非聚集索引（MyISAM引擎）</h3>
+            <p align="left"><br/>
+                非聚集索引结构<br/>
+                <img src="https://ptteng.github.io/PPT/img-java/what is index/非聚集索引.jpg"><br/>
+                非聚集索引中的主索引和辅助索引几乎是一样的，主索引不允许重复和空值，他们的叶子都存储着键值对应的数据的物理地址<br/>
+                所以非聚集索引中的索引和数据是分开存储的<br/>
+                非聚簇索引中的数据是根据数据的插入顺序保存。<br/>
+            </p>
+
+
+        </section>
+
+
+        <section>
+            <h3>7.参考文献</h3>
+            <a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/8751686?fr=aladdin"
+               target="_blank">1. 百度百科：数据库索引</a><br/>
+            <a href="https://blog.jcole.us/2013/05/02/how-does-innodb-behave-without-a-primary-key/" target="_blank">2.How
+                does InnoDB behave without a Primary Key?</a><br/>
+            <a href="https://blog.csdn.net/vipshop_fin_dev/article/details/79688717" target="_blank">3.从Mysql源代码角度分析一句简单sql的查询过程</a><br/>
+            <a href="https://blog.csdn.net/chuixue24/article/details/80027689" target="_blank">4.BTree和B+Tree详解</a><br/>
+            <a href="https://blog.csdn.net/tongdanping/article/details/79878302" target="_blank">5.为什么索引可以加速查询？</a><br/>
+            <a href="https://blog.csdn.net/olizxq/article/details/82313489" target="_blank">6.哈希索引</a><br/>
+            <a href="https://www.cnblogs.com/ziqiumeng/p/7680204.html" target="_blank">7.btree索引和hash索引的区别</a><br/>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+            <p></p>
+        </section>
+
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js'},
+            {src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true},
+            {
+                src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
