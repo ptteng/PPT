@@ -1,0 +1,214 @@
+<!doctype html >
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>熟练使用c标签,el表达式</h2>
+			<p>java小课堂</p>
+            <p>分享人：黄迎旭</p>
+			
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+		</section>
+		<section>
+			<p>JSP页面里可以直接书写java代码，利用<% %>,直接在里面调用Javabean,就会造成很混乱的局面，
+                EL的出现就是为了简化JSP页面,使得JSP页面的处理程序编写起来更加简洁，便于开发和维护。
+            </p>
+            <img src="demo/img/1.png">
+            <p>jstl就是JSP标准标签库，jsp标签的集合，封装了大量的jsp应用的功能，我们自己也可以自定义标签，
+                将自己的常用功能封装起来直接用标签调用，也极大的简化的JSP页面。
+            </p>
+		</section>
+		<section>
+            <h3>2.知识剖析</h3>
+		</section>
+		
+		 <section>
+            <h4>EL表达式</h4>
+             <p> 1.简介</p>
+             <p>
+            EL（Expression Language）表达式语言是JSP 2.0增加的技术规范，是一种简单的语言，提供了在JSP中简化表达式的方法，
+            目的是为了尽量减少JSP页面中的Java代码，使得JSP页面的处理程序编写起来更加简洁，便于开发和维护。
+             </p>
+             <p>2.EL作用域对象</p>
+             <p>
+            在JSP中访问模型对象是通过EL表达式的语法来表达。所有EL表达式的格式都是以“${}”表示。
+            例如，${name}代表获取变量name的值。
+            当EL表达式中的变量不给定范围时，则默认在page范围查找，然后依次在request、session、application范围查找。
+            也可以用范围作为前缀表示属于哪个范围的变量，例如：${pageScope.name}表示访问request范围中的name变量。
+             </p>
+		</section>
+        <section>
+            <h4>EL表达式</h4>
+            <p> 3.EL表达式输出</p>
+            <p>
+                语法是${[作用域.]属性名[.子属性]}，例如${requestScope.Emp.age}
+                el表达式支持直接将运算结果输出，也支持将绝大多数对象进行输出，本质是执行toString()方法。例如${emp.salary + 300},${1<=3 && 2>4}
+            </p>
+            <p>4.EL输出参数值</p>
+            <p>EL表达式内置param对象来简化参数的输出，当请求体中有参数的时候可以用param和paramValues对象用来访问参数值，通过使用request.getParameter方法和request.getParameterValues方法。
+                例如传一个name参数，表达式是用${param.name}获取。
+                还可以用header和headerValues对象用来访问信息头，通过使用 request.getHeader方法和request.getHeaders方法。
+                例如${header.user-agent}，或者${header["user-agent"]}。</p>
+        </section>
+        <section>
+            <h4>JSTL标签库</h4>
+            <p> 1.简介</p>
+            <p>
+                jsp标准标签库(jstl),封装了jsp应用的通用核心功能，提供的功能分类为包括核心标签，格式化标签，sql标签，xml标签，jstl函数。JSTL标识库的作用是减少JSP文件的Java代码，
+                使Java代码与HTML代码分离，所以JSTL标识库符合MVC设计理念。由SUN（oracle）公司定义规范，由Apache Tomcat团队实现。
+            </p>
+            <p>2.下载安装</p>
+            <p>
+                http://tomcat.apache.org最下面找到Apache Standard Taglib 1.2.5 Released
+                下载Impl:taglibs-standard-impl-1.2.5.jar (pgp, sha512)
+                Spec:taglibs-standard-spec-1.2.5.jar (pgp, sha512)
+                安装有两种，一是将jar文件复制到/WEB-INF/lib下（推荐）只应用到当前项目，二是将jar复制到tomcat安装
+                引用是在jsp头部</p>
+            <p><%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %></p>
+        </section>
+        <section>
+            <h4>JSTL标签库</h4>
+            <p> 3.JSTL的标签库种类</p>
+            <p>按功能划分为五类标签库核心标签 - core，格式化标签 - fmt，sql标签 - sql，xml标签 - xml，jstl函数 - functions
+                核心库 - core 例如其中包含"<c:out>"输出 <c:if>判断 "<c:choose>选择 <c:when> <c:otherwise> <c:foreach>"迭代等标签功能。
+                    格式化标签 - fmt 例如包含"<fmt:formatDate>"日期时间 "<fmt:formatNumber>" 格式化数字
+                        sql标签 - sql 提供了与关系型数据库（Oracle，MySQL，SQL Server等等）进行交互的标签。例如"<sql:udate>"等
+                            xml标签 - xml 提供了创建和操作XML文档的标签。例如"<x:foreach>"迭代xml文档中的节点
+                            jstl函数 - functions 大部分是通用的字符串处理函数。 例如"<fn:length>"返回字符串的长度。
+            </p>
+            <p> https://www.runoob.com/jsp/jsp-jstl.html其他的详细标签参考菜鸟教程学习。</p>
+        </section>
+        <section>
+            <h3>3.常见问题</h3>
+		</section>
+		
+        <section>
+		<p>1.mvn 跳过所有test1.el表达式和jstl的关联</p>
+		<p>2.param和paramValues对象，header和headerValues有何区别</p>
+        </section>
+		
+        <section>
+            <h3>4.解决方案</h3>
+        </section>
+        <section>
+        <p>1.el表达式和jstl的关联</p>
+            <p>EL表达式本身就是jstl1.0中技术，但从JSP2.0开始（jstl1.1)就分离出来作为JSP的标准，也就是相当于集成到jsp技术中，不需要专门引用。
+            </p>
+        <p>2.param和paramValues对象，header和headerValues有何区别</p>
+            <p>param和header对象返回单一值，而paramValues和headerValues则返回一个字符串数组。</p>
+        </section>
+        <section>
+            <h3>5.编码实战</h3>
+			<h3>Let's go !</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section>
+            <p>1.EL表达式中“.”和“[ ]”的区别</p>
+            <p>
+            EL表达式提供"."和"[]"两种操作符来存取数据。两者通常情况是通用的：${user.sex}或者${user["sex"]}都是允许
+            的。此外，"[]"还可以用来进行集合元素中的定位：${booklist[0].price}。
+            以下两种情况是不可以通用的：
+            1)包含特殊字符
+            当要存取的属性名称中包含一些特殊字符，如 . 或 - 等并非字母或数字的符号，就一定要使用"[ ]"。例如：
+            ${ user. My-Name}应当改为${user["My-Name"]}
+            2)通过变量动态取值：
+            如果要动态取值时，就可以用"[ ]"来做，而"."无法做到动态取值。例如：
+            ${sessionScope.user[data]}中data 是一个变量。</p>
+        </section>
+        <section>
+            <h3>7.参考文献</h3>
+			<p>菜鸟教程||百度百科</p>
+			<p>https://blog.csdn.net/qq_29028175/article/details/53729160</p>
+        </section>
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+        <section>
+            <h4>鸣谢</h4>
+            <p>感谢观看,如有出错,恳请指正</p>
+            <p><small>BY : 黄迎旭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>

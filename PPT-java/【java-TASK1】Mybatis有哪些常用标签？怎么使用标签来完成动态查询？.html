@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>葡萄藤PPT</title>
+
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/reveal.css">
+
+    <!-- PPT主题，可以在/css/reveal/theme/中选择其他主题，目前暂时只能使用该模板 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/css/reveal/theme/ptt.css">
+
+    <!-- syntax highlighting 代码高亮主题 -->
+    <link rel="stylesheet" href="https://ptteng.github.io/PPT/lib/reveal/css/zenburn.css">
+
+    <!-- 打印和PDF输出样式 -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'https://ptteng.github.io/PPT/css/reveal/print/pdf.css' : '../css/reveal/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+<img src="https://ptteng.github.io/PPT/img/demo/logo.png" alt="" usemap="#pttmap" class="base-logo">
+<map name="pttmap">
+    <area shape="rect" coords="0,0,276,58" href="http://www.jnshu.com" alt="" target="_blank"/>
+</map>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Mybatis有哪些常用标签？怎么使用标签来完成动态查询?</h3>
+            <p>Java小课堂</p>
+            <h3></h3>
+            <p>分享人：黄迎旭</p>
+        </section>
+        <section>
+            <p>1.背景介绍</p>
+            <p>2.知识剖析</p>
+            <p>3.常见问题</p>
+            <p>4.解决方案</p>
+            <p>5.编码实战</p>
+            <p>6.扩展思考</p>
+            <p>7.参考文献</p>
+            <p>8.更多讨论</p>
+        </section>
+        <section>
+            <h3>1.背景介绍</h3>
+        </section>
+
+        <section>
+            <p>背景</p>
+            <p> Mybatis是ORM（对象关系映射Object Relation Mapping）框架，支持定制化SQL,存储过程,高级映射。 原叫ibatis,在2010年迁移到google code,同年并改名MyBtis,2013年迁移到GItHub。
+                它的出现更是因为jdbc程序的缺陷 - 大量配置信息硬编码 - 大量无关业务处理的编码 - 扩展优化不便</p>
+            <p>    Mybatis也就有了对应的解决方案，xml配置和注解，POJO对象和数据库记录直接映射，比较完善的文档记录查询。mybatis的优势就是，学习成本较低，通过配置数据库交互的信息，动态SQL处理。
+                下面的内容不会介绍Mybatis的配置相关内容，直入Mybatis的XML映射文件常用标签和动态SQL语句。</p>
+        </section>
+        <section>
+            <h3>2.知识剖析</h3>
+        </section>
+        <section>
+            <p>一. XML映射的常用标签。</p>
+            <p>增删改查（insert，delete，update，select），SQL重用标签。</p>
+        </section>
+                <section><p>1.select查询，查询的演示在下面的编码实战，以下是查询的常用参数解析</p>
+                    id:select和insert,update,delete都有的参数，为当前语句命名，必须与Mapper接口中的方法同名
+                    parameterType:将会传入这条语句的参数的类全限定名或别名。可写可不写，因为Mybatis可以通过类型处理器（TypeHandler）推断传入的参数
+                    resultType:这条语句中返回结果的类全限定名或别名。resultMap可以代替它，两者只能存在一个。
+                    flushCache:清理缓存，默认false;
+                    useCache:缓存本条语句，select语句默认为true;
+                    statementType默认值：PREPARED，让MyBatis使用PreparedStatement 执行语句。等。</section>
+            <section> <p>2.insert,update,delete数据变更语句的参数差不多。放在一起说明。</p>
+                <p>id,parameterType,flushCache,statementType和上面一样。不同的是：
+                    没有resultType，因为增删改不需要其他类型返回值。
+                    useGeneratedKeys：insert和update使用，获取数据库的自增主键，搭配keyProperty。
+                    keyProperty：指定能够唯一识别对象的属性</p>
+                <p>3.SQL这个元素可以用来定义可重用的 SQL 代码片段，以便在其它语句中使用。</p>
+            </section>
+
+        <section>
+            <p>二. 动态SQL语句</p>
+            <p> if，choose (when, otherwise)，trim (where, set)，foreach。</p>
+        </section>
+        <section><p>1.if语句</p>
+            <p>常见用法<if test=" 条件"></if>`加在映射语句的后面， test是判断的条件</p></section>
+        <section><p>2.choose(when,otherwise)语句</p>
+            <p>当有多个条件判断时，不想使用所有的，只想从多个中选一个使用，类似于java中的Switch语句。
+            </p></section>
+        <section><p>3.where,trim,set语句</p>
+            <p>where常与if搭配，只在条件都是动态的情况下使用。
+                trim自定义元素，trim是更灵活的去除多余关键字的标签，以及增加或者替换某块代码。
+                （1）trim标签有四个属性prefix，prefixOverrides，suffix，suffixOverrides
+                （2）使用prefix，suffix时，表示在trim标签包裹的前面或者后面增加引号里的内容
+                （3）prefixOverrides，suffixOverrides 表示删除或者说覆盖。
+                这儿不理解的看下面的编码实战的案例
+                set动态更新语句，用在update中。test里是列名判断语句
+                `update tb_name  <set> <if test="tr_name !=null"> tr_name = #{trName}</if>...</set> where id=#{id}`
+            </p></section>
+        <section><p>4.foreach语句</p>
+            常见使用场景是对集合进行遍历,批量插入、批量删除,批量查询等。
+            foreach 元素的属性主要有 item，index，collection，open，separator，close。
+            item 表示集合中每一个元素进行迭代时的别名
+            index 指 定一个名字，用于表示在迭代过程中，每次迭代到的位置，类似于数组下标。
+            open 表示该语句以什么开始，
+            separator 表示在每次进行迭代之间以什么符号作为分隔符，
+            close 表示以什么结束。
+            collection要注意下，传入的是数组或者List等集合，那么值为array或者list,如果传入的是Map类型。值为Map中自定义的key。
+            可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象作为集合参数传递给 foreach。
+        </section>
+        <section>
+            <p>5.bind语句</p>
+            <p>bind 元素允许你在表达式以外创建一个变量，并将其绑定到当前的上下文。类似于java中定义一个成员变量，然后在方法中引用。下面定义模糊查询的条件为一个变量名pattern
+            `SELECT * FROM tb_name WHERE title LIKE #{pattern}`</p>
+        </section>
+
+        <section>
+            <h3>3.常见问题</h3>
+        </section>
+
+        <section>
+            <p>1.在没有熟悉的情况下使用动态语句会出错。下面说明常出错的地方。</p>
+            <p>2.哪些是常用标签，动态标签我需要每个都要用吗?</p>
+            <p>3.if标签与choose标签的区别和选择</p>
+        </section>
+
+
+        <section>
+            <h3>4.解决方案</h3>
+            <p>1.这篇详细内容会让你更加熟悉Mybatis标签。
+                比如使用了where语句，不能再使用`<where>`标签；resultType和resultMap参数不能同时使用；
+                    当Mapper接口有多个参数传递的时候，要加在接口传参处加@Param("命名")；foreach的collection属性一定要理解，容易出错，
+                    还有就是迭代集合的时候，要用别名.值，即#{item.name},这儿是我自己掉的坑。</p>
+        </section>
+        <section>
+            <p>2.常用的就CRUD那四个(select,update,insert,delete),根据业务不同和需要，采用动态标签进行实现，不一定在一个项目中都用到，但是要考虑业务的扩展性，最后在设计最初，就考虑多一点，
+                就比如查询的话，值查全部，也许再以后新增按照名称，时间，状态等条件查询，这些都可以用动态查询补充。</p>
+            <p>3.if条件成立会连接当前语句，并继续执行下一条if，直到最后结束；而choose中，when则相当于从多个中选择一个，when判断成立，就不会继续执行。
+            </p>
+        </section>
+
+
+        <section>
+            <h3>5.编码实战</h3>
+        </section>
+
+        <section>
+            <h3>6.扩展思考</h3>
+        </section>
+        <section><p>1.使用foreach语句会影响数据库的性能吗？</p>
+             <p>例如在执行几万插入时，性能降低的很明显，foreach 的集合越大，解析就越慢。可以选择自己拼接代码，而不再使用 foreach 啦。 </section>
+        </p>
+        <section>
+            <h3>7.参考文献</h3>
+            <p>
+                Mybatis官方文档
+            </p>
+            <p>https://www.cnblogs.com/xiufengchen/p/10349805.html</p>
+            <p>https://blog.csdn.net/u011118321/article/details/68946027</p>
+        </section>
+
+        <section>
+            <h3>8.更多讨论</h3>
+        </section>
+
+        <section>
+            <h4>感谢大家观看</h4>
+            <p></p>
+            <p><small>分享人：黄迎旭</small></p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://ptteng.github.io/PPT/lib/reveal/js/head.min.js"></script>
+<script src="https://ptteng.github.io/PPT/lib/reveal/reveal.js"></script>
+
+<script>
+    // 以下为常见配置属性的默认值
+    // {
+    // 	controls: true, // 是否在右下角展示控制条
+    // 	progress: true, // 是否显示演示的进度条
+    // 	slideNumber: false, // 是否显示当前幻灯片的页数编号，也可以使用代码slideNumber: 'c / t' ，表示当前页/总页数。
+    // 	history: false, // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+    // 	keyboard: true, // 是否启用键盘快捷键来导航
+    // 	overview: true, // 是否启用幻灯片的概览模式，可使用"Esc"或"o"键来切换概览模式
+    // 	center: true, // 是否将幻灯片垂直居中
+    // 	touch: true, // 是否在触屏设备上启用触摸滑动切换
+    // 	loop: false, // 是否循环演示
+    // 	rtl: false, // 是否将演示的方向变成RTL，即从右往左
+    // 	fragments: true, // 全局开启和关闭碎片。
+    // 	autoSlide: 0, // 两个幻灯片之间自动切换的时间间隔（毫秒），当设置成 0 的时候则禁止自动切换，该值可以被幻灯片上的 ` data-autoslide` 属性覆盖
+    // 	transition: 'default', // 切换过渡效果，有none/fade/slide/convex/concave/zoom
+    // 	transitionSpeed: 'default', // 过渡速度，default/fast/slow
+    // 	mouseWheel: true, //是否启用通过鼠标滚轮来切换幻灯片
+    // }
+    // 初始化幻灯片
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/marked.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/markdown/markdown.js' },
+            { src: 'https://ptteng.github.io/PPT/plugin/notes/notes.js', async: true },
+            { src: 'https://ptteng.github.io/PPT/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+</body>
+</html>
